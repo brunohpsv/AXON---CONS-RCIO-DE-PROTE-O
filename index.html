@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axon Seguros - Proteção para Dispositivos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.4/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+    <style>
+        :root {
+            --primary: #FFA500;
+            --secondary: #FF8C00;
+            --accent: #FFD700;
+            --light: #FFF8E1;
+            --dark: #111111;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --glass: rgba(255, 255, 255, 0.2);
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: white;
+            display: inline-block;
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 300;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        nav {
+            background-color: var(--primary);
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+        }
+        
+        nav li {
+            margin: 0 0.8rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        nav a i {
+            margin-right: 6px;
+            font-size: 0.8rem;
+        }
+        
+        .hero {
+            position: relative;
+            padding: 3rem 0;
+            text-align: center;
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .hero p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            background-color: #FFE44D;
+        }
+        
+        .cta-button i {
+            margin-left: 6px;
+        }
+        
+        section {
+            padding: 2.5rem 0;
+        }
+        
+        h2 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 3px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.8rem 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 165, 0, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 165, 0, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--secondary);
+        }
+        
+        .feature-card p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .pricing-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            width: 250px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 165, 0, 0.1);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 165, 0, 0.2);
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #666;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pricing-features li {
+            padding: 0.4rem 0;
+            position: relative;
+            padding-left: 1.3rem;
+            font-size: 0.9rem;
+        }
+        
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .process-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 220px;
+            text-align: center;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        
+        .step h3 {
+            color: var(--secondary);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        .step ol, .step ul {
+            text-align: left;
+            padding-left: 1.3rem;
+            font-size: 0.9rem;
+        }
+        
+        .step li {
+            margin-bottom: 0.4rem;
+        }
+        
+        .bg-gradient {
+            background: var(--gradient);
+            color: white;
+        }
+        
+        .bg-gradient h2 {
+            color: white;
+        }
+        
+        .bg-gradient h2::after {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.1);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.6rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+            color: var(--dark);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        .device-animation {
+            width: 250px;
+            height: 250px;
+            margin: 1.5rem auto;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .device-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .device-3d {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        .device-name {
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+        
+        .device-animation::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        .device-animation::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 3s infinite ease-in-out;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav li {
+                margin: 0.3rem 0;
+            }
+            
+            .pricing-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .pricing-card {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo" style="color: black;">AXON</div>
+            <div class="tagline">Proteção inteligente para seu mundo digital</div>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#cobertura"><i class="fas fa-shield-alt"></i> Cobertura</a></li>
+                <li><a href="#planos"><i class="fas fa-tags"></i> Planos</a></li>
+                <li><a href="#processo"><i class="fas fa-cogs"></i> Como Funciona</a></li>
+                <li><a href="#diferenciais"><i class="fas fa-star"></i> Diferenciais</a></li>
+                <li><a href="#contato"><i class="fas fa-envelope"></i> Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Proteção premium para seus dispositivos</h1>
+            <p>Seguro completo com tecnologia avançada para celulares, tablets e notebooks.</p>
+            <div class="device-animation">
+                <div class="device-container">
+                    <div class="device-3d" id="device3d"></div>
+                    <div class="device-name">SMARTPHONE</div>
+                </div>
+            </div>
+            <a href="#planos" class="cta-button">CONTRATE AGORA <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+    
+    <section id="cobertura">
+        <div class="container">
+            <h2>Nossa Cobertura</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                    <h3>Furto e Roubo</h3>
+                    <p>Proteção completa contra furto qualificado ou roubo, com indenização rápida.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-tools"></i></div>
+                    <h3>Danos e Reparos</h3>
+                    <p>Cobertura para conserto em redes autorizadas, com assistência técnica.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Proteção Total</h3>
+                    <p>Celulares, tablets e notebooks protegidos com a mesma excelência.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="planos" class="bg-gradient">
+        <div class="container">
+            <h2>Planos Personalizados</h2>
+            <div class="pricing-container">
+                <div class="pricing-card">
+                    <h3>Smartphone</h3>
+                    <div class="price">R$79<span>/mês</span></div>
+                    <ul class="pricing-features">
+                        <li>Proteção contra furto e roubo</li>
+                        <li>Cobertura para danos acidentais</li>
+                        <li>Assistência técnica premium</li>
+                        <li>Suporte 24 horas</li>
+                    </ul>
+                    <a href="#contato" class="cta-button" style="width: 100%; text-align: center;">Escolher Plano</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Tablet</h3>
+                    <div class="price">R$109<span>/mês</span></div>
+                    <ul class="pricing-features">
+                        <li>Proteção completa contra roubo</li>
+                        <li>Reparos em rede autorizada</li>
+                        <li>Assistência técnica premium</li>
+                        <li>Suporte 24 horas</li>
+                    </ul>
+                    <a href="#contato" class="cta-button" style="width: 100%; text-align: center;">Escolher Plano</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Notebook</h3>
+                    <div class="price">R$149<span>/mês</span></div>
+                    <ul class="pricing-features">
+                        <li>Cobertura total para seu notebook</li>
+                        <li>Proteção contra danos e roubo</li>
+                        <li>Assistência técnica especializada</li>
+                        <li>Suporte 24 horas</li>
+                    </ul>
+                    <a href="#contato" class="cta-button" style="width: 100%; text-align: center;">Escolher Plano</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="processo">
+        <div class="container">
+            <h2>Como Funciona</h2>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Furto/Roubo</h3>
+                    <ol>
+                        <li>Registre o BO online</li>
+                        <li>Bloqueio remoto do dispositivo</li>
+                        <li>Envio digital de documentos</li>
+                        <li>Análise rápida pela Axon</li>
+                    </ol>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Danos</h3>
+                    <ol>
+                        <li>Agendamento online de reparo</li>
+                        <li>Leve a uma loja autorizada</li>
+                        <li>Diagnóstico e aprovação</li>
+                        <li>Reparo com peças originais</li>
+                    </ol>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Indenização</h3>
+                    <ul>
+                        <li>Pagamento via PIX em até 48h</li>
+                        <li>Reparo direto sem custos</li>
+                        <li>Limpeza e otimização grátis</li>
+                        <li>Acompanhamento via app</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="diferenciais" class="bg-gradient">
+        <div class="container">
+            <h2>Por que escolher a Axon?</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Tecnologia Avançada</h3>
+                    <p>Plataforma digital completa com acompanhamento em tempo real.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-globe-americas"></i></div>
+                    <h3>Cobertura Global</h3>
+                    <p>Proteção em todo território nacional e assistência internacional.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                    <h3>Suporte Premium</h3>
+                    <p>Atendimento humanizado 24/7 por especialistas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contato">
+        <div class="container">
+            <h2>Fale Conosco</h2>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input type="text" id="name" placeholder="Seu nome completo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefone</label>
+                        <input type="tel" id="phone" placeholder="(00) 00000-0000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="plan">Plano de Interesse</label>
+                        <select id="plan" required>
+                            <option value="">Selecione um plano</option>
+                            <option value="smartphone">Smartphone - R$79/mês</option>
+                            <option value="tablet">Tablet - R$109/mês</option>
+                            <option value="notebook">Notebook - R$149/mês</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" rows="4" placeholder="Como podemos te ajudar?"></textarea>
+                    </div>
+                    <button type="submit" class="cta-button" style="width: 100%;">ENVIAR MENSAGEM <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>AXON Seguros</h3>
+                    <p>Proteção inteligente para seu mundo digital com tecnologia avançada.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#cobertura">Nossa Cobertura</a></li>
+                        <li><a href="#planos">Planos</a></li>
+                        <li><a href="#processo">Como Funciona</a></li>
+                        <li><a href="#diferenciais">Diferenciais</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone-alt"></i> (11) 4004-4004</li>
+                        <li><i class="fas fa-whatsapp"></i> (11) 94004-4004</li>
+                        <li><i class="fas fa-envelope"></i> contato@axon.com.br</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Axon Seguros. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+	<script>
+    // Configuração da cena 3D
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ 
+        alpha: true, 
+        antialias: true,
+        powerPreference: "high-performance"
+    });
+    renderer.setSize(250, 250);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    document.getElementById('device3d').appendChild(renderer.domElement);
+
+    // Controles para girar ao clicar
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 2;
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+
+    // Luzes
+    const light1 = new THREE.DirectionalLight(0xffffff, 1);
+    light1.position.set(1, 1, 1);
+    scene.add(light1);
+    
+    const light2 = new THREE.DirectionalLight(0xffffff, 0.5);
+    light2.position.set(-1, -1, -1);
+    scene.add(light2);
+    
+    const ambientLight = new THREE.AmbientLight(0x404040);
+    scene.add(ambientLight);
+
+    // Carregador de fontes para o texto 3D
+    let font;
+    const loader = new THREE.FontLoader();
+    loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function(response) {
+        font = response;
+        initDevices();
+    });
+
+    function initDevices() {
+        // Modelos dos dispositivos
+        const devices = {
+            smartphone: createDevice(0.8, 1.6, 0.1, 0x333333),
+            tablet: createDevice(1.2, 1.6, 0.1, 0x333333),
+            notebook: createNotebook()
+        };
+
+        window.devices = devices; // Disponibiliza globalmente para acesso
+        window.currentDevice = 'smartphone';
+        
+        scene.add(devices.smartphone);
+        devices.tablet.visible = false;
+        devices.notebook.visible = false;
+
+        camera.position.z = 3;
+
+        // Animação
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Configura evento de clique para trocar dispositivos
+        setupDeviceRotation();
+    }
+
+    // Funções auxiliares
+    function createDevice(width, height, depth, color) {
+        const geometry = new THREE.BoxGeometry(width, height, depth);
+        const material = new THREE.MeshPhongMaterial({ 
+            color: color,
+            emissive: 0x111111,
+            specular: 0x111111,
+            shininess: 30
+        });
+        const device = new THREE.Mesh(geometry, material);
+        
+        // Adiciona detalhes (AXON)
+        if (font) {
+            const textGeometry = new THREE.TextGeometry('AXON', {
+                font: font,
+                size: 0.2,
+                height: 0.01,
+                curveSegments: 12,
+                bevelEnabled: false
+            });
+            textGeometry.center();
+            const textMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
+            const text = new THREE.Mesh(textGeometry, textMaterial);
+            text.position.set(0, 0, depth/2 + 0.01);
+            device.add(text);
+        }
+        
+        return device;
+    }
+
+    function createNotebook() {
+        const group = new THREE.Group();
+        
+        // Base
+        const base = createDevice(1.6, 1, 0.1, 0x333333);
+        base.position.y = -0.05;
+        group.add(base);
+        
+        // Tela
+        const screen = createDevice(1.5, 0.9, 0.05, 0x111111);
+        screen.position.y = 0.5;
+        screen.rotation.x = -Math.PI/4;
+        group.add(screen);
+        
+        // Detalhes (AXON)
+        if (font) {
+            const textGeometry = new THREE.TextGeometry('AXON', {
+                font: font,
+                size: 0.2,
+                height: 0.01,
+                curveSegments: 12,
+                bevelEnabled: false
+            });
+            textGeometry.center();
+            const textMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
+            const text = new THREE.Mesh(textGeometry, textMaterial);
+            text.position.set(0, -0.05, 0.06);
+            group.add(text);
+        }
+        
+        return group;
+    }
+
+    function setupDeviceRotation() {
+        // Troca de dispositivos
+        const deviceNames = ['SMARTPHONE', 'TABLET', 'NOTEBOOK'];
+        let deviceIndex = 0;
+        
+        document.querySelector('.device-animation').addEventListener('click', () => {
+            deviceIndex = (deviceIndex + 1) % 3;
+            const newDevice = Object.keys(window.devices)[deviceIndex];
+            
+            // Animação de transição
+            gsap.to(camera.position, { 
+                z: 5, 
+                duration: 0.5, 
+                onComplete: () => {
+                    window.devices[window.currentDevice].visible = false;
+                    window.devices[newDevice].visible = true;
+                    window.currentDevice = newDevice;
+                    document.querySelector('.device-name').textContent = deviceNames[deviceIndex];
+                    gsap.to(camera.position, { z: 3, duration: 0.5 });
+                }
+            });
+        });
+    }
+
+    // Resize handler
+    window.addEventListener('resize', function() {
+        renderer.setSize(250, 250);
+        camera.aspect = 1;
+        camera.updateProjectionMatrix();
+    });
+</script>
+</body>
+</html>
