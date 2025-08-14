@@ -82,6 +82,7 @@
             display: flex;
             align-items: center;
             letter-spacing: -1px;
+            padding-left: 0.5rem;
         }
         
         .logo i {
@@ -466,79 +467,6 @@
             color: var(--secondary);
         }
         
-        /* Contact Section */
-        .contact {
-            background-color: var(--gray);
-            padding: 5rem 0;
-            position: relative;
-        }
-        
-        .contact::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--texture);
-            opacity: 0.05;
-            pointer-events: none;
-        }
-        
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: var(--light);
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            position: relative;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-        
-        .contact-form::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 8px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
-            border-radius: 16px 16px 0 0;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--secondary);
-        }
-        
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: inherit;
-            transition: var(--transition);
-            background-color: var(--gray);
-            border: none;
-        }
-        
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
-        }
-        
         /* Footer */
         footer {
             background-color: var(--dark);
@@ -714,7 +642,6 @@
     <header>
         <div class="container header-container">
             <div class="logo">
-                <i class="fas fa-shield-alt"></i>
                 <span>AXON</span>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -725,7 +652,6 @@
                     <li><a href="#features">Cobertura</a></li>
                     <li><a href="#pricing">Planos</a></li>
                     <li><a href="#process">Como Funciona</a></li>
-                    <li><a href="#contact">Contato</a></li>
                 </ul>
             </nav>
         </div>
@@ -737,7 +663,6 @@
             <p>Seguro completo para celulares, tablets e notebooks com tecnologia avançada e atendimento exclusivo 24/7.</p>
             <div class="cta-buttons">
                 <a href="#pricing" class="cta-button">CONHEÇA NOSSOS PLANOS</a>
-                <a href="#contact" class="cta-button secondary">FALE CONOSCO</a>
             </div>
         </div>
     </section>
@@ -849,45 +774,6 @@
         </div>
     </section>
     
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Fale Conosco</h2>
-                <p>Entre em contato para saber mais sobre nossos planos e proteção</p>
-            </div>
-            <div class="contact-form">
-                <form>
-                    <div class="form-group">
-                        <label for="nome">Nome Completo</label>
-                        <input type="text" id="nome" placeholder="Seu nome completo" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" placeholder="seu@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="telefone">Telefone</label>
-                        <input type="tel" id="telefone" placeholder="(00) 00000-0000" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="plano">Plano de Interesse</label>
-                        <select id="plano" required>
-                            <option value="">Selecione um plano</option>
-                            <option value="smartphone">Smartphone - R$89/mês</option>
-                            <option value="tablet">Tablet - R$129/mês</option>
-                            <option value="notebook">Notebook - R$169/mês</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="mensagem">Mensagem</label>
-                        <textarea id="mensagem" rows="4" placeholder="Como podemos te ajudar?"></textarea>
-                    </div>
-                    <button type="submit" class="cta-button" style="width: 100%; padding: 1rem; font-size: 1.1rem;">SOLICITAR COTAÇÃO</button>
-                </form>
-            </div>
-        </div>
-    </section>
-    
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -907,7 +793,6 @@
                         <li><a href="#features"><i class="fas fa-shield-alt"></i> Cobertura</a></li>
                         <li><a href="#pricing"><i class="fas fa-tags"></i> Planos</a></li>
                         <li><a href="#process"><i class="fas fa-question-circle"></i> Como Funciona</a></li>
-                        <li><a href="#contact"><i class="fas fa-envelope"></i> Contato</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -971,16 +856,6 @@
                 document.querySelector('header').style.boxShadow = 'none';
             }
         });
-        
-        // Form submission
-        const contactForm = document.querySelector('.contact-form form');
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                alert('Obrigado pelo seu contato! Entraremos em breve em contato com você.');
-                contactForm.reset();
-            });
-        }
     </script>
 </body>
 </html>
