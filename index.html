@@ -13,12 +13,13 @@
         :root {
             --primary: #FF6B35;
             --primary-dark: #E05A2B;
-            --secondary: #2C3E50;
+            --secondary: #111111;
             --accent: #FF9E1F;
             --light: #FFFFFF;
             --dark: #111111;
             --gray: #F5F5F5;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --texture: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCI+PHBhdGggZD0iTTAgMEgxMFYxMEgweiIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjxwYXRoIGQ9Ik0wIDBIMTBWMTAiIHN0cm9rZT0icmdiYSgwLDAsMCwwLjA0KSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+');
         }
         
         body {
@@ -29,6 +30,7 @@
             padding: 0;
             background-color: var(--light);
             overflow-x: hidden;
+            background-image: var(--texture);
         }
         
         .container {
@@ -39,54 +41,72 @@
         }
         
         header {
-            background: var(--light);
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--primary) 100%);
             padding: 1.5rem 0;
             box-shadow: var(--shadow);
         }
         
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
         .logo {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 800;
-            color: var(--primary);
+            background: linear-gradient(90deg, var(--light) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         nav {
-            background-color: var(--light);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
         }
         
         nav ul {
             display: flex;
-            justify-content: center;
             list-style: none;
             padding: 0;
             margin: 0;
-            flex-wrap: wrap;
-            gap: 1rem;
+            gap: 1.5rem;
         }
         
         nav a {
-            color: var(--secondary);
+            color: var(--light);
             text-decoration: none;
             font-weight: 500;
             padding: 0.5rem 1rem;
             border-radius: 4px;
             transition: all 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
         
         nav a:hover {
-            color: var(--primary);
-            background-color: rgba(255, 107, 53, 0.1);
+            color: var(--accent);
+            transform: translateY(-2px);
         }
         
         .hero {
-            background: linear-gradient(135deg, rgba(255,107,53,0.1) 0%, rgba(255,255,255,1) 100%);
-            padding: 3rem 0;
+            background: linear-gradient(135deg, rgba(255,107,53,0.1) 0%, rgba(255,255,255,0.9) 100%);
+            padding: 4rem 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIiB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCI+PHBhdGggZD0iTTAgMEg2MFY2MEgweiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PHBhdGggZD0iTTAgMEg2MFY2MCIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMikiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+            opacity: 0.3;
+            z-index: -1;
         }
         
         h1, h2, h3 {
@@ -94,12 +114,13 @@
         }
         
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         h2 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 2rem;
             text-align: center;
             position: relative;
@@ -113,13 +134,13 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background: var(--primary);
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--primary) 100%);
             border-radius: 2px;
         }
         
         .cta-button {
             display: inline-block;
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             padding: 0.8rem 1.8rem;
             border-radius: 30px;
@@ -128,19 +149,36 @@
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
         .cta-button:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(255, 107, 53, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.6);
+        }
+        
+        .cta-button:hover::after {
+            opacity: 0.2;
         }
         
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
         }
         
         .feature-card {
@@ -151,12 +189,23 @@
             transition: all 0.3s ease;
             border: 1px solid rgba(0,0,0,0.05);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--primary) 100%);
         }
         
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-            border-color: rgba(255, 107, 53, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
         }
         
         .feature-icon {
@@ -164,12 +213,18 @@
             color: var(--primary);
             margin-bottom: 1.5rem;
             background: rgba(255, 107, 53, 0.1);
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: rotate(15deg) scale(1.1);
+            background: rgba(255, 107, 53, 0.2);
         }
         
         .pricing-container {
@@ -182,25 +237,49 @@
         .pricing-card {
             background: var(--light);
             border-radius: 12px;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             box-shadow: var(--shadow);
-            width: 280px;
+            width: 300px;
             transition: all 0.3s ease;
             border: 1px solid rgba(0,0,0,0.05);
             text-align: center;
+            position: relative;
+        }
+        
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--primary) 100%);
+            border-radius: 12px 12px 0 0;
         }
         
         .pricing-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-            border: 1px solid rgba(255, 107, 53, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
         
         .price {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 700;
             color: var(--primary);
             margin: 1.5rem 0;
+            position: relative;
+        }
+        
+        .price::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--secondary);
+            opacity: 0.2;
         }
         
         .price span {
@@ -218,31 +297,34 @@
         
         .step {
             flex: 1;
-            min-width: 250px;
+            min-width: 280px;
             background-color: var(--light);
             border-radius: 12px;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
         .step:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
         }
         
         .step-number {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             border-radius: 50%;
             font-weight: bold;
             margin-bottom: 1.5rem;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 8px rgba(255, 107, 53, 0.3);
         }
         
         .contact-form {
@@ -252,6 +334,18 @@
             padding: 2.5rem;
             border-radius: 12px;
             box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--primary) 100%);
         }
         
         .form-group {
@@ -261,7 +355,7 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--secondary);
         }
         
@@ -274,6 +368,7 @@
             border-radius: 8px;
             font-family: inherit;
             transition: all 0.3s ease;
+            background-color: rgba(255,255,255,0.8);
         }
         
         .form-group input:focus,
@@ -285,9 +380,20 @@
         }
         
         footer {
-            background-color: var(--secondary);
+            background: linear-gradient(135deg, var(--secondary) 0%, #222 100%);
             color: white;
             padding: 4rem 0 2rem;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
         }
         
         .footer-content {
@@ -313,34 +419,42 @@
         
         .footer-links a:hover {
             color: var(--primary);
+            padding-left: 5px;
         }
         
         .footer-links i {
             margin-right: 0.5rem;
             width: 20px;
             text-align: center;
+            color: var(--primary);
         }
         
         .devices-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 2rem;
+            gap: 3rem;
             flex-wrap: wrap;
             margin: 3rem auto;
         }
         
         .device-animation {
-            width: 250px;
-            height: 250px;
+            width: 280px;
+            height: 280px;
             position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
         }
         
         .device-label {
             text-align: center;
-            margin-top: 1rem;
-            font-weight: 600;
+            margin-top: 1.5rem;
+            font-weight: 700;
             color: var(--secondary);
+            font-size: 1.1rem;
         }
         
         .loading {
@@ -350,6 +464,24 @@
             transform: translate(-50%, -50%);
             color: var(--secondary);
             font-weight: 500;
+            background: rgba(255,255,255,0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 0.3rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1;
         }
         
         @media (max-width: 768px) {
@@ -357,92 +489,102 @@
                 padding: 1.5rem 0;
             }
             
-            h1 {
-                font-size: 2rem;
-            }
-            
-            h2 {
-                font-size: 1.6rem;
-            }
-            
-            .devices-container {
+            .header-container {
                 flex-direction: column;
                 gap: 1rem;
             }
             
+            nav ul {
+                gap: 0.5rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .devices-container {
+                gap: 1.5rem;
+            }
+            
             .device-animation {
-                width: 200px;
-                height: 200px;
+                width: 220px;
+                height: 220px;
+            }
+            
+            .pricing-card {
+                width: 100%;
+                max-width: 350px;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <div class="logo">AXON</div>
+        <div class="container header-container">
+            <div class="logo">AXON SEGUROS</div>
+            <nav>
+                <ul>
+                    <li><a href="#cobertura">Cobertura</a></li>
+                    <li><a href="#planos">Planos</a></li>
+                    <li><a href="#processo">Como Funciona</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
     
-    <nav>
-        <div class="container">
-            <ul>
-                <li><a href="#cobertura">Cobertura</a></li>
-                <li><a href="#planos">Planos</a></li>
-                <li><a href="#processo">Como Funciona</a></li>
-                <li><a href="#contato">Contato</a></li>
-            </ul>
-        </div>
-    </nav>
-    
     <section class="hero">
         <div class="container">
-            <h1>Proteja seus dispositivos com segurança inteligente</h1>
-            <p style="max-width: 700px; margin: 0 auto 2rem;">Seguro completo para celulares, tablets e notebooks com tecnologia avançada e atendimento premium.</p>
+            <h1>Proteção Premium para seus Dispositivos</h1>
+            <p style="max-width: 700px; margin: 0 auto 2rem; font-size: 1.1rem;">Seguro completo para celulares, tablets e notebooks com tecnologia avançada e atendimento exclusivo 24/7.</p>
             
             <div class="devices-container">
                 <div>
                     <div class="device-animation" id="iphone3d">
                         <div class="loading">Carregando iPhone...</div>
                     </div>
-                    <div class="device-label">iPhone 14 Pro</div>
+                    <div class="device-label">iPhone 15 Pro</div>
                 </div>
                 <div>
                     <div class="device-animation" id="tablet3d">
                         <div class="loading">Carregando Tablet...</div>
                     </div>
-                    <div class="device-label">iPad Pro</div>
+                    <div class="device-label">iPad Pro M2</div>
                 </div>
                 <div>
                     <div class="device-animation" id="macbook3d">
                         <div class="loading">Carregando Notebook...</div>
                     </div>
-                    <div class="device-label">MacBook Pro</div>
+                    <div class="device-label">MacBook Pro 16"</div>
                 </div>
             </div>
             
-            <a href="#planos" class="cta-button">CONTRATE AGORA</a>
+            <a href="#planos" class="cta-button">PROTEJA SEU DISPOSITIVO</a>
         </div>
     </section>
     
     <section id="cobertura">
         <div class="container">
-            <h2>Nossa Cobertura</h2>
+            <h2>Cobertura Completa</h2>
             <div class="features">
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
                     <h3>Furto e Roubo</h3>
-                    <p>Proteção completa contra furto qualificado ou roubo, com indenização rápida via PIX em até 48 horas.</p>
+                    <p>Indenização rápida via PIX em até 24h após aprovação do sinistro, com bloqueio remoto imediato do dispositivo.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-tools"></i></div>
                     <h3>Danos e Reparos</h3>
-                    <p>Cobertura para conserto em redes autorizadas, com assistência técnica especializada e peças originais.</p>
+                    <p>Assistência técnica em redes autorizadas com peças originais e garantia de 6 meses em todos os reparos.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
-                    <h3>Proteção Total</h3>
-                    <p>Celulares, tablets e notebooks protegidos com a mesma excelência e atendimento personalizado.</p>
+                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                    <h3>Proteção Digital</h3>
+                    <p>Backup seguro de dados, proteção contra ransomware e recuperação de identidade digital em caso de roubo.</p>
                 </div>
             </div>
         </div>
@@ -450,44 +592,44 @@
     
     <section id="planos">
         <div class="container">
-            <h2>Planos Personalizados</h2>
+            <h2>Planos Exclusivos</h2>
             <div class="pricing-container">
                 <div class="pricing-card">
                     <h3>Smartphone</h3>
-                    <div class="price">R$79<span>/mês</span></div>
-                    <ul style="text-align: left; padding-left: 1rem;">
-                        <li>Proteção contra furto e roubo</li>
-                        <li>Cobertura para danos acidentais</li>
-                        <li>Assistência técnica premium</li>
-                        <li>Indenização em até 48h</li>
-                        <li>Suporte 24/7</li>
+                    <div class="price">R$89<span>/mês</span></div>
+                    <ul style="text-align: left; padding-left: 1.2rem;">
+                        <li><i class="fas fa-check" style="color: var(--primary);"></i> Cobertura total contra roubo</li>
+                        <li><i class="fas fa-check" style="color: var(--primary);"></i> Danos acidentais e líquidos</li>
+                        <li><i class="fas fa-check" style="color: var(--primary);"></i> Assistência técnica premium</li>
+                        <li><i class="fas fa-check" style="color: var(--primary);"></i> Indenização em até 24h</li>
+                        <li><i class="fas fa-check" style="color: var(--primary);"></i> Suporte 24/7 via app</li>
                     </ul>
-                    <a href="#contato" class="cta-button" style="display: block; text-align: center; margin-top: 2rem;">Escolher Plano</a>
+                    <a href="#contato" class="cta-button" style="display: block; text-align: center; margin-top: 2rem;">Contratar</a>
                 </div>
-                <div class="pricing-card" style="border: 1px solid var(--primary);">
-                    <div style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.2rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">MAIS POPULAR</div>
+                <div class="pricing-card">
+                    <div class="popular-badge">MAIS POPULAR</div>
                     <h3>Tablet</h3>
-                    <div class="price">R$109<span>/mês</span></div>
-                    <ul style="text-align: left; padding-left: 1rem;">
-                        <li>Proteção completa contra roubo</li>
-                        <li>Reparos em rede autorizada</li>
-                        <li>Assistência técnica premium</li>
-                        <li>Indenização em até 48h</li>
-                        <li>Suporte 24/7</li>
+                    <div class="price">R$129<span>/mês</span></div>
+                    <ul style="text-align: left; padding-left: 1.2rem;">
+                        <li><i class="fas fa-check" style="color: var(--primary);"></i> Proteção contra roubo e furto</li>
+                        <li><i class="fas fa-check" style="color: var(--primary);"></i> Reparos em rede autorizada</li>
+                        <li><i class="fas fa-check" style="color: var(--primary);"></i> Troca de tela sem custo</li>
+                        <li><i class="fas fa-check" style="color: var(--primary);"></i> Indenização em até 24h</li>
+                        <li><i class="fas fa-check" style="color: var(--primary);"></i> Suporte premium 24/7</li>
                     </ul>
-                    <a href="#contato" class="cta-button" style="display: block; text-align: center; margin-top: 2rem;">Escolher Plano</a>
+                    <a href="#contato" class="cta-button" style="display: block; text-align: center; margin-top: 2rem;">Contratar</a>
                 </div>
                 <div class="pricing-card">
                     <h3>Notebook</h3>
-                    <div class="price">R$149<span>/mês</span></div>
-                    <ul style="text-align: left; padding-left: 1rem;">
-                        <li>Cobertura total para seu notebook</li>
-                        <li>Proteção contra danos e roubo</li>
-                        <li>Assistência técnica especializada</li>
-                        <li>Indenização em até 48h</li>
-                        <li>Suporte 24/7</li>
+                    <div class="price">R$169<span>/mês</span></div>
+                    <ul style="text-align: left; padding-left: 1.2rem;">
+                        <li><i class="fas fa-check" style="color: var(--primary);"></i> Cobertura total para notebook</li>
+                        <li><i class="fas fa-check" style="color: var(--primary);"></i> Danos acidentais e elétricos</li>
+                        <li><i class="fas fa-check" style="color: var(--primary);"></i> Assistência técnica especializada</li>
+                        <li><i class="fas fa-check" style="color: var(--primary);"></i> Backup de dados incluído</li>
+                        <li><i class="fas fa-check" style="color: var(--primary);"></i> Suporte VIP 24/7</li>
                     </ul>
-                    <a href="#contato" class="cta-button" style="display: block; text-align: center; margin-top: 2rem;">Escolher Plano</a>
+                    <a href="#contato" class="cta-button" style="display: block; text-align: center; margin-top: 2rem;">Contratar</a>
                 </div>
             </div>
         </div>
@@ -499,32 +641,32 @@
             <div class="process-steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h3>Furto/Roubo</h3>
-                    <ol style="padding-left: 1.2rem;">
-                        <li>Registre o BO online pelo nosso app</li>
-                        <li>Bloqueio remoto imediato do dispositivo</li>
-                        <li>Envio digital de documentos necessários</li>
-                        <li>Análise rápida em até 24h</li>
+                    <h3>Registro do Sinistro</h3>
+                    <ol style="padding-left: 1.5rem;">
+                        <li>Registro rápido pelo app ou site</li>
+                        <li>Envio digital de documentos</li>
+                        <li>Bloqueio remoto imediato</li>
+                        <li>Análise ágil em até 4 horas</li>
                     </ol>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3>Danos</h3>
-                    <ol style="padding-left: 1.2rem;">
-                        <li>Agendamento online de reparo</li>
-                        <li>Leve a uma loja autorizada ou solicite coleta</li>
-                        <li>Reparo com peças originais</li>
-                        <li>Entrega em domicílio após conserto</li>
+                    <h3>Processamento</h3>
+                    <ol style="padding-left: 1.5rem;">
+                        <li>Validação dos documentos</li>
+                        <li>Verificação com autoridades</li>
+                        <li>Aprovação em até 24 horas</li>
+                        <li>Notificação instantânea</li>
                     </ol>
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h3>Indenização</h3>
-                    <ul style="padding-left: 1.2rem;">
-                        <li>Pagamento via PIX em até 48h</li>
-                        <li>Reparo direto sem custos adicionais</li>
-                        <li>Acompanhamento completo via app</li>
-                        <li>Suporte dedicado durante todo o processo</li>
+                    <h3>Resolução</h3>
+                    <ul style="padding-left: 1.5rem;">
+                        <li>Pagamento via PIX em minutos</li>
+                        <li>Agendamento de reparo imediato</li>
+                        <li>Entrega em domicílio</li>
+                        <li>Acompanhamento completo</li>
                     </ul>
                 </div>
             </div>
@@ -552,16 +694,16 @@
                         <label for="plano">Plano de Interesse</label>
                         <select id="plano" required>
                             <option value="">Selecione um plano</option>
-                            <option value="smartphone">Smartphone - R$79/mês</option>
-                            <option value="tablet">Tablet - R$109/mês</option>
-                            <option value="notebook">Notebook - R$149/mês</option>
+                            <option value="smartphone">Smartphone - R$89/mês</option>
+                            <option value="tablet">Tablet - R$129/mês</option>
+                            <option value="notebook">Notebook - R$169/mês</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="mensagem">Mensagem</label>
                         <textarea id="mensagem" rows="4" placeholder="Como podemos te ajudar?"></textarea>
                     </div>
-                    <button type="submit" class="cta-button" style="width: 100%; padding: 1rem; font-size: 1rem;">ENVIAR MENSAGEM</button>
+                    <button type="submit" class="cta-button" style="width: 100%; padding: 1rem; font-size: 1.1rem;">SOLICITAR COTAÇÃO</button>
                 </form>
             </div>
         </div>
@@ -571,8 +713,14 @@
         <div class="container">
             <div class="footer-content">
                 <div>
-                    <h3 style="color: var(--primary); margin-bottom: 1.5rem;">AXON Seguros</h3>
-                    <p style="opacity: 0.8; line-height: 1.7;">Proteção inteligente para seu mundo digital. Oferecemos segurança e tranquilidade para seus dispositivos mais importantes.</p>
+                    <h3 style="color: var(--primary); margin-bottom: 1.5rem; font-size: 1.5rem;">AXON SEGUROS</h3>
+                    <p style="opacity: 0.8; line-height: 1.7;">Proteção premium para seu mundo digital. Combinamos tecnologia avançada com atendimento humanizado para garantir sua tranquilidade.</p>
+                    <div style="margin-top: 1.5rem;">
+                        <a href="#" style="color: white; margin-right: 1rem; font-size: 1.3rem;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" style="color: white; margin-right: 1rem; font-size: 1.3rem;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: white; margin-right: 1rem; font-size: 1.3rem;"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" style="color: white; font-size: 1.3rem;"><i class="fab fa-whatsapp"></i></a>
+                    </div>
                 </div>
                 <div>
                     <h3>Links Rápidos</h3>
@@ -581,6 +729,7 @@
                         <li><a href="#planos"><i class="fas fa-tags"></i> Planos</a></li>
                         <li><a href="#processo"><i class="fas fa-question-circle"></i> Como Funciona</a></li>
                         <li><a href="#contato"><i class="fas fa-envelope"></i> Contato</a></li>
+                        <li><a href="#"><i class="fas fa-file-alt"></i> Termos de Uso</a></li>
                     </ul>
                 </div>
                 <div>
@@ -590,127 +739,235 @@
                         <li><i class="fas fa-envelope"></i> contato@axon.com.br</li>
                         <li><i class="fas fa-map-marker-alt"></i> Av. Paulista, 1000 - São Paulo/SP</li>
                         <li><i class="fas fa-clock"></i> Seg-Sex: 8h às 18h</li>
+                        <li><i class="fas fa-headset"></i> Emergências: 24/7</li>
                     </ul>
                 </div>
             </div>
             <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
-                <p style="opacity: 0.7;">&copy; 2023 Axon Seguros. Todos os direitos reservados.</p>
+                <p style="opacity: 0.7; font-size: 0.9rem;">&copy; 2023 Axon Seguros. Todos os direitos reservados. CNPJ: 00.000.000/0001-00</p>
             </div>
         </div>
     </footer>
-    
-    <script>
-        // Configuração das cenas 3D com modelos GLTF realistas
-        async function initDeviceScene(elementId, modelUrl) {
-            const container = document.getElementById(elementId);
-            const loadingText = container.querySelector('.loading');
-            
+
+<script>
+    // Configuração avançada das cenas 3D com melhor iluminação e materiais
+    async function initDeviceScene(elementId, modelPath) {
+        const container = document.getElementById(elementId);
+        const loadingText = container.querySelector('.loading');
+        
+        // Remover texto de carregamento após 5 segundos se o modelo não carregar
+        const loadingTimeout = setTimeout(() => {
+            if (loadingText && loadingText.style.display !== 'none') {
+                loadingText.textContent = 'Modelo não disponível';
+            }
+        }, 5000);
+
+        try {
             // Cena
             const scene = new THREE.Scene();
             scene.background = null;
             
-            // Câmera
-            const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-            camera.position.z = elementId === 'macbook3d' ? 5 : 3;
+            // Câmera com ajuste baseado no dispositivo
+            const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+            if (elementId === 'macbook3d') {
+                camera.position.set(0, 0.5, 6);
+            } else {
+                camera.position.set(0, 0, 4);
+            }
             
-            // Renderizador
+            // Renderizador com antialiasing e performance
             const renderer = new THREE.WebGLRenderer({ 
                 alpha: true, 
-                antialias: true
+                antialias: true,
+                powerPreference: "high-performance"
             });
-            renderer.setSize(250, 250);
-            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.outputEncoding = THREE.sRGBEncoding;
+            container.innerHTML = '';
             container.appendChild(renderer.domElement);
             
-            // Controles
+            // Controles de órbita suave
             const controls = new THREE.OrbitControls(camera, renderer.domElement);
             controls.enableZoom = false;
             controls.enablePan = false;
             controls.autoRotate = true;
-            controls.autoRotateSpeed = 1.5;
+            controls.autoRotateSpeed = 1.2;
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
             
-            // Luzes
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            // Iluminação premium
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
             scene.add(ambientLight);
             
             const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1);
             directionalLight1.position.set(1, 1, 1);
+            directionalLight1.castShadow = true;
             scene.add(directionalLight1);
             
-            const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
-            directionalLight2.position.set(-1, -1, -1);
+            const directionalLight2 = new THREE.DirectionalLight(0xfff0e0, 0.8);
+            directionalLight2.position.set(-1, 0.5, -1);
             scene.add(directionalLight2);
             
-            // Carregar modelo GLTF
-            const loader = new THREE.GLTFLoader();
+            // Adicionar ambiente HDRI para reflexos realistas
+            const pmremGenerator = new THREE.PMREMGenerator(renderer);
+            pmremGenerator.compileEquirectangularShader();
             
-            try {
-                const gltf = await loader.loadAsync(modelUrl);
-                const model = gltf.scene;
-                
-                // Ajustar escala e posição conforme o dispositivo
-                if (elementId === 'iphone3d') {
+            // Carregar modelo GLTF com progresso
+            const loader = new THREE.GLTFLoader();
+            const dracoLoader = new THREE.DRACOLoader();
+            dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+            loader.setDRACOLoader(dracoLoader);
+            
+            // Adicionar plano de fundo reflexivo
+            const cubeTextureLoader = new THREE.CubeTextureLoader();
+            const envMap = cubeTextureLoader.load([
+                'https://threejs.org/examples/textures/cube/pisa/px.png',
+                'https://threejs.org/examples/textures/cube/pisa/nx.png',
+                'https://threejs.org/examples/textures/cube/pisa/py.png',
+                'https://threejs.org/examples/textures/cube/pisa/ny.png',
+                'https://threejs.org/examples/textures/cube/pisa/pz.png',
+                'https://threejs.org/examples/textures/cube/pisa/nz.png'
+            ]);
+            
+            envMap.encoding = THREE.sRGBEncoding;
+            scene.environment = envMap;
+            scene.background = envMap;
+            
+            // Carregar modelo
+            const gltf = await loader.loadAsync(modelPath, (xhr) => {
+                const percentComplete = (xhr.loaded / xhr.total) * 100;
+                if (loadingText) {
+                    loadingText.textContent = `Carregando ${elementId.replace('3d', '')}... ${Math.round(percentComplete)}%`;
+                }
+            });
+            
+            clearTimeout(loadingTimeout);
+            
+            const model = gltf.scene;
+            
+            // Ajustar modelo conforme o dispositivo
+            switch(elementId) {
+                case 'iphone3d':
                     model.scale.set(0.8, 0.8, 0.8);
-                    model.position.y = -0.5;
-                } else if (elementId === 'tablet3d') {
-                    model.scale.set(0.6, 0.6, 0.6);
                     model.position.y = -0.3;
-                } else if (elementId === 'macbook3d') {
-                    model.scale.set(1.2, 1.2, 1.2);
-                    model.position.y = -0.8;
+                    break;
+                case 'tablet3d':
+                    model.scale.set(0.5, 0.5, 0.5);
+                    model.position.y = -0.2;
+                    break;
+                case 'macbook3d':
+                    model.scale.set(1.0, 1.0, 1.0);
+                    model.position.y = -0.5;
+                    break;
+            }
+            
+            // Aplicar materiais realistas
+            model.traverse((child) => {
+                if (child.isMesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                    
+                    if (child.material) {
+                        child.material.envMap = envMap;
+                        child.material.envMapIntensity = 0.5;
+                        child.material.needsUpdate = true;
+                    }
                 }
-                
-                scene.add(model);
-                loadingText.style.display = 'none';
-                
-                // Animação
-                function animate() {
-                    requestAnimationFrame(animate);
-                    controls.update();
-                    renderer.render(scene, camera);
-                }
-                animate();
-                
-                // Resize handler
-                window.addEventListener('resize', function() {
-                    renderer.setSize(250, 250);
-                    camera.aspect = 1;
-                    camera.updateProjectionMatrix();
-                });
-                
-            } catch (error) {
-                console.error('Erro ao carregar o modelo:', error);
-                loadingText.textContent = 'Erro ao carregar o modelo';
+            });
+            
+            scene.add(model);
+            if (loadingText) loadingText.style.display = 'none';
+            
+            // Animação suave com GSAP
+            gsap.to(model.rotation, {
+                y: Math.PI * 2,
+                duration: 30,
+                repeat: -1,
+                ease: "none"
+            });
+            
+            // Render loop
+            function animate() {
+                requestAnimationFrame(animate);
+                controls.update();
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Responsividade
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+            
+        } catch (error) {
+            console.error(`Error loading ${elementId}:`, error);
+            if (loadingText) {
+                loadingText.textContent = 'Erro ao carregar o modelo 3D';
             }
         }
+    }
+    
+    // Modelos otimizados para dispositivos (substitua por seus próprios modelos)
+    const MODELS = {
+        iphone: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r132/examples/models/gltf/iPhone/scene.gltf',
+        tablet: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r132/examples/models/gltf/iPad/scene.gltf',
+        macbook: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r132/examples/models/gltf/Macbook/scene.gltf'
+    };
+    
+    // Inicializar quando o DOM estiver pronto
+    document.addEventListener('DOMContentLoaded', () => {
+        // Verificar suporte a WebGL
+        if (!WEBGL.isWebGLAvailable()) {
+            const warning = WEBGL.getWebGLErrorMessage();
+            document.querySelectorAll('.device-animation').forEach(el => {
+                el.innerHTML = '';
+                el.appendChild(warning);
+            });
+            return;
+        }
         
-        // URLs dos modelos GLTF (substitua por URLs reais de modelos de alta qualidade)
-        // Nota: Estes são modelos de exemplo - para produção, use modelos licenciados ou próprios
-        const MODEL_URLS = {
-            iphone: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@dev/examples/models/gltf/iPhone/scene.gltf',
-            tablet: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@dev/examples/models/gltf/iPad/scene.gltf',
-            macbook: 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@dev/examples/models/gltf/Macbook/scene.gltf'
-        };
+        // Iniciar cenas com fallback
+        try {
+            initDeviceScene('iphone3d', MODELS.iphone);
+            initDeviceScene('tablet3d', MODELS.tablet);
+            initDeviceScene('macbook3d', MODELS.macbook);
+        } catch (e) {
+            console.error("Erro ao inicializar cenas 3D:", e);
+        }
         
-        // Inicializar as três cenas com modelos diferentes
-        document.addEventListener('DOMContentLoaded', function() {
-            // Para modelos reais, substitua as URLs acima por links para seus modelos GLTF
-            // Ou use um serviço como Sketchfab para hospedar modelos 3D
-            
-            initDeviceScene('iphone3d', MODEL_URLS.iphone);
-            initDeviceScene('tablet3d', MODEL_URLS.tablet);
-            initDeviceScene('macbook3d', MODEL_URLS.macbook);
-            
-            // Alternativa: Se os modelos acima não estiverem disponíveis, usar fallback
-            setTimeout(() => {
-                const loadings = document.querySelectorAll('.loading');
-                loadings.forEach(loading => {
-                    if (loading.style.display !== 'none') {
-                        loading.textContent = 'Modelo não disponível';
-                    }
-                });
-            }, 10000);
+        // Animações de scroll para as seções
+        gsap.utils.toArray("section").forEach(section => {
+            gsap.from(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                },
+                opacity: 0,
+                y: 50,
+                duration: 1
+            });
         });
-    </script>
+        
+        // Suavizar links âncora
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                gsap.to(window, {
+                    duration: 1,
+                    scrollTo: {
+                        y: this.getAttribute('href'),
+                        offsetY: 100
+                    },
+                    ease: "power3.inOut"
+                });
+            });
+        });
+    });
+</script>
 </body>
 </html>
