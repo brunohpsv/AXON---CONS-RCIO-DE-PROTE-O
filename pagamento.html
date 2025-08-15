@@ -1,1 +1,875 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXON - Finalização de Pagamento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --primary-dark: #E05A2B;
+            --secondary: #2D2D2D;
+            --accent: #FFA630;
+            --light: #FFFFFF;
+            --dark: #161616;
+            --gray: #F5F5F5;
+            --texture: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--texture);
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            letter-spacing: -1px;
+            padding-left: 0.5rem;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 10rem 0 5rem;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        
+        .hero h1 span {
+            color: var(--primary);
+        }
+        
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.2rem;
+            color: var(--secondary);
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+        
+        .cta-button.secondary {
+            background: var(--light);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            margin-left: 1rem;
+        }
+        
+        .cta-button.secondary:hover {
+            background: var(--primary);
+            color: var(--light);
+        }
+        
+        /* Payment Section */
+        .payment-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+        
+        .order-summary {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--light);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.05);
+            width: 100%;
+        }
+        
+        .order-summary h2 {
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .order-summary h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .order-details {
+            margin: 2rem 0;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .order-item .label {
+            color: var(--secondary);
+            font-weight: 500;
+        }
+        
+        .order-item .value {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .order-total {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: rgba(255, 107, 53, 0.1);
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .payment-methods {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--light);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.05);
+            width: 100%;
+        }
+        
+        .payment-methods h2 {
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .payment-methods h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .payment-options {
+            margin: 2rem 0;
+        }
+        
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .payment-option:hover {
+            border-color: var(--primary);
+        }
+        
+        .payment-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(255, 107, 53, 0.05);
+        }
+        
+        .payment-option input {
+            margin-right: 1rem;
+        }
+        
+        .payment-option .icon {
+            margin-right: 1rem;
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+        
+        .payment-option .details {
+            flex: 1;
+        }
+        
+        .payment-option .details h3 {
+            margin-bottom: 0.3rem;
+            color: var(--dark);
+        }
+        
+        .payment-option .details p {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
+        .payment-notice {
+            background-color: rgba(255, 107, 53, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        .payment-notice h3 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .payment-notice p {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .payment-notice a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .payment-notice a:hover {
+            text-decoration: underline;
+        }
+        
+        .terms-agreement {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: rgba(0,0,0,0.03);
+            border-radius: 8px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .terms-agreement label {
+            display: flex;
+            align-items: flex-start;
+            cursor: pointer;
+        }
+        
+        .terms-agreement input {
+            margin-right: 1rem;
+            margin-top: 0.2rem;
+        }
+        
+        .terms-agreement-text {
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+        
+        .terms-agreement-text a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .terms-agreement-text a:hover {
+            text-decoration: underline;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            margin-top: 2rem;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 4rem 2rem;
+            background-color: var(--light);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            margin: 4rem 0;
+        }
+        
+        .success-message i {
+            font-size: 5rem;
+            color: #4CAF50;
+            margin-bottom: 2rem;
+        }
+        
+        .success-message h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .success-message p {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-col h3 {
+            color: var(--light);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .footer-links i {
+            margin-right: 0.5rem;
+            width: 20px;
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--light);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                padding: 2rem;
+                transform: translateY(-150%);
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .hero {
+                padding: 8rem 0 4rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <span>AXON</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Finalize seu pagamento <span>AXON</span></h1>
+            <p>Escolha a forma de pagamento e confirme sua contratação.</p>
+        </div>
+    </section>
+    
+    <section class="container">
+        <div class="payment-notice">
+            <h3>Informações importantes sobre o pagamento:</h3>
+            <p>Para manter nossos preços competitivos, aceitamos apenas pagamentos via PIX ou Boleto Bancário.</p>
+            <p>Após a confirmação do pagamento, você receberá no e-mail cadastrado as credenciais de acesso ao seu painel (CPF como usuário e senha temporária).</p>
+        </div>
+        
+        <div id="paymentFormContainer">
+            <div class="payment-container">
+                <div class="order-summary">
+                    <h2>Resumo do Pedido</h2>
+                    
+                    <div class="order-details">
+                        <div class="order-item">
+                            <span class="label">Plano Contratado:</span>
+                            <span class="value">Proteção Premium</span>
+                        </div>
+                        <div class="order-item">
+                            <span class="label">Equipamentos:</span>
+                            <span class="value">2 (Smartphone + Notebook)</span>
+                        </div>
+                        <div class="order-item">
+                            <span class="label">Valor Mensal:</span>
+                            <span class="value">R$ 200,00</span>
+                        </div>
+                        <div class="order-item">
+                            <span class="label">Desconto:</span>
+                            <span class="value">- R$ 40,00 (20%)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="order-total">
+                        <div>Total a Pagar: <strong>R$ 160,00</strong></div>
+                        <div style="font-size: 0.9rem; margin-top: 0.5rem;">(Valor mensal, cobrado todo dia 10)</div>
+                    </div>
+                </div>
+                
+                <div class="payment-methods">
+                    <h2>Forma de Pagamento</h2>
+                    
+                    <div class="payment-options">
+                        <div class="payment-option selected" id="pixOption">
+                            <input type="radio" name="paymentMethod" id="pixMethod" value="pix" checked style="display: none;">
+                            <div class="icon">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                            <div class="details">
+                                <h3>PIX</h3>
+                                <p>Pagamento instantâneo com QR Code ou chave PIX. O acesso será liberado em até 15 minutos após a confirmação.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-option" id="boletoOption">
+                            <input type="radio" name="paymentMethod" id="boletoMethod" value="boleto" style="display: none;">
+                            <div class="icon">
+                                <i class="fas fa-barcode"></i>
+                            </div>
+                            <div class="details">
+                                <h3>Boleto Bancário</h3>
+                                <p>Pagamento com vencimento em 3 dias. O acesso será liberado em até 2 dias úteis após o pagamento.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-notice">
+                        <h3>Por que não aceitamos cartão?</h3>
+                        <p>As taxas de operadoras de cartão aumentariam significativamente o valor do seu plano. Optamos por métodos com menor custo para oferecer o melhor preço a você.</p>
+                    </div>
+                    
+                    <div class="terms-agreement">
+                        <label>
+                            <input type="checkbox" id="termsCheckbox" required>
+                            <span class="terms-agreement-text">
+                                Ao confirmar o pagamento, declaro que li e concordo com os <a href="#" id="termosLink">Termos de Serviço</a> e <a href="#" id="contratoLink">Contrato de Proteção</a>, e autorizo a cobrança conforme descrito.
+                            </span>
+                        </label>
+                    </div>
+                    
+                    <button type="button" id="submitBtn" class="submit-btn" disabled>FINALIZAR PAGAMENTO</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            <h2>PAGAMENTO SOLICITADO COM SUCESSO!</h2>
+            <p>Enviamos as instruções de pagamento para o e-mail cadastrado. Após a confirmação, você receberá seu acesso ao painel AXON (CPF como usuário e senha temporária).</p>
+            <a href="index.html" class="cta-button">VOLTAR À PÁGINA INICIAL</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>AXON</h3>
+                    <p style="margin: 1rem 0; opacity: 0.8;">Proteção premium para seu dispositivo. Combinamos tecnologia avançada com atendimento para sua tranquilidade.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html#features"><i class="fas fa-shield-alt"></i> Cobertura</a></li>
+                        <li><a href="index.html#pricing"><i class="fas fa-tags"></i> Planos</a></li>
+                        <li><a href="index.html#process"><i class="fas fa-question-circle"></i> Como Funciona</a></li>
+                        <li><a href="contrata.html"><i class="fas fa-file-signature"></i> Contratar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone-alt"></i> (62) 98159-6601</li>
+                        <li><i class="fas fa-envelope"></i> axon@gmail.com</li>
+                        <li><i class="fas fa-clock"></i> Seg-Seg: 8h às 18h</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AXON. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
 
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                }
+            });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                document.querySelector('header').style.background = 'rgba(255, 255, 255, 0.95)';
+                document.querySelector('header').style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                document.querySelector('header').style.background = 'rgba(255, 255, 255, 0.95)';
+                document.querySelector('header').style.boxShadow = 'none';
+            }
+        });
+        
+        // Payment method selection
+        const pixOption = document.getElementById('pixOption');
+        const boletoOption = document.getElementById('boletoOption');
+        
+        pixOption.addEventListener('click', function() {
+            pixOption.classList.add('selected');
+            boletoOption.classList.remove('selected');
+            document.getElementById('pixMethod').checked = true;
+        });
+        
+        boletoOption.addEventListener('click', function() {
+            boletoOption.classList.add('selected');
+            pixOption.classList.remove('selected');
+            document.getElementById('boletoMethod').checked = true;
+        });
+        
+        // Terms checkbox
+        const termsCheckbox = document.getElementById('termsCheckbox');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        termsCheckbox.addEventListener('change', function() {
+            submitBtn.disabled = !this.checked;
+        });
+        
+        // Form submission
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            // Validate form
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+            
+            if (!paymentMethod) {
+                alert('Por favor, selecione uma forma de pagamento.');
+                return;
+            }
+            
+            if (!termsCheckbox.checked) {
+                alert('Você precisa aceitar os Termos de Serviço e Contrato de Proteção.');
+                return;
+            }
+            
+            // Simulate form submission
+            document.getElementById('paymentFormContainer').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Scroll to success message
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+            
+            // In a real implementation, you would send the payment request to your backend here
+            // and handle the response accordingly
+        });
+        
+        // Terms links
+        document.getElementById('termosLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Aqui você veria o Termo de Serviço. Em uma implementação real, isso abriria um modal ou página com o documento.');
+        });
+        
+        document.getElementById('contratoLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Aqui você veria o Contrato de Proteção. Em uma implementação real, isso abriria um modal ou página com o documento.');
+        });
+    </script>
+</body>
+</html>
