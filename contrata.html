@@ -491,6 +491,40 @@
             100% { transform: rotate(360deg); }
         }
         
+        /* Success message */
+        .success-message {
+            display: none;
+            background-color: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .success-message i {
+            font-size: 3rem;
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+        
+        .success-message h2 {
+            color: #2E7D32;
+            margin-bottom: 1rem;
+        }
+        
+        .success-message p {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .success-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
         /* Footer */
         footer {
             background-color: var(--dark);
@@ -646,6 +680,16 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+            
+            .success-actions {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .success-actions .cta-button {
+                margin-left: 0;
+                margin-top: 0.5rem;
+            }
         }
     </style>
 </head>
@@ -754,10 +798,22 @@
                             </div>
                         </div>
                         
-                        <button type="submit" id="submitBtn" class="submit-btn">Solicitar contratação!</button>
+                        <button type="submit" id="submitBtn" class="submit-btn">Enviar para analise!</button>
                         <div class="spinner" id="loadingSpinner"></div>
                     </form>
                 </div>
+            </div>
+        </div>
+        
+        <!-- Success Message (hidden by default) -->
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            <h2>Cadastro enviado com sucesso!</h2>
+            <p>Seu cadastro será analisado pela nossa equipe e em breve você receberá no e-mail cadastrado as informações para realizar o pagamento.</p>
+            <p>Agradecemos pela sua preferência!</p>
+            <div class="success-actions">
+                <a href="index.html" class="cta-button">Voltar ao Início</a>
+                <button onclick="location.reload()" class="cta-button secondary">Fazer novo cadastro</button>
             </div>
         </div>
     </section>
@@ -786,7 +842,7 @@
                     <h3>Contato</h3>
                     <ul class="footer-links">
                         <li><i class="fas fa-phone-alt"></i> (62) 98159-6601</li>
-                        <li><i class="fas fa-envelope"></i> axon@gmail.com</li>
+                        <li><i class="fas fa-envelope"></i> axonstartup@gmail.com</li>
                         <li><i class="fas fa-clock"></i> Seg-Seg: 8h às 18h</li>
                     </ul>
                 </div>
@@ -898,6 +954,8 @@
         const priceDisplay = document.getElementById('priceDisplay');
         const loadingSpinner = document.getElementById('loadingSpinner');
         const submitBtn = document.getElementById('submitBtn');
+        const contractFormContainer = document.getElementById('contractFormContainer');
+        const successMessage = document.getElementById('successMessage');
         
         let equipmentCount = 0;
         let totalPrice = 0;
@@ -1061,7 +1119,7 @@
                     discounted: equipmentItems.length > 1 ? totalPrice * 0.8 : totalPrice,
                     discount: equipmentItems.length > 1 ? totalPrice * 0.2 : 0
                 },
-                status: "ativo", // Status inicial como "ativo"
+                status: "pendente", // Status inicial como "pendente"
                 dataContratacao: new Date().toISOString(),
                 dataAtualizacao: new Date().toISOString()
             };
@@ -1104,11 +1162,46 @@
                     });
                 }
                 
-                // Store data in localStorage to use on payment page
-                localStorage.setItem('contractData', JSON.stringify(formData));
+                // Send email via mailto
+                const emailSubject = `Nova solicitação de contratação - CPF: ${formData.personalData.cpf}`;
+                const emailBody = `
+                    Nova solicitação de contratação recebida:
+                    
+                    Dados Pessoais:
+                    Nome: ${formData.personalData.nome}
+                    CPF: ${formData.personalData.cpf}
+                    RG: ${formData.personalData.rg}
+                    Data de Nascimento: ${formData.personalData.nascimento}
+                    E-mail: ${formData.personalData.email}
+                    Telefone: ${formData.personalData.telefone}
+                    Endereço: ${formData.personalData.endereco}
+                    
+                    Equipamentos:
+                    ${formData.equipments.map((eq, i) => `
+                    Equipamento ${i+1}:
+                    Tipo: ${eq.tipo}
+                    Marca: ${eq.marca}
+                    Modelo: ${eq.modelo}
+                    IMEI: ${eq.imei || 'N/A'}
+                    `).join('\n')}
+                    
+                    Valor do Plano:
+                    Total: R$${formData.price.total.toFixed(2)}
+                    Desconto: R$${formData.price.discount.toFixed(2)}
+                    Valor Final: R$${formData.price.discounted.toFixed(2)}/mês
+                    
+                    Documento anexado: ${formData.personalData.documento}
+                `;
                 
-                // Redirect to payment page
-                window.location.href = 'pagamento.html';
+                const mailtoLink = `mailto:axonstartup@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+                window.open(mailtoLink, '_blank');
+                
+                // Show success message
+                contractFormContainer.style.display = 'none';
+                successMessage.style.display = 'block';
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth' });
                 
             } catch (error) {
                 console.error("Erro ao salvar no Firestore: ", error);
