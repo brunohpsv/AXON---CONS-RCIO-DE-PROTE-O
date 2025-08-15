@@ -410,6 +410,47 @@
             font-size: 0.9rem;
         }
         
+        .terms-container {
+            background-color: rgba(255, 107, 53, 0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 107, 53, 0.1);
+        }
+        
+        .terms-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .terms-text {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .terms-text a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+        
+        .terms-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .terms-checkbox input {
+            width: auto;
+        }
+        
         .submit-btn {
             width: 100%;
             padding: 1rem;
@@ -422,42 +463,12 @@
             cursor: pointer;
             transition: var(--transition);
             box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-            margin-top: 2rem;
+            margin-top: 1rem;
         }
         
         .submit-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
-        }
-        
-        /* Success Message */
-        .success-message {
-            display: none;
-            text-align: center;
-            padding: 4rem 2rem;
-            background-color: var(--light);
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            margin: 4rem 0;
-        }
-        
-        .success-message i {
-            font-size: 5rem;
-            color: #4CAF50;
-            margin-bottom: 2rem;
-        }
-        
-        .success-message h2 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 1rem;
-        }
-        
-        .success-message p {
-            font-size: 1.2rem;
-            color: var(--secondary);
-            max-width: 600px;
-            margin: 0 auto 2rem;
         }
         
         /* Footer */
@@ -610,6 +621,11 @@
                 flex-direction: column;
                 gap: 0;
             }
+            
+            .terms-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
@@ -706,24 +722,22 @@
                             <i class="fas fa-plus"></i> Adicionar outro equipamento
                         </button>
                         
-                        <div class="form-group">
-                            <label>
-                                <input type="checkbox" name="termos" id="termosCheckbox" required>
-                                Li e aceito os <a href="#" style="color: var(--primary);">Termos de Serviço</a> e <a href="#" style="color: var(--primary);">Política de Privacidade</a>
-                            </label>
+                        <div class="terms-container">
+                            <div class="terms-content">
+                                <div class="terms-text">
+                                    <p>Ao continuar, você concorda com os <a href="#" id="termsLink">Termos de Serviço</a> e <a href="#" id="privacyLink">Política de Privacidade</a> da AXON.</p>
+                                </div>
+                                <div class="terms-checkbox">
+                                    <input type="checkbox" name="termos" id="termosCheckbox" required>
+                                    <label for="termosCheckbox">Eu li e aceito</label>
+                                </div>
+                            </div>
                         </div>
                         
-                        <button type="button" id="submitBtn" class="submit-btn">RESUMO DO CONTRATO E ASSINATURA</button>
+                        <button type="submit" id="submitBtn" class="submit-btn">IR PARA PAGAMENTO</button>
                     </form>
                 </div>
             </div>
-        </div>
-        
-        <div class="success-message" id="successMessage">
-            <i class="fas fa-check-circle"></i>
-            <h2>SOLICITAÇÃO ENVIADA COM SUCESSO!</h2>
-            <p>Sua solicitação de contratação foi recebida. Nossa equipe entrará em contato em breve para finalizar o processo e enviar os detalhes do pagamento.</p>
-            <a href="index.html" class="cta-button">VOLTAR À PÁGINA INICIAL</a>
         </div>
     </section>
     
@@ -918,18 +932,8 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="${equipmentId}-valor">Valor do Equipamento (R$)</label>
-                    <input type="number" id="${equipmentId}-valor" class="equipment-value" step="0.01" required>
-                </div>
-                
-                <div class="form-group">
                     <label for="${equipmentId}-imei">IMEI (para smartphones/tablets)</label>
                     <input type="text" id="${equipmentId}-imei" class="equipment-imei" placeholder="Número de 15 dígitos">
-                </div>
-                
-                <div class="form-group">
-                    <label for="${equipmentId}-serial">Número de Série (para notebooks)</label>
-                    <input type="text" id="${equipmentId}-serial" class="equipment-serial" placeholder="Número de série">
                 </div>
                 
                 <button type="button" class="remove-equipment" onclick="removeEquipment('${equipmentId}')">
@@ -975,7 +979,9 @@
         addEquipmentBtn.addEventListener('click', addEquipmentItem);
         
         // Form submission
-        document.getElementById('submitBtn').addEventListener('click', function() {
+        document.getElementById('contractForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
             // Validate form
             const form = document.getElementById('contractForm');
             const termosCheckbox = document.getElementById('termosCheckbox');
@@ -996,12 +1002,41 @@
                 return;
             }
             
-            // Simulate form submission
-            document.getElementById('contractFormContainer').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'block';
+            // Collect form data
+            const formData = {
+                personalData: {
+                    nome: document.getElementById('nome').value,
+                    cpf: document.getElementById('cpf').value,
+                    nascimento: document.getElementById('nascimento').value,
+                    rg: document.getElementById('rg').value,
+                    email: document.getElementById('email').value,
+                    telefone: document.getElementById('telefone').value,
+                    endereco: document.getElementById('endereco').value,
+                    documento: document.getElementById('fileName').textContent
+                },
+                equipments: [],
+                price: {
+                    total: totalPrice,
+                    discounted: equipmentItems.length > 1 ? totalPrice * 0.8 : totalPrice,
+                    discount: equipmentItems.length > 1 ? totalPrice * 0.2 : 0
+                }
+            };
             
-            // Scroll to success message
-            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+            // Collect equipment data
+            equipmentItems.forEach((item, index) => {
+                formData.equipments.push({
+                    tipo: item.querySelector('.equipment-type').value,
+                    marca: item.querySelector('.equipment-brand').value,
+                    modelo: item.querySelector('.equipment-model').value,
+                    imei: item.querySelector('.equipment-imei')?.value || ''
+                });
+            });
+            
+            // Store data in localStorage to use on payment page
+            localStorage.setItem('contractData', JSON.stringify(formData));
+            
+            // Redirect to payment page
+            window.location.href = 'pagamento.html';
         });
         
         // Terms links
@@ -1013,6 +1048,16 @@
         document.getElementById('contratoLink').addEventListener('click', function(e) {
             e.preventDefault();
             alert('Aqui você veria o Contrato de Serviço. Em uma implementação real, isso abriria um modal ou página com o documento.');
+        });
+        
+        document.getElementById('termsLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Aqui você veria os Termos de Serviço. Em uma implementação real, isso abriria um modal ou página com o documento.');
+        });
+        
+        document.getElementById('privacyLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Aqui você veria a Política de Privacidade. Em uma implementação real, isso abriria um modal ou página com o documento.');
         });
         
         // Make removeEquipment function available globally
