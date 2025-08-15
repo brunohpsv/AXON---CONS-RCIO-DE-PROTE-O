@@ -212,6 +212,7 @@
             padding: 2.5rem;
             box-shadow: var(--shadow);
             border: 1px solid rgba(0,0,0,0.05);
+            width: 100%;
         }
         
         .personal-data-form h2 {
@@ -223,34 +224,6 @@
         }
         
         .personal-data-form h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: var(--primary);
-        }
-        
-        .payment-form {
-            flex: 1;
-            min-width: 300px;
-            background-color: var(--light);
-            border-radius: 16px;
-            padding: 2.5rem;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-        
-        .payment-form h2 {
-            color: var(--dark);
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-        
-        .payment-form h2::after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -299,72 +272,26 @@
             flex: 1;
         }
         
-        .payment-method {
-            margin: 2rem 0;
-        }
-        
-        .payment-options {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .payment-option {
-            flex: 1;
-            text-align: center;
-            padding: 1rem;
-            border: 1px solid rgba(0,0,0,0.1);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .payment-option:hover {
-            border-color: var(--primary);
-        }
-        
-        .payment-option.selected {
-            border-color: var(--primary);
-            background-color: rgba(255, 107, 53, 0.05);
-        }
-        
-        .payment-option i {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .submit-btn {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-        }
-        
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
-        }
-        
         .price-display {
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary);
             margin: 1rem 0;
             text-align: center;
+            padding: 1rem;
+            background-color: rgba(255, 107, 53, 0.1);
+            border-radius: 8px;
         }
         
         .price-display span {
             font-size: 0.9rem;
             color: var(--secondary);
             font-weight: 400;
+        }
+        
+        .price-display .discount {
+            color: #4CAF50;
+            font-weight: 600;
         }
         
         .contract-notice {
@@ -396,18 +323,111 @@
             text-decoration: underline;
         }
         
-        .payment-notice {
-            background-color: rgba(0, 0, 0, 0.03);
-            padding: 1.5rem;
+        .file-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            border: 2px dashed rgba(0,0,0,0.1);
             border-radius: 8px;
-            margin-top: 2rem;
-            font-size: 0.9rem;
-            border: 1px dashed rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 1.5rem;
         }
         
-        .payment-notice i {
+        .file-upload:hover {
+            border-color: var(--primary);
+        }
+        
+        .file-upload i {
+            font-size: 2rem;
             color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .file-upload p {
+            color: var(--secondary);
+            text-align: center;
+        }
+        
+        .file-upload input {
+            display: none;
+        }
+        
+        .file-name {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .equipment-list {
+            margin-top: 1.5rem;
+        }
+        
+        .equipment-item {
+            background-color: rgba(0,0,0,0.03);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .equipment-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .add-equipment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background-color: rgba(255, 107, 53, 0.1);
+            color: var(--primary);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1rem;
+            border: none;
+            width: 100%;
+        }
+        
+        .add-equipment:hover {
+            background-color: rgba(255, 107, 53, 0.2);
+        }
+        
+        .add-equipment i {
             margin-right: 0.5rem;
+        }
+        
+        .remove-equipment {
+            background: none;
+            border: none;
+            color: #ff4d4d;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            margin-top: 2rem;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
         }
         
         /* Success Message */
@@ -590,10 +610,6 @@
                 flex-direction: column;
                 gap: 0;
             }
-            
-            .payment-options {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
@@ -620,7 +636,7 @@
     <section class="hero">
         <div class="container">
             <h1>Contrate seu plano <span>AXON</span></h1>
-            <p>Preencha o formulário abaixo para contratar a proteção premium para seu dispositivo.</p>
+            <p>Preencha o formulário abaixo para contratar a proteção premium para seu(s) dispositivo(s).</p>
         </div>
     </section>
     
@@ -635,31 +651,25 @@
                 <div class="personal-data-form">
                     <h2>Dados Pessoais e do Equipamento</h2>
                     <form id="contractForm">
-                        <div class="form-group">
-                            <label for="equipamento">Tipo de Equipamento</label>
-                            <select id="equipamento" name="equipamento" required>
-                                <option value="">Selecione...</option>
-                                <option value="smartphone">Smartphone</option>
-                                <option value="tablet">Tablet</option>
-                                <option value="notebook">Notebook</option>
-                            </select>
-                        </div>
-                        
-                        <div class="price-display" id="priceDisplay">Selecione um equipamento</div>
-                        
-                        <div class="form-group">
-                            <label for="nome">Nome Completo</label>
-                            <input type="text" id="nome" name="nome" required>
-                        </div>
-                        
                         <div class="form-row">
+                            <div class="form-group">
+                                <label for="nome">Nome Completo</label>
+                                <input type="text" id="nome" name="nome" required>
+                            </div>
                             <div class="form-group">
                                 <label for="cpf">CPF</label>
                                 <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
                             </div>
+                        </div>
+                        
+                        <div class="form-row">
                             <div class="form-group">
                                 <label for="nascimento">Data de Nascimento</label>
                                 <input type="date" id="nascimento" name="nascimento" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="rg">RG</label>
+                                <input type="text" id="rg" name="rg" placeholder="00.000.000-0" required>
                             </div>
                         </div>
                         
@@ -675,130 +685,47 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="imei">IMEI do Dispositivo (para smartphones/tablets)</label>
-                            <input type="text" id="imei" name="imei" placeholder="Número de 15 dígitos">
-                            <small>Para bloqueio em caso de roubo/furto</small>
+                            <label for="endereco">Endereço Completo</label>
+                            <input type="text" id="endereco" name="endereco" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="serial">Número de Série (para notebooks)</label>
-                            <input type="text" id="serial" name="serial" placeholder="Número de série do notebook">
+                            <label>Documento de Identidade (CNH ou RG)</label>
+                            <div class="file-upload" id="fileUpload">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Arraste e solte seu documento aqui ou clique para selecionar</p>
+                                <input type="file" id="documento" name="documento" accept="image/*,.pdf" required>
+                                <div class="file-name" id="fileName">Nenhum arquivo selecionado</div>
+                            </div>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="marca">Marca do Dispositivo</label>
-                            <input type="text" id="marca" name="marca" required>
+                        <div class="price-display" id="priceDisplay">Adicione pelo menos um equipamento</div>
+                        
+                        <div class="equipment-list" id="equipmentList">
+                            <!-- Equipment items will be added here dynamically -->
                         </div>
                         
-                        <div class="form-group">
-                            <label for="modelo">Modelo do Dispositivo</label>
-                            <input type="text" id="modelo" name="modelo" required>
-                        </div>
+                        <button type="button" class="add-equipment" id="addEquipmentBtn">
+                            <i class="fas fa-plus"></i> Adicionar outro equipamento
+                        </button>
                         
                         <div class="form-group">
-                            <label for="valor">Valor do Dispositivo (R$)</label>
-                            <input type="number" id="valor" name="valor" step="0.01" required>
+                            <label>
+                                <input type="checkbox" name="termos" id="termosCheckbox" required>
+                                Li e aceito os <a href="#" style="color: var(--primary);">Termos de Serviço</a> e <a href="#" style="color: var(--primary);">Política de Privacidade</a>
+                            </label>
                         </div>
+                        
+                        <button type="button" id="submitBtn" class="submit-btn">SOLICITAR CONTRATAÇÃO</button>
                     </form>
-                </div>
-                
-                <div class="payment-form">
-                    <h2>Forma de Pagamento</h2>
-                    
-                    <div class="payment-method">
-                        <div class="payment-options">
-                            <div class="payment-option selected" data-method="cartao">
-                                <i class="fas fa-credit-card"></i>
-                                <p>Cartão de Crédito</p>
-                            </div>
-                            <div class="payment-option" data-method="pix">
-                                <i class="fas fa-qrcode"></i>
-                                <p>PIX</p>
-                            </div>
-                            <div class="payment-option" data-method="boleto">
-                                <i class="fas fa-barcode"></i>
-                                <p>Boleto</p>
-                            </div>
-                        </div>
-                        <input type="hidden" name="pagamento" id="pagamento" value="cartao">
-                    </div>
-                    
-                    <div id="creditCardFields">
-                        <div class="form-group">
-                            <label for="numeroCartao">Número do Cartão</label>
-                            <input type="text" id="numeroCartao" name="numeroCartao" placeholder="0000 0000 0000 0000" required>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="validadeCartao">Validade</label>
-                                <input type="text" id="validadeCartao" name="validadeCartao" placeholder="MM/AA" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="cvvCartao">CVV</label>
-                                <input type="text" id="cvvCartao" name="cvvCartao" placeholder="000" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="nomeCartao">Nome no Cartão</label>
-                            <input type="text" id="nomeCartao" name="nomeCartao" required>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="parcelas">Parcelamento</label>
-                                <select id="parcelas" name="parcelas" required>
-                                    <option value="1">1x sem juros</option>
-                                    <option value="2">2x sem juros</option>
-                                    <option value="3">3x sem juros</option>
-                                    <option value="4">4x sem juros</option>
-                                    <option value="5">5x sem juros</option>
-                                    <option value="6">6x sem juros</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div id="pixFields" style="display: none;">
-                        <div class="form-group" style="text-align: center;">
-                            <i class="fas fa-qrcode" style="font-size: 5rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                            <p>O QR Code para pagamento será exibido após a confirmação dos dados.</p>
-                        </div>
-                    </div>
-                    
-                    <div id="boletoFields" style="display: none;">
-                        <div class="form-group" style="text-align: center;">
-                            <i class="fas fa-barcode" style="font-size: 5rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                            <p>O boleto será enviado para o e-mail cadastrado após a confirmação dos dados.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="payment-notice">
-                        <p><i class="fas fa-info-circle"></i> Após a confirmação do pagamento, enviaremos para seu e-mail:</p>
-                        <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
-                            <li>Comprovante de pagamento</li>
-                            <li>Termo de compromisso assinado</li>
-                            <li>Cópia do contrato</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" name="termos" id="termosCheckbox" required>
-                            Li e aceito os <a href="#" style="color: var(--primary);">Termos de Serviço</a> e <a href="#" style="color: var(--primary);">Política de Privacidade</a>
-                        </label>
-                    </div>
-                    
-                    <button type="button" id="submitBtn" class="submit-btn">CONCLUIR PAGAMENTO</button>
                 </div>
             </div>
         </div>
         
         <div class="success-message" id="successMessage">
             <i class="fas fa-check-circle"></i>
-            <h2>PAGAMENTO FEITO, CONTRATO ASSINADO</h2>
-            <p>Seu pagamento foi processado com sucesso e seu contrato está ativo. Enviamos todos os detalhes para o e-mail cadastrado.</p>
+            <h2>SOLICITAÇÃO ENVIADA COM SUCESSO!</h2>
+            <p>Sua solicitação de contratação foi recebida. Nossa equipe entrará em contato em breve para finalizar o processo e enviar os detalhes do pagamento.</p>
             <a href="index.html" class="cta-button">VOLTAR À PÁGINA INICIAL</a>
         </div>
     </section>
@@ -883,64 +810,184 @@
             }
         });
         
-        // Equipment selection
-        const equipamentoSelect = document.getElementById('equipamento');
-        const priceDisplay = document.getElementById('priceDisplay');
+        // File upload
+        const fileUpload = document.getElementById('fileUpload');
+        const fileInput = document.getElementById('documento');
+        const fileName = document.getElementById('fileName');
         
-        equipamentoSelect.addEventListener('change', function() {
-            switch(this.value) {
-                case 'smartphone':
-                    priceDisplay.innerHTML = 'R$80,00<span>/mês</span>';
-                    document.getElementById('imei').required = true;
-                    document.getElementById('serial').required = false;
-                    break;
-                case 'tablet':
-                    priceDisplay.innerHTML = 'R$120,00<span>/mês</span>';
-                    document.getElementById('imei').required = true;
-                    document.getElementById('serial').required = false;
-                    break;
-                case 'notebook':
-                    priceDisplay.innerHTML = 'R$150,00<span>/mês</span>';
-                    document.getElementById('imei').required = false;
-                    document.getElementById('serial').required = true;
-                    break;
-                default:
-                    priceDisplay.textContent = 'Selecione um equipamento';
+        fileUpload.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                fileName.textContent = fileInput.files[0].name;
+            } else {
+                fileName.textContent = 'Nenhum arquivo selecionado';
             }
         });
         
-        // Payment method selection
-        const paymentOptions = document.querySelectorAll('.payment-option');
-        const creditCardFields = document.getElementById('creditCardFields');
-        const pixFields = document.getElementById('pixFields');
-        const boletoFields = document.getElementById('boletoFields');
+        fileUpload.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileUpload.style.borderColor = 'var(--primary)';
+        });
         
-        paymentOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                paymentOptions.forEach(opt => opt.classList.remove('selected'));
-                this.classList.add('selected');
-                document.getElementById('pagamento').value = this.dataset.method;
-                
-                // Show/hide payment fields
-                creditCardFields.style.display = 'none';
-                pixFields.style.display = 'none';
-                boletoFields.style.display = 'none';
-                
-                if (this.dataset.method === 'cartao') {
-                    creditCardFields.style.display = 'block';
-                } else if (this.dataset.method === 'pix') {
-                    pixFields.style.display = 'block';
-                } else if (this.dataset.method === 'boleto') {
-                    boletoFields.style.display = 'block';
+        fileUpload.addEventListener('dragleave', () => {
+            fileUpload.style.borderColor = 'rgba(0,0,0,0.1)';
+        });
+        
+        fileUpload.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileUpload.style.borderColor = 'rgba(0,0,0,0.1)';
+            
+            if (e.dataTransfer.files.length > 0) {
+                fileInput.files = e.dataTransfer.files;
+                fileName.textContent = e.dataTransfer.files[0].name;
+            }
+        });
+        
+        // Equipment management
+        const equipmentList = document.getElementById('equipmentList');
+        const addEquipmentBtn = document.getElementById('addEquipmentBtn');
+        const priceDisplay = document.getElementById('priceDisplay');
+        
+        let equipmentCount = 0;
+        let totalPrice = 0;
+        
+        function calculateTotalPrice() {
+            totalPrice = 0;
+            const equipmentItems = document.querySelectorAll('.equipment-item');
+            
+            equipmentItems.forEach(item => {
+                const type = item.querySelector('.equipment-type').value;
+                switch(type) {
+                    case 'smartphone':
+                        totalPrice += 80;
+                        break;
+                    case 'tablet':
+                        totalPrice += 120;
+                        break;
+                    case 'notebook':
+                        totalPrice += 150;
+                        break;
                 }
             });
-        });
+            
+            // Apply 20% discount if more than one equipment
+            if (equipmentItems.length > 1) {
+                const discount = totalPrice * 0.2;
+                const discountedPrice = totalPrice - discount;
+                
+                priceDisplay.innerHTML = `
+                    <div>Total: R$${totalPrice.toFixed(2)}</div>
+                    <div class="discount">Desconto (20%): -R$${discount.toFixed(2)}</div>
+                    <div><strong>Valor final: R$${discountedPrice.toFixed(2)}</strong><span>/mês</span></div>
+                `;
+            } else {
+                priceDisplay.innerHTML = `
+                    <div><strong>Valor: R$${totalPrice.toFixed(2)}</strong><span>/mês</span></div>
+                `;
+            }
+        }
+        
+        function addEquipmentItem() {
+            equipmentCount++;
+            const equipmentId = `equipment-${equipmentCount}`;
+            
+            const equipmentItem = document.createElement('div');
+            equipmentItem.className = 'equipment-item';
+            equipmentItem.id = equipmentId;
+            equipmentItem.innerHTML = `
+                <h4>Equipamento ${equipmentCount}</h4>
+                
+                <div class="form-group">
+                    <label for="${equipmentId}-type">Tipo de Equipamento</label>
+                    <select id="${equipmentId}-type" class="equipment-type" required>
+                        <option value="">Selecione...</option>
+                        <option value="smartphone">Smartphone</option>
+                        <option value="tablet">Tablet</option>
+                        <option value="notebook">Notebook</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="${equipmentId}-marca">Marca</label>
+                    <input type="text" id="${equipmentId}-marca" class="equipment-brand" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="${equipmentId}-modelo">Modelo</label>
+                    <input type="text" id="${equipmentId}-modelo" class="equipment-model" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="${equipmentId}-valor">Valor do Equipamento (R$)</label>
+                    <input type="number" id="${equipmentId}-valor" class="equipment-value" step="0.01" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="${equipmentId}-imei">IMEI (para smartphones/tablets)</label>
+                    <input type="text" id="${equipmentId}-imei" class="equipment-imei" placeholder="Número de 15 dígitos">
+                </div>
+                
+                <div class="form-group">
+                    <label for="${equipmentId}-serial">Número de Série (para notebooks)</label>
+                    <input type="text" id="${equipmentId}-serial" class="equipment-serial" placeholder="Número de série">
+                </div>
+                
+                <button type="button" class="remove-equipment" onclick="removeEquipment('${equipmentId}')">
+                    <i class="fas fa-trash-alt"></i> Remover equipamento
+                </button>
+            `;
+            
+            equipmentList.appendChild(equipmentItem);
+            
+            // Add event listener for type change
+            const typeSelect = equipmentItem.querySelector('.equipment-type');
+            typeSelect.addEventListener('change', calculateTotalPrice);
+            
+            // Add first equipment automatically
+            if (equipmentCount === 1) {
+                typeSelect.value = 'smartphone';
+                calculateTotalPrice();
+            }
+        }
+        
+        function removeEquipment(id) {
+            const equipmentItem = document.getElementById(id);
+            if (equipmentItem) {
+                equipmentItem.remove();
+                calculateTotalPrice();
+                
+                // Renumber remaining equipment items
+                const items = document.querySelectorAll('.equipment-item');
+                if (items.length === 0) {
+                    priceDisplay.textContent = 'Adicione pelo menos um equipamento';
+                } else {
+                    items.forEach((item, index) => {
+                        item.querySelector('h4').textContent = `Equipamento ${index + 1}`;
+                    });
+                }
+            }
+        }
+        
+        // Add first equipment on load
+        addEquipmentItem();
+        
+        // Add equipment button
+        addEquipmentBtn.addEventListener('click', addEquipmentItem);
         
         // Form submission
         document.getElementById('submitBtn').addEventListener('click', function() {
             // Validate form
             const form = document.getElementById('contractForm');
             const termosCheckbox = document.getElementById('termosCheckbox');
+            const equipmentItems = document.querySelectorAll('.equipment-item');
+            
+            if (equipmentItems.length === 0) {
+                alert('Por favor, adicione pelo menos um equipamento.');
+                return;
+            }
             
             if (!form.checkValidity()) {
                 alert('Por favor, preencha todos os campos obrigatórios.');
@@ -970,6 +1017,9 @@
             e.preventDefault();
             alert('Aqui você veria o Contrato de Serviço. Em uma implementação real, isso abriria um modal ou página com o documento.');
         });
+        
+        // Make removeEquipment function available globally
+        window.removeEquipment = removeEquipment;
     </script>
 </body>
 </html>
