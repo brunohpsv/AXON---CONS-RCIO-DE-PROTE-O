@@ -692,6 +692,16 @@
                 font-size: 1rem;
             }
         }
+
+        @media (min-width: 769px) {
+            .mobile-menu-btn {
+                display: none !important;
+            }
+            
+            nav {
+                display: block !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -700,8 +710,16 @@
             <div class="logo">
                 <span>AXON</span>
             </div>
+            <nav>
+                <ul>
+                    <li><a href="#features">Cobertura</a></li>
+                    <li><a href="#pricing">Planos</a></li>
+                    <li><a href="#process">Como Funciona</a></li>
+                    <li><a href="contrata.html">Contratar</a></li>
+                </ul>
+            </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-ellipsis-v"></i>
+                <i class="fas fa-bars"></i>
             </button>
         </div>
     </header>
