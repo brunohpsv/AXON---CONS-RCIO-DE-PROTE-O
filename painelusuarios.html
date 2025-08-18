@@ -44,12 +44,46 @@
             padding: 20px;
         }
         
+        /* Header */
+        .main-header {
+            background-color: var(--light);
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .back-link {
+            color: var(--secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+        
         /* Login Section */
         .login-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: calc(100vh - 70px);
         }
         
         .login-box {
@@ -121,7 +155,7 @@
             display: none;
         }
         
-        .header {
+        .dashboard-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -129,7 +163,7 @@
             margin-bottom: 1.5rem;
         }
         
-        .header h1 {
+        .dashboard-header h1 {
             color: var(--primary);
         }
         
@@ -142,6 +176,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            text-decoration: none;
         }
         
         /* User Info Section */
@@ -364,6 +399,18 @@
     </style>
 </head>
 <body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-shield-alt"></i> AXON
+            </a>
+            <a href="index.html" class="back-link" id="backLink">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </a>
+        </div>
+    </header>
+    
     <!-- Login Section -->
     <div class="login-container" id="loginContainer">
         <div class="login-box">
@@ -385,11 +432,11 @@
     
     <!-- Dashboard Section -->
     <div class="dashboard container" id="dashboard">
-        <div class="header">
+        <div class="dashboard-header">
             <h1><i class="fas fa-shield-alt"></i> Painel AXON</h1>
-            <button class="logout-btn" id="logoutBtn">
+            <a href="index.html" class="logout-btn" id="logoutBtn">
                 <i class="fas fa-sign-out-alt"></i> Sair
-            </button>
+            </a>
         </div>
         
         <!-- User Info -->
@@ -498,20 +545,29 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
+            errorMessage.textContent = '';
+            
             auth.signInWithEmailAndPassword(email, password)
-                .then(() => {
+                .then((userCredential) => {
+                    // Signed in
                     errorMessage.textContent = '';
                 })
                 .catch(error => {
+                    console.error("Login error:", error);
                     errorMessage.textContent = getErrorMessage(error.code);
                 });
         });
         
-        // Logout button
-        logoutBtn.addEventListener('click', () => {
-            auth.signOut().catch(error => {
-                console.error("Logout error:", error);
-            });
+        // Logout button - now redirects to index.html
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            auth.signOut()
+                .then(() => {
+                    window.location.href = 'index.html';
+                })
+                .catch(error => {
+                    console.error("Logout error:", error);
+                });
         });
         
         // Load user data from Firestore
@@ -682,7 +738,7 @@
         
         // Helper function to format date
         function formatDate(date) {
-            if (!(date instanceof Date) return 'Data inválida';
+            if (!(date instanceof Date)) return 'Data inválida';
             
             const day = date.getDate().toString().padStart(2, '0');
             const month = (date.getMonth() + 1).toString().padStart(2, '0');
