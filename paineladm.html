@@ -119,26 +119,13 @@
             color: var(--primary);
         }
         
-        .header-actions {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .logout-btn, .home-btn {
+        .logout-btn {
             background-color: var(--error);
             color: white;
             border: none;
             padding: 0.5rem 1rem;
             border-radius: 4px;
             cursor: pointer;
-            text-decoration: none;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .home-btn {
-            background-color: var(--secondary);
         }
         
         .stats {
@@ -239,9 +226,7 @@
     <div class="dashboard container" id="dashboard">
         <div class="header">
             <h1>Painel Administrativo AXON</h1>
-            <div class="header-actions">
-                <button class="logout-btn" id="logoutBtn">Sair</button>
-            </div>
+            <button class="logout-btn" id="logoutBtn">Sair</button>
         </div>
         
         <div class="stats" id="stats">
