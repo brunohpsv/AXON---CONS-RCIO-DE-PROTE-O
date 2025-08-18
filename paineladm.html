@@ -293,20 +293,63 @@
         const activeUsersElement = document.getElementById('activeUsers');
         const pendingUsersElement = document.getElementById('pendingUsers');
 
-        // Função para reconstruir as credenciais
+        // Função para reconstruir as credenciais de forma mais complexa
         function getAdminCredentials() {
-            // Dividimos as credenciais em partes e as espalhamos pelo código
-            const part1 = "bruno";
-            const part2 = "hpsv";
-            const part3 = "@gmail.com";
-            const part4 = "bara";
-            const part5 = "tavelha";
+            // Dividimos as credenciais em várias partes não óbvias
+            const parts = {
+                a: "br",
+                b: "uno",
+                c: "hp",
+                d: "sv",
+                e: "@gm",
+                f: "ail",
+                g: ".co",
+                h: "m",
+                i: "bar",
+                j: "at",
+                k: "avel",
+                l: "ha"
+            };
             
-            // Juntamos as partes para formar as credenciais
-            const email = part1 + part2 + part3;
-            const password = part4 + part5;
+            // Construção do email usando partes não sequenciais
+            const email = [
+                parts.a + parts.b,  // "bruno"
+                parts.c + parts.d  // "hpsv"
+            ].join('') + [
+                parts.e + parts.f,  // "@gmail"
+                parts.g + parts.h   // ".com"
+            ].join('');
+            
+            // Construção da senha usando partes não sequenciais
+            const password = [
+                parts.i,            // "bar"
+                parts.j + parts.k,  // "atavel"
+                parts.l             // "ha"
+            ].join('');
             
             return { email, password };
+        }
+
+        // Função auxiliar para verificar credenciais
+        function validateCredentials(inputEmail, inputPassword) {
+            const { email, password } = getAdminCredentials();
+            
+            // Verificação adicional para evitar timing attacks
+            let emailMatch = true;
+            let passwordMatch = true;
+            
+            if (inputEmail.length !== email.length) emailMatch = false;
+            if (inputPassword.length !== password.length) passwordMatch = false;
+            
+            for (let i = 0; i < inputEmail.length; i++) {
+                if (inputEmail.charAt(i) !== email.charAt(i)) emailMatch = false;
+            }
+            
+            for (let i = 0; i < inputPassword.length; i++) {
+                if (inputPassword.charAt(i) !== password.charAt(i)) passwordMatch = false;
+            }
+            
+            return emailMatch && passwordMatch;
         }
 
         // Função para criar o administrador padrão
@@ -370,8 +413,15 @@
             const password = document.getElementById('password').value;
             
             try {
-                await auth.signInWithEmailAndPassword(email, password);
-                loginError.textContent = '';
+                // Verificação adicional das credenciais antes de tentar o login
+                if (validateCredentials(email, password)) {
+                    await auth.signInWithEmailAndPassword(email, password);
+                    loginError.textContent = '';
+                } else {
+                    // Forçar um tempo de resposta similar ao do Firebase Auth
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    loginError.textContent = 'E-mail ou senha incorretos.';
+                }
             } catch (error) {
                 loginError.textContent = 'E-mail ou senha incorretos.';
                 console.error("Erro de login:", error);
