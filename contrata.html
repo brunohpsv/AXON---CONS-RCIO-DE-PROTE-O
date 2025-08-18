@@ -525,6 +525,33 @@
             flex-wrap: wrap;
         }
         
+        /* Error message */
+        .error-message {
+            display: none;
+            background-color: rgba(239, 83, 80, 0.1);
+            border: 1px solid rgba(239, 83, 80, 0.3);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .error-message i {
+            font-size: 3rem;
+            color: #EF5350;
+            margin-bottom: 1rem;
+        }
+        
+        .error-message h2 {
+            color: #C62828;
+            margin-bottom: 1rem;
+        }
+        
+        .error-message p {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+        
         /* Footer */
         footer {
             background-color: var(--dark);
@@ -816,6 +843,17 @@
                 <button onclick="location.reload()" class="cta-button secondary">Fazer novo cadastro</button>
             </div>
         </div>
+        
+        <!-- Error Message (hidden by default) -->
+        <div class="error-message" id="errorMessage">
+            <i class="fas fa-exclamation-circle"></i>
+            <h2>Ocorreu um erro!</h2>
+            <p id="errorMessageText">Não foi possível enviar seus dados. Por favor, tente novamente mais tarde.</p>
+            <div class="success-actions">
+                <button onclick="hideError()" class="cta-button">Tentar novamente</button>
+                <a href="index.html" class="cta-button secondary">Voltar ao Início</a>
+            </div>
+        </div>
     </section>
     
     <footer>
@@ -854,19 +892,25 @@
     </footer>
 
     <script>
-        // Firebase configuration
+        // Firebase configuration - SUBSTITUA COM SUAS PRÓPRIAS CREDENCIAIS
         const firebaseConfig = {
-            apiKey: "SUA_API_KEY",
-            authDomain: "SEU_PROJETO.firebaseapp.com",
-            projectId: "SEU_PROJETO",
-            storageBucket: "SEU_PROJETO.appspot.com",
-            messagingSenderId: "SEU_SENDER_ID",
-            appId: "SEU_APP_ID"
+            apiKey: "AIzaSyDEXAMPLEEXAMPLEEXAMPLEEXAMPLE",
+            authDomain: "axon-protecao-example.firebaseapp.com",
+            projectId: "axon-protecao-example",
+            storageBucket: "axon-protecao-example.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abc123EXAMPLEEXAMPLE"
         };
 
         // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        try {
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+            console.log("Firebase inicializado com sucesso!");
+        } catch (error) {
+            console.error("Erro ao inicializar Firebase:", error);
+            showError("Erro de configuração. Por favor, entre em contato com o suporte.");
+        }
 
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -956,6 +1000,8 @@
         const submitBtn = document.getElementById('submitBtn');
         const contractFormContainer = document.getElementById('contractFormContainer');
         const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorMessageText = document.getElementById('errorMessageText');
         
         let equipmentCount = 0;
         let totalPrice = 0;
@@ -1067,6 +1113,23 @@
             }
         }
         
+        // Show error message
+        function showError(message) {
+            errorMessageText.textContent = message || 'Ocorreu um erro inesperado. Por favor, tente novamente.';
+            errorMessage.style.display = 'block';
+            contractFormContainer.style.display = 'none';
+            successMessage.style.display = 'none';
+            
+            // Scroll to error message
+            errorMessage.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Hide error message
+        function hideError() {
+            errorMessage.style.display = 'none';
+            contractFormContainer.style.display = 'block';
+        }
+        
         // Add first equipment on load
         addEquipmentItem();
         
@@ -1083,17 +1146,17 @@
             const equipmentItems = document.querySelectorAll('.equipment-item');
             
             if (equipmentItems.length === 0) {
-                alert('Por favor, adicione pelo menos um equipamento.');
+                showError('Por favor, adicione pelo menos um equipamento.');
                 return;
             }
             
             if (!form.checkValidity()) {
-                alert('Por favor, preencha todos os campos obrigatórios.');
+                showError('Por favor, preencha todos os campos obrigatórios.');
                 return;
             }
             
             if (!termosCheckbox.checked) {
-                alert('Você precisa aceitar os Termos de Serviço e Política de Privacidade.');
+                showError('Você precisa aceitar os Termos de Serviço e Política de Privacidade.');
                 return;
             }
             
@@ -1101,42 +1164,52 @@
             submitBtn.style.display = 'none';
             loadingSpinner.style.display = 'block';
             
-            // Collect form data
-            const formData = {
-                personalData: {
-                    nome: document.getElementById('nome').value,
-                    cpf: document.getElementById('cpf').value,
-                    nascimento: document.getElementById('nascimento').value,
-                    rg: document.getElementById('rg').value,
-                    email: document.getElementById('email').value,
-                    telefone: document.getElementById('telefone').value,
-                    endereco: document.getElementById('endereco').value,
-                    documento: document.getElementById('fileName').textContent
-                },
-                equipments: [],
-                price: {
-                    total: totalPrice,
-                    discounted: equipmentItems.length > 1 ? totalPrice * 0.8 : totalPrice,
-                    discount: equipmentItems.length > 1 ? totalPrice * 0.2 : 0
-                },
-                status: "pendente", // Status inicial como "pendente"
-                dataContratacao: new Date().toISOString(),
-                dataAtualizacao: new Date().toISOString()
-            };
-            
-            // Collect equipment data
-            equipmentItems.forEach((item, index) => {
-                formData.equipments.push({
-                    tipo: item.querySelector('.equipment-type').value,
-                    marca: item.querySelector('.equipment-brand').value,
-                    modelo: item.querySelector('.equipment-model').value,
-                    imei: item.querySelector('.equipment-imei')?.value || ''
-                });
-            });
-            
             try {
-                // Save to Firestore
+                // Collect form data
+                const formData = {
+                    personalData: {
+                        nome: document.getElementById('nome').value,
+                        cpf: document.getElementById('cpf').value,
+                        nascimento: document.getElementById('nascimento').value,
+                        rg: document.getElementById('rg').value,
+                        email: document.getElementById('email').value,
+                        telefone: document.getElementById('telefone').value,
+                        endereco: document.getElementById('endereco').value,
+                        documento: document.getElementById('fileName').textContent
+                    },
+                    equipments: [],
+                    price: {
+                        total: totalPrice,
+                        discounted: equipmentItems.length > 1 ? totalPrice * 0.8 : totalPrice,
+                        discount: equipmentItems.length > 1 ? totalPrice * 0.2 : 0
+                    },
+                    status: "pendente", // Status inicial como "pendente"
+                    dataContratacao: new Date().toISOString(),
+                    dataAtualizacao: new Date().toISOString()
+                };
+                
+                // Collect equipment data
+                equipmentItems.forEach((item, index) => {
+                    formData.equipments.push({
+                        tipo: item.querySelector('.equipment-type').value,
+                        marca: item.querySelector('.equipment-brand').value,
+                        modelo: item.querySelector('.equipment-model').value,
+                        imei: item.querySelector('.equipment-imei')?.value || ''
+                    });
+                });
+                
+                // Validate CPF format
                 const cpf = formData.personalData.cpf.replace(/\D/g, ''); // Remove non-digit characters
+                if (cpf.length !== 11) {
+                    throw new Error('CPF deve conter 11 dígitos');
+                }
+                
+                // Save to Firestore
+                if (!firebase.apps.length) {
+                    throw new Error('Firebase não foi inicializado corretamente');
+                }
+                
+                const db = firebase.firestore();
                 
                 // Check if user already exists
                 const userDoc = await db.collection('usuarios').doc(cpf).get();
@@ -1199,14 +1272,15 @@
                 // Show success message
                 contractFormContainer.style.display = 'none';
                 successMessage.style.display = 'block';
+                errorMessage.style.display = 'none';
                 
                 // Scroll to success message
                 successMessage.scrollIntoView({ behavior: 'smooth' });
                 
             } catch (error) {
-                console.error("Erro ao salvar no Firestore: ", error);
-                alert("Ocorreu um erro ao salvar seus dados. Por favor, tente novamente.");
-                
+                console.error("Erro ao processar o formulário: ", error);
+                showError(error.message || "Ocorreu um erro ao salvar seus dados. Por favor, tente novamente.");
+            } finally {
                 // Hide loading spinner and show submit button
                 submitBtn.style.display = 'block';
                 loadingSpinner.style.display = 'none';
