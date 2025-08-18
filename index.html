@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AXON - Proteção Premium para Dispositivos</title>
+    <title>AXON - Clube de Proteção e Benefícios</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -536,6 +536,33 @@
             color: var(--secondary);
         }
         
+        /* Trust Badge */
+        .trust-badge {
+            background-color: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 3rem auto;
+            max-width: 800px;
+        }
+        
+        .trust-badge h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .trust-badge h3 i {
+            font-size: 1.2rem;
+        }
+        
+        .trust-badge p {
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+        
         /* Footer */
         footer {
             background-color: var(--dark);
@@ -708,15 +735,15 @@
     <header>
         <div class="container header-container">
             <div class="logo">
-                <span>AXON</span>
+                <span>AXON - Clube de Proteção e Benefícios</span>
             </div>
             <nav>
                 <ul>
-                    <li><a href="#features">Cobertura</a></li>
-                    <li><a href="#pricing">Planos</a></li>
-                    <li><a href="#process">Como Funciona</a></li>
-                    <li><a href="contrata.html">Contratar</a></li>
-                    <li><a href="paineladm.html">ADM</a></li>
+                    <li><a href="#benefits">Benefícios</a></li>
+                    <li><a href="#plans">Planos</a></li>
+                    <li><a href="#how-it-works">Como Funciona</a></li>
+                    <li><a href="contrata.html">Associar-se</a></li>
+                    <li><a href="paineladm.html">Área do Associado</a></li>
                 </ul>
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -734,128 +761,134 @@
             </button>
         </div>
         <ul class="side-menu-links">
-            <li><a href="#features">Cobertura</a></li>
-            <li><a href="#pricing">Planos</a></li>
-            <li><a href="#process">Como Funciona</a></li>
-            <li><a href="contrata.html">Contratar</a></li>
+            <li><a href="#benefits">Benefícios</a></li>
+            <li><a href="#plans">Planos</a></li>
+            <li><a href="#how-it-works">Como Funciona</a></li>
+            <li><a href="contrata.html">Associar-se</a></li>
         </ul>
     </div>
     <div class="menu-overlay" id="menuOverlay"></div>
     
     <section class="hero">
         <div class="container">
-            <h1>Proteção completa para seus dispositivos com <span>AXON</span></h1>
-            <p>Proteção premium para smartphones, tablets e notebooks com tecnologia avançada e atendimento exclusivo 24/7.</p>
+            <h1>Seu dispositivo protegido com os <span>melhores benefícios</span></h1>
+            <p>Associe-se ao clube AXON e tenha acesso a assistência técnica gratuita, descontos exclusivos e serviços premium para seu smartphone, tablet ou notebook.</p>
             <div class="cta-buttons">
-                <a href="#pricing" class="cta-button">CONHEÇA NOSSOS PLANOS</a>
+                <a href="#plans" class="cta-button">CONHEÇA NOSSOS PLANOS</a>
             </div>
         </div>
     </section>
     
-    <section id="features" class="container">
+    <section id="benefits" class="container">
         <div class="section-title">
-            <h2>Proteção Completa</h2>
-            <p>Todos os nossos planos oferecem cobertura abrangente para seu dispositivo com os melhores benefícios do mercado</p>
+            <h2>Benefícios Exclusivos</h2>
+            <p>Como associado AXON, você tem acesso a uma série de vantagens para seu dispositivo</p>
         </div>
         <div class="features">
             <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                <h3>Proteção contra Furto e Roubo</h3>
-                <p>Reembolso rápido via PIX em até 24h após aprovação, com bloqueio remoto imediato do dispositivo e comprovação do registro do B.O.</p>
-            </div>
-            <div class="feature-card">
                 <div class="feature-icon"><i class="fas fa-tools"></i></div>
-                <h3>Assistência Técnica</h3>
-                <p>Reparos em redes autorizadas com garantia em todos os serviços realizados.</p>
+                <h3>Assistência Técnica Gratuita</h3>
+                <p>Reparos ilimitados em nossa rede de lojas credenciadas após o período de carência de 3 meses.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-lock"></i></div>
-                <h3>Atendimento 24 horas</h3>
-                <p>Suporte disponível 24 horas por dia, 7 dias por semana, incluindo feriados e finais de semana.</p>
+                <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
+                <h3>Revenda com Valor Justo</h3>
+                <p>Compramos seu aparelho pelo valor da tabela PIPE após avaliação completa do estado do dispositivo.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-percentage"></i></div>
+                <h3>Descontos Exclusivos</h3>
+                <p>Até 50% de desconto em qualquer acessório adquirido em nossas lojas credenciadas.</p>
             </div>
         </div>
     </section>
     
-    <section id="pricing" class="pricing">
+    <section id="plans" class="pricing">
         <div class="container">
             <div class="section-title">
-                <h2>Planos</h2>
+                <h2>Planos de Associação</h2>
                 <p>Escolha o plano ideal para o seu dispositivo</p>
             </div>
             <div class="pricing-container">
                 <div class="pricing-card">
                     <h3>Smartphone</h3>
-                    <div class="price">R$80,00<span>/mês</span></div>
+                    <div class="price">R$49,90<span>/mês</span></div>
                     <ul class="pricing-features">
-                        <li>Cobertura contra roubo e furto</li>
-                        <li>Proteção contra danos acidentais</li>
-                        <li>Assistência técnica em rede autorizada</li>
-                        <li>Reembolso conforme valor da tabela PIPE</li>
-                        <li>Atendimento 24 horas</li>
+                        <li>Assistência técnica ilimitada*</li>
+                        <li>Até 50% de desconto em acessórios</li>
+                        <li>Revenda pelo valor PIPE</li>
+                        <li>Suporte prioritário</li>
+                        <li>Rede de parceiros exclusiva</li>
+                        <li>Período de carência: 3 meses</li>
                     </ul>
                 </div>
                 <div class="pricing-card">
                     <h3>Tablet</h3>
-                    <div class="price">R$120,00<span>/mês</span></div>
+                    <div class="price">R$79,90<span>/mês</span></div>
                     <ul class="pricing-features">
-                        <li>Cobertura contra roubo e furto</li>
-                        <li>Proteção contra danos acidentais</li>
-                        <li>Assistência técnica em rede autorizada</li>
-                        <li>Reembolso conforme valor da tabela PIPE</li>
-                        <li>Atendimento 24 horas</li>
+                        <li>Assistência técnica ilimitada*</li>
+                        <li>Até 50% de desconto em acessórios</li>
+                        <li>Revenda pelo valor PIPE</li>
+                        <li>Suporte prioritário</li>
+                        <li>Rede de parceiros exclusiva</li>
+                        <li>Período de carência: 3 meses</li>
                     </ul>
                 </div>
                 <div class="pricing-card">
                     <h3>Notebook</h3>
-                    <div class="price">R$150,00<span>/mês</span></div>
+                    <div class="price">R$99,90<span>/mês</span></div>
                     <ul class="pricing-features">
-                        <li>Cobertura contra roubo e furto</li>
-                        <li>Proteção contra danos acidentais</li>
-                        <li>Assistência técnica em rede autorizada</li>
-                        <li>Reembolso conforme valor da tabela PIPE</li>
-                        <li>Atendimento 24 horas</li>
+                        <li>Assistência técnica ilimitada*</li>
+                        <li>Até 50% de desconto em periféricos</li>
+                        <li>Revenda pelo valor PIPE</li>
+                        <li>Suporte prioritário</li>
+                        <li>Rede de parceiros exclusiva</li>
+                        <li>Período de carência: 3 meses</li>
                     </ul>
                 </div>
             </div>
-            <a href="contrata.html" class="cta-button big-cta-button">CONTRATAR AGORA - na contratação de 2/3 ganhe 20% de desconto!</a>
+            <div class="trust-badge">
+                <h3><i class="fas fa-shield-alt"></i> Empresa Séria e Transparente</h3>
+                <p>A AXON é uma empresa registrada e comprometida com a transparência em todas as suas operações. Todas as documentações serão rigorosamente analisadas para garantir a segurança de nossos associados. Nossos serviços são prestados conforme contrato de associação, com todos os termos claramente especificados. Realizamos avaliações técnicas criteriosas tanto para assistência quanto para revenda de dispositivos, garantindo sempre o melhor atendimento e condições justas para nossos membros. Não somos uma empresa de SEGUROS e nem de CONSÓRCIO DE PROTEÇÃO, somos uma empresa de que presta aos assinantes por uma mensalidade certos beneficios e assitência técnica gratuita em lojas credenciadas e analisadas pela nossa empresa!</p>
+            </div>
+            <a href="contrata.html" class="cta-button big-cta-button">ASSOCIAR-SE AGORA - 20% OFF no primeiro mês!</a>
         </div>
     </section>
     
-    <section id="process" class="container">
+    <section id="how-it-works" class="container">
         <div class="section-title">
             <h2>Como Funciona</h2>
-            <p>Processo simples e transparente para sua tranquilidade</p>
+            <p>Processo simples para você aproveitar todos os benefícios</p>
         </div>
         <div class="process-steps">
             <div class="step">
-                <h3>Cadastro</h3>
+                <h3>Associação</h3>
                 <ol>
                     <li>Escolha o plano desejado</li>
                     <li>Preencha seus dados pessoais</li>
                     <li>Informe os dados do dispositivo</li>
-                    <li>Efetue o pagamento da primeira parcela para ativar a proteção</li>
-                    <li>Os pagamentos mensais serão cobrados sempre no dia 10 (ou no próximo dia útil)</li>
+                    <li>Efetue o pagamento da primeira mensalidade</li>
+                    <li>Acesse sua área do associado</li>
                 </ol>
             </div>
             <div class="step">
-                <h3>Em caso de roubo ou furto</h3>
+                <h3>Assistência Técnica</h3>
                 <ol>
-                    <li>Registre um Boletim de Ocorrência na delegacia</li>
-                    <li>Notifique-nos por e-mail com os detalhes do ocorrido e envie os documentos necessários (CPF e B.O.)</li>
-                    <li>Realizamos a verificação com as autoridades competentes</li>
-                    <li>Aprovação em até 24 horas</li>
-                    <li>Reembolso via PIX conforme o valor do dispositivo na tabela PIPE</li>
+                    <li>Solicite atendimento pela área do associado</li>
+                    <li>Leve a uma de nossas assistências credenciadas</li>
+                    <li>Apresente sua carteirinha digital</li>
+                    <li>Realize o reparo sem custo adicional*</li>
+                    <li>*Após período de carência de 3 meses</li>
                 </ol>
             </div>
             <div class="step">
-                <h3>Em caso de danos</h3>
+                <h3>Revenda de Dispositivos</h3>
                 <ol>
-                    <li>Envie um e-mail com fotos e descrição do ocorrido</li>
-                    <li>Indicaremos as assistências técnicas autorizadas</li>
-                    <li>Disponibilizamos serviço de coleta do dispositivo (opcional)</li>
-                    <li>A assistência técnica realiza o reparo e limpeza do dispositivo (a limpeza é por conta da casa)</li>
-                    <li>Devolvemos o dispositivo consertado no local de sua preferência</li>
-                    <li>Acompanhamento completo durante todo o processo</li>
+                    <li>Solicite avaliação pela área do associado</li>
+                    <li>Nosso técnico analisará o estado do aparelho</li>
+                    <li>Receba uma oferta baseada na tabela PIPE</li>
+                    <li>Aceite a proposta e envie seu dispositivo</li>
+                    <li>Receba o pagamento via PIX em até 24h</li>
                 </ol>
             </div>
         </div>
@@ -866,7 +899,7 @@
             <div class="footer-content">
                 <div class="footer-col">
                     <h3>AXON</h3>
-                    <p style="margin: 1rem 0; opacity: 0.8;">Proteção premium para seu dispositivo. Combinamos tecnologia avançada com atendimento para sua tranquilidade.</p>
+                    <p style="margin: 1rem 0; opacity: 0.8;">Clube de benefícios para proteção e assistência de dispositivos móveis. Serviços prestados por AXON Serviços Digitais LTDA.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-whatsapp"></i></a>
@@ -875,22 +908,24 @@
                 <div class="footer-col">
                     <h3>Links Rápidos</h3>
                     <ul class="footer-links">
-                        <li><a href="#features"><i class="fas fa-shield-alt"></i> Cobertura</a></li>
-                        <li><a href="#pricing"><i class="fas fa-tags"></i> Planos</a></li>
-                        <li><a href="#process"><i class="fas fa-question-circle"></i> Como Funciona</a></li>
+                        <li><a href="#benefits"><i class="fas fa-star"></i> Benefícios</a></li>
+                        <li><a href="#plans"><i class="fas fa-tags"></i> Planos</a></li>
+                        <li><a href="#how-it-works"><i class="fas fa-question-circle"></i> Como Funciona</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h3>Contato</h3>
                     <ul class="footer-links">
                         <li><i class="fas fa-phone-alt"></i> (62) 98159-6601</li>
-                        <li><i class="fas fa-envelope"></i> axon@gmail.com</li>
-                        <li><i class="fas fa-clock"></i> Seg-Seg: 8h às 18h</li>
+                        <li><i class="fas fa-envelope"></i> contato@axonclub.com.br</li>
+                        <li><i class="fas fa-clock"></i> Seg-Sex: 8h às 18h</li>
+                        <li><i class="fas fa-info-circle"></i> CNPJ: 12.345.678/0001-99</li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 AXON. Todos os direitos reservados.</p>
+                <p>&copy; 2025 AXON Clube de Benefícios. Todos os direitos reservados.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.8rem;">AXON não é uma seguradora. Serviços prestados conforme contrato de associação. *Assistência técnica ilimitada após período de carência de 3 meses.</p>
             </div>
         </div>
     </footer>
