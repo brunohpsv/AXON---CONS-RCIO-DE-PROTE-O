@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AXON - Sistema de proteção para dispositivos eletrônicos">
     <title>AXON - Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
@@ -39,6 +39,7 @@
             align-items: center;
             min-height: 100vh;
             padding: 1rem;
+            line-height: 1.5;
         }
         
         .container {
@@ -72,9 +73,13 @@
             color: var(--primary);
         }
         
-        h2 {
+        h1, h2, h3 {
             color: var(--dark);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        h2 {
             font-size: 1.5rem;
         }
         
@@ -176,6 +181,9 @@
             color: var(--primary);
             cursor: pointer;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         .status-card {
@@ -186,7 +194,9 @@
         }
         
         .status-badge {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             padding: 0.5rem 1rem;
             border-radius: 50px;
             font-weight: 600;
@@ -217,6 +227,7 @@
         
         .equipment-info h3 {
             margin-bottom: 0.3rem;
+            font-size: 1rem;
         }
         
         .equipment-info small {
@@ -228,6 +239,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-size: 0.9rem;
         }
         
         .status-dot {
@@ -243,6 +255,25 @@
         .dot-pending {
             background-color: var(--warning);
         }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .login-card, .dashboard {
+                padding: 1.5rem;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .equipment-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -250,21 +281,21 @@
         <!-- Login Form -->
         <div class="login-card" id="loginCard">
             <div class="logo">
-                <i class="fas fa-shield-alt"></i>
+                <i class="fas fa-shield-alt" aria-hidden="true"></i>
                 <span>AXON</span>
             </div>
-            <h2>Faça login na sua conta</h2>
+            <h1>Faça login na sua conta</h1>
             <form id="loginForm">
                 <div class="form-group">
                     <label for="email">E-mail</label>
-                    <input type="email" id="email" required>
+                    <input type="email" id="email" required autocomplete="email">
                 </div>
                 <div class="form-group">
                     <label for="password">Senha</label>
-                    <input type="password" id="password" required>
+                    <input type="password" id="password" required autocomplete="current-password">
                 </div>
                 <button type="submit" class="btn btn-primary">Entrar</button>
-                <div class="error-message" id="errorMessage"></div>
+                <div class="error-message" id="errorMessage" role="alert"></div>
             </form>
         </div>
         
@@ -272,26 +303,26 @@
         <div class="dashboard" id="dashboard">
             <div class="dashboard-header">
                 <div class="user-info">
-                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <div class="user-avatar" id="userAvatar" aria-hidden="true">JD</div>
                     <div>
-                        <h3 id="userName">João da Silva</h3>
+                        <h2 id="userName">João da Silva</h2>
                         <small id="userEmail">joao@example.com</small>
                     </div>
                 </div>
                 <button class="logout-btn" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i> Sair
+                    <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sair
                 </button>
             </div>
             
             <div class="status-card">
-                <h3>Status do seu plano</h3>
+                <h2>Status do seu plano</h2>
                 <p>Verifique abaixo o status atual da sua proteção AXON</p>
                 <div class="status-badge status-active" id="planStatus">
-                    <i class="fas fa-check-circle"></i> Plano Ativo
+                    <i class="fas fa-check-circle" aria-hidden="true"></i> Plano Ativo
                 </div>
             </div>
             
-            <h3>Equipamentos protegidos</h3>
+            <h2>Equipamentos protegidos</h2>
             <div class="equipment-list" id="equipmentList">
                 <!-- Equipment items will be added here -->
             </div>
@@ -310,7 +341,7 @@
         };
 
         // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+        const app = firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
         
@@ -357,7 +388,9 @@
         
         // Logout button
         logoutBtn.addEventListener('click', () => {
-            auth.signOut();
+            auth.signOut().catch(error => {
+                console.error("Logout error:", error);
+            });
         });
         
         // Load user data from Firestore
@@ -367,28 +400,36 @@
                     if (doc.exists) {
                         const userData = doc.data();
                         updateDashboard(userData);
+                    } else {
+                        console.log("No such document!");
                     }
                 })
                 .catch(error => {
                     console.error("Error loading user data:", error);
+                    errorMessage.textContent = "Erro ao carregar dados do usuário.";
                 });
         }
         
         // Update dashboard with user data
         function updateDashboard(userData) {
             // User info
-            const initials = userData.nome.split(' ').map(name => name[0]).join('').toUpperCase();
+            const initials = userData.nome ? 
+                userData.nome.split(' ').map(name => name[0]).join('').toUpperCase().substring(0, 2) : 
+                'US';
             userAvatar.textContent = initials;
-            userName.textContent = userData.nome;
-            userEmail.textContent = userData.email;
+            userName.textContent = userData.nome || 'Usuário';
+            userEmail.textContent = userData.email || 'E-mail não disponível';
             
             // Plan status
             if (userData.status === "ativo") {
                 planStatus.className = "status-badge status-active";
-                planStatus.innerHTML = '<i class="fas fa-check-circle"></i> Plano Ativo';
+                planStatus.innerHTML = '<i class="fas fa-check-circle" aria-hidden="true"></i> Plano Ativo';
             } else if (userData.status === "pendente") {
                 planStatus.className = "status-badge status-pending";
-                planStatus.innerHTML = '<i class="fas fa-clock"></i> Plano Pendente';
+                planStatus.innerHTML = '<i class="fas fa-clock" aria-hidden="true"></i> Plano Pendente';
+            } else {
+                planStatus.className = "status-badge status-pending";
+                planStatus.innerHTML = '<i class="fas fa-exclamation-circle" aria-hidden="true"></i> Status Desconhecido';
             }
             
             // Equipment list
@@ -410,7 +451,7 @@
                     
                     equipmentItem.innerHTML = `
                         <div class="equipment-info">
-                            <h3>${equip.marca} ${equip.modelo}</h3>
+                            <h3>${equip.marca || 'Marca não informada'} ${equip.modelo || 'Modelo não informado'}</h3>
                             <small>${equip.imei ? 'IMEI: ' + equip.imei : 'S/N: ' + (equip.serialNumber || 'N/A')}</small>
                         </div>
                         ${coverageStatus}
@@ -434,6 +475,10 @@
                     return 'Nenhuma conta encontrada com este e-mail.';
                 case 'auth/wrong-password':
                     return 'Senha incorreta.';
+                case 'auth/too-many-requests':
+                    return 'Muitas tentativas. Tente novamente mais tarde.';
+                case 'auth/network-request-failed':
+                    return 'Erro de conexão. Verifique sua internet.';
                 default:
                     return 'Erro ao fazer login. Tente novamente.';
             }
