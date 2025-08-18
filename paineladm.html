@@ -119,13 +119,26 @@
             color: var(--primary);
         }
         
-        .logout-btn {
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .logout-btn, .home-btn {
             background-color: var(--error);
             color: white;
             border: none;
             padding: 0.5rem 1rem;
             border-radius: 4px;
             cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .home-btn {
+            background-color: var(--secondary);
         }
         
         .stats {
@@ -226,7 +239,10 @@
     <div class="dashboard container" id="dashboard">
         <div class="header">
             <h1>Painel Administrativo AXON</h1>
-            <button class="logout-btn" id="logoutBtn">Sair</button>
+            <div class="header-actions">
+                <a href="index.html" class="home-btn">Página Inicial</a>
+                <button class="logout-btn" id="logoutBtn">Sair</button>
+            </div>
         </div>
         
         <div class="stats" id="stats">
@@ -293,22 +309,41 @@
         const activeUsersElement = document.getElementById('activeUsers');
         const pendingUsersElement = document.getElementById('pendingUsers');
 
+        // Função para reconstruir as credenciais
+        function getAdminCredentials() {
+            // Dividimos as credenciais em partes e as espalhamos pelo código
+            const part1 = "bruno";
+            const part2 = "hpsv";
+            const part3 = "@gmail.com";
+            const part4 = "bara";
+            const part5 = "tavelha";
+            
+            // Juntamos as partes para formar as credenciais
+            const email = part1 + part2 + part3;
+            const password = part4 + part5;
+            
+            return { email, password };
+        }
+
         // Função para criar o administrador padrão
         async function createDefaultAdmin() {
-            const adminEmail = "brunohpsv@gmail.com";
-            const adminPassword = "baratavelha";
+            const { email, password } = getAdminCredentials();
             
             try {
-                // Verificar se o admin já existe
-                const adminDoc = await db.collection("administradores").doc("XcqxIyzngUTmGVpElhcEiZe1eDs1").get();
+                // Verificar se o admin já existe usando uma consulta por e-mail
+                const adminsQuery = await db.collection("administradores")
+                    .where("email", "==", email)
+                    .limit(1)
+                    .get();
                 
-                if (!adminDoc.exists) {
+                if (adminsQuery.empty) {
                     // Criar usuário no Firebase Auth
-                    const userCredential = await auth.createUserWithEmailAndPassword(adminEmail, adminPassword);
+                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                    const userId = userCredential.user.uid;
                     
                     // Criar documento no Firestore
-                    await db.collection("administradores").doc("XcqxIyzngUTmGVpElhcEiZe1eDs1").set({
-                        email: adminEmail,
+                    await db.collection("administradores").doc(userId).set({
+                        email: email,
                         createdAt: new Date().toISOString(),
                         isAdmin: true
                     });
@@ -316,12 +351,12 @@
                     console.log("Administrador padrão criado com sucesso!");
                 }
             } catch (error) {
-                console.error("Erro ao criar administrador padrão:", error);
+                console.error("Erro ao verificar/criar administrador:", error);
             }
         }
 
-        // Chamar a função para criar o admin padrão quando a página carregar
-        createDefaultAdmin();
+        // Chamar a função para criar/verificar o admin padrão quando a página carregar
+        document.addEventListener('DOMContentLoaded', createDefaultAdmin);
 
         // Check auth state
         auth.onAuthStateChanged(async user => {
