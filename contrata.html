@@ -29,12 +29,14 @@
             --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
+        
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -44,6 +46,7 @@
             overflow-x: hidden;
             position: relative;
         }
+        
 
         body::before {
             content: '';
@@ -57,6 +60,7 @@
             z-index: -1;
             opacity: 0.1;
         }
+        
 
         .container {
             width: 90%;
@@ -64,6 +68,7 @@
             margin: 0 auto;
             padding: 2rem 0;
         }
+        
 
         /* Header */
         header {
@@ -77,6 +82,7 @@
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0,0,0,0.05);
         }
+        
 
         .header-container {
             display: flex;
@@ -84,6 +90,7 @@
             align-items: center;
             padding: 1rem 0;
         }
+        
 
         .logo {
             font-size: 1.8rem;
@@ -94,18 +101,21 @@
             letter-spacing: -1px;
             padding-left: 0.5rem;
         }
+        
 
         .logo i {
             margin-right: 0.5rem;
             font-size: 1.5rem;
             color: var(--primary);
         }
+        
 
         nav ul {
             display: flex;
             list-style: none;
             gap: 2rem;
         }
+        
 
         nav a {
             color: var(--secondary);
@@ -115,6 +125,7 @@
             position: relative;
             transition: var(--transition);
         }
+        
 
         nav a::after {
             content: '';
@@ -126,14 +137,17 @@
             background-color: var(--primary);
             transition: var(--transition);
         }
+        
 
         nav a:hover {
             color: var(--primary);
         }
+        
 
         nav a:hover::after {
             width: 100%;
         }
+        
 
         .mobile-menu-btn {
             display: none;
@@ -143,6 +157,7 @@
             color: var(--dark);
             cursor: pointer;
         }
+        
 
         /* Hero Section */
         .hero {
@@ -152,6 +167,7 @@
             position: relative;
             overflow: hidden;
         }
+        
 
         .hero h1 {
             font-size: 3rem;
@@ -160,10 +176,12 @@
             font-weight: 800;
             line-height: 1.2;
         }
+        
 
         .hero h1 span {
             color: var(--primary);
         }
+        
 
         .hero p {
             max-width: 700px;
@@ -172,6 +190,7 @@
             color: var(--secondary);
             opacity: 0.9;
         }
+        
 
         .cta-button {
             display: inline-block;
@@ -188,11 +207,13 @@
             border: none;
             cursor: pointer;
         }
+        
 
         .cta-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
         }
+        
 
         .cta-button.secondary {
             background: var(--light);
@@ -200,11 +221,13 @@
             border: 2px solid var(--primary);
             margin-left: 1rem;
         }
+        
 
         .cta-button.secondary:hover {
             background: var(--primary);
             color: var(--light);
         }
+        
 
         /* Contract Section */
         .contract-container {
@@ -213,6 +236,7 @@
             gap: 3rem;
             margin: 4rem 0;
         }
+        
 
         .personal-data-form {
             flex: 1;
@@ -224,6 +248,7 @@
             border: 1px solid rgba(0,0,0,0.05);
             width: 100%;
         }
+        
 
         .personal-data-form h2 {
             color: var(--dark);
@@ -232,6 +257,7 @@
             position: relative;
             padding-bottom: 1rem;
         }
+        
 
         .personal-data-form h2::after {
             content: '';
@@ -242,10 +268,12 @@
             height: 3px;
             background: var(--primary);
         }
+        
 
         .form-group {
             margin-bottom: 1.5rem;
         }
+        
 
         .form-group label {
             display: block;
@@ -253,6 +281,7 @@
             font-weight: 500;
             color: var(--dark);
         }
+        
 
         .form-group input,
         .form-group select,
@@ -264,6 +293,7 @@
             font-family: 'Inter', sans-serif;
             transition: var(--transition);
         }
+        
 
         .form-group input:focus,
         .form-group select:focus,
@@ -272,15 +302,18 @@
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
         }
+        
 
         .form-row {
             display: flex;
             gap: 1rem;
         }
+        
 
         .form-row .form-group {
             flex: 1;
         }
+        
 
         .price-display {
             font-size: 1.5rem;
@@ -292,17 +325,20 @@
             background-color: rgba(255, 107, 53, 0.1);
             border-radius: 8px;
         }
+        
 
         .price-display span {
             font-size: 0.9rem;
             color: var(--secondary);
             font-weight: 400;
         }
+        
 
         .price-display .discount {
             color: #4CAF50;
             font-weight: 600;
         }
+        
 
         .contract-notice {
             background-color: rgba(255, 107, 53, 0.1);
@@ -311,27 +347,32 @@
             margin-top: 2rem;
             font-size: 0.9rem;
         }
+        
 
         .contract-notice h3 {
             color: var(--primary-dark);
             margin-bottom: 0.5rem;
             font-size: 1.1rem;
         }
+        
 
         .contract-notice p {
             color: var(--secondary);
             font-size: 0.9rem;
         }
+        
 
         .contract-notice a {
             color: var(--primary);
             text-decoration: none;
             font-weight: 600;
         }
+        
 
         .contract-notice a:hover {
             text-decoration: underline;
         }
+        
 
         .file-upload {
             display: flex;
@@ -344,25 +385,30 @@
             transition: var(--transition);
             margin-bottom: 1.5rem;
         }
+        
 
         .file-upload:hover {
             border-color: var(--primary);
         }
+        
 
         .file-upload i {
             font-size: 2rem;
             color: var(--primary);
             margin-bottom: 1rem;
         }
+        
 
         .file-upload p {
             color: var(--secondary);
             text-align: center;
         }
+        
 
         .file-upload input {
             display: none;
         }
+        
 
         .file-name {
             margin-top: 0.5rem;
@@ -370,10 +416,12 @@
             color: var(--primary);
             font-weight: 500;
         }
+        
 
         .equipment-list {
             margin-top: 1.5rem;
         }
+        
 
         .equipment-item {
             background-color: rgba(0,0,0,0.03);
@@ -382,11 +430,13 @@
             margin-bottom: 1rem;
             border: 1px solid rgba(0,0,0,0.05);
         }
+        
 
         .equipment-item h4 {
             margin-bottom: 0.5rem;
             color: var(--dark);
         }
+        
 
         .add-equipment {
             display: flex;
@@ -402,14 +452,17 @@
             border: none;
             width: 100%;
         }
+        
 
         .add-equipment:hover {
             background-color: rgba(255, 107, 53, 0.2);
         }
+        
 
         .add-equipment i {
             margin-right: 0.5rem;
         }
+        
 
         .remove-equipment {
             background: none;
@@ -419,6 +472,7 @@
             margin-top: 0.5rem;
             font-size: 0.9rem;
         }
+        
 
         .terms-container {
             background-color: rgba(255, 107, 53, 0.05);
@@ -427,6 +481,7 @@
             margin: 2rem 0;
             border: 1px solid rgba(255, 107, 53, 0.1);
         }
+        
 
         .terms-content {
             display: flex;
@@ -435,31 +490,37 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
+        
 
         .terms-text {
             flex: 1;
             min-width: 250px;
         }
+        
 
         .terms-text a {
             color: var(--primary);
             text-decoration: none;
             font-weight: 600;
         }
+        
 
         .terms-text a:hover {
             text-decoration: underline;
         }
+        
 
         .terms-checkbox {
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
+        
 
         .terms-checkbox input {
             width: auto;
         }
+        
 
         .submit-btn {
             width: 100%;
@@ -475,6 +536,7 @@
             box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
             margin-top: 1rem;
         }
+        
 
         .submit-btn:hover {
             transform: translateY(-3px);
@@ -497,6 +559,7 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
 
         /* Success message */
         .success-message {
@@ -508,22 +571,26 @@
             text-align: center;
             margin: 2rem 0;
         }
+        
 
         .success-message i {
             font-size: 3rem;
             color: #4CAF50;
             margin-bottom: 1rem;
         }
+        
 
         .success-message h2 {
             color: #2E7D32;
             margin-bottom: 1rem;
         }
+        
 
         .success-message p {
             color: var(--secondary);
             margin-bottom: 1.5rem;
         }
+        
 
         .success-actions {
             display: flex;
@@ -531,6 +598,7 @@
             gap: 1rem;
             flex-wrap: wrap;
         }
+        
 
         /* Error message */
         .error-message {
@@ -542,22 +610,26 @@
             text-align: center;
             margin: 2rem 0;
         }
+        
 
         .error-message i {
             font-size: 3rem;
             color: #EF5350;
             margin-bottom: 1rem;
         }
+        
 
         .error-message h2 {
             color: #C62828;
             margin-bottom: 1rem;
         }
+        
 
         .error-message p {
             color: var(--secondary);
             margin-bottom: 1.5rem;
         }
+        
 
         /* Footer */
         footer {
@@ -566,6 +638,7 @@
             padding: 4rem 0 2rem;
             position: relative;
         }
+        
 
         footer::before {
             content: '';
@@ -576,12 +649,14 @@
             height: 8px;
             background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
         }
+        
 
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 3rem;
         }
+        
 
         .footer-col h3 {
             color: var(--light);
@@ -590,6 +665,7 @@
             position: relative;
             display: inline-block;
         }
+        
 
         .footer-col h3::after {
             content: '';
@@ -600,14 +676,17 @@
             height: 3px;
             background: var(--primary);
         }
+        
 
         .footer-links {
             list-style: none;
         }
+        
 
         .footer-links li {
             margin-bottom: 0.8rem;
         }
+        
 
         .footer-links a {
             color: rgba(255, 255, 255, 0.8);
@@ -615,23 +694,27 @@
             transition: var(--transition);
             display: inline-block;
         }
+        
 
         .footer-links a:hover {
             color: var(--accent);
             transform: translateX(5px);
         }
+        
 
         .footer-links i {
             margin-right: 0.5rem;
             width: 20px;
             color: var(--primary);
         }
+        
 
         .social-links {
             display: flex;
             gap: 1rem;
             margin-top: 1.5rem;
         }
+        
 
         .social-links a {
             display: inline-flex;
@@ -644,11 +727,13 @@
             border-radius: 50%;
             transition: var(--transition);
         }
+        
 
         .social-links a:hover {
             background-color: var(--primary);
             transform: translateY(-3px);
         }
+        
 
         .footer-bottom {
             text-align: center;
@@ -658,6 +743,7 @@
             font-size: 0.9rem;
             opacity: 0.7;
         }
+        
 
         /* Responsive */
         @media (max-width: 992px) {
@@ -665,11 +751,13 @@
                 font-size: 2.5rem;
             }
         }
+        
 
         @media (max-width: 768px) {
             .mobile-menu-btn {
                 display: block;
             }
+            
 
             nav {
                 position: fixed;
@@ -683,42 +771,51 @@
                 transition: var(--transition);
                 z-index: 999;
             }
+            
 
             nav.active {
                 transform: translateY(0);
             }
+            
 
             nav ul {
                 flex-direction: column;
                 gap: 1.5rem;
             }
+            
 
             .hero {
                 padding: 8rem 0 4rem;
             }
+            
 
             .hero h1 {
                 font-size: 2rem;
             }
+            
 
             .hero p {
                 font-size: 1rem;
             }
+            
 
             .form-row {
                 flex-direction: column;
                 gap: 0;
             }
+            
 
             .terms-content {
                 flex-direction: column;
                 align-items: flex-start;
             }
+            
 
             .success-actions {
                 flex-direction: column;
                 gap: 0.5rem;
             }
+            
 
             .success-actions .cta-button {
                 margin-left: 0;
@@ -743,6 +840,7 @@
             </nav>
         </div>
     </header>
+    
 
     <section class="hero">
         <div class="container">
@@ -750,12 +848,15 @@
             <p>Preencha o formulário abaixo para contratar a proteção premium para seu(s) dispositivo(s).</p>
         </div>
     </section>
+    
 
     <section class="container">
         <div class="contract-notice">
             <h3>Antes de continuar, por favor leia:</h3>
+            <p> Fique atento ao seu e-mail, pois somente por ele que pediremos documentos para efetivar o seu cadastro. Não fazemos solicitações por chamada e nem por mensagens!</p>
             <p>É importante que você leia e compreenda nosso <a href="#" id="termosLink">Termo de Compromisso</a> e <a href="#" id="contratoLink">Contrato de Serviço</a> antes de prosseguir com a contratação.</p>
         </div>
+        
 
         <div id="contractFormContainer">
             <div class="contract-container">
@@ -772,6 +873,7 @@
                                 <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
                             </div>
                         </div>
+                        
 
                         <div class="form-row">
                             <div class="form-group">
@@ -783,6 +885,7 @@
                                 <input type="text" id="rg" name="rg" placeholder="00.000.000-0" required>
                             </div>
                         </div>
+                        
 
                         <div class="form-row">
                             <div class="form-group">
@@ -794,6 +897,7 @@
                                 <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
                             </div>
                         </div>
+                        
 
                         <div class="form-group">
                             <label for="endereco">Endereço Completo</label>
@@ -801,20 +905,33 @@
                         </div>
                         
                         <div class="form-group">
-                            
-                            </div>
-                        </div>
-                        
-                                                                      
+    <label></label>
+    <div class="file-upload" id="fileUpload">
+        <i class="fas fa-exclamation-circle"></i>
+        <p><strong>Aviso Importante:</strong></p>
+        <p>
+            Os documentos somente serão exigidos para a efetivação do cadastro 
+            e conferência, visando o bom processo da associação.
+        </p>
+        <p>
+            <strong>⚠️ Atenção:</strong> nunca solicitaremos documentos por chamada telefônica ou mensagens. 
+            O envio será realizado apenas por <strong>e-mail oficial</strong>.
+        </p>
+    </div>
+</div>             
+
                         <div class="price-display" id="priceDisplay">Adicione pelo menos um equipamento</div>
+                        
 
                         <div class="equipment-list" id="equipmentList">
                             <!-- Equipment items will be added here dynamically -->
                         </div>
+                        
 
                         <button type="button" class="add-equipment" id="addEquipmentBtn">
                             <i class="fas fa-plus"></i> Adicionar outro equipamento
                         </button>
+                        
 
                         <div class="terms-container">
                             <div class="terms-content">
@@ -827,6 +944,8 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <button type="submit" id="submitBtn" class="submit-btn">Enviar dados!</button>
 
                         <button type="submit" id="submitBtn" class="submit-btn">Enviar para analise!</button>
                         <button type="submit" id="submitBtn" class="submit-btn">Fique atento ao seu e-mail, pois somente por ele pediremos documento para efetivar sua analise. Enviar dados!</button>
@@ -835,6 +954,7 @@
                 </div>
             </div>
         </div>
+        
 
         <!-- Success Message (hidden by default) -->
         <div class="success-message" id="successMessage">
@@ -847,6 +967,7 @@
                 <button onclick="location.reload()" class="cta-button secondary">Fazer novo cadastro</button>
             </div>
         </div>
+        
 
         <!-- Error Message (hidden by default) -->
         <div class="error-message" id="errorMessage">
@@ -859,12 +980,14 @@
             </div>
         </div>
     </section>
+    
 
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
                     <h3>AXON</h3>
+                    <p style="margin: 1rem 0; opacity: 0.8;">AXON - Clube de Proteção e Benefícios</p>
                     <p style="margin: 1rem 0; opacity: 0.8;">Proteção premium para seu dispositivo. Combinamos tecnologia avançada com atendimento para sua tranquilidade.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-instagram"></i></a>
@@ -874,6 +997,7 @@
                 <div class="footer-col">
                     <h3>Links Rápidos</h3>
                     <ul class="footer-links">
+                        <li><a href="index.html#features"><i class="fas fa-shield-alt"></i> Inicio</a></li>
                         <li><a href="index.html#features"><i class="fas fa-shield-alt"></i> Cobertura</a></li>
                         <li><a href="index.html#pricing"><i class="fas fa-tags"></i> Planos</a></li>
                         <li><a href="index.html#process"><i class="fas fa-question-circle"></i> Como Funciona</a></li>
@@ -925,26 +1049,31 @@
     // Mobile Menu Toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mainNav = document.getElementById('mainNav');
+    
 
     mobileMenuBtn.addEventListener('click', () => {
         mainNav.classList.toggle('active');
         mobileMenuBtn.innerHTML = mainNav.classList.contains('active') ? 
             '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
     });
+    
 
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
+            
 
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
+            
 
             if (targetElement) {
                 window.scrollTo({
                     top: targetElement.offsetTop - 80,
                     behavior: 'smooth'
                 });
+                
 
                 // Close mobile menu if open
                 if (mainNav.classList.contains('active')) {
@@ -954,6 +1083,7 @@
             }
         });
     });
+    
 
     // Header scroll effect
     window.addEventListener('scroll', () => {
@@ -965,15 +1095,18 @@
             document.querySelector('header').style.boxShadow = 'none';
         }
     });
+    
 
     // File upload
     const fileUpload = document.getElementById('fileUpload');
     const fileInput = document.getElementById('documento');
     const fileName = document.getElementById('fileName');
+    
 
     fileUpload.addEventListener('click', () => {
         fileInput.click();
     });
+    
 
     fileInput.addEventListener('change', () => {
         if (fileInput.files.length > 0) {
@@ -982,25 +1115,30 @@
             fileName.textContent = 'Nenhum arquivo selecionado';
         }
     });
+    
 
     fileUpload.addEventListener('dragover', (e) => {
         e.preventDefault();
         fileUpload.style.borderColor = 'var(--primary)';
     });
+    
 
     fileUpload.addEventListener('dragleave', () => {
         fileUpload.style.borderColor = 'rgba(0,0,0,0.1)';
     });
+    
 
     fileUpload.addEventListener('drop', (e) => {
         e.preventDefault();
         fileUpload.style.borderColor = 'rgba(0,0,0,0.1)';
+        
 
         if (e.dataTransfer.files.length > 0) {
             fileInput.files = e.dataTransfer.files;
             fileName.textContent = e.dataTransfer.files[0].name;
         }
     });
+    
 
     // Equipment management
     const equipmentList = document.getElementById('equipmentList');
@@ -1012,13 +1150,16 @@
     const successMessage = document.getElementById('successMessage');
     const errorMessage = document.getElementById('errorMessage');
     const errorMessageText = document.getElementById('errorMessageText');
+    
 
     let equipmentCount = 0;
     let totalPrice = 0;
+    
 
     function calculateTotalPrice() {
         totalPrice = 0;
         const equipmentItems = document.querySelectorAll('.equipment-item');
+        
 
         equipmentItems.forEach(item => {
             const type = item.querySelector('.equipment-type').value;
@@ -1034,11 +1175,13 @@
                     break;
             }
         });
+        
 
         // Apply 20% discount if more than one equipment
         if (equipmentItems.length > 1) {
             const discount = totalPrice * 0.2;
             const discountedPrice = totalPrice - discount;
+            
 
             priceDisplay.innerHTML = `
                 <div>Total: R$${totalPrice.toFixed(2)}</div>
@@ -1051,10 +1194,12 @@
             `;
         }
     }
+    
 
     function addEquipmentItem() {
         equipmentCount++;
         const equipmentId = `equipment-${equipmentCount}`;
+        
 
         const equipmentItem = document.createElement('div');
         equipmentItem.className = 'equipment-item';
@@ -1091,12 +1236,15 @@
                 <i class="fas fa-trash-alt"></i> Remover equipamento
             </button>
         `;
+        
 
         equipmentList.appendChild(equipmentItem);
+        
 
         // Add event listener for type change
         const typeSelect = equipmentItem.querySelector('.equipment-type');
         typeSelect.addEventListener('change', calculateTotalPrice);
+        
 
         // Add first equipment automatically
         if (equipmentCount === 1) {
@@ -1104,12 +1252,14 @@
             calculateTotalPrice();
         }
     }
+    
 
     function removeEquipment(id) {
         const equipmentItem = document.getElementById(id);
         if (equipmentItem) {
             equipmentItem.remove();
             calculateTotalPrice();
+            
 
             // Renumber remaining equipment items
             const items = document.querySelectorAll('.equipment-item');
@@ -1122,6 +1272,7 @@
             }
         }
     }
+    
 
     // Show error message
     function showError(message) {
@@ -1129,50 +1280,61 @@
         errorMessage.style.display = 'block';
         contractFormContainer.style.display = 'none';
         successMessage.style.display = 'none';
+        
 
         // Scroll to error message
         errorMessage.scrollIntoView({ behavior: 'smooth' });
     }
+    
 
     // Hide error message
     function hideError() {
         errorMessage.style.display = 'none';
         contractFormContainer.style.display = 'block';
     }
+    
 
     // Add first equipment on load
     addEquipmentItem();
+    
 
     // Add equipment button
     addEquipmentBtn.addEventListener('click', addEquipmentItem);
+    
 
     // Form submission
     document.getElementById('contractForm').addEventListener('submit', async function(e) {
         e.preventDefault();
+        
 
         // Validate form
         const form = document.getElementById('contractForm');
         const termosCheckbox = document.getElementById('termosCheckbox');
         const equipmentItems = document.querySelectorAll('.equipment-item');
+        
 
         if (equipmentItems.length === 0) {
             showError('Por favor, adicione pelo menos um equipamento.');
             return;
         }
+        
 
         if (!form.checkValidity()) {
             showError('Por favor, preencha todos os campos obrigatórios.');
             return;
         }
+        
 
         if (!termosCheckbox.checked) {
             showError('Você precisa aceitar os Termos de Serviço e Política de Privacidade.');
             return;
         }
+        
 
         // Show loading spinner
         submitBtn.style.display = 'none';
         loadingSpinner.style.display = 'block';
+        
 
         try {
             // Collect form data
@@ -1197,6 +1359,7 @@
                 dataContratacao: new Date().toISOString(),
                 dataAtualizacao: new Date().toISOString()
             };
+            
 
             // Collect equipment data
             equipmentItems.forEach((item, index) => {
@@ -1207,22 +1370,27 @@
                     imei: item.querySelector('.equipment-imei')?.value || ''
                 });
             });
+            
 
             // Validate CPF format
             const cpf = formData.personalData.cpf.replace(/\D/g, '');
             if (cpf.length !== 11) {
                 throw new Error('CPF deve conter 11 dígitos');
             }
+            
 
             // Save to Firestore
             if (!firebase.apps.length) {
                 throw new Error('Firebase não foi inicializado corretamente');
             }
+            
 
             const db = firebase.firestore();
+            
 
             // Check if user already exists
             const userDoc = await db.collection('usuarios').doc(cpf).get();
+            
 
             if (userDoc.exists) {
                 // Update existing user
@@ -1244,6 +1412,7 @@
                     dataAtualizacao: formData.dataAtualizacao
                 });
             }
+            
 
             // Enviar e-mail via EmailJS
             const templateParams = {
@@ -1268,14 +1437,17 @@
             };
 
             await emailjs.send('SEU_SERVICE_ID', 'SEU_TEMPLATE_ID', templateParams);
+            
 
             // Show success message
             contractFormContainer.style.display = 'none';
             successMessage.style.display = 'block';
             errorMessage.style.display = 'none';
+            
 
             // Scroll to success message
             successMessage.scrollIntoView({ behavior: 'smooth' });
+            
 
         } catch (error) {
             console.error("Erro ao processar o formulário: ", error);
@@ -1286,27 +1458,32 @@
             loadingSpinner.style.display = 'none';
         }
     });
+    
 
     // Terms links
     document.getElementById('termosLink').addEventListener('click', function(e) {
         e.preventDefault();
         alert('Aqui você veria o Termo de Compromisso. Em uma implementação real, isso abriria um modal ou página com o documento.');
     });
+    
 
     document.getElementById('contratoLink').addEventListener('click', function(e) {
         e.preventDefault();
         alert('Aqui você veria o Contrato de Serviço. Em uma implementação real, isso abriria um modal ou página com o documento.');
     });
+    
 
     document.getElementById('termsLink').addEventListener('click', function(e) {
         e.preventDefault();
         alert('Aqui você veria os Termos de Serviço. Em uma implementação real, isso abriria um modal ou página com o documento.');
     });
+    
 
     document.getElementById('privacyLink').addEventListener('click', function(e) {
         e.preventDefault();
         alert('Aqui você veria a Política de Privacidade. Em uma implementação real, isso abriria um modal ou página com o documento.');
     });
+    
 
     // Make removeEquipment function available globally
     window.removeEquipment = removeEquipment;
