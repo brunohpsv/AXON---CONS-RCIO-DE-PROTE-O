@@ -1013,6 +1013,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
     // Inicialize o EmailJS com seu User ID
     (function() {
@@ -1088,50 +1089,6 @@
             document.querySelector('header').style.boxShadow = 'none';
         }
     });
-    
-
-    // File upload
-    const fileUpload = document.getElementById('fileUpload');
-    const fileInput = document.getElementById('documento');
-    const fileName = document.getElementById('fileName');
-    
-
-    fileUpload.addEventListener('click', () => {
-        fileInput.click();
-    });
-    
-
-    fileInput.addEventListener('change', () => {
-        if (fileInput.files.length > 0) {
-            fileName.textContent = fileInput.files[0].name;
-        } else {
-            fileName.textContent = 'Nenhum arquivo selecionado';
-        }
-    });
-    
-
-    fileUpload.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        fileUpload.style.borderColor = 'var(--primary)';
-    });
-    
-
-    fileUpload.addEventListener('dragleave', () => {
-        fileUpload.style.borderColor = 'rgba(0,0,0,0.1)';
-    });
-    
-
-    fileUpload.addEventListener('drop', (e) => {
-        e.preventDefault();
-        fileUpload.style.borderColor = 'rgba(0,0,0,0.1)';
-        
-
-        if (e.dataTransfer.files.length > 0) {
-            fileInput.files = e.dataTransfer.files;
-            fileName.textContent = e.dataTransfer.files[0].name;
-        }
-    });
-    
 
     // Equipment management
     const equipmentList = document.getElementById('equipmentList');
@@ -1339,8 +1296,7 @@
                     rg: document.getElementById('rg').value,
                     email: document.getElementById('email').value,
                     telefone: document.getElementById('telefone').value,
-                    endereco: document.getElementById('endereco').value,
-                    documento: "A ser enviado por e-mail"
+                    endereco: document.getElementById('endereco').value
                 },
                 equipments: [],
                 price: {
@@ -1425,8 +1381,7 @@
                 `).join('\n\n'),
                 valor_total: formData.price.total.toFixed(2),
                 desconto: formData.price.discount.toFixed(2),
-                valor_final: formData.price.discounted.toFixed(2),
-                documento: formData.personalData.documento
+                valor_final: formData.price.discounted.toFixed(2)
             };
 
             await emailjs.send('SEU_SERVICE_ID', 'SEU_TEMPLATE_ID', templateParams);
