@@ -200,30 +200,6 @@
             background-color: var(--error);
             color: white;
         }
-        
-        /* Admin Registration Section */
-        .admin-register {
-            margin-top: 2rem;
-            background-color: var(--light);
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        
-        .admin-register h2 {
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-        
-        .form-row {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .form-row .form-group {
-            flex: 1;
-        }
     </style>
 </head>
 <body>
@@ -288,31 +264,6 @@
                 </tbody>
             </table>
         </div>
-        
-        <!-- Seção para registrar novos administradores -->
-        <div class="admin-register" id="adminRegisterSection">
-            <h2>Registrar Novo Administrador</h2>
-            <form id="adminRegisterForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="adminCpf">CPF do Usuário</label>
-                        <input type="text" id="adminCpf" placeholder="CPF do usuário cadastrado" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="adminEmail">E-mail</label>
-                        <input type="email" id="adminEmail" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="adminPassword">Senha</label>
-                        <input type="password" id="adminPassword" required>
-                    </div>
-                </div>
-                <button type="submit" class="btn">Registrar Administrador</button>
-                <div class="error-message" id="registerError"></div>
-            </form>
-        </div>
     </div>
 
     <script>
@@ -327,14 +278,9 @@
         };
 
         // Initialize Firebase
-        try {
-            firebase.initializeApp(firebaseConfig);
-            const db = firebase.firestore();
-            const auth = firebase.auth();
-            console.log("Firebase inicializado com sucesso!");
-        } catch (error) {
-            console.error("Erro ao inicializar Firebase:", error);
-        }
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
 
         // DOM Elements
         const loginContainer = document.getElementById('loginContainer');
@@ -346,18 +292,53 @@
         const totalUsersElement = document.getElementById('totalUsers');
         const activeUsersElement = document.getElementById('activeUsers');
         const pendingUsersElement = document.getElementById('pendingUsers');
-        const adminRegisterForm = document.getElementById('adminRegisterForm');
-        const registerError = document.getElementById('registerError');
+
+        // Função para criar o administrador padrão
+        async function createDefaultAdmin() {
+            const adminEmail = "brunohpsv@gmail.com";
+            const adminPassword = "baratavelha";
+            
+            try {
+                // Verificar se o admin já existe
+                const adminDoc = await db.collection("administradores").doc("XcqxIyzngUTmGVpElhcEiZe1eDs1").get();
+                
+                if (!adminDoc.exists) {
+                    // Criar usuário no Firebase Auth
+                    const userCredential = await auth.createUserWithEmailAndPassword(adminEmail, adminPassword);
+                    
+                    // Criar documento no Firestore
+                    await db.collection("administradores").doc("XcqxIyzngUTmGVpElhcEiZe1eDs1").set({
+                        email: adminEmail,
+                        createdAt: new Date().toISOString(),
+                        isAdmin: true
+                    });
+                    
+                    console.log("Administrador padrão criado com sucesso!");
+                }
+            } catch (error) {
+                console.error("Erro ao criar administrador padrão:", error);
+            }
+        }
+
+        // Chamar a função para criar o admin padrão quando a página carregar
+        createDefaultAdmin();
 
         // Check auth state
-        auth.onAuthStateChanged(user => {
+        auth.onAuthStateChanged(async user => {
             if (user) {
-                // User is signed in
-                loginContainer.style.display = 'none';
-                dashboard.style.display = 'block';
-                loadUsers();
+                // Verificar se o usuário é administrador
+                const adminDoc = await db.collection("administradores").doc(user.uid).get();
+                
+                if (adminDoc.exists) {
+                    loginContainer.style.display = 'none';
+                    dashboard.style.display = 'block';
+                    loadUsers();
+                } else {
+                    await auth.signOut();
+                    loginError.textContent = 'Acesso restrito a administradores.';
+                    loginContainer.style.display = 'flex';
+                }
             } else {
-                // No user is signed in
                 loginContainer.style.display = 'flex';
                 dashboard.style.display = 'none';
             }
@@ -473,40 +454,6 @@
                 alert('Erro ao atualizar status. Tente novamente.');
             }
         }
-
-        // Register new admin
-        adminRegisterForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const cpf = document.getElementById('adminCpf').value;
-            const email = document.getElementById('adminEmail').value;
-            const password = document.getElementById('adminPassword').value;
-            
-            try {
-                // First check if user exists in usuarios collection
-                const userDoc = await db.collection('usuarios').doc(cpf).get();
-                
-                if (!userDoc.exists) {
-                    throw new Error('Usuário com este CPF não encontrado no sistema.');
-                }
-                
-                // Create user in Firebase Auth
-                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                
-                // Add admin role in Firestore
-                await db.collection('administradores').doc(userCredential.user.uid).set({
-                    cpf: cpf,
-                    email: email,
-                    createdAt: new Date().toISOString()
-                });
-                
-                registerError.textContent = '';
-                alert('Administrador registrado com sucesso!');
-                adminRegisterForm.reset();
-            } catch (error) {
-                registerError.textContent = error.message;
-                console.error("Erro ao registrar administrador:", error);
-            }
-        });
 
         // Make updateStatus available globally
         window.updateStatus = updateStatus;
