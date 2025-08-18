@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXON - Painel Administrativo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --secondary: #2D2D2D;
+            --light: #FFFFFF;
+            --dark: #161616;
+            --gray: #F5F5F5;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --error: #F44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: var(--gray);
+            color: var(--secondary);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Login Section */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .login-box {
+            background-color: var(--light);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-box h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+        }
+        
+        .error-message {
+            color: var(--error);
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        /* Dashboard Section */
+        .dashboard {
+            display: none;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 1.5rem;
+        }
+        
+        .header h1 {
+            color: var(--primary);
+        }
+        
+        .logout-btn {
+            background-color: var(--error);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--light);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .users-table th, .users-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .users-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .users-table tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .status-pending {
+            color: var(--warning);
+            font-weight: 600;
+        }
+        
+        .status-active {
+            color: var(--success);
+            font-weight: 600;
+        }
+        
+        .action-btn {
+            padding: 0.3rem 0.6rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .approve-btn {
+            background-color: var(--success);
+            color: white;
+            margin-right: 0.5rem;
+        }
+        
+        .reject-btn {
+            background-color: var(--error);
+            color: white;
+        }
+        
+        /* Admin Registration Section */
+        .admin-register {
+            margin-top: 2rem;
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .admin-register h2 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Section -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-box">
+            <h1>AXON Admin</h1>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="btn">Entrar</button>
+                <div class="error-message" id="loginError"></div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Dashboard Section -->
+    <div class="dashboard container" id="dashboard">
+        <div class="header">
+            <h1>Painel Administrativo AXON</h1>
+            <button class="logout-btn" id="logoutBtn">Sair</button>
+        </div>
+        
+        <div class="stats" id="stats">
+            <div class="stat-card">
+                <h3 id="totalUsers">0</h3>
+                <p>Total de Cadastros</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="activeUsers">0</h3>
+                <p>Ativos</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="pendingUsers">0</h3>
+                <p>Pendentes</p>
+            </div>
+        </div>
+        
+        <h2>Cadastros</h2>
+        <div class="table-responsive">
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>E-mail</th>
+                        <th>Telefone</th>
+                        <th>Equipamentos</th>
+                        <th>Valor</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <!-- Dados serão inseridos aqui via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Seção para registrar novos administradores -->
+        <div class="admin-register" id="adminRegisterSection">
+            <h2>Registrar Novo Administrador</h2>
+            <form id="adminRegisterForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="adminCpf">CPF do Usuário</label>
+                        <input type="text" id="adminCpf" placeholder="CPF do usuário cadastrado" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="adminEmail">E-mail</label>
+                        <input type="email" id="adminEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminPassword">Senha</label>
+                        <input type="password" id="adminPassword" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn">Registrar Administrador</button>
+                <div class="error-message" id="registerError"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
+            authDomain: "axon-ec708.firebaseapp.com",
+            projectId: "axon-ec708",
+            storageBucket: "axon-ec708.appspot.com",
+            messagingSenderId: "403077673595",
+            appId: "1:403077673595:web:a4cb91bdf662f8d8e9e8de"
+        };
+
+        // Initialize Firebase
+        try {
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+            const auth = firebase.auth();
+            console.log("Firebase inicializado com sucesso!");
+        } catch (error) {
+            console.error("Erro ao inicializar Firebase:", error);
+        }
+
+        // DOM Elements
+        const loginContainer = document.getElementById('loginContainer');
+        const dashboard = document.getElementById('dashboard');
+        const loginForm = document.getElementById('loginForm');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const loginError = document.getElementById('loginError');
+        const usersTableBody = document.getElementById('usersTableBody');
+        const totalUsersElement = document.getElementById('totalUsers');
+        const activeUsersElement = document.getElementById('activeUsers');
+        const pendingUsersElement = document.getElementById('pendingUsers');
+        const adminRegisterForm = document.getElementById('adminRegisterForm');
+        const registerError = document.getElementById('registerError');
+
+        // Check auth state
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                // User is signed in
+                loginContainer.style.display = 'none';
+                dashboard.style.display = 'block';
+                loadUsers();
+            } else {
+                // No user is signed in
+                loginContainer.style.display = 'flex';
+                dashboard.style.display = 'none';
+            }
+        });
+
+        // Login
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                loginError.textContent = '';
+            } catch (error) {
+                loginError.textContent = 'E-mail ou senha incorretos.';
+                console.error("Erro de login:", error);
+            }
+        });
+
+        // Logout
+        logoutBtn.addEventListener('click', () => {
+            auth.signOut();
+        });
+
+        // Load users from Firestore
+        async function loadUsers() {
+            try {
+                const snapshot = await db.collection('usuarios').get();
+                const users = [];
+                let activeCount = 0;
+                let pendingCount = 0;
+                
+                snapshot.forEach(doc => {
+                    const user = doc.data();
+                    user.id = doc.id;
+                    users.push(user);
+                    
+                    if (user.status === 'ativo') {
+                        activeCount++;
+                    } else {
+                        pendingCount++;
+                    }
+                });
+                
+                // Update stats
+                totalUsersElement.textContent = users.length;
+                activeUsersElement.textContent = activeCount;
+                pendingUsersElement.textContent = pendingCount;
+                
+                // Populate table
+                usersTableBody.innerHTML = '';
+                users.forEach(user => {
+                    const row = document.createElement('tr');
+                    
+                    // Format equipment list
+                    let equipmentList = '';
+                    if (user.equipments && user.equipments.length > 0) {
+                        equipmentList = user.equipments.map(eq => 
+                            `${eq.tipo} (${eq.marca} ${eq.modelo})`
+                        ).join(', ');
+                    }
+                    
+                    // Format price
+                    let price = 'N/A';
+                    if (user.price) {
+                        price = `R$${user.price.discounted.toFixed(2)}/mês`;
+                        if (user.price.discount > 0) {
+                            price += ` (${(user.price.discount/user.price.total*100).toFixed(0)}% desc)`;
+                        }
+                    }
+                    
+                    row.innerHTML = `
+                        <td>${user.nome}</td>
+                        <td>${user.cpf}</td>
+                        <td>${user.email}</td>
+                        <td>${user.telefone}</td>
+                        <td>${equipmentList}</td>
+                        <td>${price}</td>
+                        <td class="${user.status === 'ativo' ? 'status-active' : 'status-pending'}">
+                            ${user.status === 'ativo' ? 'Ativo' : 'Pendente'}
+                        </td>
+                        <td>
+                            ${user.status !== 'ativo' ? 
+                                `<button class="action-btn approve-btn" onclick="updateStatus('${user.id}', 'ativo')">
+                                    Aprovar
+                                </button>` : ''
+                            }
+                            ${user.status === 'ativo' ? 
+                                `<button class="action-btn reject-btn" onclick="updateStatus('${user.id}', 'pendente')">
+                                    Rejeitar
+                                </button>` : ''
+                            }
+                        </td>
+                    `;
+                    usersTableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error("Erro ao carregar usuários:", error);
+            }
+        }
+
+        // Update user status
+        async function updateStatus(userId, status) {
+            try {
+                await db.collection('usuarios').doc(userId).update({
+                    status: status,
+                    dataAtualizacao: new Date().toISOString()
+                });
+                loadUsers();
+            } catch (error) {
+                console.error("Erro ao atualizar status:", error);
+                alert('Erro ao atualizar status. Tente novamente.');
+            }
+        }
+
+        // Register new admin
+        adminRegisterForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const cpf = document.getElementById('adminCpf').value;
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+            
+            try {
+                // First check if user exists in usuarios collection
+                const userDoc = await db.collection('usuarios').doc(cpf).get();
+                
+                if (!userDoc.exists) {
+                    throw new Error('Usuário com este CPF não encontrado no sistema.');
+                }
+                
+                // Create user in Firebase Auth
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                
+                // Add admin role in Firestore
+                await db.collection('administradores').doc(userCredential.user.uid).set({
+                    cpf: cpf,
+                    email: email,
+                    createdAt: new Date().toISOString()
+                });
+                
+                registerError.textContent = '';
+                alert('Administrador registrado com sucesso!');
+                adminRegisterForm.reset();
+            } catch (error) {
+                registerError.textContent = error.message;
+                console.error("Erro ao registrar administrador:", error);
+            }
+        });
+
+        // Make updateStatus available globally
+        window.updateStatus = updateStatus;
+    </script>
+</body>
+</html>
