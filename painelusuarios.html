@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="AXON - Sistema de proteção para dispositivos eletrônicos">
-    <title>AXON - Login</title>
+    <title>AXON - Painel do Cliente</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
@@ -34,145 +34,103 @@
         
         body {
             background-color: var(--gray);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 1rem;
+            color: var(--secondary);
             line-height: 1.5;
         }
         
         .container {
-            width: 100%;
             max-width: 1200px;
-        }
-        
-        /* Login Card */
-        .login-card {
-            background-color: var(--light);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            max-width: 400px;
             margin: 0 auto;
-            text-align: center;
+            padding: 20px;
         }
         
-        .logo {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--dark);
-            margin-bottom: 1.5rem;
+        /* Login Section */
+        .login-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 0.5rem;
+            height: 100vh;
         }
         
-        .logo i {
+        .login-box {
+            background-color: var(--light);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-box h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
             color: var(--primary);
         }
         
-        h1, h2, h3 {
-            color: var(--dark);
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-        
-        h2 {
-            font-size: 1.5rem;
-        }
-        
         .form-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
+            margin-bottom: 1rem;
         }
         
-        label {
+        .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            color: var(--secondary);
             font-weight: 500;
         }
         
-        input {
+        .form-group input {
             width: 100%;
             padding: 0.8rem;
             border: 1px solid #ddd;
-            border-radius: 8px;
+            border-radius: 4px;
             font-size: 1rem;
-            transition: var(--transition);
         }
         
-        input:focus {
+        .form-group input:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
         }
         
         .btn {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
+            display: block;
             width: 100%;
-        }
-        
-        .btn-primary {
+            padding: 0.8rem;
             background-color: var(--primary);
             color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: var(--transition);
         }
         
-        .btn-primary:hover {
+        .btn:hover {
             background-color: var(--primary-dark);
         }
         
         .error-message {
             color: var(--danger);
             margin-top: 1rem;
+            text-align: center;
             font-size: 0.9rem;
         }
         
-        /* Dashboard */
+        /* Dashboard Section */
         .dashboard {
             display: none;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: var(--light);
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            padding: 2rem;
         }
         
-        .dashboard-header {
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            padding: 1rem 0;
+            margin-bottom: 1.5rem;
         }
         
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
+        .header h1 {
+            color: var(--primary);
         }
         
         .logout-btn {
@@ -186,59 +144,134 @@
             gap: 0.5rem;
         }
         
-        .status-card {
-            background-color: rgba(255, 107, 53, 0.1);
+        /* User Info Section */
+        .user-info-card {
+            background-color: var(--light);
             padding: 1.5rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .user-details h2 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .user-details p {
+            color: var(--secondary);
+        }
+        
+        /* Status Cards */
+        .status-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .status-card {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .status-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .status-card p {
+            margin-bottom: 0.5rem;
         }
         
         .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
             font-weight: 600;
             margin-top: 0.5rem;
         }
         
         .status-active {
-            background-color: rgba(76, 175, 80, 0.2);
+            background-color: rgba(76, 175, 80, 0.1);
             color: var(--success);
         }
         
         .status-pending {
-            background-color: rgba(255, 193, 7, 0.2);
+            background-color: rgba(255, 193, 7, 0.1);
             color: var(--warning);
         }
         
+        .status-inactive {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--danger);
+        }
+        
+        /* Equipment Section */
+        .equipment-section {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+        
+        .equipment-section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
         .equipment-list {
-            margin-top: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
         }
         
-        .equipment-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid #eee;
+        .equipment-card {
+            background-color: var(--gray);
+            padding: 1.5rem;
+            border-radius: 8px;
         }
         
-        .equipment-info h3 {
-            margin-bottom: 0.3rem;
-            font-size: 1rem;
+        .equipment-card h3 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
         }
         
-        .equipment-info small {
+        .equipment-card p {
             color: var(--secondary);
-            font-size: 0.8rem;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
         }
         
         .status-indicator {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            margin-top: 0.5rem;
             font-size: 0.9rem;
         }
         
@@ -255,36 +288,86 @@
         .dot-pending {
             background-color: var(--warning);
         }
-
+        
+        .dot-inactive {
+            background-color: var(--danger);
+        }
+        
+        /* Payments Section */
+        .payments-section {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .payments-section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .payments-list {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .payment-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: var(--gray);
+            border-radius: 8px;
+        }
+        
+        .payment-info h4 {
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+        
+        .payment-info p {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
+        .payment-status {
+            font-weight: 600;
+        }
+        
+        .payment-paid {
+            color: var(--success);
+        }
+        
+        .payment-pending {
+            color: var(--warning);
+        }
+        
+        .payment-overdue {
+            color: var(--danger);
+        }
+        
         /* Responsive adjustments */
-        @media (max-width: 600px) {
-            .login-card, .dashboard {
-                padding: 1.5rem;
+        @media (max-width: 768px) {
+            .status-cards {
+                grid-template-columns: 1fr;
             }
             
-            .dashboard-header {
+            .user-info-card {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
+                text-align: center;
             }
             
-            .equipment-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
+            .equipment-list {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Login Form -->
-        <div class="login-card" id="loginCard">
-            <div class="logo">
-                <i class="fas fa-shield-alt" aria-hidden="true"></i>
-                <span>AXON</span>
-            </div>
-            <h1>Faça login na sua conta</h1>
+    <!-- Login Section -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-box">
+            <h1><i class="fas fa-shield-alt"></i> AXON</h1>
             <form id="loginForm">
                 <div class="form-group">
                     <label for="email">E-mail</label>
@@ -294,37 +377,69 @@
                     <label for="password">Senha</label>
                     <input type="password" id="password" required autocomplete="current-password">
                 </div>
-                <button type="submit" class="btn btn-primary">Entrar</button>
+                <button type="submit" class="btn">Entrar</button>
                 <div class="error-message" id="errorMessage" role="alert"></div>
             </form>
         </div>
+    </div>
+    
+    <!-- Dashboard Section -->
+    <div class="dashboard container" id="dashboard">
+        <div class="header">
+            <h1><i class="fas fa-shield-alt"></i> Painel AXON</h1>
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </button>
+        </div>
         
-        <!-- Dashboard -->
-        <div class="dashboard" id="dashboard">
-            <div class="dashboard-header">
-                <div class="user-info">
-                    <div class="user-avatar" id="userAvatar" aria-hidden="true">JD</div>
-                    <div>
-                        <h2 id="userName">João da Silva</h2>
-                        <small id="userEmail">joao@example.com</small>
-                    </div>
+        <!-- User Info -->
+        <div class="user-info-card">
+            <div class="user-avatar" id="userAvatar">JD</div>
+            <div class="user-details">
+                <h2 id="userName">João da Silva</h2>
+                <p id="userEmail">joao@example.com</p>
+                <p id="userCpf">CPF: 123.456.789-00</p>
+            </div>
+        </div>
+        
+        <!-- Status Cards -->
+        <div class="status-cards">
+            <div class="status-card">
+                <h3><i class="fas fa-shield-alt"></i> Status do Plano</h3>
+                <p>Verifique o status atual da sua proteção AXON</p>
+                <div class="status-badge status-active" id="planStatus">
+                    <i class="fas fa-check-circle"></i> Plano Ativo
                 </div>
-                <button class="logout-btn" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Sair
-                </button>
             </div>
             
             <div class="status-card">
-                <h2>Status do seu plano</h2>
-                <p>Verifique abaixo o status atual da sua proteção AXON</p>
-                <div class="status-badge status-active" id="planStatus">
-                    <i class="fas fa-check-circle" aria-hidden="true"></i> Plano Ativo
-                </div>
+                <h3><i class="fas fa-calendar-alt"></i> Período de Cobertura</h3>
+                <p id="coverageDates">Início: 01/01/2023 - Término: 01/01/2024</p>
+                <p id="daysRemaining">Faltam 120 dias para o término</p>
             </div>
             
-            <h2>Equipamentos protegidos</h2>
+            <div class="status-card">
+                <h3><i class="fas fa-clock"></i> Status de Carência</h3>
+                <p id="carenciaStatus">Seu período de carência termina em 15 dias</p>
+                <div class="status-badge status-pending" id="carenciaBadge">
+                    <i class="fas fa-clock"></i> Em Carência
+                </div>
+            </div>
+        </div>
+        
+        <!-- Equipment Section -->
+        <div class="equipment-section">
+            <h2><i class="fas fa-mobile-alt"></i> Equipamentos Protegidos</h2>
             <div class="equipment-list" id="equipmentList">
-                <!-- Equipment items will be added here -->
+                <!-- Equipment cards will be added here -->
+            </div>
+        </div>
+        
+        <!-- Payments Section -->
+        <div class="payments-section">
+            <h2><i class="fas fa-receipt"></i> Mensalidades</h2>
+            <div class="payments-list" id="paymentsList">
+                <!-- Payment items will be added here -->
             </div>
         </div>
     </div>
@@ -346,7 +461,7 @@
         const db = firebase.firestore();
         
         // DOM Elements
-        const loginCard = document.getElementById('loginCard');
+        const loginContainer = document.getElementById('loginContainer');
         const dashboard = document.getElementById('dashboard');
         const loginForm = document.getElementById('loginForm');
         const errorMessage = document.getElementById('errorMessage');
@@ -354,19 +469,25 @@
         const userAvatar = document.getElementById('userAvatar');
         const userName = document.getElementById('userName');
         const userEmail = document.getElementById('userEmail');
+        const userCpf = document.getElementById('userCpf');
         const planStatus = document.getElementById('planStatus');
+        const coverageDates = document.getElementById('coverageDates');
+        const daysRemaining = document.getElementById('daysRemaining');
+        const carenciaStatus = document.getElementById('carenciaStatus');
+        const carenciaBadge = document.getElementById('carenciaBadge');
         const equipmentList = document.getElementById('equipmentList');
+        const paymentsList = document.getElementById('paymentsList');
         
         // Check auth state
         auth.onAuthStateChanged(user => {
             if (user) {
                 // User is signed in
-                loginCard.style.display = 'none';
+                loginContainer.style.display = 'none';
                 dashboard.style.display = 'block';
                 loadUserData(user.uid);
             } else {
                 // User is signed out
-                loginCard.style.display = 'block';
+                loginContainer.style.display = 'flex';
                 dashboard.style.display = 'none';
             }
         });
@@ -402,6 +523,8 @@
                         updateDashboard(userData);
                     } else {
                         console.log("No such document!");
+                        errorMessage.textContent = "Usuário não encontrado no sistema.";
+                        auth.signOut();
                     }
                 })
                 .catch(error => {
@@ -419,48 +542,121 @@
             userAvatar.textContent = initials;
             userName.textContent = userData.nome || 'Usuário';
             userEmail.textContent = userData.email || 'E-mail não disponível';
+            userCpf.textContent = userData.cpf ? `CPF: ${formatCpf(userData.cpf)}` : 'CPF não cadastrado';
             
             // Plan status
             if (userData.status === "ativo") {
                 planStatus.className = "status-badge status-active";
-                planStatus.innerHTML = '<i class="fas fa-check-circle" aria-hidden="true"></i> Plano Ativo';
+                planStatus.innerHTML = '<i class="fas fa-check-circle"></i> Plano Ativo';
             } else if (userData.status === "pendente") {
                 planStatus.className = "status-badge status-pending";
-                planStatus.innerHTML = '<i class="fas fa-clock" aria-hidden="true"></i> Plano Pendente';
+                planStatus.innerHTML = '<i class="fas fa-clock"></i> Plano Pendente';
             } else {
-                planStatus.className = "status-badge status-pending";
-                planStatus.innerHTML = '<i class="fas fa-exclamation-circle" aria-hidden="true"></i> Status Desconhecido';
+                planStatus.className = "status-badge status-inactive";
+                planStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Status Desconhecido';
+            }
+            
+            // Coverage dates
+            const startDate = userData.dataInicio ? formatDate(new Date(userData.dataInicio)) : 'Não informada';
+            const endDate = userData.dataFim ? formatDate(new Date(userData.dataFim)) : 'Não informada';
+            coverageDates.textContent = `Início: ${startDate} - Término: ${endDate}`;
+            
+            // Days remaining
+            if (userData.dataFim) {
+                const today = new Date();
+                const end = new Date(userData.dataFim);
+                const diffTime = end - today;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                
+                if (diffDays > 0) {
+                    daysRemaining.textContent = `Faltam ${diffDays} dias para o término`;
+                } else if (diffDays === 0) {
+                    daysRemaining.textContent = 'Seu plano termina hoje';
+                } else {
+                    daysRemaining.textContent = `Seu plano expirou há ${Math.abs(diffDays)} dias`;
+                }
+            } else {
+                daysRemaining.textContent = 'Data de término não informada';
+            }
+            
+            // Carencia status
+            if (userData.periodoCarencia > 0) {
+                carenciaStatus.textContent = `Seu período de carência termina em ${userData.periodoCarencia} dias`;
+                carenciaBadge.className = "status-badge status-pending";
+                carenciaBadge.innerHTML = '<i class="fas fa-clock"></i> Em Carência';
+            } else {
+                carenciaStatus.textContent = 'Seu equipamento está totalmente protegido';
+                carenciaBadge.className = "status-badge status-active";
+                carenciaBadge.innerHTML = '<i class="fas fa-check-circle"></i> Sem Carência';
             }
             
             // Equipment list
             if (userData.equipamentos && userData.equipamentos.length > 0) {
                 equipmentList.innerHTML = '';
                 userData.equipamentos.forEach(equip => {
-                    const equipmentItem = document.createElement('div');
-                    equipmentItem.className = 'equipment-item';
+                    const equipmentCard = document.createElement('div');
+                    equipmentCard.className = 'equipment-card';
                     
                     const coverageStatus = userData.periodoCarencia > 0 ? 
                         `<div class="status-indicator">
                             <span class="status-dot dot-pending"></span>
-                            <span>Em carência (${userData.periodoCarencia} dias)</span>
+                            <span>Em carência (${userData.periodoCarencia} dias restantes)</span>
                         </div>` :
                         `<div class="status-indicator">
                             <span class="status-dot dot-active"></span>
                             <span>Cobertura ativa</span>
                         </div>`;
                     
-                    equipmentItem.innerHTML = `
-                        <div class="equipment-info">
-                            <h3>${equip.marca || 'Marca não informada'} ${equip.modelo || 'Modelo não informado'}</h3>
-                            <small>${equip.imei ? 'IMEI: ' + equip.imei : 'S/N: ' + (equip.serialNumber || 'N/A')}</small>
-                        </div>
+                    equipmentCard.innerHTML = `
+                        <h3>${equip.marca || 'Marca não informada'} ${equip.modelo || 'Modelo não informado'}</h3>
+                        <p><strong>Tipo:</strong> ${equip.tipo || 'Não informado'}</p>
+                        <p><strong>Valor:</strong> ${equip.valor ? 'R$ ' + equip.valor.toFixed(2) : 'Não informado'}</p>
+                        <p><strong>${equip.imei ? 'IMEI:' : 'S/N:'}</strong> ${equip.imei || equip.serialNumber || 'N/A'}</p>
                         ${coverageStatus}
                     `;
                     
-                    equipmentList.appendChild(equipmentItem);
+                    equipmentList.appendChild(equipmentCard);
                 });
             } else {
                 equipmentList.innerHTML = '<p>Nenhum equipamento cadastrado.</p>';
+            }
+            
+            // Payments list
+            if (userData.pagamentos && userData.pagamentos.length > 0) {
+                paymentsList.innerHTML = '';
+                userData.pagamentos.forEach((pagamento, index) => {
+                    const paymentItem = document.createElement('div');
+                    paymentItem.className = 'payment-item';
+                    
+                    let statusClass = 'payment-pending';
+                    let statusText = 'Pendente';
+                    let statusIcon = '<i class="fas fa-clock"></i>';
+                    
+                    if (pagamento.status === 'pago') {
+                        statusClass = 'payment-paid';
+                        statusText = 'Pago';
+                        statusIcon = '<i class="fas fa-check-circle"></i>';
+                    } else if (pagamento.status === 'atrasado') {
+                        statusClass = 'payment-overdue';
+                        statusText = 'Atrasado';
+                        statusIcon = '<i class="fas fa-exclamation-circle"></i>';
+                    }
+                    
+                    paymentItem.innerHTML = `
+                        <div class="payment-info">
+                            <h4>Mensalidade ${index + 1}</h4>
+                            <p>Vencimento: ${formatDate(new Date(pagamento.vencimento))}</p>
+                            <p>Valor: R$ ${pagamento.valor.toFixed(2)}</p>
+                        </div>
+                        <div class="payment-status ${statusClass}">
+                            ${statusIcon} ${statusText}
+                        </div>
+                    `;
+                    
+                    paymentsList.appendChild(paymentItem);
+                });
+            } else {
+                paymentsList.innerHTML = '<p>Nenhum pagamento registrado.</p>';
             }
         }
         
@@ -482,6 +678,23 @@
                 default:
                     return 'Erro ao fazer login. Tente novamente.';
             }
+        }
+        
+        // Helper function to format date
+        function formatDate(date) {
+            if (!(date instanceof Date) return 'Data inválida';
+            
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            
+            return `${day}/${month}/${year}`;
+        }
+        
+        // Helper function to format CPF
+        function formatCpf(cpf) {
+            if (!cpf) return '';
+            return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
         }
     </script>
 </body>
