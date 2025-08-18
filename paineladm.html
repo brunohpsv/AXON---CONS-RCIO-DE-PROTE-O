@@ -3,21 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AXON - Painel Administrativo</title>
+    <meta name="description" content="AXON - Sistema de proteção para dispositivos eletrônicos">
+    <title>AXON - Painel do Cliente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
     <style>
         :root {
             --primary: #FF6B35;
+            --primary-dark: #E05A2B;
             --secondary: #2D2D2D;
             --light: #FFFFFF;
             --dark: #161616;
             --gray: #F5F5F5;
             --success: #4CAF50;
             --warning: #FFC107;
-            --error: #F44336;
+            --danger: #F44336;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
         }
         
         * {
@@ -30,6 +35,7 @@
         body {
             background-color: var(--gray);
             color: var(--secondary);
+            line-height: 1.5;
         }
         
         .container {
@@ -38,12 +44,46 @@
             padding: 20px;
         }
         
+        /* Header */
+        .main-header {
+            background-color: var(--light);
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .back-link {
+            color: var(--secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+        
         /* Login Section */
         .login-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: calc(100vh - 70px);
         }
         
         .login-box {
@@ -76,6 +116,13 @@
             padding: 0.8rem;
             border: 1px solid #ddd;
             border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
         }
         
         .btn {
@@ -89,16 +136,18 @@
             font-weight: 600;
             cursor: pointer;
             margin-top: 1rem;
+            transition: var(--transition);
         }
         
         .btn:hover {
-            opacity: 0.9;
+            background-color: var(--primary-dark);
         }
         
         .error-message {
-            color: var(--error);
+            color: var(--danger);
             margin-top: 1rem;
             text-align: center;
+            font-size: 0.9rem;
         }
         
         /* Dashboard Section */
@@ -106,206 +155,99 @@
             display: none;
         }
         
-        .header {
+        .dashboard-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1rem 0;
-            border-bottom: 1px solid #ddd;
             margin-bottom: 1.5rem;
         }
         
-        .header h1 {
+        .dashboard-header h1 {
             color: var(--primary);
         }
         
         .logout-btn {
-            background-color: var(--error);
-            color: white;
+            background: none;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
+            color: var(--primary);
             cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
         }
         
-        /* Search Section */
-        .search-container {
+        /* User Info Section */
+        .user-info-card {
             background-color: var(--light);
             padding: 1.5rem;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
-        }
-        
-        .search-form {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .search-input {
-            flex: 1;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        
-        .search-btn {
-            padding: 0 1.5rem;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        /* User Details Section */
-        .user-details {
-            background-color: var(--light);
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            display: none;
-        }
-        
-        .user-details h2 {
-            color: var(--primary);
+            box-shadow: var(--shadow);
             margin-bottom: 1.5rem;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 0.5rem;
-        }
-        
-        .user-form {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            display: flex;
+            align-items: center;
             gap: 1.5rem;
         }
         
-        .form-section {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-section h3 {
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-        
-        .full-width {
-            grid-column: span 2;
-        }
-        
-        .equipment-list {
-            margin-top: 1rem;
-        }
-        
-        .equipment-item {
-            background-color: var(--gray);
-            padding: 1rem;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-        }
-        
-        .action-buttons {
-            grid-column: span 2;
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .save-btn {
-            background-color: var(--success);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        .cancel-btn {
-            background-color: var(--error);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        
-        .modal-content {
-            background-color: var(--light);
-            padding: 2rem;
-            border-radius: 8px;
-            width: 100%;
-            max-width: 400px;
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .modal-header h2 {
-            color: var(--primary);
-        }
-        
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        .modal-footer {
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .modal-btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        .modal-btn-primary {
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
             background-color: var(--primary);
             color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.5rem;
+            flex-shrink: 0;
         }
         
-        .modal-btn-secondary {
-            background-color: var(--gray);
+        .user-details h2 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .user-details p {
             color: var(--secondary);
         }
         
-        .has-account {
-            margin-top: 1rem;
-            text-align: center;
-            font-size: 0.9rem;
+        /* Status Cards */
+        .status-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .status-card {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .status-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .status-card p {
+            margin-bottom: 0.5rem;
         }
         
         .status-badge {
             display: inline-block;
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 600;
+            margin-top: 0.5rem;
         }
         
         .status-active {
@@ -320,174 +262,237 @@
         
         .status-inactive {
             background-color: rgba(244, 67, 54, 0.1);
-            color: var(--error);
+            color: var(--danger);
+        }
+        
+        /* Equipment Section */
+        .equipment-section {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+        
+        .equipment-section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .equipment-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .equipment-card {
+            background-color: var(--gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .equipment-card h3 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .equipment-card p {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        
+        .dot-active {
+            background-color: var(--success);
+        }
+        
+        .dot-pending {
+            background-color: var(--warning);
+        }
+        
+        .dot-inactive {
+            background-color: var(--danger);
+        }
+        
+        /* Payments Section */
+        .payments-section {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .payments-section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .payments-list {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .payment-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: var(--gray);
+            border-radius: 8px;
+        }
+        
+        .payment-info h4 {
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+        
+        .payment-info p {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
+        .payment-status {
+            font-weight: 600;
+        }
+        
+        .payment-paid {
+            color: var(--success);
+        }
+        
+        .payment-pending {
+            color: var(--warning);
+        }
+        
+        .payment-overdue {
+            color: var(--danger);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .status-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .user-info-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .equipment-list {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-shield-alt"></i> AXON
+            </a>
+            <a href="index.html" class="back-link" id="backLink">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </a>
+        </div>
+    </header>
+    
     <!-- Login Section -->
     <div class="login-container" id="loginContainer">
         <div class="login-box">
-            <h1>AXON Admin</h1>
+            <h1><i class="fas fa-shield-alt"></i> AXON</h1>
             <form id="loginForm">
                 <div class="form-group">
                     <label for="email">E-mail</label>
-                    <input type="email" id="email" required>
+                    <input type="email" id="email" required autocomplete="email">
                 </div>
                 <div class="form-group">
                     <label for="password">Senha</label>
-                    <input type="password" id="password" required>
+                    <input type="password" id="password" required autocomplete="current-password">
                 </div>
                 <button type="submit" class="btn">Entrar</button>
-                <div class="error-message" id="loginError"></div>
+                <div class="error-message" id="errorMessage" role="alert"></div>
             </form>
         </div>
     </div>
     
     <!-- Dashboard Section -->
     <div class="dashboard container" id="dashboard">
-        <div class="header">
-            <h1>Painel Administrativo AXON</h1>
-            <button class="logout-btn" id="logoutBtn">Sair</button>
+        <div class="dashboard-header">
+            <h1><i class="fas fa-shield-alt"></i> Painel AXON</h1>
+            <a href="index.html" class="logout-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </a>
         </div>
         
-        <!-- Search Section -->
-        <div class="search-container">
-            <form id="searchForm" class="search-form">
-                <input type="text" id="documentId" class="search-input" placeholder="Digite o ID do documento" required>
-                <button type="submit" class="search-btn">Buscar</button>
-            </form>
-        </div>
-        
-        <!-- User Details Section -->
-        <div class="user-details" id="userDetails">
-            <h2>Detalhes do Cliente</h2>
-            <form id="userForm" class="user-form">
-                <!-- Basic Info -->
-                <div class="form-section">
-                    <h3>Informações Básicas</h3>
-                    <div class="form-group">
-                        <label for="nome">Nome Completo</label>
-                        <input type="text" id="nome" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="cpf">CPF</label>
-                        <input type="text" id="cpf" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="telefone">Telefone</label>
-                        <input type="text" id="telefone" required>
-                    </div>
-                </div>
-                
-                <!-- Status Info -->
-                <div class="form-section">
-                    <h3>Status do Cliente</h3>
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <select id="status" required>
-                            <option value="ativo">Ativo</option>
-                            <option value="pendente">Pendente</option>
-                            <option value="inativo">Inativo</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="coberturaStatus">Status da Cobertura</label>
-                        <select id="coberturaStatus" required>
-                            <option value="ativa">Ativa</option>
-                            <option value="em_carencia">Em Carência</option>
-                            <option value="suspensa">Suspensa</option>
-                            <option value="cancelada">Cancelada</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="inicioCarencia">Início da Carência</label>
-                        <input type="date" id="inicioCarencia">
-                    </div>
-                    <div class="form-group">
-                        <label for="fimCarencia">Fim da Carência</label>
-                        <input type="date" id="fimCarencia">
-                    </div>
-                </div>
-                
-                <!-- Equipment Info -->
-                <div class="form-section full-width">
-                    <h3>Equipamentos</h3>
-                    <div id="equipmentList" class="equipment-list">
-                        <!-- Equipment items will be added here -->
-                    </div>
-                </div>
-                
-                <!-- Price Info -->
-                <div class="form-section">
-                    <h3>Valores</h3>
-                    <div class="form-group">
-                        <label for="valorTotal">Valor Total</label>
-                        <input type="number" id="valorTotal" step="0.01" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="desconto">Desconto (%)</label>
-                        <input type="number" id="desconto" step="0.01" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="valorFinal">Valor Final</label>
-                        <input type="number" id="valorFinal" step="0.01" required>
-                    </div>
-                </div>
-                
-                <!-- Credentials Info -->
-                <div class="form-section">
-                    <h3>Credenciais</h3>
-                    <div class="form-group">
-                        <label>Login Criado</label>
-                        <div id="hasCredentials" class="status-badge status-inactive">Não</div>
-                    </div>
-                    <button type="button" class="btn" id="createCredentialsBtn">Criar/Editar Credenciais</button>
-                </div>
-                
-                <!-- Action Buttons -->
-                <div class="action-buttons">
-                    <button type="button" class="cancel-btn" id="cancelEditBtn">Cancelar</button>
-                    <button type="submit" class="save-btn">Salvar Alterações</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal para criar login/senha -->
-    <div class="modal" id="userCredentialsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Criar Credenciais</h2>
-                <button class="close-btn" id="closeModalBtn">&times;</button>
+        <!-- User Info -->
+        <div class="user-info-card">
+            <div class="user-avatar" id="userAvatar">JD</div>
+            <div class="user-details">
+                <h2 id="userName">João da Silva</h2>
+                <p id="userEmail">joao@example.com</p>
+                <p id="userCpf">CPF: 123.456.789-00</p>
             </div>
-            <form id="credentialsForm">
-                <input type="hidden" id="userId">
-                <div class="form-group">
-                    <label for="userEmail">E-mail</label>
-                    <input type="email" id="userEmail" required>
+        </div>
+        
+        <!-- Status Cards -->
+        <div class="status-cards">
+            <div class="status-card">
+                <h3><i class="fas fa-shield-alt"></i> Status do Plano</h3>
+                <p>Verifique o status atual da sua proteção AXON</p>
+                <div class="status-badge status-active" id="planStatus">
+                    <i class="fas fa-check-circle"></i> Plano Ativo
                 </div>
-                <div class="form-group">
-                    <label for="userPassword">Senha</label>
-                    <input type="password" id="userPassword" required minlength="6">
+            </div>
+            
+            <div class="status-card">
+                <h3><i class="fas fa-calendar-alt"></i> Período de Cobertura</h3>
+                <p id="coverageDates">Início: 01/01/2023 - Término: 01/01/2024</p>
+                <p id="daysRemaining">Faltam 120 dias para o término</p>
+            </div>
+            
+            <div class="status-card">
+                <h3><i class="fas fa-clock"></i> Status de Carência</h3>
+                <p id="carenciaStatus">Seu período de carência termina em 15 dias</p>
+                <div class="status-badge status-pending" id="carenciaBadge">
+                    <i class="fas fa-clock"></i> Em Carência
                 </div>
-                <div class="has-account" id="hasAccountInfo" style="display: none;">
-                    Este usuário já possui uma conta no sistema.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="modal-btn modal-btn-secondary" id="cancelBtn">Cancelar</button>
-                    <button type="submit" class="modal-btn modal-btn-primary">Salvar</button>
-                </div>
-            </form>
+            </div>
+        </div>
+        
+        <!-- Equipment Section -->
+        <div class="equipment-section">
+            <h2><i class="fas fa-mobile-alt"></i> Equipamentos Protegidos</h2>
+            <div class="equipment-list" id="equipmentList">
+                <!-- Equipment cards will be added here -->
+            </div>
+        </div>
+        
+        <!-- Payments Section -->
+        <div class="payments-section">
+            <h2><i class="fas fa-receipt"></i> Mensalidades</h2>
+            <div class="payments-list" id="paymentsList">
+                <!-- Payment items will be added here -->
+            </div>
         </div>
     </div>
 
     <script>
-        // Firebase configuration
+        // Firebase configuration - substitua com suas credenciais reais
         const firebaseConfig = {
             apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
             authDomain: "axon-ec708.firebaseapp.com",
@@ -499,420 +504,266 @@
 
         // Initialize Firebase
         const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
         const auth = firebase.auth();
-
+        const db = firebase.firestore();
+        
         // DOM Elements
         const loginContainer = document.getElementById('loginContainer');
         const dashboard = document.getElementById('dashboard');
         const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
         const logoutBtn = document.getElementById('logoutBtn');
-        const loginError = document.getElementById('loginError');
-        const searchForm = document.getElementById('searchForm');
-        const documentIdInput = document.getElementById('documentId');
-        const userDetails = document.getElementById('userDetails');
-        const userForm = document.getElementById('userForm');
-        const createCredentialsBtn = document.getElementById('createCredentialsBtn');
-        const cancelEditBtn = document.getElementById('cancelEditBtn');
-        const hasCredentialsBadge = document.getElementById('hasCredentials');
+        const userAvatar = document.getElementById('userAvatar');
+        const userName = document.getElementById('userName');
+        const userEmail = document.getElementById('userEmail');
+        const userCpf = document.getElementById('userCpf');
+        const planStatus = document.getElementById('planStatus');
+        const coverageDates = document.getElementById('coverageDates');
+        const daysRemaining = document.getElementById('daysRemaining');
+        const carenciaStatus = document.getElementById('carenciaStatus');
+        const carenciaBadge = document.getElementById('carenciaBadge');
         const equipmentList = document.getElementById('equipmentList');
-        const userCredentialsModal = document.getElementById('userCredentialsModal');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const cancelBtn = document.getElementById('cancelBtn');
-        const credentialsForm = document.getElementById('credentialsForm');
-        const userIdInput = document.getElementById('userId');
-        const userEmailInput = document.getElementById('userEmail');
-        const userPasswordInput = document.getElementById('userPassword');
-        const hasAccountInfo = document.getElementById('hasAccountInfo');
-
-        // Current document reference
-        let currentUserDoc = null;
-
-        // Função para reconstruir as credenciais de forma mais complexa
-        function getAdminCredentials() {
-            // Dividimos as credenciais em várias partes não óbvias
-            const parts = {
-                a: "br",
-                b: "uno",
-                c: "hp",
-                d: "sv",
-                e: "@gm",
-                f: "ail",
-                g: ".co",
-                h: "m",
-                i: "bar",
-                j: "at",
-                k: "avel",
-                l: "ha"
-            };
-            
-            // Construção do email usando partes não sequenciais
-            const email = [
-                parts.a + parts.b,  // "bruno"
-                parts.c + parts.d  // "hpsv"
-            ].join('') + [
-                parts.e + parts.f,  // "@gmail"
-                parts.g + parts.h   // ".com"
-            ].join('');
-            
-            // Construção da senha usando partes não sequenciais
-            const password = [
-                parts.i,            // "bar"
-                parts.j + parts.k,  // "atavel"
-                parts.l             // "ha"
-            ].join('');
-            
-            return { email, password };
-        }
-
-        // Função auxiliar para verificar credenciais
-        function validateCredentials(inputEmail, inputPassword) {
-            const { email, password } = getAdminCredentials();
-            
-            // Verificação adicional para evitar timing attacks
-            let emailMatch = true;
-            let passwordMatch = true;
-            
-            if (inputEmail.length !== email.length) emailMatch = false;
-            if (inputPassword.length !== password.length) passwordMatch = false;
-            
-            for (let i = 0; i < inputEmail.length; i++) {
-                if (inputEmail.charAt(i) !== email.charAt(i)) emailMatch = false;
-            }
-            
-            for (let i = 0; i < inputPassword.length; i++) {
-                if (inputPassword.charAt(i) !== password.charAt(i)) passwordMatch = false;
-            }
-            
-            return emailMatch && passwordMatch;
-        }
-
-        // Função para criar o administrador padrão
-        async function createDefaultAdmin() {
-            const { email, password } = getAdminCredentials();
-            
-            try {
-                // Verificar se o admin já existe usando uma consulta por e-mail
-                const adminsQuery = await db.collection("administradores")
-                    .where("email", "==", email)
-                    .limit(1)
-                    .get();
-                
-                if (adminsQuery.empty) {
-                    // Criar usuário no Firebase Auth
-                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                    const userId = userCredential.user.uid;
-                    
-                    // Criar documento no Firestore
-                    await db.collection("administradores").doc(userId).set({
-                        email: email,
-                        createdAt: new Date().toISOString(),
-                        isAdmin: true
-                    });
-                    
-                    console.log("Administrador padrão criado com sucesso!");
-                }
-            } catch (error) {
-                console.error("Erro ao verificar/criar administrador:", error);
-            }
-        }
-
-        // Chamar a função para criar/verificar o admin padrão quando a página carregar
-        document.addEventListener('DOMContentLoaded', createDefaultAdmin);
-
+        const paymentsList = document.getElementById('paymentsList');
+        
         // Check auth state
-        auth.onAuthStateChanged(async user => {
+        auth.onAuthStateChanged(user => {
             if (user) {
-                // Verificar se o usuário é administrador
-                const adminDoc = await db.collection("administradores").doc(user.uid).get();
+                // User is signed in
+                loginContainer.style.display = 'none';
+                dashboard.style.display = 'block';
                 
-                if (adminDoc.exists) {
-                    loginContainer.style.display = 'none';
-                    dashboard.style.display = 'block';
-                } else {
-                    await auth.signOut();
-                    loginError.textContent = 'Acesso restrito a administradores.';
-                    loginContainer.style.display = 'flex';
-                }
+                // Atualiza o email no painel
+                userEmail.textContent = user.email;
+                
+                // Carrega dados adicionais do Firestore
+                loadUserData(user.uid);
             } else {
+                // User is signed out
                 loginContainer.style.display = 'flex';
                 dashboard.style.display = 'none';
             }
         });
-
-        // Login
-        loginForm.addEventListener('submit', async (e) => {
+        
+        // Login form submission
+        loginForm.addEventListener('submit', e => {
             e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
-            try {
-                // Verificação adicional das credenciais antes de tentar o login
-                if (validateCredentials(email, password)) {
-                    await auth.signInWithEmailAndPassword(email, password);
-                    loginError.textContent = '';
-                } else {
-                    // Forçar um tempo de resposta similar ao do Firebase Auth
-                    await new Promise(resolve => setTimeout(resolve, 1000));
-                    loginError.textContent = 'E-mail ou senha incorretos.';
-                }
-            } catch (error) {
-                loginError.textContent = 'E-mail ou senha incorretos.';
-                console.error("Erro de login:", error);
-            }
+            errorMessage.textContent = '';
+            
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Limpa o formulário
+                    loginForm.reset();
+                })
+                .catch(error => {
+                    console.error("Login error:", error);
+                    errorMessage.textContent = getErrorMessage(error.code);
+                });
         });
-
-        // Logout
-        logoutBtn.addEventListener('click', () => {
-            auth.signOut();
-        });
-
-        // Search for document
-        searchForm.addEventListener('submit', async (e) => {
+        
+        // Logout button
+        logoutBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            const docId = documentIdInput.value.trim();
-            
-            try {
-                const doc = await db.collection('usuarios').doc(docId).get();
-                
-                if (doc.exists) {
-                    currentUserDoc = doc;
-                    displayUserDetails(doc.data());
-                    userDetails.style.display = 'block';
-                } else {
-                    alert('Documento não encontrado!');
-                    userDetails.style.display = 'none';
-                }
-            } catch (error) {
-                console.error("Erro ao buscar documento:", error);
-                alert('Erro ao buscar documento. Verifique o ID e tente novamente.');
-            }
+            auth.signOut()
+                .then(() => {
+                    window.location.href = 'index.html';
+                })
+                .catch(error => {
+                    console.error("Logout error:", error);
+                });
         });
-
-        // Display user details in form
-        function displayUserDetails(userData) {
-            // Basic info
-            document.getElementById('nome').value = userData.nome || '';
-            document.getElementById('cpf').value = userData.cpf || '';
-            document.getElementById('email').value = userData.email || '';
-            document.getElementById('telefone').value = userData.telefone || '';
+        
+        // Load user data from Firestore
+        function loadUserData(uid) {
+            db.collection("users").doc(uid).get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const userData = doc.data();
+                        updateDashboard(userData);
+                    } else {
+                        // Se não encontrar no caminho "users", tenta "usuarios" (backward compatibility)
+                        db.collection("usuarios").doc(uid).get()
+                            .then(doc => {
+                                if (doc.exists) {
+                                    const userData = doc.data();
+                                    updateDashboard(userData);
+                                } else {
+                                    console.log("No such document!");
+                                    errorMessage.textContent = "Usuário não encontrado no sistema.";
+                                }
+                            });
+                    }
+                })
+                .catch(error => {
+                    console.error("Error loading user data:", error);
+                    errorMessage.textContent = "Erro ao carregar dados do usuário.";
+                });
+        }
+        
+        // Update dashboard with user data
+        function updateDashboard(userData) {
+            // User info
+            const initials = userData.nome ? 
+                userData.nome.split(' ').map(name => name[0]).join('').toUpperCase().substring(0, 2) : 
+                'US';
+            userAvatar.textContent = initials;
+            userName.textContent = userData.nome || 'Usuário';
+            userCpf.textContent = userData.cpf ? `CPF: ${formatCpf(userData.cpf)}` : 'CPF não cadastrado';
             
-            // Status info
-            document.getElementById('status').value = userData.status || 'pendente';
-            document.getElementById('coberturaStatus').value = userData.coberturaStatus || 'ativa';
-            document.getElementById('inicioCarencia').value = userData.inicioCarencia || '';
-            document.getElementById('fimCarencia').value = userData.fimCarencia || '';
-            
-            // Price info
-            if (userData.price) {
-                document.getElementById('valorTotal').value = userData.price.total || 0;
-                document.getElementById('desconto').value = userData.price.discount || 0;
-                document.getElementById('valorFinal').value = userData.price.discounted || 0;
+            // Plan status
+            if (userData.status === "ativo") {
+                planStatus.className = "status-badge status-active";
+                planStatus.innerHTML = '<i class="fas fa-check-circle"></i> Plano Ativo';
+            } else if (userData.status === "pendente") {
+                planStatus.className = "status-badge status-pending";
+                planStatus.innerHTML = '<i class="fas fa-clock"></i> Plano Pendente';
             } else {
-                document.getElementById('valorTotal').value = 0;
-                document.getElementById('desconto').value = 0;
-                document.getElementById('valorFinal').value = 0;
+                planStatus.className = "status-badge status-inactive";
+                planStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Status Desconhecido';
+            }
+            
+            // Coverage dates
+            const startDate = userData.dataInicio ? formatDate(new Date(userData.dataInicio.seconds * 1000)) : 'Não informada';
+            const endDate = userData.dataFim ? formatDate(new Date(userData.dataFim.seconds * 1000)) : 'Não informada';
+            coverageDates.textContent = `Início: ${startDate} - Término: ${endDate}`;
+            
+            // Days remaining
+            if (userData.dataFim) {
+                const today = new Date();
+                const end = new Date(userData.dataFim.seconds * 1000);
+                const diffTime = end - today;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                
+                if (diffDays > 0) {
+                    daysRemaining.textContent = `Faltam ${diffDays} dias para o término`;
+                } else if (diffDays === 0) {
+                    daysRemaining.textContent = 'Seu plano termina hoje';
+                } else {
+                    daysRemaining.textContent = `Seu plano expirou há ${Math.abs(diffDays)} dias`;
+                }
+            } else {
+                daysRemaining.textContent = 'Data de término não informada';
+            }
+            
+            // Carencia status
+            if (userData.periodoCarencia > 0) {
+                carenciaStatus.textContent = `Seu período de carência termina em ${userData.periodoCarencia} dias`;
+                carenciaBadge.className = "status-badge status-pending";
+                carenciaBadge.innerHTML = '<i class="fas fa-clock"></i> Em Carência';
+            } else {
+                carenciaStatus.textContent = 'Seu equipamento está totalmente protegido';
+                carenciaBadge.className = "status-badge status-active";
+                carenciaBadge.innerHTML = '<i class="fas fa-check-circle"></i> Sem Carência';
             }
             
             // Equipment list
-            equipmentList.innerHTML = '';
-            if (userData.equipments && userData.equipments.length > 0) {
-                userData.equipments.forEach((eq, index) => {
-                    const eqItem = document.createElement('div');
-                    eqItem.className = 'equipment-item';
-                    eqItem.innerHTML = `
-                        <h4>Equipamento ${index + 1}</h4>
-                        <div class="form-group">
-                            <label>Tipo</label>
-                            <input type="text" value="${eq.tipo || ''}" data-index="${index}" data-field="tipo">
-                        </div>
-                        <div class="form-group">
-                            <label>Marca</label>
-                            <input type="text" value="${eq.marca || ''}" data-index="${index}" data-field="marca">
-                        </div>
-                        <div class="form-group">
-                            <label>Modelo</label>
-                            <input type="text" value="${eq.modelo || ''}" data-index="${index}" data-field="modelo">
-                        </div>
-                        <div class="form-group">
-                            <label>Número de Série</label>
-                            <input type="text" value="${eq.numeroSerie || ''}" data-index="${index}" data-field="numeroSerie">
-                        </div>
-                        <div class="form-group">
-                            <label>Valor</label>
-                            <input type="number" step="0.01" value="${eq.valor || 0}" data-index="${index}" data-field="valor">
-                        </div>
-                    `;
-                    equipmentList.appendChild(eqItem);
-                });
-            }
-            
-            // Credentials info
-            if (userData.uid) {
-                hasCredentialsBadge.textContent = 'Sim';
-                hasCredentialsBadge.className = 'status-badge status-active';
-            } else {
-                hasCredentialsBadge.textContent = 'Não';
-                hasCredentialsBadge.className = 'status-badge status-inactive';
-            }
-        }
-
-        // Save user details
-        userForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            if (!currentUserDoc) return;
-            
-            try {
-                // Collect basic info
-                const updatedData = {
-                    nome: document.getElementById('nome').value,
-                    cpf: document.getElementById('cpf').value,
-                    email: document.getElementById('email').value,
-                    telefone: document.getElementById('telefone').value,
-                    status: document.getElementById('status').value,
-                    coberturaStatus: document.getElementById('coberturaStatus').value,
-                    inicioCarencia: document.getElementById('inicioCarencia').value || null,
-                    fimCarencia: document.getElementById('fimCarencia').value || null,
-                    updatedAt: new Date().toISOString()
-                };
-                
-                // Collect price info
-                const total = parseFloat(document.getElementById('valorTotal').value) || 0;
-                const discount = parseFloat(document.getElementById('desconto').value) || 0;
-                const discounted = parseFloat(document.getElementById('valorFinal').value) || 0;
-                
-                updatedData.price = {
-                    total: total,
-                    discount: discount,
-                    discounted: discounted
-                };
-                
-                // Collect equipment info
-                const equipmentInputs = document.querySelectorAll('[data-index]');
-                const equipments = [];
-                
-                equipmentInputs.forEach(input => {
-                    const index = parseInt(input.dataset.index);
-                    const field = input.dataset.field;
-                    const value = input.type === 'number' ? parseFloat(input.value) || 0 : input.value;
+            if (userData.equipamentos && userData.equipamentos.length > 0) {
+                equipmentList.innerHTML = '';
+                userData.equipamentos.forEach(equip => {
+                    const equipmentCard = document.createElement('div');
+                    equipmentCard.className = 'equipment-card';
                     
-                    if (!equipments[index]) {
-                        equipments[index] = {};
+                    const coverageStatus = userData.periodoCarencia > 0 ? 
+                        `<div class="status-indicator">
+                            <span class="status-dot dot-pending"></span>
+                            <span>Em carência (${userData.periodoCarencia} dias restantes)</span>
+                        </div>` :
+                        `<div class="status-indicator">
+                            <span class="status-dot dot-active"></span>
+                            <span>Cobertura ativa</span>
+                        </div>`;
+                    
+                    equipmentCard.innerHTML = `
+                        <h3>${equip.marca || 'Marca não informada'} ${equip.modelo || 'Modelo não informado'}</h3>
+                        <p><strong>Tipo:</strong> ${equip.tipo || 'Não informado'}</p>
+                        <p><strong>Valor:</strong> ${equip.valor ? 'R$ ' + equip.valor.toFixed(2) : 'Não informado'}</p>
+                        <p><strong>${equip.imei ? 'IMEI:' : 'S/N:'}</strong> ${equip.imei || equip.serialNumber || 'N/A'}</p>
+                        ${coverageStatus}
+                    `;
+                    
+                    equipmentList.appendChild(equipmentCard);
+                });
+            } else {
+                equipmentList.innerHTML = '<p>Nenhum equipamento cadastrado.</p>';
+            }
+            
+            // Payments list
+            if (userData.pagamentos && userData.pagamentos.length > 0) {
+                paymentsList.innerHTML = '';
+                userData.pagamentos.forEach((pagamento, index) => {
+                    const paymentItem = document.createElement('div');
+                    paymentItem.className = 'payment-item';
+                    
+                    let statusClass = 'payment-pending';
+                    let statusText = 'Pendente';
+                    let statusIcon = '<i class="fas fa-clock"></i>';
+                    
+                    if (pagamento.status === 'pago') {
+                        statusClass = 'payment-paid';
+                        statusText = 'Pago';
+                        statusIcon = '<i class="fas fa-check-circle"></i>';
+                    } else if (pagamento.status === 'atrasado') {
+                        statusClass = 'payment-overdue';
+                        statusText = 'Atrasado';
+                        statusIcon = '<i class="fas fa-exclamation-circle"></i>';
                     }
                     
-                    equipments[index][field] = value;
+                    paymentItem.innerHTML = `
+                        <div class="payment-info">
+                            <h4>Mensalidade ${index + 1}</h4>
+                            <p>Vencimento: ${formatDate(new Date(pagamento.vencimento.seconds * 1000))}</p>
+                            <p>Valor: R$ ${pagamento.valor.toFixed(2)}</p>
+                        </div>
+                        <div class="payment-status ${statusClass}">
+                            ${statusIcon} ${statusText}
+                        </div>
+                    `;
+                    
+                    paymentsList.appendChild(paymentItem);
                 });
-                
-                updatedData.equipments = equipments.filter(eq => eq);
-                
-                // Update document
-                await db.collection('usuarios').doc(currentUserDoc.id).update(updatedData);
-                alert('Dados atualizados com sucesso!');
-                
-                // Refresh displayed data
-                const updatedDoc = await db.collection('usuarios').doc(currentUserDoc.id).get();
-                currentUserDoc = updatedDoc;
-                displayUserDetails(updatedDoc.data());
-            } catch (error) {
-                console.error("Erro ao atualizar documento:", error);
-                alert('Erro ao atualizar documento. Tente novamente.');
+            } else {
+                paymentsList.innerHTML = '<p>Nenhum pagamento registrado.</p>';
             }
-        });
-
-        // Cancel edit
-        cancelEditBtn.addEventListener('click', () => {
-            if (currentUserDoc) {
-                displayUserDetails(currentUserDoc.data());
+        }
+        
+        // Helper function to get error messages
+        function getErrorMessage(errorCode) {
+            switch(errorCode) {
+                case 'auth/invalid-email':
+                    return 'E-mail inválido.';
+                case 'auth/user-disabled':
+                    return 'Esta conta foi desativada.';
+                case 'auth/user-not-found':
+                    return 'Nenhuma conta encontrada com este e-mail.';
+                case 'auth/wrong-password':
+                    return 'Senha incorreta.';
+                case 'auth/too-many-requests':
+                    return 'Muitas tentativas. Tente novamente mais tarde.';
+                case 'auth/network-request-failed':
+                    return 'Erro de conexão. Verifique sua internet.';
+                default:
+                    return 'Erro ao fazer login. Tente novamente.';
             }
-        });
-
-        // Open credentials modal
-        createCredentialsBtn.addEventListener('click', () => {
-            if (!currentUserDoc) return;
+        }
+        
+        // Helper function to format date
+        function formatDate(date) {
+            if (!(date instanceof Date)) return 'Data inválida';
             
-            const userData = currentUserDoc.data();
-            userIdInput.value = currentUserDoc.id;
-            userEmailInput.value = userData.email || '';
-            userPasswordInput.value = '';
-            hasAccountInfo.style.display = userData.uid ? 'block' : 'none';
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
             
-            userCredentialsModal.style.display = 'flex';
-        });
-
-        // Modal events
-        closeModalBtn.addEventListener('click', () => {
-            userCredentialsModal.style.display = 'none';
-        });
-
-        cancelBtn.addEventListener('click', () => {
-            userCredentialsModal.style.display = 'none';
-        });
-
-        // Criar credenciais para usuário
-        credentialsForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const userId = userIdInput.value;
-            const email = userEmailInput.value;
-            const password = userPasswordInput.value;
-            
-            try {
-                // Verificar se o usuário já tem uma conta
-                const userDoc = await db.collection('usuarios').doc(userId).get();
-                const userData = userDoc.data();
-                
-                if (userData.uid) {
-                    // Usuário já tem conta, apenas atualizar e-mail/senha
-                    await auth.updateEmail(userData.uid, email);
-                    await auth.updatePassword(userData.uid, password);
-                    
-                    // Atualizar Firestore
-                    await db.collection('usuarios').doc(userId).update({
-                        email: email,
-                        authUpdatedAt: new Date().toISOString()
-                    });
-                } else {
-                    // Criar nova conta no Firebase Auth
-                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                    const uid = userCredential.user.uid;
-                    
-                    // Atualizar documento no Firestore com UID e credenciais
-                    await db.collection('usuarios').doc(userId).update({
-                        uid: uid,
-                        email: email,
-                        authCreatedAt: new Date().toISOString()
-                    });
-                }
-                
-                alert('Credenciais criadas/atualizadas com sucesso!');
-                userCredentialsModal.style.display = 'none';
-                
-                // Atualizar exibição
-                const updatedDoc = await db.collection('usuarios').doc(userId).get();
-                currentUserDoc = updatedDoc;
-                displayUserDetails(updatedDoc.data());
-            } catch (error) {
-                console.error("Erro ao criar credenciais:", error);
-                alert('Erro ao criar credenciais: ' + error.message);
-            }
-        });
-
-        // Calculate final price when discount changes
-        document.getElementById('desconto').addEventListener('input', (e) => {
-            const total = parseFloat(document.getElementById('valorTotal').value) || 0;
-            const discount = parseFloat(e.target.value) || 0;
-            const discounted = total - (total * discount / 100);
-            document.getElementById('valorFinal').value = discounted.toFixed(2);
-        });
-
-        // Calculate discount when final price changes
-        document.getElementById('valorFinal').addEventListener('input', (e) => {
-            const total = parseFloat(document.getElementById('valorTotal').value) || 0;
-            const discounted = parseFloat(e.target.value) || 0;
-            const discount = total > 0 ? ((total - discounted) / total * 100) : 0;
-            document.getElementById('desconto').value = discount.toFixed(2);
-        });
+            return `${day}/${month}/${year}`;
+        }
+        
+        // Helper function to format CPF
+        function formatCpf(cpf) {
+            if (!cpf) return '';
+            return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        }
     </script>
 </body>
 </html>
