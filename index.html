@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AXON</title>
+    <title>BIX</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #FF6B35;
-            --primary-dark: #E05A2B;
+            --primary: #8B0000; /* Vermelho escuro */
+            --primary-dark: #6D0000; /* Vermelho mais escuro */
             --secondary: #2D2D2D;
-            --accent: #FFA630;
+            --accent: #CC0000; /* Vermelho mais vibrante para destaque */
             --light: #FFFFFF;
             --dark: #161616;
             --gray: #F5F5F5;
@@ -78,7 +78,7 @@
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
-            color: var(--dark);
+            color: var(--primary);
             display: flex;
             align-items: center;
             letter-spacing: -1px;
@@ -214,7 +214,7 @@
         /* Hero Section */
         .hero {
             padding: 10rem 0 5rem;
-            background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -249,7 +249,7 @@
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
             border: none;
@@ -258,7 +258,7 @@
         
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+            box-shadow: 0 8px 25px rgba(139, 0, 0, 0.4);
         }
         
         .cta-button.secondary {
@@ -353,7 +353,7 @@
             font-size: 2.5rem;
             color: var(--primary);
             margin-bottom: 1.5rem;
-            background: rgba(255, 107, 53, 0.1);
+            background: rgba(139, 0, 0, 0.1);
             width: 80px;
             height: 80px;
             display: inline-flex;
@@ -365,7 +365,7 @@
         
         .feature-card:hover .feature-icon {
             transform: rotate(15deg) scale(1.1);
-            background: rgba(255, 107, 53, 0.2);
+            background: rgba(139, 0, 0, 0.2);
         }
         
         .feature-card h3 {
@@ -513,7 +513,7 @@
             justify-content: center;
             font-weight: bold;
             font-size: 1.5rem;
-            box-shadow: 0 4px 8px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 4px 8px rgba(139, 0, 0, 0.3);
         }
         
         .step:hover {
@@ -538,7 +538,7 @@
         
         /* Trust Badge */
         .trust-badge {
-            background-color: rgba(255, 107, 53, 0.1);
+            background-color: rgba(139, 0, 0, 0.1);
             border-left: 4px solid var(--primary);
             padding: 1.5rem;
             border-radius: 0 8px 8px 0;
@@ -735,7 +735,7 @@
     <header>
         <div class="container header-container">
             <div class="logo">
-                <span>AXON</span>
+                <span>BIX</span>
             </div>
             <nav>
                 <ul>
@@ -773,7 +773,7 @@
     <section class="hero">
         <div class="container">
             <h1>Seu dispositivo protegido com os <span>melhores benefícios</span></h1>
-            <p>Associe-se ao clube AXON e tenha acesso a assistência técnica gratuita, descontos exclusivos e serviços premium para seu smartphone, tablet ou notebook.</p>
+            <p>Associe-se ao clube BIX e tenha acesso a assistência técnica gratuita, descontos exclusivos e serviços premium para seu smartphone, tablet ou notebook.</p>
             <div class="cta-buttons">
                 <a href="#plans" class="cta-button">CONHEÇA NOSSOS PLANOS</a>
             </div>
@@ -783,7 +783,7 @@
     <section id="benefits" class="container">
         <div class="section-title">
             <h2>Benefícios Exclusivos</h2>
-            <p>Como associado AXON, você tem acesso a uma série de vantagens para seu dispositivo</p>
+            <p>Como associado BIX, você tem acesso a uma série de vantagens para seu dispositivo</p>
         </div>
         <div class="features">
             <div class="feature-card">
@@ -804,7 +804,7 @@
             <div class="feature-card">
                 <div class="feature-icon"><i class="fas fa-headset"></i></div>
                 <h3>Suporte Prioritário</h3>
-                <p>Atendimento exclusivo e prioritário para associados AXON em todos os nossos canais de contato.</p>
+                <p>Atendimento exclusivo e prioritário para associados BIX em todos os nossos canais de contato.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon"><i class="fas fa-people-roof"></i></div>
@@ -865,7 +865,7 @@
             </div>
             <div class="trust-badge">
                 <h3>Empresa Séria e Transparente</h3>
-                <p>A AXON é uma empresa registrada e comprometida com a transparência em todas as suas operações. Todas as documentações serão rigorosamente analisadas para garantir a segurança de nossos associados. Nossos serviços são prestados conforme contrato de associação, com todos os termos claramente especificados. Realizamos avaliações técnicas criteriosas tanto para assistência quanto para revenda de dispositivos, garantindo sempre o melhor atendimento e condições justas para nossos membros. Não somos uma empresa de SEGUROS e nem de CONSÓRCIO DE PROTEÇÃO, somos uma empresa de que presta aos assinantes por uma mensalidade certos beneficios e assitência técnica gratuita em lojas credenciadas e analisadas pela nossa empresa!</p>
+                <p>A BIX é uma empresa registrada e comprometida com a transparência em todas as suas operações. Todas as documentações serão rigorosamente analisadas para garantir a segurança de nossos associados. Nossos serviços são prestados conforme contrato de associação, com todos os termos claramente especificados. Realizamos avaliações técnicas criteriosas tanto para assistência quanto para revenda de dispositivos, garantindo sempre o melhor atendimento e condições justas para nossos membros. Não somos uma empresa de SEGUROS e nem de CONSÓRCIO DE PROTEÇÃO, somos uma empresa de que presta aos assinantes por uma mensalidade certos beneficios e assitência técnica gratuita em lojas credenciadas e analisadas pela nossa empresa!</p>
             </div>
             <a href="contrata.html" class="cta-button big-cta-button">ASSOCIAR-SE AGORA - 20% OFF no primeiro mês!</a>
         </div>
@@ -914,8 +914,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
-                    <h3>AXON</h3>
-                    <p style="margin: 1rem 0; opacity: 0.8;">AXON - Clube de Proteção e Benefícios.</p>
+                    <h3>BIX</h3>
+                    <p style="margin: 1rem 0; opacity: 0.8;">BIX - Clube de Proteção e Benefícios.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-whatsapp"></i></a>
@@ -933,14 +933,14 @@
                     <h3>Contato</h3>
                     <ul class="footer-links">
                         <li><i class="fas fa-phone-alt"></i> (62) 98159-6601</li>
-                        <li><i class="fas fa-envelope"></i> contato@axonclub.com.br</li>
+                        <li><i class="fas fa-envelope"></i> contato@bixclub.com.br</li>
                         <li><i class="fas fa-clock"></i> Seg-Sex: 8h às 18h</li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 AXON Clube de Benefícios. Todos os direitos reservados.</p>
-                <p style="margin-top: 0.5rem; font-size: 0.8rem;">AXON não é uma seguradora. Serviços prestados conforme contrato de associação. *Assistência técnica ilimitada após período de carência de 3 meses.</p>
+                <p>&copy; 2025 BIX Clube de Benefícios. Todos os direitos reservados.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.8rem;">BIX não é uma seguradora. Serviços prestados conforme contrato de associação. *Assistência técnica ilimitada após período de carência de 3 meses.</p>
             </div>
         </div>
     </footer>
