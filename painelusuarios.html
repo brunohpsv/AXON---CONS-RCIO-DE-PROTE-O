@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="BIX - Sistema de proteção para dispositivos eletrônicos">
@@ -234,9 +233,6 @@
         .status-card h3 {
             color: var(--primary);
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
         
         .status-card p {
@@ -405,7 +401,7 @@
     <header class="main-header">
         <div class="header-content">
             <a href="index.html" class="logo">
-                <i class="fas fa-shield-alt"></i> BIX
+                BIX
             </a>
             <a href="index.html" class="back-link" id="backLink">
                 <i class="fas fa-arrow-left"></i> Voltar
@@ -416,7 +412,7 @@
     <!-- Login Section -->
     <div class="login-container" id="loginContainer">
         <div class="login-box">
-            <h1><i class="fas fa-shield-alt"></i> BIX</h1>
+            <h1>BIX</h1>
             <form id="loginForm">
                 <div class="form-group">
                     <label for="email">E-mail</label>
@@ -435,7 +431,7 @@
     <!-- Dashboard Section -->
     <div class="dashboard container" id="dashboard">
         <div class="dashboard-header">
-            <h1><i class="fas fa-shield-alt"></i> Painel BIX</h1>
+            <h1>Painel BIX</h1>
             <a href="index.html" class="logout-btn" id="logoutBtn">
                 <i class="fas fa-sign-out-alt"></i> Sair
             </a>
@@ -443,18 +439,18 @@
         
         <!-- User Info -->
         <div class="user-info-card">
-            <div class="user-avatar" id="userAvatar">JD</div>
+            <div class="user-avatar" id="userAvatar"></div>
             <div class="user-details">
-                <h2 id="userName">João da Silva</h2>
-                <p id="userEmail">joao@example.com</p>
-                <p id="userCpf">CPF: 123.456.789-00</p>
+                <h2 id="userName">Carregando...</h2>
+                <p id="userEmail">Carregando...</p>
+                <p id="userCpf">CPF: Carregando...</p>
             </div>
         </div>
         
         <!-- Status Cards -->
         <div class="status-cards">
             <div class="status-card">
-                <h3><i class="fas fa-shield-alt"></i> Status do Plano</h3>
+                <h3>Status do Plano</h3>
                 <p>Verifique o status atual da sua proteção BIX</p>
                 <div class="status-badge status-active" id="planStatus">
                     <i class="fas fa-check-circle"></i> Plano Ativo
@@ -462,13 +458,7 @@
             </div>
             
             <div class="status-card">
-                <h3><i class="fas fa-calendar-alt"></i> Período de Cobertura</h3>
-                <p id="coverageDates">Início: 01/01/2023 - Término: 01/01/2024</p>
-                <p id="daysRemaining">Faltam 120 dias para o término</p>
-            </div>
-            
-            <div class="status-card">
-                <h3><i class="fas fa-clock"></i> Status de Carência</h3>
+                <h3>Status de Carência</h3>
                 <p id="carenciaStatus">Seu período de carência termina em 15 dias</p>
                 <div class="status-badge status-pending" id="carenciaBadge">
                     <i class="fas fa-clock"></i> Em Carência
@@ -478,7 +468,7 @@
         
         <!-- Equipment Section -->
         <div class="equipment-section">
-            <h2><i class="fas fa-mobile-alt"></i> Equipamentos Protegidos</h2>
+            <h2>Equipamentos Protegidos</h2>
             <div class="equipment-list" id="equipmentList">
                 <!-- Equipment cards will be added here -->
             </div>
@@ -486,7 +476,7 @@
         
         <!-- Payments Section -->
         <div class="payments-section">
-            <h2><i class="fas fa-receipt"></i> Mensalidades</h2>
+            <h2>Mensalidades</h2>
             <div class="payments-list" id="paymentsList">
                 <!-- Payment items will be added here -->
             </div>
@@ -520,8 +510,6 @@
         const userEmail = document.getElementById('userEmail');
         const userCpf = document.getElementById('userCpf');
         const planStatus = document.getElementById('planStatus');
-        const coverageDates = document.getElementById('coverageDates');
-        const daysRemaining = document.getElementById('daysRemaining');
         const carenciaStatus = document.getElementById('carenciaStatus');
         const carenciaBadge = document.getElementById('carenciaBadge');
         const equipmentList = document.getElementById('equipmentList');
@@ -626,29 +614,6 @@
                 planStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Status Desconhecido';
             }
             
-            // Coverage dates
-            const startDate = userData.dataInicio ? formatDate(new Date(userData.dataInicio.seconds * 1000)) : 'Não informada';
-            const endDate = userData.dataFim ? formatDate(new Date(userData.dataFim.seconds * 1000)) : 'Não informada';
-            coverageDates.textContent = `Início: ${startDate} - Término: ${endDate}`;
-            
-            // Days remaining
-            if (userData.dataFim) {
-                const today = new Date();
-                const end = new Date(userData.dataFim.seconds * 1000);
-                const diffTime = end - today;
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                
-                if (diffDays > 0) {
-                    daysRemaining.textContent = `Faltam ${diffDays} dias para o término`;
-                } else if (diffDays === 0) {
-                    daysRemaining.textContent = 'Seu plano termina hoje';
-                } else {
-                    daysRemaining.textContent = `Seu plano expirou há ${Math.abs(diffDays)} dias`;
-                }
-            } else {
-                daysRemaining.textContent = 'Data de término não informada';
-            }
-            
             // Carencia status
             if (userData.periodoCarencia > 0) {
                 carenciaStatus.textContent = `Seu período de carência termina em ${userData.periodoCarencia} dias`;
@@ -660,10 +625,10 @@
                 carenciaBadge.innerHTML = '<i class="fas fa-check-circle"></i> Sem Carência';
             }
             
-            // Equipment list
-            if (userData.equipamentos && userData.equipamentos.length > 0) {
+            // Equipment list - usando o array equipaments
+            if (userData.equipaments && userData.equipaments.length > 0) {
                 equipmentList.innerHTML = '';
-                userData.equipamentos.forEach(equip => {
+                userData.equipaments.forEach((equip, index) => {
                     const equipmentCard = document.createElement('div');
                     equipmentCard.className = 'equipment-card';
                     
@@ -691,10 +656,27 @@
                 equipmentList.innerHTML = '<p>Nenhum equipamento cadastrado.</p>';
             }
             
-            // Payments list
-            if (userData.pagamentos && userData.pagamentos.length > 0) {
+            // Payments list - usando o map price-map
+            if (userData.priceMap) {
                 paymentsList.innerHTML = '';
-                userData.pagamentos.forEach((pagamento, index) => {
+                
+                // Converter o map em array para iterar
+                const paymentsArray = Object.entries(userData.priceMap).map(([key, value]) => {
+                    return {
+                        id: key,
+                        ...value
+                    };
+                });
+                
+                // Ordenar por data de vencimento (se disponível)
+                paymentsArray.sort((a, b) => {
+                    if (a.vencimento && b.vencimento) {
+                        return a.vencimento.seconds - b.vencimento.seconds;
+                    }
+                    return 0;
+                });
+                
+                paymentsArray.forEach((pagamento, index) => {
                     const paymentItem = document.createElement('div');
                     paymentItem.className = 'payment-item';
                     
@@ -712,11 +694,17 @@
                         statusIcon = '<i class="fas fa-exclamation-circle"></i>';
                     }
                     
+                    // Formatar data de vencimento se disponível
+                    let dueDate = 'Não informado';
+                    if (pagamento.vencimento && pagamento.vencimento.seconds) {
+                        dueDate = formatDate(new Date(pagamento.vencimento.seconds * 1000));
+                    }
+                    
                     paymentItem.innerHTML = `
                         <div class="payment-info">
                             <h4>Mensalidade ${index + 1}</h4>
-                            <p>Vencimento: ${formatDate(new Date(pagamento.vencimento.seconds * 1000))}</p>
-                            <p>Valor: R$ ${pagamento.valor.toFixed(2)}</p>
+                            <p>Vencimento: ${dueDate}</p>
+                            <p>Valor: R$ ${pagamento.valor ? pagamento.valor.toFixed(2) : '0,00'}</p>
                         </div>
                         <div class="payment-status ${statusClass}">
                             ${statusIcon} ${statusText}
