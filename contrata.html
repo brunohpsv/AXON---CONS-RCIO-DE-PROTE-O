@@ -653,33 +653,77 @@
             opacity: 0.7;
         }
 
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--light);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                padding: 2rem;
+                transform: translateY(-150%);
+                transition: var(--transition);
+                z-index: 999;
+            }
         /* Melhorias de responsividade gerais */
 input, select, textarea, button {
     font-size: 16px; /* Previne zoom em iOS */
 }
 
+            nav.active {
+                transform: translateY(0);
+            }
 .equipment-item {
     padding: 0.8rem;
 }
 
+            nav ul {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
 .equipment-item h4 {
     font-size: 1.1rem;
 }
 
+            .hero {
+                padding: 8rem 0 4rem;
+            }
 .add-equipment {
     padding: 0.8rem;
     font-size: 0.9rem;
 }
 
+            .hero h1 {
+                font-size: 2rem;
+            }
 .remove-equipment {
     font-size: 0.8rem;
 }
 
+            .hero p {
+                font-size: 1rem;
+            }
 .submit-btn {
     font-size: 1rem;
     padding: 0.9rem;
 }
 
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
 .footer-bottom {
     font-size: 0.8rem;
 }
@@ -696,6 +740,10 @@ input, select, textarea, button {
     }
 }
 
+            .terms-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
 @media (max-width: 768px) {
     .mobile-menu-btn {
         display: block;
@@ -774,6 +822,10 @@ input, select, textarea, button {
     }
 }
 
+            .success-actions {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
 @media (max-width: 480px) {
     .hero h1 {
         font-size: 1.8rem;
@@ -818,6 +870,10 @@ input, select, textarea, button {
         height: 35px;
     }
 
+            .success-actions .cta-button {
+                margin-left: 0;
+                margin-top: 0.5rem;
+            }
         }
     </style>
 </head>
@@ -856,7 +912,7 @@ input, select, textarea, button {
                 <div class="personal-data-form">
                     <h2>Dados Pessoais e do Equipamento</h2>
                     <form id="contractForm">
-                        </div>
+                        <input type="hidden" id="planoTipo" name="planoTipo" value="familiar">
 
                         <div class="form-row">
                             <div class="form-group">
@@ -895,7 +951,7 @@ input, select, textarea, button {
                             <label for="endereco">Endereço Completo</label>
                             <input type="text" id="endereco" name="endereco" required>
                         </div>
-                        
+
                         <div class="form-group">
                             <div class="contract-notice" style="margin-top: 0;">
                                 <h3><i class="fas fa-exclamation-triangle" style="color: var(--primary); margin-right: 10px;"></i> Documentação</h3>
@@ -925,7 +981,7 @@ input, select, textarea, button {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <button type="submit" id="submitBtn" class="submit-btn">Enviar dados!</button>
 
                         <div class="spinner" id="loadingSpinner"></div>
@@ -1078,41 +1134,40 @@ input, select, textarea, button {
         let totalPrice = 0;
 
         function calculateTotalPrice() {
-            totalPrice = 0;
-            const equipmentItems = document.querySelectorAll('.equipment-item');
-            const planoTipo = document.getElementById('planoTipo').value;
+    totalPrice = 0;
+    const equipmentItems = document.querySelectorAll('.equipment-item');
 
-            equipmentItems.forEach(item => {
-                const type = item.querySelector('.equipment-type').value;
-                switch(type) {
-                    case 'smartphone':
-                        totalPrice += (planoTipo === 'empresarial' ? 90 : 80); // Preço diferente para empresarial
-                        break;
-                    case 'tablet':
-                        totalPrice += (planoTipo === 'empresarial' ? 130 : 120);
-                        break;
-                    case 'notebook':
-                        totalPrice += (planoTipo === 'empresarial' ? 170 : 150);
-                        break;
-                }
-            });
-
-            // Apply 20% discount if more than one equipment
-            if (equipmentItems.length > 1) {
-                const discount = totalPrice * 0.2;
-                const discountedPrice = totalPrice - discount;
-
-                priceDisplay.innerHTML = `
-                    <div>Total: R$${totalPrice.toFixed(2)}</div>
-                    <div class="discount">Desconto (20%): -R$${discount.toFixed(2)}</div>
-                    <div><strong>Valor final: R$${discountedPrice.toFixed(2)}</strong><span>/mês</span></div>
-                `;
-            } else {
-                priceDisplay.innerHTML = `
-                    <div><strong>Valor: R$${totalPrice.toFixed(2)}</strong><span>/mês</span></div>
-                `;
-            }
+    equipmentItems.forEach(item => {
+        const type = item.querySelector('.equipment-type').value;
+        switch(type) {
+            case 'smartphone':
+                totalPrice += 80; // Preço fixo para familiar
+                break;
+            case 'tablet':
+                totalPrice += 120;
+                break;
+            case 'notebook':
+                totalPrice += 150;
+                break;
         }
+    });
+
+    // Apply 20% discount if more than one equipment
+    if (equipmentItems.length > 1) {
+        const discount = totalPrice * 0.2;
+        const discountedPrice = totalPrice - discount;
+
+        priceDisplay.innerHTML = `
+            <div>Total: R$${totalPrice.toFixed(2)}</div>
+            <div class="discount">Desconto (20%): -R$${discount.toFixed(2)}</div>
+            <div><strong>Valor final: R$${discountedPrice.toFixed(2)}</strong><span>/mês</span></div>
+        `;
+    } else {
+        priceDisplay.innerHTML = `
+            <div><strong>Valor: R$${totalPrice.toFixed(2)}</strong><span>/mês</span></div>
+        `;
+    }
+}
 
         function addEquipmentItem() {
             equipmentCount++;
@@ -1316,7 +1371,7 @@ input, select, textarea, button {
                     email: formData.personalData.email,
                     telefone: formData.personalData.telefone,
                     endereco: formData.personalData.endereco,
-                    planoTipo: formData.personalData.planoTipo === 'empresarial' ? 'Extensão Empresarial' : 'Extensão Familiar',
+                    planoTipo: 'Extensão Familiar', // Agora temos apenas um tipo de plano
                     equipamentos: formData.equipments.map((eq, i) => `
                         Equipamento ${i+1}:
                         Tipo: ${eq.tipo}
@@ -1369,8 +1424,6 @@ if (isMobileDevice()) {
 
 // Prevenir zoom em campos de input em iOS
 document.addEventListener('touchstart', function() {}, {passive: true});
-        
-        document.getElementById('planoTipo').addEventListener('change', calculateTotalPrice);
 
         // Terms links
         document.getElementById('termosLink').addEventListener('click', function(e) {
