@@ -230,6 +230,29 @@
             color: #666;
             line-height: 1.5;
         }
+        
+        /* Loading Spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* User Info */
+        .user-info {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -257,6 +280,10 @@
         <div class="header">
             <h1>Área do Cliente BIX</h1>
             <button class="logout-btn" id="logoutBtn">Sair</button>
+        </div>
+        
+        <div class="user-info" id="userInfo">
+            Carregando informações do usuário...
         </div>
         
         <!-- Status Card -->
@@ -315,7 +342,7 @@
             <p class="notice-text">
                 Todas as solicitações de serviços devem ser feitas exclusivamente por e-mail para garantir 
                 que tenhamos um registro formal do seu pedido, com data e hora de solicitação. Isso permite 
-                rastrear todo o histórico de atendimento e assegura que sua solicitação será processada 
+                rastrear todo o histórico de atendimento e assegura que sua solicitação será procesada 
                 conforme os prazos estabelecidos em nosso contrato de serviços. O atendimento por e-mail 
                 também nos permite direcionar cada solicitação para o setor especializado responsável, 
                 agilizando a resolução do seu chamado.
@@ -347,21 +374,25 @@
         const loginError = document.getElementById('loginError');
         const statusBadge = document.getElementById('statusBadge');
         const coverageStatus = document.getElementById('coverageStatus');
+        const userInfo = document.getElementById('userInfo');
 
         // Check auth state
         auth.onAuthStateChanged(async user => {
             if (user) {
-                // Verificar se o usuário existe na coleção de usuários
                 try {
+                    // Mostrar indicador de carregamento
+                    userInfo.innerHTML = '<div class="spinner"></div>';
+                    
+                    // Verificar se o usuário existe na coleção de usuários
                     const userDoc = await db.collection("usuarios").doc(user.uid).get();
                     
                     if (userDoc.exists) {
                         loginContainer.style.display = 'none';
                         dashboard.style.display = 'block';
-                        displayUserStatus(userDoc.data());
+                        displayUserStatus(user, userDoc.data());
                     } else {
                         await auth.signOut();
-                        loginError.textContent = 'Usuário não encontrado.';
+                        loginError.textContent = 'Usuário não encontrado na base de dados.';
                         loginContainer.style.display = 'flex';
                     }
                 } catch (error) {
@@ -383,11 +414,32 @@
             const password = document.getElementById('password').value;
             
             try {
-                await auth.signInWithEmailAndPassword(email, password);
                 loginError.textContent = '';
+                // Mostrar indicador de carregamento no botão
+                const submitBtn = loginForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Entrando...';
+                submitBtn.disabled = true;
+                
+                await auth.signInWithEmailAndPassword(email, password);
             } catch (error) {
-                loginError.textContent = 'E-mail ou senha incorretos.';
                 console.error("Erro de login:", error);
+                
+                let errorMessage = 'E-mail ou senha incorretos.';
+                if (error.code === 'auth/user-not-found') {
+                    errorMessage = 'Usuário não encontrado.';
+                } else if (error.code === 'auth/wrong-password') {
+                    errorMessage = 'Senha incorreta.';
+                } else if (error.code === 'auth/too-many-requests') {
+                    errorMessage = 'Muitas tentativas. Tente novamente mais tarde.';
+                }
+                
+                loginError.textContent = errorMessage;
+                
+                // Restaurar botão
+                const submitBtn = loginForm.querySelector('button[type="submit"]');
+                submitBtn.textContent = 'Entrar';
+                submitBtn.disabled = false;
             }
         });
 
@@ -397,7 +449,10 @@
         });
 
         // Display user status
-        function displayUserStatus(userData) {
+        function displayUserStatus(user, userData) {
+            // Exibir informações do usuário
+            userInfo.textContent = `Olá, ${userData.nome || user.email}`;
+            
             // Update status badge
             statusBadge.textContent = userData.status === 'ativo' ? 'Ativo' : 
                                      userData.status === 'pendente' ? 'Pendente' : 'Inativo';
@@ -432,13 +487,34 @@
             }
             
             coverageStatus.textContent = coverageText;
+            
+            // Adicionar informações adicionais se disponíveis
+            if (userData.plano) {
+                const planoInfo = document.createElement('p');
+                planoInfo.textContent = `Plano: ${userData.plano}`;
+                coverageStatus.after(planoInfo);
+            }
+            
+            if (userData.validade) {
+                const validadeInfo = document.createElement('p');
+                validadeInfo.textContent = `Validade: ${formatDate(userData.validade)}`;
+                coverageStatus.after(validadeInfo);
+            }
         }
 
         // Format date for display
         function formatDate(dateString) {
             if (!dateString) return '';
             
+            // Se for um timestamp do Firestore
+            if (dateString.toDate) {
+                return dateString.toDate().toLocaleDateString('pt-BR');
+            }
+            
+            // Se for uma string de data
             const date = new Date(dateString);
+            if (isNaN(date.getTime())) return dateString;
+            
             return date.toLocaleDateString('pt-BR');
         }
     </script>
