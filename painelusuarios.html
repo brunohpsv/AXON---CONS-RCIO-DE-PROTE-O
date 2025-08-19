@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AXON - Sistema de proteção para dispositivos eletrônicos">
-    <title>AXON - Painel do Cliente</title>
+    <meta name="description" content="BIX - Sistema de proteção para dispositivos eletrônicos">
+    <title>BIX - Painel do Cliente</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
@@ -12,8 +12,9 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
     <style>
         :root {
-            --primary: #FF6B35;
-            --primary-dark: #E05A2B;
+            --primary: #8B0000;
+            --primary-dark: #6D0000;
+            --accent: #CC0000;
             --secondary: #2D2D2D;
             --light: #FFFFFF;
             --dark: #161616;
@@ -122,7 +123,7 @@
         .form-group input:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
+            box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.2);
         }
         
         .btn {
@@ -403,7 +404,7 @@
     <header class="main-header">
         <div class="header-content">
             <a href="index.html" class="logo">
-                <i class="fas fa-shield-alt"></i> AXON
+                <i class="fas fa-shield-alt"></i> BIX
             </a>
             <a href="index.html" class="back-link" id="backLink">
                 <i class="fas fa-arrow-left"></i> Voltar
@@ -414,7 +415,7 @@
     <!-- Login Section -->
     <div class="login-container" id="loginContainer">
         <div class="login-box">
-            <h1><i class="fas fa-shield-alt"></i> AXON</h1>
+            <h1><i class="fas fa-shield-alt"></i> BIX</h1>
             <form id="loginForm">
                 <div class="form-group">
                     <label for="email">E-mail</label>
@@ -433,7 +434,7 @@
     <!-- Dashboard Section -->
     <div class="dashboard container" id="dashboard">
         <div class="dashboard-header">
-            <h1><i class="fas fa-shield-alt"></i> Painel AXON</h1>
+            <h1><i class="fas fa-shield-alt"></i> Painel BIX</h1>
             <a href="index.html" class="logout-btn" id="logoutBtn">
                 <i class="fas fa-sign-out-alt"></i> Sair
             </a>
@@ -453,7 +454,7 @@
         <div class="status-cards">
             <div class="status-card">
                 <h3><i class="fas fa-shield-alt"></i> Status do Plano</h3>
-                <p>Verifique o status atual da sua proteção AXON</p>
+                <p>Verifique o status atual da sua proteção BIX</p>
                 <div class="status-badge status-active" id="planStatus">
                     <i class="fas fa-check-circle"></i> Plano Ativo
                 </div>
