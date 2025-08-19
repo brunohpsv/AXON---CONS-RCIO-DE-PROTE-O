@@ -128,8 +128,8 @@
             cursor: pointer;
         }
         
-        /* Search Section */
-        .search-container {
+        /* User List Section */
+        .user-list-container {
             background-color: var(--light);
             padding: 1.5rem;
             border-radius: 8px;
@@ -137,23 +137,68 @@
             margin-bottom: 2rem;
         }
         
-        .search-form {
+        .filter-section {
             display: flex;
             gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
         }
         
-        .search-input {
-            flex: 1;
-            padding: 0.8rem;
+        .filter-select {
+            padding: 0.5rem;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
         
-        .search-btn {
-            padding: 0 1.5rem;
+        .user-list {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .user-list th, .user-list td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .user-list th {
+            background-color: var(--gray);
+            font-weight: 600;
+        }
+        
+        .user-list tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .status-active {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--success);
+        }
+        
+        .status-pending {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: var(--warning);
+        }
+        
+        .status-inactive {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--error);
+        }
+        
+        .view-btn {
             background-color: var(--primary);
             color: white;
             border: none;
+            padding: 0.4rem 0.8rem;
             border-radius: 4px;
             cursor: pointer;
         }
@@ -230,99 +275,6 @@
             cursor: pointer;
         }
         
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        
-        .modal-content {
-            background-color: var(--light);
-            padding: 2rem;
-            border-radius: 8px;
-            width: 100%;
-            max-width: 400px;
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .modal-header h2 {
-            color: var(--primary);
-        }
-        
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        .modal-footer {
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .modal-btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        .modal-btn-primary {
-            background-color: var(--primary);
-            color: white;
-        }
-        
-        .modal-btn-secondary {
-            background-color: var(--gray);
-            color: var(--secondary);
-        }
-        
-        .has-account {
-            margin-top: 1rem;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .status-active {
-            background-color: rgba(76, 175, 80, 0.1);
-            color: var(--success);
-        }
-        
-        .status-pending {
-            background-color: rgba(255, 193, 7, 0.1);
-            color: var(--warning);
-        }
-        
-        .status-inactive {
-            background-color: rgba(244, 67, 54, 0.1);
-            color: var(--error);
-        }
-
         /* Success Message */
         .success-message {
             position: fixed;
@@ -368,12 +320,31 @@
             <button class="logout-btn" id="logoutBtn">Sair</button>
         </div>
         
-        <!-- Search Section -->
-        <div class="search-container">
-            <form id="searchForm" class="search-form">
-                <input type="text" id="documentId" class="search-input" placeholder="Digite o ID do documento" required>
-                <button type="submit" class="search-btn">Buscar</button>
-            </form>
+        <!-- User List Section -->
+        <div class="user-list-container">
+            <h2>Lista de Clientes</h2>
+            <div class="filter-section">
+                <label for="equipmentFilter">Filtrar por equipamento:</label>
+                <select id="equipmentFilter" class="filter-select">
+                    <option value="todos">Todos os equipamentos</option>
+                    <option value="smartphone">Smartphone</option>
+                    <option value="tablet">Tablet</option>
+                    <option value="notebook">Notebook</option>
+                </select>
+            </div>
+            <table class="user-list">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Documento</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="userListBody">
+                    <!-- User list will be populated here -->
+                </tbody>
+            </table>
         </div>
         
         <!-- User Details Section -->
@@ -456,48 +427,10 @@
                     </div>
                 </div>
                 
-                <!-- Credentials Info -->
-                <div class="form-section">
-                    <h3>Credenciais</h3>
-                    <div class="form-group">
-                        <label>Login Criado</label>
-                        <div id="hasCredentials" class="status-badge status-inactive">Não</div>
-                    </div>
-                    <button type="button" class="btn" id="createCredentialsBtn">Criar/Editar Credenciais</button>
-                </div>
-                
                 <!-- Action Buttons -->
                 <div class="action-buttons">
-                    <button type="button" class="cancel-btn" id="cancelEditBtn">Cancelar</button>
+                    <button type="button" class="cancel-btn" id="cancelEditBtn">Voltar</button>
                     <button type="submit" class="save-btn">Salvar Alterações</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal para criar/editar credenciais -->
-    <div class="modal" id="userCredentialsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="credentialsModalTitle">Criar Credenciais</h2>
-                <button class="close-btn" id="closeModalBtn">&times;</button>
-            </div>
-            <form id="credentialsForm">
-                <input type="hidden" id="userId">
-                <div class="form-group">
-                    <label for="userEmail">E-mail</label>
-                    <input type="email" id="userEmail" required>
-                </div>
-                <div class="form-group">
-                    <label for="userPassword">Senha</label>
-                    <input type="password" id="userPassword" required minlength="6" placeholder="Deixe em branco para manter a atual">
-                </div>
-                <div class="has-account" id="hasAccountInfo" style="display: none;">
-                    Este usuário já possui uma conta no sistema.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="modal-btn modal-btn-secondary" id="cancelBtn">Cancelar</button>
-                    <button type="submit" class="modal-btn modal-btn-primary">Salvar</button>
                 </div>
             </form>
         </div>
@@ -525,27 +458,17 @@
         const loginForm = document.getElementById('loginForm');
         const logoutBtn = document.getElementById('logoutBtn');
         const loginError = document.getElementById('loginError');
-        const searchForm = document.getElementById('searchForm');
-        const documentIdInput = document.getElementById('documentId');
+        const userListBody = document.getElementById('userListBody');
+        const equipmentFilter = document.getElementById('equipmentFilter');
         const userDetails = document.getElementById('userDetails');
         const userForm = document.getElementById('userForm');
-        const createCredentialsBtn = document.getElementById('createCredentialsBtn');
         const cancelEditBtn = document.getElementById('cancelEditBtn');
-        const hasCredentialsBadge = document.getElementById('hasCredentials');
         const equipmentList = document.getElementById('equipmentList');
-        const userCredentialsModal = document.getElementById('userCredentialsModal');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const cancelBtn = document.getElementById('cancelBtn');
-        const credentialsForm = document.getElementById('credentialsForm');
-        const userIdInput = document.getElementById('userId');
-        const userEmailInput = document.getElementById('userEmail');
-        const userPasswordInput = document.getElementById('userPassword');
-        const hasAccountInfo = document.getElementById('hasAccountInfo');
-        const credentialsModalTitle = document.getElementById('credentialsModalTitle');
         const successMessage = document.getElementById('successMessage');
 
         // Current document reference
         let currentUserDoc = null;
+        let allUsers = [];
 
         // Função para reconstruir as credenciais de forma mais complexa
         function getAdminCredentials() {
@@ -658,6 +581,7 @@
                 if (adminDoc.exists) {
                     loginContainer.style.display = 'none';
                     dashboard.style.display = 'block';
+                    loadUsers();
                 } else {
                     await auth.signOut();
                     loginError.textContent = 'Acesso restrito a administradores.';
@@ -696,13 +620,137 @@
             auth.signOut();
         });
 
-        // Search for document
-        searchForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const docId = documentIdInput.value.trim();
-            
+        // Load all users
+        async function loadUsers() {
             try {
-                const doc = await db.collection('usuarios').doc(docId).get();
+                const snapshot = await db.collection('usuarios').get();
+                allUsers = [];
+                
+                snapshot.forEach(doc => {
+                    allUsers.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+                
+                filterUsers();
+            } catch (error) {
+                console.error("Erro ao carregar usuários:", error);
+            }
+        }
+
+        // Filter users based on equipment type
+        function filterUsers() {
+            const filterValue = equipmentFilter.value;
+            let filteredUsers = [...allUsers];
+            
+            if (filterValue !== 'todos') {
+                filteredUsers = allUsers.filter(user => {
+                    if (!user.equipments || user.equipments.length === 0) return false;
+                    
+                    return user.equipments.some(eq => 
+                        eq.tipo && eq.tipo.toLowerCase() === filterValue
+                    );
+                });
+            }
+            
+            renderUserList(filteredUsers);
+        }
+
+        // Render user list
+        function renderUserList(users) {
+            userListBody.innerHTML = '';
+            
+            if (users.length === 0) {
+                userListBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Nenhum usuário encontrado</td></tr>';
+                return;
+            }
+            
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                
+                // Status badge with click handler
+                let statusClass = 'status-inactive';
+                let statusText = 'Inativo';
+                
+                if (user.status === 'ativo') {
+                    statusClass = 'status-active';
+                    statusText = 'Ativo';
+                } else if (user.status === 'pendente') {
+                    statusClass = 'status-pending';
+                    statusText = 'Pendente';
+                }
+                
+                row.innerHTML = `
+                    <td>${user.nome || 'N/A'}</td>
+                    <td>${user.cpf || 'N/A'}</td>
+                    <td>
+                        <span class="status-badge ${statusClass}" data-id="${user.id}" data-status="${user.status || 'inativo'}">
+                            ${statusText}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="view-btn" data-id="${user.id}">Ver Detalhes</button>
+                    </td>
+                `;
+                
+                userListBody.appendChild(row);
+            });
+            
+            // Add event listeners to status badges
+            document.querySelectorAll('.status-badge').forEach(badge => {
+                badge.addEventListener('click', (e) => {
+                    const userId = e.target.dataset.id;
+                    const currentStatus = e.target.dataset.status;
+                    toggleUserStatus(userId, currentStatus);
+                });
+            });
+            
+            // Add event listeners to view buttons
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const userId = e.target.dataset.id;
+                    viewUserDetails(userId);
+                });
+            });
+        }
+
+        // Toggle user status
+        async function toggleUserStatus(userId, currentStatus) {
+            try {
+                let newStatus;
+                
+                if (currentStatus === 'ativo') {
+                    newStatus = 'inativo';
+                } else if (currentStatus === 'inativo') {
+                    newStatus = 'pendente';
+                } else {
+                    newStatus = 'ativo';
+                }
+                
+                await db.collection('usuarios').doc(userId).update({
+                    status: newStatus,
+                    updatedAt: new Date().toISOString()
+                });
+                
+                // Update local data
+                const userIndex = allUsers.findIndex(user => user.id === userId);
+                if (userIndex !== -1) {
+                    allUsers[userIndex].status = newStatus;
+                }
+                
+                filterUsers();
+                showSuccessMessage('Status atualizado com sucesso!');
+            } catch (error) {
+                console.error("Erro ao atualizar status:", error);
+                alert('Erro ao atualizar status. Tente novamente.');
+            }
+        }
+
+        // View user details
+        async function viewUserDetails(userId) {
+            try {
+                const doc = await db.collection('usuarios').doc(userId).get();
                 
                 if (doc.exists) {
                     currentUserDoc = doc;
@@ -710,13 +758,12 @@
                     userDetails.style.display = 'block';
                 } else {
                     alert('Documento não encontrado!');
-                    userDetails.style.display = 'none';
                 }
             } catch (error) {
                 console.error("Erro ao buscar documento:", error);
-                alert('Erro ao buscar documento. Verifique o ID e tente novamente.');
+                alert('Erro ao buscar documento. Tente novamente.');
             }
-        });
+        }
 
         // Display user details in form
         function displayUserDetails(userData) {
@@ -775,15 +822,6 @@
                     equipmentList.appendChild(eqItem);
                 });
             }
-            
-            // Credentials info
-            if (userData.uid) {
-                hasCredentialsBadge.textContent = 'Sim';
-                hasCredentialsBadge.className = 'status-badge status-active';
-            } else {
-                hasCredentialsBadge.textContent = 'Não';
-                hasCredentialsBadge.className = 'status-badge status-inactive';
-            }
         }
 
         // Save user details
@@ -839,10 +877,16 @@
                 await db.collection('usuarios').doc(currentUserDoc.id).update(updatedData);
                 showSuccessMessage('Dados atualizados com sucesso!');
                 
-                // Refresh displayed data
-                const updatedDoc = await db.collection('usuarios').doc(currentUserDoc.id).get();
-                currentUserDoc = updatedDoc;
-                displayUserDetails(updatedDoc.data());
+                // Update local data
+                const userIndex = allUsers.findIndex(user => user.id === currentUserDoc.id);
+                if (userIndex !== -1) {
+                    allUsers[userIndex] = {
+                        ...allUsers[userIndex],
+                        ...updatedData
+                    };
+                }
+                
+                filterUsers();
             } catch (error) {
                 console.error("Erro ao atualizar documento:", error);
                 alert('Erro ao atualizar documento. Tente novamente.');
@@ -851,99 +895,11 @@
 
         // Cancel edit
         cancelEditBtn.addEventListener('click', () => {
-            if (currentUserDoc) {
-                displayUserDetails(currentUserDoc.data());
-            }
+            userDetails.style.display = 'none';
         });
 
-        // Open credentials modal
-        createCredentialsBtn.addEventListener('click', () => {
-            if (!currentUserDoc) return;
-            
-            const userData = currentUserDoc.data();
-            userIdInput.value = currentUserDoc.id;
-            userEmailInput.value = userData.email || '';
-            userPasswordInput.value = '';
-            
-            if (userData.uid) {
-                credentialsModalTitle.textContent = 'Alterar Credenciais';
-                hasAccountInfo.style.display = 'block';
-                userPasswordInput.placeholder = 'Deixe em branco para manter a senha atual';
-            } else {
-                credentialsModalTitle.textContent = 'Criar Credenciais';
-                hasAccountInfo.style.display = 'none';
-                userPasswordInput.placeholder = 'Digite a senha';
-            }
-            
-            userCredentialsModal.style.display = 'flex';
-        });
-
-        // Modal events
-        closeModalBtn.addEventListener('click', () => {
-            userCredentialsModal.style.display = 'none';
-        });
-
-        cancelBtn.addEventListener('click', () => {
-            userCredentialsModal.style.display = 'none';
-        });
-
-        // Criar/atualizar credenciais para usuário
-        credentialsForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const userId = userIdInput.value;
-            const email = userEmailInput.value;
-            const password = userPasswordInput.value;
-            
-            try {
-                // Verificar se o usuário já tem uma conta
-                const userDoc = await db.collection('usuarios').doc(userId).get();
-                const userData = userDoc.data();
-                
-                if (userData.uid) {
-                    // Usuário já tem conta, atualizar e-mail/senha
-                    if (email !== userData.email) {
-                        await auth.updateEmail(userData.uid, email);
-                    }
-                    
-                    // Atualizar senha apenas se foi fornecida
-                    if (password) {
-                        await auth.updatePassword(userData.uid, password);
-                    }
-                    
-                    // Atualizar Firestore
-                    await db.collection('usuarios').doc(userId).update({
-                        email: email,
-                        authUpdatedAt: new Date().toISOString()
-                    });
-                    
-                    showSuccessMessage('Credenciais atualizadas com sucesso!');
-                } else {
-                    // Criar nova conta no Firebase Auth
-                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                    const uid = userCredential.user.uid;
-                    
-                    // Atualizar documento no Firestore com UID e credenciais
-                    await db.collection('usuarios').doc(userId).update({
-                        uid: uid,
-                        email: email,
-                        authCreatedAt: new Date().toISOString()
-                    });
-                    
-                    showSuccessMessage('Credenciais criadas com sucesso!');
-                }
-                
-                userCredentialsModal.style.display = 'none';
-                
-                // Atualizar exibição
-                const updatedDoc = await db.collection('usuarios').doc(userId).get();
-                currentUserDoc = updatedDoc;
-                displayUserDetails(updatedDoc.data());
-            } catch (error) {
-                console.error("Erro ao criar/atualizar credenciais:", error);
-                alert('Erro ao criar/atualizar credenciais: ' + error.message);
-            }
-        });
+        // Filter users when equipment filter changes
+        equipmentFilter.addEventListener('change', filterUsers);
 
         // Calculate final price when discount changes
         document.getElementById('desconto').addEventListener('input', (e) => {
