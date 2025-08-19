@@ -653,71 +653,171 @@
             opacity: 0.7;
         }
 
+        /* Melhorias de responsividade gerais */
+input, select, textarea, button {
+    font-size: 16px; /* Previne zoom em iOS */
+}
+
+.equipment-item {
+    padding: 0.8rem;
+}
+
+.equipment-item h4 {
+    font-size: 1.1rem;
+}
+
+.add-equipment {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+}
+
+.remove-equipment {
+    font-size: 0.8rem;
+}
+
+.submit-btn {
+    font-size: 1rem;
+    padding: 0.9rem;
+}
+
+.footer-bottom {
+    font-size: 0.8rem;
+}
+      
         /* Responsive */
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-        }
+@media (max-width: 992px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .contract-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
 
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
 
-            nav {
-                position: fixed;
-                top: 80px;
-                left: 0;
-                width: 100%;
-                background-color: var(--light);
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-                padding: 2rem;
-                transform: translateY(-150%);
-                transition: var(--transition);
-                z-index: 999;
-            }
+    nav {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: var(--light);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        padding: 2rem;
+        transform: translateY(-150%);
+        transition: var(--transition);
+        z-index: 999;
+    }
 
-            nav.active {
-                transform: translateY(0);
-            }
+    nav.active {
+        transform: translateY(0);
+    }
 
-            nav ul {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
+    nav ul {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
 
-            .hero {
-                padding: 8rem 0 4rem;
-            }
+    .hero {
+        padding: 8rem 0 4rem;
+    }
 
-            .hero h1 {
-                font-size: 2rem;
-            }
+    .hero h1 {
+        font-size: 2rem;
+    }
 
-            .hero p {
-                font-size: 1rem;
-            }
+    .hero p {
+        font-size: 1rem;
+    }
 
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
 
-            .terms-content {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+    .terms-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-            .success-actions {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
+    .success-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 
-            .success-actions .cta-button {
-                margin-left: 0;
-                margin-top: 0.5rem;
-            }
+    .success-actions .cta-button {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+    
+    .personal-data-form {
+        padding: 1.5rem;
+    }
+    
+    .contract-notice {
+        padding: 1rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .price-display {
+        font-size: 1.2rem;
+        padding: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero p {
+        font-size: 0.9rem;
+    }
+    
+    .container {
+        width: 95%;
+        padding: 1rem 0;
+    }
+    
+    .personal-data-form {
+        padding: 1rem;
+    }
+    
+    .cta-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .logo {
+        font-size: 1.5rem;
+    }
+    
+    .file-upload {
+        padding: 1rem;
+    }
+    
+    .file-upload i {
+        font-size: 1.5rem;
+    }
+    
+    .footer-col h3 {
+        font-size: 1.1rem;
+    }
+    
+    .social-links a {
+        width: 35px;
+        height: 35px;
+    }
+
         }
     </style>
 </head>
@@ -1255,6 +1355,27 @@
                 loadingSpinner.style.display = 'none';
             }
         });
+
+        // Melhorar UX em dispositivos móveis
+function isMobileDevice() {
+    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+}
+
+// Ajustar o layout para mobile
+if (isMobileDevice()) {
+    document.body.classList.add('mobile-device');
+    
+    // Fechar menu ao clicar em um link
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            mainNav.classList.remove('active');
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        });
+    });
+}
+
+// Prevenir zoom em campos de input em iOS
+document.addEventListener('touchstart', function() {}, {passive: true});
         
         document.getElementById('planoTipo').addEventListener('change', calculateTotalPrice);
 
