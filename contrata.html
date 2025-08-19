@@ -12,17 +12,17 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         :root {
-            --primary: #FF6B35;
-            --primary-dark: #E05A2B;
-            --secondary: #2D2D2D;
-            --accent: #FFA630;
-            --light: #FFFFFF;
-            --dark: #161616;
-            --gray: #F5F5F5;
-            --texture: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
-            --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
+    --primary: #8B0000;        /* Vermelho escuro */
+    --primary-dark: #6D0000;   /* Vermelho mais escuro */
+    --secondary: #2D2D2D;
+    --accent: #CC0000;         /* Vermelho vibrante para destaques */
+    --light: #FFFFFF;
+    --dark: #161616;
+    --gray: #F5F5F5;
+    --texture: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
 
         * {
             margin: 0;
@@ -169,14 +169,14 @@
 
         .cta-button {
             display: inline-block;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(135deg, #8B0000 0%, #6D0000 100%);
             color: white;
             padding: 1rem 2.5rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
             border: none;
@@ -185,7 +185,7 @@
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+            box-shadow: 0 8px 25px rgba(139, 0, 0, 0.4);
         }
 
         .cta-button.secondary {
@@ -299,7 +299,7 @@
         }
 
         .contract-notice {
-            background-color: rgba(255, 107, 53, 0.1);
+            background-color: rgba(139, 0, 0, 0.1);
             padding: 1.5rem;
             border-radius: 8px;
             margin-top: 2rem;
@@ -415,9 +415,9 @@
         }
 
         .terms-container {
-            background-color: rgba(255, 107, 53, 0.05);
+            background-color: rgba(139, 0, 0, 0.05);
             padding: 1.5rem;
-            border-radius: 8px;
+            border: 1px solid rgba(139, 0, 0, 0.1);
             margin: 2rem 0;
             border: 1px solid rgba(255, 107, 53, 0.1);
         }
