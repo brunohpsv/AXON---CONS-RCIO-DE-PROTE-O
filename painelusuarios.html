@@ -13,15 +13,16 @@
     <style>
         :root {
             --primary: #8B0000;
-            --primary-dark: #6D0000;
+            --primary-light: #cc0000;
             --secondary: #2D2D2D;
             --light: #FFFFFF;
             --dark: #161616;
             --gray: #F5F5F5;
+            --gray-dark: #e0e0e0;
             --success: #4CAF50;
             --warning: #FFC107;
             --danger: #F44336;
-            --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
         * {
@@ -47,7 +48,7 @@
         .main-header {
             background-color: var(--light);
             padding: 1rem;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow);
             margin-bottom: 20px;
         }
 
@@ -67,16 +68,6 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-        }
-
-        .back-link {
-            color: var(--secondary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 500;
-            font-size: 0.9rem;
         }
 
         /* Login Section */
@@ -110,7 +101,6 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
-            font-size: 0.9rem;
         }
 
         .form-group input {
@@ -140,7 +130,7 @@
         }
 
         .btn:hover {
-            background-color: var(--primary-dark);
+            background-color: var(--primary-light);
         }
 
         .error-message {
@@ -150,7 +140,7 @@
             font-size: 0.9rem;
         }
 
-        /* Dashboard Section */
+        /* Dashboard */
         .dashboard {
             display: none;
         }
@@ -159,13 +149,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
             margin-bottom: 1.5rem;
         }
 
         .dashboard-header h1 {
             color: var(--primary);
-            font-size: 1.5rem;
         }
 
         .logout-btn {
@@ -178,143 +166,158 @@
             align-items: center;
             gap: 0.5rem;
             text-decoration: none;
-            font-size: 0.9rem;
         }
 
-        /* User Info Section */
-        .user-info-card {
+        /* User Info */
+        .user-info {
             background-color: var(--light);
             padding: 1.5rem;
             border-radius: 8px;
             box-shadow: var(--shadow);
             margin-bottom: 1.5rem;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1rem;
+            align-items: center;
         }
 
-        .user-details h2 {
-            color: var(--dark);
-            margin-bottom: 0.5rem;
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
             font-size: 1.2rem;
+            grid-row: span 2;
         }
 
-        .user-details p {
+        .user-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .user-detail {
             color: var(--secondary);
             font-size: 0.9rem;
-            margin-bottom: 0.3rem;
         }
 
-        /* Status Cards */
-        .status-cards {
+        /* Status Section */
+        .status-section {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1rem;
             margin-bottom: 1.5rem;
         }
 
         .status-card {
             background-color: var(--light);
-            padding: 1.2rem;
+            padding: 1rem;
             border-radius: 8px;
             box-shadow: var(--shadow);
         }
 
         .status-card h3 {
             color: var(--primary);
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            margin-bottom: 0.5rem;
             font-size: 1rem;
         }
 
-        .status-card p {
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+        .status-value {
             font-weight: 600;
-            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
         }
 
-        .status-active {
-            background-color: rgba(76, 175, 80, 0.1);
-            color: var(--success);
-        }
-
-        .status-pending {
-            background-color: rgba(255, 193, 7, 0.1);
-            color: var(--warning);
-        }
-
-        .status-inactive {
-            background-color: rgba(244, 67, 54, 0.1);
-            color: var(--danger);
+        .status-detail {
+            font-size: 0.9rem;
+            color: #666;
         }
 
         /* Equipment Section */
-        .equipment-section {
-            background-color: var(--light);
-            padding: 1.2rem;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-            margin-bottom: 1.5rem;
-        }
-
-        .equipment-section h2 {
+        .section-title {
             color: var(--primary);
             margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .equipment-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .equipment-card {
-            background-color: var(--gray);
-            padding: 1.2rem;
+            background-color: var(--light);
+            padding: 1rem;
             border-radius: 8px;
-            border-left: 4px solid var(--primary);
+            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
         }
 
-        .equipment-card h3 {
-            color: var(--dark);
+        .equipment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
             margin-bottom: 0.5rem;
-            font-size: 1rem;
         }
 
-        .equipment-card p {
-            color: var(--secondary);
+        .equipment-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .equipment-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .equipment-detail {
             font-size: 0.9rem;
-            margin-bottom: 0.3rem;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #666;
         }
 
         .payment-info {
-            margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px dashed #ddd;
+            background-color: var(--gray-dark);
+            padding: 0.8rem;
+            border-radius: 6px;
+            margin-top: 0.5rem;
         }
 
-        .payment-info p {
-            font-weight: 500;
+        .payment-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3rem;
         }
 
-        /* Responsive adjustments */
+        .next-payment {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .status-cards, .equipment-list {
+            .user-info {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .user-avatar {
+                grid-row: auto;
+                margin: 0 auto;
+            }
+            
+            .status-section {
                 grid-template-columns: 1fr;
             }
             
-            .dashboard-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
+            .equipment-details {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -325,9 +328,6 @@
         <div class="header-content">
             <a href="index.html" class="logo">
                 <i class="fas fa-shield-alt"></i> BIX
-            </a>
-            <a href="index.html" class="back-link" id="backLink">
-                <i class="fas fa-arrow-left"></i> Voltar
             </a>
         </div>
     </header>
@@ -354,53 +354,45 @@
     <!-- Dashboard Section -->
     <div class="dashboard container" id="dashboard">
         <div class="dashboard-header">
-            <h1><i class="fas fa-shield-alt"></i> Painel BIX</h1>
+            <h1>Painel do Cliente</h1>
             <a href="#" class="logout-btn" id="logoutBtn">
                 <i class="fas fa-sign-out-alt"></i> Sair
             </a>
         </div>
 
         <!-- User Info -->
-        <div class="user-info-card">
-            <div class="user-details">
-                <h2 id="userName">Carregando...</h2>
-                <p id="userEmail">Carregando...</p>
-                <p id="userCpf">CPF: Carregando...</p>
-                <p id="userPhone">Telefone: Carregando...</p>
-            </div>
+        <div class="user-info">
+            <div class="user-avatar" id="userAvatar">US</div>
+            <div class="user-name" id="userName">Carregando...</div>
+            <div class="user-detail" id="userEmail">Carregando...</div>
+            <div class="user-detail" id="userCpf">CPF: Carregando...</div>
         </div>
 
-        <!-- Status Cards -->
-        <div class="status-cards">
+        <!-- Status Section -->
+        <div class="status-section">
             <div class="status-card">
-                <h3><i class="fas fa-shield-alt"></i> Status do Plano</h3>
-                <p id="coverageStatus">Status: Carregando...</p>
-                <div class="status-badge status-inactive" id="planStatus">
-                    <i class="fas fa-exclamation-circle"></i> Status Desconhecido
-                </div>
+                <h3>Status do Plano</h3>
+                <div class="status-value" id="planStatus">Carregando...</div>
+                <div class="status-detail" id="coverageDates">Período de cobertura: Carregando...</div>
             </div>
 
             <div class="status-card">
-                <h3><i class="fas fa-calendar-alt"></i> Período de Cobertura</h3>
-                <p id="coverageDates">Início: Não informada - Término: Não informada</p>
-                <p id="daysRemaining">Data de término não informada</p>
+                <h3>Status de Carência</h3>
+                <div class="status-value" id="carenciaStatus">Carregando...</div>
+                <div class="status-detail" id="carenciaDates">Início: Carregando... - Término: Carregando...</div>
             </div>
             
             <div class="status-card">
-                <h3><i class="fas fa-clock"></i> Status de Carência</h3>
-                <p id="carenciaStatus">Status de carência não disponível</p>
-                <div class="status-badge status-inactive" id="carenciaBadge">
-                    <i class="fas fa-exclamation-circle"></i> Status Desconhecido
-                </div>
+                <h3>Próximo Pagamento</h3>
+                <div class="status-value" id="nextPaymentDate">Carregando...</div>
+                <div class="status-detail" id="nextPaymentValue">Valor: Carregando...</div>
             </div>
         </div>
 
         <!-- Equipment Section -->
-        <div class="equipment-section">
-            <h2><i class="fas fa-mobile-alt"></i> Equipamentos Protegidos</h2>
-            <div class="equipment-list" id="equipmentList">
-                <p>Nenhum equipamento cadastrado.</p>
-            </div>
+        <h2 class="section-title"><i class="fas fa-mobile-alt"></i> Equipamentos Protegidos</h2>
+        <div id="equipmentList">
+            <p>Carregando equipamentos...</p>
         </div>
     </div>
 
@@ -426,16 +418,16 @@
         const loginForm = document.getElementById('loginForm');
         const errorMessage = document.getElementById('errorMessage');
         const logoutBtn = document.getElementById('logoutBtn');
+        const userAvatar = document.getElementById('userAvatar');
         const userName = document.getElementById('userName');
         const userEmail = document.getElementById('userEmail');
         const userCpf = document.getElementById('userCpf');
-        const userPhone = document.getElementById('userPhone');
-        const coverageStatus = document.getElementById('coverageStatus');
         const planStatus = document.getElementById('planStatus');
         const coverageDates = document.getElementById('coverageDates');
-        const daysRemaining = document.getElementById('daysRemaining');
         const carenciaStatus = document.getElementById('carenciaStatus');
-        const carenciaBadge = document.getElementById('carenciaBadge');
+        const carenciaDates = document.getElementById('carenciaDates');
+        const nextPaymentDate = document.getElementById('nextPaymentDate');
+        const nextPaymentValue = document.getElementById('nextPaymentValue');
         const equipmentList = document.getElementById('equipmentList');
 
         // Check auth state
@@ -466,7 +458,6 @@
                     loginForm.reset();
                 })
                 .catch(error => {
-                    console.error("Login error:", error);
                     errorMessage.textContent = getErrorMessage(error.code);
                 });
         });
@@ -497,107 +488,110 @@
                                     const userData = doc.data();
                                     updateDashboard(userData);
                                 } else {
-                                    console.log("No such document!");
                                     errorMessage.textContent = "Usuário não encontrado no sistema.";
                                 }
                             })
                             .catch(error => {
-                                console.error("Error loading user data:", error);
                                 errorMessage.textContent = "Erro ao carregar dados do usuário.";
                             });
                     }
                 })
                 .catch(error => {
-                    console.error("Error loading user data:", error);
                     errorMessage.textContent = "Erro ao carregar dados do usuário.";
                 });
         }
 
         // Update dashboard with user data
         function updateDashboard(userData) {
-            console.log("User data:", userData);
-            
             // User info
+            const initials = userData.nome ? 
+                userData.nome.split(' ').map(name => name[0]).join('').toUpperCase().substring(0, 2) : 
+                'US';
+            userAvatar.textContent = initials;
             userName.textContent = userData.nome || 'Usuário';
             userCpf.textContent = userData.cpf ? `CPF: ${formatCpf(userData.cpf)}` : 'CPF não cadastrado';
-            userPhone.textContent = userData.telefone ? `Telefone: ${userData.telefone}` : 'Telefone não cadastrado';
 
-            // Coverage status
-            coverageStatus.textContent = `Status: ${userData.coberturaStatus || userData.status || 'Não informado'}`;
-            
             // Plan status
-            if (userData.status === "ativo" || userData.coberturaStatus === "ativa") {
-                planStatus.className = "status-badge status-active";
-                planStatus.innerHTML = '<i class="fas fa-check-circle"></i> Plano Ativo';
-            } else if (userData.status === "pendente") {
-                planStatus.className = "status-badge status-pending";
-                planStatus.innerHTML = '<i class="fas fa-clock"></i> Plano Pendente';
-            } else {
-                planStatus.className = "status-badge status-inactive";
-                planStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Status Desconhecido';
-            }
-
+            planStatus.textContent = userData.status === "ativo" ? "Ativo" : 
+                                   userData.status === "pendente" ? "Pendente" : "Inativo";
+            
             // Coverage dates
-            const startDate = userData.dataContratacao ? formatDate(new Date(userData.dataContratacao)) : 'Não informada';
-            const endDate = userData.fimCarencia ? calculateEndDate(userData.fimCarencia) : 'Não informada';
+            const startDate = userData.dataInicio ? formatDate(userData.dataInicio) : 'Não informada';
+            const endDate = userData.dataFim ? formatDate(userData.dataFim) : 'Não informada';
             coverageDates.textContent = `Início: ${startDate} - Término: ${endDate}`;
             
-            // Days remaining
-            if (userData.fimCarencia) {
-                const today = new Date();
-                const end = new Date(userData.fimCarencia);
-                const diffTime = end - today;
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            // Carencia status
+            if (userData.inicioCarencia && userData.fimCarencia) {
+                const inicioCarencia = formatDate(userData.inicioCarencia);
+                const fimCarencia = formatDate(userData.fimCarencia);
+                carenciaDates.textContent = `Início: ${inicioCarencia} - Término: ${fimCarencia}`;
                 
-                if (diffDays > 0) {
-                    daysRemaining.textContent = `Faltam ${diffDays} dias para o término`;
-                } else if (diffDays === 0) {
-                    daysRemaining.textContent = 'Seu plano termina hoje';
+                const hoje = new Date();
+                const fimCarenciaDate = new Date(userData.fimCarencia);
+                
+                if (hoje < fimCarenciaDate) {
+                    const diffTime = fimCarenciaDate - hoje;
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    carenciaStatus.textContent = `Em carência (${diffDays} dias restantes)`;
                 } else {
-                    daysRemaining.textContent = `Seu plano expirou há ${Math.abs(diffDays)} dias`;
+                    carenciaStatus.textContent = "Carência concluída";
                 }
             } else {
-                daysRemaining.textContent = 'Data de término não informada';
+                carenciaStatus.textContent = "Informação não disponível";
+                carenciaDates.textContent = "Período de carência não informado";
+            }
+
+            // Next payment calculation
+            const hoje = new Date();
+            let nextPayment = new Date(hoje.getFullYear(), hoje.getMonth(), 10);
+            
+            // If the 10th has already passed this month, go to next month
+            if (hoje.getDate() > 10) {
+                nextPayment.setMonth(nextPayment.getMonth() + 1);
             }
             
-            // Carencia status
-            if (userData.fimCarencia) {
-                const today = new Date();
-                const carenciaEnd = new Date(userData.fimCarencia);
-                const diffCarencia = Math.ceil((carenciaEnd - today) / (1000 * 60 * 60 * 24));
-                
-                if (diffCarencia > 0) {
-                    carenciaStatus.textContent = `Seu período de carência termina em ${diffCarencia} dias`;
-                    carenciaBadge.className = "status-badge status-pending";
-                    carenciaBadge.innerHTML = '<i class="fas fa-clock"></i> Em Carência';
-                } else {
-                    carenciaStatus.textContent = 'Seu equipamento está totalmente protegido';
-                    carenciaBadge.className = "status-badge status-active";
-                    carenciaBadge.innerHTML = '<i class="fas fa-check-circle"></i> Sem Carência';
-                }
-            } else {
-                carenciaStatus.textContent = 'Status de carência não disponível';
-                carenciaBadge.className = "status-badge status-inactive";
-                carenciaBadge.innerHTML = '<i class="fas fa-exclamation-circle"></i> Status Desconhecido';
+            // Adjust for weekends - if it's Saturday, move to Monday; if Sunday, move to Monday
+            const dayOfWeek = nextPayment.getDay();
+            if (dayOfWeek === 6) { // Saturday
+                nextPayment.setDate(nextPayment.getDate() + 2);
+            } else if (dayOfWeek === 0) { // Sunday
+                nextPayment.setDate(nextPayment.getDate() + 1);
             }
+            
+            nextPaymentDate.textContent = formatDate(nextPayment);
+            
+            // Calculate monthly value (using the discounted price from the example data)
+            const monthlyValue = userData.price && userData.price.discounted ? 
+                               (userData.price.discounted / 12).toFixed(2) : 
+                               "0,00";
+            nextPaymentValue.textContent = `Valor: R$ ${monthlyValue}`;
 
             // Equipment list
             if (userData.equipments && userData.equipments.length > 0) {
                 equipmentList.innerHTML = '';
+                
                 userData.equipments.forEach(equip => {
-                    const monthlyPrice = calculateMonthlyPrice(equip.valor);
-                    const nextPayment = calculateNextPayment();
-                    
                     const equipmentCard = document.createElement('div');
                     equipmentCard.className = 'equipment-card';
                     
                     equipmentCard.innerHTML = `
-                        <h3>${equip.marca || 'Marca não informada'} ${equip.modelo || 'Modelo não informado'}</h3>
-                        <p><strong>Tipo:</strong> ${equip.tipo || 'Não informado'}</p>
-                        <p><strong>Valor do equipamento:</strong> ${equip.valor ? 'R$ ' + equip.valor.toFixed(2) : 'Não informado'}</p>
+                        <div class="equipment-header">
+                            <div class="equipment-name">${equip.marca || 'Marca não informada'} ${equip.modelo || 'Modelo não informado'}</div>
+                        </div>
+                        <div class="equipment-details">
+                            <div class="equipment-detail"><span class="detail-label">Tipo:</span> ${equip.tipo || 'Não informado'}</div>
+                            <div class="equipment-detail"><span class="detail-label">Valor:</span> ${equip.valor ? 'R$ ' + equip.valor.toFixed(2) : 'Não informado'}</div>
+                            <div class="equipment-detail"><span class="detail-label">Nº Série:</span> ${equip.numeroSerie || 'N/A'}</div>
+                        </div>
                         <div class="payment-info">
-                            <p><strong>Mensalidade:</strong> R$ ${monthlyPrice.toFixed(2)}</p>
-                            <p><strong>Próximo pagamento:</strong> ${nextPayment}</p>
+                            <div class="payment-row">
+                                <span>Mensalidade:</span>
+                                <span>R$ ${monthlyValue}</span>
+                            </div>
+                            <div class="payment-row next-payment">
+                                <span>Próximo pagamento:</span>
+                                <span>${formatDate(nextPayment)}</span>
+                            </div>
                         </div>
                     `;
 
@@ -608,57 +602,30 @@
             }
         }
 
-        // Calculate monthly price (1.5% of equipment value)
-        function calculateMonthlyPrice(equipmentValue) {
-            if (!equipmentValue || equipmentValue <= 0) return 0;
-            return equipmentValue * 0.015; // 1.5% do valor do equipamento
-        }
-
-        // Calculate next payment date (10th of next month or next business day)
-        function calculateNextPayment() {
-            const today = new Date();
-            let nextPayment = new Date(today.getFullYear(), today.getMonth() + 1, 10);
-            
-            // If the 10th is a weekend, move to next business day
-            if (nextPayment.getDay() === 0) { // Sunday
-                nextPayment.setDate(11);
-            } else if (nextPayment.getDay() === 6) { // Saturday
-                nextPayment.setDate(12);
-            }
-            
-            return formatDate(nextPayment);
-        }
-
-        // Calculate end date based on carencia end
-        function calculateEndDate(carenciaEnd) {
-            if (!carenciaEnd) return 'Não informada';
-            
-            const end = new Date(carenciaEnd);
-            end.setFullYear(end.getFullYear() + 1); // Add 1 year to carencia end
-            
-            return formatDate(end);
-        }
-
         // Helper function to get error messages
         function getErrorMessage(errorCode) {
-            const errors = {
-                'auth/invalid-email': 'E-mail inválido.',
-                'auth/user-disabled': 'Esta conta foi desativada.',
-                'auth/user-not-found': 'Nenhuma conta encontrada com este e-mail.',
-                'auth/wrong-password': 'Senha incorreta.',
-                'auth/too-many-requests': 'Muitas tentativas. Tente novamente mais tarde.',
-                'auth/network-request-failed': 'Erro de conexão. Verifique sua internet.'
-            };
-            
-            return errors[errorCode] || 'Erro ao fazer login. Tente novamente.';
+            switch(errorCode) {
+                case 'auth/invalid-email': return 'E-mail inválido.';
+                case 'auth/user-disabled': return 'Esta conta foi desativada.';
+                case 'auth/user-not-found': return 'Nenhuma conta encontrada com este e-mail.';
+                case 'auth/wrong-password': return 'Senha incorreta.';
+                case 'auth/too-many-requests': return 'Muitas tentativas. Tente novamente mais tarde.';
+                case 'auth/network-request-failed': return 'Erro de conexão. Verifique sua internet.';
+                default: return 'Erro ao fazer login. Tente novamente.';
+            }
         }
 
         // Helper function to format date
         function formatDate(date) {
             if (!date) return 'Data inválida';
             
+            // Se for string (como "2025-08-18")
             if (typeof date === 'string') {
                 date = new Date(date);
+            }
+            // Se for um objeto Timestamp do Firestore
+            else if (date.seconds) {
+                date = new Date(date.seconds * 1000);
             }
             
             if (!(date instanceof Date) || isNaN(date)) return 'Data inválida';
