@@ -288,6 +288,66 @@
             font-size: 0.9rem;
             color: #666;
         }
+        
+        /* Info Cards */
+        .info-card {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-card-title {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        .info-item {
+            margin-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .info-label {
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        
+        .info-value {
+            color: #666;
+        }
+        
+        /* Access Denied */
+        .access-denied {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--light);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .access-denied-icon {
+            font-size: 3rem;
+            color: var(--warning);
+            margin-bottom: 1rem;
+        }
+        
+        .access-denied-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--warning);
+        }
+        
+        .access-denied-text {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
     </style>
 </head>
 <body>
@@ -307,11 +367,6 @@
                 <button type="submit" class="btn" id="loginBtn">Entrar</button>
                 <div class="error-message" id="loginError"></div>
             </form>
-            
-            <div class="demo-credentials">
-                <h3>Credenciais para teste:</h3>
-                <div class="credential-item"><strong>E-mail:</strong> cliente@bix.com.br</div>
-                <div class="credential-item"><strong>Senha:</strong> 123456</div>
             </div>
         </div>
     </div>
@@ -327,68 +382,108 @@
             <div class="spinner"></div>
         </div>
         
-        <!-- Status Card -->
-        <div class="status-card" id="statusCard">
-            <h2 class="status-title">Status do seu plano</h2>
-            <div id="statusBadge" class="status-badge status-pending">Carregando...</div>
-            <p id="coverageStatus">Verificando status da cobertura...</p>
-            <div id="additionalInfo"></div>
-        </div>
-        
-        <!-- Services Section -->
-        <div class="services-section">
-            <h2 class="services-title">Como solicitar nossos serviços</h2>
-            
-            <div class="service-item">
-                <h3 class="service-name">Assistência Técnica</h3>
-                <p class="service-description">
-                    Para solicitar assistência técnica para seu equipamento, envie um e-mail para 
-                    <strong>assistencia@bix.com.br</strong> com as seguintes informações: seu nome completo, 
-                    número do CPF, modelo do equipamento, número de série e descrição detalhada do problema.
-                </p>
-            </div>
-            
-            <div class="service-item">
-                <h3 class="service-name">Avaliação para venda de celular</h3>
-                <p class="service-description">
-                    Para solicitar uma avaliação do seu celular para venda, envie um e-mail para 
-                    <strong>vendas@bix.com.br</strong> com as seguintes informações: seu nome completo, 
-                    número do CPF, marca e modelo do aparelho, estado de conservação, acompanhado de 
-                    3 fotos (frente, verso e lateral) e valor esperado pela venda.
-                </p>
-            </div>
-            
-            <div class="service-item">
-                <h3 class="service-name">Envio de acessórios para desconto</h3>
-                <p class="service-description">
-                    Para enviar acessórios e ganhar 50% de desconto em compras, envie um e-mail para 
-                    <strong>acessorios@bix.com.br</strong> com as seguintes informações: seu nome completo, 
-                    número do CPF, lista de acessórios que deseja enviar (com especificações) e produto 
-                    que deseja comprar com desconto. Nossa equipe retornará com as instruções de envio.
-                </p>
-            </div>
-            
-            <div class="service-item">
-                <h3 class="service-name">Lista de lojas credenciadas</h3>
-                <p class="service-description">
-                    Para solicitar a lista de lojas credenciadas em sua cidade, envie um e-mail para 
-                    <strong>lojas@bix.com.br</strong> com as seguintes informações: seu nome completo, 
-                    número do CPF e cidade/estado onde busca por lojas credenciadas.
-                </p>
-            </div>
-        </div>
-        
-        <!-- Notice Section -->
-        <div class="notice-section">
-            <h3 class="notice-title">Importante: Todas as solicitações são feitas por e-mail</h3>
-            <p class="notice-text">
-                Todas as solicitações de serviços devem ser feitas exclusivamente por e-mail para garantir 
-                que tenhamos um registro formal do seu pedido, com data e hora de solicitação. Isso permite 
-                rastrear todo o histórico de atendimento e assegura que sua solicitação será procesada 
-                conforme os prazos estabelecidos em nosso contrato de serviços. O atendimento por e-mail 
-                também nos permite direcionar cada solicitação para o setor especializado responsável, 
-                agilizando a resolução do seu chamado.
+        <!-- Access Denied Message (for pending status) -->
+        <div class="access-denied" id="accessDenied" style="display: none;">
+            <div class="access-denied-icon">⏳</div>
+            <h2 class="access-denied-title">Conta em Análise</h2>
+            <p class="access-denied-text">
+                Sua conta ainda está em processo de análise pela nossa equipe. 
+                Você receberá um e-mail assim que sua conta for ativada e você 
+                poderá acessar todos os recursos da plataforma.
             </p>
+            <button class="btn" id="goBackBtn">Voltar</button>
+        </div>
+        
+        <!-- Main Content (for active status) -->
+        <div id="mainContent">
+            <!-- Status Card -->
+            <div class="status-card" id="statusCard">
+                <h2 class="status-title">Status do seu plano</h2>
+                <div id="statusBadge" class="status-badge status-pending">Carregando...</div>
+                <p id="coverageStatus">Verificando status da cobertura...</p>
+                <div id="additionalInfo"></div>
+            </div>
+            
+            <!-- Documents Info Card -->
+            <div class="info-card" id="documentsCard">
+                <h2 class="info-card-title">Documentos Cadastrados</h2>
+                <div id="documentsList">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+            
+            <!-- Payment Info Card -->
+            <div class="info-card" id="paymentCard">
+                <h2 class="info-card-title">Informações de Pagamento</h2>
+                <div class="info-item">
+                    <span class="info-label">Mensalidade:</span>
+                    <span class="info-value" id="monthlyPayment">Carregando...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Próximo vencimento:</span>
+                    <span class="info-value" id="nextDueDate">Carregando...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Status do pagamento:</span>
+                    <span class="info-value" id="paymentStatus">Carregando...</span>
+                </div>
+            </div>
+            
+            <!-- Services Section -->
+            <div class="services-section">
+                <h2 class="services-title">Como solicitar nossos serviços</h2>
+                
+                <div class="service-item">
+                    <h3 class="service-name">Assistência Técnica</h3>
+                    <p class="service-description">
+                        Para solicitar assistência técnica para seu equipamento, envie um e-mail para 
+                        <strong>assistencia@bix.com.br</strong> com as seguintes informações: seu nome completo, 
+                        número do CPF, modelo do equipamento, número de série e descrição detalhada do problema.
+                    </p>
+                </div>
+                
+                <div class="service-item">
+                    <h3 class="service-name">Avaliação para venda de celular</h3>
+                    <p class="service-description">
+                        Para solicitar uma avaliação do seu celular para venda, envie um e-mail para 
+                        <strong>vendas@bix.com.br</strong> com as seguintes informações: seu nome completo, 
+                        número do CPF, marca e modelo do aparelho, estado de conservação, acompanhado de 
+                        3 fotos (frente, verso e lateral) e valor esperado pela venda.
+                    </p>
+                </div>
+                
+                <div class="service-item">
+                    <h3 class="service-name">Envio de acessórios para desconto</h3>
+                    <p class="service-description">
+                        Para enviar acessórios e ganhar 50% de desconto em compras, envie um e-mail para 
+                        <strong>acessorios@bix.com.br</strong> com as seguintes informações: seu nome completo, 
+                        número do CPF, lista de acessórios que deseja enviar (com especificações) e produto 
+                        que deseja comprar com desconto. Nossa equipe retornará com as instruções de envio.
+                    </p>
+                </div>
+                
+                <div class="service-item">
+                    <h3 class="service-name">Lista de lojas credenciadas</h3>
+                    <p class="service-description">
+                        Para solicitar a lista de lojas credenciadas em sua cidade, envie um e-mail para 
+                        <strong>lojas@bix.com.br</strong> com as seguintes informações: seu nome completo, 
+                        número do CPF e cidade/estado onde busca por lojas credenciadas.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Notice Section -->
+            <div class="notice-section">
+                <h3 class="notice-title">Importante: Todas as solicitações são feitas por e-mail</h3>
+                <p class="notice-text">
+                    Todas as solicitações de serviços devem ser feitas exclusivamente por e-mail para garantir 
+                    que tenhamos um registro formal do seu pedido, com data e hora de solicitação. Isso permite 
+                    rastrear todo o histórico de atendimento e assegura que sua solicitação será procesada 
+                    conforme os prazos estabelecidos em nosso contrato de serviços. O atendimento por e-mail 
+                    também nos permite direcionar cada solicitação para o setor especializado responsável, 
+                    agilizando a resolução do seu chamado.
+                </p>
+            </div>
         </div>
     </div>
 
@@ -419,6 +514,13 @@
         const coverageStatus = document.getElementById('coverageStatus');
         const userInfo = document.getElementById('userInfo');
         const additionalInfo = document.getElementById('additionalInfo');
+        const accessDenied = document.getElementById('accessDenied');
+        const mainContent = document.getElementById('mainContent');
+        const documentsList = document.getElementById('documentsList');
+        const monthlyPayment = document.getElementById('monthlyPayment');
+        const nextDueDate = document.getElementById('nextDueDate');
+        const paymentStatus = document.getElementById('paymentStatus');
+        const goBackBtn = document.getElementById('goBackBtn');
 
         // Demo user data (para quando não houver conexão com o Firestore)
         const demoUserData = {
@@ -426,7 +528,11 @@
             status: "ativo",
             coberturaStatus: "ativa",
             plano: "Premium",
-            validade: "2024-12-31"
+            validade: "2024-12-31",
+            documentos: ["CPF", "RG", "Comprovante de Residência"],
+            mensalidade: "R$ 99,90",
+            proximoVencimento: "2023-11-10",
+            statusPagamento: "Pago"
         };
 
         // Check auth state
@@ -440,9 +546,16 @@
                     const userDoc = await db.collection("usuarios").doc(user.uid).get();
                     
                     if (userDoc.exists) {
-                        loginContainer.style.display = 'none';
-                        dashboard.style.display = 'block';
-                        displayUserStatus(user, userDoc.data());
+                        const userData = userDoc.data();
+                        
+                        // Verificar se o status é pendente
+                        if (userData.status === "pendente") {
+                            showAccessDenied();
+                        } else {
+                            loginContainer.style.display = 'none';
+                            dashboard.style.display = 'block';
+                            displayUserStatus(user, userData);
+                        }
                     } else {
                         // Se não encontrar no Firestore, usar dados de demonstração
                         console.log("Usuário não encontrado no Firestore, usando dados de demonstração");
@@ -505,6 +618,21 @@
         logoutBtn.addEventListener('click', () => {
             auth.signOut();
         });
+
+        // Go back button (for access denied)
+        goBackBtn.addEventListener('click', () => {
+            auth.signOut();
+        });
+
+        // Show access denied message
+        function showAccessDenied() {
+            loginContainer.style.display = 'none';
+            dashboard.style.display = 'block';
+            accessDenied.style.display = 'block';
+            mainContent.style.display = 'none';
+            
+            userInfo.textContent = `Olá, ${user.email}`;
+        }
 
         // Display user status
         function displayUserStatus(user, userData) {
@@ -572,6 +700,57 @@
                 telefoneInfo.classList.add('additional-info');
                 additionalInfo.appendChild(telefoneInfo);
             }
+            
+            // Mostrar documentos cadastrados
+            displayDocuments(userData.documentos || []);
+            
+            // Mostrar informações de pagamento
+            displayPaymentInfo(userData);
+        }
+
+        // Display documents
+        function displayDocuments(documents) {
+            if (documents.length === 0) {
+                documentsList.innerHTML = '<p>Nenhum documento cadastrado</p>';
+                return;
+            }
+            
+            let html = '';
+            documents.forEach(doc => {
+                html += `
+                    <div class="info-item">
+                        <span class="info-label">${doc}</span>
+                        <span class="info-value" style="color: var(--success);">✓</span>
+                    </div>
+                `;
+            });
+            
+            documentsList.innerHTML = html;
+        }
+
+        // Display payment information
+        function displayPaymentInfo(userData) {
+            monthlyPayment.textContent = userData.mensalidade || 'R$ 99,90';
+            nextDueDate.textContent = userData.proximoVencimento ? formatDate(userData.proximoVencimento) : '2023-11-10';
+            
+            if (userData.statusPagamento) {
+                paymentStatus.textContent = userData.statusPagamento;
+                
+                // Color code based on payment status
+                if (userData.statusPagamento.toLowerCase().includes('pago') || 
+                    userData.statusPagamento.toLowerCase().includes('aprovado')) {
+                    paymentStatus.style.color = 'var(--success)';
+                } else if (userData.statusPagamento.toLowerCase().includes('pendente') || 
+                          userData.statusPagamento.toLowerCase().includes('processando')) {
+                    paymentStatus.style.color = 'var(--warning)';
+                } else if (userData.statusPagamento.toLowerCase().includes('atrasado') || 
+                          userData.statusPagamento.toLowerCase().includes('negado')) {
+                    paymentStatus.style.color = 'var(--error)';
+                }
+            } else {
+                paymentStatus.textContent = 'Pago';
+                paymentStatus.style.color = 'var(--success)';
+            }
         }
 
         // Format date for display
@@ -605,6 +784,10 @@
                         coberturaStatus: "ativa",
                         plano: "Premium",
                         validade: new Date("2024-12-31"),
+                        documentos: ["CPF", "RG", "Comprovante de Residência"],
+                        mensalidade: "R$ 99,90",
+                        proximoVencimento: new Date("2023-11-10"),
+                        statusPagamento: "Pago",
                         dataCriacao: new Date()
                     });
                     console.log("Usuário demo criado com sucesso");
