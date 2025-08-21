@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <!-- Adicionando o Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <style>
         :root {
             --primary: #8B0000; /* Vermelho escuro */
@@ -334,7 +338,7 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             padding: 1rem;
-            border-radius: 8px;
+            borderRadius: 8px;
             border: none;
             font-weight: 600;
             font-size: 1rem;
@@ -625,6 +629,22 @@
     </footer>
 
     <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            // SUA CONFIGURAÇÃO DO FIREBASE AQUI
+            apiKey: "SUA_API_KEY",
+            authDomain: "SEU_PROJETO.firebaseapp.com",
+            projectId: "SEU_PROJETO_ID",
+            storageBucket: "SEU_PROJETO.appspot.com",
+            messagingSenderId: "SEU_SENDER_ID",
+            appId: "SEU_APP_ID"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const sideMenu = document.getElementById('sideMenu');
@@ -657,7 +677,7 @@
         const passwordError = document.getElementById('passwordError');
         const loginError = document.getElementById('loginError');
         
-        loginForm.addEventListener('submit', function(e) {
+        loginForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             // Reset error messages
@@ -690,58 +710,63 @@
             }
             
             if (isValid) {
-                // Simulate login process
                 const loginButton = loginForm.querySelector('button[type="submit"]');
                 loginButton.textContent = 'Entrando...';
                 loginButton.disabled = true;
                 
-                // Simulate API call to check credentials and status
-                setTimeout(() => {
-                    // In a real application, you would verify credentials with your backend
-                    // For demo purposes, we'll simulate different scenarios based on email
+                try {
+                    // Autenticar usuário com Firebase Auth
+                    const userCredential = await auth.signInWithEmailAndPassword(emailInput.value, passwordInput.value);
+                    const user = userCredential.user;
                     
-                    // Get user status based on email (simulação)
-                    const userStatus = getUserStatus(emailInput.value);
+                    // Buscar informações do usuário no Firestore
+                    const userDoc = await db.collection('users').doc(user.uid).get();
                     
-                    if (userStatus === 'ativo') {
-                        // Login successful for active accounts
-                        window.location.href = 'painelusuario.html';
-                    } else if (userStatus === 'pendente') {
-                        // Show error for pending accounts
-                        loginError.textContent = 'Sua conta está com status pendente. Entre em contato com o suporte.';
-                        loginError.style.display = 'block';
-                        loginButton.textContent = 'Entrar';
-                        loginButton.disabled = false;
-                    } else if (userStatus === 'inativo') {
-                        // Show error for inactive accounts
-                        loginError.textContent = 'Sua conta está inativa. Entre em contato com o suporte para reativar.';
-                        loginError.style.display = 'block';
-                        loginButton.textContent = 'Entrar';
-                        loginButton.disabled = false;
+                    if (userDoc.exists) {
+                        const userData = userDoc.data();
+                        
+                        // Verificar o status do usuário
+                        if (userData.status === 'pendente' || userData.status === 'inativo') {
+                            // Exibir mensagem específica para status pendente ou inativo
+                            loginError.textContent = 'Sua conta está sendo suspensa. Entre em contato com o suporte pelo e-mail: bixX.corp@outlook.com.br';
+                            loginError.style.display = 'block';
+                            
+                            // Fazer logout do usuário já que o status não permite acesso
+                            await auth.signOut();
+                        } else if (userData.status === 'ativo') {
+                            // Redirecionar para o painel do usuário se estiver ativo
+                            window.location.href = 'painelusuario.html';
+                        } else {
+                            // Status desconhecido
+                            loginError.textContent = 'Status da conta desconhecido. Entre em contato com o suporte.';
+                            loginError.style.display = 'block';
+                            await auth.signOut();
+                        }
                     } else {
-                        // Show generic error for invalid credentials
-                        loginError.textContent = 'E-mail ou senha incorretos. Tente novamente.';
+                        // Documento do usuário não encontrado
+                        loginError.textContent = 'Dados do usuário não encontrados. Entre em contato com o suporte.';
                         loginError.style.display = 'block';
-                        loginButton.textContent = 'Entrar';
-                        loginButton.disabled = false;
+                        await auth.signOut();
                     }
-                }, 1500);
+                } catch (error) {
+                    // Tratar erros de autenticação
+                    console.error('Erro de login:', error);
+                    
+                    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                        loginError.textContent = 'E-mail ou senha incorretos. Tente novamente.';
+                    } else if (error.code === 'auth/too-many-requests') {
+                        loginError.textContent = 'Muitas tentativas de login. Tente novamente mais tarde.';
+                    } else {
+                        loginError.textContent = 'Erro ao fazer login. Tente novamente.';
+                    }
+                    
+                    loginError.style.display = 'block';
+                } finally {
+                    loginButton.textContent = 'Entrar';
+                    loginButton.disabled = false;
+                }
             }
         });
-        
-        // Simulate user status check based on email
-        function getUserStatus(email) {
-            // In a real application, this would be an API call to your backend
-            // For demo purposes, we'll determine status based on email content
-            
-            if (email.includes('ativo')) return 'ativo';
-            if (email.includes('pendente')) return 'pendente';
-            if (email.includes('inativo')) return 'inativo';
-            
-            // Default to active for any other email (for demo purposes)
-            // In production, this should always check against your database
-            return 'ativo';
-        }
         
         function isValidEmail(email) {
             const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
