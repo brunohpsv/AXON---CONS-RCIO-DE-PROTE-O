@@ -386,38 +386,57 @@
             color: var(--secondary);
         }
         
-        .action-buttons {
+        .equipment-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
             margin-top: 2rem;
         }
         
-        .action-button {
+        .equipment-card {
+            background-color: var(--light);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+        }
+        
+        .equipment-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .equipment-card-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            padding: 1rem;
-            background-color: var(--light);
-            border: 1px solid rgba(0,0,0,0.1);
-            border-radius: 12px;
-            font-weight: 500;
-            color: var(--dark);
-            text-decoration: none;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
+            margin-bottom: 1rem;
         }
         
-        .action-button:hover {
-            background-color: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(139, 0, 0, 0.3);
-        }
-        
-        .action-button i {
+        .equipment-card-header i {
             font-size: 1.25rem;
+            margin-right: 0.75rem;
+            color: var(--primary);
+        }
+        
+        .equipment-card-header h3 {
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .equipment-detail {
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .equipment-detail-label {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .equipment-detail-value {
+            color: var(--secondary);
         }
         
         /* Footer */
@@ -535,11 +554,7 @@
                 padding: 6rem 0 2rem;
             }
             
-            .status-cards, .info-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .action-buttons {
+            .status-cards, .info-grid, .equipment-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -598,7 +613,7 @@
         <div class="container">
             <div class="welcome-banner">
                 <div class="welcome-content">
-                    <h1>Olá, João Silva!</h1>
+                    <h1 id="userName">Olá, Justino Ferreira Cardoso!</h1>
                     <p>Acompanhe aqui o status da sua assinatura e benefícios</p>
                 </div>
             </div>
@@ -609,88 +624,90 @@
                         <i class="fas fa-user-check"></i>
                         <h3>Status da Assinatura</h3>
                     </div>
-                    <div class="status-value status-active" id="statusValue">Ativa</div>
-                    <p>Sua assinatura está ativa e seus benefícios disponíveis</p>
+                    <div class="status-value" id="statusValue">Ativa</div>
+                    <p>Sua assinatura está <span id="statusText">ativa</span> e seus benefícios disponíveis</p>
                 </div>
                 
                 <div class="status-card">
                     <div class="status-card-header">
                         <i class="fas fa-clock"></i>
-                        <h3>Tempo de Carência</h3>
+                        <h3>Período de Carência</h3>
                     </div>
                     <div class="progress-container">
                         <div class="progress-label">
                             <span>Progresso</span>
-                            <span id="progressPercentage">60%</span>
+                            <span id="progressPercentage">0%</span>
                         </div>
                         <div class="progress-bar">
-                            <div class="progress-fill" id="progressFill" style="width: 60%"></div>
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
                         </div>
                     </div>
-                    <p>Faltam <strong id="daysRemaining">24 dias</strong> para conclusão do período de carência</p>
+                    <p>Início: <strong id="startCarencia">20/08/2025</strong></p>
+                    <p>Término: <strong id="endCarencia">20/02/2026</strong></p>
                 </div>
                 
                 <div class="status-card">
                     <div class="status-card-header">
-                        <i class="fas fa-calendar-alt"></i>
-                        <h3>Próxima Renovação</h3>
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Status da Cobertura</h3>
                     </div>
-                    <div class="status-value">15/04/2025</div>
-                    <p>Próxima cobrança será realizada nesta data</p>
+                    <div class="status-value" id="coverageStatus">Ativa</div>
+                    <p>Sua cobertura está <span id="coverageStatusText">ativa</span></p>
                 </div>
             </div>
             
             <div class="info-grid">
                 <div class="info-card">
                     <div class="info-card-header">
-                        <i class="fas fa-tag"></i>
-                        <h3>Plano Contratado</h3>
+                        <i class="fas fa-user"></i>
+                        <h3>Dados Pessoais</h3>
                     </div>
-                    <div class="info-value">Plano Premium</div>
+                    <div class="info-value">
+                        <p><strong>CPF:</strong> <span id="userCpf">758.963.258-41</span></p>
+                        <p><strong>RG:</strong> <span id="userRg">9.658.721</span></p>
+                        <p><strong>Nascimento:</strong> <span id="userBirth">24/02/1995</span></p>
+                    </div>
                 </div>
                 
                 <div class="info-card">
                     <div class="info-card-header">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <h3>Valor da Mensalidade</h3>
+                        <i class="fas fa-phone"></i>
+                        <h3>Contato</h3>
                     </div>
-                    <div class="info-value">R$ 79,90</div>
+                    <div class="info-value">
+                        <p><strong>Telefone:</strong> <span id="userPhone">(62) 98745-6321</span></p>
+                        <p><strong>Email:</strong> <span id="userEmail">justino@gmail.com</span></p>
+                    </div>
                 </div>
                 
                 <div class="info-card">
                     <div class="info-card-header">
-                        <i class="fas fa-calendar-check"></i>
-                        <h3>Data de Início</h3>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Endereço</h3>
                     </div>
-                    <div class="info-value">15/01/2025</div>
+                    <div class="info-value" id="userAddress">
+                        Rua Marilisa, justim quadra 12, lote 74 setor araguaia
+                    </div>
                 </div>
                 
                 <div class="info-card">
                     <div class="info-card-header">
-                        <i class="fas fa-id-card"></i>
-                        <h3>Método de Pagamento</h3>
+                        <i class="fas fa-file-contract"></i>
+                        <h3>Informações do Contrato</h3>
                     </div>
-                    <div class="info-value">Cartão de Crédito **** **** **** 1234</div>
+                    <div class="info-value">
+                        <p><strong>Data de Contratação:</strong> <span id="contractDate">18/08/2025</span></p>
+                        <p><strong>Valor Total:</strong> <span id="totalPrice">R$ 120,00</span></p>
+                        <p><strong>Última Atualização:</strong> <span id="lastUpdate">20/08/2025</span></p>
+                    </div>
                 </div>
             </div>
             
-            <div class="action-buttons">
-                <a href="#" class="action-button">
-                    <i class="fas fa-file-alt"></i>
-                    <span>Ver Contrato</span>
-                </a>
-                <a href="#" class="action-button">
-                    <i class="fas fa-cog"></i>
-                    <span>Alterar Plano</span>
-                </a>
-                <a href="#" class="action-button">
-                    <i class="fas fa-credit-card"></i>
-                    <span>Alterar Pagamento</span>
-                </a>
-                <a href="#" class="action-button">
-                    <i class="fas fa-question-circle"></i>
-                    <span>Suporte</span>
-                </a>
+            <div class="equipment-section">
+                <h2 style="margin-bottom: 1.5rem; color: var(--dark);">Equipamentos Protegidos</h2>
+                <div class="equipment-grid" id="equipmentGrid">
+                    <!-- Equipamentos serão inseridos via JavaScript -->
+                </div>
             </div>
         </div>
     </section>
@@ -766,46 +783,160 @@
             }
         });
         
-        // Simulação de dados do usuário (em uma aplicação real, isso viria de uma API)
+        // Dados do Firestore (simulação)
         const userData = {
-            name: "João Silva",
-            status: "active", // Pode ser: active, pending, inactive
-            plan: "Plano Premium",
-            monthlyPrice: "R$ 79,90",
-            startDate: "15/01/2025",
-            nextRenewal: "15/04/2025",
-            paymentMethod: "Cartão de Crédito **** **** **** 1234",
-            gracePeriod: {
-                totalDays: 90,
-                remainingDays: 24,
-                progress: 60 // porcentagem
-            }
+            authCreatedAt: "2025-08-18T19:38:35.922Z",
+            coberturaStatus: "ativa",
+            cpf: "75896325841",
+            dataAtualizacao: "2025-08-18T17:51:36.945Z",
+            dataContratacao: "2025-08-18T17:50:48.698Z",
+            documento: "ANALISE DO ITEM.pdf",
+            email: "justino@gmail.com",
+            endereco: "Rua Marilisa, justim quadra 12, lote 74 setor araguaia",
+            equipments: [
+                {
+                    marca: "aplle",
+                    modelo: "rs max1",
+                    numeroSerie: "",
+                    tipo: "tablet",
+                    valor: 0
+                }
+            ],
+            fimCarencia: "2026-02-20",
+            inicioCarencia: "2025-08-20",
+            nascimento: "1995-02-24",
+            nome: "Justino Ferreira Cardoso",
+            price: {
+                discount: 0,
+                discounted: 120,
+                total: 120
+            },
+            rg: "9658721",
+            status: "ativo",
+            telefone: "62987456321",
+            uid: "kWPe3aYeKOYplcQnwQqupH6HnRv2",
+            updatedAt: "2025-08-20T12:29:46.793Z"
         };
         
-        // Atualizar a interface com os dados do usuário
-        document.querySelector('.welcome-content h1').textContent = `Olá, ${userData.name}!`;
+        // Funções de formatação
+        function formatarCPF(cpf) {
+            return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+        }
         
+        function formatarTelefone(telefone) {
+            return telefone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+        }
+        
+        function formatarRG(rg) {
+            if (rg.length <= 7) {
+                return rg.replace(/(\d{1})(\d{3})(\d{3})/, "$1.$2.$3");
+            }
+            return rg;
+        }
+        
+        function formatarData(dataString) {
+            const data = new Date(dataString);
+            return data.toLocaleDateString('pt-BR');
+        }
+        
+        function calcularProgressoCarencia(inicio, fim) {
+            const inicioDate = new Date(inicio);
+            const fimDate = new Date(fim);
+            const hoje = new Date();
+            
+            const totalDias = Math.floor((fimDate - inicioDate) / (1000 * 60 * 60 * 24));
+            const diasPassados = Math.floor((hoje - inicioDate) / (1000 * 60 * 60 * 24));
+            
+            if (diasPassados <= 0) return 0;
+            if (diasPassados >= totalDias) return 100;
+            
+            return Math.round((diasPassados / totalDias) * 100);
+        }
+        
+        // Atualizar a interface com os dados do usuário
+        document.getElementById('userName').textContent = `Olá, ${userData.nome}!`;
+        
+        // Status da assinatura
         const statusValue = document.getElementById('statusValue');
-        if (userData.status === 'active') {
+        const statusText = document.getElementById('statusText');
+        if (userData.status === 'ativo') {
             statusValue.textContent = 'Ativa';
             statusValue.className = 'status-value status-active';
-        } else if (userData.status === 'pending') {
-            statusValue.textContent = 'Pendente';
-            statusValue.className = 'status-value status-pending';
+            statusText.textContent = 'ativa';
         } else {
             statusValue.textContent = 'Inativa';
             statusValue.className = 'status-value status-inactive';
+            statusText.textContent = 'inativa';
         }
         
-        document.getElementById('progressPercentage').textContent = `${userData.gracePeriod.progress}%`;
-        document.getElementById('progressFill').style.width = `${userData.gracePeriod.progress}%`;
-        document.getElementById('daysRemaining').textContent = `${userData.gracePeriod.remainingDays} dias`;
+        // Status da cobertura
+        const coverageStatus = document.getElementById('coverageStatus');
+        const coverageStatusText = document.getElementById('coverageStatusText');
+        if (userData.coberturaStatus === 'ativa') {
+            coverageStatus.textContent = 'Ativa';
+            coverageStatus.className = 'status-value status-active';
+            coverageStatusText.textContent = 'ativa';
+        } else {
+            coverageStatus.textContent = 'Inativa';
+            coverageStatus.className = 'status-value status-inactive';
+            coverageStatusText.textContent = 'inativa';
+        }
         
-        // Atualizar outras informações
-        document.querySelectorAll('.info-value')[0].textContent = userData.plan;
-        document.querySelectorAll('.info-value')[1].textContent = userData.monthlyPrice;
-        document.querySelectorAll('.info-value')[2].textContent = userData.startDate;
-        document.querySelectorAll('.info-value')[3].textContent = userData.paymentMethod;
+        // Período de carência
+        const progresso = calcularProgressoCarencia(userData.inicioCarencia, userData.fimCarencia);
+        document.getElementById('progressPercentage').textContent = `${progresso}%`;
+        document.getElementById('progressFill').style.width = `${progresso}%`;
+        document.getElementById('startCarencia').textContent = formatarData(userData.inicioCarencia);
+        document.getElementById('endCarencia').textContent = formatarData(userData.fimCarencia);
+        
+        // Dados pessoais
+        document.getElementById('userCpf').textContent = formatarCPF(userData.cpf);
+        document.getElementById('userRg').textContent = formatarRG(userData.rg);
+        document.getElementById('userBirth').textContent = formatarData(userData.nascimento);
+        
+        // Contato
+        document.getElementById('userPhone').textContent = formatarTelefone(userData.telefone);
+        document.getElementById('userEmail').textContent = userData.email;
+        
+        // Endereço
+        document.getElementById('userAddress').textContent = userData.endereco;
+        
+        // Informações do contrato
+        document.getElementById('contractDate').textContent = formatarData(userData.dataContratacao);
+        document.getElementById('totalPrice').textContent = `R$ ${userData.price.total.toFixed(2).replace('.', ',')}`;
+        document.getElementById('lastUpdate').textContent = formatarData(userData.updatedAt);
+        
+        // Equipamentos
+        const equipmentGrid = document.getElementById('equipmentGrid');
+        userData.equipments.forEach(equipment => {
+            const equipmentCard = document.createElement('div');
+            equipmentCard.className = 'equipment-card';
+            
+            equipmentCard.innerHTML = `
+                <div class="equipment-card-header">
+                    <i class="fas fa-laptop"></i>
+                    <h3>${equipment.tipo.charAt(0).toUpperCase() + equipment.tipo.slice(1)}</h3>
+                </div>
+                <div class="equipment-detail">
+                    <span class="equipment-detail-label">Marca:</span>
+                    <span class="equipment-detail-value">${equipment.marca}</span>
+                </div>
+                <div class="equipment-detail">
+                    <span class="equipment-detail-label">Modelo:</span>
+                    <span class="equipment-detail-value">${equipment.modelo}</span>
+                </div>
+                <div class="equipment-detail">
+                    <span class="equipment-detail-label">Nº de Série:</span>
+                    <span class="equipment-detail-value">${equipment.numeroSerie || 'Não informado'}</span>
+                </div>
+                <div class="equipment-detail">
+                    <span class="equipment-detail-label">Valor:</span>
+                    <span class="equipment-detail-value">R$ ${equipment.valor.toFixed(2).replace('.', ',')}</span>
+                </div>
+            `;
+            
+            equipmentGrid.appendChild(equipmentCard);
+        });
     </script>
 </body>
 </html>
