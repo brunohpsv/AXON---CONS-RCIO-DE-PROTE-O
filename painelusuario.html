@@ -439,6 +439,55 @@
             color: var(--secondary);
         }
         
+        /* Nova seção de informações */
+        .info-section {
+            background-color: var(--light);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            margin: 2rem 0;
+        }
+        
+        .info-section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-section h2 i {
+            margin-right: 0.5rem;
+        }
+        
+        .info-section p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .request-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+        
+        .request-list li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .request-list li::before {
+            content: '•';
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .request-list strong {
+            color: var(--primary-dark);
+        }
+        
         /* Footer */
         footer {
             background-color: var(--dark);
@@ -644,11 +693,11 @@
                 
                 <div class="status-card">
                     <div class="status-card-header">
-                        <i class="fas fa-shield-alt"></i>
-                        <h3>Status do Benefícios</h3>
+                        <i class="fas fa-envelope"></i>
+                        <h3>Pagamento e Boletos</h3>
                     </div>
-                    <div class="status-value" id="coverageStatus">Ativa</div>
-                    <p>Seus Benefícios está <span id="coverageStatusText">ativado</span></p>
+                    <div class="status-value" id="paymentStatus">Mensal</div>
+                    <p>Seus boletos serão enviados por e-mail mensalmente</p>
                 </div>
             </div>
             
@@ -704,6 +753,23 @@
                 <div class="equipment-grid" id="equipmentGrid">
                     <!-- Equipamentos serão inseridos via JavaScript -->
                 </div>
+            </div>
+            
+            <div class="info-section">
+                <h2><i class="fas fa-info-circle"></i> Informações Importantes</h2>
+                <p>Seus boletos serão enviados mensalmente para o e-mail cadastrado: <strong id="userEmailCopy">justino@gmail.com</strong>. Fique atento à sua caixa de entrada e spam.</p>
+            </div>
+            
+            <div class="info-section">
+                <h2><i class="fas fa-headset"></i> Como Solicitar Serviços</h2>
+                <p>Para solicitar qualquer serviço, envie um e-mail para <strong>bixX.corp@outlook.com.br</strong> com o assunto correspondente:</p>
+                <ul class="request-list">
+                    <li><strong>Assistência Técnica</strong>: Assunto "Assistência Técnica - [Seu Nome]"</li>
+                    <li><strong>Avaliação para vender equipamento</strong>: Assunto "Avaliação de Equipamento - [Seu Nome]"</li>
+                    <li><strong>Acrescentar mais equipamentos</strong>: Assunto "Novo Equipamento - [Seu Nome]"</li>
+                    <li><strong>Cancelar assinatura</strong>: Assunto "Cancelamento - [Seu Nome]"</li>
+                </ul>
+                <p>Em até 48 horas úteis, nossa equipe retornará com as orientações necessárias.</p>
             </div>
         </div>
     </section>
@@ -865,18 +931,9 @@
             statusText.textContent = 'inativa';
         }
         
-        // Status da cobertura
-        const coverageStatus = document.getElementById('coverageStatus');
-        const coverageStatusText = document.getElementById('coverageStatusText');
-        if (userData.coberturaStatus === 'ativa') {
-            coverageStatus.textContent = 'Ativa';
-            coverageStatus.className = 'status-value status-active';
-            coverageStatusText.textContent = 'ativa';
-        } else {
-            coverageStatus.textContent = 'Inativa';
-            coverageStatus.className = 'status-value status-inactive';
-            coverageStatusText.textContent = 'inativa';
-        }
+        // Status de pagamento
+        const paymentStatus = document.getElementById('paymentStatus');
+        paymentStatus.className = 'status-value status-active';
         
         // Período de carência
         const progresso = calcularProgressoCarencia(userData.inicioCarencia, userData.fimCarencia);
@@ -893,6 +950,7 @@
         // Contato
         document.getElementById('userPhone').textContent = formatarTelefone(userData.telefone);
         document.getElementById('userEmail').textContent = userData.email;
+        document.getElementById('userEmailCopy').textContent = userData.email;
         
         // Endereço
         document.getElementById('userAddress').textContent = userData.endereco;
