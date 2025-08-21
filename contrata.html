@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIX - Contratação de Planos</title>
+    <title>BIXX - Contratação de Planos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Adicionando Firebase SDK -->
@@ -882,6 +883,7 @@ input, select, textarea, button {
     <header>
         <div class="container header-container">
             <div class="logo">
+                <span>BIXX</span>
                 <span>BIX</span>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -897,6 +899,8 @@ input, select, textarea, button {
 
     <section class="hero">
         <div class="container">
+            
+            <h1>Contrate seu plano <span>BIXX</span></h1>
             <h1>Contrate seu plano <span>BIX</span></h1>
             <p>Preencha o formulário abaixo para contratar.</p>
         </div>
@@ -975,6 +979,7 @@ input, select, textarea, button {
                             <div class="terms-content">
                                 <div class="terms-text">
                                     <p>Ao continuar, você concorda com os <a href="#" id="termsLink">Termos de Serviço</a> e <a href="#" id="privacyLink">Política de Privacidade</a> da BIX.</p>
+                                    <p>Ao continuar, você concorda com os <a href="#" id="termsLink">Termos de Serviço</a> e <a href="#" id="privacyLink">Política de Privacidade</a> da BIXX.</p>
                                 </div>
                                 <div class="terms-checkbox">
                                     <input type="checkbox" name="termos" id="termosCheckbox" required>
@@ -993,15 +998,15 @@ input, select, textarea, button {
 
         <!-- Success Message (hidden by default) -->
         <div class="success-message" id="successMessage">
-    <i class="fas fa-check-circle"></i>
-    <h2>Cadastro enviado com sucesso!</h2>
-    <p>Seu cadastro foi recebido com sucesso e será processado pela nossa equipe.</p>
-    <p>Agradecemos pela sua preferência!</p>
-    <div class="success-actions">
-        <a href="index.html" class="cta-button">Voltar ao Início</a>
-        <button onclick="location.reload()" class="cta-button secondary">Fazer novo cadastro</button>
-    </div>
-</div>
+            <i class="fas fa-check-circle"></i>
+            <h2>Cadastro enviado com sucesso!</h2>
+            <p>Seu cadastro será analisado pela nossa equipe e em breve você receberá no e-mail cadastrado as informações para realizar o pagamento.</p>
+            <p>Agradecemos pela sua preferência!</p>
+            <div class="success-actions">
+                <a href="index.html" class="cta-button">Voltar ao Início</a>
+                <button onclick="location.reload()" class="cta-button secondary">Fazer novo cadastro</button>
+            </div>
+        </div>
 
         <!-- Error Message (hidden by default) -->
         <div class="error-message" id="errorMessage">
@@ -1019,6 +1024,13 @@ input, select, textarea, button {
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
+    <h3>BIX</h3>
+    <p style="margin: 1rem 0; opacity: 0.8;">BIX - Clube de Proteção e Benefícios</p>
+    <div class="social-links">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+    </div>
+</div>
                     <h3>BIX</h3>
                     <p style="margin: 1rem 0; opacity: 0.8;">BIX - Clube de Proteção e Benefícios</p>
                     <div class="social-links">
@@ -1040,17 +1052,25 @@ input, select, textarea, button {
                     <ul class="footer-links">
                         <li><i class="fas fa-phone-alt"></i> (62) 98159-6601</li>
                         <li><i class="fas fa-envelope"></i> BIXstartup@gmail.com</li>
+                        <li><i class="fas fa-envelope"></i> BIXXstartup@gmail.com</li>
                         <li><i class="fas fa-clock"></i> Seg-Seg: 8h às 18h</li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
+              
+                <p>&copy; 2025 BIXX. Todos os direitos reservados.</p>
                 <p>&copy; 2025 BIX. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
     <script>
+        // Inicialize o EmailJS com seu User ID
+        (function() {
+            emailjs.init('SEU_USER_ID_DO_EMAILJS'); // Substitua pelo seu User ID do EmailJS
+        })();
+
         // Firebase configuration for your project "axon-ec708"
         const firebaseConfig = {
         apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
@@ -1061,16 +1081,38 @@ input, select, textarea, button {
         appId: "1:403077673595:web:a4cb91bdf662f8d8e9e8de"
     };
 
-    // Initialize Firebase
-    let db;
+    // Initialize Firebase with all necessary services
     try {
-        const app = firebase.initializeApp(firebaseConfig);
-        db = firebase.firestore();
+            apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
+            authDomain: "axon-ec708.firebaseapp.com",
+            projectId: "axon-ec708",
+            storageBucket: "axon-ec708.appspot.com",
+            messagingSenderId: "403077673595",
+            appId: "1:403077673595:web:a4cb91bdf662f8d8e9e8de"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        
+        // Initialize Firestore
+        const db = firebase.firestore();
+        
+        // Initialize Authentication (adicionando esta linha)
+        const auth = firebase.auth();
+        
         console.log("Firebase inicializado com sucesso!");
     } catch (error) {
         console.error("Erro ao inicializar Firebase:", error);
         showError("Erro de configuração. Por favor, entre em contato com o suporte.");
     }
+        try {
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+            console.log("Firebase inicializado com sucesso!");
+        } catch (error) {
+            console.error("Erro ao inicializar Firebase:", error);
+            showError("Erro de configuração. Por favor, entre em contato com o suporte.");
+        }
 
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -1167,6 +1209,52 @@ input, select, textarea, button {
 }
 
         function addEquipmentItem() {
+    equipmentCount++;
+    const equipmentId = `equipment-${equipmentCount}`;
+
+    const equipmentItem = document.createElement('div');
+    equipmentItem.className = 'equipment-item';
+    equipmentItem.id = equipmentId;
+    equipmentItem.innerHTML = `
+        <h4>Equipamento ${equipmentCount}</h4>
+        
+        <div class="form-group">
+            <label for="${equipmentId}-type">Tipo de Equipamento</label>
+            <select id="${equipmentId}-type" class="equipment-type" required>
+                <option value="">Selecione...</option>
+                <option value="smartphone">Smartphone</option>
+                <option value="tablet">Tablet</option>
+                <option value="notebook">Notebook</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="${equipmentId}-marca">Marca</label>
+            <input type="text" id="${equipmentId}-marca" class="equipment-brand" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="${equipmentId}-modelo">Modelo</label>
+            <input type="text" id="${equipmentId}-modelo" class="equipment-model" required>
+        </div>
+        
+        <button type="button" class="remove-equipment" onclick="removeEquipment('${equipmentId}')">
+            <i class="fas fa-trash-alt"></i> Remover equipamento
+        </button>
+    `;
+
+    equipmentList.appendChild(equipmentItem);
+
+    // Add event listener for type change
+    const typeSelect = equipmentItem.querySelector('.equipment-type');
+    typeSelect.addEventListener('change', calculateTotalPrice);
+
+    // Add first equipment automatically
+    if (equipmentCount === 1) {
+        typeSelect.value = 'smartphone';
+        calculateTotalPrice();
+    }
+}
             equipmentCount++;
             const equipmentId = `equipment-${equipmentCount}`;
 
@@ -1238,16 +1326,34 @@ input, select, textarea, button {
         }
 
         // Show error message
+function showError(message) {
+    errorMessageText.textContent = message || 'Ocorreu um erro inesperado. Por favor, tente novamente.';
+    errorMessage.style.display = 'block';
+    contractFormContainer.style.display = 'none';
+    successMessage.style.display = 'none';
+
+    // Scroll to error message
+    errorMessage.scrollIntoView({ behavior: 'smooth' });
+}
         function showError(message) {
             errorMessageText.textContent = message || 'Ocorreu um erro inesperado. Por favor, tente novamente.';
             errorMessage.style.display = 'block';
             contractFormContainer.style.display = 'none';
             successMessage.style.display = 'none';
 
+// Hide error message
+function hideError() {
+    errorMessage.style.display = 'none';
+    contractFormContainer.style.display = 'block';
+}
             // Scroll to error message
             errorMessage.scrollIntoView({ behavior: 'smooth' });
         }
 
+// Make removeEquipment function available globally
+window.removeEquipment = removeEquipment;
+window.showError = showError;
+window.hideError = hideError;
         // Hide error message
         function hideError() {
             errorMessage.style.display = 'none';
@@ -1261,124 +1367,131 @@ input, select, textarea, button {
         addEquipmentBtn.addEventListener('click', addEquipmentItem);
 
         // Form submission
-document.getElementById('contractForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
+        document.getElementById('contractForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
 
-    // Validate form
-    const form = document.getElementById('contractForm');
-    const termosCheckbox = document.getElementById('termosCheckbox');
-    const equipmentItems = document.querySelectorAll('.equipment-item');
+            // Validate form
+            const form = document.getElementById('contractForm');
+            const termosCheckbox = document.getElementById('termosCheckbox');
+            const equipmentItems = document.querySelectorAll('.equipment-item');
 
-    if (equipmentItems.length === 0) {
-        showError('Por favor, adicione pelo menos um equipamento.');
-        return;
-    }
+            if (equipmentItems.length === 0) {
+                showError('Por favor, adicione pelo menos um equipamento.');
+                return;
+            }
 
-    if (!form.checkValidity()) {
-        showError('Por favor, preencha todos os campos obrigatórios.');
-        return;
-    }
+            if (!form.checkValidity()) {
+                showError('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
 
-    if (!termosCheckbox.checked) {
-        showError('Você precisa aceitar os Termos de Serviço e Política de Privacidade.');
-        return;
-    }
+            if (!termosCheckbox.checked) {
+                showError('Você precisa aceitar os Termos de Serviço e Política de Privacidade.');
+                return;
+            }
 
-    // Show loading spinner
-    submitBtn.style.display = 'none';
-    loadingSpinner.style.display = 'block';
+            // Show loading spinner
+            submitBtn.style.display = 'none';
+            loadingSpinner.style.display = 'block';
 
-    try {
-        // Collect form data
-        const formData = {
-            personalData: {
-                nome: document.getElementById('nome').value,
-                cpf: document.getElementById('cpf').value,
-                nascimento: document.getElementById('nascimento').value,
-                rg: document.getElementById('rg').value,
-                email: document.getElementById('email').value,
-                telefone: document.getElementById('telefone').value,
-                endereco: document.getElementById('endereco').value,
-                planoTipo: document.getElementById('planoTipo').value
-            },
-            equipments: [],
-            price: {
-                total: totalPrice,
-                discounted: equipmentItems.length > 1 ? totalPrice * 0.8 : totalPrice,
-                discount: equipmentItems.length > 1 ? totalPrice * 0.2 : 0
-            },
-            status: "pendente",
-            dataContratacao: new Date().toISOString(),
-            dataAtualizacao: new Date().toISOString()
-        };
+            try {
+                // Collect form data
+                const formData = {
+                    personalData: {
+                        nome: document.getElementById('nome').value,
+                        cpf: document.getElementById('cpf').value,
+                        nascimento: document.getElementById('nascimento').value,
+                        rg: document.getElementById('rg').value,
+                        email: document.getElementById('email').value,
+                        telefone: document.getElementById('telefone').value,
+                        endereco: document.getElementById('endereco').value,
+                        planoTipo: document.getElementById('planoTipo').value
+                    },
+                    equipments: [],
+                    price: {
+                        total: totalPrice,
+                        discounted: equipmentItems.length > 1 ? totalPrice * 0.8 : totalPrice,
+                        discount: equipmentItems.length > 1 ? totalPrice * 0.2 : 0
+                    },
+                    status: "pendente",
+                    dataContratacao: new Date().toISOString(),
+                    dataAtualizacao: new Date().toISOString()
+                };
 
-        // Collect equipment data
-        equipmentItems.forEach((item, index) => {
-            formData.equipments.push({
-                tipo: item.querySelector('.equipment-type').value,
-                marca: item.querySelector('.equipment-brand').value,
-                modelo: item.querySelector('.equipment-model').value,
-                imei: item.querySelector('.equipment-imei')?.value || ''
-            });
-        });
-
-        // Validate CPF format
-        const cpf = formData.personalData.cpf.replace(/\D/g, '');
-        if (cpf.length !== 11) {
-            throw new Error('CPF deve conter 11 dígitos');
-        }
-
-        // Save to Firestore
-        if (!db) {
-            throw new Error('Firebase não foi inicializado corretamente');
-        }
-
-        // Check if user already exists
-        const userDoc = await db.collection('usuarios').doc(cpf).get();
-
-        if (userDoc.exists) {
-            // Update existing user
-            await db.collection('usuarios').doc(cpf).update({
-                ...formData.personalData,
-                equipments: formData.equipments,
-                price: formData.price,
-                status: formData.status,
-                dataAtualizacao: formData.dataAtualizacao
-            });
-        } else {
-            // Create new user
-            await db.collection('usuarios').doc(cpf).set({
-                ...formData.personalData,
-                equipments: formData.equipments,
-                price: formData.price,
-                status: formData.status,
-                dataContratacao: formData.dataContratacao,
-                dataAtualizacao: formData.dataAtualizacao
-            });
-        }
-
-        // Removida a parte de envio de e-mail conforme solicitado
-
-        // Show success message
-        contractFormContainer.style.display = 'none';
-        successMessage.style.display = 'block';
-        errorMessage.style.display = 'none';
-
-        // Scroll to success message
-        successMessage.scrollIntoView({ behavior: 'smooth' });
-
-    } catch (error) {
-        console.error("Erro ao processar o formulário: ", error);
-        showError(error.message || "Ocorreu um erro ao salvar seus dados. Por favor, tente novamente.");
-    } finally {
-        // Hide loading spinner and show submit button
-        submitBtn.style.display = 'block';
-        loadingSpinner.style.display = 'none';
-    }
+                // Collect equipment data
+equipmentItems.forEach((item, index) => {
+    formData.equipments.push({
+        tipo: item.querySelector('.equipment-type').value,
+        marca: item.querySelector('.equipment-brand').value,
+        modelo: item.querySelector('.equipment-model').value
+    });
 });
+                equipmentItems.forEach((item, index) => {
+                    formData.equipments.push({
+                        tipo: item.querySelector('.equipment-type').value,
+                        marca: item.querySelector('.equipment-brand').value,
+                        modelo: item.querySelector('.equipment-model').value,
+                        imei: item.querySelector('.equipment-imei')?.value || ''
+                    });
+                });
+
+                // Validate CPF format
+                const cpf = formData.personalData.cpf.replace(/\D/g, '');
+                if (cpf.length !== 11) {
+                    throw new Error('CPF deve conter 11 dígitos');
+                }
+
+                // Save to Firestore
+                if (!firebase.apps.length) {
+                    throw new Error('Firebase não foi inicializado corretamente');
+                }
+
+                const db = firebase.firestore();
+
+                // Check if user already exists
+                const userDoc = await db.collection('usuarios').doc(cpf).get();
+
+                if (userDoc.exists) {
+                    // Update existing user
+                    await db.collection('usuarios').doc(cpf).update({
+                        ...formData.personalData,
+                        equipments: formData.equipments,
+                        price: formData.price,
+                        status: formData.status,
+                        dataAtualizacao: formData.dataAtualizacao
+                    });
+                } else {
+                    // Create new user
+                    await db.collection('usuarios').doc(cpf).set({
+                        ...formData.personalData,
+                        equipments: formData.equipments,
+                        price: formData.price,
+                        status: formData.status,
+                        dataContratacao: formData.dataContratacao,
+                        dataAtualizacao: formData.dataAtualizacao
+                    });
+                }
 
                 // Enviar e-mail via EmailJS
                 const templateParams = {
+    nome: formData.personalData.nome,
+    cpf: formData.personalData.cpf,
+    rg: formData.personalData.rg,
+    nascimento: formData.personalData.nascimento,
+    email: formData.personalData.email,
+    telefone: formData.personalData.telefone,
+    endereco: formData.personalData.endereco,
+    planoTipo: 'Extensão Familiar',
+    equipamentos: formData.equipments.map((eq, i) => `
+        Equipamento ${i+1}:
+        Tipo: ${eq.tipo}
+        Marca: ${eq.marca}
+        Modelo: ${eq.modelo}
+    `).join('\n\n'),
+    valor_total: formData.price.total.toFixed(2),
+    desconto: formData.price.discount.toFixed(2),
+    valor_final: formData.price.discounted.toFixed(2)
+};
                     nome: formData.personalData.nome,
                     cpf: formData.personalData.cpf,
                     rg: formData.personalData.rg,
