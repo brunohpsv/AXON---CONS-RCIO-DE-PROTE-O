@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Usuário - BIXX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <style>
+        :root {
+            --primary: #8B0000;
+            --primary-dark: #6D0000;
+            --secondary: #2D2D2D;
+            --accent: #CC0000;
+            --light: #FFFFFF;
+            --dark: #161616;
+            --gray: #F5F5F5;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --texture: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--texture);
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            letter-spacing: -1px;
+            padding-left: 0.5rem;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100%;
+            background-color: var(--light);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            transition: var(--transition);
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .side-menu.active {
+            right: 0;
+        }
+        
+        .side-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .side-menu-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            cursor: pointer;
+        }
+        
+        .side-menu-links {
+            list-style: none;
+        }
+        
+        .side-menu-links li {
+            margin-bottom: 1.5rem;
+        }
+        
+        .side-menu-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            display: block;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+        
+        .side-menu-links a:hover {
+            color: var(--primary);
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* User Panel */
+        .user-panel-section {
+            flex: 1;
+            padding: 8rem 0 4rem;
+        }
+        
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMCAwSDE1MFYxNTBIMFoiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNLTUtNWgxNjB2MTYwaC0xNjB6IiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+PC9zdmc+');
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .welcome-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .welcome-content h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .welcome-content p {
+            opacity: 0.9;
+        }
+        
+        .status-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .status-card {
+            background-color: var(--light);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+        
+        .status-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .status-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .status-card-header i {
+            font-size: 1.5rem;
+            margin-right: 0.75rem;
+            color: var(--primary);
+        }
+        
+        .status-card-header h3 {
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+        
+        .status-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 0.5rem 0;
+        }
+        
+        .status-active {
+            color: var(--success);
+        }
+        
+        .status-pending {
+            color: var(--warning);
+        }
+        
+        .status-inactive {
+            color: var(--danger);
+        }
+        
+        .progress-container {
+            margin: 1.5rem 0;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: var(--gray);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .info-card {
+            background-color: var(--light);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .info-card-header i {
+            font-size: 1.25rem;
+            margin-right: 0.75rem;
+            color: var(--primary);
+        }
+        
+        .info-card-header h3 {
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .action-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background-color: var(--light);
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 12px;
+            font-weight: 500;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .action-button:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 0, 0, 0.3);
+        }
+        
+        .action-button i {
+            font-size: 1.25rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+            position: relative;
+            margin-top: auto;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-col h3 {
+            color: var(--light);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .footer-links i {
+            margin-right: 0.5rem;
+            width: 20px;
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .user-panel-section {
+                padding: 6rem 0 2rem;
+            }
+            
+            .status-cards, .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu-btn {
+                display: none !important;
+            }
+            
+            nav {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <span>BIXX</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html#benefits">Benefícios</a></li>
+                    <li><a href="index.html#plans">Planos</a></li>
+                    <li><a href="index.html#how-it-works">Como Funciona</a></li>
+                    <li><a href="contrata.html">Contratar?!</a></li>
+                    <li><a href="paineladm.html">ADM</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <h3>Menu</h3>
+            <button class="side-menu-close" id="sideMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="side-menu-links">
+            <li><a href="index.html#benefits">Benefícios</a></li>
+            <li><a href="index.html#plans">Planos</a></li>
+            <li><a href="index.html#how-it-works">Como Funciona</a></li>
+            <li><a href="contrata.html">Contratar?!</a></li>
+            <li><a href="paineladm.html">ADM</a></li>
+        </ul>
+    </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
+    
+    <section class="user-panel-section">
+        <div class="container">
+            <div class="welcome-banner">
+                <div class="welcome-content">
+                    <h1>Olá, João Silva!</h1>
+                    <p>Acompanhe aqui o status da sua assinatura e benefícios</p>
+                </div>
+            </div>
+            
+            <div class="status-cards">
+                <div class="status-card">
+                    <div class="status-card-header">
+                        <i class="fas fa-user-check"></i>
+                        <h3>Status da Assinatura</h3>
+                    </div>
+                    <div class="status-value status-active" id="statusValue">Ativa</div>
+                    <p>Sua assinatura está ativa e seus benefícios disponíveis</p>
+                </div>
+                
+                <div class="status-card">
+                    <div class="status-card-header">
+                        <i class="fas fa-clock"></i>
+                        <h3>Tempo de Carência</h3>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Progresso</span>
+                            <span id="progressPercentage">60%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 60%"></div>
+                        </div>
+                    </div>
+                    <p>Faltam <strong id="daysRemaining">24 dias</strong> para conclusão do período de carência</p>
+                </div>
+                
+                <div class="status-card">
+                    <div class="status-card-header">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h3>Próxima Renovação</h3>
+                    </div>
+                    <div class="status-value">15/04/2025</div>
+                    <p>Próxima cobrança será realizada nesta data</p>
+                </div>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <i class="fas fa-tag"></i>
+                        <h3>Plano Contratado</h3>
+                    </div>
+                    <div class="info-value">Plano Premium</div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <h3>Valor da Mensalidade</h3>
+                    </div>
+                    <div class="info-value">R$ 79,90</div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <i class="fas fa-calendar-check"></i>
+                        <h3>Data de Início</h3>
+                    </div>
+                    <div class="info-value">15/01/2025</div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <i class="fas fa-id-card"></i>
+                        <h3>Método de Pagamento</h3>
+                    </div>
+                    <div class="info-value">Cartão de Crédito **** **** **** 1234</div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="#" class="action-button">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Ver Contrato</span>
+                </a>
+                <a href="#" class="action-button">
+                    <i class="fas fa-cog"></i>
+                    <span>Alterar Plano</span>
+                </a>
+                <a href="#" class="action-button">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Alterar Pagamento</span>
+                </a>
+                <a href="#" class="action-button">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Suporte</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>BIXX</h3>
+                    <p style="margin: 1rem 0; opacity: 0.8;">BIXX - Clube de Proteção e Benefícios.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html#benefits"><i class="fas fa-star"></i> Benefícios</a></li>
+                        <li><a href="index.html#plans"><i class="fas fa-tags"></i> Planos</a></li>
+                        <li><a href="index.html#how-it-works"><i class="fas fa-question-circle"></i> Como Funciona</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone-alt"></i> (62) 98159-6601</li>
+                        <li><i class="fas fa-envelope"></i> bixX.corp@outlook.com.br</li>
+                        <li><i class="fas fa-clock"></i> Seg-Sex: 8h às 18h</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BIXX Clube de Benefícios. Todos os direitos reservados.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.8rem;">BIXX não é uma seguradora. Serviço de Assinatura com Assistência Técnica e Descontos. *Assistência técnica ilimitada após período de carência de 3 meses.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sideMenu = document.getElementById('sideMenu');
+        const sideMenuClose = document.getElementById('sideMenuClose');
+        const menuOverlay = document.getElementById('menuOverlay');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            sideMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        sideMenuClose.addEventListener('click', () => {
+            sideMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        menuOverlay.addEventListener('click', () => {
+            sideMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                document.querySelector('header').style.background = 'rgba(255, 255, 255, 0.95)';
+                document.querySelector('header').style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                document.querySelector('header').style.background = 'rgba(255, 255, 255, 0.95)';
+                document.querySelector('header').style.boxShadow = 'none';
+            }
+        });
+        
+        // Simulação de dados do usuário (em uma aplicação real, isso viria de uma API)
+        const userData = {
+            name: "João Silva",
+            status: "active", // Pode ser: active, pending, inactive
+            plan: "Plano Premium",
+            monthlyPrice: "R$ 79,90",
+            startDate: "15/01/2025",
+            nextRenewal: "15/04/2025",
+            paymentMethod: "Cartão de Crédito **** **** **** 1234",
+            gracePeriod: {
+                totalDays: 90,
+                remainingDays: 24,
+                progress: 60 // porcentagem
+            }
+        };
+        
+        // Atualizar a interface com os dados do usuário
+        document.querySelector('.welcome-content h1').textContent = `Olá, ${userData.name}!`;
+        
+        const statusValue = document.getElementById('statusValue');
+        if (userData.status === 'active') {
+            statusValue.textContent = 'Ativa';
+            statusValue.className = 'status-value status-active';
+        } else if (userData.status === 'pending') {
+            statusValue.textContent = 'Pendente';
+            statusValue.className = 'status-value status-pending';
+        } else {
+            statusValue.textContent = 'Inativa';
+            statusValue.className = 'status-value status-inactive';
+        }
+        
+        document.getElementById('progressPercentage').textContent = `${userData.gracePeriod.progress}%`;
+        document.getElementById('progressFill').style.width = `${userData.gracePeriod.progress}%`;
+        document.getElementById('daysRemaining').textContent = `${userData.gracePeriod.remainingDays} dias`;
+        
+        // Atualizar outras informações
+        document.querySelectorAll('.info-value')[0].textContent = userData.plan;
+        document.querySelectorAll('.info-value')[1].textContent = userData.monthlyPrice;
+        document.querySelectorAll('.info-value')[2].textContent = userData.startDate;
+        document.querySelectorAll('.info-value')[3].textContent = userData.paymentMethod;
+    </script>
+</body>
+</html>
