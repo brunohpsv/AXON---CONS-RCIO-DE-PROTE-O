@@ -695,14 +695,53 @@
                 loginButton.textContent = 'Entrando...';
                 loginButton.disabled = true;
                 
-                // Simulate API call
+                // Simulate API call to check credentials and status
                 setTimeout(() => {
                     // In a real application, you would verify credentials with your backend
-                    // For demo purposes, we'll assume login is successful
-                    window.location.href = 'painelusuario.html';
+                    // For demo purposes, we'll simulate different scenarios based on email
+                    
+                    // Get user status based on email (simulação)
+                    const userStatus = getUserStatus(emailInput.value);
+                    
+                    if (userStatus === 'ativo') {
+                        // Login successful for active accounts
+                        window.location.href = 'painelusuario.html';
+                    } else if (userStatus === 'pendente') {
+                        // Show error for pending accounts
+                        loginError.textContent = 'Sua conta está com status pendente. Entre em contato com o suporte.';
+                        loginError.style.display = 'block';
+                        loginButton.textContent = 'Entrar';
+                        loginButton.disabled = false;
+                    } else if (userStatus === 'inativo') {
+                        // Show error for inactive accounts
+                        loginError.textContent = 'Sua conta está inativa. Entre em contato com o suporte para reativar.';
+                        loginError.style.display = 'block';
+                        loginButton.textContent = 'Entrar';
+                        loginButton.disabled = false;
+                    } else {
+                        // Show generic error for invalid credentials
+                        loginError.textContent = 'E-mail ou senha incorretos. Tente novamente.';
+                        loginError.style.display = 'block';
+                        loginButton.textContent = 'Entrar';
+                        loginButton.disabled = false;
+                    }
                 }, 1500);
             }
         });
+        
+        // Simulate user status check based on email
+        function getUserStatus(email) {
+            // In a real application, this would be an API call to your backend
+            // For demo purposes, we'll determine status based on email content
+            
+            if (email.includes('ativo')) return 'ativo';
+            if (email.includes('pendente')) return 'pendente';
+            if (email.includes('inativo')) return 'inativo';
+            
+            // Default to active for any other email (for demo purposes)
+            // In production, this should always check against your database
+            return 'ativo';
+        }
         
         function isValidEmail(email) {
             const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
