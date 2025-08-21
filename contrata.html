@@ -883,7 +883,6 @@ input, select, textarea, button {
     <header>
         <div class="container header-container">
             <div class="logo">
-                <span>BIX</span>
                 <span>BIXX</span>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -899,7 +898,7 @@ input, select, textarea, button {
 
     <section class="hero">
         <div class="container">
-            <h1>Contrate seu plano <span>BIX</span></h1>
+            
             <h1>Contrate seu plano <span>BIXX</span></h1>
             <p>Preencha o formulário abaixo para contratar.</p>
         </div>
@@ -1023,15 +1022,13 @@ input, select, textarea, button {
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
-                    <h3>BIX</h3>
-                    <p style="margin: 1rem 0; opacity: 0.8;">BIX - Clube de Proteção e Benefícios</p>
-                    <h3>BIXX</h3>
-                    <p style="margin: 1rem 0; opacity: 0.8;">BIXX - Clube de Proteção e Benefícios</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
+    <h3>BIX</h3>
+    <p style="margin: 1rem 0; opacity: 0.8;">BIX - Clube de Proteção e Benefícios</p>
+    <div class="social-links">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+    </div>
+</div>
                 <div class="footer-col">
                     <h3>Links Rápidos</h3>
                     <ul class="footer-links">
@@ -1052,7 +1049,7 @@ input, select, textarea, button {
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 BIX. Todos os direitos reservados.</p>
+              
                 <p>&copy; 2025 BIXX. Todos os direitos reservados.</p>
             </div>
         </div>
@@ -1066,23 +1063,30 @@ input, select, textarea, button {
 
         // Firebase configuration for your project "axon-ec708"
         const firebaseConfig = {
-            apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
-            authDomain: "axon-ec708.firebaseapp.com",
-            projectId: "axon-ec708",
-            storageBucket: "axon-ec708.appspot.com",
-            messagingSenderId: "403077673595",
-            appId: "1:403077673595:web:a4cb91bdf662f8d8e9e8de"
-        };
+        apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
+        authDomain: "axon-ec708.firebaseapp.com",
+        projectId: "axon-ec708",
+        storageBucket: "axon-ec708.appspot.com",
+        messagingSenderId: "403077673595",
+        appId: "1:403077673595:web:a4cb91bdf662f8d8e9e8de"
+    };
 
+    // Initialize Firebase with all necessary services
+    try {
         // Initialize Firebase
-        try {
-            firebase.initializeApp(firebaseConfig);
-            const db = firebase.firestore();
-            console.log("Firebase inicializado com sucesso!");
-        } catch (error) {
-            console.error("Erro ao inicializar Firebase:", error);
-            showError("Erro de configuração. Por favor, entre em contato com o suporte.");
-        }
+        firebase.initializeApp(firebaseConfig);
+        
+        // Initialize Firestore
+        const db = firebase.firestore();
+        
+        // Initialize Authentication (adicionando esta linha)
+        const auth = firebase.auth();
+        
+        console.log("Firebase inicializado com sucesso!");
+    } catch (error) {
+        console.error("Erro ao inicializar Firebase:", error);
+        showError("Erro de configuração. Por favor, entre em contato com o suporte.");
+    }
 
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -1179,57 +1183,52 @@ input, select, textarea, button {
 }
 
         function addEquipmentItem() {
-            equipmentCount++;
-            const equipmentId = `equipment-${equipmentCount}`;
+    equipmentCount++;
+    const equipmentId = `equipment-${equipmentCount}`;
 
-            const equipmentItem = document.createElement('div');
-            equipmentItem.className = 'equipment-item';
-            equipmentItem.id = equipmentId;
-            equipmentItem.innerHTML = `
-                <h4>Equipamento ${equipmentCount}</h4>
-                
-                <div class="form-group">
-                    <label for="${equipmentId}-type">Tipo de Equipamento</label>
-                    <select id="${equipmentId}-type" class="equipment-type" required>
-                        <option value="">Selecione...</option>
-                        <option value="smartphone">Smartphone</option>
-                        <option value="tablet">Tablet</option>
-                        <option value="notebook">Notebook</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="${equipmentId}-marca">Marca</label>
-                    <input type="text" id="${equipmentId}-marca" class="equipment-brand" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="${equipmentId}-modelo">Modelo</label>
-                    <input type="text" id="${equipmentId}-modelo" class="equipment-model" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="${equipmentId}-imei">IMEI (para smartphones/tablets)</label>
-                    <input type="text" id="${equipmentId}-imei" class="equipment-imei" placeholder="Número de 15 dígitos">
-                </div>
-                
-                <button type="button" class="remove-equipment" onclick="removeEquipment('${equipmentId}')">
-                    <i class="fas fa-trash-alt"></i> Remover equipamento
-                </button>
-            `;
+    const equipmentItem = document.createElement('div');
+    equipmentItem.className = 'equipment-item';
+    equipmentItem.id = equipmentId;
+    equipmentItem.innerHTML = `
+        <h4>Equipamento ${equipmentCount}</h4>
+        
+        <div class="form-group">
+            <label for="${equipmentId}-type">Tipo de Equipamento</label>
+            <select id="${equipmentId}-type" class="equipment-type" required>
+                <option value="">Selecione...</option>
+                <option value="smartphone">Smartphone</option>
+                <option value="tablet">Tablet</option>
+                <option value="notebook">Notebook</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="${equipmentId}-marca">Marca</label>
+            <input type="text" id="${equipmentId}-marca" class="equipment-brand" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="${equipmentId}-modelo">Modelo</label>
+            <input type="text" id="${equipmentId}-modelo" class="equipment-model" required>
+        </div>
+        
+        <button type="button" class="remove-equipment" onclick="removeEquipment('${equipmentId}')">
+            <i class="fas fa-trash-alt"></i> Remover equipamento
+        </button>
+    `;
 
-            equipmentList.appendChild(equipmentItem);
+    equipmentList.appendChild(equipmentItem);
 
-            // Add event listener for type change
-            const typeSelect = equipmentItem.querySelector('.equipment-type');
-            typeSelect.addEventListener('change', calculateTotalPrice);
+    // Add event listener for type change
+    const typeSelect = equipmentItem.querySelector('.equipment-type');
+    typeSelect.addEventListener('change', calculateTotalPrice);
 
-            // Add first equipment automatically
-            if (equipmentCount === 1) {
-                typeSelect.value = 'smartphone';
-                calculateTotalPrice();
-            }
-        }
+    // Add first equipment automatically
+    if (equipmentCount === 1) {
+        typeSelect.value = 'smartphone';
+        calculateTotalPrice();
+    }
+}
 
         function removeEquipment(id) {
             const equipmentItem = document.getElementById(id);
@@ -1250,21 +1249,26 @@ input, select, textarea, button {
         }
 
         // Show error message
-        function showError(message) {
-            errorMessageText.textContent = message || 'Ocorreu um erro inesperado. Por favor, tente novamente.';
-            errorMessage.style.display = 'block';
-            contractFormContainer.style.display = 'none';
-            successMessage.style.display = 'none';
+function showError(message) {
+    errorMessageText.textContent = message || 'Ocorreu um erro inesperado. Por favor, tente novamente.';
+    errorMessage.style.display = 'block';
+    contractFormContainer.style.display = 'none';
+    successMessage.style.display = 'none';
 
-            // Scroll to error message
-            errorMessage.scrollIntoView({ behavior: 'smooth' });
-        }
+    // Scroll to error message
+    errorMessage.scrollIntoView({ behavior: 'smooth' });
+}
 
-        // Hide error message
-        function hideError() {
-            errorMessage.style.display = 'none';
-            contractFormContainer.style.display = 'block';
-        }
+// Hide error message
+function hideError() {
+    errorMessage.style.display = 'none';
+    contractFormContainer.style.display = 'block';
+}
+
+// Make removeEquipment function available globally
+window.removeEquipment = removeEquipment;
+window.showError = showError;
+window.hideError = hideError;
 
         // Add first equipment on load
         addEquipmentItem();
@@ -1325,14 +1329,13 @@ input, select, textarea, button {
                 };
 
                 // Collect equipment data
-                equipmentItems.forEach((item, index) => {
-                    formData.equipments.push({
-                        tipo: item.querySelector('.equipment-type').value,
-                        marca: item.querySelector('.equipment-brand').value,
-                        modelo: item.querySelector('.equipment-model').value,
-                        imei: item.querySelector('.equipment-imei')?.value || ''
-                    });
-                });
+equipmentItems.forEach((item, index) => {
+    formData.equipments.push({
+        tipo: item.querySelector('.equipment-type').value,
+        marca: item.querySelector('.equipment-brand').value,
+        modelo: item.querySelector('.equipment-model').value
+    });
+});
 
                 // Validate CPF format
                 const cpf = formData.personalData.cpf.replace(/\D/g, '');
@@ -1371,27 +1374,25 @@ input, select, textarea, button {
                     });
                 }
 
-                // Enviar e-mail via EmailJS
                 const templateParams = {
-                    nome: formData.personalData.nome,
-                    cpf: formData.personalData.cpf,
-                    rg: formData.personalData.rg,
-                    nascimento: formData.personalData.nascimento,
-                    email: formData.personalData.email,
-                    telefone: formData.personalData.telefone,
-                    endereco: formData.personalData.endereco,
-                    planoTipo: 'Extensão Familiar', // Agora temos apenas um tipo de plano
-                    equipamentos: formData.equipments.map((eq, i) => `
-                        Equipamento ${i+1}:
-                        Tipo: ${eq.tipo}
-                        Marca: ${eq.marca}
-                        Modelo: ${eq.modelo}
-                        IMEI: ${eq.imei || 'N/A'}
-                    `).join('\n\n'),
-                    valor_total: formData.price.total.toFixed(2),
-                    desconto: formData.price.discount.toFixed(2),
-                    valor_final: formData.price.discounted.toFixed(2)
-                };
+    nome: formData.personalData.nome,
+    cpf: formData.personalData.cpf,
+    rg: formData.personalData.rg,
+    nascimento: formData.personalData.nascimento,
+    email: formData.personalData.email,
+    telefone: formData.personalData.telefone,
+    endereco: formData.personalData.endereco,
+    planoTipo: 'Extensão Familiar',
+    equipamentos: formData.equipments.map((eq, i) => `
+        Equipamento ${i+1}:
+        Tipo: ${eq.tipo}
+        Marca: ${eq.marca}
+        Modelo: ${eq.modelo}
+    `).join('\n\n'),
+    valor_total: formData.price.total.toFixed(2),
+    desconto: formData.price.discount.toFixed(2),
+    valor_final: formData.price.discounted.toFixed(2)
+};
 
                 await emailjs.send('SEU_SERVICE_ID', 'SEU_TEMPLATE_ID', templateParams);
 
