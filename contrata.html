@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIX - Contratação de Planos</title>
-    <title>BIXX - Contratação de Planos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Adicionando Firebase SDK -->
@@ -14,17 +13,17 @@
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <style>
         :root {
-    --primary: #8B0000;        /* Vermelho escuro */
-    --primary-dark: #6D0000;   /* Vermelho mais escuro */
-    --secondary: #2D2D2D;
-    --accent: #CC0000;         /* Vermelho vibrante para destaques */
-    --light: #FFFFFF;
-    --dark: #161616;
-    --gray: #F5F5F5;
-    --texture: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
-    --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
+            --primary: #8B0000;        /* Vermelho escuro */
+            --primary-dark: #6D0000;   /* Vermelho mais escuro */
+            --secondary: #2D2D2D;
+            --accent: #CC0000;         /* Vermelho vibrante para destaques */
+            --light: #FFFFFF;
+            --dark: #161616;
+            --gray: #F5F5F5;
+            --texture: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
 
         * {
             margin: 0;
@@ -660,6 +659,11 @@
             .hero h1 {
                 font-size: 2.5rem;
             }
+            
+            .contract-container {
+                flex-direction: column;
+                gap: 2rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -679,202 +683,109 @@
                 transition: var(--transition);
                 z-index: 999;
             }
-        /* Melhorias de responsividade gerais */
-input, select, textarea, button {
-    font-size: 16px; /* Previne zoom em iOS */
-}
 
             nav.active {
                 transform: translateY(0);
             }
-.equipment-item {
-    padding: 0.8rem;
-}
 
             nav ul {
                 flex-direction: column;
                 gap: 1.5rem;
             }
-.equipment-item h4 {
-    font-size: 1.1rem;
-}
 
             .hero {
                 padding: 8rem 0 4rem;
             }
-.add-equipment {
-    padding: 0.8rem;
-    font-size: 0.9rem;
-}
 
             .hero h1 {
                 font-size: 2rem;
             }
-.remove-equipment {
-    font-size: 0.8rem;
-}
 
             .hero p {
                 font-size: 1rem;
             }
-.submit-btn {
-    font-size: 1rem;
-    padding: 0.9rem;
-}
 
             .form-row {
                 flex-direction: column;
                 gap: 0;
             }
-.footer-bottom {
-    font-size: 0.8rem;
-}
-
-        /* Responsive */
-@media (max-width: 992px) {
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-
-    .contract-container {
-        flex-direction: column;
-        gap: 2rem;
-    }
-}
 
             .terms-content {
                 flex-direction: column;
                 align-items: flex-start;
             }
-@media (max-width: 768px) {
-    .mobile-menu-btn {
-        display: block;
-    }
-
-    nav {
-        position: fixed;
-        top: 80px;
-        left: 0;
-        width: 100%;
-        background-color: var(--light);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        padding: 2rem;
-        transform: translateY(-150%);
-        transition: var(--transition);
-        z-index: 999;
-    }
-
-    nav.active {
-        transform: translateY(0);
-    }
-
-    nav ul {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-
-    .hero {
-        padding: 8rem 0 4rem;
-    }
-
-    .hero h1 {
-        font-size: 2rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
-
-    .form-row {
-        flex-direction: column;
-        gap: 0;
-    }
-
-    .terms-content {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .success-actions {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .success-actions .cta-button {
-        margin-left: 0;
-        margin-top: 0.5rem;
-    }
-
-    .personal-data-form {
-        padding: 1.5rem;
-    }
-
-    .contract-notice {
-        padding: 1rem;
-    }
-
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .price-display {
-        font-size: 1.2rem;
-        padding: 0.8rem;
-    }
-}
 
             .success-actions {
                 flex-direction: column;
                 gap: 0.5rem;
             }
-@media (max-width: 480px) {
-    .hero h1 {
-        font-size: 1.8rem;
-    }
-
-    .hero p {
-        font-size: 0.9rem;
-    }
-
-    .container {
-        width: 95%;
-        padding: 1rem 0;
-    }
-
-    .personal-data-form {
-        padding: 1rem;
-    }
-
-    .cta-button {
-        padding: 0.8rem 1.5rem;
-        font-size: 0.9rem;
-    }
-
-    .logo {
-        font-size: 1.5rem;
-    }
-
-    .file-upload {
-        padding: 1rem;
-    }
-
-    .file-upload i {
-        font-size: 1.5rem;
-    }
-
-    .footer-col h3 {
-        font-size: 1.1rem;
-    }
-
-    .social-links a {
-        width: 35px;
-        height: 35px;
-    }
 
             .success-actions .cta-button {
                 margin-left: 0;
                 margin-top: 0.5rem;
+            }
+
+            .personal-data-form {
+                padding: 1.5rem;
+            }
+
+            .contract-notice {
+                padding: 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .price-display {
+                font-size: 1.2rem;
+                padding: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .container {
+                width: 95%;
+                padding: 1rem 0;
+            }
+
+            .personal-data-form {
+                padding: 1rem;
+            }
+
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .file-upload {
+                padding: 1rem;
+            }
+
+            .file-upload i {
+                font-size: 1.5rem;
+            }
+
+            .footer-col h3 {
+                font-size: 1.1rem;
+            }
+
+            .social-links a {
+                width: 35px;
+                height: 35px;
             }
         }
     </style>
@@ -883,7 +794,7 @@ input, select, textarea, button {
     <header>
         <div class="container header-container">
             <div class="logo">
-                <span>BIXX</span>
+                <i class="fas fa-shield-alt"></i>
                 <span>BIX</span>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -899,8 +810,6 @@ input, select, textarea, button {
 
     <section class="hero">
         <div class="container">
-            
-            <h1>Contrate seu plano <span>BIXX</span></h1>
             <h1>Contrate seu plano <span>BIX</span></h1>
             <p>Preencha o formulário abaixo para contratar.</p>
         </div>
@@ -979,7 +888,6 @@ input, select, textarea, button {
                             <div class="terms-content">
                                 <div class="terms-text">
                                     <p>Ao continuar, você concorda com os <a href="#" id="termsLink">Termos de Serviço</a> e <a href="#" id="privacyLink">Política de Privacidade</a> da BIX.</p>
-                                    <p>Ao continuar, você concorda com os <a href="#" id="termsLink">Termos de Serviço</a> e <a href="#" id="privacyLink">Política de Privacidade</a> da BIXX.</p>
                                 </div>
                                 <div class="terms-checkbox">
                                     <input type="checkbox" name="termos" id="termosCheckbox" required>
@@ -1024,13 +932,6 @@ input, select, textarea, button {
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
-    <h3>BIX</h3>
-    <p style="margin: 1rem 0; opacity: 0.8;">BIX - Clube de Proteção e Benefícios</p>
-    <div class="social-links">
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-whatsapp"></i></a>
-    </div>
-</div>
                     <h3>BIX</h3>
                     <p style="margin: 1rem 0; opacity: 0.8;">BIX - Clube de Proteção e Benefícios</p>
                     <div class="social-links">
@@ -1052,14 +953,11 @@ input, select, textarea, button {
                     <ul class="footer-links">
                         <li><i class="fas fa-phone-alt"></i> (62) 98159-6601</li>
                         <li><i class="fas fa-envelope"></i> BIXstartup@gmail.com</li>
-                        <li><i class="fas fa-envelope"></i> BIXXstartup@gmail.com</li>
                         <li><i class="fas fa-clock"></i> Seg-Seg: 8h às 18h</li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-              
-                <p>&copy; 2025 BIXX. Todos os direitos reservados.</p>
                 <p>&copy; 2025 BIX. Todos os direitos reservados.</p>
             </div>
         </div>
@@ -1077,9 +975,13 @@ input, select, textarea, button {
     };
 
     // Initialize Firebase
+    let db;
     try {
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        // Verificar se o Firebase já foi inicializado
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        db = firebase.firestore();
         console.log("Firebase inicializado com sucesso!");
     } catch (error) {
         console.error("Erro ao inicializar Firebase:", error);
@@ -1090,11 +992,13 @@ input, select, textarea, button {
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mainNav = document.getElementById('mainNav');
 
-    mobileMenuBtn.addEventListener('click', () => {
-        mainNav.classList.toggle('active');
-        mobileMenuBtn.innerHTML = mainNav.classList.contains('active') ? 
-            '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-    });
+    if (mobileMenuBtn && mainNav) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+    }
 
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1102,6 +1006,8 @@ input, select, textarea, button {
             e.preventDefault();
 
             const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
             const targetElement = document.querySelector(targetId);
 
             if (targetElement) {
@@ -1111,7 +1017,7 @@ input, select, textarea, button {
                 });
 
                 // Close mobile menu if open
-                if (mainNav.classList.contains('active')) {
+                if (mainNav && mainNav.classList.contains('active')) {
                     mainNav.classList.remove('active');
                     mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
                 }
@@ -1121,12 +1027,15 @@ input, select, textarea, button {
 
     // Header scroll effect
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            document.querySelector('header').style.background = 'rgba(255, 255, 255, 0.95)';
-            document.querySelector('header').style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-        } else {
-            document.querySelector('header').style.background = 'rgba(255, 255, 255, 0.95)';
-            document.querySelector('header').style.boxShadow = 'none';
+        const header = document.querySelector('header');
+        if (header) {
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
         }
     });
 
@@ -1248,142 +1157,152 @@ input, select, textarea, button {
 
     // Show error message
     function showError(message) {
-        errorMessageText.textContent = message || 'Ocorreu um erro inesperado. Por favor, tente novamente.';
-        errorMessage.style.display = 'block';
-        contractFormContainer.style.display = 'none';
-        successMessage.style.display = 'none';
+        if (errorMessageText && errorMessage && contractFormContainer && successMessage) {
+            errorMessageText.textContent = message || 'Ocorreu um erro inesperado. Por favor, tente novamente.';
+            errorMessage.style.display = 'block';
+            contractFormContainer.style.display = 'none';
+            successMessage.style.display = 'none';
 
-        // Scroll to error message
-        errorMessage.scrollIntoView({ behavior: 'smooth' });
+            // Scroll to error message
+            errorMessage.scrollIntoView({ behavior: 'smooth' });
+        }
     }
 
     // Hide error message
     function hideError() {
-        errorMessage.style.display = 'none';
-        contractFormContainer.style.display = 'block';
+        if (errorMessage && contractFormContainer) {
+            errorMessage.style.display = 'none';
+            contractFormContainer.style.display = 'block';
+        }
     }
 
     // Add first equipment on load
-    addEquipmentItem();
-
-    // Add equipment button
-    addEquipmentBtn.addEventListener('click', addEquipmentItem);
+    if (addEquipmentBtn && equipmentList) {
+        addEquipmentItem();
+        addEquipmentBtn.addEventListener('click', addEquipmentItem);
+    }
 
     // Form submission
-    document.getElementById('contractForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
+    const contractForm = document.getElementById('contractForm');
+    if (contractForm) {
+        contractForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
 
-        // Validate form
-        const form = document.getElementById('contractForm');
-        const termosCheckbox = document.getElementById('termosCheckbox');
-        const equipmentItems = document.querySelectorAll('.equipment-item');
+            // Validate form
+            const termosCheckbox = document.getElementById('termosCheckbox');
+            const equipmentItems = document.querySelectorAll('.equipment-item');
 
-        if (equipmentItems.length === 0) {
-            showError('Por favor, adicione pelo menos um equipamento.');
-            return;
-        }
-
-        if (!form.checkValidity()) {
-            showError('Por favor, preencha todos os campos obrigatórios.');
-            return;
-        }
-
-        if (!termosCheckbox.checked) {
-            showError('Você precisa aceitar os Termos de Serviço e Política de Privacidade.');
-            return;
-        }
-
-        // Show loading spinner
-        submitBtn.style.display = 'none';
-        loadingSpinner.style.display = 'block';
-
-        try {
-            // Collect form data
-            const formData = {
-                personalData: {
-                    nome: document.getElementById('nome').value,
-                    cpf: document.getElementById('cpf').value,
-                    nascimento: document.getElementById('nascimento').value,
-                    rg: document.getElementById('rg').value,
-                    email: document.getElementById('email').value,
-                    telefone: document.getElementById('telefone').value,
-                    endereco: document.getElementById('endereco').value,
-                    planoTipo: document.getElementById('planoTipo').value
-                },
-                equipments: [],
-                price: {
-                    total: totalPrice,
-                    discounted: equipmentItems.length > 1 ? totalPrice * 0.8 : totalPrice,
-                    discount: equipmentItems.length > 1 ? totalPrice * 0.2 : 0
-                },
-                status: "pendente",
-                dataContratacao: new Date().toISOString(),
-                dataAtualizacao: new Date().toISOString()
-            };
-
-            // Collect equipment data
-            equipmentItems.forEach((item, index) => {
-                formData.equipments.push({
-                    tipo: item.querySelector('.equipment-type').value,
-                    marca: item.querySelector('.equipment-brand').value,
-                    modelo: item.querySelector('.equipment-model').value
-                });
-            });
-
-            // Validate CPF format
-            const cpf = formData.personalData.cpf.replace(/\D/g, '');
-            if (cpf.length !== 11) {
-                throw new Error('CPF deve conter 11 dígitos');
+            if (equipmentItems.length === 0) {
+                showError('Por favor, adicione pelo menos um equipamento.');
+                return;
             }
 
-            // Save to Firestore
-            if (!firebase.apps.length) {
-                throw new Error('Firebase não foi inicializado corretamente');
+            if (!contractForm.checkValidity()) {
+                showError('Por favor, preencha todos os campos obrigatórios.');
+                return;
             }
 
-            const db = firebase.firestore();
-
-            // Check if user already exists
-            const userDoc = await db.collection('usuarios').doc(cpf).get();
-
-            if (userDoc.exists) {
-                // Update existing user
-                await db.collection('usuarios').doc(cpf).update({
-                    ...formData.personalData,
-                    equipments: formData.equipments,
-                    price: formData.price,
-                    status: formData.status,
-                    dataAtualizacao: formData.dataAtualizacao
-                });
-            } else {
-                // Create new user
-                await db.collection('usuarios').doc(cpf).set({
-                    ...formData.personalData,
-                    equipments: formData.equipments,
-                    price: formData.price,
-                    status: formData.status,
-                    dataContratacao: formData.dataContratacao,
-                    dataAtualizacao: formData.dataAtualizacao
-                });
+            if (!termosCheckbox.checked) {
+                showError('Você precisa aceitar os Termos de Serviço e Política de Privacidade.');
+                return;
             }
 
-            // Show success message
-            contractFormContainer.style.display = 'none';
-            successMessage.style.display = 'block';
-            errorMessage.style.display = 'none';
+            // Show loading spinner
+            if (submitBtn && loadingSpinner) {
+                submitBtn.style.display = 'none';
+                loadingSpinner.style.display = 'block';
+            }
 
-            // Scroll to success message
-            successMessage.scrollIntoView({ behavior: 'smooth' });
+            try {
+                // Collect form data
+                const formData = {
+                    personalData: {
+                        nome: document.getElementById('nome').value,
+                        cpf: document.getElementById('cpf').value,
+                        nascimento: document.getElementById('nascimento').value,
+                        rg: document.getElementById('rg').value,
+                        email: document.getElementById('email').value,
+                        telefone: document.getElementById('telefone').value,
+                        endereco: document.getElementById('endereco').value,
+                        planoTipo: document.getElementById('planoTipo').value
+                    },
+                    equipments: [],
+                    price: {
+                        total: totalPrice,
+                        discounted: equipmentItems.length > 1 ? totalPrice * 0.8 : totalPrice,
+                        discount: equipmentItems.length > 1 ? totalPrice * 0.2 : 0
+                    },
+                    status: "pendente",
+                    dataContratacao: new Date().toISOString(),
+                    dataAtualizacao: new Date().toISOString()
+                };
 
-        } catch (error) {
-            console.error("Erro ao processar o formulário: ", error);
-            showError(error.message || "Ocorreu um erro ao salvar seus dados. Por favor, tente novamente.");
-        } finally {
-            // Hide loading spinner and show submit button
-            submitBtn.style.display = 'block';
-            loadingSpinner.style.display = 'none';
-        }
-    });
+                // Collect equipment data
+                equipmentItems.forEach((item, index) => {
+                    formData.equipments.push({
+                        tipo: item.querySelector('.equipment-type').value,
+                        marca: item.querySelector('.equipment-brand').value,
+                        modelo: item.querySelector('.equipment-model').value
+                    });
+                });
+
+                // Validate CPF format
+                const cpf = formData.personalData.cpf.replace(/\D/g, '');
+                if (cpf.length !== 11) {
+                    throw new Error('CPF deve conter 11 dígitos');
+                }
+
+                // Save to Firestore
+                if (!firebase.apps.length) {
+                    throw new Error('Firebase não foi inicializado corretamente');
+                }
+
+                // Check if user already exists
+                const userDoc = await db.collection('usuarios').doc(cpf).get();
+
+                if (userDoc.exists) {
+                    // Update existing user
+                    await db.collection('usuarios').doc(cpf).update({
+                        ...formData.personalData,
+                        equipments: formData.equipments,
+                        price: formData.price,
+                        status: formData.status,
+                        dataAtualizacao: formData.dataAtualizacao
+                    });
+                } else {
+                    // Create new user
+                    await db.collection('usuarios').doc(cpf).set({
+                        ...formData.personalData,
+                        equipments: formData.equipments,
+                        price: formData.price,
+                        status: formData.status,
+                        dataContratacao: formData.dataContratacao,
+                        dataAtualizacao: formData.dataAtualizacao
+                    });
+                }
+
+                // Show success message
+                if (contractFormContainer && successMessage && errorMessage) {
+                    contractFormContainer.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    errorMessage.style.display = 'none';
+
+                    // Scroll to success message
+                    successMessage.scrollIntoView({ behavior: 'smooth' });
+                }
+
+            } catch (error) {
+                console.error("Erro ao processar o formulário: ", error);
+                showError(error.message || "Ocorreu um erro ao salvar seus dados. Por favor, tente novamente.");
+            } finally {
+                // Hide loading spinner and show submit button
+                if (submitBtn && loadingSpinner) {
+                    submitBtn.style.display = 'block';
+                    loadingSpinner.style.display = 'none';
+                }
+            }
+        });
+    }
 
     // Melhorar UX em dispositivos móveis
     function isMobileDevice() {
@@ -1395,37 +1314,54 @@ input, select, textarea, button {
         document.body.classList.add('mobile-device');
 
         // Fechar menu ao clicar em um link
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                mainNav.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        if (mainNav) {
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mainNav.classList.remove('active');
+                    if (mobileMenuBtn) {
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
             });
-        });
+        }
     }
 
     // Prevenir zoom em campos de input em iOS
     document.addEventListener('touchstart', function() {}, {passive: true});
 
     // Terms links
-    document.getElementById('termosLink').addEventListener('click', function(e) {
-        e.preventDefault();
-        alert('Aqui você veria o Termo de Compromisso. Em uma implementação real, isso abriria um modal ou página com o documento.');
-    });
+    const termosLink = document.getElementById('termosLink');
+    const contratoLink = document.getElementById('contratoLink');
+    const termsLink = document.getElementById('termsLink');
+    const privacyLink = document.getElementById('privacyLink');
 
-    document.getElementById('contratoLink').addEventListener('click', function(e) {
-        e.preventDefault();
-        alert('Aqui você veria o Contrato de Serviço. Em uma implementação real, isso abriria um modal ou página com o documento.');
-    });
+    if (termosLink) {
+        termosLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Aqui você veria o Termo de Compromisso. Em uma implementação real, isso abriria um modal ou página com o documento.');
+        });
+    }
 
-    document.getElementById('termsLink').addEventListener('click', function(e) {
-        e.preventDefault();
-        alert('Aqui você veria os Termos de Serviço. Em uma implementação real, isso abriria um modal ou página com o documento.');
-    });
+    if (contratoLink) {
+        contratoLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Aqui você veria o Contrato de Serviço. Em uma implementação real, isso abriria um modal ou página com o documento.');
+        });
+    }
 
-    document.getElementById('privacyLink').addEventListener('click', function(e) {
-        e.preventDefault();
-        alert('Aqui você veria a Política de Privacidade. Em uma implementação real, isso abriria um modal ou página com o documento.');
-    });
+    if (termsLink) {
+        termsLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Aqui você veria os Termos de Serviço. Em uma implementação real, isso abriria um modal ou página com o documento.');
+        });
+    }
+
+    if (privacyLink) {
+        privacyLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Aqui você veria a Política de Privacidade. Em uma implementação real, isso abriria um modal ou página com o documento.');
+        });
+    }
 
     // Make functions available globally
     window.removeEquipment = removeEquipment;
