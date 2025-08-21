@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIX - Contratação de Planos</title>
     <title>BIXX - Contratação de Planos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Adicionando Firebase SDK -->
-    <!-- Adicionando Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <style>
@@ -730,13 +729,13 @@ input, select, textarea, button {
 .footer-bottom {
     font-size: 0.8rem;
 }
-      
+
         /* Responsive */
 @media (max-width: 992px) {
     .hero h1 {
         font-size: 2.5rem;
     }
-    
+
     .contract-container {
         flex-direction: column;
         gap: 2rem;
@@ -805,20 +804,20 @@ input, select, textarea, button {
         margin-left: 0;
         margin-top: 0.5rem;
     }
-    
+
     .personal-data-form {
         padding: 1.5rem;
     }
-    
+
     .contract-notice {
         padding: 1rem;
     }
-    
+
     .footer-content {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
-    
+
     .price-display {
         font-size: 1.2rem;
         padding: 0.8rem;
@@ -833,41 +832,41 @@ input, select, textarea, button {
     .hero h1 {
         font-size: 1.8rem;
     }
-    
+
     .hero p {
         font-size: 0.9rem;
     }
-    
+
     .container {
         width: 95%;
         padding: 1rem 0;
     }
-    
+
     .personal-data-form {
         padding: 1rem;
     }
-    
+
     .cta-button {
         padding: 0.8rem 1.5rem;
         font-size: 0.9rem;
     }
-    
+
     .logo {
         font-size: 1.5rem;
     }
-    
+
     .file-upload {
         padding: 1rem;
     }
-    
+
     .file-upload i {
         font-size: 1.5rem;
     }
-    
+
     .footer-col h3 {
         font-size: 1.1rem;
     }
-    
+
     .social-links a {
         width: 35px;
         height: 35px;
@@ -884,6 +883,7 @@ input, select, textarea, button {
     <header>
         <div class="container header-container">
             <div class="logo">
+                <span>BIX</span>
                 <span>BIXX</span>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -899,6 +899,7 @@ input, select, textarea, button {
 
     <section class="hero">
         <div class="container">
+            <h1>Contrate seu plano <span>BIX</span></h1>
             <h1>Contrate seu plano <span>BIXX</span></h1>
             <p>Preencha o formulário abaixo para contratar.</p>
         </div>
@@ -976,6 +977,7 @@ input, select, textarea, button {
                         <div class="terms-container">
                             <div class="terms-content">
                                 <div class="terms-text">
+                                    <p>Ao continuar, você concorda com os <a href="#" id="termsLink">Termos de Serviço</a> e <a href="#" id="privacyLink">Política de Privacidade</a> da BIX.</p>
                                     <p>Ao continuar, você concorda com os <a href="#" id="termsLink">Termos de Serviço</a> e <a href="#" id="privacyLink">Política de Privacidade</a> da BIXX.</p>
                                 </div>
                                 <div class="terms-checkbox">
@@ -1021,6 +1023,8 @@ input, select, textarea, button {
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
+                    <h3>BIX</h3>
+                    <p style="margin: 1rem 0; opacity: 0.8;">BIX - Clube de Proteção e Benefícios</p>
                     <h3>BIXX</h3>
                     <p style="margin: 1rem 0; opacity: 0.8;">BIXX - Clube de Proteção e Benefícios</p>
                     <div class="social-links">
@@ -1041,12 +1045,14 @@ input, select, textarea, button {
                     <h3>Contato</h3>
                     <ul class="footer-links">
                         <li><i class="fas fa-phone-alt"></i> (62) 98159-6601</li>
+                        <li><i class="fas fa-envelope"></i> BIXstartup@gmail.com</li>
                         <li><i class="fas fa-envelope"></i> BIXXstartup@gmail.com</li>
                         <li><i class="fas fa-clock"></i> Seg-Seg: 8h às 18h</li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
+                <p>&copy; 2025 BIX. Todos os direitos reservados.</p>
                 <p>&copy; 2025 BIXX. Todos os direitos reservados.</p>
             </div>
         </div>
@@ -1059,35 +1065,24 @@ input, select, textarea, button {
         })();
 
         // Firebase configuration for your project "axon-ec708"
-        // Firebase configuration for your project "axon-ec708"
+        const firebaseConfig = {
+            apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
+            authDomain: "axon-ec708.firebaseapp.com",
+            projectId: "axon-ec708",
+            storageBucket: "axon-ec708.appspot.com",
+            messagingSenderId: "403077673595",
+            appId: "1:403077673595:web:a4cb91bdf662f8d8e9e8de"
+        };
 
-// Firebase configuration for your project "axon-ec708"
-const firebaseConfig = {
-    apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
-    authDomain: "axon-ec708.firebaseapp.com",
-    projectId: "axon-ec708",
-    storageBucket: "axon-ec708.appspot.com",
-    messagingSenderId: "403077673595",
-    appId: "1:403077673595:web:a4cb91bdf662f8d8e9e8de"
-};
-
-// Initialize Firebase
-let db;
-try {
-    // Verificar se o Firebase já foi inicializado
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-    }
-    db = firebase.firestore();
-    
-    // Inicializar Authentication (se necessário)
-    // firebase.auth();
-    
-    console.log("Firebase inicializado com sucesso!");
-} catch (error) {
-    console.error("Erro ao inicializar Firebase:", error);
-    showError("Erro de configuração do Firebase. Por favor, entre em contato com o suporte.");
-}
+        // Initialize Firebase
+        try {
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+            console.log("Firebase inicializado com sucesso!");
+        } catch (error) {
+            console.error("Erro ao inicializar Firebase:", error);
+            showError("Erro de configuração. Por favor, entre em contato com o suporte.");
+        }
 
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -1213,7 +1208,10 @@ try {
                     <input type="text" id="${equipmentId}-modelo" class="equipment-model" required>
                 </div>
                 
-                <!-- Campo IMEI removido conforme solicitado -->
+                <div class="form-group">
+                    <label for="${equipmentId}-imei">IMEI (para smartphones/tablets)</label>
+                    <input type="text" id="${equipmentId}-imei" class="equipment-imei" placeholder="Número de 15 dígitos">
+                </div>
                 
                 <button type="button" class="remove-equipment" onclick="removeEquipment('${equipmentId}')">
                     <i class="fas fa-trash-alt"></i> Remover equipamento
@@ -1327,15 +1325,14 @@ try {
                 };
 
                 // Collect equipment data
-                // Collect equipment data
-equipmentItems.forEach((item, index) => {
-    formData.equipments.push({
-        tipo: item.querySelector('.equipment-type').value,
-        marca: item.querySelector('.equipment-brand').value,
-        modelo: item.querySelector('.equipment-model').value
-        // Campo IMEI removido conforme solicitado
-    });
-});
+                equipmentItems.forEach((item, index) => {
+                    formData.equipments.push({
+                        tipo: item.querySelector('.equipment-type').value,
+                        marca: item.querySelector('.equipment-brand').value,
+                        modelo: item.querySelector('.equipment-model').value,
+                        imei: item.querySelector('.equipment-imei')?.value || ''
+                    });
+                });
 
                 // Validate CPF format
                 const cpf = formData.personalData.cpf.replace(/\D/g, '');
@@ -1343,15 +1340,12 @@ equipmentItems.forEach((item, index) => {
                     throw new Error('CPF deve conter 11 dígitos');
                 }
 
-// Save to Firestore
-if (!db) {
-    throw new Error('Firebase não foi inicializado corretamente');
-}
+                // Save to Firestore
+                if (!firebase.apps.length) {
+                    throw new Error('Firebase não foi inicializado corretamente');
+                }
 
-// Check if user already exists
-const userDoc = await db.collection('usuarios').doc(cpf).get();
-
-               
+                const db = firebase.firestore();
 
                 // Check if user already exists
                 const userDoc = await db.collection('usuarios').doc(cpf).get();
@@ -1427,7 +1421,7 @@ function isMobileDevice() {
 // Ajustar o layout para mobile
 if (isMobileDevice()) {
     document.body.classList.add('mobile-device');
-    
+
     // Fechar menu ao clicar em um link
     document.querySelectorAll('nav a').forEach(link => {
         link.addEventListener('click', () => {
