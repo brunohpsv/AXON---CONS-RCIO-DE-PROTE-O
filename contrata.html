@@ -12,17 +12,17 @@
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <style>
         :root {
-    --primary: #8B0000;        /* Vermelho escuro */
-    --primary-dark: #6D0000;   /* Vermelho mais escuro */
-    --secondary: #2D2D2D;
-    --accent: #CC0000;         /* Vermelho vibrante para destaques */
-    --light: #FFFFFF;
-    --dark: #161616;
-    --gray: #F5F5F5;
-    --texture: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
-    --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
+            --primary: #8B0000;        /* Vermelho escuro */
+            --primary-dark: #6D0000;   /* Vermelho mais escuro */
+            --secondary: #2D2D2D;
+            --accent: #CC0000;         /* Vermelho vibrante para destaques */
+            --light: #FFFFFF;
+            --dark: #161616;
+            --gray: #F5F5F5;
+            --texture: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
 
         * {
             margin: 0;
@@ -136,6 +136,7 @@
             font-size: 1.5rem;
             color: var(--dark);
             cursor: pointer;
+            z-index: 1001;
         }
 
         /* Hero Section */
@@ -658,6 +659,11 @@
             .hero h1 {
                 font-size: 2.5rem;
             }
+            
+            .contract-container {
+                flex-direction: column;
+                gap: 2rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -667,213 +673,176 @@
 
             nav {
                 position: fixed;
-                top: 80px;
-                left: 0;
-                width: 100%;
+                top: 0;
+                right: -300px;
+                width: 300px;
+                height: 100vh;
                 background-color: var(--light);
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-                padding: 2rem;
-                transform: translateY(-150%);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                padding: 5rem 2rem 2rem;
                 transition: var(--transition);
-                z-index: 999;
+                z-index: 1000;
+                overflow-y: auto;
             }
-        /* Melhorias de responsividade gerais */
-input, select, textarea, button {
-    font-size: 16px; /* Previne zoom em iOS */
-}
 
             nav.active {
-                transform: translateY(0);
+                right: 0;
             }
-.equipment-item {
-    padding: 0.8rem;
-}
 
             nav ul {
                 flex-direction: column;
                 gap: 1.5rem;
             }
-.equipment-item h4 {
-    font-size: 1.1rem;
-}
 
             .hero {
                 padding: 8rem 0 4rem;
             }
-.add-equipment {
-    padding: 0.8rem;
-    font-size: 0.9rem;
-}
 
             .hero h1 {
                 font-size: 2rem;
             }
-.remove-equipment {
-    font-size: 0.8rem;
-}
 
             .hero p {
                 font-size: 1rem;
             }
-.submit-btn {
-    font-size: 1rem;
-    padding: 0.9rem;
-}
 
             .form-row {
                 flex-direction: column;
                 gap: 0;
             }
-.footer-bottom {
-    font-size: 0.8rem;
-}
-
-        /* Responsive */
-@media (max-width: 992px) {
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-
-    .contract-container {
-        flex-direction: column;
-        gap: 2rem;
-    }
-}
 
             .terms-content {
                 flex-direction: column;
                 align-items: flex-start;
             }
-@media (max-width: 768px) {
-    .mobile-menu-btn {
-        display: block;
-    }
-
-    nav {
-        position: fixed;
-        top: 80px;
-        left: 0;
-        width: 100%;
-        background-color: var(--light);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        padding: 2rem;
-        transform: translateY(-150%);
-        transition: var(--transition);
-        z-index: 999;
-    }
-
-    nav.active {
-        transform: translateY(0);
-    }
-
-    nav ul {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-
-    .hero {
-        padding: 8rem 0 4rem;
-    }
-
-    .hero h1 {
-        font-size: 2rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
-
-    .form-row {
-        flex-direction: column;
-        gap: 0;
-    }
-
-    .terms-content {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .success-actions {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .success-actions .cta-button {
-        margin-left: 0;
-        margin-top: 0.5rem;
-    }
-
-    .personal-data-form {
-        padding: 1.5rem;
-    }
-
-    .contract-notice {
-        padding: 1rem;
-    }
-
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .price-display {
-        font-size: 1.2rem;
-        padding: 0.8rem;
-    }
-}
 
             .success-actions {
                 flex-direction: column;
                 gap: 0.5rem;
             }
-@media (max-width: 480px) {
-    .hero h1 {
-        font-size: 1.8rem;
-    }
-
-    .hero p {
-        font-size: 0.9rem;
-    }
-
-    .container {
-        width: 95%;
-        padding: 1rem 0;
-    }
-
-    .personal-data-form {
-        padding: 1rem;
-    }
-
-    .cta-button {
-        padding: 0.8rem 1.5rem;
-        font-size: 0.9rem;
-    }
-
-    .logo {
-        font-size: 1.5rem;
-    }
-
-    .file-upload {
-        padding: 1rem;
-    }
-
-    .file-upload i {
-        font-size: 1.5rem;
-    }
-
-    .footer-col h3 {
-        font-size: 1.1rem;
-    }
-
-    .social-links a {
-        width: 35px;
-        height: 35px;
-    }
 
             .success-actions .cta-button {
                 margin-left: 0;
                 margin-top: 0.5rem;
             }
+
+            .personal-data-form {
+                padding: 1.5rem;
+            }
+
+            .contract-notice {
+                padding: 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .price-display {
+                font-size: 1.2rem;
+                padding: 0.8rem;
+            }
+            
+            /* Overlay para quando o menu está aberto */
+            .nav-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+            
+            .nav-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .container {
+                width: 95%;
+                padding: 1rem 0;
+            }
+
+            .personal-data-form {
+                padding: 1rem;
+            }
+
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .file-upload {
+                padding: 1rem;
+            }
+
+            .file-upload i {
+                font-size: 1.5rem;
+            }
+
+            .footer-col h3 {
+                font-size: 1.1rem;
+            }
+
+            .social-links a {
+                width: 35px;
+                height: 35px;
+            }
+            
+            nav {
+                width: 85%;
+                right: -85%;
+            }
+        }
+        
+        /* Melhorias de responsividade gerais */
+        input, select, textarea, button {
+            font-size: 16px; /* Previne zoom em iOS */
+        }
+        
+        .equipment-item {
+            padding: 0.8rem;
+        }
+        
+        .equipment-item h4 {
+            font-size: 1.1rem;
+        }
+        
+        .add-equipment {
+            padding: 0.8rem;
+            font-size: 0.9rem;
+        }
+        
+        .remove-equipment {
+            font-size: 0.8rem;
+        }
+        
+        .submit-btn {
+            font-size: 1rem;
+            padding: 0.9rem;
+        }
+        
+        .footer-bottom {
+            font-size: 0.8rem;
         }
     </style>
 </head>
@@ -891,6 +860,7 @@ input, select, textarea, button {
                     <li><a href="index.html">Inicio</a></li>
                 </ul>
             </nav>
+            <div class="nav-overlay" id="navOverlay"></div>
         </div>
     </header>
 
@@ -1074,12 +1044,22 @@ input, select, textarea, button {
     // Mobile Menu Toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mainNav = document.getElementById('mainNav');
+    const navOverlay = document.getElementById('navOverlay');
 
-    mobileMenuBtn.addEventListener('click', () => {
+    function toggleMenu() {
         mainNav.classList.toggle('active');
+        navOverlay.classList.toggle('active');
         mobileMenuBtn.innerHTML = mainNav.classList.contains('active') ? 
             '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-    });
+            
+        // Previne scroll do body quando o menu está aberto
+        document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : '';
+    }
+
+    mobileMenuBtn.addEventListener('click', toggleMenu);
+    
+    // Fechar menu ao clicar no overlay
+    navOverlay.addEventListener('click', toggleMenu);
 
     // Equipment management
     const equipmentList = document.getElementById('equipmentList');
