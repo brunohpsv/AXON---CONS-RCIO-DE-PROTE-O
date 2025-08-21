@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Adicionando Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <!-- Adicionando Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <style>
@@ -1058,6 +1060,7 @@ input, select, textarea, button {
 
         // Firebase configuration for your project "axon-ec708"
         // Firebase configuration for your project "axon-ec708"
+
 // Firebase configuration for your project "axon-ec708"
 const firebaseConfig = {
     apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
@@ -1076,10 +1079,14 @@ try {
         firebase.initializeApp(firebaseConfig);
     }
     db = firebase.firestore();
+    
+    // Inicializar Authentication (se necessário)
+    // firebase.auth();
+    
     console.log("Firebase inicializado com sucesso!");
 } catch (error) {
     console.error("Erro ao inicializar Firebase:", error);
-    showError("Erro de configuração. Por favor, entre em contato com o suporte.");
+    showError("Erro de configuração do Firebase. Por favor, entre em contato com o suporte.");
 }
 
         // Mobile Menu Toggle
@@ -1336,11 +1343,13 @@ equipmentItems.forEach((item, index) => {
                     throw new Error('CPF deve conter 11 dígitos');
                 }
 
-                // Save to Firestore
-                // Save to Firestore
+// Save to Firestore
 if (!db) {
     throw new Error('Firebase não foi inicializado corretamente');
 }
+
+// Check if user already exists
+const userDoc = await db.collection('usuarios').doc(cpf).get();
 
                
 
