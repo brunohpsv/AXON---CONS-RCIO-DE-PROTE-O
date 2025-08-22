@@ -617,7 +617,125 @@
                 display: block !important;
             }
         }
+
+	/* Estilos para a tela de login */
+.login-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+.login-card {
+    background-color: var(--light);
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 450px;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-header h2 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+}
+
+.login-header p {
+    color: var(--secondary);
+    opacity: 0.8;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+}
+
+.btn-login {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-login:hover {
+    background-color: var(--primary-dark);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Spinner de carregamento */
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mensagem de erro */
+.error-message {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: var(--danger);
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    text-align: center;
+    display: none;
+}	
+
     </style>
+<!-- Adicione isso antes do </head> -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
     <header>
@@ -650,18 +768,43 @@
             <li><a href="index.html#how-it-works">Como Funciona</a></li>
             <li><a href="contrata.html">Contratar?!</a></li>
             <li><a href="paineladm.html">ADM</a></li>
+	    <li><a href="#" id="logoutLink">Sair</a></li>
         </ul>
     </div>
     <div class="menu-overlay" id="menuOverlay"></div>
 
-    <section class="user-panel-section">
-        <div class="container">
-            <div class="welcome-banner">
-                <div class="welcome-content">
-                    <h1 id="userName">Olá, Justino Ferreira Cardoso!</h1>
-                    <p>Acompanhe aqui o status da sua assinatura e benefícios</p>
-                </div>
+    <!-- Substitua a seção user-panel-section por este código -->
+<section class="login-section" id="loginSection">
+    <div class="container">
+        <div class="login-card">
+            <div class="login-header">
+                <h2><i class="fas fa-lock"></i> Acessar Painel BIXX</h2>
+                <p>Digite suas credenciais para acessar seu painel</p>
             </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn-login" id="btnLogin">
+                    <span id="loginText">Entrar</span>
+                    <div class="spinner hidden" id="loginSpinner"></div>
+                </button>
+            </form>
+            <div class="login-footer">
+                <p>Problemas para acessar? <a href="mailto:bixX.corp@outlook.com.br">Entre em contato</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="user-panel-section hidden" id="userPanelSection">
+    <!-- Todo o conteúdo atual da user-panel-section permanece aqui -->
+</section>
 
             <div class="status-cards">
                 <div class="status-card">
@@ -850,6 +993,108 @@
             }
         });
 
+	const firebaseConfig = {
+        apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
+        authDomain: "axon-ec708.firebaseapp.com",
+        projectId: "axon-ec708",
+        storageBucket: "axon-ec708.firebasestorage.app",
+        messagingSenderId: "403077673595",
+        appId: "1:403077673595:web:a4cb91bdf662f8d8e9e8de"
+    };
+
+    // Inicializar Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // Elementos da interface
+    const loginSection = document.getElementById('loginSection');
+    const userPanelSection = document.getElementById('userPanelSection');
+    const loginForm = document.getElementById('loginForm');
+    const btnLogin = document.getElementById('btnLogin');
+    const loginText = document.getElementById('loginText');
+    const loginSpinner = document.getElementById('loginSpinner');
+
+    // Verificar se o usuário já está logado
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            // Usuário está logado, carregar dados
+            loadUserData(user.uid);
+            loginSection.classList.add('hidden');
+            userPanelSection.classList.remove('hidden');
+        } else {
+            // Usuário não está logado, mostrar tela de login
+            loginSection.classList.remove('hidden');
+            userPanelSection.classList.add('hidden');
+        }
+    });
+
+    // Manipular envio do formulário de login
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        // Mostrar loading
+        loginText.classList.add('hidden');
+        loginSpinner.classList.remove('hidden');
+        btnLogin.disabled = true;
+        
+        // Fazer login
+        auth.signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Login bem-sucedido
+                const user = userCredential.user;
+                loadUserData(user.uid);
+            })
+            .catch((error) => {
+                // Tratar erros
+                loginText.classList.remove('hidden');
+                loginSpinner.classList.add('hidden');
+                btnLogin.disabled = false;
+                
+                let errorMessage = "Erro ao fazer login. Tente novamente.";
+                
+                switch (error.code) {
+                    case 'auth/invalid-email':
+                        errorMessage = "E-mail inválido.";
+                        break;
+                    case 'auth/user-disabled':
+                        errorMessage = "Usuário desativado.";
+                        break;
+                    case 'auth/user-not-found':
+                        errorMessage = "Usuário não encontrado.";
+                        break;
+                    case 'auth/wrong-password':
+                        errorMessage = "Senha incorreta.";
+                        break;
+                }
+                
+                alert(errorMessage);
+            });
+    });
+
+    // Função para carregar dados do usuário
+    function loadUserData(uid) {
+        db.collection("users").doc(uid).get()
+            .then((doc) => {
+                if (doc.exists) {
+                    const userData = doc.data();
+                    // Atualizar a interface com os dados do usuário
+                    updateUserInterface(userData);
+                } else {
+                    alert("Dados do usuário não encontrados.");
+                    auth.signOut();
+                }
+            })
+            .catch((error) => {
+                console.error("Erro ao carregar dados:", error);
+                alert("Erro ao carregar dados do usuário.");
+                auth.signOut();
+            });
+    }
+
         // Dados do Firestore (simulação)
         const userData = {
             authCreatedAt: "2025-08-18T19:38:35.922Z",
@@ -996,6 +1241,19 @@
 
             equipmentGrid.appendChild(equipmentCard);
         });
+	
+	// Adicione isso no final do seu script, após a inicialização do Firebase
+document.getElementById('logoutLink').addEventListener('click', (e) => {
+    e.preventDefault();
+    auth.signOut()
+        .then(() => {
+            // Logout bem-sucedido
+            console.log("Usuário deslogado");
+        })
+        .catch((error) => {
+            console.error("Erro ao fazer logout:", error);
+        });
+});
     </script>
 </body>
 </html>
