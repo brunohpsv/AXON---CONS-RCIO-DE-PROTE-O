@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - BIXX</title>
+    <title>Painel do Usuário - BIXX</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -23,13 +23,13 @@
             --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
@@ -41,7 +41,7 @@
             display: flex;
             flex-direction: column;
         }
-        
+
         body::before {
             content: '';
             position: fixed;
@@ -54,14 +54,14 @@
             z-index: -1;
             opacity: 0.1;
         }
-        
+
         .container {
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem 0;
         }
-        
+
         /* Header */
         header {
             background-color: rgba(255, 255, 255, 0.95);
@@ -74,14 +74,14 @@
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0,0,0,0.05);
         }
-        
+
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1rem 0;
         }
-        
+
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
@@ -91,19 +91,19 @@
             letter-spacing: -1px;
             padding-left: 0.5rem;
         }
-        
+
         .logo i {
             margin-right: 0.5rem;
             font-size: 1.5rem;
             color: var(--primary);
         }
-        
+
         nav ul {
             display: flex;
             list-style: none;
             gap: 2rem;
         }
-        
+
         nav a {
             color: var(--secondary);
             text-decoration: none;
@@ -112,7 +112,7 @@
             position: relative;
             transition: var(--transition);
         }
-        
+
         nav a::after {
             content: '';
             position: absolute;
@@ -123,15 +123,15 @@
             background-color: var(--primary);
             transition: var(--transition);
         }
-        
+
         nav a:hover {
             color: var(--primary);
         }
-        
+
         nav a:hover::after {
             width: 100%;
         }
-        
+
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -141,7 +141,7 @@
             cursor: pointer;
             padding: 0.5rem;
         }
-        
+
         /* Side Menu */
         .side-menu {
             position: fixed;
@@ -156,11 +156,11 @@
             padding: 2rem 1.5rem;
             overflow-y: auto;
         }
-        
+
         .side-menu.active {
             right: 0;
         }
-        
+
         .side-menu-header {
             display: flex;
             justify-content: space-between;
@@ -169,7 +169,7 @@
             padding-bottom: 1rem;
             border-bottom: 1px solid rgba(0,0,0,0.1);
         }
-        
+
         .side-menu-close {
             background: none;
             border: none;
@@ -177,15 +177,15 @@
             color: var(--secondary);
             cursor: pointer;
         }
-        
+
         .side-menu-links {
             list-style: none;
         }
-        
+
         .side-menu-links li {
             margin-bottom: 1.5rem;
         }
-        
+
         .side-menu-links a {
             color: var(--secondary);
             text-decoration: none;
@@ -195,11 +195,11 @@
             padding: 0.5rem 0;
             transition: var(--transition);
         }
-        
+
         .side-menu-links a:hover {
             color: var(--primary);
         }
-        
+
         .menu-overlay {
             position: fixed;
             top: 0;
@@ -212,144 +212,18 @@
             visibility: hidden;
             transition: var(--transition);
         }
-        
+
         .menu-overlay.active {
             opacity: 1;
             visibility: visible;
         }
-        
-        /* Login Section */
-        .login-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 2rem 0;
-        }
-        
-        .login-container {
-            background-color: var(--light);
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            padding: 2.5rem;
-            width: 100%;
-            max-width: 450px;
-            margin: 0 auto;
-        }
-        
-        .login-logo {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        
-        .login-logo h1 {
-            font-size: 2.2rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .login-logo p {
-            color: var(--secondary);
-            opacity: 0.8;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--dark);
-        }
-        
-        .form-input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-        
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
-        }
-        
-        .input-with-icon {
-            position: relative;
-        }
-        
-        .input-with-icon .form-input {
-            padding-left: 2.5rem;
-        }
-        
-        .input-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #777;
-        }
-        
-        .form-error {
-            color: var(--danger);
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-            display: none;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            text-align: center;
-            width: 100%;
-        }
-        
-        .btn:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-        
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        .login-footer {
-            text-align: center;
-            margin-top: 1.5rem;
-            color: var(--secondary);
-            font-size: 0.9rem;
-        }
-        
-        .login-footer a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .login-footer a:hover {
-            text-decoration: underline;
-        }
-        
+
         /* User Panel */
         .user-panel-section {
             flex: 1;
             padding: 8rem 0 4rem;
-            display: none;
         }
-        
+
         .welcome-banner {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
@@ -360,7 +234,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .welcome-banner::before {
             content: '';
             position: absolute;
@@ -372,28 +246,28 @@
             opacity: 0.1;
             z-index: 0;
         }
-        
+
         .welcome-content {
             position: relative;
             z-index: 1;
         }
-        
+
         .welcome-content h1 {
             font-size: 1.8rem;
             margin-bottom: 0.5rem;
         }
-        
+
         .welcome-content p {
             opacity: 0.9;
         }
-        
+
         .status-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
-        
+
         .status-card {
             background-color: var(--light);
             border-radius: 16px;
@@ -402,51 +276,51 @@
             border-left: 4px solid var(--primary);
             transition: var(--transition);
         }
-        
+
         .status-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
         }
-        
+
         .status-card-header {
             display: flex;
             align-items: center;
             margin-bottom: 1rem;
         }
-        
+
         .status-card-header i {
             font-size: 1.5rem;
             margin-right: 0.75rem;
             color: var(--primary);
         }
-        
+
         .status-card-header h3 {
             font-size: 1.2rem;
             color: var(--dark);
         }
-        
+
         .status-value {
             font-size: 1.1rem;
             font-weight: 600;
             padding: 0.5rem 0;
         }
-        
+
         .status-active {
             color: var(--success);
         }
-        
+
         .status-pending {
             color: var(--warning);
         }
-        
+
         .status-inactive {
             color: var(--danger);
         }
-        
+
         .progress-container {
             margin: 1.5rem 0;
         }
-        
+
         .progress-label {
             display: flex;
             justify-content: space-between;
@@ -454,28 +328,28 @@
             font-size: 0.9rem;
             color: var(--secondary);
         }
-        
+
         .progress-bar {
             height: 10px;
             background-color: var(--gray);
             border-radius: 5px;
             overflow: hidden;
         }
-        
+
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
             border-radius: 5px;
             transition: width 0.5s ease;
         }
-        
+
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
-        
+
         .info-card {
             background-color: var(--light);
             border-radius: 16px;
@@ -483,42 +357,42 @@
             box-shadow: var(--shadow);
             transition: var(--transition);
         }
-        
+
         .info-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
         }
-        
+
         .info-card-header {
             display: flex;
             align-items: center;
             margin-bottom: 1rem;
         }
-        
+
         .info-card-header i {
             font-size: 1.25rem;
             margin-right: 0.75rem;
             color: var(--primary);
         }
-        
+
         .info-card-header h3 {
             font-size: 1.1rem;
             color: var(--dark);
         }
-        
+
         .info-value {
             font-size: 1.1rem;
             font-weight: 500;
             color: var(--secondary);
         }
-        
+
         .equipment-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
             margin-top: 2rem;
         }
-        
+
         .equipment-card {
             background-color: var(--light);
             border-radius: 16px;
@@ -527,44 +401,44 @@
             transition: var(--transition);
             border-top: 4px solid var(--primary);
         }
-        
+
         .equipment-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
-        
+
         .equipment-card-header {
             display: flex;
             align-items: center;
             margin-bottom: 1rem;
         }
-        
+
         .equipment-card-header i {
             font-size: 1.25rem;
             margin-right: 0.75rem;
             color: var(--primary);
         }
-        
+
         .equipment-card-header h3 {
             font-size: 1.1rem;
             color: var(--dark);
         }
-        
+
         .equipment-detail {
             margin-bottom: 0.5rem;
             display: flex;
             justify-content: space-between;
         }
-        
+
         .equipment-detail-label {
             font-weight: 600;
             color: var(--dark);
         }
-        
+
         .equipment-detail-value {
             color: var(--secondary);
         }
-        
+
         /* Nova seção de informações */
         .info-section {
             background-color: var(--light);
@@ -573,7 +447,7 @@
             box-shadow: var(--shadow);
             margin: 2rem 0;
         }
-        
+
         .info-section h2 {
             color: var(--primary);
             margin-bottom: 1rem;
@@ -581,27 +455,27 @@
             display: flex;
             align-items: center;
         }
-        
+
         .info-section h2 i {
             margin-right: 0.5rem;
         }
-        
+
         .info-section p {
             margin-bottom: 1rem;
             line-height: 1.6;
         }
-        
+
         .request-list {
             list-style: none;
             margin-top: 1.5rem;
         }
-        
+
         .request-list li {
             margin-bottom: 1rem;
             padding-left: 1.5rem;
             position: relative;
         }
-        
+
         .request-list li::before {
             content: '•';
             color: var(--primary);
@@ -609,11 +483,11 @@
             position: absolute;
             left: 0;
         }
-        
+
         .request-list strong {
             color: var(--primary-dark);
         }
-        
+
         /* Footer */
         footer {
             background-color: var(--dark);
@@ -622,7 +496,7 @@
             position: relative;
             margin-top: auto;
         }
-        
+
         footer::before {
             content: '';
             position: absolute;
@@ -632,13 +506,13 @@
             height: 8px;
             background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
         }
-        
+
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 3rem;
         }
-        
+
         .footer-col h3 {
             color: var(--light);
             margin-bottom: 1.5rem;
@@ -646,7 +520,7 @@
             position: relative;
             display: inline-block;
         }
-        
+
         .footer-col h3::after {
             content: '';
             position: absolute;
@@ -656,39 +530,39 @@
             height: 3px;
             background: var(--primary);
         }
-        
+
         .footer-links {
             list-style: none;
         }
-        
+
         .footer-links li {
             margin-bottom: 0.8rem;
         }
-        
+
         .footer-links a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             transition: var(--transition);
             display: inline-block;
         }
-        
+
         .footer-links a:hover {
             color: var(--accent);
             transform: translateX(5px);
         }
-        
+
         .footer-links i {
             margin-right: 0.5rem;
             width: 20px;
             color: var(--primary);
         }
-        
+
         .social-links {
             display: flex;
             gap: 1rem;
             margin-top: 1.5rem;
         }
-        
+
         .social-links a {
             display: inline-flex;
             align-items: center;
@@ -700,12 +574,12 @@
             border-radius: 50%;
             transition: var(--transition);
         }
-        
+
         .social-links a:hover {
             background-color: var(--primary);
             transform: translateY(-3px);
         }
-        
+
         .footer-bottom {
             text-align: center;
             margin-top: 3rem;
@@ -714,27 +588,23 @@
             font-size: 0.9rem;
             opacity: 0.7;
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
             .mobile-menu-btn {
                 display: block;
             }
-            
+
             nav {
                 display: none;
             }
-            
+
             .user-panel-section {
                 padding: 6rem 0 2rem;
             }
-            
+
             .status-cards, .info-grid, .equipment-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .login-container {
-                padding: 1.5rem;
             }
         }
 
@@ -742,7 +612,7 @@
             .mobile-menu-btn {
                 display: none !important;
             }
-            
+
             nav {
                 display: block !important;
             }
@@ -750,50 +620,14 @@
     </style>
 </head>
 <body>
-    <!-- Tela de Login (inicialmente visível) -->
-    <section class="login-section" id="loginSection">
-        <div class="login-container">
-            <div class="login-logo">
-                <h1><i class="fas fa-shield-alt"></i> BIXX</h1>
-                <p>Faça login para acessar seu painel</p>
-            </div>
-            
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-envelope input-icon"></i>
-                        <input type="email" id="email" class="form-input" placeholder="Seu e-mail cadastrado" required>
-                    </div>
-                    <div class="form-error" id="emailError">Por favor, insira um e-mail válido</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Senha</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-lock input-icon"></i>
-                        <input type="password" id="password" class="form-input" placeholder="Sua senha" required>
-                    </div>
-                    <div class="form-error" id="passwordError">A senha deve ter pelo menos 6 caracteres</div>
-                </div>
-                
-                <button type="submit" class="btn">Entrar</button>
-            </form>
-            
-            <div class="login-footer">
-                <p>Problemas para acessar? <a href="mailto:bixX.corp@outlook.com.br">Entre em contato</a></p>
-            </div>
-        </div>
-    </section>
-    
-    <header id="mainHeader" style="display: none;">
+    <header>
         <div class="container header-container">
             <div class="logo">
                 <span>BIXX</span>
             </div>
             <nav>
                 <ul>
-                    <li><a href="#" id="logoutBtn">Sair</a></li>
+                    <li><a href="login.html">Sair</a></li>
                 </ul>
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -801,7 +635,7 @@
             </button>
         </div>
     </header>
-    
+
     <!-- Side Menu -->
     <div class="side-menu" id="sideMenu">
         <div class="side-menu-header">
@@ -816,13 +650,11 @@
             <li><a href="index.html#how-it-works">Como Funciona</a></li>
             <li><a href="contrata.html">Contratar?!</a></li>
             <li><a href="paineladm.html">ADM</a></li>
-            <li><a href="#" id="mobileLogoutBtn">Sair</a></li>
         </ul>
     </div>
     <div class="menu-overlay" id="menuOverlay"></div>
-    
-    <!-- Painel do Usuário (inicialmente oculto) -->
-    <section class="user-panel-section" id="userPanelSection">
+
+    <section class="user-panel-section">
         <div class="container">
             <div class="welcome-banner">
                 <div class="welcome-content">
@@ -830,7 +662,7 @@
                     <p>Acompanhe aqui o status da sua assinatura e benefícios</p>
                 </div>
             </div>
-            
+
             <div class="status-cards">
                 <div class="status-card">
                     <div class="status-card-header">
@@ -840,7 +672,7 @@
                     <div class="status-value" id="statusValue">Ativa</div>
                     <p>Sua assinatura está <span id="statusText">ativa</span> e seus benefícios disponíveis</p>
                 </div>
-                
+
                 <div class="status-card">
                     <div class="status-card-header">
                         <i class="fas fa-clock"></i>
@@ -858,7 +690,7 @@
                     <p>Início: <strong id="startCarencia">20/08/2025</strong></p>
                     <p>Término: <strong id="endCarencia">20/02/2026</strong></p>
                 </div>
-                
+
                 <div class="status-card">
                     <div class="status-card-header">
                         <i class="fas fa-envelope"></i>
@@ -868,7 +700,7 @@
                     <p>Seus boletos serão enviados por e-mail mensalmente</p>
                 </div>
             </div>
-            
+
             <div class="info-grid">
                 <div class="info-card">
                     <div class="info-card-header">
@@ -881,7 +713,7 @@
                         <p><strong>Nascimento:</strong> <span id="userBirth">24/02/1995</span></p>
                     </div>
                 </div>
-                
+
                 <div class="info-card">
                     <div class="info-card-header">
                         <i class="fas fa-phone"></i>
@@ -892,7 +724,7 @@
                         <p><strong>Email:</strong> <span id="userEmail">justino@gmail.com</span></p>
                     </div>
                 </div>
-                
+
                 <div class="info-card">
                     <div class="info-card-header">
                         <i class="fas fa-map-marker-alt"></i>
@@ -902,7 +734,7 @@
                         Rua Marilisa, justim quadra 12, lote 74 setor araguaia
                     </div>
                 </div>
-                
+
                 <div class="info-card">
                     <div class="info-card-header">
                         <i class="fas fa-file-contract"></i>
@@ -915,23 +747,28 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="equipment-section">
                 <h2 style="margin-bottom: 1.5rem; color: var(--dark);">Equipamentos Protegidos</h2>
                 <div class="equipment-grid" id="equipmentGrid">
                     <!-- Equipamentos serão inseridos via JavaScript -->
                 </div>
             </div>
-            
+
             <div class="info-section">
                 <h2><i class="fas fa-info-circle"></i> Informações Importantes</h2>
+                <p>Seus boletos serão enviados mensalmente para o e-mail cadastrado: <strong id="userEmailCopy">justino@gmail.com</strong>. Fique atento à sua caixa de entrada e spam.</p>
                 <p>Nunca pediremos documentos por whattsapp ou ligação, ou qualquer outra forma de envio, somente por e-mail oficial! Os boletos serão enviado também pelo e-mail oficial, todos são authenticados.</p>
             </div>
-            
+
             <div class="info-section">
                 <h2><i class="fas fa-headset"></i> Como Solicitar Serviços</h2>
                 <p>Para solicitar qualquer serviço, envie um e-mail para <strong>bixX.corp@outlook.com.br</strong> com o assunto correspondente:</p>
                 <ul class="request-list">
+                    <li><strong>Assistência Técnica</strong>: Assunto "Assistência Técnica - [Seu Nome]"</li>
+                    <li><strong>Avaliação para vender equipamento</strong>: Assunto "Avaliação de Equipamento - [Seu Nome]"</li>
+                    <li><strong>Acrescentar mais equipamentos</strong>: Assunto "Novo Equipamento - [Seu Nome]"</li>
+                    <li><strong>Cancelar assinatura</strong>: Assunto "Cancelamento - [Seu Nome]"</li>
                     <li><strong>Assistência Técnica</strong>: Assunto "Assistência Técnica - [Seu Nome] + [CPF]"</li>
                     <li><strong>Avaliação para vender equipamento</strong>: Assunto "Avaliação de Equipamento - [Seu Nome] + [CPF]"</li>
                     <li><strong>Acrescentar mais equipamentos</strong>: Assunto "Novo Equipamento - [Seu Nome] + [CPF]"</li>
@@ -941,8 +778,8 @@
             </div>
         </div>
     </section>
-    
-    <footer id="mainFooter" style="display: none;">
+
+    <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
@@ -978,329 +815,30 @@
     </footer>
 
     <script>
-        // Dados de usuários válidos (em um sistema real, isso viria de um banco de dados)
-        const validUsers = {
-            "justino@gmail.com": {
-                password: "justino123",
-                userData: {
-                    authCreatedAt: "2025-08-18T19:38:35.922Z",
-                    coberturaStatus: "ativa",
-                    cpf: "75896325841",
-                    dataAtualizacao: "2025-08-18T17:51:36.945Z",
-                    dataContratacao: "2025-08-18T17:50:48.698Z",
-                    documento: "ANALISE DO ITEM.pdf",
-                    email: "justino@gmail.com",
-                    endereco: "Rua Marilisa, justim quadra 12, lote 74 setor araguaia",
-                    equipments: [
-                        {
-                            marca: "aplle",
-                            modelo: "rs max1",
-                            numeroSerie: "",
-                            tipo: "tablet",
-                            valor: 0
-                        }
-                    ],
-                    fimCarencia: "2026-02-20",
-                    inicioCarencia: "2025-08-20",
-                    nascimento: "1995-02-24",
-                    nome: "Justino Ferreira Cardoso",
-                    price: {
-                        discount: 0,
-                        discounted: 120,
-                        total: 120
-                    },
-                    rg: "9658721",
-                    status: "ativo",
-                    telefone: "62987456321",
-                    uid: "kWPe3aYeKOYplcQnwQqupH6HnRv2",
-                    updatedAt: "2025-08-20T12:29:46.793Z"
-                }
-            },
-            "admin@bixx.com": {
-                password: "admin123",
-                userData: {
-                    authCreatedAt: "2025-08-18T19:38:35.922Z",
-                    coberturaStatus: "ativa",
-                    cpf: "12345678900",
-                    dataAtualizacao: "2025-08-18T17:51:36.945Z",
-                    dataContratacao: "2025-08-18T17:50:48.698Z",
-                    documento: "DOC_ADMIN.pdf",
-                    email: "admin@bixx.com",
-                    endereco: "Rua Administrativa, 123",
-                    equipments: [
-                        {
-                            marca: "Samsung",
-                            modelo: "Galaxy S21",
-                            numeroSerie: "SN123456789",
-                            tipo: "smartphone",
-                            valor: 2500
-                        },
-                        {
-                            marca: "Dell",
-                            modelo: "XPS 13",
-                            numeroSerie: "SN987654321",
-                            tipo: "notebook",
-                            valor: 4500
-                        }
-                    ],
-                    fimCarencia: "2026-02-20",
-                    inicioCarencia: "2025-08-20",
-                    nascimento: "1990-01-15",
-                    nome: "Administrador BIXX",
-                    price: {
-                        discount: 50,
-                        discounted: 100,
-                        total: 150
-                    },
-                    rg: "11222333",
-                    status: "ativo",
-                    telefone: "62123456789",
-                    uid: "ADMIN123456789",
-                    updatedAt: "2025-08-20T12:29:46.793Z"
-                }
-            }
-        };
-
-        // Elementos da interface
-        const loginSection = document.getElementById('loginSection');
-        const mainHeader = document.getElementById('mainHeader');
-        const userPanelSection = document.getElementById('userPanelSection');
-        const mainFooter = document.getElementById('mainFooter');
-        const loginForm = document.getElementById('loginForm');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const emailError = document.getElementById('emailError');
-        const passwordError = document.getElementById('passwordError');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
-
-        // Verificar se o usuário já está logado
-        function checkLoginStatus() {
-            const isLoggedIn = localStorage.getItem('bixxLoggedIn');
-            const userEmail = localStorage.getItem('bixxUserEmail');
-            
-            if (isLoggedIn === 'true' && userEmail && validUsers[userEmail]) {
-                showUserPanel(validUsers[userEmail].userData);
-            } else {
-                showLogin();
-            }
-        }
-
-        // Mostrar painel de login
-        function showLogin() {
-            loginSection.style.display = 'flex';
-            mainHeader.style.display = 'none';
-            userPanelSection.style.display = 'none';
-            mainFooter.style.display = 'none';
-        }
-
-        // Mostrar painel do usuário
-        function showUserPanel(userData) {
-            loginSection.style.display = 'none';
-            mainHeader.style.display = 'block';
-            userPanelSection.style.display = 'block';
-            mainFooter.style.display = 'block';
-            
-            // Preencher dados do usuário
-            fillUserData(userData);
-        }
-
-        // Preencher dados do usuário no painel
-        function fillUserData(userData) {
-            // Funções de formatação
-            function formatarCPF(cpf) {
-                return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-            }
-            
-            function formatarTelefone(telefone) {
-                return telefone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
-            }
-            
-            function formatarRG(rg) {
-                if (rg.length <= 7) {
-                    return rg.replace(/(\d{1})(\d{3})(\d{3})/, "$1.$2.$3");
-                }
-                return rg;
-            }
-            
-            function formatarData(dataString) {
-                const data = new Date(dataString);
-                return data.toLocaleDateString('pt-BR');
-            }
-            
-            function calcularProgressoCarencia(inicio, fim) {
-                const inicioDate = new Date(inicio);
-                const fimDate = new Date(fim);
-                const hoje = new Date();
-                
-                const totalDias = Math.floor((fimDate - inicioDate) / (1000 * 60 * 60 * 24));
-                const diasPassados = Math.floor((hoje - inicioDate) / (1000 * 60 * 60 * 24));
-                
-                if (diasPassados <= 0) return 0;
-                if (diasPassados >= totalDias) return 100;
-                
-                return Math.round((diasPassados / totalDias) * 100);
-            }
-            
-            // Atualizar a interface com os dados do usuário
-            document.getElementById('userName').textContent = `Olá, ${userData.nome}!`;
-            
-            // Status da assinatura
-            const statusValue = document.getElementById('statusValue');
-            const statusText = document.getElementById('statusText');
-            if (userData.status === 'ativo') {
-                statusValue.textContent = 'Ativa';
-                statusValue.className = 'status-value status-active';
-                statusText.textContent = 'ativa';
-            } else {
-                statusValue.textContent = 'Inativa';
-                statusValue.className = 'status-value status-inactive';
-                statusText.textContent = 'inativa';
-            }
-            
-            // Status de pagamento
-            const paymentStatus = document.getElementById('paymentStatus');
-            paymentStatus.className = 'status-value status-active';
-            
-            // Período de carência
-            const progresso = calcularProgressoCarencia(userData.inicioCarencia, userData.fimCarencia);
-            document.getElementById('progressPercentage').textContent = `${progresso}%`;
-            document.getElementById('progressFill').style.width = `${progresso}%`;
-            document.getElementById('startCarencia').textContent = formatarData(userData.inicioCarencia);
-            document.getElementById('endCarencia').textContent = formatarData(userData.fimCarencia);
-            
-            // Dados pessoais
-            document.getElementById('userCpf').textContent = formatarCPF(userData.cpf);
-            document.getElementById('userRg').textContent = formatarRG(userData.rg);
-            document.getElementById('userBirth').textContent = formatarData(userData.nascimento);
-            
-            // Contato
-            document.getElementById('userPhone').textContent = formatarTelefone(userData.telefone);
-            document.getElementById('userEmail').textContent = userData.email;
-            
-            // Endereço
-            document.getElementById('userAddress').textContent = userData.endereco;
-            
-            // Informações do contrato
-            document.getElementById('contractDate').textContent = formatarData(userData.dataContratacao);
-            document.getElementById('totalPrice').textContent = `R$ ${userData.price.total.toFixed(2).replace('.', ',')}`;
-            document.getElementById('lastUpdate').textContent = formatarData(userData.updatedAt);
-            
-            // Equipamentos
-            const equipmentGrid = document.getElementById('equipmentGrid');
-            equipmentGrid.innerHTML = ''; // Limpar equipamentos anteriores
-            
-            userData.equipments.forEach(equipment => {
-                const equipmentCard = document.createElement('div');
-                equipmentCard.className = 'equipment-card';
-                
-                equipmentCard.innerHTML = `
-                    <div class="equipment-card-header">
-                        <i class="fas fa-laptop"></i>
-                        <h3>${equipment.tipo.charAt(0).toUpperCase() + equipment.tipo.slice(1)}</h3>
-                    </div>
-                    <div class="equipment-detail">
-                        <span class="equipment-detail-label">Marca:</span>
-                        <span class="equipment-detail-value">${equipment.marca}</span>
-                    </div>
-                    <div class="equipment-detail">
-                        <span class="equipment-detail-label">Modelo:</span>
-                        <span class="equipment-detail-value">${equipment.modelo}</span>
-                    </div>
-                    <div class="equipment-detail">
-                        <span class="equipment-detail-label">Nº de Série:</span>
-                        <span class="equipment-detail-value">${equipment.numeroSerie || 'Não informado'}</span>
-                    </div>
-                    <div class="equipment-detail">
-                        <span class="equipment-detail-label">Valor:</span>
-                        <span class="equipment-detail-value">R$ ${equipment.valor.toFixed(2).replace('.', ',')}</span>
-                    </div>
-                `;
-                
-                equipmentGrid.appendChild(equipmentCard);
-            });
-        }
-
-        // Validar e processar login
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Resetar mensagens de erro
-            emailError.style.display = 'none';
-            passwordError.style.display = 'none';
-            
-            const email = emailInput.value.trim();
-            const password = passwordInput.value.trim();
-            
-            let isValid = true;
-            
-            // Validar email
-            if (!email || !/\S+@\S+\.\S+/.test(email)) {
-                emailError.style.display = 'block';
-                isValid = false;
-            }
-            
-            // Validar senha
-            if (!password || password.length < 6) {
-                passwordError.style.display = 'block';
-                isValid = false;
-            }
-            
-            if (!isValid) return;
-            
-            // Verificar credenciais
-            if (validUsers[email] && validUsers[email].password === password) {
-                // Login bem-sucedido
-                localStorage.setItem('bixxLoggedIn', 'true');
-                localStorage.setItem('bixxUserEmail', email);
-                showUserPanel(validUsers[email].userData);
-            } else {
-                // Credenciais inválidas
-                alert('E-mail ou senha incorretos. Por favor, tente novamente.');
-            }
-        });
-
-        // Logout
-        function logout() {
-            localStorage.removeItem('bixxLoggedIn');
-            localStorage.removeItem('bixxUserEmail');
-            showLogin();
-        }
-
-        logoutBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            logout();
-        });
-
-        mobileLogoutBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            logout();
-        });
-
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const sideMenu = document.getElementById('sideMenu');
         const sideMenuClose = document.getElementById('sideMenuClose');
         const menuOverlay = document.getElementById('menuOverlay');
-        
+
         mobileMenuBtn.addEventListener('click', () => {
             sideMenu.classList.add('active');
             menuOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
-        
+
         sideMenuClose.addEventListener('click', () => {
             sideMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
             document.body.style.overflow = '';
         });
-        
+
         menuOverlay.addEventListener('click', () => {
             sideMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
             document.body.style.overflow = '';
         });
-        
+
         // Header scroll effect
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -1312,8 +850,152 @@
             }
         });
 
-        // Verificar status de login ao carregar a página
-        document.addEventListener('DOMContentLoaded', checkLoginStatus);
+        // Dados do Firestore (simulação)
+        const userData = {
+            authCreatedAt: "2025-08-18T19:38:35.922Z",
+            coberturaStatus: "ativa",
+            cpf: "75896325841",
+            dataAtualizacao: "2025-08-18T17:51:36.945Z",
+            dataContratacao: "2025-08-18T17:50:48.698Z",
+            documento: "ANALISE DO ITEM.pdf",
+            email: "justino@gmail.com",
+            endereco: "Rua Marilisa, justim quadra 12, lote 74 setor araguaia",
+            equipments: [
+                {
+                    marca: "aplle",
+                    modelo: "rs max1",
+                    numeroSerie: "",
+                    tipo: "tablet",
+                    valor: 0
+                }
+            ],
+            fimCarencia: "2026-02-20",
+            inicioCarencia: "2025-08-20",
+            nascimento: "1995-02-24",
+            nome: "Justino Ferreira Cardoso",
+            price: {
+                discount: 0,
+                discounted: 120,
+                total: 120
+            },
+            rg: "9658721",
+            status: "ativo",
+            telefone: "62987456321",
+            uid: "kWPe3aYeKOYplcQnwQqupH6HnRv2",
+            updatedAt: "2025-08-20T12:29:46.793Z"
+        };
+
+        // Funções de formatação
+        function formatarCPF(cpf) {
+            return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+        }
+
+        function formatarTelefone(telefone) {
+            return telefone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+        }
+
+        function formatarRG(rg) {
+            if (rg.length <= 7) {
+                return rg.replace(/(\d{1})(\d{3})(\d{3})/, "$1.$2.$3");
+            }
+            return rg;
+        }
+
+        function formatarData(dataString) {
+            const data = new Date(dataString);
+            return data.toLocaleDateString('pt-BR');
+        }
+
+        function calcularProgressoCarencia(inicio, fim) {
+            const inicioDate = new Date(inicio);
+            const fimDate = new Date(fim);
+            const hoje = new Date();
+
+            const totalDias = Math.floor((fimDate - inicioDate) / (1000 * 60 * 60 * 24));
+            const diasPassados = Math.floor((hoje - inicioDate) / (1000 * 60 * 60 * 24));
+
+            if (diasPassados <= 0) return 0;
+            if (diasPassados >= totalDias) return 100;
+
+            return Math.round((diasPassados / totalDias) * 100);
+        }
+
+        // Atualizar a interface com os dados do usuário
+        document.getElementById('userName').textContent = `Olá, ${userData.nome}!`;
+
+        // Status da assinatura
+        const statusValue = document.getElementById('statusValue');
+        const statusText = document.getElementById('statusText');
+        if (userData.status === 'ativo') {
+            statusValue.textContent = 'Ativa';
+            statusValue.className = 'status-value status-active';
+            statusText.textContent = 'ativa';
+        } else {
+            statusValue.textContent = 'Inativa';
+            statusValue.className = 'status-value status-inactive';
+            statusText.textContent = 'inativa';
+        }
+
+        // Status de pagamento
+        const paymentStatus = document.getElementById('paymentStatus');
+        paymentStatus.className = 'status-value status-active';
+
+        // Período de carência
+        const progresso = calcularProgressoCarencia(userData.inicioCarencia, userData.fimCarencia);
+        document.getElementById('progressPercentage').textContent = `${progresso}%`;
+        document.getElementById('progressFill').style.width = `${progresso}%`;
+        document.getElementById('startCarencia').textContent = formatarData(userData.inicioCarencia);
+        document.getElementById('endCarencia').textContent = formatarData(userData.fimCarencia);
+
+        // Dados pessoais
+        document.getElementById('userCpf').textContent = formatarCPF(userData.cpf);
+        document.getElementById('userRg').textContent = formatarRG(userData.rg);
+        document.getElementById('userBirth').textContent = formatarData(userData.nascimento);
+
+        // Contato
+        document.getElementById('userPhone').textContent = formatarTelefone(userData.telefone);
+        document.getElementById('userEmail').textContent = userData.email;
+        document.getElementById('userEmailCopy').textContent = userData.email;
+
+        // Endereço
+        document.getElementById('userAddress').textContent = userData.endereco;
+
+        // Informações do contrato
+        document.getElementById('contractDate').textContent = formatarData(userData.dataContratacao);
+        document.getElementById('totalPrice').textContent = `R$ ${userData.price.total.toFixed(2).replace('.', ',')}`;
+        document.getElementById('lastUpdate').textContent = formatarData(userData.updatedAt);
+
+        // Equipamentos
+        const equipmentGrid = document.getElementById('equipmentGrid');
+        userData.equipments.forEach(equipment => {
+            const equipmentCard = document.createElement('div');
+            equipmentCard.className = 'equipment-card';
+
+            equipmentCard.innerHTML = `
+                <div class="equipment-card-header">
+                    <i class="fas fa-laptop"></i>
+                    <h3>${equipment.tipo.charAt(0).toUpperCase() + equipment.tipo.slice(1)}</h3>
+                </div>
+                <div class="equipment-detail">
+                    <span class="equipment-detail-label">Marca:</span>
+                    <span class="equipment-detail-value">${equipment.marca}</span>
+                </div>
+                <div class="equipment-detail">
+                    <span class="equipment-detail-label">Modelo:</span>
+                    <span class="equipment-detail-value">${equipment.modelo}</span>
+                </div>
+                <div class="equipment-detail">
+                    <span class="equipment-detail-label">Nº de Série:</span>
+                    <span class="equipment-detail-value">${equipment.numeroSerie || 'Não informado'}</span>
+                </div>
+                <div class="equipment-detail">
+                    <span class="equipment-detail-label">Valor:</span>
+                    <span class="equipment-detail-value">R$ ${equipment.valor.toFixed(2).replace('.', ',')}</span>
+                </div>
+            `;
+
+            equipmentGrid.appendChild(equipmentCard);
+        });
     </script>
 </body>
 </html>
