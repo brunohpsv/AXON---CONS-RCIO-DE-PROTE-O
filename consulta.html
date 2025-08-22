@@ -350,7 +350,7 @@
 <body>
     <div class="container">
         <header>
-            <h1><span class="logo">BIXX</span> - Consulta de Cadastro</h1>
+            <h1><span class="logo">BIX</span> - Painel Administrativo</h1>
             <p>Verifique o status do seu cadastro e equipamentos</p>
             
             <nav class="nav-menu">
@@ -611,7 +611,7 @@ Confirmo que estou ciente dos termos de cancelamento e que não haverá reembols
                     loadingElement.style.display = 'none';
                     
                     if (querySnapshot.empty) {
-                        // Tentar buscar com CPF formatado (como fallback)
+                        // Tentar buscar dengan CPF formatado (como fallback)
                         const formattedCpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
                         return db.collection('usuarios')
                             .where('cpf', '==', formattedCpf)
