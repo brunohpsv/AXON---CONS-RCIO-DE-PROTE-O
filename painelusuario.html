@@ -488,6 +488,119 @@
             color: var(--primary-dark);
         }
 
+        /* Estilos para a tela de login */
+        .login-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+
+        .login-card {
+            background-color: var(--light);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h2 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        .login-header p {
+            color: var(--secondary);
+            opacity: 0.8;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-login:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Spinner de carregamento */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Mensagem de erro */
+        .error-message {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+
         /* Footer */
         footer {
             background-color: var(--dark);
@@ -617,125 +730,10 @@
                 display: block !important;
             }
         }
-
-	/* Estilos para a tela de login */
-.login-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 2rem;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-}
-
-.login-card {
-    background-color: var(--light);
-    border-radius: 16px;
-    padding: 2.5rem;
-    box-shadow: var(--shadow);
-    width: 100%;
-    max-width: 450px;
-}
-
-.login-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.login-header h2 {
-    color: var(--primary);
-    margin-bottom: 0.5rem;
-    font-size: 1.8rem;
-}
-
-.login-header p {
-    color: var(--secondary);
-    opacity: 0.8;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: var(--dark);
-}
-
-.form-group input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: var(--transition);
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
-}
-
-.btn-login {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.btn-login:hover {
-    background-color: var(--primary-dark);
-}
-
-.hidden {
-    display: none !important;
-}
-
-/* Spinner de carregamento */
-.spinner {
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: white;
-    animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* Mensagem de erro */
-.error-message {
-    background-color: rgba(220, 53, 69, 0.1);
-    color: var(--danger);
-    padding: 0.75rem;
-    border-radius: 8px;
-    margin-top: 1rem;
-    text-align: center;
-    display: none;
-}	
-
     </style>
-<!-- Adicione isso antes do </head> -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
     <header>
@@ -745,7 +743,7 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="login.html">Sair</a></li>
+                    <li><a href="#" id="logoutLinkNav">Sair</a></li>
                 </ul>
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -768,43 +766,49 @@
             <li><a href="index.html#how-it-works">Como Funciona</a></li>
             <li><a href="contrata.html">Contratar?!</a></li>
             <li><a href="paineladm.html">ADM</a></li>
-	    <li><a href="#" id="logoutLink">Sair</a></li>
+            <li><a href="#" id="logoutLink">Sair</a></li>
         </ul>
     </div>
     <div class="menu-overlay" id="menuOverlay"></div>
 
-    <!-- Substitua a seção user-panel-section por este código -->
-<section class="login-section" id="loginSection">
-    <div class="container">
-        <div class="login-card">
-            <div class="login-header">
-                <h2><i class="fas fa-lock"></i> Acessar Painel BIXX</h2>
-                <p>Digite suas credenciais para acessar seu painel</p>
-            </div>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" required>
+    <!-- Seção de Login -->
+    <section class="login-section" id="loginSection">
+        <div class="container">
+            <div class="login-card">
+                <div class="login-header">
+                    <h2><i class="fas fa-lock"></i> Acessar Painel BIXX</h2>
+                    <p>Digite suas credenciais para acessar seu painel</p>
                 </div>
-                <div class="form-group">
-                    <label for="password">Senha</label>
-                    <input type="password" id="password" name="password" required>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Senha</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn-login" id="btnLogin">
+                        <span id="loginText">Entrar</span>
+                        <div class="spinner hidden" id="loginSpinner"></div>
+                    </button>
+                </form>
+                <div class="login-footer">
+                    <p>Problemas para acessar? <a href="mailto:bixX.corp@outlook.com.br">Entre em contato</a></p>
                 </div>
-                <button type="submit" class="btn-login" id="btnLogin">
-                    <span id="loginText">Entrar</span>
-                    <div class="spinner hidden" id="loginSpinner"></div>
-                </button>
-            </form>
-            <div class="login-footer">
-                <p>Problemas para acessar? <a href="mailto:bixX.corp@outlook.com.br">Entre em contato</a></p>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="user-panel-section hidden" id="userPanelSection">
-    <!-- Todo o conteúdo atual da user-panel-section permanece aqui -->
-</section>
+    <!-- Seção do Painel do Usuário -->
+    <section class="user-panel-section hidden" id="userPanelSection">
+        <div class="container">
+            <div class="welcome-banner">
+                <div class="welcome-content">
+                    <h1 id="userName">Olá, Justino!</h1>
+                    <p>Bem-vindo ao seu painel de assinatura BIXX</p>
+                </div>
+            </div>
 
             <div class="status-cards">
                 <div class="status-card">
@@ -908,10 +912,6 @@
                 <h2><i class="fas fa-headset"></i> Como Solicitar Serviços</h2>
                 <p>Para solicitar qualquer serviço, envie um e-mail para <strong>bixX.corp@outlook.com.br</strong> com o assunto correspondente:</p>
                 <ul class="request-list">
-                    <li><strong>Assistência Técnica</strong>: Assunto "Assistência Técnica - [Seu Nome]"</li>
-                    <li><strong>Avaliação para vender equipamento</strong>: Assunto "Avaliação de Equipamento - [Seu Nome]"</li>
-                    <li><strong>Acrescentar mais equipamentos</strong>: Assunto "Novo Equipamento - [Seu Nome]"</li>
-                    <li><strong>Cancelar assinatura</strong>: Assunto "Cancelamento - [Seu Nome]"</li>
                     <li><strong>Assistência Técnica</strong>: Assunto "Assistência Técnica - [Seu Nome] + [CPF]"</li>
                     <li><strong>Avaliação para vender equipamento</strong>: Assunto "Avaliação de Equipamento - [Seu Nome] + [CPF]"</li>
                     <li><strong>Acrescentar mais equipamentos</strong>: Assunto "Novo Equipamento - [Seu Nome] + [CPF]"</li>
@@ -958,42 +958,42 @@
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const sideMenu = document.getElementById('sideMenu');
-        const sideMenuClose = document.getElementById('sideMenuClose');
-        const menuOverlay = document.getElementById('menuOverlay');
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const sideMenuClose = document.getElementById('sideMenuClose');
+    const menuOverlay = document.getElementById('menuOverlay');
 
-        mobileMenuBtn.addEventListener('click', () => {
-            sideMenu.classList.add('active');
-            menuOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
+    mobileMenuBtn.addEventListener('click', () => {
+        sideMenu.classList.add('active');
+        menuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
 
-        sideMenuClose.addEventListener('click', () => {
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        });
+    sideMenuClose.addEventListener('click', () => {
+        sideMenu.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
 
-        menuOverlay.addEventListener('click', () => {
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        });
+    menuOverlay.addEventListener('click', () => {
+        sideMenu.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
 
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                document.querySelector('header').style.background = 'rgba(255, 255, 255, 0.95)';
-                document.querySelector('header').style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-            } else {
-                document.querySelector('header').style.background = 'rgba(255, 255, 255, 0.95)';
-                document.querySelector('header').style.boxShadow = 'none';
-            }
-        });
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            document.querySelector('header').style.background = 'rgba(255, 255, 255, 0.95)';
+            document.querySelector('header').style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+        } else {
+            document.querySelector('header').style.background = 'rgba(255, 255, 255, 0.95)';
+            document.querySelector('header').style.boxShadow = 'none';
+        }
+    });
 
-	const firebaseConfig = {
+    const firebaseConfig = {
         apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
         authDomain: "axon-ec708.firebaseapp.com",
         projectId: "axon-ec708",
@@ -1095,41 +1095,8 @@
             });
     }
 
-        // Dados do Firestore (simulação)
-        const userData = {
-            authCreatedAt: "2025-08-18T19:38:35.922Z",
-            coberturaStatus: "ativa",
-            cpf: "75896325841",
-            dataAtualizacao: "2025-08-18T17:51:36.945Z",
-            dataContratacao: "2025-08-18T17:50:48.698Z",
-            documento: "ANALISE DO ITEM.pdf",
-            email: "justino@gmail.com",
-            endereco: "Rua Marilisa, justim quadra 12, lote 74 setor araguaia",
-            equipments: [
-                {
-                    marca: "aplle",
-                    modelo: "rs max1",
-                    numeroSerie: "",
-                    tipo: "tablet",
-                    valor: 0
-                }
-            ],
-            fimCarencia: "2026-02-20",
-            inicioCarencia: "2025-08-20",
-            nascimento: "1995-02-24",
-            nome: "Justino Ferreira Cardoso",
-            price: {
-                discount: 0,
-                discounted: 120,
-                total: 120
-            },
-            rg: "9658721",
-            status: "ativo",
-            telefone: "62987456321",
-            uid: "kWPe3aYeKOYplcQnwQqupH6HnRv2",
-            updatedAt: "2025-08-20T12:29:46.793Z"
-        };
-
+    // Função para atualizar a interface com os dados do usuário
+    function updateUserInterface(userData) {
         // Funções de formatação
         function formatarCPF(cpf) {
             return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
@@ -1140,18 +1107,21 @@
         }
 
         function formatarRG(rg) {
-            if (rg.length <= 7) {
+            if (rg && rg.length <= 7) {
                 return rg.replace(/(\d{1})(\d{3})(\d{3})/, "$1.$2.$3");
             }
-            return rg;
+            return rg || 'Não informado';
         }
 
         function formatarData(dataString) {
+            if (!dataString) return 'Não informado';
             const data = new Date(dataString);
             return data.toLocaleDateString('pt-BR');
         }
 
         function calcularProgressoCarencia(inicio, fim) {
+            if (!inicio || !fim) return 0;
+            
             const inicioDate = new Date(inicio);
             const fimDate = new Date(fim);
             const hoje = new Date();
@@ -1166,7 +1136,7 @@
         }
 
         // Atualizar a interface com os dados do usuário
-        document.getElementById('userName').textContent = `Olá, ${userData.nome}!`;
+        document.getElementById('userName').textContent = `Olá, ${userData.nome || 'Usuário'}!`;
 
         // Status da assinatura
         const statusValue = document.getElementById('statusValue');
@@ -1193,67 +1163,75 @@
         document.getElementById('endCarencia').textContent = formatarData(userData.fimCarencia);
 
         // Dados pessoais
-        document.getElementById('userCpf').textContent = formatarCPF(userData.cpf);
+        document.getElementById('userCpf').textContent = userData.cpf ? formatarCPF(userData.cpf) : 'Não informado';
         document.getElementById('userRg').textContent = formatarRG(userData.rg);
         document.getElementById('userBirth').textContent = formatarData(userData.nascimento);
 
         // Contato
-        document.getElementById('userPhone').textContent = formatarTelefone(userData.telefone);
-        document.getElementById('userEmail').textContent = userData.email;
-        document.getElementById('userEmailCopy').textContent = userData.email;
+        document.getElementById('userPhone').textContent = userData.telefone ? formatarTelefone(userData.telefone) : 'Não informado';
+        document.getElementById('userEmail').textContent = userData.email || 'Não informado';
+        document.getElementById('userEmailCopy').textContent = userData.email || 'Não informado';
 
         // Endereço
-        document.getElementById('userAddress').textContent = userData.endereco;
+        document.getElementById('userAddress').textContent = userData.endereco || 'Não informado';
 
         // Informações do contrato
         document.getElementById('contractDate').textContent = formatarData(userData.dataContratacao);
-        document.getElementById('totalPrice').textContent = `R$ ${userData.price.total.toFixed(2).replace('.', ',')}`;
+        document.getElementById('totalPrice').textContent = userData.price && userData.price.total ? 
+            `R$ ${userData.price.total.toFixed(2).replace('.', ',')}` : 'Não informado';
         document.getElementById('lastUpdate').textContent = formatarData(userData.updatedAt);
 
         // Equipamentos
         const equipmentGrid = document.getElementById('equipmentGrid');
-        userData.equipments.forEach(equipment => {
-            const equipmentCard = document.createElement('div');
-            equipmentCard.className = 'equipment-card';
+        equipmentGrid.innerHTML = ''; // Limpar equipamentos existentes
+        
+        if (userData.equipments && userData.equipments.length > 0) {
+            userData.equipments.forEach(equipment => {
+                const equipmentCard = document.createElement('div');
+                equipmentCard.className = 'equipment-card';
 
-            equipmentCard.innerHTML = `
-                <div class="equipment-card-header">
-                    <i class="fas fa-laptop"></i>
-                    <h3>${equipment.tipo.charAt(0).toUpperCase() + equipment.tipo.slice(1)}</h3>
-                </div>
-                <div class="equipment-detail">
-                    <span class="equipment-detail-label">Marca:</span>
-                    <span class="equipment-detail-value">${equipment.marca}</span>
-                </div>
-                <div class="equipment-detail">
-                    <span class="equipment-detail-label">Modelo:</span>
-                    <span class="equipment-detail-value">${equipment.modelo}</span>
-                </div>
-                <div class="equipment-detail">
-                    <span class="equipment-detail-label">Nº de Série:</span>
-                    <span class="equipment-detail-value">${equipment.numeroSerie || 'Não informado'}</span>
-                </div>
-                <div class="equipment-detail">
-                    <span class="equipment-detail-label">Valor:</span>
-                    <span class="equipment-detail-value">R$ ${equipment.valor.toFixed(2).replace('.', ',')}</span>
-                </div>
-            `;
+                equipmentCard.innerHTML = `
+                    <div class="equipment-card-header">
+                        <i class="fas fa-laptop"></i>
+                        <h3>${equipment.tipo ? equipment.tipo.charAt(0).toUpperCase() + equipment.tipo.slice(1) : 'Equipamento'}</h3>
+                    </div>
+                    <div class="equipment-detail">
+                        <span class="equipment-detail-label">Marca:</span>
+                        <span class="equipment-detail-value">${equipment.marca || 'Não informado'}</span>
+                    </div>
+                    <div class="equipment-detail">
+                        <span class="equipment-detail-label">Modelo:</span>
+                        <span class="equipment-detail-value">${equipment.modelo || 'Não informado'}</span>
+                    </div>
+                    <div class="equipment-detail">
+                        <span class="equipment-detail-label">Nº de Série:</span>
+                        <span class="equipment-detail-value">${equipment.numeroSerie || 'Não informado'}</span>
+                    </div>
+                    <div class="equipment-detail">
+                        <span class="equipment-detail-label">Valor:</span>
+                        <span class="equipment-detail-value">${equipment.valor ? `R$ ${equipment.valor.toFixed(2).replace('.', ',')}` : 'Não informado'}</span>
+                    </div>
+                `;
 
-            equipmentGrid.appendChild(equipmentCard);
-        });
-	
-	// Adicione isso no final do seu script, após a inicialização do Firebase
-document.getElementById('logoutLink').addEventListener('click', (e) => {
-    e.preventDefault();
-    auth.signOut()
-        .then(() => {
-            // Logout bem-sucedido
-            console.log("Usuário deslogado");
-        })
-        .catch((error) => {
-            console.error("Erro ao fazer logout:", error);
-        });
-});
-    </script>
+                equipmentGrid.appendChild(equipmentCard);
+            });
+        } else {
+            equipmentGrid.innerHTML = '<p>Nenhum equipamento cadastrado.</p>';
+        }
+    }
+
+    // Adicione isso no final do seu script, após a inicialização do Firebase
+    document.getElementById('logoutLink').addEventListener('click', (e) => {
+        e.preventDefault();
+        auth.signOut()
+            .then(() => {
+                // Logout bem-sucedido
+                console.log("Usuário deslogado");
+            })
+            .catch((error) => {
+                console.error("Erro ao fazer logout:", error);
+            });
+    });
+</script>
 </body>
 </html>
