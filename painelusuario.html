@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel do Usuário - BIXX</title>
+    <title>Login - BIXX</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -218,10 +218,136 @@
             visibility: visible;
         }
         
+        /* Login Section */
+        .login-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+        
+        .login-container {
+            background-color: var(--light);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        
+        .login-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .login-logo h1 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .login-logo p {
+            color: var(--secondary);
+            opacity: 0.8;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon .form-input {
+            padding-left: 2.5rem;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+        
+        .form-error {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .login-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
+        .login-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+        
         /* User Panel */
         .user-panel-section {
             flex: 1;
             padding: 8rem 0 4rem;
+            display: none;
         }
         
         .welcome-banner {
@@ -606,6 +732,10 @@
             .status-cards, .info-grid, .equipment-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .login-container {
+                padding: 1.5rem;
+            }
         }
 
         @media (min-width: 769px) {
@@ -620,14 +750,50 @@
     </style>
 </head>
 <body>
-    <header>
+    <!-- Tela de Login (inicialmente visível) -->
+    <section class="login-section" id="loginSection">
+        <div class="login-container">
+            <div class="login-logo">
+                <h1><i class="fas fa-shield-alt"></i> BIXX</h1>
+                <p>Faça login para acessar seu painel</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="email" class="form-input" placeholder="Seu e-mail cadastrado" required>
+                    </div>
+                    <div class="form-error" id="emailError">Por favor, insira um e-mail válido</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" class="form-input" placeholder="Sua senha" required>
+                    </div>
+                    <div class="form-error" id="passwordError">A senha deve ter pelo menos 6 caracteres</div>
+                </div>
+                
+                <button type="submit" class="btn">Entrar</button>
+            </form>
+            
+            <div class="login-footer">
+                <p>Problemas para acessar? <a href="mailto:bixX.corp@outlook.com.br">Entre em contato</a></p>
+            </div>
+        </div>
+    </section>
+    
+    <header id="mainHeader" style="display: none;">
         <div class="container header-container">
             <div class="logo">
                 <span>BIXX</span>
             </div>
             <nav>
                 <ul>
-                    <li><a href="login.html">Sair</a></li>
+                    <li><a href="#" id="logoutBtn">Sair</a></li>
                 </ul>
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -650,11 +816,13 @@
             <li><a href="index.html#how-it-works">Como Funciona</a></li>
             <li><a href="contrata.html">Contratar?!</a></li>
             <li><a href="paineladm.html">ADM</a></li>
+            <li><a href="#" id="mobileLogoutBtn">Sair</a></li>
         </ul>
     </div>
     <div class="menu-overlay" id="menuOverlay"></div>
     
-    <section class="user-panel-section">
+    <!-- Painel do Usuário (inicialmente oculto) -->
+    <section class="user-panel-section" id="userPanelSection">
         <div class="container">
             <div class="welcome-banner">
                 <div class="welcome-content">
@@ -774,7 +942,7 @@
         </div>
     </section>
     
-    <footer>
+    <footer id="mainFooter" style="display: none;">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
@@ -810,6 +978,305 @@
     </footer>
 
     <script>
+        // Dados de usuários válidos (em um sistema real, isso viria de um banco de dados)
+        const validUsers = {
+            "justino@gmail.com": {
+                password: "justino123",
+                userData: {
+                    authCreatedAt: "2025-08-18T19:38:35.922Z",
+                    coberturaStatus: "ativa",
+                    cpf: "75896325841",
+                    dataAtualizacao: "2025-08-18T17:51:36.945Z",
+                    dataContratacao: "2025-08-18T17:50:48.698Z",
+                    documento: "ANALISE DO ITEM.pdf",
+                    email: "justino@gmail.com",
+                    endereco: "Rua Marilisa, justim quadra 12, lote 74 setor araguaia",
+                    equipments: [
+                        {
+                            marca: "aplle",
+                            modelo: "rs max1",
+                            numeroSerie: "",
+                            tipo: "tablet",
+                            valor: 0
+                        }
+                    ],
+                    fimCarencia: "2026-02-20",
+                    inicioCarencia: "2025-08-20",
+                    nascimento: "1995-02-24",
+                    nome: "Justino Ferreira Cardoso",
+                    price: {
+                        discount: 0,
+                        discounted: 120,
+                        total: 120
+                    },
+                    rg: "9658721",
+                    status: "ativo",
+                    telefone: "62987456321",
+                    uid: "kWPe3aYeKOYplcQnwQqupH6HnRv2",
+                    updatedAt: "2025-08-20T12:29:46.793Z"
+                }
+            },
+            "admin@bixx.com": {
+                password: "admin123",
+                userData: {
+                    authCreatedAt: "2025-08-18T19:38:35.922Z",
+                    coberturaStatus: "ativa",
+                    cpf: "12345678900",
+                    dataAtualizacao: "2025-08-18T17:51:36.945Z",
+                    dataContratacao: "2025-08-18T17:50:48.698Z",
+                    documento: "DOC_ADMIN.pdf",
+                    email: "admin@bixx.com",
+                    endereco: "Rua Administrativa, 123",
+                    equipments: [
+                        {
+                            marca: "Samsung",
+                            modelo: "Galaxy S21",
+                            numeroSerie: "SN123456789",
+                            tipo: "smartphone",
+                            valor: 2500
+                        },
+                        {
+                            marca: "Dell",
+                            modelo: "XPS 13",
+                            numeroSerie: "SN987654321",
+                            tipo: "notebook",
+                            valor: 4500
+                        }
+                    ],
+                    fimCarencia: "2026-02-20",
+                    inicioCarencia: "2025-08-20",
+                    nascimento: "1990-01-15",
+                    nome: "Administrador BIXX",
+                    price: {
+                        discount: 50,
+                        discounted: 100,
+                        total: 150
+                    },
+                    rg: "11222333",
+                    status: "ativo",
+                    telefone: "62123456789",
+                    uid: "ADMIN123456789",
+                    updatedAt: "2025-08-20T12:29:46.793Z"
+                }
+            }
+        };
+
+        // Elementos da interface
+        const loginSection = document.getElementById('loginSection');
+        const mainHeader = document.getElementById('mainHeader');
+        const userPanelSection = document.getElementById('userPanelSection');
+        const mainFooter = document.getElementById('mainFooter');
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+
+        // Verificar se o usuário já está logado
+        function checkLoginStatus() {
+            const isLoggedIn = localStorage.getItem('bixxLoggedIn');
+            const userEmail = localStorage.getItem('bixxUserEmail');
+            
+            if (isLoggedIn === 'true' && userEmail && validUsers[userEmail]) {
+                showUserPanel(validUsers[userEmail].userData);
+            } else {
+                showLogin();
+            }
+        }
+
+        // Mostrar painel de login
+        function showLogin() {
+            loginSection.style.display = 'flex';
+            mainHeader.style.display = 'none';
+            userPanelSection.style.display = 'none';
+            mainFooter.style.display = 'none';
+        }
+
+        // Mostrar painel do usuário
+        function showUserPanel(userData) {
+            loginSection.style.display = 'none';
+            mainHeader.style.display = 'block';
+            userPanelSection.style.display = 'block';
+            mainFooter.style.display = 'block';
+            
+            // Preencher dados do usuário
+            fillUserData(userData);
+        }
+
+        // Preencher dados do usuário no painel
+        function fillUserData(userData) {
+            // Funções de formatação
+            function formatarCPF(cpf) {
+                return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+            }
+            
+            function formatarTelefone(telefone) {
+                return telefone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+            }
+            
+            function formatarRG(rg) {
+                if (rg.length <= 7) {
+                    return rg.replace(/(\d{1})(\d{3})(\d{3})/, "$1.$2.$3");
+                }
+                return rg;
+            }
+            
+            function formatarData(dataString) {
+                const data = new Date(dataString);
+                return data.toLocaleDateString('pt-BR');
+            }
+            
+            function calcularProgressoCarencia(inicio, fim) {
+                const inicioDate = new Date(inicio);
+                const fimDate = new Date(fim);
+                const hoje = new Date();
+                
+                const totalDias = Math.floor((fimDate - inicioDate) / (1000 * 60 * 60 * 24));
+                const diasPassados = Math.floor((hoje - inicioDate) / (1000 * 60 * 60 * 24));
+                
+                if (diasPassados <= 0) return 0;
+                if (diasPassados >= totalDias) return 100;
+                
+                return Math.round((diasPassados / totalDias) * 100);
+            }
+            
+            // Atualizar a interface com os dados do usuário
+            document.getElementById('userName').textContent = `Olá, ${userData.nome}!`;
+            
+            // Status da assinatura
+            const statusValue = document.getElementById('statusValue');
+            const statusText = document.getElementById('statusText');
+            if (userData.status === 'ativo') {
+                statusValue.textContent = 'Ativa';
+                statusValue.className = 'status-value status-active';
+                statusText.textContent = 'ativa';
+            } else {
+                statusValue.textContent = 'Inativa';
+                statusValue.className = 'status-value status-inactive';
+                statusText.textContent = 'inativa';
+            }
+            
+            // Status de pagamento
+            const paymentStatus = document.getElementById('paymentStatus');
+            paymentStatus.className = 'status-value status-active';
+            
+            // Período de carência
+            const progresso = calcularProgressoCarencia(userData.inicioCarencia, userData.fimCarencia);
+            document.getElementById('progressPercentage').textContent = `${progresso}%`;
+            document.getElementById('progressFill').style.width = `${progresso}%`;
+            document.getElementById('startCarencia').textContent = formatarData(userData.inicioCarencia);
+            document.getElementById('endCarencia').textContent = formatarData(userData.fimCarencia);
+            
+            // Dados pessoais
+            document.getElementById('userCpf').textContent = formatarCPF(userData.cpf);
+            document.getElementById('userRg').textContent = formatarRG(userData.rg);
+            document.getElementById('userBirth').textContent = formatarData(userData.nascimento);
+            
+            // Contato
+            document.getElementById('userPhone').textContent = formatarTelefone(userData.telefone);
+            document.getElementById('userEmail').textContent = userData.email;
+            
+            // Endereço
+            document.getElementById('userAddress').textContent = userData.endereco;
+            
+            // Informações do contrato
+            document.getElementById('contractDate').textContent = formatarData(userData.dataContratacao);
+            document.getElementById('totalPrice').textContent = `R$ ${userData.price.total.toFixed(2).replace('.', ',')}`;
+            document.getElementById('lastUpdate').textContent = formatarData(userData.updatedAt);
+            
+            // Equipamentos
+            const equipmentGrid = document.getElementById('equipmentGrid');
+            equipmentGrid.innerHTML = ''; // Limpar equipamentos anteriores
+            
+            userData.equipments.forEach(equipment => {
+                const equipmentCard = document.createElement('div');
+                equipmentCard.className = 'equipment-card';
+                
+                equipmentCard.innerHTML = `
+                    <div class="equipment-card-header">
+                        <i class="fas fa-laptop"></i>
+                        <h3>${equipment.tipo.charAt(0).toUpperCase() + equipment.tipo.slice(1)}</h3>
+                    </div>
+                    <div class="equipment-detail">
+                        <span class="equipment-detail-label">Marca:</span>
+                        <span class="equipment-detail-value">${equipment.marca}</span>
+                    </div>
+                    <div class="equipment-detail">
+                        <span class="equipment-detail-label">Modelo:</span>
+                        <span class="equipment-detail-value">${equipment.modelo}</span>
+                    </div>
+                    <div class="equipment-detail">
+                        <span class="equipment-detail-label">Nº de Série:</span>
+                        <span class="equipment-detail-value">${equipment.numeroSerie || 'Não informado'}</span>
+                    </div>
+                    <div class="equipment-detail">
+                        <span class="equipment-detail-label">Valor:</span>
+                        <span class="equipment-detail-value">R$ ${equipment.valor.toFixed(2).replace('.', ',')}</span>
+                    </div>
+                `;
+                
+                equipmentGrid.appendChild(equipmentCard);
+            });
+        }
+
+        // Validar e processar login
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Resetar mensagens de erro
+            emailError.style.display = 'none';
+            passwordError.style.display = 'none';
+            
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+            
+            let isValid = true;
+            
+            // Validar email
+            if (!email || !/\S+@\S+\.\S+/.test(email)) {
+                emailError.style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validar senha
+            if (!password || password.length < 6) {
+                passwordError.style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            // Verificar credenciais
+            if (validUsers[email] && validUsers[email].password === password) {
+                // Login bem-sucedido
+                localStorage.setItem('bixxLoggedIn', 'true');
+                localStorage.setItem('bixxUserEmail', email);
+                showUserPanel(validUsers[email].userData);
+            } else {
+                // Credenciais inválidas
+                alert('E-mail ou senha incorretos. Por favor, tente novamente.');
+            }
+        });
+
+        // Logout
+        function logout() {
+            localStorage.removeItem('bixxLoggedIn');
+            localStorage.removeItem('bixxUserEmail');
+            showLogin();
+        }
+
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            logout();
+        });
+
+        mobileLogoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            logout();
+        });
+
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const sideMenu = document.getElementById('sideMenu');
@@ -844,153 +1311,9 @@
                 document.querySelector('header').style.boxShadow = 'none';
             }
         });
-        
-        // Dados do Firestore (simulação)
-        const userData = {
-            authCreatedAt: "2025-08-18T19:38:35.922Z",
-            coberturaStatus: "ativa",
-            cpf: "75896325841",
-            dataAtualizacao: "2025-08-18T17:51:36.945Z",
-            dataContratacao: "2025-08-18T17:50:48.698Z",
-            documento: "ANALISE DO ITEM.pdf",
-            email: "justino@gmail.com",
-            endereco: "Rua Marilisa, justim quadra 12, lote 74 setor araguaia",
-            equipments: [
-                {
-                    marca: "aplle",
-                    modelo: "rs max1",
-                    numeroSerie: "",
-                    tipo: "tablet",
-                    valor: 0
-                }
-            ],
-            fimCarencia: "2026-02-20",
-            inicioCarencia: "2025-08-20",
-            nascimento: "1995-02-24",
-            nome: "Justino Ferreira Cardoso",
-            price: {
-                discount: 0,
-                discounted: 120,
-                total: 120
-            },
-            rg: "9658721",
-            status: "ativo",
-            telefone: "62987456321",
-            uid: "kWPe3aYeKOYplcQnwQqupH6HnRv2",
-            updatedAt: "2025-08-20T12:29:46.793Z"
-        };
-        
-        // Funções de formatação
-        function formatarCPF(cpf) {
-            return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-        }
-        
-        function formatarTelefone(telefone) {
-            return telefone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
-        }
-        
-        function formatarRG(rg) {
-            if (rg.length <= 7) {
-                return rg.replace(/(\d{1})(\d{3})(\d{3})/, "$1.$2.$3");
-            }
-            return rg;
-        }
-        
-        function formatarData(dataString) {
-            const data = new Date(dataString);
-            return data.toLocaleDateString('pt-BR');
-        }
-        
-        function calcularProgressoCarencia(inicio, fim) {
-            const inicioDate = new Date(inicio);
-            const fimDate = new Date(fim);
-            const hoje = new Date();
-            
-            const totalDias = Math.floor((fimDate - inicioDate) / (1000 * 60 * 60 * 24));
-            const diasPassados = Math.floor((hoje - inicioDate) / (1000 * 60 * 60 * 24));
-            
-            if (diasPassados <= 0) return 0;
-            if (diasPassados >= totalDias) return 100;
-            
-            return Math.round((diasPassados / totalDias) * 100);
-        }
-        
-        // Atualizar a interface com os dados do usuário
-        document.getElementById('userName').textContent = `Olá, ${userData.nome}!`;
-        
-        // Status da assinatura
-        const statusValue = document.getElementById('statusValue');
-        const statusText = document.getElementById('statusText');
-        if (userData.status === 'ativo') {
-            statusValue.textContent = 'Ativa';
-            statusValue.className = 'status-value status-active';
-            statusText.textContent = 'ativa';
-        } else {
-            statusValue.textContent = 'Inativa';
-            statusValue.className = 'status-value status-inactive';
-            statusText.textContent = 'inativa';
-        }
-        
-        // Status de pagamento
-        const paymentStatus = document.getElementById('paymentStatus');
-        paymentStatus.className = 'status-value status-active';
-        
-        // Período de carência
-        const progresso = calcularProgressoCarencia(userData.inicioCarencia, userData.fimCarencia);
-        document.getElementById('progressPercentage').textContent = `${progresso}%`;
-        document.getElementById('progressFill').style.width = `${progresso}%`;
-        document.getElementById('startCarencia').textContent = formatarData(userData.inicioCarencia);
-        document.getElementById('endCarencia').textContent = formatarData(userData.fimCarencia);
-        
-        // Dados pessoais
-        document.getElementById('userCpf').textContent = formatarCPF(userData.cpf);
-        document.getElementById('userRg').textContent = formatarRG(userData.rg);
-        document.getElementById('userBirth').textContent = formatarData(userData.nascimento);
-        
-        // Contato
-        document.getElementById('userPhone').textContent = formatarTelefone(userData.telefone);
-        document.getElementById('userEmail').textContent = userData.email;
-        document.getElementById('userEmailCopy').textContent = userData.email;
-        
-        // Endereço
-        document.getElementById('userAddress').textContent = userData.endereco;
-        
-        // Informações do contrato
-        document.getElementById('contractDate').textContent = formatarData(userData.dataContratacao);
-        document.getElementById('totalPrice').textContent = `R$ ${userData.price.total.toFixed(2).replace('.', ',')}`;
-        document.getElementById('lastUpdate').textContent = formatarData(userData.updatedAt);
-        
-        // Equipamentos
-        const equipmentGrid = document.getElementById('equipmentGrid');
-        userData.equipments.forEach(equipment => {
-            const equipmentCard = document.createElement('div');
-            equipmentCard.className = 'equipment-card';
-            
-            equipmentCard.innerHTML = `
-                <div class="equipment-card-header">
-                    <i class="fas fa-laptop"></i>
-                    <h3>${equipment.tipo.charAt(0).toUpperCase() + equipment.tipo.slice(1)}</h3>
-                </div>
-                <div class="equipment-detail">
-                    <span class="equipment-detail-label">Marca:</span>
-                    <span class="equipment-detail-value">${equipment.marca}</span>
-                </div>
-                <div class="equipment-detail">
-                    <span class="equipment-detail-label">Modelo:</span>
-                    <span class="equipment-detail-value">${equipment.modelo}</span>
-                </div>
-                <div class="equipment-detail">
-                    <span class="equipment-detail-label">Nº de Série:</span>
-                    <span class="equipment-detail-value">${equipment.numeroSerie || 'Não informado'}</span>
-                </div>
-                <div class="equipment-detail">
-                    <span class="equipment-detail-label">Valor:</span>
-                    <span class="equipment-detail-value">R$ ${equipment.valor.toFixed(2).replace('.', ',')}</span>
-                </div>
-            `;
-            
-            equipmentGrid.appendChild(equipmentCard);
-        });
+
+        // Verificar status de login ao carregar a página
+        document.addEventListener('DOMContentLoaded', checkLoginStatus);
     </script>
 </body>
 </html>
