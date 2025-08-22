@@ -130,6 +130,34 @@
 
         /* Search Section */
         .search-container {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .search-btn {
+            padding: 0 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
         /* User List Section */
         .user-list-container {
             background-color: var(--light);
@@ -139,7 +167,6 @@
             margin-bottom: 2rem;
         }
 
-        .search-form {
         .filter-section {
             display: flex;
             gap: 1rem;
@@ -147,17 +174,12 @@
             align-items: center;
         }
 
-        .search-input {
-            flex: 1;
-            padding: 0.8rem;
         .filter-select {
             padding: 0.5rem;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
 
-        .search-btn {
-            padding: 0 1.5rem;
         .user-list {
             width: 100%;
             border-collapse: collapse;
@@ -352,29 +374,6 @@
             text-align: center;
             font-size: 0.9rem;
         }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .status-active {
-            background-color: rgba(76, 175, 80, 0.1);
-            color: var(--success);
-        }
-        
-        .status-pending {
-            background-color: rgba(255, 193, 7, 0.1);
-            color: var(--warning);
-        }
-        
-        .status-inactive {
-            background-color: rgba(244, 67, 54, 0.1);
-            color: var(--error);
-        }
 
         /* Success Message */
         .success-message {
@@ -427,6 +426,8 @@
                 <input type="text" id="documentId" class="search-input" placeholder="Digite o ID do documento" required>
                 <button type="submit" class="search-btn">Buscar</button>
             </form>
+        </div>
+
         <!-- User List Section -->
         <div class="user-list-container">
             <h2>Lista de Clientes</h2>
@@ -470,8 +471,8 @@
                         <input type="text" id="cpf" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" required>
+                        <label for="userEmail">E-mail</label>
+                        <input type="email" id="userEmail" required>
                     </div>
                     <div class="form-group">
                         <label for="telefone">Telefone</label>
@@ -547,7 +548,7 @@
                 <!-- Action Buttons -->
                 <div class="action-buttons">
                     <button type="button" class="cancel-btn" id="cancelEditBtn">Cancelar</button>
-                    <button type="button" class="cancel-btn" id="cancelEditBtn">Voltar</button>
+                    <button type="button" class="cancel-btn" id="backToListBtn">Voltar</button>
                     <button type="submit" class="save-btn">Salvar Alterações</button>
                 </div>
             </form>
@@ -564,12 +565,12 @@
             <form id="credentialsForm">
                 <input type="hidden" id="userId">
                 <div class="form-group">
-                    <label for="userEmail">E-mail</label>
-                    <input type="email" id="userEmail" required>
+                    <label for="modalUserEmail">E-mail</label>
+                    <input type="email" id="modalUserEmail" required>
                 </div>
                 <div class="form-group">
                     <label for="userPassword">Senha</label>
-                    <input type="password" id="userPassword" required minlength="6" placeholder="Deixe em branco para manter a atual">
+                    <input type="password" id="userPassword" minlength="6" placeholder="Deixe em branco para manter a atual">
                 </div>
                 <div class="has-account" id="hasAccountInfo" style="display: none;">
                     Este usuário já possui uma conta no sistema.
@@ -612,6 +613,7 @@
         const userForm = document.getElementById('userForm');
         const createCredentialsBtn = document.getElementById('createCredentialsBtn');
         const cancelEditBtn = document.getElementById('cancelEditBtn');
+        const backToListBtn = document.getElementById('backToListBtn');
         const hasCredentialsBadge = document.getElementById('hasCredentials');
         const equipmentList = document.getElementById('equipmentList');
         const userCredentialsModal = document.getElementById('userCredentialsModal');
@@ -619,7 +621,7 @@
         const cancelBtn = document.getElementById('cancelBtn');
         const credentialsForm = document.getElementById('credentialsForm');
         const userIdInput = document.getElementById('userId');
-        const userEmailInput = document.getElementById('userEmail');
+        const modalUserEmailInput = document.getElementById('modalUserEmail');
         const userPasswordInput = document.getElementById('userPassword');
         const hasAccountInfo = document.getElementById('hasAccountInfo');
         const credentialsModalTitle = document.getElementById('credentialsModalTitle');
@@ -783,6 +785,25 @@
         searchForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const docId = documentIdInput.value.trim();
+            
+            try {
+                const doc = await db.collection('usuarios').doc(docId).get();
+
+                if (doc.exists) {
+                    currentUserDoc = doc;
+                    displayUserDetails(doc.data());
+                    userDetails.style.display = 'block';
+                    userListContainer.style.display = 'none';
+                    searchContainer.style.display = 'none';
+                } else {
+                    alert('Documento não encontrado!');
+                }
+            } catch (error) {
+                console.error("Erro ao buscar documento:", error);
+                alert('Erro ao buscar documento. Verifique o ID e tente novamente.');
+            }
+        });
+
         // Load all users
         async function loadUsers() {
             try {
@@ -913,23 +934,21 @@
         // View user details
         async function viewUserDetails(userId) {
             try {
-                const doc = await db.collection('usuarios').doc(docId).get();
                 const doc = await db.collection('usuarios').doc(userId).get();
 
                 if (doc.exists) {
                     currentUserDoc = doc;
                     displayUserDetails(doc.data());
                     userDetails.style.display = 'block';
+                    document.querySelector('.user-list-container').style.display = 'none';
+                    document.querySelector('.search-container').style.display = 'none';
                 } else {
-                    alert('Documento não encontrado!');
-                    userDetails.style.display = 'none';
+                    alert('Usuário não encontrado!');
                 }
             } catch (error) {
-                console.error("Erro ao buscar documento:", error);
-                alert('Erro ao buscar documento. Verifique o ID e tente novamente.');
-                alert('Erro ao buscar documento. Tente novamente.');
+                console.error("Erro ao buscar usuário:", error);
+                alert('Erro ao buscar usuário. Tente novamente.');
             }
-        });
         }
 
         // Display user details in form
@@ -937,7 +956,7 @@
             // Basic info
             document.getElementById('nome').value = userData.nome || '';
             document.getElementById('cpf').value = userData.cpf || '';
-            document.getElementById('email').value = userData.email || '';
+            document.getElementById('userEmail').value = userData.email || '';
             document.getElementById('telefone').value = userData.telefone || '';
 
             // Status info
@@ -1011,7 +1030,7 @@
                 const updatedData = {
                     nome: document.getElementById('nome').value,
                     cpf: document.getElementById('cpf').value,
-                    email: document.getElementById('email').value,
+                    email: document.getElementById('userEmail').value,
                     telefone: document.getElementById('telefone').value,
                     status: document.getElementById('status').value,
                     coberturaStatus: document.getElementById('coberturaStatus').value,
@@ -1057,6 +1076,7 @@
                 const updatedDoc = await db.collection('usuarios').doc(currentUserDoc.id).get();
                 currentUserDoc = updatedDoc;
                 displayUserDetails(updatedDoc.data());
+                
                 // Update local data
                 const userIndex = allUsers.findIndex(user => user.id === currentUserDoc.id);
                 if (userIndex !== -1) {
@@ -1080,13 +1100,20 @@
             }
         });
 
+        // Back to list
+        backToListBtn.addEventListener('click', () => {
+            userDetails.style.display = 'none';
+            document.querySelector('.user-list-container').style.display = 'block';
+            document.querySelector('.search-container').style.display = 'block';
+        });
+
         // Open credentials modal
         createCredentialsBtn.addEventListener('click', () => {
             if (!currentUserDoc) return;
             
             const userData = currentUserDoc.data();
             userIdInput.value = currentUserDoc.id;
-            userEmailInput.value = userData.email || '';
+            modalUserEmailInput.value = userData.email || '';
             userPasswordInput.value = '';
             
             if (userData.uid) {
@@ -1100,7 +1127,6 @@
             }
             
             userCredentialsModal.style.display = 'flex';
-            userDetails.style.display = 'none';
         });
 
         // Modal events
@@ -1117,7 +1143,7 @@
             e.preventDefault();
             
             const userId = userIdInput.value;
-            const email = userEmailInput.value;
+            const email = modalUserEmailInput.value;
             const password = userPasswordInput.value;
             
             try {
@@ -1169,6 +1195,7 @@
                 alert('Erro ao criar/atualizar credenciais: ' + error.message);
             }
         });
+
         // Filter users when equipment filter changes
         equipmentFilter.addEventListener('change', filterUsers);
 
