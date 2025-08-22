@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIX - Painel Administrativo</title>
+    <title>BIXX - Consulta de Cadastro</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <!-- Firebase App (o core do Firebase) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <style>
         :root {
             --primary: #8B0000;
@@ -30,39 +31,73 @@
         body {
             background-color: var(--gray);
             color: var(--secondary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            flex: 1;
         }
         
-        /* Login Section */
-        .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        
-        .login-box {
-            background-color: var(--light);
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-        
-        .login-box h1 {
+        header {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--light);
+            color: var(--secondary);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
             color: var(--primary);
         }
         
+        .logo {
+            font-weight: bold;
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+        
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(139, 0, 0, 0.1);
+        }
+        
+        .consultation-box, .result-box, .email-info {
+            background-color: var(--light);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+        
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
         
         .form-group label {
@@ -76,6 +111,7 @@
             padding: 0.8rem;
             border: 1px solid #ddd;
             border-radius: 4px;
+            font-size: 1rem;
         }
         
         .btn {
@@ -89,85 +125,22 @@
             font-weight: 600;
             cursor: pointer;
             margin-top: 1rem;
+            font-size: 1rem;
         }
         
         .btn:hover {
             opacity: 0.9;
         }
         
-        .error-message {
-            color: var(--error);
-            margin-top: 1rem;
-            text-align: center;
-        }
-        
-        /* Dashboard Section */
-        .dashboard {
+        .result-box {
             display: none;
         }
         
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid #ddd;
+        .result-header {
+            text-align: center;
             margin-bottom: 1.5rem;
-        }
-        
-        .header h1 {
-            color: var(--primary);
-        }
-        
-        .logout-btn {
-            background-color: var(--error);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        /* User List Section */
-        .user-list-container {
-            background-color: var(--light);
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
-        }
-        
-        .filter-section {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            align-items: center;
-        }
-        
-        .filter-select {
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        
-        .user-list {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .user-list th, .user-list td {
-            padding: 0.8rem;
-            text-align: left;
+            padding-bottom: 1rem;
             border-bottom: 1px solid #eee;
-        }
-        
-        .user-list th {
-            background-color: var(--gray);
-            font-weight: 600;
-        }
-        
-        .user-list tr:hover {
-            background-color: #f9f9f9;
         }
         
         .status-badge {
@@ -176,69 +149,42 @@
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
-            cursor: pointer;
         }
         
-        .status-active {
+        .status-ativo {
             background-color: rgba(76, 175, 80, 0.1);
             color: var(--success);
         }
         
-        .status-pending {
-            background-color: rgba(255, 193, 7, 0.1);
-            color: var(--warning);
-        }
-        
-        .status-inactive {
+        .status-inativo {
             background-color: rgba(244, 67, 54, 0.1);
             color: var(--error);
         }
         
-        .view-btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.4rem 0.8rem;
-            border-radius: 4px;
-            cursor: pointer;
+        .status-pendente {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: var(--warning);
         }
         
-        /* User Details Section */
-        .user-details {
-            background-color: var(--light);
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            display: none;
-        }
-        
-        .user-details h2 {
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 0.5rem;
-        }
-        
-        .user-form {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-        }
-        
-        .form-section {
+        .user-info, .coverage-info, .equipment-info {
             margin-bottom: 1.5rem;
         }
         
-        .form-section h3 {
-            margin-bottom: 1rem;
-            color: var(--primary);
+        .info-group {
+            margin-bottom: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
         }
         
-        .full-width {
-            grid-column: span 2;
+        .info-label {
+            font-weight: 600;
+            display: inline-block;
+            width: 120px;
+            min-width: 120px;
         }
         
         .equipment-list {
+            list-style-type: none;
             margin-top: 1rem;
         }
         
@@ -249,195 +195,351 @@
             margin-bottom: 1rem;
         }
         
-        .action-buttons {
-            grid-column: span 2;
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .save-btn {
-            background-color: var(--success);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        .cancel-btn {
-            background-color: var(--error);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        /* Success Message */
-        .success-message {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: var(--success);
-            color: white;
-            padding: 1rem;
-            border-radius: 4px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        .loading {
+            text-align: center;
             display: none;
-            z-index: 1100;
+            margin: 1.5rem 0;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            color: var(--error);
+            margin-top: 1rem;
+            display: none;
+            text-align: center;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            padding: 1rem;
+        }
+
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .email-example {
+            background-color: var(--gray);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            font-size: 0.9rem;
+        }
+        
+        .request-type {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .request-type:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        /* Responsividade */
+        @media (min-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .consultation-box, .result-box, .email-info {
+                padding: 2.5rem;
+            }
+            
+            .btn {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+            }
+            
+            .info-label {
+                width: 150px;
+                min-width: 150px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .container {
+                padding: 40px;
+            }
+            
+            .consultation-box, .result-box, .email-info {
+                padding: 3rem;
+            }
+            
+            .info-label {
+                width: 180px;
+                min-width: 180px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .consultation-box, .result-box, .email-info {
+                padding: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.1rem;
+            }
+            
+            .info-group {
+                flex-direction: column;
+            }
+            
+            .info-label {
+                width: 100%;
+                margin-bottom: 0.3rem;
+            }
+            
+            .email-example {
+                font-size: 0.8rem;
+                padding: 10px;
+                overflow-x: auto;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Success Message -->
-    <div class="success-message" id="successMessage"></div>
-
-    <!-- Login Section -->
-    <div class="login-container" id="loginContainer">
-        <div class="login-box">
-            <h1>BIX Admin</h1>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Senha</label>
-                    <input type="password" id="password" required>
-                </div>
-                <button type="submit" class="btn">Entrar</button>
-                <div class="error-message" id="loginError"></div>
-            </form>
-        </div>
-    </div>
-    
-    <!-- Dashboard Section -->
-    <div class="dashboard container" id="dashboard">
-        <div class="header">
-            <h1>Painel Administrativo BIX</h1>
-            <button class="logout-btn" id="logoutBtn">Sair</button>
-        </div>
+    <div class="container">
+        <header>
+            <h1><span class="logo">BIX</span> - Painel Administrativo</h1>
+            <p>Verifique o status do seu cadastro e equipamentos</p>
+            
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Início</a>
+            </nav>
+        </header>
         
-        <!-- User List Section -->
-        <div class="user-list-container">
-            <h2>Lista de Clientes</h2>
-            <div class="filter-section">
-                <label for="equipmentFilter">Filtrar por equipamento:</label>
-                <select id="equipmentFilter" class="filter-select">
-                    <option value="todos">Todos os equipamentos</option>
-                    <option value="smartphone">Smartphone</option>
-                    <option value="tablet">Tablet</option>
-                    <option value="notebook">Notebook</option>
-                </select>
+        <div class="consultation-box">
+            <h2 class="section-title">Consultar Cadastro</h2>
+            <p>Digite seu CPF para consultar seu cadastro em nosso sistema.</p>
+            
+            <div class="form-group">
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14">
             </div>
-            <table class="user-list">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Documento</th>
-                        <th>Status</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="userListBody">
-                    <!-- User list will be populated here -->
-                </tbody>
-            </table>
+            
+            <button id="consultarBtn" class="btn">Consultar</button>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Consultando cadastro...</p>
+            </div>
+            
+            <div class="error-message" id="errorMessage">
+                CPF não encontrado em nossa base de dados. Verifique se digitou corretamente.
+            </div>
         </div>
         
-        <!-- User Details Section -->
-        <div class="user-details" id="userDetails">
-            <h2>Detalhes do Cliente</h2>
-            <form id="userForm" class="user-form">
-                <!-- Basic Info -->
-                <div class="form-section">
-                    <h3>Informações Básicas</h3>
-                    <div class="form-group">
-                        <label for="nome">Nome Completo</label>
-                        <input type="text" id="nome" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="cpf">CPF</label>
-                        <input type="text" id="cpf" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="telefone">Telefone</label>
-                        <input type="text" id="telefone" required>
-                    </div>
+        <div class="email-info">
+            <h2 class="section-title">Solicitações por E-mail</h2>
+            <p>Para solicitar serviços, envie um e-mail para <strong>bixxcorp@outlook.com.br</strong> seguindo as instruções abaixo:</p>
+            
+            <div class="request-type">
+                <h3 class="section-title">Assistência Técnica</h3>
+                <p><strong>Assunto:</strong> [Seu CPF] - Assistência Técnica</p>
+                <p><strong>Corpo do e-mail deve conter:</strong></p>
+                <ul>
+                    <li>Relatório detalhado do problema técnico</li>
+                    <li>Equipamento com problema</li>
+                    <li>Data em que o problema começou</li>
+                    <li>Se já tentou alguma solução</li>
+                    <li>Iremos avaliar e dar resposta em 1 dia útil</li>
+                </ul>
+                <div class="email-example">
+Assunto: 123.456.789-00 - Assistência Técnica
+
+Prezados,
+
+Meu nome é João Silva e sou cliente BIXX (CPF: 123.456.789-00).
+Estou solicitando assistência técnica para meu smartphone Samsung Galaxy S21.
+
+Problema: O aparelho não carrega mais, mesmo tentando com diferentes carregadores e cabos.
+O problema começou aproximadamente em 10/08/2023.
+Já tentei: 
+- Usar diferentes carregadores e cabos
+- Limpar a porta de carregamento
+- Realizar reset de fábrica
                 </div>
-                
-                <!-- Status Info -->
-                <div class="form-section">
-                    <h3>Status do Cliente</h3>
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <select id="status" required>
-                            <option value="ativo">Ativo</option>
-                            <option value="pendente">Pendente</option>
-                            <option value="inativo">Inativo</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="coberturaStatus">Status da Cobertura</label>
-                        <select id="coberturaStatus" required>
-                            <option value="ativa">Ativa</option>
-                            <option value="em_carencia">Em Carência</option>
-                            <option value="suspensa">Suspensa</option>
-                            <option value="cancelada">Cancelada</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="inicioCarencia">Início da Carência</label>
-                        <input type="date" id="inicioCarencia">
-                    </div>
-                    <div class="form-group">
-                        <label for="fimCarencia">Fim da Carência</label>
-                        <input type="date" id="fimCarencia">
-                    </div>
+            </div>
+            
+            <div class="request-type">
+                <h3 class="section-title">Análise de Acessório para Desconto</h3>
+                <p><strong>Assunto:</strong> [Seu CPF] - Análise de Acessório</p>
+                <p><strong>Corpo do e-mail deve conter:</strong></p>
+                <ul>
+                    <li>Nome do acessório</li>
+                    <li>Marca e modelo</li>
+                    <li>Nome da loja (se online, incluir link)</li>
+                    <li>Preço encontrado</li>
+                    <li>Iremos avaliar e dar resposta em 1 dia útil</li>
+                </ul>
+                <div class="email-example">
+Assunto: 123.456.789-00 - Análise de Acessório
+
+Prezados,
+
+Meu nome é Maria Oliveira e sou cliente BIXX (CPF: 123.456.789-00).
+Gostaria de solicitar análise para desconto em acessório.
+
+Acessório: Capa protetora para iPhone 13
+Marca/Modelo: Capa à prova de choque TORRO
+Loja: Magazine Luiza (online)
+Link: https://www.magazineluiza.com.br/capa-iphone-13-torro/p/123456/
+Preço: R$ 89,90
                 </div>
-                
-                <!-- Equipment Info -->
-                <div class="form-section full-width">
-                    <h3>Equipamentos</h3>
-                    <div id="equipmentList" class="equipment-list">
-                        <!-- Equipment items will be added here -->
-                    </div>
+            </div>
+            
+            <div class="request-type">
+                <h3 class="section-title">Análise de Celular para Revenda</h3>
+                <p><strong>Assunto:</strong> [Seu CPF] - Análise para Revenda</p>
+                <p><strong>Corpo do e-mail deve conter:</strong></p>
+                <ul>
+                    <li>Marca e modelo do aparelho</li>
+                    <li>Estado de conservação</li>
+                    <li>Defeitos existentes</li>
+                    <li>Foto do aparelho (anexar)</li>
+                    <li>Iremos avaliar e dar resposta em 1 dia útil</li>
+                </ul>
+                <div class="email-example">
+Assunto: 123.456.789-00 - Análise para Revenda
+
+Prezados,
+
+Meu nome é Carlos Souza e sou cliente BIXX (CPF: 123.456.789-00).
+Gostaria de solicitar análise para revenda do meu smartphone.
+
+Aparelho: iPhone 11 64GB
+Cor: Preto
+Estado de conservação: Bom, com pequenos arranhões na traseira
+Defeitos: Nenhum defeito funcional, apenas desgaste normal de uso
+Acessórios inclusos: Carregador original e cabo USB
+Anexo: Foto do aparelho (enviada em anexo)
                 </div>
-                
-                <!-- Price Info -->
-                <div class="form-section">
-                    <h3>Valores</h3>
-                    <div class="form-group">
-                        <label for="valorTotal">Valor Total</label>
-                        <input type="number" id="valorTotal" step="0.01" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="desconto">Desconto (%)</label>
-                        <input type="number" id="desconto" step="0.01" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="valorFinal">Valor Final</label>
-                        <input type="number" id="valorFinal" step="0.01" required>
-                    </div>
+            </div>
+            
+            <div class="request-type">
+                <h3 class="section-title">Cancelamento de Assinatura</h3>
+                <p><strong>Assunto:</strong> [Seu CPF] - Cancelamento de Assinatura</p>
+                <p><strong>Corpo do e-mail deve conter:</strong></p>
+                <ul>
+                    <li>Motivo do cancelamento</li>
+                    <li>Data em que deseja efetivar o cancelamento</li>
+                    <li>Confirmação de que compreende os termos de cancelamento</li>
+                    <li>Iremos avaliar e dar resposta em 1 dia útil</li>
+                </ul>
+                <div class="email-example">
+Assunto: 123.456.789-00 - Cancelamento de Assinatura
+
+Prezados,
+
+Meu nome é Ana Santos e sou cliente BIXX (CPF: 123.456.789-00).
+Venho por meio deste solicitar o cancelamento da minha assinatura.
+
+Motivo: Mudança para outra cidade onde não há cobertura dos serviços BIXX.
+Data para cancelamento: 30/09/2023
+Confirmo que estou ciente dos termos de cancelamento e que não haverá reembolso da assinatura mensal já paga.
                 </div>
-                
-                <!-- Action Buttons -->
-                <div class="action-buttons">
-                    <button type="button" class="cancel-btn" id="cancelEditBtn">Voltar</button>
-                    <button type="submit" class="save-btn">Salvar Alterações</button>
-                </div>
-            </form>
+            </div>
         </div>
+        
+        <div class="result-box" id="resultBox">
+            <div class="result-header">
+                <h2 class="section-title">Dados do Cadastro</h2>
+                <div class="status-badge" id="statusBadge">Ativo</div>
+            </div>
+            
+            <div class="user-info">
+                <h3 class="section-title">Informações Pessoais</h3>
+                <div class="info-group">
+                    <span class="info-label">Nome:</span>
+                    <span id="userName"></span>
+                </div>
+                <div class="info-group">
+                    <span class="info-label">CPF:</span>
+                    <span id="userCpf"></span>
+                </div>
+            </div>
+            
+            <div class="equipment-info">
+                <h3 class="section-title">Equipamentos Cadastrados</h3>
+                <ul class="equipment-list" id="equipmentList">
+                    <!-- Os equipamentos serão inseridos aqui via JavaScript -->
+                </ul>
+            </div>
+            
+            <div class="coverage-info">
+                <h3 class="section-title">Status da Cobertura</h3>
+                <div class="info-group">
+                    <span class="info-label">Status:</span>
+                    <span id="coverageStatus"></span>
+                </div>
+                <div class="info-group">
+                    <span class="info-label">Início da Cobertura:</span>
+                    <span id="coverageStart"></span>
+                </div>
+                <div class="info-group">
+                    <span class="info-label">Fim da Cobertura:</span>
+                    <span id="coverageEnd"></span>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>BIXX &copy; 2025 - Todos os direitos reservados</p>
+        </footer>
     </div>
 
     <script>
-        // Firebase configuration
+        // Configuração do Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
             authDomain: "axon-ec708.firebaseapp.com",
@@ -446,476 +548,167 @@
             messagingSenderId: "403077673595",
             appId: "1:403077673595:web:a4cb91bdf662f8d8e9e8de"
         };
-
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
+        
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
-        const auth = firebase.auth();
-
-        // DOM Elements
-        const loginContainer = document.getElementById('loginContainer');
-        const dashboard = document.getElementById('dashboard');
-        const loginForm = document.getElementById('loginForm');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const loginError = document.getElementById('loginError');
-        const userListBody = document.getElementById('userListBody');
-        const equipmentFilter = document.getElementById('equipmentFilter');
-        const userDetails = document.getElementById('userDetails');
-        const userForm = document.getElementById('userForm');
-        const cancelEditBtn = document.getElementById('cancelEditBtn');
+        
+        // Elementos da DOM
+        const cpfInput = document.getElementById('cpf');
+        const consultarBtn = document.getElementById('consultarBtn');
+        const loadingElement = document.getElementById('loading');
+        const errorMessage = document.getElementById('errorMessage');
+        const resultBox = document.getElementById('resultBox');
+        const statusBadge = document.getElementById('statusBadge');
+        const userName = document.getElementById('userName');
+        const userCpf = document.getElementById('userCpf');
         const equipmentList = document.getElementById('equipmentList');
-        const successMessage = document.getElementById('successMessage');
-
-        // Current document reference
-        let currentUserDoc = null;
-        let allUsers = [];
-
-        // Função para reconstruir as credenciais de forma mais complexa
-        function getAdminCredentials() {
-            // Dividimos as credenciais em várias partes não óbvias
-            const parts = {
-                a: "br",
-                b: "uno",
-                c: "hp",
-                d: "sv",
-                e: "@gm",
-                f: "ail",
-                g: ".co",
-                h: "m",
-                i: "bar",
-                j: "at",
-                k: "avel",
-                l: "ha"
-            };
+        const coverageStatus = document.getElementById('coverageStatus');
+        const coverageStart = document.getElementById('coverageStart');
+        const coverageEnd = document.getElementById('coverageEnd');
+        
+        // Variável para armazenar os dados completos do usuário
+        let userDataComplete = null;
+        
+        // Formatador de CPF
+        cpfInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
             
-            // Construção do email usando partes não sequenciais
-            const email = [
-                parts.a + parts.b,  // "bruno"
-                parts.c + parts.d  // "hpsv"
-            ].join('') + [
-                parts.e + parts.f,  // "@gmail"
-                parts.g + parts.h   // ".com"
-            ].join('');
-            
-            // Construção da senha usando partes não sequenciais
-            const password = [
-                parts.i,            // "bar"
-                parts.j + parts.k,  // "atavel"
-                parts.l             // "ha"
-            ].join('');
-            
-            return { email, password };
-        }
-
-        // Função auxiliar para verificar credenciais
-        function validateCredentials(inputEmail, inputPassword) {
-            const { email, password } = getAdminCredentials();
-            
-            // Verificação adicional para evitar timing attacks
-            let emailMatch = true;
-            let passwordMatch = true;
-            
-            if (inputEmail.length !== email.length) emailMatch = false;
-            if (inputPassword.length !== password.length) passwordMatch = false;
-            
-            for (let i = 0; i < inputEmail.length; i++) {
-                if (inputEmail.charAt(i) !== email.charAt(i)) emailMatch = false;
+            if (value.length > 11) {
+                value = value.slice(0, 11);
             }
             
-            for (let i = 0; i < inputPassword.length; i++) {
-                if (inputPassword.charAt(i) !== password.charAt(i)) passwordMatch = false;
+            if (value.length > 9) {
+                value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+            } else if (value.length > 6) {
+                value = value.replace(/(\d{3})(\d{3})(\d+)/, '$1.$2.$3');
+            } else if (value.length > 3) {
+                value = value.replace(/(\d{3})(\d+)/, '$1.$2');
             }
             
-            return emailMatch && passwordMatch;
-        }
-
-        // Função para criar o administrador padrão
-        async function createDefaultAdmin() {
-            const { email, password } = getAdminCredentials();
-            
-            try {
-                // Verificar se o admin já existe usando uma consulta por e-mail
-                const adminsQuery = await db.collection("administradores")
-                    .where("email", "==", email)
-                    .limit(1)
-                    .get();
-                
-                if (adminsQuery.empty) {
-                    // Criar usuário no Firebase Auth
-                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                    const userId = userCredential.user.uid;
-                    
-                    // Criar documento no Firestore
-                    await db.collection("administradores").doc(userId).set({
-                        email: email,
-                        createdAt: new Date().toISOString(),
-                        isAdmin: true
-                    });
-                    
-                    console.log("Administrador padrão criado com sucesso!");
-                }
-            } catch (error) {
-                console.error("Erro ao verificar/criar administrador:", error);
-            }
-        }
-
-        // Mostrar mensagem de sucesso
-        function showSuccessMessage(message) {
-            successMessage.textContent = message;
-            successMessage.style.display = 'block';
-            
-            setTimeout(() => {
-                successMessage.style.display = 'none';
-            }, 3000);
-        }
-
-        // Chamar a função para criar/verificar o admin padrão quando a página carregar
-        document.addEventListener('DOMContentLoaded', createDefaultAdmin);
-
-        // Check auth state
-        auth.onAuthStateChanged(async user => {
-            if (user) {
-                // Verificar se o usuário é administrador
-                const adminDoc = await db.collection("administradores").doc(user.uid).get();
-                
-                if (adminDoc.exists) {
-                    loginContainer.style.display = 'none';
-                    dashboard.style.display = 'block';
-                    loadUsers();
-                } else {
-                    await auth.signOut();
-                    loginError.textContent = 'Acesso restrito a administradores.';
-                    loginContainer.style.display = 'flex';
-                }
-            } else {
-                loginContainer.style.display = 'flex';
-                dashboard.style.display = 'none';
-            }
+            e.target.value = value;
         });
-
-        // Login
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+        
+        // Consultar cadastro
+        consultarBtn.addEventListener('click', function() {
+            const cpf = cpfInput.value.replace(/\D/g, '');
             
-            try {
-                // Verificação adicional das credenciais antes de tentar o login
-                if (validateCredentials(email, password)) {
-                    await auth.signInWithEmailAndPassword(email, password);
-                    loginError.textContent = '';
-                } else {
-                    // Forçar um tempo de resposta similar ao do Firebase Auth
-                    await new Promise(resolve => setTimeout(resolve, 1000));
-                    loginError.textContent = 'E-mail ou senha incorretos.';
-                }
-            } catch (error) {
-                loginError.textContent = 'E-mail ou senha incorretos.';
-                console.error("Erro de login:", error);
-            }
-        });
-
-        // Logout
-        logoutBtn.addEventListener('click', () => {
-            auth.signOut();
-        });
-
-        // Load all users
-        async function loadUsers() {
-            try {
-                const snapshot = await db.collection('usuarios').get();
-                allUsers = [];
-                
-                snapshot.forEach(doc => {
-                    allUsers.push({
-                        id: doc.id,
-                        ...doc.data()
-                    });
-                });
-                
-                filterUsers();
-            } catch (error) {
-                console.error("Erro ao carregar usuários:", error);
-            }
-        }
-
-        // Filter users based on equipment type
-        function filterUsers() {
-            const filterValue = equipmentFilter.value;
-            let filteredUsers = [...allUsers];
-            
-            if (filterValue !== 'todos') {
-                filteredUsers = allUsers.filter(user => {
-                    if (!user.equipments || user.equipments.length === 0) return false;
-                    
-                    return user.equipments.some(eq => 
-                        eq.tipo && eq.tipo.toLowerCase() === filterValue
-                    );
-                });
-            }
-            
-            renderUserList(filteredUsers);
-        }
-
-        // Render user list
-        function renderUserList(users) {
-            userListBody.innerHTML = '';
-            
-            if (users.length === 0) {
-                userListBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Nenhum usuário encontrado</td></tr>';
+            if (cpf.length !== 11) {
+                errorMessage.textContent = 'Por favor, digite um CPF válido com 11 dígitos.';
+                errorMessage.style.display = 'block';
                 return;
             }
             
-            users.forEach(user => {
-                const row = document.createElement('tr');
-                
-                // Status badge with click handler
-                let statusClass = 'status-inactive';
-                let statusText = 'Inativo';
-                
-                if (user.status === 'ativo') {
-                    statusClass = 'status-active';
-                    statusText = 'Ativo';
-                } else if (user.status === 'pendente') {
-                    statusClass = 'status-pending';
-                    statusText = 'Pendente';
-                }
-                
-                row.innerHTML = `
-                    <td>${user.nome || 'N/A'}</td>
-                    <td>${user.cpf || 'N/A'}</td>
-                    <td>
-                        <span class="status-badge ${statusClass}" data-id="${user.id}" data-status="${user.status || 'inativo'}">
-                            ${statusText}
-                        </span>
-                    </td>
-                    <td>
-                        <button class="view-btn" data-id="${user.id}">Ver Detalhes</button>
-                    </td>
-                `;
-                
-                userListBody.appendChild(row);
-            });
+            loadingElement.style.display = 'block';
+            errorMessage.style.display = 'none';
+            resultBox.style.display = 'none';
             
-            // Add event listeners to status badges
-            document.querySelectorAll('.status-badge').forEach(badge => {
-                badge.addEventListener('click', (e) => {
-                    const userId = e.target.dataset.id;
-                    const currentStatus = e.target.dataset.status;
-                    toggleUserStatus(userId, currentStatus);
-                });
-            });
-            
-            // Add event listeners to view buttons
-            document.querySelectorAll('.view-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const userId = e.target.dataset.id;
-                    viewUserDetails(userId);
-                });
-            });
-        }
-
-        // Toggle user status
-        async function toggleUserStatus(userId, currentStatus) {
-            try {
-                let newStatus;
-                
-                if (currentStatus === 'ativo') {
-                    newStatus = 'inativo';
-                } else if (currentStatus === 'inativo') {
-                    newStatus = 'pendente';
-                } else {
-                    newStatus = 'ativo';
-                }
-                
-                await db.collection('usuarios').doc(userId).update({
-                    status: newStatus,
-                    updatedAt: new Date().toISOString()
-                });
-                
-                // Update local data
-                const userIndex = allUsers.findIndex(user => user.id === userId);
-                if (userIndex !== -1) {
-                    allUsers[userIndex].status = newStatus;
-                }
-                
-                filterUsers();
-                showSuccessMessage('Status atualizado com sucesso!');
-            } catch (error) {
-                console.error("Erro ao atualizar status:", error);
-                alert('Erro ao atualizar status. Tente novamente.');
-            }
-        }
-
-        // View user details
-        async function viewUserDetails(userId) {
-            try {
-                const doc = await db.collection('usuarios').doc(userId).get();
-                
-                if (doc.exists) {
-                    currentUserDoc = doc;
-                    displayUserDetails(doc.data());
-                    userDetails.style.display = 'block';
-                } else {
-                    alert('Documento não encontrado!');
-                }
-            } catch (error) {
-                console.error("Erro ao buscar documento:", error);
-                alert('Erro ao buscar documento. Tente novamente.');
-            }
-        }
-
-        // Display user details in form
-        function displayUserDetails(userData) {
-            // Basic info
-            document.getElementById('nome').value = userData.nome || '';
-            document.getElementById('cpf').value = userData.cpf || '';
-            document.getElementById('email').value = userData.email || '';
-            document.getElementById('telefone').value = userData.telefone || '';
-            
-            // Status info
-            document.getElementById('status').value = userData.status || 'pendente';
-            document.getElementById('coberturaStatus').value = userData.coberturaStatus || 'ativa';
-            document.getElementById('inicioCarencia').value = userData.inicioCarencia || '';
-            document.getElementById('fimCarencia').value = userData.fimCarencia || '';
-            
-            // Price info
-            if (userData.price) {
-                document.getElementById('valorTotal').value = userData.price.total || 0;
-                document.getElementById('desconto').value = userData.price.discount || 0;
-                document.getElementById('valorFinal').value = userData.price.discounted || 0;
-            } else {
-                document.getElementById('valorTotal').value = 0;
-                document.getElementById('desconto').value = 0;
-                document.getElementById('valorFinal').value = 0;
-            }
-            
-            // Equipment list
-            equipmentList.innerHTML = '';
-            if (userData.equipments && userData.equipments.length > 0) {
-                userData.equipments.forEach((eq, index) => {
-                    const eqItem = document.createElement('div');
-                    eqItem.className = 'equipment-item';
-                    eqItem.innerHTML = `
-                        <h4>Equipamento ${index + 1}</h4>
-                        <div class="form-group">
-                            <label>Tipo</label>
-                            <input type="text" value="${eq.tipo || ''}" data-index="${index}" data-field="tipo">
-                        </div>
-                        <div class="form-group">
-                            <label>Marca</label>
-                            <input type="text" value="${eq.marca || ''}" data-index="${index}" data-field="marca">
-                        </div>
-                        <div class="form-group">
-                            <label>Modelo</label>
-                            <input type="text" value="${eq.modelo || ''}" data-index="${index}" data-field="modelo">
-                        </div>
-                        <div class="form-group">
-                            <label>Número de Série</label>
-                            <input type="text" value="${eq.numeroSerie || ''}" data-index="${index}" data-field="numeroSerie">
-                        </div>
-                        <div class="form-group">
-                            <label>Valor</label>
-                            <input type="number" step="0.01" value="${eq.valor || 0}" data-index="${index}" data-field="valor">
-                        </div>
-                    `;
-                    equipmentList.appendChild(eqItem);
-                });
-            }
-        }
-
-        // Save user details
-        userForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            if (!currentUserDoc) return;
-            
-            try {
-                // Collect basic info
-                const updatedData = {
-                    nome: document.getElementById('nome').value,
-                    cpf: document.getElementById('cpf').value,
-                    email: document.getElementById('email').value,
-                    telefone: document.getElementById('telefone').value,
-                    status: document.getElementById('status').value,
-                    coberturaStatus: document.getElementById('coberturaStatus').value,
-                    inicioCarencia: document.getElementById('inicioCarencia').value || null,
-                    fimCarencia: document.getElementById('fimCarencia').value || null,
-                    updatedAt: new Date().toISOString()
-                };
-                
-                // Collect price info
-                const total = parseFloat(document.getElementById('valorTotal').value) || 0;
-                const discount = parseFloat(document.getElementById('desconto').value) || 0;
-                const discounted = parseFloat(document.getElementById('valorFinal').value) || 0;
-                
-                updatedData.price = {
-                    total: total,
-                    discount: discount,
-                    discounted: discounted
-                };
-                
-                // Collect equipment info
-                const equipmentInputs = document.querySelectorAll('[data-index]');
-                const equipments = [];
-                
-                equipmentInputs.forEach(input => {
-                    const index = parseInt(input.dataset.index);
-                    const field = input.dataset.field;
-                    const value = input.type === 'number' ? parseFloat(input.value) || 0 : input.value;
+            // Consultar Firestore - CPF sem formatação (apenas números)
+            db.collection('usuarios')
+                .where('cpf', '==', cpf)
+                .get()
+                .then((querySnapshot) => {
+                    loadingElement.style.display = 'none';
                     
-                    if (!equipments[index]) {
-                        equipments[index] = {};
+                    if (querySnapshot.empty) {
+                        // Tentar buscar dengan CPF formatado (como fallback)
+                        const formattedCpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+                        return db.collection('usuarios')
+                            .where('cpf', '==', formattedCpf)
+                            .get();
                     }
                     
-                    equipments[index][field] = value;
+                    return querySnapshot;
+                })
+                .then((querySnapshot) => {
+                    loadingElement.style.display = 'none';
+                    
+                    if (querySnapshot.empty) {
+                        errorMessage.style.display = 'block';
+                        return;
+                    }
+                    
+                    // Exibir resultados
+                    userDataComplete = querySnapshot.docs[0].data();
+                    displayUserData(userDataComplete);
+                })
+                .catch((error) => {
+                    loadingElement.style.display = 'none';
+                    errorMessage.textContent = 'Erro ao consultar o cadastro. Tente novamente.';
+                    errorMessage.style.display = 'block';
+                    console.error('Erro ao consultar:', error);
                 });
-                
-                updatedData.equipments = equipments.filter(eq => eq);
-                
-                // Update document
-                await db.collection('usuarios').doc(currentUserDoc.id).update(updatedData);
-                showSuccessMessage('Dados atualizados com sucesso!');
-                
-                // Update local data
-                const userIndex = allUsers.findIndex(user => user.id === currentUserDoc.id);
-                if (userIndex !== -1) {
-                    allUsers[userIndex] = {
-                        ...allUsers[userIndex],
-                        ...updatedData
-                    };
-                }
-                
-                filterUsers();
-            } catch (error) {
-                console.error("Erro ao atualizar documento:", error);
-                alert('Erro ao atualizar documento. Tente novamente.');
+        });
+        
+        // Exibir dados do usuário
+        function displayUserData(userData) {
+            // Informações básicas
+            userName.textContent = userData.nome || 'Não informado';
+            userCpf.textContent = userData.cpf || 'Não informado';
+            
+            // Status
+            const status = userData.status || 'inativo';
+            statusBadge.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+            
+            // Definir classe de status com base no valor
+            if (status === 'ativo') {
+                statusBadge.className = 'status-badge status-ativo';
+            } else if (status === 'pendente') {
+                statusBadge.className = 'status-badge status-pendente';
+            } else {
+                statusBadge.className = 'status-badge status-inativo';
             }
-        });
-
-        // Cancel edit
-        cancelEditBtn.addEventListener('click', () => {
-            userDetails.style.display = 'none';
-        });
-
-        // Filter users when equipment filter changes
-        equipmentFilter.addEventListener('change', filterUsers);
-
-        // Calculate final price when discount changes
-        document.getElementById('desconto').addEventListener('input', (e) => {
-            const total = parseFloat(document.getElementById('valorTotal').value) || 0;
-            const discount = parseFloat(e.target.value) || 0;
-            const discounted = total - (total * discount / 100);
-            document.getElementById('valorFinal').value = discounted.toFixed(2);
-        });
-
-        // Calculate discount when final price changes
-        document.getElementById('valorFinal').addEventListener('input', (e) => {
-            const total = parseFloat(document.getElementById('valorTotal').value) || 0;
-            const discounted = parseFloat(e.target.value) || 0;
-            const discount = total > 0 ? ((total - discounted) / total * 100) : 0;
-            document.getElementById('desconto').value = discount.toFixed(2);
-        });
+            
+            // Equipamentos
+            equipmentList.innerHTML = '';
+            if (userData.equipments && userData.equipments.length > 0) {
+                userData.equipments.forEach(equipment => {
+                    const li = document.createElement('li');
+                    li.className = 'equipment-item';
+                    li.innerHTML = `
+                        <strong>Tipo:</strong> ${equipment.tipo || 'Não informado'}<br>
+                        <strong>Marca:</strong> ${equipment.marca || 'Não informado'}<br>
+                        <strong>Modelo:</strong> ${equipment.modelo || 'Não informado'}<br>
+                        <strong>Nº de Série:</strong> ${equipment.numeroSerie || 'Não informado'}<br>
+                        <strong>Valor:</strong> R$ ${equipment.valor ? equipment.valor.toFixed(2) : '0,00'}
+                    `;
+                    equipmentList.appendChild(li);
+                });
+            } else {
+                equipmentList.innerHTML = '<li class="equipment-item">Nenhum equipamento cadastrado</li>';
+            }
+            
+            // Cobertura
+            const coberturaStatus = userData.coberturaStatus || userData.statusCobertura || 'Não informado';
+            coverageStatus.textContent = typeof coberturaStatus === 'string' ? 
+                coberturaStatus.charAt(0).toUpperCase() + coberturaStatus.slice(1) : 
+                'Não informado';
+                
+            coverageStart.textContent = formatDate(userData.inicioCobertura || userData.inicioCarencia || userData.dataInicio) || 'Não informado';
+            coverageEnd.textContent = formatDate(userData.fimCobertura || userData.fimCarencia || userData.dataFim) || 'Não informado';
+            
+            // Exibir a caixa de resultados
+            resultBox.style.display = 'block';
+            
+            // Rolar até os resultados
+            resultBox.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Formatador de data (de yyyy-mm-dd para dd/mm/yyyy)
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            
+            // Se for um timestamp do Firebase
+            if (dateString.seconds) {
+                const date = new Date(dateString.seconds * 1000);
+                return date.toLocaleDateString('pt-BR');
+            }
+            
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return dateString;
+            
+            return date.toLocaleDateString('pt-BR');
+        }
     </script>
 </body>
 </html>
