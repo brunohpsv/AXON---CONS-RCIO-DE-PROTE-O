@@ -22,7 +22,9 @@
             --gray: #F5F5F5;
             --success: #28a745;
             --danger: #dc3545;
+            --warning: #ffc107;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -39,11 +41,18 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            transition: var(--transition);
         }
 
         .container {
             width: 100%;
             max-width: 400px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .logo {
@@ -52,6 +61,8 @@
             color: var(--primary);
             font-size: 2.5rem;
             font-weight: 800;
+            cursor: default;
+            user-select: none;
         }
 
         .card {
@@ -59,16 +70,23 @@
             border-radius: 12px;
             padding: 2rem;
             box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
         }
 
         h2 {
             color: var(--secondary);
             margin-bottom: 1.5rem;
             text-align: center;
+            font-weight: 600;
         }
 
         .form-group {
             margin-bottom: 1.5rem;
+            position: relative;
         }
 
         label {
@@ -84,6 +102,26 @@
             border: 1px solid #ddd;
             border-radius: 6px;
             font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.2);
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+            cursor: pointer;
         }
 
         button {
@@ -96,15 +134,38 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: var(--transition);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
         }
 
         button:hover {
             background-color: var(--primary-dark);
         }
 
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
         .error {
             color: var(--danger);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+            animation: shake 0.3s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .success {
+            color: var(--success);
             font-size: 0.9rem;
             margin-top: 0.5rem;
             display: none;
@@ -114,12 +175,18 @@
             display: none;
             width: 100%;
             max-width: 1000px;
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .header {
             background-color: var(--primary);
             color: white;
-            padding: 1rem;
+            padding: 1rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -144,12 +211,21 @@
             background-color: var(--gray);
             padding: 1rem;
             border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .info-card h3 {
             color: var(--primary);
             margin-bottom: 0.5rem;
             font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .status {
@@ -165,10 +241,20 @@
             color: var(--success);
         }
 
+        .status-inactive {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: var(--danger);
+        }
+
+        .status-warning {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: var(--warning);
+        }
+
         .btn-logout {
             background-color: var(--danger);
             max-width: 120px;
-            margin-top: 1rem;
+            margin-top: 0;
         }
 
         .btn-logout:hover {
@@ -179,16 +265,78 @@
             display: none;
             text-align: center;
             margin-top: 1rem;
+            color: var(--primary);
+        }
+
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .equipment-card {
+            background-color: white;
+            padding: 0.75rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            border-radius: 6px;
+            color: white;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            background-color: var(--success);
+        }
+
+        .toast.error {
+            background-color: var(--danger);
+        }
+
+        .password-toggle {
+            cursor: pointer;
         }
 
         @media (max-width: 768px) {
             .info-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .btn-logout {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Toast para notificações -->
+    <div class="toast" id="toast"></div>
+
     <!-- Tela de Login -->
     <div class="container" id="loginContainer">
         <div class="logo">BIXX</div>
@@ -197,17 +345,24 @@
             <form id="loginForm">
                 <div class="form-group">
                     <label for="email">E-mail</label>
-                    <input type="email" id="email" required placeholder="Seu e-mail cadastrado">
+                    <input type="email" id="email" required placeholder="Seu e-mail cadastrado" autocomplete="email">
                 </div>
                 <div class="form-group">
                     <label for="password">Senha</label>
-                    <input type="password" id="password" required placeholder="Sua senha">
+                    <div class="input-with-icon">
+                        <input type="password" id="password" required placeholder="Sua senha" autocomplete="current-password">
+                        <i class="input-icon password-toggle fas fa-eye" id="passwordToggle"></i>
+                    </div>
                 </div>
                 <div class="error" id="errorMessage">E-mail ou senha incorretos</div>
+                <div class="success" id="successMessage">Login realizado com sucesso!</div>
                 <div class="loading" id="loading">
                     <i class="fas fa-spinner fa-spin"></i> Carregando...
                 </div>
-                <button type="submit">Entrar</button>
+                <button type="submit" id="loginButton">
+                    <span>Entrar</span>
+                    <i class="fas fa-sign-in-alt"></i>
+                </button>
             </form>
         </div>
     </div>
@@ -215,51 +370,53 @@
     <!-- Painel do Usuário (inicialmente oculto) -->
     <div class="user-panel" id="userPanel">
         <div class="header">
-            <h1>BIXX - Painel do Assinante</h1>
-            <button class="btn-logout" onclick="logout()">Sair <i class="fas fa-sign-out-alt"></i></button>
+            <h1><i class="fas fa-user-shield"></i> BIXX - Painel do Assinante</h1>
+            <button class="btn-logout" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </button>
         </div>
         
         <div class="user-info">
-            <h2 id="userName">Olá, Usuário!</h2>
+            <h2 id="userName"><i class="fas fa-user"></i> Olá, Usuário!</h2>
             
             <div class="info-grid">
                 <div class="info-card">
-                    <h3>Status da Assinatura</h3>
+                    <h3><i class="fas fa-badge-check"></i> Status da Assinatura</h3>
                     <p><span class="status status-active" id="statusValue">Ativa</span></p>
                     <p id="statusDescription">Sua assinatura está ativa e seus benefícios disponíveis</p>
                 </div>
                 
                 <div class="info-card">
-                    <h3>Período de Carência</h3>
+                    <h3><i class="fas fa-calendar-alt"></i> Período de Carência</h3>
                     <p>Início: <strong id="startCarencia">--/--/----</strong></p>
                     <p>Término: <strong id="endCarencia">--/--/----</strong></p>
                 </div>
                 
                 <div class="info-card">
-                    <h3>Dados Pessoais</h3>
+                    <h3><i class="fas fa-id-card"></i> Dados Pessoais</h3>
                     <p><strong>CPF:</strong> <span id="userCpf">---.---.--.-</span></p>
                     <p><strong>Email:</strong> <span id="userEmail">usuario@email.com</span></p>
                     <p><strong>Telefone:</strong> <span id="userPhone">(--) -------.####</span></p>
                 </div>
                 
                 <div class="info-card">
-                    <h3>Informações do Contrato</h3>
+                    <h3><i class="fas fa-file-contract"></i> Informações do Contrato</h3>
                     <p><strong>Data de Contratação:</strong> <span id="contractDate">--/--/----</span></p>
                     <p><strong>Valor Total:</strong> <span id="totalPrice">R$ --,--</span></p>
                 </div>
             </div>
             
             <div class="info-card">
-                <h3>Equipamentos Protegidos</h3>
-                <div id="equipmentList">
+                <h3><i class="fas fa-laptop"></i> Equipamentos Protegidos</h3>
+                <div class="equipment-grid" id="equipmentList">
                     <p>Carregando equipamentos...</p>
                 </div>
             </div>
             
             <div class="info-card">
-                <h3>Informações Importantes</h3>
-                <p>Seus boletos são enviados mensalmente para o e-mail cadastrado.</p>
-                <p>Para solicitar serviços, envie e-mail para <strong>bixX.corp@outlook.com.br</strong> com assunto correspondente ao serviço desejado.</p>
+                <h3><i class="fas fa-info-circle"></i> Informações Importantes</h3>
+                <p><i class="fas fa-envelope"></i> Seus boletos são enviados mensalmente para o e-mail cadastrado.</p>
+                <p><i class="fas fa-headset"></i> Para solicitar serviços, envie e-mail para <strong>bixX.corp@outlook.com.br</strong> com assunto correspondente ao serviço desejado.</p>
             </div>
         </div>
     </div>
@@ -285,15 +442,45 @@
         const userPanel = document.getElementById('userPanel');
         const loginForm = document.getElementById('loginForm');
         const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
         const loading = document.getElementById('loading');
+        const loginButton = document.getElementById('loginButton');
+        const passwordToggle = document.getElementById('passwordToggle');
+        const toast = document.getElementById('toast');
+
+        // Mostrar/ocultar senha
+        passwordToggle.addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggle.classList.remove('fa-eye');
+                passwordToggle.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                passwordToggle.classList.remove('fa-eye-slash');
+                passwordToggle.classList.add('fa-eye');
+            }
+        });
+
+        // Função para mostrar notificação
+        function showToast(message, type = 'success') {
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
 
         // Verificar se o usuário já está logado
         auth.onAuthStateChanged((user) => {
             if (user) {
                 // Usuário está logado, buscar dados no Firestore
+                console.log("Usuário logado:", user.uid);
                 getUserData(user.uid);
             } else {
                 // Usuário não está logado
+                console.log("Nenhum usuário logado");
                 loginContainer.style.display = 'block';
                 userPanel.style.display = 'none';
             }
@@ -306,40 +493,80 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
-            // Mostrar loading
+            // Validação básica
+            if (!email || !password) {
+                errorMessage.textContent = "Por favor, preencha todos os campos";
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // Mostrar loading e desabilitar botão
             loading.style.display = 'block';
             errorMessage.style.display = 'none';
+            loginButton.disabled = true;
+            loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
             
             // Fazer login com Firebase Auth
             auth.signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // Login bem-sucedido
                     const user = userCredential.user;
+                    console.log("Login bem-sucedido:", user.uid);
+                    successMessage.style.display = 'block';
+                    showToast("Login realizado com sucesso!", "success");
                     getUserData(user.uid);
                 })
                 .catch((error) => {
                     // Login falhou
                     loading.style.display = 'none';
+                    loginButton.disabled = false;
+                    loginButton.innerHTML = '<span>Entrar</span> <i class="fas fa-sign-in-alt"></i>';
+                    
+                    let errorMsg = "Erro ao fazer login";
+                    switch (error.code) {
+                        case 'auth/invalid-email':
+                            errorMsg = "E-mail inválido";
+                            break;
+                        case 'auth/user-disabled':
+                            errorMsg = "Esta conta foi desativada";
+                            break;
+                        case 'auth/user-not-found':
+                            errorMsg = "Usuário não encontrado";
+                            break;
+                        case 'auth/wrong-password':
+                            errorMsg = "Senha incorreta";
+                            break;
+                        default:
+                            errorMsg = error.message;
+                    }
+                    
+                    errorMessage.textContent = errorMsg;
                     errorMessage.style.display = 'block';
+                    showToast(errorMsg, "error");
                     console.error("Erro de autenticação:", error);
                 });
         });
 
         // Função para buscar dados do usuário no Firestore
         function getUserData(uid) {
+            console.log("Buscando dados para UID:", uid);
+            
             db.collection("usuarios").doc(uid).get()
                 .then((doc) => {
                     if (doc.exists) {
                         const userData = doc.data();
+                        console.log("Dados do usuário:", userData);
                         showUserPanel(userData);
                     } else {
                         // Documento não encontrado
                         console.error("Documento do usuário não encontrado");
+                        showToast("Dados do usuário não encontrados", "error");
                         logout();
                     }
                 })
                 .catch((error) => {
                     console.error("Erro ao buscar dados do usuário:", error);
+                    showToast("Erro ao carregar dados do usuário", "error");
                     logout();
                 });
         }
@@ -347,6 +574,8 @@
         // Função para mostrar o painel do usuário
         function showUserPanel(userData) {
             loading.style.display = 'none';
+            loginButton.disabled = false;
+            loginButton.innerHTML = '<span>Entrar</span> <i class="fas fa-sign-in-alt"></i>';
             loginContainer.style.display = 'none';
             userPanel.style.display = 'block';
             
@@ -363,15 +592,23 @@
             // Status da assinatura
             const statusValue = document.getElementById('statusValue');
             const statusDescription = document.getElementById('statusDescription');
+            
             if (userData.status === 'ativo') {
                 statusValue.textContent = 'Ativa';
                 statusValue.className = 'status status-active';
                 statusDescription.textContent = 'Sua assinatura está ativa e seus benefícios disponíveis';
-            } else {
+            } else if (userData.status === 'inativo') {
                 statusValue.textContent = 'Inativa';
-                statusValue.style.backgroundColor = 'rgba(220, 53, 69, 0.2)';
-                statusValue.style.color = 'var(--danger)';
+                statusValue.className = 'status status-inactive';
                 statusDescription.textContent = 'Sua assinatura está inativa. Entre em contato para regularizar.';
+            } else if (userData.status === 'pendente') {
+                statusValue.textContent = 'Pendente';
+                statusValue.className = 'status status-warning';
+                statusDescription.textContent = 'Sua assinatura está pendente de ativação.';
+            } else {
+                statusValue.textContent = userData.status || 'Desconhecido';
+                statusValue.className = 'status status-inactive';
+                statusDescription.textContent = 'Status desconhecido. Entre em contato com o suporte.';
             }
             
             // Equipamentos
@@ -380,9 +617,17 @@
             
             if (userData.equipments && userData.equipments.length > 0) {
                 userData.equipments.forEach(equipment => {
-                    const equipmentItem = document.createElement('p');
-                    equipmentItem.innerHTML = `<strong>${equipment.tipo ? equipment.tipo.charAt(0).toUpperCase() + equipment.tipo.slice(1) : 'Equipamento'}</strong>: ${equipment.marca || ''} ${equipment.modelo || ''}`;
-                    equipmentList.appendChild(equipmentItem);
+                    const equipmentCard = document.createElement('div');
+                    equipmentCard.className = 'equipment-card';
+                    
+                    equipmentCard.innerHTML = `
+                        <p><strong>${equipment.tipo ? equipment.tipo.charAt(0).toUpperCase() + equipment.tipo.slice(1) : 'Equipamento'}</strong></p>
+                        <p>Marca: ${equipment.marca || 'Não informada'}</p>
+                        <p>Modelo: ${equipment.modelo || 'Não informado'}</p>
+                        ${equipment.numeroSerie ? `<p>N/S: ${equipment.numeroSerie}</p>` : ''}
+                    `;
+                    
+                    equipmentList.appendChild(equipmentCard);
                 });
             } else {
                 equipmentList.innerHTML = '<p>Nenhum equipamento cadastrado.</p>';
@@ -397,8 +642,10 @@
                 loginForm.reset();
                 errorMessage.style.display = 'none';
                 loading.style.display = 'none';
+                showToast("Logout realizado com sucesso", "success");
             }).catch((error) => {
                 console.error("Erro ao fazer logout:", error);
+                showToast("Erro ao fazer logout", "error");
             });
         }
 
@@ -407,6 +654,9 @@
             if (!cpf) return 'Não informado';
             // Remove caracteres não numéricos
             cpf = cpf.replace(/\D/g, '');
+            
+            if (cpf.length !== 11) return cpf; // Retorna original se não tiver 11 dígitos
+            
             return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
         }
 
@@ -427,19 +677,27 @@
         function formatarData(dataString) {
             if (!dataString) return '--/--/----';
             
-            // Se for um timestamp do Firestore
-            if (typeof dataString.toDate === 'function') {
-                const data = dataString.toDate();
+            try {
+                // Se for um timestamp do Firestore
+                if (typeof dataString.toDate === 'function') {
+                    const data = dataString.toDate();
+                    return data.toLocaleDateString('pt-BR');
+                }
+                
+                // Se for uma string de data
+                const data = new Date(dataString);
+                if (isNaN(data.getTime())) {
+                    return 'Data inválida';
+                }
                 return data.toLocaleDateString('pt-BR');
-            }
-            
-            // Se for uma string de data
-            const data = new Date(dataString);
-            if (isNaN(data.getTime())) {
+            } catch (error) {
+                console.error("Erro ao formatar data:", error, dataString);
                 return 'Data inválida';
             }
-            return data.toLocaleDateString('pt-BR');
         }
+
+        // Debug: Verificar se o Firebase foi inicializado corretamente
+        console.log("Firebase inicializado:", firebase.apps.length > 0);
     </script>
 </body>
 </html>
