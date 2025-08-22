@@ -47,40 +47,49 @@
         header {
             text-align: center;
             margin-bottom: 30px;
-            padding: 20px;
+            padding: 15px 20px;
             background-color: var(--light);
             color: var(--secondary);
-            border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             position: relative;
+            width: 100%;
+            left: 0;
+            right: 0;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
         h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
             color: var(--primary);
         }
         
         .logo {
             font-weight: bold;
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: var(--primary);
         }
         
         .nav-menu {
             display: flex;
             justify-content: center;
-            margin-top: 15px;
-            gap: 20px;
+            margin-top: 12px;
+            gap: 15px;
         }
         
         .nav-link {
             color: var(--primary);
             text-decoration: none;
             font-weight: 500;
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 4px;
             transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
         
         .nav-link:hover {
@@ -268,7 +277,7 @@
             }
             
             h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
             
             .consultation-box, .result-box, .email-info {
@@ -306,20 +315,20 @@
         
         @media (max-width: 480px) {
             header {
-                padding: 15px;
+                padding: 12px 15px;
             }
             
             h1 {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
             
             .logo {
-                font-size: 2rem;
+                font-size: 1.7rem;
             }
             
             .nav-menu {
                 flex-direction: column;
-                gap: 10px;
+                gap: 8px;
             }
             
             .consultation-box, .result-box, .email-info {
@@ -348,16 +357,18 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
+    <header>
+        <div class="header-container">
             <h1><span class="logo">BIX</span> - Painel Administrativo</h1>
             <p>Verifique o status do seu cadastro e equipamentos</p>
             
             <nav class="nav-menu">
                 <a href="index.html" class="nav-link">Início</a>
             </nav>
-        </header>
-        
+        </div>
+    </header>
+    
+    <div class="container">
         <div class="consultation-box">
             <h2 class="section-title">Consultar Cadastro</h2>
             <p>Digite seu CPF para consultar seu cadastro em nosso sistema.</p>
