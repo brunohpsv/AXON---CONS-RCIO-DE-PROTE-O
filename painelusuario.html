@@ -3,421 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - BIXX</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Adicionando Firebase SDK -->
+    <title>Axon - Painel do Usuário</title>
+    <!-- Firebase App e SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    
     <style>
-        :root {
-            --primary: #8B0000;
-            --primary-dark: #6D0000;
-            --secondary: #2D2D2D;
-            --light: #FFFFFF;
-            --dark: #161616;
-            --gray: #F5F5F5;
-            --success: #28a745;
-            --danger: #dc3545;
-            --warning: #ffc107;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            background-color: var(--gray);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            transition: var(--transition);
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
         }
-
+        
         .container {
-            width: 100%;
-            max-width: 400px;
-            animation: fadeIn 0.5s ease;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .logo {
+        
+        header {
+            background-color: #4285F4;
+            color: white;
+            padding: 1rem;
             text-align: center;
             margin-bottom: 2rem;
-            color: var(--primary);
-            font-size: 2.5rem;
-            font-weight: 800;
-            cursor: default;
-            user-select: none;
+            border-radius: 8px;
         }
-
+        
         .card {
-            background-color: var(--light);
-            border-radius: 12px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 2rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+            margin-bottom: 2rem;
         }
-
-        .card:hover {
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        
+        h1, h2, h3 {
+            margin-bottom: 1rem;
         }
-
-        h2 {
-            color: var(--secondary);
-            margin-bottom: 1.5rem;
-            text-align: center;
-            font-weight: 600;
-        }
-
+        
         .form-group {
             margin-bottom: 1.5rem;
-            position: relative;
         }
-
+        
         label {
             display: block;
             margin-bottom: 0.5rem;
-            color: var(--secondary);
-            font-weight: 500;
+            font-weight: 600;
         }
-
-        input {
+        
+        input[type="email"],
+        input[type="password"],
+        input[type="text"] {
             width: 100%;
             padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: var(--transition);
+            border-radius: 4px;
+            font-size: 16px;
         }
-
-        input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(139, 0, 0, 0.2);
-        }
-
-        .input-with-icon {
-            position: relative;
-        }
-
-        .input-icon {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #777;
-            cursor: pointer;
-        }
-
+        
         button {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary);
+            background-color: #4285F4;
             color: white;
             border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
-
-        button:hover {
-            background-color: var(--primary-dark);
-        }
-
-        button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-
-        .error {
-            color: var(--danger);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-            display: none;
-            animation: shake 0.3s ease;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        .success {
-            color: var(--success);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-            display: none;
-        }
-
-        .user-panel {
-            display: none;
-            width: 100%;
-            max-width: 1000px;
-            animation: scaleIn 0.5s ease;
-        }
-
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .header {
-            background-color: var(--primary);
-            color: white;
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 12px 12px 0 0;
-        }
-
-        .user-info {
-            background-color: var(--light);
-            padding: 1.5rem;
-            border-radius: 0 0 12px 12px;
-            box-shadow: var(--shadow);
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .info-card {
-            background-color: var(--gray);
-            padding: 1rem;
-            border-radius: 8px;
-            transition: var(--transition);
-        }
-
-        .info-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .info-card h3 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .status-active {
-            background-color: rgba(40, 167, 69, 0.2);
-            color: var(--success);
-        }
-
-        .status-inactive {
-            background-color: rgba(220, 53, 69, 0.2);
-            color: var(--danger);
-        }
-
-        .status-warning {
-            background-color: rgba(255, 193, 7, 0.2);
-            color: var(--warning);
-        }
-
-        .btn-logout {
-            background-color: var(--danger);
-            max-width: 120px;
-            margin-top: 0;
-        }
-
-        .btn-logout:hover {
-            background-color: #bd2130;
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-            margin-top: 1rem;
-            color: var(--primary);
-        }
-
-        .equipment-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .equipment-card {
-            background-color: white;
-            padding: 0.75rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
             padding: 12px 20px;
-            border-radius: 6px;
-            color: white;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transform: translateX(100%);
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .toast.show {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        .toast.success {
-            background-color: var(--success);
-        }
-
-        .toast.error {
-            background-color: var(--danger);
-        }
-
-        .password-toggle {
+            border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
         }
-
-        @media (max-width: 768px) {
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .header {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-            
-            .btn-logout {
-                max-width: 100%;
-            }
+        
+        button:hover {
+            background-color: #3367D6;
+        }
+        
+        .error {
+            color: #d93025;
+            margin-top: 0.5rem;
+            font-size: 14px;
+        }
+        
+        .success {
+            color: #0f9d58;
+            margin-top: 0.5rem;
+            font-size: 14px;
+        }
+        
+        .user-data {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .data-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #4285F4;
+        }
+        
+        .data-item h4 {
+            color: #4285F4;
+            margin-bottom: 0.5rem;
+        }
+        
+        .logout-btn {
+            background-color: #d93025;
+            margin-top: 2rem;
+        }
+        
+        .logout-btn:hover {
+            background-color: #b31412;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #4285F4;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <!-- Toast para notificações -->
-    <div class="toast" id="toast"></div>
-
-    <!-- Tela de Login -->
-    <div class="container" id="loginContainer">
-        <div class="logo">BIXX</div>
-        <div class="card">
-            <h2>Login do Assinante</h2>
-            <form id="loginForm">
+    <div class="container">
+        <header>
+            <h1>Axon - Painel do Usuário</h1>
+        </header>
+        
+        <!-- Tela de Login -->
+        <div id="login-screen" class="card">
+            <h2>Login</h2>
+            <form id="login-form">
                 <div class="form-group">
                     <label for="email">E-mail</label>
-                    <input type="email" id="email" required placeholder="Seu e-mail cadastrado" autocomplete="email">
+                    <input type="email" id="email" required placeholder="Seu e-mail">
                 </div>
+                
                 <div class="form-group">
                     <label for="password">Senha</label>
-                    <div class="input-with-icon">
-                        <input type="password" id="password" required placeholder="Sua senha" autocomplete="current-password">
-                        <i class="input-icon password-toggle fas fa-eye" id="passwordToggle"></i>
-                    </div>
+                    <input type="password" id="password" required placeholder="Sua senha">
                 </div>
-                <div class="error" id="errorMessage">E-mail ou senha incorretos</div>
-                <div class="success" id="successMessage">Login realizado com sucesso!</div>
-                <div class="loading" id="loading">
-                    <i class="fas fa-spinner fa-spin"></i> Carregando...
-                </div>
-                <button type="submit" id="loginButton">
-                    <span>Entrar</span>
-                    <i class="fas fa-sign-in-alt"></i>
-                </button>
+                
+                <button type="submit">Entrar</button>
+                
+                <div id="login-error" class="error hidden"></div>
+                <div id="login-success" class="success hidden"></div>
             </form>
         </div>
-    </div>
-
-    <!-- Painel do Usuário (inicialmente oculto) -->
-    <div class="user-panel" id="userPanel">
-        <div class="header">
-            <h1><i class="fas fa-user-shield"></i> BIXX - Painel do Assinante</h1>
-            <button class="btn-logout" onclick="logout()">
-                <i class="fas fa-sign-out-alt"></i> Sair
-            </button>
+        
+        <!-- Tela de Carregamento -->
+        <div id="loading-screen" class="card hidden">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Carregando dados do usuário...</p>
+            </div>
         </div>
         
-        <div class="user-info">
-            <h2 id="userName"><i class="fas fa-user"></i> Olá, Usuário!</h2>
+        <!-- Painel do Usuário -->
+        <div id="user-panel" class="card hidden">
+            <h2>Bem-vindo ao seu painel!</h2>
+            <p>Abaixo estão os seus dados cadastrais:</p>
             
-            <div class="info-grid">
-                <div class="info-card">
-                    <h3><i class="fas fa-badge-check"></i> Status da Assinatura</h3>
-                    <p><span class="status status-active" id="statusValue">Ativa</span></p>
-                    <p id="statusDescription">Sua assinatura está ativa e seus benefícios disponíveis</p>
-                </div>
-                
-                <div class="info-card">
-                    <h3><i class="fas fa-calendar-alt"></i> Período de Carência</h3>
-                    <p>Início: <strong id="startCarencia">--/--/----</strong></p>
-                    <p>Término: <strong id="endCarencia">--/--/----</strong></p>
-                </div>
-                
-                <div class="info-card">
-                    <h3><i class="fas fa-id-card"></i> Dados Pessoais</h3>
-                    <p><strong>CPF:</strong> <span id="userCpf">---.---.--.-</span></p>
-                    <p><strong>Email:</strong> <span id="userEmail">usuario@email.com</span></p>
-                    <p><strong>Telefone:</strong> <span id="userPhone">(--) -------.####</span></p>
-                </div>
-                
-                <div class="info-card">
-                    <h3><i class="fas fa-file-contract"></i> Informações do Contrato</h3>
-                    <p><strong>Data de Contratação:</strong> <span id="contractDate">--/--/----</span></p>
-                    <p><strong>Valor Total:</strong> <span id="totalPrice">R$ --,--</span></p>
-                </div>
+            <div id="user-data" class="user-data">
+                <!-- Os dados do usuário serão inseridos aqui via JavaScript -->
             </div>
             
-            <div class="info-card">
-                <h3><i class="fas fa-laptop"></i> Equipamentos Protegidos</h3>
-                <div class="equipment-grid" id="equipmentList">
-                    <p>Carregando equipamentos...</p>
-                </div>
-            </div>
-            
-            <div class="info-card">
-                <h3><i class="fas fa-info-circle"></i> Informações Importantes</h3>
-                <p><i class="fas fa-envelope"></i> Seus boletos são enviados mensalmente para o e-mail cadastrado.</p>
-                <p><i class="fas fa-headset"></i> Para solicitar serviços, envie e-mail para <strong>bixX.corp@outlook.com.br</strong> com assunto correspondente ao serviço desejado.</p>
-            </div>
+            <button id="logout-btn" class="logout-btn">Sair</button>
         </div>
     </div>
 
@@ -431,273 +208,151 @@
             messagingSenderId: "403077673595",
             appId: "1:403077673595:web:a4cb91bdf662f8d8e9e8de"
         };
-
+        
         // Inicializar Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
-
-        // Elementos da interface
-        const loginContainer = document.getElementById('loginContainer');
-        const userPanel = document.getElementById('userPanel');
-        const loginForm = document.getElementById('loginForm');
-        const errorMessage = document.getElementById('errorMessage');
-        const successMessage = document.getElementById('successMessage');
-        const loading = document.getElementById('loading');
-        const loginButton = document.getElementById('loginButton');
-        const passwordToggle = document.getElementById('passwordToggle');
-        const toast = document.getElementById('toast');
-
-        // Mostrar/ocultar senha
-        passwordToggle.addEventListener('click', function() {
-            const passwordInput = document.getElementById('password');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                passwordToggle.classList.remove('fa-eye');
-                passwordToggle.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                passwordToggle.classList.remove('fa-eye-slash');
-                passwordToggle.classList.add('fa-eye');
-            }
-        });
-
-        // Função para mostrar notificação
-        function showToast(message, type = 'success') {
-            toast.textContent = message;
-            toast.className = `toast ${type} show`;
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        // Verificar se o usuário já está logado
-        auth.onAuthStateChanged((user) => {
+        
+        // Elementos da DOM
+        const loginScreen = document.getElementById('login-screen');
+        const loadingScreen = document.getElementById('loading-screen');
+        const userPanel = document.getElementById('user-panel');
+        const loginForm = document.getElementById('login-form');
+        const loginError = document.getElementById('login-error');
+        const loginSuccess = document.getElementById('login-success');
+        const userDataContainer = document.getElementById('user-data');
+        const logoutBtn = document.getElementById('logout-btn');
+        
+        // Verificar estado de autenticação
+        auth.onAuthStateChanged(user => {
             if (user) {
-                // Usuário está logado, buscar dados no Firestore
-                console.log("Usuário logado:", user.uid);
-                getUserData(user.uid);
+                // Usuário está logado
+                showLoadingScreen();
+                fetchUserData(user.uid);
             } else {
                 // Usuário não está logado
-                console.log("Nenhum usuário logado");
-                loginContainer.style.display = 'block';
-                userPanel.style.display = 'none';
+                showLoginScreen();
             }
         });
-
-        // Evento de login
-        loginForm.addEventListener('submit', function(e) {
+        
+        // Processar formulário de login
+        loginForm.addEventListener('submit', e => {
             e.preventDefault();
             
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
-            // Validação básica
-            if (!email || !password) {
-                errorMessage.textContent = "Por favor, preencha todos os campos";
-                errorMessage.style.display = 'block';
-                return;
-            }
-            
-            // Mostrar loading e desabilitar botão
-            loading.style.display = 'block';
-            errorMessage.style.display = 'none';
-            loginButton.disabled = true;
-            loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
+            showLoadingScreen();
             
             // Fazer login com Firebase Auth
             auth.signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
+                .then(userCredential => {
                     // Login bem-sucedido
-                    const user = userCredential.user;
-                    console.log("Login bem-sucedido:", user.uid);
-                    successMessage.style.display = 'block';
-                    showToast("Login realizado com sucesso!", "success");
-                    getUserData(user.uid);
+                    loginError.classList.add('hidden');
+                    loginSuccess.textContent = 'Login realizado com sucesso!';
+                    loginSuccess.classList.remove('hidden');
                 })
-                .catch((error) => {
-                    // Login falhou
-                    loading.style.display = 'none';
-                    loginButton.disabled = false;
-                    loginButton.innerHTML = '<span>Entrar</span> <i class="fas fa-sign-in-alt"></i>';
-                    
-                    let errorMsg = "Erro ao fazer login";
-                    switch (error.code) {
-                        case 'auth/invalid-email':
-                            errorMsg = "E-mail inválido";
-                            break;
-                        case 'auth/user-disabled':
-                            errorMsg = "Esta conta foi desativada";
-                            break;
-                        case 'auth/user-not-found':
-                            errorMsg = "Usuário não encontrado";
-                            break;
-                        case 'auth/wrong-password':
-                            errorMsg = "Senha incorreta";
-                            break;
-                        default:
-                            errorMsg = error.message;
-                    }
-                    
-                    errorMessage.textContent = errorMsg;
-                    errorMessage.style.display = 'block';
-                    showToast(errorMsg, "error");
-                    console.error("Erro de autenticação:", error);
+                .catch(error => {
+                    // Tratar erros de login
+                    showLoginScreen();
+                    loginSuccess.classList.add('hidden');
+                    loginError.textContent = getErrorMessage(error.code);
+                    loginError.classList.remove('hidden');
                 });
         });
-
-        // Função para buscar dados do usuário no Firestore
-        function getUserData(uid) {
-            console.log("Buscando dados para UID:", uid);
-            
-            db.collection("usuarios").doc(uid).get()
-                .then((doc) => {
+        
+        // Processar logout
+        logoutBtn.addEventListener('click', () => {
+            auth.signOut()
+                .then(() => {
+                    showLoginScreen();
+                })
+                .catch(error => {
+                    console.error('Erro ao fazer logout:', error);
+                });
+        });
+        
+        // Buscar dados do usuário no Firestore
+        function fetchUserData(uid) {
+            db.collection('users').doc(uid).get()
+                .then(doc => {
                     if (doc.exists) {
-                        const userData = doc.data();
-                        console.log("Dados do usuário:", userData);
-                        showUserPanel(userData);
+                        displayUserData(doc.data());
                     } else {
-                        // Documento não encontrado
-                        console.error("Documento do usuário não encontrado");
-                        showToast("Dados do usuário não encontrados", "error");
-                        logout();
+                        showLoginScreen();
+                        loginError.textContent = 'Dados do usuário não encontrados.';
+                        loginError.classList.remove('hidden');
                     }
                 })
-                .catch((error) => {
-                    console.error("Erro ao buscar dados do usuário:", error);
-                    showToast("Erro ao carregar dados do usuário", "error");
-                    logout();
+                .catch(error => {
+                    showLoginScreen();
+                    loginError.textContent = 'Erro ao buscar dados: ' + error.message;
+                    loginError.classList.remove('hidden');
                 });
         }
-
-        // Função para mostrar o painel do usuário
-        function showUserPanel(userData) {
-            loading.style.display = 'none';
-            loginButton.disabled = false;
-            loginButton.innerHTML = '<span>Entrar</span> <i class="fas fa-sign-in-alt"></i>';
-            loginContainer.style.display = 'none';
-            userPanel.style.display = 'block';
+        
+        // Exibir dados do usuário
+        function displayUserData(userData) {
+            userDataContainer.innerHTML = '';
             
-            // Preencher dados do usuário
-            document.getElementById('userName').textContent = `Olá, ${userData.nome || 'Usuário'}!`;
-            document.getElementById('userCpf').textContent = userData.cpf ? formatarCPF(userData.cpf) : 'Não informado';
-            document.getElementById('userPhone').textContent = userData.telefone ? formatarTelefone(userData.telefone) : 'Não informado';
-            document.getElementById('userEmail').textContent = userData.email || 'Não informado';
-            document.getElementById('contractDate').textContent = userData.dataContratacao ? formatarData(userData.dataContratacao) : '--/--/----';
-            document.getElementById('totalPrice').textContent = userData.price && userData.price.total ? `R$ ${userData.price.total.toFixed(2).replace('.', ',')}` : 'R$ --,--';
-            document.getElementById('startCarencia').textContent = userData.inicioCarencia ? formatarData(userData.inicioCarencia) : '--/--/----';
-            document.getElementById('endCarencia').textContent = userData.fimCarencia ? formatarData(userData.fimCarencia) : '--/--/----';
-            
-            // Status da assinatura
-            const statusValue = document.getElementById('statusValue');
-            const statusDescription = document.getElementById('statusDescription');
-            
-            if (userData.status === 'ativo') {
-                statusValue.textContent = 'Ativa';
-                statusValue.className = 'status status-active';
-                statusDescription.textContent = 'Sua assinatura está ativa e seus benefícios disponíveis';
-            } else if (userData.status === 'inativo') {
-                statusValue.textContent = 'Inativa';
-                statusValue.className = 'status status-inactive';
-                statusDescription.textContent = 'Sua assinatura está inativa. Entre em contato para regularizar.';
-            } else if (userData.status === 'pendente') {
-                statusValue.textContent = 'Pendente';
-                statusValue.className = 'status status-warning';
-                statusDescription.textContent = 'Sua assinatura está pendente de ativação.';
-            } else {
-                statusValue.textContent = userData.status || 'Desconhecido';
-                statusValue.className = 'status status-inactive';
-                statusDescription.textContent = 'Status desconhecido. Entre em contato com o suporte.';
-            }
-            
-            // Equipamentos
-            const equipmentList = document.getElementById('equipmentList');
-            equipmentList.innerHTML = ''; // Limpar lista
-            
-            if (userData.equipments && userData.equipments.length > 0) {
-                userData.equipments.forEach(equipment => {
-                    const equipmentCard = document.createElement('div');
-                    equipmentCard.className = 'equipment-card';
-                    
-                    equipmentCard.innerHTML = `
-                        <p><strong>${equipment.tipo ? equipment.tipo.charAt(0).toUpperCase() + equipment.tipo.slice(1) : 'Equipamento'}</strong></p>
-                        <p>Marca: ${equipment.marca || 'Não informada'}</p>
-                        <p>Modelo: ${equipment.modelo || 'Não informado'}</p>
-                        ${equipment.numeroSerie ? `<p>N/S: ${equipment.numeroSerie}</p>` : ''}
-                    `;
-                    
-                    equipmentList.appendChild(equipmentCard);
-                });
-            } else {
-                equipmentList.innerHTML = '<p>Nenhum equipamento cadastrado.</p>';
-            }
-        }
-
-        // Função de logout
-        function logout() {
-            auth.signOut().then(() => {
-                userPanel.style.display = 'none';
-                loginContainer.style.display = 'block';
-                loginForm.reset();
-                errorMessage.style.display = 'none';
-                loading.style.display = 'none';
-                showToast("Logout realizado com sucesso", "success");
-            }).catch((error) => {
-                console.error("Erro ao fazer logout:", error);
-                showToast("Erro ao fazer logout", "error");
-            });
-        }
-
-        // Funções de formatação
-        function formatarCPF(cpf) {
-            if (!cpf) return 'Não informado';
-            // Remove caracteres não numéricos
-            cpf = cpf.replace(/\D/g, '');
-            
-            if (cpf.length !== 11) return cpf; // Retorna original se não tiver 11 dígitos
-            
-            return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-        }
-
-        function formatarTelefone(telefone) {
-            if (!telefone) return 'Não informado';
-            // Remove caracteres não numéricos
-            telefone = telefone.replace(/\D/g, '');
-            
-            if (telefone.length === 11) {
-                return telefone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
-            } else if (telefone.length === 10) {
-                return telefone.replace(/(\d{2})(\d{4})(\d{4})/, "($1) $2-$3");
-            } else {
-                return telefone;
-            }
-        }
-
-        function formatarData(dataString) {
-            if (!dataString) return '--/--/----';
-            
-            try {
-                // Se for um timestamp do Firestore
-                if (typeof dataString.toDate === 'function') {
-                    const data = dataString.toDate();
-                    return data.toLocaleDateString('pt-BR');
-                }
+            // Adicionar cada campo de dados como um item
+            for (const [key, value] of Object.entries(userData)) {
+                const dataItem = document.createElement('div');
+                dataItem.className = 'data-item';
                 
-                // Se for uma string de data
-                const data = new Date(dataString);
-                if (isNaN(data.getTime())) {
-                    return 'Data inválida';
-                }
-                return data.toLocaleDateString('pt-BR');
-            } catch (error) {
-                console.error("Erro ao formatar data:", error, dataString);
-                return 'Data inválida';
+                const title = document.createElement('h4');
+                title.textContent = formatKey(key);
+                
+                const content = document.createElement('p');
+                content.textContent = value;
+                
+                dataItem.appendChild(title);
+                dataItem.appendChild(content);
+                userDataContainer.appendChild(dataItem);
             }
+            
+            showUserPanel();
         }
-
-        // Debug: Verificar se o Firebase foi inicializado corretamente
-        console.log("Firebase inicializado:", firebase.apps.length > 0);
+        
+        // Funções auxiliares para mostrar/ocultar telas
+        function showLoginScreen() {
+            loginScreen.classList.remove('hidden');
+            loadingScreen.classList.add('hidden');
+            userPanel.classList.add('hidden');
+            loginForm.reset();
+        }
+        
+        function showLoadingScreen() {
+            loginScreen.classList.add('hidden');
+            loadingScreen.classList.remove('hidden');
+            userPanel.classList.add('hidden');
+        }
+        
+        function showUserPanel() {
+            loginScreen.classList.add('hidden');
+            loadingScreen.classList.add('hidden');
+            userPanel.classList.remove('hidden');
+        }
+        
+        // Formatar chaves para exibição (ex: "firstName" vira "First Name")
+        function formatKey(key) {
+            const result = key.replace(/([A-Z])/g, ' $1');
+            return result.charAt(0).toUpperCase() + result.slice(1);
+        }
+        
+        // Traduzir códigos de erro do Firebase
+        function getErrorMessage(errorCode) {
+            const errorMessages = {
+                'auth/invalid-email': 'E-mail inválido.',
+                'auth/user-disabled': 'Usuário desativado.',
+                'auth/user-not-found': 'Usuário não encontrado.',
+                'auth/wrong-password': 'Senha incorreta.',
+                'auth/too-many-requests': 'Muitas tentativas. Tente novamente mais tarde.'
+            };
+            
+            return errorMessages[errorCode] || 'Erro ao fazer login. Tente novamente.';
+        }
     </script>
 </body>
 </html>
