@@ -31,12 +31,17 @@
         body {
             background-color: var(--gray);
             color: var(--secondary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
         .container {
-            max-width: 800px;
+            width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            flex: 1;
         }
         
         header {
@@ -61,12 +66,13 @@
             color: var(--primary);
         }
         
-        .consultation-box {
+        .consultation-box, .result-box {
             background-color: var(--light);
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             margin-bottom: 2rem;
+            width: 100%;
         }
         
         .form-group {
@@ -84,6 +90,7 @@
             padding: 0.8rem;
             border: 1px solid #ddd;
             border-radius: 4px;
+            font-size: 1rem;
         }
         
         .btn {
@@ -97,6 +104,7 @@
             font-weight: 600;
             cursor: pointer;
             margin-top: 1rem;
+            font-size: 1rem;
         }
         
         .btn:hover {
@@ -104,12 +112,7 @@
         }
         
         .result-box {
-            background-color: var(--light);
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             display: none;
-            margin-bottom: 2rem;
         }
         
         .result-header {
@@ -142,20 +145,21 @@
             color: var(--warning);
         }
         
-        .user-info, .coverage-info {
+        .user-info, .coverage-info, .equipment-info {
             margin-bottom: 1.5rem;
         }
         
         .info-group {
             margin-bottom: 0.8rem;
             display: flex;
+            flex-wrap: wrap;
         }
         
         .info-label {
             font-weight: 600;
             display: inline-block;
-            width: 150px;
-            min-width: 150px;
+            width: 120px;
+            min-width: 120px;
         }
         
         .equipment-list {
@@ -203,6 +207,7 @@
             margin-top: 2rem;
             color: #7f8c8d;
             font-size: 0.9rem;
+            padding: 1rem;
         }
 
         .section-title {
@@ -210,16 +215,81 @@
             margin-bottom: 1rem;
             border-bottom: 1px solid #eee;
             padding-bottom: 0.5rem;
+            font-size: 1.2rem;
         }
         
-        .json-data {
-            background-color: var(--gray);
-            padding: 1rem;
-            border-radius: 4px;
-            margin-top: 1.5rem;
-            font-family: monospace;
-            white-space: pre-wrap;
-            display: none;
+        /* Responsividade */
+        @media (min-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .consultation-box, .result-box {
+                padding: 2.5rem;
+            }
+            
+            .btn {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+            }
+            
+            .info-label {
+                width: 150px;
+                min-width: 150px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .container {
+                padding: 40px;
+            }
+            
+            .consultation-box, .result-box {
+                padding: 3rem;
+            }
+            
+            .info-label {
+                width: 180px;
+                min-width: 180px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .consultation-box, .result-box {
+                padding: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.1rem;
+            }
+            
+            .info-group {
+                flex-direction: column;
+            }
+            
+            .info-label {
+                width: 100%;
+                margin-bottom: 0.3rem;
+            }
         }
     </style>
 </head>
@@ -267,22 +337,6 @@
                     <span class="info-label">CPF:</span>
                     <span id="userCpf"></span>
                 </div>
-                <div class="info-group">
-                    <span class="info-label">E-mail:</span>
-                    <span id="userEmail"></span>
-                </div>
-                <div class="info-group">
-                    <span class="info-label">Telefone:</span>
-                    <span id="userPhone"></span>
-                </div>
-                <div class="info-group">
-                    <span class="info-label">Data de Nascimento:</span>
-                    <span id="userBirthdate"></span>
-                </div>
-                <div class="info-group">
-                    <span class="info-label">Endereço:</span>
-                    <span id="userAddress"></span>
-                </div>
             </div>
             
             <div class="equipment-info">
@@ -307,12 +361,6 @@
                     <span id="coverageEnd"></span>
                 </div>
             </div>
-            
-            <div class="json-data" id="jsonData">
-                <!-- Dados completos em JSON serão exibidos aqui -->
-            </div>
-            
-            <button id="showJsonBtn" class="btn" style="margin-top: 20px;">Mostrar Todos os Dados</button>
         </div>
         
         <footer>
@@ -344,16 +392,10 @@
         const statusBadge = document.getElementById('statusBadge');
         const userName = document.getElementById('userName');
         const userCpf = document.getElementById('userCpf');
-        const userEmail = document.getElementById('userEmail');
-        const userPhone = document.getElementById('userPhone');
-        const userBirthdate = document.getElementById('userBirthdate');
-        const userAddress = document.getElementById('userAddress');
         const equipmentList = document.getElementById('equipmentList');
         const coverageStatus = document.getElementById('coverageStatus');
         const coverageStart = document.getElementById('coverageStart');
         const coverageEnd = document.getElementById('coverageEnd');
-        const jsonData = document.getElementById('jsonData');
-        const showJsonBtn = document.getElementById('showJsonBtn');
         
         // Variável para armazenar os dados completos do usuário
         let userDataComplete = null;
@@ -390,7 +432,6 @@
             loadingElement.style.display = 'block';
             errorMessage.style.display = 'none';
             resultBox.style.display = 'none';
-            jsonData.style.display = 'none';
             
             // Consultar Firestore - CPF sem formatação (apenas números)
             db.collection('usuarios')
@@ -429,34 +470,11 @@
                 });
         });
         
-        // Mostrar todos os dados em JSON
-        showJsonBtn.addEventListener('click', function() {
-            if (userDataComplete) {
-                jsonData.textContent = JSON.stringify(userDataComplete, null, 2);
-                jsonData.style.display = 'block';
-                jsonData.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-        
         // Exibir dados do usuário
         function displayUserData(userData) {
             // Informações básicas
             userName.textContent = userData.nome || 'Não informado';
             userCpf.textContent = userData.cpf || 'Não informado';
-            userEmail.textContent = userData.email || 'Não informado';
-            userPhone.textContent = userData.telefone || 'Não informado';
-            userBirthdate.textContent = formatDate(userData.nascimento) || 'Não informado';
-            
-            // Formatar endereço completo
-            let endereco = 'Não informado';
-            if (userData.endereco) {
-                if (typeof userData.endereco === 'string') {
-                    endereco = userData.endereco;
-                } else {
-                    endereco = `${userData.endereco.logradouro || ''}, ${userData.endereco.numero || ''} - ${userData.endereco.bairro || ''}, ${userData.endereco.cidade || ''} - ${userData.endereco.estado || ''}, ${userData.endereco.cep || ''}`;
-                }
-            }
-            userAddress.textContent = endereco;
             
             // Status
             const status = userData.status || 'inativo';
