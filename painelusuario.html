@@ -6,6 +6,12 @@
     <title>Login - BIXX</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Adicionando Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
     <style>
         :root {
             --primary: #8B0000;
@@ -169,6 +175,12 @@
             background-color: #bd2130;
         }
 
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
         @media (max-width: 768px) {
             .info-grid {
                 grid-template-columns: 1fr;
@@ -192,6 +204,9 @@
                     <input type="password" id="password" required placeholder="Sua senha">
                 </div>
                 <div class="error" id="errorMessage">E-mail ou senha incorretos</div>
+                <div class="loading" id="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Carregando...
+                </div>
                 <button type="submit">Entrar</button>
             </form>
         </div>
@@ -205,39 +220,39 @@
         </div>
         
         <div class="user-info">
-            <h2 id="userName">Olá, Justino Ferreira Cardoso!</h2>
+            <h2 id="userName">Olá, Usuário!</h2>
             
             <div class="info-grid">
                 <div class="info-card">
                     <h3>Status da Assinatura</h3>
                     <p><span class="status status-active" id="statusValue">Ativa</span></p>
-                    <p>Sua assinatura está ativa e seus benefícios disponíveis</p>
+                    <p id="statusDescription">Sua assinatura está ativa e seus benefícios disponíveis</p>
                 </div>
                 
                 <div class="info-card">
                     <h3>Período de Carência</h3>
-                    <p>Início: <strong id="startCarencia">20/08/2025</strong></p>
-                    <p>Término: <strong id="endCarencia">20/02/2026</strong></p>
+                    <p>Início: <strong id="startCarencia">--/--/----</strong></p>
+                    <p>Término: <strong id="endCarencia">--/--/----</strong></p>
                 </div>
                 
                 <div class="info-card">
                     <h3>Dados Pessoais</h3>
-                    <p><strong>CPF:</strong> <span id="userCpf">758.963.258-41</span></p>
-                    <p><strong>Email:</strong> <span id="userEmail">justino@gmail.com</span></p>
-                    <p><strong>Telefone:</strong> <span id="userPhone">(62) 98745-6321</span></p>
+                    <p><strong>CPF:</strong> <span id="userCpf">---.---.--.-</span></p>
+                    <p><strong>Email:</strong> <span id="userEmail">usuario@email.com</span></p>
+                    <p><strong>Telefone:</strong> <span id="userPhone">(--) -------.####</span></p>
                 </div>
                 
                 <div class="info-card">
                     <h3>Informações do Contrato</h3>
-                    <p><strong>Data de Contratação:</strong> <span id="contractDate">18/08/2025</span></p>
-                    <p><strong>Valor Total:</strong> <span id="totalPrice">R$ 120,00</span></p>
+                    <p><strong>Data de Contratação:</strong> <span id="contractDate">--/--/----</span></p>
+                    <p><strong>Valor Total:</strong> <span id="totalPrice">R$ --,--</span></p>
                 </div>
             </div>
             
             <div class="info-card">
                 <h3>Equipamentos Protegidos</h3>
                 <div id="equipmentList">
-                    <!-- Equipamentos serão inseridos via JavaScript -->
+                    <p>Carregando equipamentos...</p>
                 </div>
             </div>
             
@@ -250,30 +265,39 @@
     </div>
 
     <script>
-        // Dados de usuários válidos (em um sistema real, isso viria de um backend)
-        const validUsers = {
-            "justino@gmail.com": {
-                password: "123456",
-                nome: "Justino Ferreira Cardoso",
-                cpf: "75896325841",
-                telefone: "62987456321",
-                email: "justino@gmail.com",
-                status: "ativo",
-                inicioCarencia: "2025-08-20",
-                fimCarencia: "2026-02-20",
-                dataContratacao: "2025-08-18",
-                price: { total: 120 },
-                equipments: [
-                    { tipo: "tablet", marca: "aplle", modelo: "rs max1", numeroSerie: "", valor: 0 }
-                ]
-            }
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
+            authDomain: "axon-ec708.firebaseapp.com",
+            projectId: "axon-ec708",
+            storageBucket: "axon-ec708.firebasestorage.app",
+            messagingSenderId: "403077673595",
+            appId: "1:403077673595:web:a4cb91bdf662f8d8e9e8de"
         };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
         // Elementos da interface
         const loginContainer = document.getElementById('loginContainer');
         const userPanel = document.getElementById('userPanel');
         const loginForm = document.getElementById('loginForm');
         const errorMessage = document.getElementById('errorMessage');
+        const loading = document.getElementById('loading');
+
+        // Verificar se o usuário já está logado
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // Usuário está logado, buscar dados no Firestore
+                getUserData(user.uid);
+            } else {
+                // Usuário não está logado
+                loginContainer.style.display = 'block';
+                userPanel.style.display = 'none';
+            }
+        });
 
         // Evento de login
         loginForm.addEventListener('submit', function(e) {
@@ -282,65 +306,138 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
-            if (validUsers[email] && validUsers[email].password === password) {
-                // Login bem-sucedido
-                showUserPanel(validUsers[email]);
-            } else {
-                // Login falhou
-                errorMessage.style.display = 'block';
-            }
+            // Mostrar loading
+            loading.style.display = 'block';
+            errorMessage.style.display = 'none';
+            
+            // Fazer login com Firebase Auth
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Login bem-sucedido
+                    const user = userCredential.user;
+                    getUserData(user.uid);
+                })
+                .catch((error) => {
+                    // Login falhou
+                    loading.style.display = 'none';
+                    errorMessage.style.display = 'block';
+                    console.error("Erro de autenticação:", error);
+                });
         });
+
+        // Função para buscar dados do usuário no Firestore
+        function getUserData(uid) {
+            db.collection("usuarios").doc(uid).get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        const userData = doc.data();
+                        showUserPanel(userData);
+                    } else {
+                        // Documento não encontrado
+                        console.error("Documento do usuário não encontrado");
+                        logout();
+                    }
+                })
+                .catch((error) => {
+                    console.error("Erro ao buscar dados do usuário:", error);
+                    logout();
+                });
+        }
 
         // Função para mostrar o painel do usuário
         function showUserPanel(userData) {
+            loading.style.display = 'none';
             loginContainer.style.display = 'none';
             userPanel.style.display = 'block';
             
             // Preencher dados do usuário
-            document.getElementById('userName').textContent = `Olá, ${userData.nome}!`;
-            document.getElementById('userCpf').textContent = formatarCPF(userData.cpf);
-            document.getElementById('userPhone').textContent = formatarTelefone(userData.telefone);
-            document.getElementById('userEmail').textContent = userData.email;
-            document.getElementById('contractDate').textContent = formatarData(userData.dataContratacao);
-            document.getElementById('totalPrice').textContent = `R$ ${userData.price.total.toFixed(2).replace('.', ',')}`;
-            document.getElementById('startCarencia').textContent = formatarData(userData.inicioCarencia);
-            document.getElementById('endCarencia').textContent = formatarData(userData.fimCarencia);
+            document.getElementById('userName').textContent = `Olá, ${userData.nome || 'Usuário'}!`;
+            document.getElementById('userCpf').textContent = userData.cpf ? formatarCPF(userData.cpf) : 'Não informado';
+            document.getElementById('userPhone').textContent = userData.telefone ? formatarTelefone(userData.telefone) : 'Não informado';
+            document.getElementById('userEmail').textContent = userData.email || 'Não informado';
+            document.getElementById('contractDate').textContent = userData.dataContratacao ? formatarData(userData.dataContratacao) : '--/--/----';
+            document.getElementById('totalPrice').textContent = userData.price && userData.price.total ? `R$ ${userData.price.total.toFixed(2).replace('.', ',')}` : 'R$ --,--';
+            document.getElementById('startCarencia').textContent = userData.inicioCarencia ? formatarData(userData.inicioCarencia) : '--/--/----';
+            document.getElementById('endCarencia').textContent = userData.fimCarencia ? formatarData(userData.fimCarencia) : '--/--/----';
             
             // Status da assinatura
             const statusValue = document.getElementById('statusValue');
+            const statusDescription = document.getElementById('statusDescription');
             if (userData.status === 'ativo') {
                 statusValue.textContent = 'Ativa';
                 statusValue.className = 'status status-active';
+                statusDescription.textContent = 'Sua assinatura está ativa e seus benefícios disponíveis';
+            } else {
+                statusValue.textContent = 'Inativa';
+                statusValue.style.backgroundColor = 'rgba(220, 53, 69, 0.2)';
+                statusValue.style.color = 'var(--danger)';
+                statusDescription.textContent = 'Sua assinatura está inativa. Entre em contato para regularizar.';
             }
             
             // Equipamentos
             const equipmentList = document.getElementById('equipmentList');
-            userData.equipments.forEach(equipment => {
-                const equipmentItem = document.createElement('p');
-                equipmentItem.innerHTML = `<strong>${equipment.tipo.charAt(0).toUpperCase() + equipment.tipo.slice(1)}</strong>: ${equipment.marca} ${equipment.modelo}`;
-                equipmentList.appendChild(equipmentItem);
-            });
+            equipmentList.innerHTML = ''; // Limpar lista
+            
+            if (userData.equipments && userData.equipments.length > 0) {
+                userData.equipments.forEach(equipment => {
+                    const equipmentItem = document.createElement('p');
+                    equipmentItem.innerHTML = `<strong>${equipment.tipo ? equipment.tipo.charAt(0).toUpperCase() + equipment.tipo.slice(1) : 'Equipamento'}</strong>: ${equipment.marca || ''} ${equipment.modelo || ''}`;
+                    equipmentList.appendChild(equipmentItem);
+                });
+            } else {
+                equipmentList.innerHTML = '<p>Nenhum equipamento cadastrado.</p>';
+            }
         }
 
         // Função de logout
         function logout() {
-            userPanel.style.display = 'none';
-            loginContainer.style.display = 'block';
-            loginForm.reset();
-            errorMessage.style.display = 'none';
+            auth.signOut().then(() => {
+                userPanel.style.display = 'none';
+                loginContainer.style.display = 'block';
+                loginForm.reset();
+                errorMessage.style.display = 'none';
+                loading.style.display = 'none';
+            }).catch((error) => {
+                console.error("Erro ao fazer logout:", error);
+            });
         }
 
         // Funções de formatação
         function formatarCPF(cpf) {
+            if (!cpf) return 'Não informado';
+            // Remove caracteres não numéricos
+            cpf = cpf.replace(/\D/g, '');
             return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
         }
 
         function formatarTelefone(telefone) {
-            return telefone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+            if (!telefone) return 'Não informado';
+            // Remove caracteres não numéricos
+            telefone = telefone.replace(/\D/g, '');
+            
+            if (telefone.length === 11) {
+                return telefone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+            } else if (telefone.length === 10) {
+                return telefone.replace(/(\d{2})(\d{4})(\d{4})/, "($1) $2-$3");
+            } else {
+                return telefone;
+            }
         }
 
         function formatarData(dataString) {
+            if (!dataString) return '--/--/----';
+            
+            // Se for um timestamp do Firestore
+            if (typeof dataString.toDate === 'function') {
+                const data = dataString.toDate();
+                return data.toLocaleDateString('pt-BR');
+            }
+            
+            // Se for uma string de data
             const data = new Date(dataString);
+            if (isNaN(data.getTime())) {
+                return 'Data inválida';
+            }
             return data.toLocaleDateString('pt-BR');
         }
     </script>
