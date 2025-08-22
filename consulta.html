@@ -52,6 +52,7 @@
             color: var(--secondary);
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            position: relative;
         }
         
         h1 {
@@ -66,7 +67,27 @@
             color: var(--primary);
         }
         
-        .consultation-box, .result-box {
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(139, 0, 0, 0.1);
+        }
+        
+        .consultation-box, .result-box, .email-info {
             background-color: var(--light);
             padding: 2rem;
             border-radius: 8px;
@@ -218,6 +239,28 @@
             font-size: 1.2rem;
         }
         
+        .email-example {
+            background-color: var(--gray);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            font-size: 0.9rem;
+        }
+        
+        .request-type {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .request-type:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
         /* Responsividade */
         @media (min-width: 768px) {
             .container {
@@ -228,7 +271,7 @@
                 font-size: 2.5rem;
             }
             
-            .consultation-box, .result-box {
+            .consultation-box, .result-box, .email-info {
                 padding: 2.5rem;
             }
             
@@ -251,7 +294,7 @@
                 padding: 40px;
             }
             
-            .consultation-box, .result-box {
+            .consultation-box, .result-box, .email-info {
                 padding: 3rem;
             }
             
@@ -274,7 +317,12 @@
                 font-size: 2rem;
             }
             
-            .consultation-box, .result-box {
+            .nav-menu {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .consultation-box, .result-box, .email-info {
                 padding: 1.5rem;
             }
             
@@ -290,6 +338,12 @@
                 width: 100%;
                 margin-bottom: 0.3rem;
             }
+            
+            .email-example {
+                font-size: 0.8rem;
+                padding: 10px;
+                overflow-x: auto;
+            }
         }
     </style>
 </head>
@@ -298,6 +352,12 @@
         <header>
             <h1><span class="logo">BIXX</span> - Consulta de Cadastro</h1>
             <p>Verifique o status do seu cadastro e equipamentos</p>
+            
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="#" class="nav-link">Sobre</a>
+                <a href="#" class="nav-link">Contato</a>
+            </nav>
         </header>
         
         <div class="consultation-box">
@@ -318,6 +378,137 @@
             
             <div class="error-message" id="errorMessage">
                 CPF não encontrado em nossa base de dados. Verifique se digitou corretamente.
+            </div>
+        </div>
+        
+        <div class="email-info">
+            <h2 class="section-title">Solicitações por E-mail</h2>
+            <p>Para solicitar serviços, envie um e-mail para <strong>bixxcorp@outlook.com.br</strong> seguindo as instruções abaixo:</p>
+            
+            <div class="request-type">
+                <h3 class="section-title">Assistência Técnica</h3>
+                <p><strong>Assunto:</strong> [Seu CPF] - Assistência Técnica</p>
+                <p><strong>Corpo do e-mail deve conter:</strong></p>
+                <ul>
+                    <li>Relatório detalhado do problema técnico</li>
+                    <li>Equipamento com problema</li>
+                    <li>Data em que o problema começou</li>
+                    <li>Se já tentou alguma solução</li>
+                </ul>
+                <div class="email-example">
+Assunto: 123.456.789-00 - Assistência Técnica
+
+Prezados,
+
+Meu nome é João Silva e sou cliente BIXX (CPF: 123.456.789-00).
+Estou solicitando assistência técnica para meu smartphone Samsung Galaxy S21.
+
+Problema: O aparelho não carrega mais, mesmo tentando com diferentes carregadores e cabos.
+O problema começou aproximadamente em 10/08/2023.
+Já tentei: 
+- Usar diferentes carregadores e cabos
+- Limpar a porta de carregamento
+- Realizar reset de fábrica
+
+Solicito o contato para agendamento do reparo.
+
+Atenciosamente,
+João Silva
+Telefone: (11) 99999-9999
+                </div>
+            </div>
+            
+            <div class="request-type">
+                <h3 class="section-title">Análise de Acessório para Desconto</h3>
+                <p><strong>Assunto:</strong> [Seu CPF] - Análise de Acessório</p>
+                <p><strong>Corpo do e-mail deve conter:</strong></p>
+                <ul>
+                    <li>Nome do acessório</li>
+                    <li>Marca e modelo</li>
+                    <li>Nome da loja (se online, incluir link)</li>
+                    <li>Preço encontrado</li>
+                </ul>
+                <div class="email-example">
+Assunto: 123.456.789-00 - Análise de Acessório
+
+Prezados,
+
+Meu nome é Maria Oliveira e sou cliente BIXX (CPF: 123.456.789-00).
+Gostaria de solicitar análise para desconto em acessório.
+
+Acessório: Capa protetora para iPhone 13
+Marca/Modelo: Capa à prova de choque TORRO
+Loja: Magazine Luiza (online)
+Link: https://www.magazineluiza.com.br/capa-iphone-13-torro/p/123456/
+Preço: R$ 89,90
+
+Solicito análise para possível desconto na aquisição deste acessório.
+
+Atenciosamente,
+Maria Oliveira
+Telefone: (11) 98888-8888
+                </div>
+            </div>
+            
+            <div class="request-type">
+                <h3 class="section-title">Análise de Celular para Revenda</h3>
+                <p><strong>Assunto:</strong> [Seu CPF] - Análise para Revenda</p>
+                <p><strong>Corpo do e-mail deve conter:</strong></p>
+                <ul>
+                    <li>Marca e modelo do aparelho</li>
+                    <li>Estado de conservação</li>
+                    <li>Defeitos existentes</li>
+                    <li>Acessórios inclusos</li>
+                    <li>Foto do aparelho (anexar)</li>
+                </ul>
+                <div class="email-example">
+Assunto: 123.456.789-00 - Análise para Revenda
+
+Prezados,
+
+Meu nome é Carlos Souza e sou cliente BIXX (CPF: 123.456.789-00).
+Gostaria de solicitar análise para revenda do meu smartphone.
+
+Aparelho: iPhone 11 64GB
+Cor: Preto
+Estado de conservação: Bom, com pequenos arranhões na traseira
+Defeitos: Nenhum defeito funcional, apenas desgaste normal de uso
+Acessórios inclusos: Carregador original e cabo USB
+Anexo: Foto do aparelho (enviada em anexo)
+
+Solicito avaliação para possível revenda através dos serviços BIXX.
+
+Atenciosamente,
+Carlos Souza
+Telefone: (11) 97777-7777
+                </div>
+            </div>
+            
+            <div class="request-type">
+                <h3 class="section-title">Cancelamento de Assinatura</h3>
+                <p><strong>Assunto:</strong> [Seu CPF] - Cancelamento de Assinatura</p>
+                <p><strong>Corpo do e-mail deve conter:</strong></p>
+                <ul>
+                    <li>Motivo do cancelamento</li>
+                    <li>Data em que deseja efetivar o cancelamento</li>
+                    <li>Confirmação de que compreende os termos de cancelamento</li>
+                </ul>
+                <div class="email-example">
+Assunto: 123.456.789-00 - Cancelamento de Assinatura
+
+Prezados,
+
+Meu nome é Ana Santos e sou cliente BIXX (CPF: 123.456.789-00).
+Venho por meio deste solicitar o cancelamento da minha assinatura.
+
+Motivo: Mudança para outra cidade onde não há cobertura dos serviços BIXX.
+Data para cancelamento: 30/09/2023
+Confirmo que estou ciente dos termos de cancelamento e que não haverá reembolso da assinatura mensal já paga.
+
+Atenciosamente,
+Ana Santos
+Telefone: (11) 96666-6666
+                </div>
             </div>
         </div>
         
