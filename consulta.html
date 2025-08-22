@@ -211,6 +211,16 @@
             border-bottom: 1px solid #eee;
             padding-bottom: 0.5rem;
         }
+        
+        .json-data {
+            background-color: var(--gray);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1.5rem;
+            font-family: monospace;
+            white-space: pre-wrap;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -297,6 +307,12 @@
                     <span id="coverageEnd"></span>
                 </div>
             </div>
+            
+            <div class="json-data" id="jsonData">
+                <!-- Dados completos em JSON serão exibidos aqui -->
+            </div>
+            
+            <button id="showJsonBtn" class="btn" style="margin-top: 20px;">Mostrar Todos os Dados</button>
         </div>
         
         <footer>
@@ -336,6 +352,11 @@
         const coverageStatus = document.getElementById('coverageStatus');
         const coverageStart = document.getElementById('coverageStart');
         const coverageEnd = document.getElementById('coverageEnd');
+        const jsonData = document.getElementById('jsonData');
+        const showJsonBtn = document.getElementById('showJsonBtn');
+        
+        // Variável para armazenar os dados completos do usuário
+        let userDataComplete = null;
         
         // Formatador de CPF
         cpfInput.addEventListener('input', function(e) {
@@ -366,17 +387,28 @@
                 return;
             }
             
-            // Formatar CPF para o formato do banco de dados
-            const formattedCpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-            
             loadingElement.style.display = 'block';
             errorMessage.style.display = 'none';
             resultBox.style.display = 'none';
+            jsonData.style.display = 'none';
             
-            // Consultar Firestore
+            // Consultar Firestore - CPF sem formatação (apenas números)
             db.collection('usuarios')
-                .where('cpf', '==', formattedCpf)
+                .where('cpf', '==', cpf)
                 .get()
+                .then((querySnapshot) => {
+                    loadingElement.style.display = 'none';
+                    
+                    if (querySnapshot.empty) {
+                        // Tentar buscar com CPF formatado (como fallback)
+                        const formattedCpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+                        return db.collection('usuarios')
+                            .where('cpf', '==', formattedCpf)
+                            .get();
+                    }
+                    
+                    return querySnapshot;
+                })
                 .then((querySnapshot) => {
                     loadingElement.style.display = 'none';
                     
@@ -386,8 +418,8 @@
                     }
                     
                     // Exibir resultados
-                    const userData = querySnapshot.docs[0].data();
-                    displayUserData(userData);
+                    userDataComplete = querySnapshot.docs[0].data();
+                    displayUserData(userDataComplete);
                 })
                 .catch((error) => {
                     loadingElement.style.display = 'none';
@@ -395,6 +427,15 @@
                     errorMessage.style.display = 'block';
                     console.error('Erro ao consultar:', error);
                 });
+        });
+        
+        // Mostrar todos os dados em JSON
+        showJsonBtn.addEventListener('click', function() {
+            if (userDataComplete) {
+                jsonData.textContent = JSON.stringify(userDataComplete, null, 2);
+                jsonData.style.display = 'block';
+                jsonData.scrollIntoView({ behavior: 'smooth' });
+            }
         });
         
         // Exibir dados do usuário
@@ -407,9 +448,14 @@
             userBirthdate.textContent = formatDate(userData.nascimento) || 'Não informado';
             
             // Formatar endereço completo
-            const endereco = userData.endereco ? 
-                `${userData.endereco.logradouro || ''}, ${userData.endereco.numero || ''} - ${userData.endereco.bairro || ''}, ${userData.endereco.cidade || ''} - ${userData.endereco.estado || ''}, ${userData.endereco.cep || ''}` : 
-                'Não informado';
+            let endereco = 'Não informado';
+            if (userData.endereco) {
+                if (typeof userData.endereco === 'string') {
+                    endereco = userData.endereco;
+                } else {
+                    endereco = `${userData.endereco.logradouro || ''}, ${userData.endereco.numero || ''} - ${userData.endereco.bairro || ''}, ${userData.endereco.cidade || ''} - ${userData.endereco.estado || ''}, ${userData.endereco.cep || ''}`;
+                }
+            }
             userAddress.textContent = endereco;
             
             // Status
@@ -445,13 +491,13 @@
             }
             
             // Cobertura
-            const coberturaStatus = userData.coberturaStatus || 'Não informado';
+            const coberturaStatus = userData.coberturaStatus || userData.statusCobertura || 'Não informado';
             coverageStatus.textContent = typeof coberturaStatus === 'string' ? 
                 coberturaStatus.charAt(0).toUpperCase() + coberturaStatus.slice(1) : 
                 'Não informado';
                 
-            coverageStart.textContent = formatDate(userData.inicioCobertura || userData.inicioCarencia) || 'Não informado';
-            coverageEnd.textContent = formatDate(userData.fimCobertura || userData.fimCarencia) || 'Não informado';
+            coverageStart.textContent = formatDate(userData.inicioCobertura || userData.inicioCarencia || userData.dataInicio) || 'Não informado';
+            coverageEnd.textContent = formatDate(userData.fimCobertura || userData.fimCarencia || userData.dataFim) || 'Não informado';
             
             // Exibir a caixa de resultados
             resultBox.style.display = 'block';
@@ -463,6 +509,12 @@
         // Formatador de data (de yyyy-mm-dd para dd/mm/yyyy)
         function formatDate(dateString) {
             if (!dateString) return '';
+            
+            // Se for um timestamp do Firebase
+            if (dateString.seconds) {
+                const date = new Date(dateString.seconds * 1000);
+                return date.toLocaleDateString('pt-BR');
+            }
             
             const date = new Date(dateString);
             if (isNaN(date.getTime())) return dateString;
