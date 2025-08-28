@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Notebook - BIXX</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <!-- Firebase App (core) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <style>
+        :root {
+            --primary: #8B0000; /* Vermelho escuro */
+            --primary-dark: #6D0000; /* Vermelho mais escuro */
+            --secondary: #2D2D2D;
+            --accent: #CC0000; /* Vermelho mais vibrante para destaque */
+            --light: #FFFFFF;
+            --dark: #161616;
+            --gray: #F5F5F5;
+            --texture: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--texture);
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            letter-spacing: -1px;
+            padding-left: 0.5rem;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100%;
+            background-color: var(--light);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            transition: var(--transition);
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .side-menu.active {
+            right: 0;
+        }
+        
+        .side-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .side-menu-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            cursor: pointer;
+        }
+        
+        .side-menu-links {
+            list-style: none;
+        }
+        
+        .side-menu-links li {
+            margin-bottom: 1.5rem;
+        }
+        
+        .side-menu-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            display: block;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+        
+        .side-menu-links a:hover {
+            color: var(--primary);
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Form Section */
+        .form-section {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            color: var(--dark);
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--secondary);
+            opacity: 0.8;
+        }
+        
+        .form-container {
+            background-color: var(--light);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            margin: 0 auto;
+            max-width: 800px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-col {
+            flex: 1;
+        }
+        
+        .notebook-card {
+            background-color: var(--gray);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            border: 1px dashed var(--primary);
+        }
+        
+        .remove-notebook {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .add-notebook-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .add-notebook-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            borderRadius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            gap: 0.5rem;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: var(--light);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--light);
+        }
+        
+        .success-message {
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(0, 128, 0, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 128, 0, 0.2);
+            margin-top: 2rem;
+        }
+        
+        .success-message i {
+            font-size: 3rem;
+            color: green;
+            margin-bottom: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .form-section {
+                padding: 7rem 0 3rem;
+            }
+            
+            .form-container {
+                padding: 1.5rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            /* Melhorias para tablets pequenos e celulares grandes */
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Estilos específicos para celulares pequenos */
+            .container {
+                width: 95%;
+                padding: 1rem 0;
+            }
+            
+            .header-container {
+                padding: 0.75rem 0;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .form-section {
+                padding: 6rem 0 2rem;
+            }
+            
+            .form-container {
+                padding: 1.25rem;
+                border-radius: 12px;
+            }
+            
+            .section-title h2 {
+                font-size: 1.75rem;
+            }
+            
+            .section-title p {
+                font-size: 0.9rem;
+            }
+            
+            .form-control {
+                padding: 1rem;
+                font-size: 16px; /* Previne zoom no iOS */
+            }
+            
+            .form-group {
+                margin-bottom: 1.25rem;
+            }
+            
+            .notebook-card {
+                padding: 1.25rem;
+            }
+            
+            .add-notebook-btn, .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 1.25rem;
+                font-size: 1.1rem;
+            }
+            
+            .form-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .form-navigation .btn {
+                width: 100%;
+                margin: 0.25rem 0;
+            }
+            
+            .side-menu {
+                width: 85%;
+                right: -85%;
+            }
+            
+            /* Ajuste de espaçamento para inputs em iOS */
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+            
+            /* Melhor visualização para o menu mobile */
+            .side-menu-links a {
+                padding: 0.75rem 0;
+                font-size: 1.2rem;
+            }
+            
+            .success-message {
+                padding: 1.5rem;
+            }
+            
+            .success-message i {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            /* Ajustes extras para dispositivos muito pequenos */
+            .section-title h2 {
+                font-size: 1.5rem;
+            }
+            
+            .form-container {
+                padding: 1rem;
+            }
+            
+            .notebook-card {
+                padding: 1rem;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .mobile-menu-btn {
+                font-size: 1.3rem;
+                padding: 0.25rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu-btn {
+                display: none !important;
+            }
+            
+            nav {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <span>BIXX</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html#benefits">Benefícios</a></li>
+                    <li><a href="index.html#plans">Planos</a></li>
+                    <li><a href="index.html#how-it-works">Como Funciona</a></li>
+                    <li><a href="contrata.html">Contratar?!</a></li>
+                    <li><a href="consulta.html">Consultar seu cadastro!</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <h3>Menu</h3>
+            <button class="side-menu-close" id="sideMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="side-menu-links">
+            <li><a href="index.html#benefits">Benefícios</a></li>
+            <li><a href="index.html#plans">Planos</a></li>
+            <li><a href="index.html#how-it-works">Como Funciona</a></li>
+            <li><a href="contrata.html">Contratar?!</a></li>
+            <li><a href="consulta.html">Consultar seu cadastro!</a></li>
+        </ul>
+    </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
+    
+    <section class="form-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Cadastro de Notebook</h2>
+                <p>Preencha seus dados pessoais e dos seus notebooks para cadastro no plano BIXX</p>
+            </div>
+            
+            <div class="form-container">
+                <!-- Step 1: Personal Data -->
+                <div class="form-step active" id="step1">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--primary);">Dados Pessoais</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="nome">Nome Completo *</label>
+                                <input type="text" id="nome" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="cpf">CPF *</label>
+                                <input type="text" id="cpf" class="form-control" placeholder="000.000.000-00" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="email">E-mail *</label>
+                                <input type="email" id="email" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="telefone">Telefone *</label>
+                                <input type="tel" id="telefone" class="form-control" placeholder="(00) 00000-0000" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="endereco">Endereço Completo *</label>
+                        <input type="text" id="endereco" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-navigation">
+                        <div></div> <!-- Empty div for alignment -->
+                        <button type="button" class="btn" onclick="nextStep(1, 2)">
+                            Próximo <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: Notebook Data -->
+                <div class="form-step" id="step2">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--primary);">Dados do Notebook</h3>
+                    
+                    <div id="notebooks-container">
+                        <div class="notebook-card" id="notebook-1">
+                            <button type="button" class="remove-notebook" onclick="removeNotebook(1)" style="display: none;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="marca-1">Marca *</label>
+                                        <input type="text" id="marca-1" class="form-control notebook-field" required>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="modelo-1">Modelo *</label>
+                                        <input type="text" id="modelo-1" class="form-control notebook-field" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="numero-serie-1">Número de Série *</label>
+                                        <input type="text" id="numero-serie-1" class="form-control notebook-field" required>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label for="ano-1">Ano de Fabricação *</label>
+                                        <input type="number" id="ano-1" class="form-control notebook-field" min="2010" max="2025" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="especificacoes-1">Especificações Técnicas</label>
+                                <textarea id="especificacoes-1" class="form-control notebook-field" rows="3" placeholder="Processador, RAM, Armazenamento, etc."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="condicoes-1">Condições do Aparelho *</label>
+                                <select id="condicoes-1" class="form-control notebook-field" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="Novo">Novo</option>
+                                    <option value="Excelente">Excelente</option>
+                                    <option value="Bom">Bom</option>
+                                    <option value="Regular">Regular</option>
+                                    <option value="Ruim">Ruim</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="add-notebook-btn" onclick="addNotebook()">
+                        <i class="fas fa-plus"></i> Adicionar outro notebook
+                    </button>
+                    
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep(2, 1)">
+                            <i class="fas fa-arrow-left"></i> Anterior
+                        </button>
+                        <button type="button" class="btn" onclick="submitForm()">
+                            Finalizar Cadastro <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Success Message -->
+                <div class="form-step" id="success-message" style="display: none;">
+                    <div class="success-message">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Cadastro realizado com sucesso!</h3>
+                        <p>Seus dados foram enviados para análise. Em breve entraremos em contato por e-mail para solicitar os documentos necessários.</p>
+                        <p style="margin-top: 1rem;">
+                            <a href="index.html" class="btn">
+                                <i class="fas fa-home"></i> Voltar para a página inicial
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
+            authDomain: "axon-ec708.firebaseapp.com",
+            projectId: "axon-ec708",
+            storageBucket: "axon-ec708.firebasestorage.app",
+            messagingSenderId: "403077673595",
+            appId: "1:403077673595:web:a4cb91bdf662f8d8e9e8de"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sideMenu = document.getElementById('sideMenu');
+        const sideMenuClose = document.getElementById('sideMenuClose');
+        const menuOverlay = document.getElementById('menuOverlay');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            sideMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        sideMenuClose.addEventListener('click', () => {
+            sideMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        menuOverlay.addEventListener('click', () => {
+            sideMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Form Navigation
+        function nextStep(current, next) {
+            document.getElementById(`step${current}`).classList.remove('active');
+            document.getElementById(`step${next}`).classList.add('active');
+        }
+        
+        function prevStep(current, prev) {
+            document.getElementById(`step${current}`).classList.remove('active');
+            document.getElementById(`step${prev}`).classList.add('active');
+        }
+        
+        // Notebook Management
+        let notebookCount = 1;
+        
+        function addNotebook() {
+            notebookCount++;
+            const notebookHTML = `
+                <div class="notebook-card" id="notebook-${notebookCount}">
+                    <button type="button" class="remove-notebook" onclick="removeNotebook(${notebookCount})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="marca-${notebookCount}">Marca *</label>
+                                <input type="text" id="marca-${notebookCount}" class="form-control notebook-field" required>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="modelo-${notebookCount}">Modelo *</label>
+                                <input type="text" id="modelo-${notebookCount}" class="form-control notebook-field" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="numero-serie-${notebookCount}">Número de Série *</label>
+                                <input type="text" id="numero-serie-${notebookCount}" class="form-control notebook-field" required>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="ano-${notebookCount}">Ano de Fabricação *</label>
+                                <input type="number" id="ano-${notebookCount}" class="form-control notebook-field" min="2010" max="2025" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="especificacoes-${notebookCount}">Especificações Técnicas</label>
+                        <textarea id="especificacoes-${notebookCount}" class="form-control notebook-field" rows="3" placeholder="Processador, RAM, Armazenamento, etc."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="condicoes-${notebookCount}">Condições do Aparelho *</label>
+                        <select id="condicoes-${notebookCount}" class="form-control notebook-field" required>
+                            <option value="">Selecione...</option>
+                            <option value="Novo">Novo</option>
+                            <option value="Excelente">Excelente</option>
+                            <option value="Bom">Bom</option>
+                            <option value="Regular">Regular</option>
+                            <option value="Ruim">Ruim</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('notebooks-container').insertAdjacentHTML('beforeend', notebookHTML);
+        }
+        
+        function removeNotebook(id) {
+            if (notebookCount > 1) {
+                document.getElementById(`notebook-${id}`).remove();
+                notebookCount--;
+            }
+        }
+        
+        // Form Submission
+        function submitForm() {
+            // Get personal data
+            const personalData = {
+                nome: document.getElementById('nome').value,
+                cpf: document.getElementById('cpf').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value,
+                endereco: document.getElementById('endereco').value,
+                dataCadastro: new Date()
+            };
+            
+            // Validate required fields
+            if (!personalData.nome || !personalData.cpf || !personalData.email || 
+                !personalData.telefone || !personalData.endereco) {
+                alert('Por favor, preencha todos os campos obrigatórios dos dados pessoais.');
+                return;
+            }
+            
+            // Get notebooks data
+            const notebooks = [];
+            let isValid = true;
+            
+            for (let i = 1; i <= notebookCount; i++) {
+                const notebookElement = document.getElementById(`notebook-${i}`);
+                if (notebookElement) {
+                    const marca = document.getElementById(`marca-${i}`).value;
+                    const modelo = document.getElementById(`modelo-${i}`).value;
+                    const numeroSerie = document.getElementById(`numero-serie-${i}`).value;
+                    const ano = document.getElementById(`ano-${i}`).value;
+                    const especificacoes = document.getElementById(`especificacoes-${i}`).value;
+                    const condicoes = document.getElementById(`condicoes-${i}`).value;
+                    
+                    if (!marca || !modelo || !numeroSerie || !ano || !condicoes) {
+                        isValid = false;
+                        alert(`Por favor, preencha todos os campos obrigatórios do notebook ${i}.`);
+                        break;
+                    }
+                    
+                    notebooks.push({
+                        marca,
+                        modelo,
+                        numeroSerie,
+                        ano: parseInt(ano),
+                        especificacoes,
+                        condicoes
+                    });
+                }
+            }
+            
+            if (!isValid) return;
+            
+            // Prepare complete data
+            const completeData = {
+                ...personalData,
+                notebooks
+            };
+            
+            // Save to Firestore - coleção "passagens" com CPF como ID do documento
+            const cpfDocument = personalData.cpf.replace(/\D/g, ''); // Remove non-numeric characters
+            db.collection("passagens").doc(cpfDocument).set(completeData)
+                .then(() => {
+                    // Show success message
+                    document.getElementById('step2').classList.remove('active');
+                    document.getElementById('success-message').style.display = 'block';
+                })
+                .catch((error) => {
+                    console.error("Erro ao salvar dados: ", error);
+                    alert("Ocorreu um erro ao enviar seus dados. Por favor, tente novamente.");
+                });
+        }
+        
+        // Input masks
+        document.getElementById('cpf').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+            
+            if (value.length > 9) {
+                value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+            } else if (value.length > 6) {
+                value = value.replace(/(\d{3})(\d{3})(\d+)/, '$1.$2.$3');
+            } else if (value.length > 3) {
+                value = value.replace(/(\d{3})(\d+)/, '$1.$2');
+            }
+            
+            e.target.value = value;
+        });
+        
+        document.getElementById('telefone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+            
+            if (value.length > 10) {
+                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+            } else if (value.length > 6) {
+                value = value.replace(/(\d{2})(\d{4})(\d+)/, '($1) $2-$3');
+            } else if (value.length > 2) {
+                value = value.replace(/(\d{2})(\d+)/, '($1) $2');
+            } else if (value.length > 0) {
+                value = value.replace(/(\d+)/, '($1');
+            }
+            
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>
