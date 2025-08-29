@@ -17,27 +17,27 @@
             --light-gray: #f9f9f9;
             --border: #eaeaea;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             color: var(--dark);
             background-color: var(--light);
         }
-        
+
         .container {
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem 0;
         }
-        
+
         /* Header Minimalista */
         header {
             background-color: var(--light);
@@ -48,30 +48,30 @@
             border-bottom: 1px solid var(--border);
             padding: 1rem 0;
         }
-        
+
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary);
             letter-spacing: -0.5px;
         }
-        
+
         /* Menu de Navegação */
         .nav-menu {
             display: flex;
             list-style: none;
         }
-        
+
         .nav-item {
             margin-left: 1.5rem;
         }
-        
+
         .nav-link {
             color: var(--dark);
             text-decoration: none;
@@ -80,11 +80,11 @@
             position: relative;
             padding: 0.5rem 0;
         }
-        
+
         .nav-link:hover {
             color: var(--primary);
         }
-        
+
         .nav-link::after {
             content: '';
             position: absolute;
@@ -95,11 +95,11 @@
             background-color: var(--primary);
             transition: width 0.3s ease;
         }
-        
+
         .nav-link:hover::after {
             width: 100%;
         }
-        
+
         /* Menu Mobile */
         .menu-toggle {
             display: none;
@@ -109,7 +109,7 @@
             height: 21px;
             cursor: pointer;
         }
-        
+
         .menu-toggle span {
             height: 3px;
             width: 100%;
@@ -117,27 +117,27 @@
             border-radius: 3px;
             transition: all 0.3s ease;
         }
-        
+
         /* Hero Section Minimalista */
         .hero-banner {
             background: var(--light-gray);
             padding: 8rem 0 3rem;
             text-align: center;
         }
-        
+
         .hero-content h1 {
             font-size: 2.2rem;
             margin-bottom: 1rem;
             font-weight: 600;
         }
-        
+
         .hero-content p {
             font-size: 1rem;
             max-width: 600px;
             margin: 0 auto 2rem;
             color: var(--secondary);
         }
-        
+
         /* Search Form Minimalista */
         .search-form {
             background: var(--light);
@@ -147,7 +147,7 @@
             max-width: 600px;
             border: 1px solid var(--border);
         }
-        
+
         .search-input-container {
             display: flex;
             align-items: center;
@@ -155,7 +155,7 @@
             border-radius: 8px;
             overflow: hidden;
         }
-        
+
         .search-input {
             flex: 1;
             padding: 0.85rem 1rem;
@@ -164,7 +164,7 @@
             font-size: 1rem;
             outline: none;
         }
-        
+
         .search-btn {
             background: var(--primary);
             color: white;
@@ -173,31 +173,31 @@
             cursor: pointer;
             transition: background 0.3s ease;
         }
-        
+
         .search-btn:hover {
             background: var(--primary-light);
         }
-        
+
         /* Promoções Section */
         .promocoes-section {
             padding: 3rem 0;
         }
-        
+
         .section-title {
             text-align: center;
             margin-bottom: 2.5rem;
         }
-        
+
         .section-title h2 {
             font-size: 1.8rem;
             margin-bottom: 0.5rem;
             font-weight: 600;
         }
-        
+
         .section-title p {
             color: #666;
         }
-        
+
         /* Grid Cards Container */
         .grid-cards {
             display: grid;
@@ -205,7 +205,7 @@
             gap: 1.5rem;
             padding: 0.5rem 0 2rem;
         }
-        
+
         /* Card */
         .card {
             background: var(--light);
@@ -216,12 +216,12 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
         }
-        
+
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
         }
-        
+
         .card-img {
             height: 180px;
             overflow: hidden;
@@ -231,47 +231,47 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .card-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
-        
+
         .card:hover .card-img img {
             transform: scale(1.05);
         }
-        
+
         .card-content {
             padding: 1.5rem;
         }
-        
+
         .card-content h3 {
             font-size: 1.2rem;
             margin-bottom: 0.5rem;
             font-weight: 600;
         }
-        
+
         .card-content p {
             color: #666;
             font-size: 0.9rem;
             margin-bottom: 1rem;
         }
-        
+
         .price-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 1rem;
         }
-        
+
         .price-new {
             font-size: 1.3rem;
             font-weight: 700;
             color: var(--primary);
         }
-        
+
         .btn-minimal {
             display: inline-flex;
             align-items: center;
@@ -285,12 +285,12 @@
             border: 1px solid var(--primary);
             transition: all 0.3s ease;
         }
-        
+
         .btn-minimal:hover {
             background: var(--primary);
             color: white;
         }
-        
+
         /* Footer Minimalista */
         footer {
             background: var(--light-gray);
@@ -299,29 +299,29 @@
             border-top: 1px solid var(--border);
             margin-top: 2rem;
         }
-        
+
         .footer-content {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 1rem;
         }
-        
+
         .social-links {
             display: flex;
             gap: 1rem;
         }
-        
+
         .social-links a {
             color: var(--dark);
             font-size: 1.2rem;
             transition: color 0.3s ease;
         }
-        
+
         .social-links a:hover {
             color: var(--primary);
         }
-        
+
         .footer-text {
             max-width: 800px;
             font-size: 0.8rem;
@@ -329,17 +329,17 @@
             line-height: 1.5;
             margin-top: 1rem;
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
             .header-container {
                 padding: 0 1rem;
             }
-            
+
             .menu-toggle {
                 display: flex;
             }
-            
+
             .nav-menu {
                 position: fixed;
                 top: 70px;
@@ -355,72 +355,72 @@
                 transition: right 0.3s ease;
                 z-index: 999;
             }
-            
+
             .nav-menu.active {
                 right: 0;
             }
-            
+
             .nav-item {
                 margin: 1.5rem 0;
             }
-            
+
             .hero-banner {
                 padding: 6rem 0 2rem;
             }
-            
+
             .hero-content h1 {
                 font-size: 1.8rem;
             }
-            
+
             .search-form {
                 padding: 1rem;
                 margin: 1.5rem 1rem 0;
             }
-            
+
             .section-title h2 {
                 font-size: 1.5rem;
             }
-            
+
             .grid-cards {
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
-            
+
             .card {
                 max-width: 400px;
                 margin: 0 auto;
             }
-            
+
             .footer-text {
                 padding: 0 1rem;
             }
         }
-        
+
         @media (max-width: 480px) {
             .hero-content h1 {
                 font-size: 1.5rem;
             }
-            
+
             .hero-content p {
                 font-size: 0.9rem;
             }
-            
+
             .search-input {
                 padding: 0.75rem;
             }
-            
+
             .search-btn {
                 padding: 0.75rem 1rem;
             }
-            
+
             .card-content {
                 padding: 1rem;
             }
-            
+
             .price-new {
                 font-size: 1.1rem;
             }
-            
+
             .btn-minimal {
                 padding: 0.5rem 1rem;
                 font-size: 0.9rem;
@@ -432,13 +432,13 @@
     <header>
         <div class="container header-container">
             <div class="logo">BIXX Viagens</div>
-            
+
             <div class="menu-toggle" id="mobile-menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            
+
             <ul class="nav-menu">
                 <li class="nav-item">
                     <a href="index.html" class="nav-link">Início</a>
@@ -446,13 +446,13 @@
             </ul>
         </div>
     </header>
-    
+
     <!-- Hero Banner -->
     <section class="hero-banner">
         <div class="container hero-content">
             <h1>Promoções Exclusivas de Viagem</h1>
             <p>Destinos incríveis com preços especiais para suas próximas férias</p>
-            
+
             <div class="search-form">
                 <div class="search-input-container">
                     <input type="text" class="search-input" placeholder="Buscar destino...">
@@ -463,7 +463,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Promoções Section -->
     <section class="promocoes-section">
         <div class="container">
@@ -471,7 +471,7 @@
                 <h2>Ofertas em Destaque</h2>
                 <p>Confira nossas promoções mais populares</p>
             </div>
-            
+
             <div class="grid-cards">
                 <!-- Card 1 -->
                 <div class="card" data-destination="Fernando de Noronha">
@@ -487,7 +487,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Card 2 -->
                 <div class="card" data-destination="Rio de Janeiro">
                     <div class="card-img">
@@ -502,7 +502,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Card 3 -->
                 <div class="card" data-destination="Gramado">
                     <div class="card-img">
@@ -517,7 +517,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Card 4 -->
                 <div class="card" data-destination="Bonito">
                     <div class="card-img">
@@ -532,7 +532,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Card 5 -->
                 <div class="card" data-destination="Salvador">
                     <div class="card-img">
@@ -547,7 +547,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Card 6 -->
                 <div class="card" data-destination="Florianópolis">
                     <div class="card-img">
@@ -562,13 +562,15 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Card 7 - Foz do Iguaçu (imagem corrigida) -->
                 <div class="card" data-destination="Foz do Iguaçu">
                     <div class="card-img">
                         <img src="https://cdn.pixabay.com/photo/2013/11/29/21/12/foz-do-iguacu-221288_960_720.jpg" alt="Foz do Iguaçu">
                     </div>
                     <div class="card-content">
+                        <h3>Foz do Iguaçu</h3>
+                        <p>4 noites com ingressos para as cataratas</p>
                         <h3>Foz do Iguaçu - Paraná/PR</h3>
                         <p>Café da manhã + almoço + janta</p>
                         <p>Aluguel de carro gratuito (se houver diponibilidade na região)</p>
@@ -579,7 +581,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Card 8 -->
                 <div class="card" data-destination="Fortaleza">
                     <div class="card-img">
@@ -608,39 +610,39 @@
             </div>
             <p>&copy; 2023 BIXX Viagens. Todos os direitos reservados.</p>
             <div class="footer-text">
-                <p>CONDIÇÕES GERAIS: É importante lembrar que as imagens apresentadas são meramente ilustrativas. As condições ofertadas estão sujeitas à disponibilidade de dates e horários, podendo haver alterações de preço por parte dos fornecedores sem aviso prévio. O parcelamento seguir as regras de cada companhia aérea, podendo variar conforme a rota, destino e valor total. Seu pacote completo é cuidadosamente elaborado para oferecer o máximo de conforto e conveniência, incluindo hospedagem de qualidade e, onde houver disponibilidade na região, um carro alugado como bônus para você explorar cada cantinho do seu destino com total liberdade. Para tornar sua aventura ainda mais rica e descomplicada, você pode contar com o suporte de guias turísticos especializados (opcional) e caso tenha!, prontos para revelar os segredos e histórias locais. A sua tranquilidade é nossa prioridade. Por isso, todos os nossos pacotes incluem seguro viagem para cobertura em imprevistos, cancelamento gratuito até 30 dias antes da partida e assistência VIP durante toda a viagem, um suporte exclusivo para ajudar você no que for preciso, a qualquer momento. E com um período de carência de 6 meses, você tem flexibilidade para agendar sua viagem da melhor forma. Todos os preços dos pacotes BIXX já incluem taxa de serviço, ISS e outros impostos governamentais. Não estão inclusos impostos sobre serviços extras no destino, taxas de turismo de algumas cidades e taxas de embarque dos aeroportos. Para as crianças com tarifa grátis (quando disponível), o desconto é aplicado na diária por pessoa, podendo variar conforme a cidade de origem e/ou a hospedagem escolhida, e de acordo com a taxa cambial diária, não incluindo as taxas de embarque. Lembramos que as vagas são limitadas. Este pacote é totalmente personalizado para atender aos seus sonhos, e como membro da nossa comunidade, você tem a oportunidade de receber um desconto especial de 30% a 80% no valor total. O valor do benefício será definido após uma avaliação criteriosa que considera o seu tempo de assinatura, o plano contratado e o histórico de pagamento. Queremos recompensar a sua lealdade e parceria a melhor experiência de viagem possível! Entre em contato conosco para criarmos juntos o roteiro dos seus sonhos e avaliarmos o seu desconto especial. O mundo te espera!</p>
+                <p>CONDIÇÕES GERAIS: É importante lembrar que as imagens apresentadas são meramente ilustrativas. As condições ofertadas estão sujeitas à disponibilidade de dates e horários, podendo haver alterações de preço por parte dos fornecedores sem aviso prévio. O parcelamento segue as regras de cada companhia aérea, podendo variar conforme a rota, destino e valor total. Seu pacote completo é cuidadosamente elaborado para oferecer o máximo de conforto e conveniência, incluindo hospedagem de qualidade e, onde houver disponibilidade na região, um carro alugado como bônus para você explorar cada cantinho do seu destino com total liberdade. Para tornar sua aventura ainda mais rica e descomplicada, você pode contar com o suporte de guias turísticos especializados (opcional) e caso tenha!, prontos para revelar os segredos e histórias locais. A sua tranquilidade é nossa prioridade. Por isso, todos os nossos pacotes incluem seguro viagem para cobertura em imprevistos, cancelamento gratuito até 30 dias antes da partida e assistência VIP durante toda a viagem, um suporte exclusivo para ajudar você no que for preciso, a qualquer momento. E com um período de carência de 6 meses, você tem flexibilidade para agendar sua viagem da melhor forma. Todos os preços dos pacotes BIXX já incluem taxa de serviço, ISS e outros impostos governamentais. Não estão inclusos impostos sobre serviços extras no destino, taxas de turismo de algumas cidades e taxas de embarque dos aeroportos. Para as crianças com tarifa grátis (quando disponível), o desconto é aplicado na diária por pessoa, podendo variar conforme a cidade de origem e/ou a hospedagem escolhida, e de acordo com a taxa cambial diária, não incluindo as taxas de embarque. Lembramos que as vagas são limitadas. Este pacote é totalmente personalizado para atender aos seus sonhos, e como membro da nossa comunidade, você tem a oportunidade de receber um desconto especial de 30% a 80% no valor total. O valor do benefício será definido após uma avaliação criteriosa que considera o seu tempo de assinatura, o plano contratado e o histórico de pagamento. Queremos recompensar a sua lealdade e parceria com a melhor experiência de viagem possível! Entre em contato conosco para criarmos juntos o roteiro dos seus sonhos e avaliarmos o seu desconto especial. O mundo te espera!</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Funcionalidade de busca simplificada - ATUALIZADA
+        // Funcionalidade de busca simplificada
         const searchBtn = document.querySelector('.search-btn');
         const searchInput = document.querySelector('.search-input');
         const cards = document.querySelectorAll('.card');
-        
+
         searchBtn.addEventListener('click', performSearch);
         searchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 performSearch();
             }
         });
-        
+
         function performSearch() {
             const searchTerm = searchInput.value.toLowerCase().trim();
-            
+
             cards.forEach(card => {
-                // Buscar apenas pelo nome do destino (atributo data-destination)
-                const destination = card.getAttribute('data-destination').toLowerCase();
-                
-                if (destination.includes(searchTerm)) {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
                     card.style.display = 'block';
                 } else {
                     card.style.display = 'none';
                 }
             });
         }
-        
+
         // Adicionar evento de clique nos cards para redirecionar para o WhatsApp
         const destinationCards = document.querySelectorAll('.card');
         destinationCards.forEach(card => {
@@ -655,7 +657,7 @@
                 }
             });
         });
-        
+
         // Adicionar evento de clique nos botões de reserva
         const reserveBtns = document.querySelectorAll('.btn-minimal');
         reserveBtns.forEach(btn => {
@@ -668,16 +670,16 @@
                 window.open(whatsappURL, '_blank');
             });
         });
-        
+
         // Menu mobile toggle
         const mobileMenu = document.getElementById('mobile-menu');
         const navMenu = document.querySelector('.nav-menu');
-        
+
         mobileMenu.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             mobileMenu.classList.toggle('active');
         });
-        
+
         // Fechar menu ao clicar em um link
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
@@ -686,13 +688,13 @@
                 mobileMenu.classList.remove('active');
             });
         });
-        
+
         // Função para tratar o tamanho das imagens
         function processCardImages() {
             const cardImages = document.querySelectorAll('.card-img img');
             const targetWidth = 280; // Largura aproximada dos cards
             const targetHeight = 180; // Altura fixa definida no CSS
-            
+
             cardImages.forEach(img => {
                 // Verificar se a imagem já foi carregada
                 if (img.complete) {
@@ -703,7 +705,7 @@
                         adjustImage(this, targetWidth, targetHeight);
                     });
                 }
-                
+
                 // Adicionar fallback para erro de carregamento
                 img.addEventListener('error', function() {
                     this.style.objectFit = 'contain';
@@ -711,14 +713,14 @@
                 });
             });
         }
-        
+
         // Função para ajustar a imagem conforme suas dimensões
         function adjustImage(img, targetWidth, targetHeight) {
             const naturalWidth = img.naturalWidth;
             const naturalHeight = img.naturalHeight;
             const aspectRatio = naturalWidth / naturalHeight;
             const targetAspectRatio = targetWidth / targetHeight;
-            
+
             // Se a imagem for muito pequena em ambas as dimensões
             if (naturalWidth < targetWidth && naturalHeight < targetHeight) {
                 img.style.objectFit = 'scale-down'; // Reduz ainda mais para caber
@@ -728,7 +730,7 @@
                 img.style.maxHeight = '100%';
                 return;
             }
-            
+
             // Se a imagem for muito pequena em largura
             if (naturalWidth < targetWidth) {
                 img.style.objectFit = 'cover';
@@ -736,7 +738,7 @@
                 img.style.height = '100%';
                 return;
             }
-            
+
             // Se a imagem for muito pequena em altura
             if (naturalHeight < targetHeight) {
                 img.style.objectFit = 'cover';
@@ -744,12 +746,12 @@
                 img.style.height = '100%';
                 return;
             }
-            
+
             // Para imagens grandes, aplicar object-fit: cover para preencher o espaço
             img.style.objectFit = 'cover';
             img.style.width = '100%';
             img.style.height = '100%';
-            
+
             // Ajustar posição do foco baseado na proporção
             if (aspectRatio > targetAspectRatio) {
                 // Imagem mais larga que o container
@@ -759,11 +761,11 @@
                 img.style.objectPosition = 'center 30%'; // Foco na parte superior
             }
         }
-        
+
         // Inicializar o processamento das imagens quando o DOM estiver carregado
         document.addEventListener('DOMContentLoaded', function() {
             processCardImages();
-            
+
             // Reprocessar imagens quando a janela for redimensionada
             window.addEventListener('resize', function() {
                 // Usar debounce para evitar processamento excessivo
