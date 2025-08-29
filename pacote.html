@@ -282,9 +282,8 @@
         }
         
         .search-form-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: 1fr 1fr !important;
+            margin-bottom: 1rem;
         }
         
         .form-group {
@@ -700,9 +699,10 @@
         }
         
         @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
+            .search-form-content {
+                grid-template-columns: 1fr !important;
             }
+        }
             
             nav {
                 display: none;
@@ -791,11 +791,7 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="index.html#destinos">Destinos</a></li>
-                    <li><a href="index.html#pacotes">Pacotes</a></li>
-                    <li><a href="index.html#ofertas">Ofertas</a></li>
-                    <li><a href="index.html#contato">Contato</a></li>
-                    <li><a href="cadastro.html">Cadastre-se</a></li>
+                    <li><a href="index.html#destinos">Início</a></li>
                 </ul>
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -813,16 +809,12 @@
             </button>
         </div>
         <ul class="side-menu-links">
-            <li><a href="index.html#destinos">Destinos</a></li>
-            <li><a href="index.html#pacotes">Pacotes</a></li>
-            <li><a href="index.html#ofertas">Ofertas</a></li>
-            <li><a href="index.html#contato">Contato</a></li>
-            <li><a href="cadastro.html">Cadastre-se</a></li>
+            <li><a href="index.html#destinos">Início</a></li>
         </ul>
     </div>
     <div class="menu-overlay" id="menuOverlay"></div>
     
-    <!-- Hero Banner -->
+        <!-- Hero Banner -->
     <section class="hero-banner">
         <div class="container hero-content">
             <h1>As Melhores Promoções de Viagem</h1>
@@ -843,52 +835,16 @@
                         <label for="destino">Destino</label>
                         <input type="text" id="destino" class="form-control" placeholder="Para onde?">
                     </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="datas">Datas = Ida e Volta</label>
-                        <div class="date-inputs-container">
-                            <div class="date-input-container">
-                                <input type="date" id="data-ida" class="form-control">
-                                <i class="fas fa-calendar-alt"></i>
-                            </div>
-                            <div class="date-input-container">
-                                <input type="date" id="data-volta" class="form-control">
-                                <i class="fas fa-calendar-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="adultos">Adultos</label>
-                        <div class="hospedes-input">
-                            <input type="number" id="adultos" class="form-control" value="2" min="1" max="10">
-                            <div class="hospedes-controls">
-                                <button class="hospedes-btn" id="adultos-up"><i class="fas fa-chevron-up"></i></button>
-                                <button class="hospedes-btn" id="adultos-down"><i class="fas fa-chevron-down"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="criancas">Crianças</label>
-                        <div class="hospedes-input">
-                            <input type="number" id="criancas" class="form-control" value="0" min="0" max="10">
-                            <div class="hospedes-controls">
-                                <button class="hospedes-btn" id="criancas-up"><i class="fas fa-chevron-up"></i></button>
-                                <button class="hospedes-btn" id="criancas-down"><i class="fas fa-chevron-down"></i></button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 
-                <button class="search-btn">
+                <button class="search-btn" id="buscarOfertas">
                     <i class="fas fa-search"></i> Buscar Ofertas
                 </button>
             </div>
         </div>
     </section>
     
-    <!-- Promoções Section -->
+        <!-- Promoções Section -->
     <section class="promocoes-section">
         <div class="container">
             <div class="section-title">
@@ -897,7 +853,7 @@
             </div>
             
             <div class="promo-cards">
-                <div class="promo-card">
+                <div class="promo-card" data-destino="Fernando de Noronha">
                     <div class="promo-card-img">
                         <img src="https://images.unsplash.com/photo-1562602833-72b336fa9e2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Fernando de Noronha">
                         <div class="promo-tag">-25%</div>
@@ -910,11 +866,11 @@
                             <span class="price-new">R$ 2.599</span>
                         </div>
                         <p class="price-info">Em até 10x sem juros</p>
-                        <a href="#" class="btn">Ver Oferta</a>
+                        <a href="#" class="btn ver-oferta" data-destino="Fernando de Noronha">Ver Oferta</a>
                     </div>
                 </div>
                 
-                <div class="promo-card">
+                <div class="promo-card" data-destino="Rio de Janeiro">
                     <div class="promo-card-img">
                         <img src="https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Rio de Janeiro">
                         <div class="promo-tag">-30%</div>
@@ -927,11 +883,11 @@
                             <span class="price-new">R$ 1.329</span>
                         </div>
                         <p class="price-info">Em até 12x sem juros</p>
-                        <a href="#" class="btn">Ver Oferta</a>
+                        <a href="#" class="btn ver-oferta" data-destino="Rio de Janeiro">Ver Oferta</a>
                     </div>
                 </div>
                 
-                <div class="promo-card">
+                <div class="promo-card" data-destino="Gramado">
                     <div class="promo-card-img">
                         <img src="https://images.unsplash.com/photo-1580502304784-8985b7eb7260?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Gramado">
                         <div class="promo-tag">-20%</div>
@@ -944,7 +900,7 @@
                             <span class="price-new">R$ 1.279</span>
                         </div>
                         <p class="price-info">Em até 8x sem juros</p>
-                        <a href="#" class="btn">Ver Oferta</a>
+                        <a href="#" class="btn ver-oferta" data-destino="Gramado">Ver Oferta</a>
                     </div>
                 </div>
             </div>
@@ -1060,7 +1016,7 @@
         </div>
     </footer>
 
-    <script>
+        <script>
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const sideMenu = document.getElementById('sideMenu');
@@ -1085,69 +1041,43 @@
             document.body.style.overflow = '';
         });
         
-        // Controles de hóspedes
-        const adultosInput = document.getElementById('adultos');
-        const adultosUp = document.getElementById('adultos-up');
-        const adultosDown = document.getElementById('adultos-down');
+        // Filtro de destinos
+        const buscarOfertasBtn = document.getElementById('buscarOfertas');
+        const origemInput = document.getElementById('origem');
+        const destinoInput = document.getElementById('destino');
+        const promoCards = document.querySelectorAll('.promo-card');
         
-        const criancasInput = document.getElementById('criancas');
-        const criancasUp = document.getElementById('criancas-up');
-        const criancasDown = document.getElementById('criancas-down');
-        
-        adultosUp.addEventListener('click', () => {
-            adultosInput.value = parseInt(adultosInput.value) + 1;
-            if (parseInt(adultosInput.value) > 10) adultosInput.value = 10;
-        });
-        
-        adultosDown.addEventListener('click', () => {
-            adultosInput.value = parseInt(adultosInput.value) - 1;
-            if (parseInt(adultosInput.value) < 1) adultosInput.value = 1;
-        });
-        
-        criancasUp.addEventListener('click', () => {
-            criancasInput.value = parseInt(criancasInput.value) + 1;
-            if (parseInt(criancasInput.value) > 10) criancasInput.value = 10;
-        });
-        
-        criancasDown.addEventListener('click', () => {
-            criancasInput.value = parseInt(criancasInput.value) - 1;
-            if (parseInt(criancasInput.value) < 0) criancasInput.value = 0;
-        });
-        
-        // Validação dos inputs numéricos
-        adultosInput.addEventListener('change', () => {
-            if (parseInt(adultosInput.value) < 1) adultosInput.value = 1;
-            if (parseInt(adultosInput.value) > 10) adultosInput.value = 10;
-        });
-        
-        criancasInput.addEventListener('change', () => {
-            if (parseInt(criancasInput.value) < 0) criancasInput.value = 0;
-            if (parseInt(criancasInput.value) > 10) criancasInput.value = 10;
-        });
-        
-        // Configuração das datas mínimas
-        const hoje = new Date();
-        const dataIda = document.getElementById('data-ida');
-        const dataVolta = document.getElementById('data-volta');
-        
-        // Formatar data para YYYY-MM-DD
-        const formatarData = (data) => {
-            return data.toISOString().split('T')[0];
-        };
-        
-        // Definir data mínima como hoje
-        dataIda.min = formatarData(hoje);
-        dataVolta.min = formatarData(hoje);
-        
-        // Quando a data de ida for alterada, atualizar a data mínima de volta
-        dataIda.addEventListener('change', () => {
-            if (dataIda.value) {
-                dataVolta.min = dataIda.value;
+        buscarOfertasBtn.addEventListener('click', () => {
+            const destinoFiltro = destinoInput.value.trim().toLowerCase();
+            
+            promoCards.forEach(card => {
+                const cardDestino = card.getAttribute('data-destino').toLowerCase();
                 
-                // Se a data de volta for anterior à data de ida, ajustar
-                if (dataVolta.value && dataVolta.value < dataIda.value) {
-                    dataVolta.value = dataIda.value;
+                if (destinoFiltro === '' || cardDestino.includes(destinoFiltro)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
                 }
+            });
+        });
+        
+        // Redirecionamento para o WhatsApp
+        const verOfertaBtns = document.querySelectorAll('.ver-oferta');
+        
+        verOfertaBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const destino = btn.getAttribute('data-destino');
+                const mensagem = `Olá! Gostaria de mais informações sobre a promoção para ${destino}.`;
+                const whatsappURL = `https://wa.me/5562981596601?text=${encodeURIComponent(mensagem)}`;
+                window.open(whatsappURL, '_blank');
+            });
+        });
+        
+        // Permitir busca ao pressionar Enter
+        destinoInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                buscarOfertasBtn.click();
             }
         });
     </script>
