@@ -560,10 +560,10 @@
                     </div>
                 </div>
                 
-                <!-- Card 7 -->
+                <!-- Card 7 - Foz do Iguaçu (imagem corrigida) -->
                 <div class="card" data-destination="Foz do Iguaçu">
                     <div class="card-img">
-                        <img src="https://unsplash.com/pt-br/fotografias/as-cataratas-do-iguacu-no-brasil-cercadas-por-arvores-sob-o-ceu-azul-UBrOYepNBYM" alt="Foz do Iguaçu">
+                        <img src="https://images.unsplash.com/photo-1591382386627-349b692688ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Foz do Iguaçu">
                     </div>
                     <div class="card-content">
                         <h3>Foz do Iguaçu</h3>
@@ -578,7 +578,7 @@
                 <!-- Card 8 -->
                 <div class="card" data-destination="Fortaleza">
                     <div class="card-img">
-                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fortaleza">
+                        <img src="https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fortaleza">
                     </div>
                     <div class="card-content">
                         <h3>Fortaleza</h3>
@@ -679,6 +679,18 @@
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
                 mobileMenu.classList.remove('active');
+            });
+        });
+        
+        // Garantir que todas as imagens tenham o mesmo tamanho
+        document.addEventListener('DOMContentLoaded', function() {
+            const cardImages = document.querySelectorAll('.card-img img');
+            
+            // Forçar todas as imagens a terem o mesmo tamanho
+            cardImages.forEach(img => {
+                img.style.width = '100%';
+                img.style.height = '180px';
+                img.style.objectFit = 'cover';
             });
         });
     </script>
