@@ -227,6 +227,9 @@
             overflow: hidden;
             position: relative;
             background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .card-img img {
@@ -603,7 +606,7 @@
             </div>
             <p>&copy; 2023 BIXX Viagens. Todos os direitos reservados.</p>
             <div class="footer-text">
-                <p>CONDIÇÕES GERAIS: É importante lembrar que as imagens apresentadas são meramente ilustrativas. As condições ofertadas estão sujeitas à disponibilidade de datas e horários, podendo haver alterações de preço por parte dos fornecedores sem aviso prévio. O parcelamento segue as regras de cada companhia aérea, podendo variar conforme a rota, destino e valor total. Seu pacote completo é cuidadosamente elaborado para oferecer o máximo de conforto e conveniência, incluindo hospedagem de qualidade e, onde houver disponibilidade na região, um carro alugado como bônus para você explorar cada cantinho do seu destino com total liberdade. Para tornar sua aventura ainda mais rica e descomplicada, você pode contar com o suporte de guias turísticos especializados (opcional) e caso tenha!, prontos para revelar os segredos e histórias locais. A sua tranquilidade é nossa prioridade. Por isso, todos os nossos pacotes incluem seguro viagem para cobertura em imprevistos, cancelamento gratuito até 30 dias antes da partida e assistência VIP durante toda a viagem, um suporte exclusivo para ajudar você no que for preciso, a qualquer momento. E com um período de carência de 6 meses, você tem flexibilidade para agendar sua viagem da melhor forma. Todos os preços dos pacotes BIXX já incluem taxa de serviço, ISS e outros impostos governamentais. Não estão inclusos impostos sobre serviços extras no destino, taxas de turismo de algumas cidades e taxas de embarque dos aeroportos. Para as crianças com tarifa grátis (quando disponível), o desconto é aplicado na diária por pessoa, podendo variar conforme a cidade de origem e/ou a hospedagem escolhida, e de acordo com a taxa cambial diária, não incluindo as taxas de embarque. Lembramos que as vagas são limitadas. Este pacote é totalmente personalizado para atender aos seus sonhos, e como membro da nossa comunidade, você tem a oportunidade de receber um desconto especial de 30% a 80% no valor total. O valor do benefício será definido após uma avaliação criteriosa que considera o seu tempo de assinatura, o plano contratado e o histórico de pagamento. Queremos recompensar a sua lealdade e parceria com a melhor experiência de viagem possível! Entre em contato conosco para criarmos juntos o roteiro dos seus sonhos e avaliarmos o seu desconto especial. O mundo te espera!</p>
+                <p>CONDIÇÕES GERAIS: É importante lembrar que as imagens apresentadas são meramente ilustrativas. As condições ofertadas estão sujeitas à disponibilidade de dates e horários, podendo haver alterações de preço por parte dos fornecedores sem aviso prévio. O parcelamento segue as regras de cada companhia aérea, podendo variar conforme a rota, destino e valor total. Seu pacote completo é cuidadosamente elaborado para oferecer o máximo de conforto e conveniência, incluindo hospedagem de qualidade e, onde houver disponibilidade na região, um carro alugado como bônus para você explorar cada cantinho do seu destino com total liberdade. Para tornar sua aventura ainda mais rica e descomplicada, você pode contar com o suporte de guias turísticos especializados (opcional) e caso tenha!, prontos para revelar os segredos e histórias locais. A sua tranquilidade é nossa prioridade. Por isso, todos os nossos pacotes incluem seguro viagem para cobertura em imprevistos, cancelamento gratuito até 30 dias antes da partida e assistência VIP durante toda a viagem, um suporte exclusivo para ajudar você no que for preciso, a qualquer momento. E com um período de carência de 6 meses, você tem flexibilidade para agendar sua viagem da melhor forma. Todos os preços dos pacotes BIXX já incluem taxa de serviço, ISS e outros impostos governamentais. Não estão inclusos impostos sobre serviços extras no destino, taxas de turismo de algumas cidades e taxas de embarque dos aeroportos. Para as crianças com tarifa grátis (quando disponível), o desconto é aplicado na diária por pessoa, podendo variar conforme a cidade de origem e/ou a hospedagem escolhida, e de acordo com a taxa cambial diária, não incluindo as taxas de embarque. Lembramos que as vagas são limitadas. Este pacote é totalmente personalizado para atender aos seus sonhos, e como membro da nossa comunidade, você tem a oportunidade de receber um desconto especial de 30% a 80% no valor total. O valor do benefício será definido após uma avaliação criteriosa que considera o seu tempo de assinatura, o plano contratado e o histórico de pagamento. Queremos recompensar a sua lealdade e parceria com a melhor experiência de viagem possível! Entre em contato conosco para criarmos juntos o roteiro dos seus sonhos e avaliarmos o seu desconto especial. O mundo te espera!</p>
             </div>
         </div>
     </footer>
@@ -682,15 +685,88 @@
             });
         });
         
-        // Garantir que todas as imagens tenham o mesmo tamanho
-        document.addEventListener('DOMContentLoaded', function() {
+        // Função para tratar o tamanho das imagens
+        function processCardImages() {
             const cardImages = document.querySelectorAll('.card-img img');
+            const targetWidth = 280; // Largura aproximada dos cards
+            const targetHeight = 180; // Altura fixa definida no CSS
             
-            // Forçar todas as imagens a terem o mesmo tamanho
             cardImages.forEach(img => {
-                img.style.width = '100%';
-                img.style.height = '180px';
+                // Verificar se a imagem já foi carregada
+                if (img.complete) {
+                    adjustImage(img, targetWidth, targetHeight);
+                } else {
+                    // Se ainda não carregou, adicionar evento para quando carregar
+                    img.addEventListener('load', function() {
+                        adjustImage(this, targetWidth, targetHeight);
+                    });
+                }
+                
+                // Adicionar fallback para erro de carregamento
+                img.addEventListener('error', function() {
+                    this.style.objectFit = 'contain';
+                    this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjE4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzY2NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlbSBuw6NvIGNhcnJlZ2FkYTwvdGV4dD48L3N2Zz4=';
+                });
+            });
+        }
+        
+        // Função para ajustar a imagem conforme suas dimensões
+        function adjustImage(img, targetWidth, targetHeight) {
+            const naturalWidth = img.naturalWidth;
+            const naturalHeight = img.naturalHeight;
+            const aspectRatio = naturalWidth / naturalHeight;
+            const targetAspectRatio = targetWidth / targetHeight;
+            
+            // Se a imagem for muito pequena em ambas as dimensões
+            if (naturalWidth < targetWidth && naturalHeight < targetHeight) {
+                img.style.objectFit = 'scale-down'; // Reduz ainda mais para caber
+                img.style.width = 'auto';
+                img.style.height = 'auto';
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '100%';
+                return;
+            }
+            
+            // Se a imagem for muito pequena em largura
+            if (naturalWidth < targetWidth) {
                 img.style.objectFit = 'cover';
+                img.style.width = '100%';
+                img.style.height = '100%';
+                return;
+            }
+            
+            // Se a imagem for muito pequena em altura
+            if (naturalHeight < targetHeight) {
+                img.style.objectFit = 'cover';
+                img.style.width = '100%';
+                img.style.height = '100%';
+                return;
+            }
+            
+            // Para imagens grandes, aplicar object-fit: cover para preencher o espaço
+            img.style.objectFit = 'cover';
+            img.style.width = '100%';
+            img.style.height = '100%';
+            
+            // Ajustar posição do foco baseado na proporção
+            if (aspectRatio > targetAspectRatio) {
+                // Imagem mais larga que o container
+                img.style.objectPosition = 'center center';
+            } else {
+                // Imagem mais alta que o container
+                img.style.objectPosition = 'center 30%'; // Foco na parte superior
+            }
+        }
+        
+        // Inicializar o processamento das imagens quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            processCardImages();
+            
+            // Reprocessar imagens quando a janela for redimensionada
+            window.addEventListener('resize', function() {
+                // Usar debounce para evitar processamento excessivo
+                clearTimeout(window.resizeTimer);
+                window.resizeTimer = setTimeout(processCardImages, 250);
             });
         });
     </script>
