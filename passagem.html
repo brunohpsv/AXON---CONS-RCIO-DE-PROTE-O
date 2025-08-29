@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Notebook - BIXX</title>
+    <title>Cadastro de Passagem Aérea - BIXX</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -311,7 +311,7 @@
             flex: 1;
         }
         
-        .notebook-card {
+        .dependent-card {
             background-color: var(--gray);
             border-radius: 12px;
             padding: 1.5rem;
@@ -320,7 +320,7 @@
             border: 1px dashed var(--primary);
         }
         
-        .remove-notebook {
+        .remove-dependent {
             position: absolute;
             top: 0.5rem;
             right: 0.5rem;
@@ -336,7 +336,7 @@
             justify-content: center;
         }
         
-        .add-notebook-btn {
+        .add-dependent-btn {
             background: var(--primary);
             color: white;
             border: none;
@@ -352,7 +352,7 @@
             transition: var(--transition);
         }
         
-        .add-notebook-btn:hover {
+        .add-dependent-btn:hover {
             background: var(--primary-dark);
         }
         
@@ -369,7 +369,7 @@
             background: var(--primary);
             color: white;
             padding: 0.75rem 1.5rem;
-            borderRadius: 8px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 500;
             transition: var(--transition);
@@ -484,11 +484,11 @@
                 margin-bottom: 1.25rem;
             }
             
-            .notebook-card {
+            .dependent-card {
                 padding: 1.25rem;
             }
             
-            .add-notebook-btn, .btn {
+            .add-dependent-btn, .btn {
                 width: 100%;
                 justify-content: center;
                 padding: 1.25rem;
@@ -540,7 +540,7 @@
                 padding: 1rem;
             }
             
-            .notebook-card {
+            .dependent-card {
                 padding: 1rem;
             }
             
@@ -607,8 +607,8 @@
     <section class="form-section">
         <div class="container">
             <div class="section-title">
-                <h2>Cadastro de Notebook</h2>
-                <p>Preencha seus dados pessoais e dos seus notebooks para cadastro no plano BIXX</p>
+                <h2>Cadastro de Passagem Aérea</h2>
+                <p>Preencha seus dados pessoais e dos seus dependentes para cadastro no plano BIXX</p>
             </div>
             
             <div class="form-container">
@@ -659,27 +659,27 @@
                     </div>
                 </div>
                 
-                <!-- Step 2: Notebook Data -->
+                <!-- Step 2: Dependent Data -->
                 <div class="form-step" id="step2">
-                    <h3 style="margin-bottom: 1.5rem; color: var(--primary);">Dados do Notebook</h3>
+                    <h3 style="margin-bottom: 1.5rem; color: var(--primary);">Dados dos Dependentes</h3>
                     
-                    <div id="notebooks-container">
-                        <div class="notebook-card" id="notebook-1">
-                            <button type="button" class="remove-notebook" onclick="removeNotebook(1)" style="display: none;">
+                    <div id="dependents-container">
+                        <div class="dependent-card" id="dependent-1">
+                            <button type="button" class="remove-dependent" onclick="removeDependent(1)" style="display: none;">
                                 <i class="fas fa-times"></i>
                             </button>
                             
                             <div class="form-row">
                                 <div class="form-col">
                                     <div class="form-group">
-                                        <label for="marca-1">Marca *</label>
-                                        <input type="text" id="marca-1" class="form-control notebook-field" required>
+                                        <label for="dependente-nome-1">Nome Completo *</label>
+                                        <input type="text" id="dependente-nome-1" class="form-control dependent-field" required>
                                     </div>
                                 </div>
                                 <div class="form-col">
                                     <div class="form-group">
-                                        <label for="modelo-1">Modelo *</label>
-                                        <input type="text" id="modelo-1" class="form-control notebook-field" required>
+                                        <label for="dependente-cpf-1">CPF *</label>
+                                        <input type="text" id="dependente-cpf-1" class="form-control dependent-field" placeholder="000.000.000-00" required>
                                     </div>
                                 </div>
                             </div>
@@ -687,39 +687,29 @@
                             <div class="form-row">
                                 <div class="form-col">
                                     <div class="form-group">
-                                        <label for="numero-serie-1">Número de Série *</label>
-                                        <input type="text" id="numero-serie-1" class="form-control notebook-field" required>
+                                        <label for="dependente-parentesco-1">Parentesco *</label>
+                                        <select id="dependente-parentesco-1" class="form-control dependent-field" required>
+                                            <option value="">Selecione...</option>
+                                            <option value="Cônjuge">Cônjuge</option>
+                                            <option value="Filho(a)">Filho(a)</option>
+                                            <option value="Pai/Mãe">Pai/Mãe</option>
+                                            <option value="Irmão(ã)">Irmão(ã)</option>
+                                            <option value="Outro">Outro</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-col">
                                     <div class="form-group">
-                                        <label for="ano-1">Ano de Fabricação *</label>
-                                        <input type="number" id="ano-1" class="form-control notebook-field" min="2010" max="2025" required>
+                                        <label for="dependente-nascimento-1">Data de Nascimento *</label>
+                                        <input type="date" id="dependente-nascimento-1" class="form-control dependent-field" required>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="especificacoes-1">Especificações Técnicas</label>
-                                <textarea id="especificacoes-1" class="form-control notebook-field" rows="3" placeholder="Processador, RAM, Armazenamento, etc."></textarea>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="condicoes-1">Condições do Aparelho *</label>
-                                <select id="condicoes-1" class="form-control notebook-field" required>
-                                    <option value="">Selecione...</option>
-                                    <option value="Novo">Novo</option>
-                                    <option value="Excelente">Excelente</option>
-                                    <option value="Bom">Bom</option>
-                                    <option value="Regular">Regular</option>
-                                    <option value="Ruim">Ruim</option>
-                                </select>
                             </div>
                         </div>
                     </div>
                     
-                    <button type="button" class="add-notebook-btn" onclick="addNotebook()">
-                        <i class="fas fa-plus"></i> Adicionar outro notebook
+                    <button type="button" class="add-dependent-btn" onclick="addDependent()">
+                        <i class="fas fa-plus"></i> Adicionar outro dependente
                     </button>
                     
                     <div class="form-navigation">
@@ -799,28 +789,28 @@
             document.getElementById(`step${prev}`).classList.add('active');
         }
         
-        // Notebook Management
-        let notebookCount = 1;
+        // Dependent Management
+        let dependentCount = 1;
         
-        function addNotebook() {
-            notebookCount++;
-            const notebookHTML = `
-                <div class="notebook-card" id="notebook-${notebookCount}">
-                    <button type="button" class="remove-notebook" onclick="removeNotebook(${notebookCount})">
+        function addDependent() {
+            dependentCount++;
+            const dependentHTML = `
+                <div class="dependent-card" id="dependent-${dependentCount}">
+                    <button type="button" class="remove-dependent" onclick="removeDependent(${dependentCount})">
                         <i class="fas fa-times"></i>
                     </button>
                     
                     <div class="form-row">
                         <div class="form-col">
                             <div class="form-group">
-                                <label for="marca-${notebookCount}">Marca *</label>
-                                <input type="text" id="marca-${notebookCount}" class="form-control notebook-field" required>
+                                <label for="dependente-nome-${dependentCount}">Nome Completo *</label>
+                                <input type="text" id="dependente-nome-${dependentCount}" class="form-control dependent-field" required>
                             </div>
                         </div>
                         <div class="form-col">
                             <div class="form-group">
-                                <label for="modelo-${notebookCount}">Modelo *</label>
-                                <input type="text" id="modelo-${notebookCount}" class="form-control notebook-field" required>
+                                <label for="dependente-cpf-${dependentCount}">CPF *</label>
+                                <input type="text" id="dependente-cpf-${dependentCount}" class="form-control dependent-field" placeholder="000.000.000-00" required>
                             </div>
                         </div>
                     </div>
@@ -828,44 +818,39 @@
                     <div class="form-row">
                         <div class="form-col">
                             <div class="form-group">
-                                <label for="numero-serie-${notebookCount}">Número de Série *</label>
-                                <input type="text" id="numero-serie-${notebookCount}" class="form-control notebook-field" required>
+                                <label for="dependente-parentesco-${dependentCount}">Parentesco *</label>
+                                <select id="dependente-parentesco-${dependentCount}" class="form-control dependent-field" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="Cônjuge">Cônjuge</option>
+                                    <option value="Filho(a)">Filho(a)</option>
+                                    <option value="Pai/Mãe">Pai/Mãe</option>
+                                    <option value="Irmão(ã)">Irmão(ã)</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-col">
                             <div class="form-group">
-                                <label for="ano-${notebookCount}">Ano de Fabricação *</label>
-                                <input type="number" id="ano-${notebookCount}" class="form-control notebook-field" min="2010" max="2025" required>
+                                <label for="dependente-nascimento-${dependentCount}">Data de Nascimento *</label>
+                                <input type="date" id="dependente-nascimento-${dependentCount}" class="form-control dependent-field" required>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="especificacoes-${notebookCount}">Especificações Técnicas</label>
-                        <textarea id="especificacoes-${notebookCount}" class="form-control notebook-field" rows="3" placeholder="Processador, RAM, Armazenamento, etc."></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="condicoes-${notebookCount}">Condições do Aparelho *</label>
-                        <select id="condicoes-${notebookCount}" class="form-control notebook-field" required>
-                            <option value="">Selecione...</option>
-                            <option value="Novo">Novo</option>
-                            <option value="Excelente">Excelente</option>
-                            <option value="Bom">Bom</option>
-                            <option value="Regular">Regular</option>
-                            <option value="Ruim">Ruim</option>
-                        </select>
                     </div>
                 </div>
             `;
             
-            document.getElementById('notebooks-container').insertAdjacentHTML('beforeend', notebookHTML);
+            document.getElementById('dependents-container').insertAdjacentHTML('beforeend', dependentHTML);
+            
+            // Adicionar máscara de CPF para o novo dependente
+            document.getElementById(`dependente-cpf-${dependentCount}`).addEventListener('input', function(e) {
+                applyCpfMask(e);
+            });
         }
         
-        function removeNotebook(id) {
-            if (notebookCount > 1) {
-                document.getElementById(`notebook-${id}`).remove();
-                notebookCount--;
+        function removeDependent(id) {
+            if (dependentCount > 1) {
+                document.getElementById(`dependent-${id}`).remove();
+                dependentCount--;
             }
         }
         
@@ -888,33 +873,29 @@
                 return;
             }
             
-            // Get notebooks data
-            const notebooks = [];
+            // Get dependents data
+            const dependents = [];
             let isValid = true;
             
-            for (let i = 1; i <= notebookCount; i++) {
-                const notebookElement = document.getElementById(`notebook-${i}`);
-                if (notebookElement) {
-                    const marca = document.getElementById(`marca-${i}`).value;
-                    const modelo = document.getElementById(`modelo-${i}`).value;
-                    const numeroSerie = document.getElementById(`numero-serie-${i}`).value;
-                    const ano = document.getElementById(`ano-${i}`).value;
-                    const especificacoes = document.getElementById(`especificacoes-${i}`).value;
-                    const condicoes = document.getElementById(`condicoes-${i}`).value;
+            for (let i = 1; i <= dependentCount; i++) {
+                const dependentElement = document.getElementById(`dependent-${i}`);
+                if (dependentElement) {
+                    const nome = document.getElementById(`dependente-nome-${i}`).value;
+                    const cpf = document.getElementById(`dependente-cpf-${i}`).value;
+                    const parentesco = document.getElementById(`dependente-parentesco-${i}`).value;
+                    const nascimento = document.getElementById(`dependente-nascimento-${i}`).value;
                     
-                    if (!marca || !modelo || !numeroSerie || !ano || !condicoes) {
+                    if (!nome || !cpf || !parentesco || !nascimento) {
                         isValid = false;
-                        alert(`Por favor, preencha todos os campos obrigatórios do notebook ${i}.`);
+                        alert(`Por favor, preencha todos os campos obrigatórios do dependente ${i}.`);
                         break;
                     }
                     
-                    notebooks.push({
-                        marca,
-                        modelo,
-                        numeroSerie,
-                        ano: parseInt(ano),
-                        especificacoes,
-                        condicoes
+                    dependents.push({
+                        nome,
+                        cpf,
+                        parentesco,
+                        nascimento
                     });
                 }
             }
@@ -924,7 +905,7 @@
             // Prepare complete data
             const completeData = {
                 ...personalData,
-                notebooks
+                dependents
             };
             
             // Save to Firestore - coleção "passagens" com CPF como ID do documento
@@ -942,7 +923,7 @@
         }
         
         // Input masks
-        document.getElementById('cpf').addEventListener('input', function(e) {
+        function applyCpfMask(e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length > 11) value = value.slice(0, 11);
             
@@ -955,6 +936,15 @@
             }
             
             e.target.value = value;
+        }
+        
+        document.getElementById('cpf').addEventListener('input', function(e) {
+            applyCpfMask(e);
+        });
+        
+        // Aplicar máscara de CPF para o primeiro dependente
+        document.getElementById('dependente-cpf-1').addEventListener('input', function(e) {
+            applyCpfMask(e);
         });
         
         document.getElementById('telefone').addEventListener('input', function(e) {
