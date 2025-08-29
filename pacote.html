@@ -440,11 +440,29 @@
         
         /* Promo Cards */
         .promo-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+@media (max-width: 1200px) {
+    .promo-cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .promo-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .promo-cards {
+        grid-template-columns: 1fr;
+    }
+}
         
         .promo-card {
             background: var(--light);
@@ -790,8 +808,8 @@
                 <span>BIXX Viagens</span>
             </div>
             <nav>
-                <ul>
-                    <li><a href="index.html">Início</a></li>
+    <ul>
+        <li><a href="index.html">Início</a></li>
                 </ul>
             </nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -826,16 +844,11 @@
                 </div>
                 
                 <div class="search-form-content">
-                    <div class="form-group">
-                        <label for="origem">Origem</label>
-                        <input type="text" id="origem" class="form-control" placeholder="Cidade de origem">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="destino">Destino</label>
-                        <input type="text" id="destino" class="form-control" placeholder="Para onde?">
-                    </div>
-                </div>
+    <div class="form-group full-width">
+        <label for="destino">Destino</label>
+        <input type="text" id="destino" class="form-control" placeholder="Para onde você quer viajar?">
+    </div>
+</div>
                 
                 <button class="search-btn" id="buscarOfertas">
                     <i class="fas fa-search"></i> Buscar Ofertas
@@ -909,11 +922,11 @@
     
     <!-- Destinos Section -->
     <section class="destinos-section" id="destinos">
-        <div class="container">
-            <div class="section-title">
-                <h2>Destinos Populares</h2>
-                <p>Conheça os lugares mais procurados pelos nossos clientes</p>
-            </div>
+    <div class="container">
+        <div class="section-title">
+            <h2>Destinos Populares</h2>
+            <p>Conheça os lugares mais procurados pelos nossos clientes</p>
+        </div>
             
             <div class="destinos-grid">
                 <div class="destino-card">
@@ -967,16 +980,6 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-column">
-                    <h3>BIXX Viagens</h3>
-                    <p>Oferecemos as melhores experiências de viagem com preços competitivos e atendimento de qualidade.</p>
-                    <div class="footer-social">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
                 
                 <div class="footer-column">
                     <h3>Destinos</h3>
