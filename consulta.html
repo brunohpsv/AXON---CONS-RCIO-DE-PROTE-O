@@ -3,12 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIXX - Clube de Benefícios</title>
+    <title>BIXX - Solicitações</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Firebase App (o core do Firebase) -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <!-- Firebase Firestore -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <style>
         :root {
             --primary: #8B0000;
@@ -96,7 +92,7 @@
             background-color: rgba(139, 0, 0, 0.1);
         }
         
-        .consultation-box, .result-box, .email-info {
+        .email-info {
             background-color: var(--light);
             padding: 2rem;
             border-radius: 8px;
@@ -105,141 +101,6 @@
             width: 100%;
         }
         
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-        
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 0.8rem;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 1rem;
-            font-size: 1rem;
-        }
-        
-        .btn:hover {
-            opacity: 0.9;
-        }
-        
-        .result-box {
-            display: none;
-        }
-        
-        .result-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .status-ativo {
-            background-color: rgba(76, 175, 80, 0.1);
-            color: var(--success);
-        }
-        
-        .status-inativo {
-            background-color: rgba(244, 67, 54, 0.1);
-            color: var(--error);
-        }
-        
-        .status-pendente {
-            background-color: rgba(255, 193, 7, 0.1);
-            color: var(--warning);
-        }
-        
-        .user-info, .coverage-info, .equipment-info {
-            margin-bottom: 1.5rem;
-        }
-        
-        .info-group {
-            margin-bottom: 0.8rem;
-            display: flex;
-            flex-wrap: wrap;
-        }
-        
-        .info-label {
-            font-weight: 600;
-            display: inline-block;
-            width: 120px;
-            min-width: 120px;
-        }
-        
-        .equipment-list {
-            list-style-type: none;
-            margin-top: 1rem;
-        }
-        
-        .equipment-item {
-            background-color: var(--gray);
-            padding: 1rem;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-        }
-        
-        .loading {
-            text-align: center;
-            display: none;
-            margin: 1.5rem 0;
-        }
-        
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .error-message {
-            color: var(--error);
-            margin-top: 1rem;
-            display: none;
-            text-align: center;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 2rem;
-            color: #7f8c8d;
-            font-size: 0.9rem;
-            padding: 1rem;
-        }
-
         .section-title {
             color: var(--primary);
             margin-bottom: 1rem;
@@ -270,6 +131,21 @@
             padding-bottom: 0;
         }
         
+        .info-box {
+            background-color: var(--light);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .info-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
         /* Responsividade */
         @media (min-width: 768px) {
             .container {
@@ -280,21 +156,12 @@
                 font-size: 2rem;
             }
             
-            .consultation-box, .result-box, .email-info {
+            .email-info {
                 padding: 2.5rem;
-            }
-            
-            .btn {
-                font-size: 1.1rem;
             }
             
             .section-title {
                 font-size: 1.4rem;
-            }
-            
-            .info-label {
-                width: 150px;
-                min-width: 150px;
             }
         }
         
@@ -303,13 +170,8 @@
                 padding: 40px;
             }
             
-            .consultation-box, .result-box, .email-info {
+            .email-info {
                 padding: 3rem;
-            }
-            
-            .info-label {
-                width: 180px;
-                min-width: 180px;
             }
         }
         
@@ -331,21 +193,12 @@
                 gap: 8px;
             }
             
-            .consultation-box, .result-box, .email-info {
+            .email-info {
                 padding: 1.5rem;
             }
             
             .section-title {
                 font-size: 1.1rem;
-            }
-            
-            .info-group {
-                flex-direction: column;
-            }
-            
-            .info-label {
-                width: 100%;
-                margin-bottom: 0.3rem;
             }
             
             .email-example {
@@ -359,8 +212,8 @@
 <body>
     <header>
         <div class="header-container">
-            <h1><span class="logo">CONSULTE OU SOLICITE!</span></h1>
-            <p>Verifique o status do seu cadastro e veja modelos para fazer as solicitações - Daremos as respostas no próximo dia (mesmo que não seja útil)</p>
+            <h1><span class="logo">SOLICITAÇÕES BIXX</span></h1>
+            <p>Modelos para fazer solicitações por e-mail - Daremos as respostas no próximo dia (mesmo que não seja útil)</p>
             
             <nav class="nav-menu">
                 <a href="index.html" class="nav-link">Início</a>
@@ -369,31 +222,14 @@
     </header>
     
     <div class="container">
-        <div class="consultation-box">
-            <h2 class="section-title">Consultar Cadastro</h2>
-            <p>Digite seu CPF para consultar seu cadastro em nosso sistema.</p>
-            
-            <div class="form-group">
-                <label for="cpf">CPF:</label>
-                <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14">
-            </div>
-            
-            <button id="consultarBtn" class="btn">Consultar</button>
-            
-            <div class="loading" id="loading">
-                <div class="spinner"></div>
-                <p>Consultando cadastro...</p>
-            </div>
-            
-            <div class="error-message" id="errorMessage">
-                CPF não encontrado em nossa base de dados. Verifique se digitou corretamente.
-            </div>
+        <div class="info-box">
+            <div class="info-icon">📧</div>
+            <h2 class="section-title">Envie suas solicitações por e-mail</h2>
+            <p>Para solicitar serviços, envie um e-mail para <strong>oficialbixx@gmail.com</strong> seguindo os modelos abaixo.</p>
+            <p>Lembre-se de incluir seu CPF no assunto do e-mail para identificarmos seu cadastro.</p>
         </div>
         
         <div class="email-info">
-            <h2 class="section-title">Solicitações por E-mail</h2>
-            <p>Para solicitar serviços, envie um e-mail para <strong>oficialbixx@gmail.com</strong> seguindo as instruções abaixo:</p>
-            
             <div class="request-type">
                 <h3 class="section-title">Assistência Técnica</h3>
                 <p><strong>Assunto:</strong> [Seu CPF] - Assistência Técnica</p>
@@ -403,7 +239,7 @@
                     <li>Equipamento com problema</li>
                     <li>Data em que o problema começou</li>
                     <li>Se já tentou alguma solução</li>
-                    <li>Iremos avaliar e dar resposta no príxmo dia</li>
+                    <li>Iremos avaliar e dar resposta no próximo dia</li>
                 </ul>
                 <div class="email-example">
 Assunto: 123.456.789-00 - Assistência Técnica
@@ -431,7 +267,7 @@ Já tentei:
                     <li>Marca e modelo</li>
                     <li>Nome da loja (se online, incluir link)</li>
                     <li>Preço encontrado</li>
-                    <li>Iremos avaliar e dar resposta no príxmo dia</li>
+                    <li>Iremos avaliar e dar resposta no próximo dia</li>
                 </ul>
                 <div class="email-example">
 Assunto: 123.456.789-00 - Análise de Acessório
@@ -458,7 +294,7 @@ Preço: R$ 89,90
                     <li>Estado de conservação</li>
                     <li>Defeitos existentes</li>
                     <li>Foto do aparelho (anexar)</li>
-                    <li>Iremos avaliar e dar resposta no príxmo dia</li>
+                    <li>Iremos avaliar e dar resposta no próximo dia</li>
                 </ul>
                 <div class="email-example">
 Assunto: 123.456.789-00 - Análise para Revenda
@@ -485,7 +321,7 @@ Anexo: Foto do aparelho (enviada em anexo)
                     <li>Motivo do cancelamento</li>
                     <li>Data em que deseja efetivar o cancelamento</li>
                     <li>Confirmação de que compreende os termos de cancelamento</li>
-                    <li>Iremos avaliar e dar resposta no príxmo dia</li>
+                    <li>Iremos avaliar e dar resposta no próximo dia</li>
                 </ul>
                 <div class="email-example">
 Assunto: 123.456.789-00 - Cancelamento de Assinatura
@@ -502,224 +338,9 @@ Confirmo que estou ciente dos termos de cancelamento e que não haverá reembols
             </div>
         </div>
         
-        <div class="result-box" id="resultBox">
-            <div class="result-header">
-                <h2 class="section-title">Dados do Cadastro</h2>
-                <div class="status-badge" id="statusBadge">Ativo</div>
-            </div>
-            
-            <div class="user-info">
-                <h3 class="section-title">Informações Pessoais</h3>
-                <div class="info-group">
-                    <span class="info-label">Nome:</span>
-                    <span id="userName"></span>
-                </div>
-                <div class="info-group">
-                    <span class="info-label">CPF:</span>
-                    <span id="userCpf"></span>
-                </div>
-            </div>
-            
-            <div class="equipment-info">
-                <h3 class="section-title">Equipamentos Cadastrados</h3>
-                <ul class="equipment-list" id="equipmentList">
-                    <!-- Os equipamentos serão inseridos aqui via JavaScript -->
-                </ul>
-            </div>
-            
-            <div class="coverage-info">
-                <h3 class="section-title">Status da Cobertura</h3>
-                <div class="info-group">
-                    <span class="info-label">Status:</span>
-                    <span id="coverageStatus"></span>
-                </div>
-                <div class="info-group">
-                    <span class="info-label">Início da Cobertura:</span>
-                    <span id="coverageStart"></span>
-                </div>
-                <div class="info-group">
-                    <span class="info-label">Fim da Cobertura:</span>
-                    <span id="coverageEnd"></span>
-                </div>
-            </div>
-        </div>
-        
         <footer>            
             <p>BIXX &copy; 2025 - Todos os direitos reservados</p>
         </footer>
     </div>
-
-    <script>
-        // Configuração do Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
-            authDomain: "axon-ec708.firebaseapp.com",
-            projectId: "axon-ec708",
-            storageBucket: "axon-ec708.appspot.com",
-            messagingSenderId: "403077673595",
-            appId: "1:403077673595:web:a4cb91bdf662f8d8e9e8de"
-        };
-        
-        // Inicializar Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        
-        // Elementos da DOM
-        const cpfInput = document.getElementById('cpf');
-        const consultarBtn = document.getElementById('consultarBtn');
-        const loadingElement = document.getElementById('loading');
-        const errorMessage = document.getElementById('errorMessage');
-        const resultBox = document.getElementById('resultBox');
-        const statusBadge = document.getElementById('statusBadge');
-        const userName = document.getElementById('userName');
-        const userCpf = document.getElementById('userCpf');
-        const equipmentList = document.getElementById('equipmentList');
-        const coverageStatus = document.getElementById('coverageStatus');
-        const coverageStart = document.getElementById('coverageStart');
-        const coverageEnd = document.getElementById('coverageEnd');
-        
-        // Variável para armazenar os dados completos do usuário
-        let userDataComplete = null;
-        
-        // Formatador de CPF
-        cpfInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            
-            if (value.length > 11) {
-                value = value.slice(0, 11);
-            }
-            
-            if (value.length > 9) {
-                value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-            } else if (value.length > 6) {
-                value = value.replace(/(\d{3})(\d{3})(\d+)/, '$1.$2.$3');
-            } else if (value.length > 3) {
-                value = value.replace(/(\d{3})(\d+)/, '$1.$2');
-            }
-            
-            e.target.value = value;
-        });
-        
-        // Consultar cadastro
-        consultarBtn.addEventListener('click', function() {
-            const cpf = cpfInput.value.replace(/\D/g, '');
-            
-            if (cpf.length !== 11) {
-                errorMessage.textContent = 'Por favor, digite um CPF válido com 11 dígitos.';
-                errorMessage.style.display = 'block';
-                return;
-            }
-            
-            loadingElement.style.display = 'block';
-            errorMessage.style.display = 'none';
-            resultBox.style.display = 'none';
-            
-            // Consultar Firestore - CPF sem formatação (apenas números)
-            db.collection('usuarios')
-                .where('cpf', '==', cpf)
-                .get()
-                .then((querySnapshot) => {
-                    loadingElement.style.display = 'none';
-                    
-                    if (querySnapshot.empty) {
-                        // Tentar buscar dengan CPF formatado (como fallback)
-                        const formattedCpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-                        return db.collection('usuarios')
-                            .where('cpf', '==', formattedCpf)
-                            .get();
-                    }
-                    
-                    return querySnapshot;
-                })
-                .then((querySnapshot) => {
-                    loadingElement.style.display = 'none';
-                    
-                    if (querySnapshot.empty) {
-                        errorMessage.style.display = 'block';
-                        return;
-                    }
-                    
-                    // Exibir resultados
-                    userDataComplete = querySnapshot.docs[0].data();
-                    displayUserData(userDataComplete);
-                })
-                .catch((error) => {
-                    loadingElement.style.display = 'none';
-                    errorMessage.textContent = 'Erro ao consultar o cadastro. Tente novamente.';
-                    errorMessage.style.display = 'block';
-                    console.error('Erro ao consultar:', error);
-                });
-        });
-        
-        // Exibir dados do usuário
-        function displayUserData(userData) {
-            // Informações básicas
-            userName.textContent = userData.nome || 'Não informado';
-            userCpf.textContent = userData.cpf || 'Não informado';
-            
-            // Status
-            const status = userData.status || 'inativo';
-            statusBadge.textContent = status.charAt(0).toUpperCase() + status.slice(1);
-            
-            // Definir classe de status com base no valor
-            if (status === 'ativo') {
-                statusBadge.className = 'status-badge status-ativo';
-            } else if (status === 'pendente') {
-                statusBadge.className = 'status-badge status-pendente';
-            } else {
-                statusBadge.className = 'status-badge status-inativo';
-            }
-            
-            // Equipamentos
-            equipmentList.innerHTML = '';
-            if (userData.equipments && userData.equipments.length > 0) {
-                userData.equipments.forEach(equipment => {
-                    const li = document.createElement('li');
-                    li.className = 'equipment-item';
-                    li.innerHTML = `
-                        <strong>Tipo:</strong> ${equipment.tipo || 'Não informado'}<br>
-                        <strong>Marca:</strong> ${equipment.marca || 'Não informado'}<br>
-                        <strong>Modelo:</strong> ${equipment.modelo || 'Não informado'}<br>
-                        <strong>Nº de Série:</strong> ${equipment.numeroSerie || 'Não informado'}<br>
-                        <strong>Valor:</strong> R$ ${equipment.valor ? equipment.valor.toFixed(2) : '0,00'}
-                    `;
-                    equipmentList.appendChild(li);
-                });
-            } else {
-                equipmentList.innerHTML = '<li class="equipment-item">Nenhum equipamento cadastrado</li>';
-            }
-            
-            // Cobertura
-            const coberturaStatus = userData.coberturaStatus || userData.statusCobertura || 'Não informado';
-            coverageStatus.textContent = typeof coberturaStatus === 'string' ? 
-                coberturaStatus.charAt(0).toUpperCase() + coberturaStatus.slice(1) : 
-                'Não informado';
-                
-            coverageStart.textContent = formatDate(userData.inicioCobertura || userData.inicioCarencia || userData.dataInicio) || 'Não informado';
-            coverageEnd.textContent = formatDate(userData.fimCobertura || userData.fimCarencia || userData.dataFim) || 'Não informado';
-            
-            // Exibir a caixa de resultados
-            resultBox.style.display = 'block';
-            
-            // Rolar até os resultados
-            resultBox.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        // Formatador de data (de yyyy-mm-dd para dd/mm/yyyy)
-        function formatDate(dateString) {
-            if (!dateString) return '';
-            
-            // Se for um timestamp do Firebase
-            if (dateString.seconds) {
-                const date = new Date(dateString.seconds * 1000);
-                return date.toLocaleDateString('pt-BR');
-            }
-            
-            const date = new Date(dateString);
-            if (isNaN(date.getTime())) return dateString;
-            
-            return date.toLocaleDateString('pt-BR');
-        }
-    </script>
 </body>
 </html>
