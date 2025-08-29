@@ -487,6 +487,8 @@
         .newsletter-content p {
             margin-bottom: 2rem;
             opacity: 0.9;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
         .newsletter-form {
@@ -927,6 +929,15 @@
                 <p>Confira nossas promoções mais populares com condições especiais</p>
             </div>
 
+            <!-- Filtros de Categoria -->
+            <div class="filters-container">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="nacional">Nacional</button>
+                <button class="filter-btn" data-filter="praia">Praia</button>
+                <button class="filter-btn" data-filter="cidade">Cidade</button>
+                <button class="filter-btn" data-filter="montanha">Montanha</button>
+            </div>
+
             <div class="grid-cards" id="destinations-grid">
                 <!-- Card 1 -->
                 <div class="card stagger-item" data-destination="Fernando de Noronha" data-category="nacional praia">
@@ -1128,7 +1139,11 @@
         <div class="container">
             <div class="newsletter-content">
                 <h2>Não perca nossas promoções</h2>
-                <p>CONDIÇÕES GERAIS: É importante lembrar que as imagens apresentadas são meramente ilustrativas. As condições ofertadas estão sujeitas à disponibilidade de dates e horários, podendo haver alterações de preço por parte dos fornecedores sem aviso prévio. O parcelamento segue as regras de cada companhia aérea, podendo variar conforme a rota, destino e valor total. Seu pacote completo é cuidadosamente elaborado para oferecer o máximo de conforto e conveniência, incluindo hospedagem de qualidade e, onde houver disponibilidade na região, um carro alugado como bônus para você explorar cada cantinho do seu destino com total liberdade. Para tornar sua aventura ainda mais rica e descomplicada, você pode contar com o suporte de guias turísticos especializados (opcional) e caso tenha!, prontos para revelar os segredos e histórias locais. A sua tranquilidade é nossa prioridade. Por isso, todos os nossos pacotes incluem seguro viagem para cobertura em imprevistos, cancelamento gratuito até 30 dias antes da partida e assistência VIP durante toda a viagem, um suporte exclusivo para ajudar você no que for preciso, a qualquer momento. E com um período de carência de 6 meses, você tem flexibilidade para agendar sua viagem da melhor forma. Todos os preços dos pacotes BIXX já incluem taxa de serviço, ISS e outros impostos governamentais. Não estão inclusos impostos sobre serviços extras no destino, taxas de turismo de algumas cidades e taxas de embarque dos aeroportos. Para as crianças com tarifa grátis (quando disponível), o desconto é aplicado na diária por pessoa, podendo variar conforme a cidade de origem e/ou a hospedagem escolhida, e de acordo com a taxa cambial diária, não incluindo as taxas de embarque. Lembramos que as vagas são limitadas. Este pacote é totalmente personalizado para atender aos seus sonhos, e como membro da nossa comunidade, você tem a oportunidade de receber um desconto especial de 30% a 80% no valor total. O valor do benefício será definido após uma avaliação criteriosa que considera o seu tempo de assinatura, o plano contratado e o histórico de pagamento. Queremos recompensar a sua lealdade e parceria com a melhor experiência de viagem possível! Entre em contato conosco para criarmos juntos o roteiro dos seus sonhos e avaliarmos o seu desconto especial. O mundo te espera!</p>
+                <p>Cadastre-se para receber nossas melhores ofertas e descontos exclusivos em primeira mão!</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Seu melhor e-mail" required>
+                    <button type="submit" class="newsletter-btn">Inscrever-se</button>
+                </form>
             </div>
         </div>
     </section>
@@ -1169,6 +1184,8 @@
             <div class="footer-bottom">
                 <p>&copy; 2023 BIXX Viagens. Todos os direitos reservados.</p>
                 <div class="footer-text">
+                    <p>As imagens são meramente ilustrativas. Preços sujeitos a alteração sem aviso prévio. Condições sujeitas à disponibilidade.</p>
+                </div>
             </div>
         </div>
     </footer>
