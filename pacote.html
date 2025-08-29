@@ -6,19 +6,16 @@
     <title>Promoções de Viagens - BIXX Viagens</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <style>
         :root {
-            --primary: #8B0000; /* Vermelho escuro */
-            --primary-dark: #6D0000; /* Vermelho mais escuro */
+            --primary: #8B0000;
+            --primary-light: #a52a2a;
             --secondary: #2D2D2D;
-            --accent: #CC0000; /* Vermelho mais vibrante para destaque */
             --light: #FFFFFF;
             --dark: #161616;
             --gray: #F5F5F5;
-            --texture: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
-            --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --light-gray: #f9f9f9;
+            --border: #eaeaea;
         }
         
         * {
@@ -28,25 +25,10 @@
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
             color: var(--dark);
             background-color: var(--light);
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--texture);
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.1;
         }
         
         .container {
@@ -56,58 +38,54 @@
             padding: 2rem 0;
         }
         
-        /* Header */
+        /* Header Minimalista */
         header {
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: var(--light);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
         }
         
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
         }
         
         .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            letter-spacing: -1px;
-            padding-left: 0.5rem;
-        }
-        
-        .logo i {
-            margin-right: 0.5rem;
             font-size: 1.5rem;
+            font-weight: 700;
             color: var(--primary);
+            letter-spacing: -0.5px;
         }
         
-        nav ul {
+        /* Menu de Navegação */
+        .nav-menu {
             display: flex;
             list-style: none;
-            gap: 2rem;
         }
         
-        nav a {
-            color: var(--secondary);
+        .nav-item {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-link {
+            color: var(--dark);
             text-decoration: none;
             font-weight: 500;
-            padding: 0.5rem 0;
+            transition: color 0.3s ease;
             position: relative;
-            transition: var(--transition);
+            padding: 0.5rem 0;
         }
         
-        nav a::after {
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link::after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -115,667 +93,266 @@
             width: 0;
             height: 2px;
             background-color: var(--primary);
-            transition: var(--transition);
+            transition: width 0.3s ease;
         }
         
-        nav a:hover {
-            color: var(--primary);
-        }
-        
-        nav a:hover::after {
+        .nav-link:hover::after {
             width: 100%;
         }
         
-        .mobile-menu-btn {
+        /* Menu Mobile */
+        .menu-toggle {
             display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--dark);
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-        
-        /* Side Menu */
-        .side-menu {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 280px;
-            height: 100%;
-            background-color: var(--light);
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-            z-index: 1001;
-            transition: var(--transition);
-            padding: 2rem 1.5rem;
-            overflow-y: auto;
-        }
-        
-        .side-menu.active {
-            right: 0;
-        }
-        
-        .side-menu-header {
-            display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-        }
-        
-        .side-menu-close {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--secondary);
+            width: 30px;
+            height: 21px;
             cursor: pointer;
         }
         
-        .side-menu-links {
-            list-style: none;
-        }
-        
-        .side-menu-links li {
-            margin-bottom: 1.5rem;
-        }
-        
-        .side-menu-links a {
-            color: var(--secondary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            display: block;
-            padding: 0.5rem 0;
-            transition: var(--transition);
-        }
-        
-        .side-menu-links a:hover {
-            color: var(--primary);
-        }
-        
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .menu-toggle span {
+            height: 3px;
             width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
+            background-color: var(--dark);
+            border-radius: 3px;
+            transition: all 0.3s ease;
         }
         
-        .menu-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        /* Hero Banner */
+        /* Hero Section Minimalista */
         .hero-banner {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 8rem 0 4rem;
+            background: var(--light-gray);
+            padding: 8rem 0 3rem;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-banner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48ZyBmaWxsPSJub25lIiBzdHJva2U9IiNGRkYiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNIDAgMCBMIDYwIDYwIE0gNjAgMCBMIDAgNjAiLz48L2c+PC9zdmc+') repeat;
-            opacity: 0.1;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
         }
         
         .hero-content h1 {
-            font-size: 3rem;
+            font-size: 2.2rem;
             margin-bottom: 1rem;
-            font-weight: 800;
+            font-weight: 600;
         }
         
         .hero-content p {
-            font-size: 1.2rem;
-            max-width: 700px;
+            font-size: 1rem;
+            max-width: 600px;
             margin: 0 auto 2rem;
-            opacity: 0.9;
+            color: var(--secondary);
         }
         
-        /* Search Form - ATUALIZADO */
+        /* Search Form Minimalista */
         .search-form {
             background: var(--light);
-            border-radius: 16px;
-            padding: 2.5rem;
+            border-radius: 12px;
+            padding: 1.5rem;
             margin: 2rem auto 0;
-            max-width: 900px;
-            box-shadow: var(--shadow);
+            max-width: 600px;
+            border: 1px solid var(--border);
         }
         
-        .search-tabs {
+        .search-input-container {
             display: flex;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid var(--gray);
+            align-items: center;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
         }
         
-        .search-tab {
-            padding: 1rem 1.5rem;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--secondary);
-            transition: var(--transition);
-            border-bottom: 3px solid transparent;
-        }
-        
-        .search-tab.active {
-            color: var(--primary);
-            border-bottom: 3px solid var(--primary);
-        }
-        
-        .search-form-content {
-            grid-template-columns: 1fr 1fr !important;
-            margin-bottom: 1rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 0.9rem;
-        }
-        
-        .form-control {
-            width: 100%;
+        .search-input {
+            flex: 1;
             padding: 0.85rem 1rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
+            border: none;
             font-family: 'Inter', sans-serif;
             font-size: 1rem;
-            transition: var(--transition);
-            background-color: #f9f9f9;
-        }
-        
-        .form-control:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
-            background-color: #fff;
-        }
-        
-        .date-inputs-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        
-        .date-input-container {
-            position: relative;
-        }
-        
-        .date-input-container i {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #777;
-            pointer-events: none;
-        }
-        
-        .hospedes-container {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .hospedes-input {
-            flex: 1;
-            position: relative;
-        }
-        
-        .hospedes-input input {
-            padding-right: 2.5rem;
-        }
-        
-        .hospedes-controls {
-            position: absolute;
-            right: 0.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .hospedes-btn {
-            background: none;
-            border: none;
-            font-size: 0.7rem;
-            color: var(--secondary);
-            cursor: pointer;
-            padding: 0.1rem;
-            line-height: 1;
-        }
-        
-        .hospedes-btn:hover {
-            color: var(--primary);
         }
         
         .search-btn {
             background: var(--primary);
             color: white;
             border: none;
-            border-radius: 10px;
-            padding: 1rem 1.5rem;
-            font-family: 'Inter', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
+            padding: 0.85rem 1.5rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            transition: var(--transition);
-            margin-top: 1rem;
-            width: 100%;
+            transition: background 0.3s ease;
         }
         
         .search-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(139, 0, 0, 0.2);
+            background: var(--primary-light);
         }
         
         /* Promoções Section */
         .promocoes-section {
-            padding: 4rem 0;
+            padding: 3rem 0;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
         
         .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-            color: var(--dark);
-        }
-        
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
-            border-radius: 2px;
-        }
-        
-        .section-title p {
-            max-width: 700px;
-            margin: 0 auto;
-            color: var(--secondary);
-            opacity: 0.8;
-        }
-        
-        /* Promo Cards */
-        .promo-cards {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-}
-
-@media (max-width: 1200px) {
-    .promo-cards {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .promo-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
-    .promo-cards {
-        grid-template-columns: 1fr;
-    }
-}
-        
-        .promo-card {
-            background: var(--light);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-        
-        .promo-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        .promo-card-img {
-            height: 200px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .promo-card-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-        
-        .promo-card:hover .promo-card-img img {
-            transform: scale(1.05);
-        }
-        
-        .promo-tag {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: var(--accent);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
             font-weight: 600;
         }
         
-        .promo-card-content {
-            padding: 1.5rem;
+        .section-title p {
+            color: #666;
         }
         
-        .promo-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-        
-        .promo-card p {
-            color: var(--secondary);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-        
-        .promo-price {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .price-old {
-            text-decoration: line-through;
-            color: #999;
-            margin-right: 0.5rem;
-        }
-        
-        .price-new {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .price-info {
-            font-size: 0.8rem;
-            color: var(--secondary);
-            margin-bottom: 1rem;
-        }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--primary);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            gap: 0.5rem;
-            width: 100%;
-            text-align: center;
-        }
-        
-        .btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-        
-        /* Destinos Section */
-        .destinos-section {
-            padding: 4rem 0;
-            background: var(--gray);
-        }
-        
-        .destinos-grid {
+        /* Grid Cards Container */
+        .grid-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 0.5rem 0 2rem;
         }
         
-        .destino-card {
+        /* Card */
+        .card {
             background: var(--light);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
         }
         
-        .destino-card:hover {
+        .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
         }
         
-        .destino-card-img {
+        .card-img {
             height: 180px;
             overflow: hidden;
         }
         
-        .destino-card-img img {
+        .card-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: var(--transition);
+            transition: transform 0.5s ease;
         }
         
-        .destino-card:hover .destino-card-img img {
+        .card:hover .card-img img {
             transform: scale(1.05);
         }
         
-        .destino-card-content {
+        .card-content {
             padding: 1.5rem;
-            text-align: center;
         }
         
-        .destino-card h3 {
-            font-size: 1.25rem;
+        .card-content h3 {
+            font-size: 1.2rem;
             margin-bottom: 0.5rem;
-            color: var(--dark);
+            font-weight: 600;
         }
         
-        .destino-card p {
-            color: var(--secondary);
-            margin-bottom: 1rem;
+        .card-content p {
+            color: #666;
             font-size: 0.9rem;
+            margin-bottom: 1rem;
         }
         
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 4rem 0 2rem;
+        .price-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
         }
         
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-        
-        .footer-column h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            display: inline-block;
-            color: white;
-        }
-        
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--primary);
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.75rem;
-            color: rgba(255, 255, 255, 0.8);
-        }
-        
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .footer-links a:hover {
+        .price-new {
+            font-size: 1.3rem;
+            font-weight: 700;
             color: var(--primary);
         }
         
-        .footer-social {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .footer-social a {
-            display: flex;
+        .btn-minimal {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: var(--transition);
+            background: transparent;
+            color: var(--primary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            border: 1px solid var(--primary);
+            transition: all 0.3s ease;
         }
         
-        .footer-social a:hover {
+        .btn-minimal:hover {
             background: var(--primary);
-            transform: translateY(-3px);
+            color: white;
         }
         
-        .footer-bottom {
+        /* Footer Minimalista */
+        footer {
+            background: var(--light-gray);
+            padding: 2rem 0;
             text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.6);
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--dark);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
         }
         
         /* Responsive */
-        @media (max-width: 992px) {
-            .search-form-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
         @media (max-width: 768px) {
-            .search-form-content {
-                grid-template-columns: 1fr !important;
-            }
-        }
-            
-            nav {
-                display: none;
-            }
-            
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-            
-            .hero-content p {
-                font-size: 1rem;
-            }
-            
-            .search-form {
-                padding: 1.5rem;
-            }
-            
-            .search-form-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .date-inputs-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .hospedes-container {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            .promo-cards, .destinos-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .section-title h2 {
-                font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                width: 95%;
-                padding: 1rem 0;
-            }
-            
             .header-container {
-                padding: 0.75rem 0;
+                padding: 0 1rem;
             }
             
-            .logo {
-                font-size: 1.5rem;
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                background-color: var(--light);
+                width: 80%;
+                height: calc(100vh - 70px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                transition: right 0.3s ease;
+                z-index: 999;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .nav-item {
+                margin: 1.5rem 0;
             }
             
             .hero-banner {
-                padding: 6rem 0 3rem;
+                padding: 6rem 0 2rem;
             }
             
             .hero-content h1 {
@@ -783,20 +360,53 @@
             }
             
             .search-form {
-                padding: 1.25rem;
-            }
-            
-            .search-tab {
-                padding: 0.75rem 1rem;
-                font-size: 0.9rem;
+                padding: 1rem;
+                margin: 1.5rem 1rem 0;
             }
             
             .section-title h2 {
-                font-size: 1.75rem;
+                font-size: 1.5rem;
             }
             
-            .footer-content {
+            .grid-cards {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .card {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 1.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 0.9rem;
+            }
+            
+            .search-input {
+                padding: 0.75rem;
+            }
+            
+            .search-btn {
+                padding: 0.75rem 1rem;
+            }
+            
+            .card-content {
+                padding: 1rem;
+            }
+            
+            .price-new {
+                font-size: 1.1rem;
+            }
+            
+            .btn-minimal {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -804,284 +414,255 @@
 <body>
     <header>
         <div class="container header-container">
-            <div class="logo">
-                <span>BIXX Viagens</span>
+            <div class="logo">BIXX Viagens</div>
+            
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-            <nav>
-    <ul>
-        <li><a href="index.html">Início</a></li>
-                </ul>
-            </nav>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Início</a>
+                </li>
+            </ul>
         </div>
     </header>
     
-    <!-- Side Menu -->
-    <div class="side-menu" id="sideMenu">
-        <div class="side-menu-header">
-            <h3>Menu</h3>
-            <button class="side-menu-close" id="sideMenuClose">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <ul class="side-menu-links">
-            <li><a href="index.html">Início</a></li>
-        </ul>
-    </div>
-    <div class="menu-overlay" id="menuOverlay"></div>
-    
-        <!-- Hero Banner -->
+    <!-- Hero Banner -->
     <section class="hero-banner">
         <div class="container hero-content">
-            <h1>As Melhores Promoções de Viagem</h1>
-            <p>Descubra destinos incríveis com preços exclusivos. Sua próxima aventura começa aqui!</p>
+            <h1>Promoções Exclusivas de Viagem</h1>
+            <p>Destinos incríveis com preços especiais para suas próximas férias</p>
             
             <div class="search-form">
-                <div class="search-tabs">
-                    <div class="search-tab active">Pacotes de Viagem</div>
+                <div class="search-input-container">
+                    <input type="text" class="search-input" placeholder="Buscar destino...">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
-                
-                <div class="search-form-content">
-    <div class="form-group full-width">
-        <label for="destino">Destino</label>
-        <input type="text" id="destino" class="form-control" placeholder="Para onde você quer viajar?">
-    </div>
-</div>
-                
-                <button class="search-btn" id="buscarOfertas">
-                    <i class="fas fa-search"></i> Buscar Ofertas
-                </button>
             </div>
         </div>
     </section>
     
-        <!-- Promoções Section -->
+    <!-- Promoções Section -->
     <section class="promocoes-section">
         <div class="container">
             <div class="section-title">
-                <h2>Ofertas Imperdíveis</h2>
-                <p>Confira nossas promoções exclusivas para você viajar com o melhor custo-benefício</p>
+                <h2>Ofertas em Destaque</h2>
+                <p>Confira nossas promoções mais populares</p>
             </div>
             
-            <div class="promo-cards">
-                <div class="promo-card" data-destino="Fernando de Noronha">
-                    <div class="promo-card-img">
-                        <img src="https://images.unsplash.com/photo-1562602833-72b336fa9e2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Fernando de Noronha">
-                        <div class="promo-tag">-25%</div>
+            <div class="grid-cards">
+                <!-- Card 1 -->
+                <div class="card" data-destination="Fernando de Noronha">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1562602833-72b336fa9e2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fernando de Noronha">
                     </div>
-                    <div class="promo-card-content">
+                    <div class="card-content">
                         <h3>Fernando de Noronha</h3>
-                        <p>7 noites com café da manhã e passeio de barco</p>
-                        <div class="promo-price">
-                            <span class="price-old">R$ 3.499</span>
+                        <p>7 noites com café da manhã</p>
+                        <div class="price-container">
                             <span class="price-new">R$ 2.599</span>
+                            <a href="#" class="btn-minimal">Reservar</a>
                         </div>
-                        <p class="price-info">Em até 10x sem juros</p>
-                        <a href="#" class="btn ver-oferta" data-destino="Fernando de Noronha">Ver Oferta</a>
                     </div>
                 </div>
                 
-                <div class="promo-card" data-destino="Rio de Janeiro">
-                    <div class="promo-card-img">
-                        <img src="https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Rio de Janeiro">
-                        <div class="promo-tag">-30%</div>
+                <!-- Card 2 -->
+                <div class="card" data-destination="Rio de Janeiro">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Rio de Janeiro">
                     </div>
-                    <div class="promo-card-content">
+                    <div class="card-content">
                         <h3>Rio de Janeiro</h3>
-                        <p>5 noites avec voo incluso e city tour</p>
-                        <div class="promo-price">
-                            <span class="price-old">R$ 1.899</span>
+                        <p>5 noites com voo incluso</p>
+                        <div class="price-container">
                             <span class="price-new">R$ 1.329</span>
+                            <a href="#" class="btn-minimal">Reservar</a>
                         </div>
-                        <p class="price-info">Em até 12x sem juros</p>
-                        <a href="#" class="btn ver-oferta" data-destino="Rio de Janeiro">Ver Oferta</a>
                     </div>
                 </div>
                 
-                <div class="promo-card" data-destino="Gramado">
-                    <div class="promo-card-img">
-                        <img src="https://images.unsplash.com/photo-1580502304784-8985b7eb7260?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Gramado">
-                        <div class="promo-tag">-20%</div>
+                <!-- Card 3 -->
+                <div class="card" data-destination="Gramado">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1580502304784-8985b7eb7260?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Gramado">
                     </div>
-                    <div class="promo-card-content">
+                    <div class="card-content">
                         <h3>Gramado</h3>
-                        <p>4 noites com café colonial e parque temático</p>
-                        <div class="promo-price">
-                            <span class="price-old">R$ 1.599</span>
+                        <p>4 noites com café colonial</p>
+                        <div class="price-container">
                             <span class="price-new">R$ 1.279</span>
+                            <a href="#" class="btn-minimal">Reservar</a>
                         </div>
-                        <p class="price-info">Em até 8x sem juros</p>
-                        <a href="#" class="btn ver-oferta" data-destino="Gramado">Ver Oferta</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Destinos Section -->
-    <section class="destinos-section" id="destinos">
-    <div class="container">
-        <div class="section-title">
-            <h2>Destinos Populares</h2>
-            <p>Conheça os lugares mais procurados pelos nossos clientes</p>
-        </div>
-            
-            <div class="destinos-grid">
-                <div class="destino-card">
-                    <div class="destino-card-img">
-                        <img src="https://images.unsplash.com/photo-1544984243-ec57ea16fe25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Natal">
-                    </div>
-                    <div class="destino-card-content">
-                        <h3>Natal</h3>
-                        <p>Conheça as dunas e praias paradisíacas</p>
-                        <a href="#" class="btn">Explorar</a>
                     </div>
                 </div>
                 
-                <div class="destino-card">
-                    <div class="destino-card-img">
-                        <img src="https://images.unsplash.com/photo-1587334274527-ba54f0b5a357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Fortaleza">
+                <!-- Card 4 -->
+                <div class="card" data-destination="Bonito">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1544984243-ec57ea16fe25?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bonito">
                     </div>
-                    <div class="destino-card-content">
-                        <h3>Fortaleza</h3>
-                        <p>Desfrute das lindas praias do Ceará</p>
-                        <a href="#" class="btn">Explorar</a>
+                    <div class="card-content">
+                        <h3>Bonito</h3>
+                        <p>5 noites com passeios inclusos</p>
+                        <div class="price-container">
+                            <span class="price-new">R$ 1.899</span>
+                            <a href="#" class="btn-minimal">Reservar</a>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="destino-card">
-                    <div class="destino-card-img">
-                        <img src="https://images.unsplash.com/photo-1570527140771-0208912295d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Salvador">
+                <!-- Card 5 -->
+                <div class="card" data-destination="Salvador">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Salvador">
                     </div>
-                    <div class="destino-card-content">
+                    <div class="card-content">
                         <h3>Salvador</h3>
-                        <p>Viva a cultura e história da Bahia</p>
-                        <a href="#" class="btn">Explorar</a>
+                        <p>6 noites com traslado</p>
+                        <div class="price-container">
+                            <span class="price-new">R$ 1.499</span>
+                            <a href="#" class="btn-minimal">Reservar</a>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="destino-card">
-                    <div class="destino-card-img">
-                        <img src="https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Búzios">
+                <!-- Card 6 -->
+                <div class="card" data-destination="Florianópolis">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1518639192441-8fce0a366e2e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Florianópolis">
                     </div>
-                    <div class="destino-card-content">
-                        <h3>Búzios</h3>
-                        <p>O charme e sofisticação da costa brasileira</p>
-                        <a href="#" class="btn">Explorar</a>
+                    <div class="card-content">
+                        <h3>Florianópolis</h3>
+                        <p>5 noites em frente à praia</p>
+                        <div class="price-container">
+                            <span class="price-new">R$ 1.399</span>
+                            <a href="#" class="btn-minimal">Reservar</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 7 -->
+                <div class="card" data-destination="Foz do Iguaçu">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1587334274527-ba54f0b5a357?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Foz do Iguaçu">
+                    </div>
+                    <div class="card-content">
+                        <h3>Foz do Iguaçu</h3>
+                        <p>4 noites com ingressos para as cataratas</p>
+                        <div class="price-container">
+                            <span class="price-new">R$ 1.199</span>
+                            <a href="#" class="btn-minimal">Reservar</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Card 8 -->
+                <div class="card" data-destination="Fortaleza">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fortaleza">
+                    </div>
+                    <div class="card-content">
+                        <h3>Fortaleza</h3>
+                        <p>6 noites com passeio de jangada</p>
+                        <div class="price-container">
+                            <span class="price-new">R$ 1.549</span>
+                            <a href="#" class="btn-minimal">Reservar</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <!-- Footer -->
+
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                
-                <div class="footer-column">
-                    <h3>Destinos</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Nacional</a></li>
-                        <li><a href="#">Internacional</a></li>
-                        <li><a href="#">Pacotes All Inclusive</a></li>
-                        <li><a href="#">Lua de Mel</a></li>
-                        <li><a href="#">Ecoturismo</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Suporte</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Central de Ajuda</a></li>
-                        <li><a href="#">Cancelamentos</a></li>
-                        <li><a href="#">Reagendamentos</a></li>
-                        <li><a href="#">Política de Privacidade</a></li>
-                        <li><a href="#">Termos de Uso</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Contato</h3>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-phone"></i> (11) 3003-3003</li>
-                        <li><i class="fas fa-envelope"></i> contato@bixxviagens.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Av. Paulista, 1000, São Paulo</li>
-                    </ul>
-                </div>
+        <div class="container footer-content">
+            <div class="logo">BIXX Viagens</div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2023 BIXX Viagens - Todos os direitos reservados</p>
-            </div>
+            <p>&copy; 2023 BIXX Viagens. Todos os direitos reservados.</p>
         </div>
     </footer>
 
-        <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const sideMenu = document.getElementById('sideMenu');
-        const sideMenuClose = document.getElementById('sideMenuClose');
-        const menuOverlay = document.getElementById('menuOverlay');
+    <script>
+        // Funcionalidade de busca simplificada
+        const searchBtn = document.querySelector('.search-btn');
+        const searchInput = document.querySelector('.search-input');
+        const cards = document.querySelectorAll('.card');
         
-        mobileMenuBtn.addEventListener('click', () => {
-            sideMenu.classList.add('active');
-            menuOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
         });
         
-        sideMenuClose.addEventListener('click', () => {
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-        
-        menuOverlay.addEventListener('click', () => {
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-        
-        // Filtro de destinos
-        const buscarOfertasBtn = document.getElementById('buscarOfertas');
-        const origemInput = document.getElementById('origem');
-        const destinoInput = document.getElementById('destino');
-        const promoCards = document.querySelectorAll('.promo-card');
-        
-        buscarOfertasBtn.addEventListener('click', () => {
-            const destinoFiltro = destinoInput.value.trim().toLowerCase();
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
             
-            promoCards.forEach(card => {
-                const cardDestino = card.getAttribute('data-destino').toLowerCase();
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
                 
-                if (destinoFiltro === '' || cardDestino.includes(destinoFiltro)) {
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
                     card.style.display = 'block';
                 } else {
                     card.style.display = 'none';
                 }
             });
+        }
+        
+        // Adicionar evento de clique nos cards para redirecionar para o WhatsApp
+        const destinationCards = document.querySelectorAll('.card');
+        destinationCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Impedir que o clique no botão "Reservar" dispare o evento do card
+                if (!e.target.classList.contains('btn-minimal') && 
+                    !e.target.parentElement.classList.contains('btn-minimal')) {
+                    const destination = card.getAttribute('data-destination');
+                    const message = `Olá! Gostaria de mais informações sobre a viagem para ${destination}.`;
+                    const whatsappURL = `https://wa.me/5562981596601?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappURL, '_blank');
+                }
+            });
         });
         
-        // Redirecionamento para o WhatsApp
-        const verOfertaBtns = document.querySelectorAll('.ver-oferta');
-        
-        verOfertaBtns.forEach(btn => {
+        // Adicionar evento de clique nos botões de reserva
+        const reserveBtns = document.querySelectorAll('.btn-minimal');
+        reserveBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const destino = btn.getAttribute('data-destino');
-                const mensagem = `Olá! Gostaria de mais informações sobre a promoção para ${destino}.`;
-                const whatsappURL = `https://wa.me/5562981596601?text=${encodeURIComponent(mensagem)}`;
+                e.stopPropagation(); // Impedir que o evento se propague para o card
+                const destination = btn.closest('.card').getAttribute('data-destination');
+                const message = `Olá! Gostaria de reservar a viagem para ${destination}.`;
+                const whatsappURL = `https://wa.me/5562981596601?text=${encodeURIComponent(message)}`;
                 window.open(whatsappURL, '_blank');
             });
         });
         
-        // Permitir busca ao pressionar Enter
-        destinoInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                buscarOfertasBtn.click();
-            }
+        // Menu mobile toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Fechar menu ao clicar em um link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
         });
     </script>
 </body>
