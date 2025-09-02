@@ -20,13 +20,13 @@
             --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
@@ -35,7 +35,7 @@
             overflow-x: hidden;
             position: relative;
         }
-        
+
         body::before {
             content: '';
             position: fixed;
@@ -48,14 +48,14 @@
             z-index: -1;
             opacity: 0.1;
         }
-        
+
         .container {
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem 0;
         }
-        
+
         /* Header */
         header {
             background-color: rgba(255, 255, 255, 0.95);
@@ -68,14 +68,14 @@
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0,0,0,0.05);
         }
-        
+
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1rem 0;
         }
-        
+
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
@@ -85,19 +85,19 @@
             letter-spacing: -1px;
             padding-left: 0.5rem;
         }
-        
+
         .logo i {
             margin-right: 0.5rem;
             font-size: 1.5rem;
             color: var(--primary);
         }
-        
+
         nav ul {
             display: flex;
             list-style: none;
             gap: 2rem;
         }
-        
+
         nav a {
             color: var(--secondary);
             text-decoration: none;
@@ -106,7 +106,7 @@
             position: relative;
             transition: var(--transition);
         }
-        
+
         nav a::after {
             content: '';
             position: absolute;
@@ -117,15 +117,15 @@
             background-color: var(--primary);
             transition: var(--transition);
         }
-        
+
         nav a:hover {
             color: var(--primary);
         }
-        
+
         nav a:hover::after {
             width: 100%;
         }
-        
+
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -135,7 +135,7 @@
             cursor: pointer;
             padding: 0.5rem;
         }
-        
+
         /* Side Menu */
         .side-menu {
             position: fixed;
@@ -150,11 +150,11 @@
             padding: 2rem 1.5rem;
             overflow-y: auto;
         }
-        
+
         .side-menu.active {
             right: 0;
         }
-        
+
         .side-menu-header {
             display: flex;
             justify-content: space-between;
@@ -163,7 +163,7 @@
             padding-bottom: 1rem;
             border-bottom: 1px solid rgba(0,0,0,0.1);
         }
-        
+
         .side-menu-close {
             background: none;
             border: none;
@@ -171,15 +171,15 @@
             color: var(--secondary);
             cursor: pointer;
         }
-        
+
         .side-menu-links {
             list-style: none;
         }
-        
+
         .side-menu-links li {
             margin-bottom: 1.5rem;
         }
-        
+
         .side-menu-links a {
             color: var(--secondary);
             text-decoration: none;
@@ -189,11 +189,11 @@
             padding: 0.5rem 0;
             transition: var(--transition);
         }
-        
+
         .side-menu-links a:hover {
             color: var(--primary);
         }
-        
+
         .menu-overlay {
             position: fixed;
             top: 0;
@@ -206,12 +206,12 @@
             visibility: hidden;
             transition: var(--transition);
         }
-        
+
         .menu-overlay.active {
             opacity: 1;
             visibility: visible;
         }
-        
+
         /* Hero Section */
         .hero {
             padding: 10rem 0 5rem;
@@ -220,7 +220,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 1.5rem;
@@ -228,11 +228,11 @@
             font-weight: 800;
             line-height: 1.2;
         }
-        
+
         .hero h1 span {
             color: var(--primary);
         }
-        
+
         .hero p {
             max-width: 700px;
             margin: 0 auto 3rem;
@@ -240,7 +240,7 @@
             color: var(--secondary);
             opacity: 0.9;
         }
-        
+
         .cta-button {
             display: inline-block;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
@@ -256,19 +256,19 @@
             border: none;
             cursor: pointer;
         }
-        
+
         .cta-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(139, 0, 0, 0.4);
         }
-        
+
         .cta-button.secondary {
             background: var(--light);
             color: var(--primary);
             border: 2px solid var(--primary);
             margin-left: 1rem;
         }
-        
+
         .cta-button.secondary:hover {
             background: var(--primary);
             color: var(--light);
@@ -283,13 +283,13 @@
             font-size: 1.2rem;
             text-align: center;
         }
-        
+
         /* Features Section */
         .section-title {
             text-align: center;
             margin-bottom: 4rem;
         }
-        
+
         .section-title h2 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
@@ -297,7 +297,7 @@
             display: inline-block;
             color: var(--dark);
         }
-        
+
         .section-title h2::after {
             content: '';
             position: absolute;
@@ -309,113 +309,113 @@
             background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
             border-radius: 2px;
         }
-        
+
         .section-title p {
             max-width: 700px;
             margin: 0 auto;
             color: var(--secondary);
             opacity: 0.8;
         }
-        
+
         .features {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-        }
-        
-        .feature-card {
-            background-color: var(--light);
-            border-radius: 16px;
-            padding: 2rem 1.5rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            text-align: center;
-            border: 1px solid rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            min-height: 350px;
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--primary);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            background: rgba(139, 0, 0, 0.1);
-            width: 80px;
-            height: 80px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: var(--transition);
-            flex-shrink: 0;
-        }
-        
-        .feature-card:hover .feature-icon {
-            transform: rotate(15deg) scale(1.1);
-            background: rgba(139, 0, 0, 0.2);
-        }
-        
-        .feature-card h3 {
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-            color: var(--dark);
-            flex-shrink: 0;
-        }
-        
-        .feature-card p {
-            color: var(--secondary);
-            opacity: 0.8;
-            flex-grow: 1;
-            margin-bottom: 1rem;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 4 colunas de tamanho igual */
+        gap: 1.5rem;
+    }
+
+    .feature-card {
+        background-color: var(--light);
+        border-radius: 16px;
+        padding: 2rem 1.5rem;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        text-align: center;
+        border: 1px solid rgba(0,0,0,0.05);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: 100%; /* Ocupa toda a altura disponível */
+        min-height: 350px; /* Altura mínima para uniformidade */
+    }
+
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--primary);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+        background: rgba(139, 0, 0, 0.1);
+        width: 80px;
+        height: 80px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: var(--transition);
+        flex-shrink: 0; /* Impede que o ícone diminua */
+    }
+
+    .feature-card:hover .feature-icon {
+        transform: rotate(15deg) scale(1.1);
+        background: rgba(139, 0, 0, 0.2);
+    }
+
+    .feature-card h3 {
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        color: var(--dark);
+        flex-shrink: 0; /* Impede que o título diminua */
+    }
+
+    .feature-card p {
+        color: var(--secondary);
+        opacity: 0.8;
+        flex-grow: 1; /* Faz o parágrafo ocupar o espaço restante */
+        margin-bottom: 1rem;
+    }
+
+     /* Responsividade para telas menores */
+    @media (max-width: 1200px) {
+        .features {
+            grid-template-columns: repeat(2, 1fr); /* 2 colunas em tablets */
         }
 
-        /* Responsividade para telas menores */
-        @media (max-width: 1200px) {
-            .features {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .feature-card {
-                min-height: 320px;
-            }
+        .feature-card {
+            min-height: 320px;
         }
-        
-        @media (max-width: 768px) {
-            .features {
-                grid-template-columns: 1fr;
-            }
-            
-            .feature-card {
-                min-height: auto;
-            }
+    }
+
+    @media (max-width: 768px) {
+        .features {
+            grid-template-columns: 1fr; /* 1 coluna em mobile */
         }
-        
+
+        .feature-card {
+            min-height: auto; /* Altura automática em mobile */
+        }
+    }
+
         /* Pricing Section */
         .pricing {
             background-color: var(--gray);
             padding: 5rem 0;
             position: relative;
         }
-        
+
         .pricing::before {
             content: '';
             position: absolute;
@@ -427,7 +427,7 @@
             opacity: 0.05;
             pointer-events: none;
         }
-        
+
         .pricing-container {
             display: flex;
             justify-content: center;
@@ -435,7 +435,7 @@
             gap: 2rem;
             position: relative;
         }
-        
+
         .pricing-card {
             background: var(--light);
             border-radius: 16px;
@@ -447,7 +447,7 @@
             overflow: hidden;
             border: 1px solid rgba(0,0,0,0.05);
         }
-        
+
         .pricing-card::before {
             content: '';
             position: absolute;
@@ -457,19 +457,19 @@
             height: 8px;
             background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
         }
-        
+
         .pricing-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
-        
+
         .pricing-card h3 {
             text-align: center;
             margin-bottom: 1.5rem;
             font-size: 1.5rem;
             color: var(--dark);
         }
-        
+
         .price {
             font-size: 2.8rem;
             font-weight: 700;
@@ -477,26 +477,26 @@
             margin: 1.5rem 0;
             text-align: center;
         }
-        
+
         .price span {
             font-size: 1rem;
             color: var(--secondary);
             opacity: 0.8;
             font-weight: 400;
         }
-        
+
         .pricing-features {
             list-style: none;
             margin: 2rem 0;
         }
-        
+
         .pricing-features li {
             margin-bottom: 1rem;
             padding-left: 1.5rem;
             position: relative;
             color: var(--secondary);
         }
-        
+
         .pricing-features li::before {
             content: '\f00c';
             font-family: 'Font Awesome 6 Free';
@@ -505,7 +505,7 @@
             left: 0;
             color: var(--primary);
         }
-        
+
         /* New Travel Plans Section */
         .travel-plans {
             display: grid;
@@ -513,7 +513,7 @@
             gap: 2rem;
             margin: 3rem 0;
         }
-        
+
         .travel-plan-card {
             background: var(--light);
             border-radius: 16px;
@@ -526,7 +526,7 @@
             display: flex;
             flex-direction: column;
         }
-        
+
         .travel-plan-card::before {
             content: '';
             position: absolute;
@@ -536,19 +536,19 @@
             height: 8px;
             background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
         }
-        
+
         .travel-plan-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
-        
+
         .travel-plan-card h3 {
             text-align: center;
             margin-bottom: 1.5rem;
             font-size: 1.5rem;
             color: var(--dark);
         }
-        
+
         .travel-plan-card .price {
             font-size: 2.8rem;
             font-weight: 700;
@@ -556,24 +556,24 @@
             margin: 1.5rem 0;
             text-align: center;
         }
-        
+
         .travel-plan-card .price span {
             font-size: 1rem;
             color: var(--secondary);
             opacity: 0.8;
             font-weight: 400;
         }
-        
+
         .travel-plan-card .pricing-features {
             flex-grow: 1;
         }
-        
+
         .travel-plan-card .cta-button {
             margin-top: auto;
             text-align: center;
             width: 100%;
         }
-        
+
         .discount-badge {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
@@ -586,7 +586,7 @@
             text-align: center;
             width: fit-content;
         }
-        
+
         /* Process Section */
         .process-steps {
             display: flex;
@@ -595,7 +595,7 @@
             gap: 2rem;
             counter-reset: step;
         }
-        
+
         .step {
             flex: 1;
             min-width: 280px;
@@ -608,7 +608,7 @@
             counter-increment: step;
             border: 1px solid rgba(0,0,0,0.05);
         }
-        
+
         .step::before {
             content: counter(step);
             position: absolute;
@@ -626,27 +626,27 @@
             font-size: 1.5rem;
             box-shadow: 0 4px 8px rgba(139, 0, 0, 0.3);
         }
-        
+
         .step:hover {
             transform: translateY(-8px);
             box-shadow: 0 12px 24px rgba(0,0,0,0.15);
         }
-        
+
         .step h3 {
             margin-bottom: 1rem;
             font-size: 1.3rem;
             color: var(--dark);
         }
-        
+
         .step ol {
             padding-left: 1rem;
         }
-        
+
         .step li {
             margin-bottom: 0.5rem;
             color: var(--secondary);
         }
-        
+
         /* Footer */
         footer {
             background-color: var(--dark);
@@ -654,7 +654,7 @@
             padding: 4rem 0 2rem;
             position: relative;
         }
-        
+
         footer::before {
             content: '';
             position: absolute;
@@ -664,13 +664,13 @@
             height: 8px;
             background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
         }
-        
+
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 3rem;
         }
-        
+
         .footer-col h3 {
             color: var(--light);
             margin-bottom: 1.5rem;
@@ -678,7 +678,7 @@
             position: relative;
             display: inline-block;
         }
-        
+
         .footer-col h3::after {
             content: '';
             position: absolute;
@@ -688,39 +688,39 @@
             height: 3px;
             background: var(--primary);
         }
-        
+
         .footer-links {
             list-style: none;
         }
-        
+
         .footer-links li {
             margin-bottom: 0.8rem;
         }
-        
+
         .footer-links a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             transition: var(--transition);
             display: inline-block;
         }
-        
+
         .footer-links a:hover {
             color: var(--accent);
             transform: translateX(5px);
         }
-        
+
         .footer-links i {
             margin-right: 0.5rem;
             width: 20px;
             color: var(--primary);
         }
-        
+
         .social-links {
             display: flex;
             gap: 1rem;
             margin-top: 1.5rem;
         }
-        
+
         .social-links a {
             display: inline-flex;
             align-items: center;
@@ -732,12 +732,12 @@
             border-radius: 50%;
             transition: var(--transition);
         }
-        
+
         .social-links a:hover {
             background-color: var(--primary);
             transform: translateY(-3px);
         }
-        
+
         .footer-bottom {
             text-align: center;
             margin-top: 3rem;
@@ -746,58 +746,58 @@
             font-size: 0.9rem;
             opacity: 0.7;
         }
-        
+
         /* Responsive */
         @media (max-width: 992px) {
             .hero h1 {
                 font-size: 2.5rem;
             }
-            
+
             .section-title h2 {
                 font-size: 2rem;
             }
-            
+
             .pricing-card {
                 width: 100%;
                 max-width: 350px;
             }
-            
+
             .travel-plans {
                 grid-template-columns: 1fr;
             }
         }
-        
+
         @media (max-width: 768px) {
             .mobile-menu-btn {
                 display: block;
             }
-            
+
             nav {
                 display: none;
             }
-            
+
             .hero {
                 padding: 8rem 0 4rem;
             }
-            
+
             .hero h1 {
                 font-size: 2rem;
             }
-            
+
             .hero p {
                 font-size: 1rem;
             }
-            
+
             .cta-buttons {
                 display: flex;
                 flex-direction: column;
                 gap: 1rem;
             }
-            
+
             .cta-button.secondary {
                 margin-left: 0;
             }
-            
+
             .step {
                 padding: 2rem 1.5rem 2rem 4rem;
             }
@@ -812,7 +812,7 @@
             .mobile-menu-btn {
                 display: none !important;
             }
-            
+
             nav {
                 display: block !important;
             }
@@ -838,7 +838,7 @@
             </button>
         </div>
     </header>
-    
+
     <!-- Side Menu -->
     <div class="side-menu" id="sideMenu">
         <div class="side-menu-header">
@@ -855,7 +855,7 @@
         </ul>
     </div>
     <div class="menu-overlay" id="menuOverlay"></div>
-    
+
     <section class="hero">
         <div class="container">
             <h1>Com uma pequena mensalidade terá os <span>melhores benefícios</span></h1>
@@ -865,7 +865,7 @@
             </div>
         </div>
     </section>
-    
+
     <section id="benefits" class="container">
         <div class="section-title">
             <h2>Benefícios Exclusivos</h2>
@@ -894,7 +894,7 @@
             </div>
         </div>
     </section>
-    
+
     <section id="plans" class="pricing">
         <div class="container">
             <div class="section-title">
@@ -942,7 +942,7 @@
                     <a href="notebook.html" class="cta-button">CONTRATAR AGORA</a>
                 </div>
             </div>
-            
+
             <!-- New Travel Plans Section -->
             <div class="travel-plans">
                 <div class="travel-plan-card">
@@ -957,9 +957,10 @@
                         <li>Assistência de viagem 24h</li>
                         <li>Período de carência: 6 meses</li>
                     </ul>
+                    <a href="passagem.html" class="cta-button">CONTRATAR AGORA</a>
                     <a href="" class="cta-button">EM BREVE!</a>
                 </div>
-                
+
                 <div class="travel-plan-card">
                     <h3>Pacote de Viagens</h3>
                     <div class="price">Aproveite!</div>
@@ -972,12 +973,13 @@
                         <li>Assistência VIP durante toda a viagem</li>
                         <li>Período de carência: 6 meses</li>
                     </ul>
+                    <a href="pacote.html" class="cta-button">CONTRATAR AGORA</a>
                     <a href="" class="cta-button">EM BREVE!</a>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <section id="how-it-works" class="container">
         <div class="section-title">
             <h2>Como Funciona</h2>
@@ -1027,7 +1029,7 @@
             </div>
         </div>
     </section>
-    
+
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -1070,39 +1072,39 @@
         const sideMenu = document.getElementById('sideMenu');
         const sideMenuClose = document.getElementById('sideMenuClose');
         const menuOverlay = document.getElementById('menuOverlay');
-        
+
         mobileMenuBtn.addEventListener('click', () => {
             sideMenu.classList.add('active');
             menuOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
-        
+
         sideMenuClose.addEventListener('click', () => {
             sideMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
             document.body.style.overflow = '';
         });
-        
+
         menuOverlay.addEventListener('click', () => {
             sideMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
             document.body.style.overflow = '';
         });
-        
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                
+
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
-                
+
                 if (targetElement) {
                     window.scrollTo({
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
                     });
-                    
+
                     // Close side menu if open
                     sideMenu.classList.remove('active');
                     menuOverlay.classList.remove('active');
@@ -1110,7 +1112,7 @@
                 }
             });
         });
-        
+
         // Header scroll effect
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
