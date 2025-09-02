@@ -11,13 +11,12 @@
         :root {
             --primary: #8B0000; /* Vermelho escuro */
             --primary-dark: #6D0000; /* Vermelho mais escuro */
-            --secondary: #2D2D2D;
             --accent: #CC0000; /* Vermelho mais vibrante para destaque */
             --light: #FFFFFF;
-            --dark: #161616;
+            --dark: #000000;
             --gray: #F5F5F5;
-            --texture: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
-            --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --border: 2px solid #000000;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
@@ -36,19 +35,6 @@
             position: relative;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--texture);
-            pointer-events: none;
-            z-index: -1;
-            opacity: 0.1;
-        }
-
         .container {
             width: 90%;
             max-width: 1200px;
@@ -58,15 +44,13 @@
 
         /* Header */
         header {
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: var(--light);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             transition: var(--transition);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: var(--border);
         }
 
         .header-container {
@@ -79,17 +63,11 @@
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
-            color: var(--primary);
+            color: var(--dark);
             display: flex;
             align-items: center;
             letter-spacing: -1px;
             padding-left: 0.5rem;
-        }
-
-        .logo i {
-            margin-right: 0.5rem;
-            font-size: 1.5rem;
-            color: var(--primary);
         }
 
         nav ul {
@@ -99,41 +77,28 @@
         }
 
         nav a {
-            color: var(--secondary);
+            color: var(--dark);
             text-decoration: none;
             font-weight: 500;
             padding: 0.5rem 0;
             position: relative;
             transition: var(--transition);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary);
-            transition: var(--transition);
+            border-bottom: 1px solid transparent;
         }
 
         nav a:hover {
-            color: var(--primary);
-        }
-
-        nav a:hover::after {
-            width: 100%;
+            border-bottom: 1px solid var(--dark);
         }
 
         .mobile-menu-btn {
             display: none;
             background: none;
-            border: none;
+            border: var(--border);
             font-size: 1.5rem;
             color: var(--dark);
             cursor: pointer;
             padding: 0.5rem;
+            border-radius: 4px;
         }
 
         /* Side Menu */
@@ -149,6 +114,7 @@
             transition: var(--transition);
             padding: 2rem 1.5rem;
             overflow-y: auto;
+            border-left: var(--border);
         }
 
         .side-menu.active {
@@ -161,15 +127,21 @@
             align-items: center;
             margin-bottom: 2rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            border-bottom: var(--border);
         }
 
         .side-menu-close {
             background: none;
-            border: none;
+            border: var(--border);
             font-size: 1.5rem;
-            color: var(--secondary);
+            color: var(--dark);
             cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
         }
 
         .side-menu-links {
@@ -181,17 +153,18 @@
         }
 
         .side-menu-links a {
-            color: var(--secondary);
+            color: var(--dark);
             text-decoration: none;
             font-weight: 500;
             font-size: 1.1rem;
             display: block;
             padding: 0.5rem 0;
             transition: var(--transition);
+            border-bottom: 1px solid transparent;
         }
 
         .side-menu-links a:hover {
-            color: var(--primary);
+            border-bottom: 1px solid var(--dark);
         }
 
         .menu-overlay {
@@ -215,10 +188,10 @@
         /* Hero Section */
         .hero {
             padding: 10rem 0 5rem;
-            background: linear-gradient(135deg, rgba(139, 0, 0, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
             text-align: center;
             position: relative;
             overflow: hidden;
+            border-bottom: var(--border);
         }
 
         .hero h1 {
@@ -237,8 +210,7 @@
             max-width: 700px;
             margin: 0 auto 3rem;
             font-size: 1.2rem;
-            color: var(--secondary);
-            opacity: 0.9;
+            color: var(--dark);
         }
 
         .cta-button {
@@ -246,7 +218,7 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             padding: 1rem 2.5rem;
-            border-radius: 50px;
+            border-radius: 4px;
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition);
@@ -306,126 +278,115 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            background: var(--dark);
             border-radius: 2px;
         }
 
         .section-title p {
             max-width: 700px;
             margin: 0 auto;
-            color: var(--secondary);
-            opacity: 0.8;
+            color: var(--dark);
         }
 
         .features {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); /* 4 colunas de tamanho igual */
-        gap: 1.5rem;
-    }
-
-    .feature-card {
-        background-color: var(--light);
-        border-radius: 16px;
-        padding: 2rem 1.5rem;
-        box-shadow: var(--shadow);
-        transition: var(--transition);
-        text-align: center;
-        border: 1px solid rgba(0,0,0,0.05);
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        height: 100%; /* Ocupa toda a altura disponível */
-        min-height: 350px; /* Altura mínima para uniformidade */
-    }
-
-    .feature-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 4px;
-        background: var(--primary);
-    }
-
-    .feature-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-    }
-
-    .feature-icon {
-        font-size: 2.5rem;
-        color: var(--primary);
-        margin-bottom: 1.5rem;
-        background: rgba(139, 0, 0, 0.1);
-        width: 80px;
-        height: 80px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        transition: var(--transition);
-        flex-shrink: 0; /* Impede que o ícone diminua */
-    }
-
-    .feature-card:hover .feature-icon {
-        transform: rotate(15deg) scale(1.1);
-        background: rgba(139, 0, 0, 0.2);
-    }
-
-    .feature-card h3 {
-        margin-bottom: 1rem;
-        font-size: 1.3rem;
-        color: var(--dark);
-        flex-shrink: 0; /* Impede que o título diminua */
-    }
-
-    .feature-card p {
-        color: var(--secondary);
-        opacity: 0.8;
-        flex-grow: 1; /* Faz o parágrafo ocupar o espaço restante */
-        margin-bottom: 1rem;
-    }
-
-     /* Responsividade para telas menores */
-    @media (max-width: 1200px) {
-        .features {
-            grid-template-columns: repeat(2, 1fr); /* 2 colunas em tablets */
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
         }
 
         .feature-card {
-            min-height: 320px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .features {
-            grid-template-columns: 1fr; /* 1 coluna em mobile */
-        }
-
-        .feature-card {
-            min-height: auto; /* Altura automática em mobile */
-        }
-    }
-
-        /* Pricing Section */
-        .pricing {
-            background-color: var(--gray);
-            padding: 5rem 0;
+            background-color: var(--light);
+            border-radius: 4px;
+            padding: 2rem 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            border: var(--border);
             position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 350px;
         }
 
-        .pricing::before {
+        .feature-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: var(--texture);
-            opacity: 0.05;
-            pointer-events: none;
+            height: 4px;
+            background: var(--dark);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            background: rgba(0, 0, 0, 0.05);
+            width: 80px;
+            height: 80px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: var(--transition);
+            flex-shrink: 0;
+            border: 1px solid var(--dark);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            color: var(--dark);
+            flex-shrink: 0;
+        }
+
+        .feature-card p {
+            color: var(--dark);
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 1200px) {
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .feature-card {
+                min-height: 320px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                min-height: auto;
+            }
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background-color: var(--light);
+            padding: 5rem 0;
+            position: relative;
+            border-top: var(--border);
+            border-bottom: var(--border);
         }
 
         .pricing-container {
@@ -438,14 +399,14 @@
 
         .pricing-card {
             background: var(--light);
-            border-radius: 16px;
+            border-radius: 4px;
             padding: 2.5rem 2rem;
             box-shadow: var(--shadow);
             width: 320px;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: var(--border);
         }
 
         .pricing-card::before {
@@ -455,7 +416,7 @@
             left: 0;
             width: 100%;
             height: 8px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            background: var(--dark);
         }
 
         .pricing-card:hover {
@@ -473,15 +434,14 @@
         .price {
             font-size: 2.8rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--dark);
             margin: 1.5rem 0;
             text-align: center;
         }
 
         .price span {
             font-size: 1rem;
-            color: var(--secondary);
-            opacity: 0.8;
+            color: var(--dark);
             font-weight: 400;
         }
 
@@ -494,7 +454,7 @@
             margin-bottom: 1rem;
             padding-left: 1.5rem;
             position: relative;
-            color: var(--secondary);
+            color: var(--dark);
         }
 
         .pricing-features li::before {
@@ -503,7 +463,7 @@
             font-weight: 900;
             position: absolute;
             left: 0;
-            color: var(--primary);
+            color: var(--dark);
         }
 
         /* New Travel Plans Section */
@@ -516,13 +476,13 @@
 
         .travel-plan-card {
             background: var(--light);
-            border-radius: 16px;
+            border-radius: 4px;
             padding: 2.5rem 2rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: var(--border);
             display: flex;
             flex-direction: column;
         }
@@ -534,7 +494,7 @@
             left: 0;
             width: 100%;
             height: 8px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            background: var(--dark);
         }
 
         .travel-plan-card:hover {
@@ -552,15 +512,14 @@
         .travel-plan-card .price {
             font-size: 2.8rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--dark);
             margin: 1.5rem 0;
             text-align: center;
         }
 
         .travel-plan-card .price span {
             font-size: 1rem;
-            color: var(--secondary);
-            opacity: 0.8;
+            color: var(--dark);
             font-weight: 400;
         }
 
@@ -575,10 +534,10 @@
         }
 
         .discount-badge {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: var(--dark);
             color: white;
             padding: 0.5rem 1rem;
-            border-radius: 20px;
+            border-radius: 4px;
             font-size: 0.9rem;
             font-weight: 600;
             display: inline-block;
@@ -600,13 +559,13 @@
             flex: 1;
             min-width: 280px;
             background-color: var(--light);
-            border-radius: 16px;
+            border-radius: 4px;
             padding: 2.5rem 2rem 2.5rem 5rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
             counter-increment: step;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: var(--border);
         }
 
         .step::before {
@@ -616,15 +575,15 @@
             left: -1rem;
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: var(--dark);
             color: white;
-            border-radius: 50%;
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             font-size: 1.5rem;
-            box-shadow: 0 4px 8px rgba(139, 0, 0, 0.3);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .step:hover {
@@ -644,7 +603,7 @@
 
         .step li {
             margin-bottom: 0.5rem;
-            color: var(--secondary);
+            color: var(--dark);
         }
 
         /* Footer */
@@ -662,7 +621,7 @@
             left: 0;
             width: 100%;
             height: 8px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            background: var(--primary);
         }
 
         .footer-content {
@@ -705,7 +664,7 @@
         }
 
         .footer-links a:hover {
-            color: var(--accent);
+            color: var(--primary);
             transform: translateX(5px);
         }
 
@@ -729,8 +688,9 @@
             height: 40px;
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
-            border-radius: 50%;
+            border-radius: 4px;
             transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .social-links a:hover {
@@ -1061,68 +1021,129 @@
                 <p>&copy; 2025 BIXX Clube de Benefícios. Todos os direitos reservados.</p>
                 <p style="margin-top: 0.5rem; font-size: 0.8rem;">Empresa Séria e Transparente: A BIXX é uma empresa registrada e comprometida com a transparência em todas as suas operações. Todas as documentações serão rigorosamente analisadas para garantir a segurança de nossos assinantes. Nossos serviços são prestados conforme contrato de assinante, com todos os termos claramente especificados. Realizamos avaliações técnicas criteriosas tanto para assistência quanto para revenda de dispositivos, garantindo sempre o melhor atendimento e condições justas para nossos membros. Não somos uma empresa de SEGUROS e nem de CONSÓRCIO DE PROTEÇÃO, somos uma empresa que presta aos assinantes por uma mensalidade certos benefícios e assistência técnica gratuita em lojas credenciadas e analisadas pela nossa empresa! IMPORTANTE: Sempre te atualizaremos os seus status pelo e-mail mensalmente, caso queira somente verificar, pode solicitar via WhatsApp ou e-mail, ou ligação que enviaremos o relatório de seu status. (Status = é como está o seu cadastro, se tem boleto pago ou vencido, se tem algum documento faltante e etc) tudo será enviado em um documento oficial. Caso queira apenas consultar o seu status, para ver se está ATIVO, apenas entre na página no cabeçalho e coloque seu CPF.</p>
                 <p style="margin-top: 0.5rem; font-size: 0.8rem;">BIXX não é uma seguradora. Serviço de Assinatura com Assistência Técnica e Descontos. *Assistência técnica ilimitada após período de carência de 3 meses.</p>
-                <p style="margin-top: 0.5rem; font-size: 0.8rem;">Quem somos?Somos uma empresa de Goiânia, capital de Goiás, fundada e dirigida pelo empresário e jurista Bruno Silva. Nosso propósito:No mundo conectado de hoje, onde todos utilizam smartphones, tablets e notebooks, é inevitável que em algum momento surja a necessidade de assistência técnica, compra de acessórios ou mesmo a venda do aparelho usado.Nossa missão é oferecer uma solução completa e acessível para esses momentos, através de um plano de assinatura que proporciona benefícios e tranquilidade para o nosso cliente. Sobre o preço:Nosso preço é definido com base em todos os custos operacionais para garantir a sustentabilidade e qualidade do serviço. Ele se justifica pelo amplo portfólio de vantagens, pela qualidade do atendimento e pela satisfação em oferecer uma solução prática e econômica aos nossos assinantes. Alcance e atendimento:Atuamos em todo o território nacional. Nosso assinante pode ser atendido em nossa rede de lojas credenciadas e parceiras ou por ele indicada em qualquer lugar do Brasil. Público-alvo:Nossos serviços são exclusivos para consumidores finais (pessoa física). Em contrato, possuímos cláusula que impede explicitamente a assinatura de pessoas jurídicas (CNPJ) com o intuito de revenda, garantindo que os benefícios sejam usufruídos por quem realmente precisa.</p>
+		<p style="margin-top: 0.5rem; font-size: 0.8rem;">Quem somos?Somos uma empresa de Goiânia, capital de Goiás, fundada e dirigida pelo empresário e jurista Bruno Silva. Nosso propósito:No mundo conectado de hoje, onde todos utilizam smartphones, tablets e notebooks, é inevitável que em algum momento surja a necessidade de assistência técnica, compra de acessórios ou mesmo a venda do aparelho usado.Nossa missão é oferecer uma solução completa e acessível para esses momentos, através de um plano de assinatura que proporciona benefícios e tranquilidade para o nosso cliente. Sobre o preço:Nosso preço é definido com base em todos os custos operacionais para garantir a sustentabilidade e qualidade do serviço. Ele se justifica pelo amplo portfólio de vantagens, pela qualidade do atendimento e pela satisfação em oferecer uma solução prática e econômica aos nossos assinantes. Alcance e atendimento:Atuamos em todo o território nacional. Nosso assinante pode ser atendido em nossa rede de lojas credenciadas e parceiras ou por ele indicada em qualquer lugar do Brasil. Público-alvo:Nossos serviços são exclusivos para consumidores finais (pessoa física). Em contrato, possuímos cláusula que impede explicitamente a assinatura de pessoas jurídicas (CNPJ) com o intuito de revenda, garantindo que os benefícios sejam usufruídos por quem realmente precisa.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const sideMenu = document.getElementById('sideMenu');
-        const sideMenuClose = document.getElementById('sideMenuClose');
-        const menuOverlay = document.getElementById('menuOverlay');
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const sideMenuClose = document.getElementById('sideMenuClose');
+    const menuOverlay = document.getElementById('menuOverlay');
 
-        mobileMenuBtn.addEventListener('click', () => {
-            sideMenu.classList.add('active');
-            menuOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
+    mobileMenuBtn.addEventListener('click', () => {
+        sideMenu.classList.add('active');
+        menuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
 
-        sideMenuClose.addEventListener('click', () => {
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        });
+    sideMenuClose.addEventListener('click', () => {
+        sideMenu.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
 
-        menuOverlay.addEventListener('click', () => {
-            sideMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        });
+    menuOverlay.addEventListener('click', () => {
+        sideMenu.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            // Não aplicar smooth scroll para links que não são âncoras
+            if(this.getAttribute('href') === '#') return;
+            
+            e.preventDefault();
 
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
 
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
 
-                    // Close side menu if open
-                    sideMenu.classList.remove('active');
-                    menuOverlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-        });
-
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                document.querySelector('header').style.background = 'rgba(255, 255, 255, 0.95)';
-                document.querySelector('header').style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-            } else {
-                document.querySelector('header').style.background = 'rgba(255, 255, 255, 0.95)';
-                document.querySelector('header').style.boxShadow = 'none';
+                // Close side menu if open
+                sideMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
             }
         });
-    </script>
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) {
+            header.style.background = 'rgba(255, 255, 255, 0.98)';
+            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+        } else {
+            header.style.background = 'var(--light)';
+            header.style.boxShadow = 'none';
+        }
+    });
+
+    // Adicionar classe ativa ao item do menu conforme scroll
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a, .side-menu-links a');
+        let current = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            if(pageYOffset >= (sectionTop - 100)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if(link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+    // Prevenir envio de formulários (caso existam)
+    document.addEventListener('DOMContentLoaded', function() {
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Lógica de envio de formulário aqui
+                alert('Formulário enviado com sucesso!');
+            });
+        });
+    });
+
+    // Animar elementos ao entrar na viewport
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
+
+    // Observar elementos para animação
+    document.addEventListener('DOMContentLoaded', function() {
+        const elementsToAnimate = document.querySelectorAll('.feature-card, .pricing-card, .step, .travel-plan-card');
+        elementsToAnimate.forEach(el => {
+            observer.observe(el);
+        });
+    });
+</script>
 </body>
 </html>
