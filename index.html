@@ -466,12 +466,13 @@
             color: var(--dark);
         }
 
-        /* New Travel Plans Section - ATUALIZADO */
+        /* New Travel Plans Section */
         .travel-plans {
             display: grid;
-            grid-template-columns: 2fr 1fr; /* Alterado para dar mais espaço ao primeiro card */
+            grid-template-columns: 1fr 1fr; /* Alterado para colunas iguais */
             gap: 2rem;
             margin: 3rem 0;
+            align-items: stretch; /* Faz os cards terem a mesma altura */
         }
 
         .travel-plan-card {
@@ -485,6 +486,7 @@
             border: var(--border);
             display: flex;
             flex-direction: column;
+            height: 100%; /* Garante que os cards ocupem toda a altura disponível */
         }
 
         .travel-plan-card::before {
@@ -524,11 +526,12 @@
         }
 
         .travel-plan-card .pricing-features {
-            flex-grow: 1;
+            flex-grow: 1; /* Faz a lista de recursos ocupar o espaço disponível */
+            margin-bottom: 1.5rem; /* Adiciona espaço abaixo da lista */
         }
 
         .travel-plan-card .cta-button {
-            margin-top: auto;
+            margin-top: auto; /* Empurra o botão para a parte inferior */
             text-align: center;
             width: 100%;
         }
