@@ -3,16 +3,3 @@ RewriteEngine On
 # Remove index.html da URL raiz (sua regra original)
 RewriteCond %{REQUEST_URI} /index\.html$ [NC]
 RewriteRule ^(.*)index\.html$ /$1 [R=301,L]
-
-# Remove a extensão .html de TODAS as páginas (incluindo consulta.html)
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}\.html -f
-RewriteRule ^(.*)$ $1.html [L]
-
-# Redireciona permanentemente URLs com .html para versão sem extensão
-RewriteCond %{THE_REQUEST} \s/+(.*?)\.html[\s?] [NC]
-RewriteRule ^ /%1 [R=301,L,NE]
-
-# Força HTTPS (recomendado)
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
