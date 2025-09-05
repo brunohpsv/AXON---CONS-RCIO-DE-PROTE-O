@@ -9,6 +9,7 @@
     <style>
         :root {
             --primary: #8B0000;
+            --primary-light: #a52a2a;
             --secondary: #2D2D2D;
             --light: #FFFFFF;
             --dark: #161616;
@@ -42,34 +43,67 @@
         }
         
         header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 15px 20px;
-            background-color: var(--light);
-            color: var(--secondary);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 15px 0;
             position: relative;
             width: 100%;
-            left: 0;
-            right: 0;
         }
         
         .header-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
         }
         
         h1 {
             font-size: 1.5rem;
-            margin-bottom: 8px;
-            color: var(--primary);
+            margin: 0;
         }
         
         .logo {
             font-weight: bold;
             font-size: 2rem;
+            color: var(--light);
+            text-decoration: none;
+        }
+        
+        .home-button {
+            background-color: var(--light);
             color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .home-button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .header-description {
+            text-align: center;
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            max-width: 800px;
         }
         
         .nav-menu {
@@ -80,17 +114,18 @@
         }
         
         .nav-link {
-            color: var(--primary);
+            color: var(--light);
             text-decoration: none;
             font-weight: 500;
             padding: 6px 12px;
             border-radius: 4px;
             transition: all 0.3s ease;
             font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
         .nav-link:hover {
-            background-color: rgba(139, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.1);
         }
         
         .email-info {
@@ -118,6 +153,7 @@
             font-family: monospace;
             white-space: pre-wrap;
             font-size: 0.9rem;
+            overflow-x: auto;
         }
         
         .request-type {
@@ -147,6 +183,14 @@
             margin-bottom: 1rem;
         }
         
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
         /* Responsividade */
         @media (min-width: 768px) {
             .container {
@@ -155,6 +199,23 @@
             
             h1 {
                 font-size: 2rem;
+            }
+            
+            .header-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            
+            .header-top {
+                width: auto;
+                flex: 1;
+            }
+            
+            .header-description {
+                width: 100%;
+                order: 3;
+                margin-top: 10px;
             }
             
             .email-info {
@@ -174,11 +235,27 @@
             .email-info {
                 padding: 3rem;
             }
+            
+            .header-container {
+                padding: 0 40px;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .header-top {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .home-button {
+                align-self: center;
+            }
         }
         
         @media (max-width: 480px) {
             header {
-                padding: 12px 15px;
+                padding: 12px 0;
             }
             
             h1 {
@@ -192,6 +269,7 @@
             .nav-menu {
                 flex-direction: column;
                 gap: 8px;
+                align-items: center;
             }
             
             .email-info {
@@ -205,7 +283,10 @@
             .email-example {
                 font-size: 0.8rem;
                 padding: 10px;
-                overflow-x: auto;
+            }
+            
+            .info-box {
+                padding: 1.5rem;
             }
         }
     </style>
@@ -213,10 +294,15 @@
 <body>
     <header>
         <div class="header-container">
-            <h1><span class="logo">SOLICITAÇÕES BIXX</span></h1>
-            <p>Modelos para fazer solicitações por e-mail - Daremos as respostas no próximo dia (mesmo que não seja útil)</p)        
+            <div class="header-top">
+                <h1><a href="https://bixx.com.br/" class="logo">SOLICITAÇÕES BIXX</a></h1>
+                <a href="https://bixx.com.br/" class="home-button">Início</a>
+            </div>
+            <p class="header-description">Modelos para fazer solicitações por e-mail - Daremos as respostas no próximo dia (mesmo que não seja útil)</p>
             <nav class="nav-menu">
                 <a href="https://bixx.com.br/" class="nav-link">Início</a>
+                <a href="#" class="nav-link">Serviços</a>
+                <a href="#" class="nav-link">Contato</a>
             </nav>
         </div>
     </header>
