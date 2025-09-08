@@ -466,13 +466,13 @@
             color: var(--dark);
         }
 
-        /* New Travel Plans Section */
+        /* New Travel Plans Section - ESTILO ATUALIZADO */
         .travel-plans {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Alterado para colunas iguais */
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
             gap: 2rem;
             margin: 3rem 0;
-            align-items: stretch; /* Faz os cards terem a mesma altura */
         }
 
         .travel-plan-card {
@@ -480,13 +480,11 @@
             border-radius: 4px;
             padding: 2.5rem 2rem;
             box-shadow: var(--shadow);
+            width: 320px;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
             border: var(--border);
-            display: flex;
-            flex-direction: column;
-            height: 100%; /* Garante que os cards ocupem toda a altura disponível */
         }
 
         .travel-plan-card::before {
@@ -526,14 +524,24 @@
         }
 
         .travel-plan-card .pricing-features {
-            flex-grow: 1; /* Faz a lista de recursos ocupar o espaço disponível */
-            margin-bottom: 1.5rem; /* Adiciona espaço abaixo da lista */
+            list-style: none;
+            margin: 2rem 0;
         }
 
-        .travel-plan-card .cta-button {
-            margin-top: auto; /* Empurra o botão para a parte inferior */
-            text-align: center;
-            width: 100%;
+        .travel-plan-card .pricing-features li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--dark);
+        }
+
+        .travel-plan-card .pricing-features li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--dark);
         }
 
         .discount-badge {
@@ -725,8 +733,9 @@
                 max-width: 350px;
             }
 
-            .travel-plans {
-                grid-template-columns: 1fr;
+            .travel-plan-card {
+                width: 100%;
+                max-width: 350px;
             }
         }
 
@@ -906,7 +915,7 @@
                 </div>
             </div>
 
-            <!-- New Travel Plans Section -->
+            <!-- New Travel Plans Section - ATUALIZADO -->
             <div class="travel-plans">
                 <div class="travel-plan-card">
                     <h3>BIXX - PASSAGENS</h3>
@@ -914,7 +923,7 @@
                     <div class="discount-badge">De 30% a 100% de desconto para assinantes BIXX</div>
                     <ul class="pricing-features">
                         <li>Descontos exclusivos em passagens aéreas</li>
-                        <li>Tranposte para o aeroporto e do aeroporto para hotel/casa e etc (gratuito)</li>
+                        <li>Transporte para o aeroporto e do aeroporto para hotel/casa e etc (gratuito)</li>
                         <li>Prioridade no check-in e embarque</li>
                         <li>Bagagem adicional gratuita</li>
 						<li>Desconto vale para todas as classes</li>
@@ -941,7 +950,6 @@
                 </div>
 				<div class="travel-plan-card">
                     <h3>BIXX - CADASTRE SEU CARRO</h3>
-                    <div class="price">Aproveite!</div>
                     <div class="price">RENDA PASSIVA!</div>
                     <div class="discount-badge">Empreste seu carro e lucre com isso!</div>
                     <ul class="pricing-features">
@@ -956,7 +964,6 @@
                 </div>
 				<div class="travel-plan-card">
                     <h3>BIXX - ALUGUEL DE CARRO</h3>
-                    <div class="price">Aproveite!</div>
                     <div class="price">PODE DIRIGIR!</div>
                     <div class="discount-badge">Alugue um Carro de Forma Fácil e Segura com a BIXX!</div>
                     <ul class="pricing-features">
@@ -969,7 +976,6 @@
                     </ul>
                     <a href="" class="cta-button">EM BREVE!</a>
                 </div>
-
             </div>
         </div>
     </section>
@@ -1018,11 +1024,13 @@
                     <li>Acesse a página do cabeçalho "Solicitações"</li>
                     <li>Nesta página terá todas as solicitações e o e-mail para qual deve ser enviado</li>
                     <li>Siga o mesmo modelo que está mostrando e envie!</li>
-                    <li>Ao recebermos o seu e-mail, confirmaremos e daremos as instruções.</li>
+                    <li>Ao recebermos o e-mail, confirmaremos e daremos as instruções.</li>
                 </ol>
             </div>
         </div>
     </section>
+
+   
 
     <footer>
         <div class="container">
