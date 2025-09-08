@@ -559,13 +559,17 @@
         }
 
         .step {
-    display: flex;
-    flex-direction: column;
-}
-
-.step .cta-button {
-    margin-top: auto;
-}
+            flex: 1;
+            min-width: 280px;
+            background-color: var(--light);
+            border-radius: 4px;
+            padding: 2.5rem 2rem 2.5rem 5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            counter-increment: step;
+            border: var(--border);
+        }
 
         .step::before {
             content: counter(step);
@@ -903,69 +907,70 @@
             </div>
 
             <!-- New Travel Plans Section -->
-            <div class="process-steps">
-    <div class="step">
-        <h3>BIXX - PASSAGENS</h3>
-        <div class="price">R$190,00<span>/mês</span></div>
-        <div class="discount-badge">De 30% a 100% de desconto para assinantes BIXX</div>
-        <ol>
-            <li>Descontos exclusivos em passagens aéreas</li>
-            <li>Transporte para o aeroporto e do aeroporto para hotel/casa e etc (gratuito)</li>
-            <li>Prioridade no check-in e embarque</li>
-            <li>Bagagem adicional gratuita</li>
-            <li>Desconto vale para todas as classes</li>
-            <li>Assistência de viagem 24h</li>
-            <li>Para passagens internacionais, o desconto é somente de 10% a 30%, sem transporte, bagagem gratuita e prioridade de check-in e embarque</li>
-            <li>Período de carência: 6 meses</li>
-        </ol>
-        <a href="" class="cta-button" style="margin-top: 1.5rem;">EM BREVE!</a>
-    </div>
+            <div class="travel-plans">
+                <div class="travel-plan-card">
+                    <h3>BIXX - PASSAGENS</h3>
+                    <div class="price">R$190,00<span>/mês</span></div>
+                    <div class="discount-badge">De 30% a 100% de desconto para assinantes BIXX</div>
+                    <ul class="pricing-features">
+                        <li>Descontos exclusivos em passagens aéreas</li>
+                        <li>Tranposte para o aeroporto e do aeroporto para hotel/casa e etc (gratuito)</li>
+                        <li>Prioridade no check-in e embarque</li>
+                        <li>Bagagem adicional gratuita</li>
+						<li>Desconto vale para todas as classes</li>
+                        <li>Assistência de viagem 24h</li>
+						<li>Para passagens internacionais, o desconto é somente de 10% a 30%, sem transporte, bagagem gratuita e prioridade de check-in e embarque</li>
+                        <li>Período de carência: 6 meses</li>
+                    </ul>
+                    <a href="" class="cta-button">EM BREVE!</a>
+                </div>
 
-    <div class="step">
-        <h3>BIXX - VIAGENS</h3>
-        <div class="price">Aproveite!</div>
-        <div class="discount-badge">De 30% a 100% de desconto para assinantes BIXX após 4 meses</div>
-        <ol>
-            <li>Pacotes all-inclusive: hospedagem garantida e carro alugado de cortesia - O carro é um bônus sujeito à disponibilidade na localidade</li>
-            <li>Café da Manhã = por nossa conta/ Almoço e janta = benefícios que PODERÁ ganhar!</li>
-            <li>Ganhará desconto especial se for assinante do plano - BIXX PASSAGENS</li>
-            <li>Viva a experiência completa com guias locais especializados - (contratado à parte)</li>
-            <li>Flexibilidade total: cancele sem custos até 30 dias antes da viagem</li>
-            <li>Suporte dedicado e personalizado para você antes, durante e depois da viagem</li>
-        </ol>
-        <a href="" class="cta-button" style="margin-top: 1.5rem;">EM BREVE!</a>
-    </div>
-    
-    <div class="step">
-        <h3>BIXX - CADASTRE SEU CARRO</h3>
-        <div class="price">RENDA PASSIVA!</div>
-        <div class="discount-badge">Empreste seu carro e lucre com isso!</div>
-        <ol>
-            <li>Empreste seu carro, e a BIXX colocará no mercado de aluguéis</li>
-            <li>Quando um cliente fizer o contrato de alugar o carro, e pagar o valor devido, 50% será seu e 50% será nosso!</li>
-            <li>A BIXX cuidará de todo o processo restante, desde a manutenção, até a limpeza! E com certeza o seguro!</li>
-            <li>A BIXX também cuidará do processo de venda caso queira vender seu carro e todo o valor irá para o seu bolso!</li>
-            <li>Basta cadastrar-se e faremos uma pré-análise em seu carro!</li>
-            <li>Suporte 24h em todo território nacional!</li>
-        </ol>
-        <a href="" class="cta-button" style="margin-top: 1.5rem;">EM BREVE!</a>
-    </div>
-    
-    <div class="step">
-        <h3>BIXX - ALUGUEL DE CARRO</h3>
-        <div class="price">PODE DIRIGIR!</div>
-        <div class="discount-badge">Alugue um Carro de Forma Fácil e Segura com a BIXX!</div>
-        <ol>
-            <li>Escolha seu carro ideal entre uma variedade de modelos disponíveis no nosso mercado de aluguel.</li>
-            <li>Pague apenas o valor combinado – sem taxas surpresa ou custos extras!</li>
-            <li>50% do valor do aluguel vai para o proprietário e 50% para a BIXX – assim todo mundo ganha!</li>
-            <li>A BIXX cuida de tudo: manutenção, limpeza e, é claro, o seguro do veículo!</li>
-            <li>Faça seu cadastro rapidamente e tenha acesso a carros verificados e bem cuidados.</li>
-            <li>Suporte 24h em todo o Brasil – estamos sempre prontos para te ajudar!</li>
-        </ol>
-        <a href="" class="cta-button" style="margin-top: 1.5rem;">EM BREVE!</a>
-    </div>
-</div>
+                <div class="travel-plan-card">
+                    <h3>BIXX - VIAGENS</h3>
+                    <div class="price">Aproveite!</div>
+                    <div class="discount-badge">De 30% a 100% de desconto para assinantes BIXX após 4 meses</div>
+                    <ul class="pricing-features">
+                        <li>Pacotes all-inclusive: hospedagem garantida e carro alugado de cortesia - O carro é um bônus sujeito à disponibilidade na localidade</li>
+						<li>Café da Manhã = por nossa conta/ Almoço e janta = benefícios que PODERÁ ganhar!</li>
+						<li>Ganhará desconto especial se for assinante do plano - BIXX PASSAGENS</li>
+                        <li>Viva a experiência completa com guias locais especializados - (contratado à parte)</li>
+                        <li>Flexibilidade total: cancele sem custos até 30 dias antes da viagem</li>
+                        <li>Suporte dedicado e personalizado para você antes, durante e depois da viagem</li>
+                    </ul>
+                    <a href="" class="cta-button">EM BREVE!</a>
+                </div>
+				<div class="travel-plan-card">
+                    <h3>BIXX - CADASTRE SEU CARRO</h3>
+                    <div class="price">Aproveite!</div>
+                    <div class="price">RENDA PASSIVA!</div>
+                    <div class="discount-badge">Empreste seu carro e lucre com isso!</div>
+                    <ul class="pricing-features">
+                        <li>Empreste seu carro, e a BIXX colocará no mercado de aluguéis</li>
+						<li>Quando um cliente fizer o contrato de alugar o carro, e pagar o valor devido, 50% será seu e 50% será nosso!</li>
+						<li>A BIXX cuidará de todo o processo restante, desde a manutenção, até a limpeza! E com certeza o seguro!</li>
+                        <li>A BIXX também cuidará do processo de venda caso queira vender seu carro e todo o valor irá para o seu bolso!</li>
+                        <li>Basta cadastrar-se e faremos uma pré-análise em seu carro!</li>
+                        <li>Suporte 24h em todo território nacional!</li>
+                    </ul>
+                    <a href="" class="cta-button">EM BREVE!</a>
+                </div>
+				<div class="travel-plan-card">
+                    <h3>BIXX - ALUGUEL DE CARRO</h3>
+                    <div class="price">Aproveite!</div>
+                    <div class="price">PODE DIRIGIR!</div>
+                    <div class="discount-badge">Alugue um Carro de Forma Fácil e Segura com a BIXX!</div>
+                    <ul class="pricing-features">
+                        <li>Escolha seu carro ideal entre uma variedade de modelos disponíveis no nosso mercado de aluguel.</li>
+						<li>Pague apenas o valor combinado – sem taxas surpresa ou custos extras!</li>
+						<li>50% do valor do aluguel vai para o proprietário e 50% para a BIXX – assim todo mundo ganha!</li>
+                        <li>A BIXX cuida de tudo: manutenção, limpeza e, é claro, o seguro do veículo!</li>
+                        <li>Faça seu cadastro rapidamente e tenha acesso a carros verificados e bem cuidados.</li>
+                        <li>Suporte 24h em todo o Brasil – estamos sempre prontos para te ajudar!</li>
+                    </ul>
+                    <a href="" class="cta-button">EM BREVE!</a>
+                </div>
+
+            </div>
         </div>
     </section>
 
@@ -1083,7 +1088,7 @@
         anchor.addEventListener('click', function(e) {
             // Não aplicar smooth scroll para links que não são âncoras
             if(this.getAttribute('href') === '#') return;
-            
+
             e.preventDefault();
 
             const targetId = this.getAttribute('href');
@@ -1120,11 +1125,11 @@
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('nav a, .side-menu-links a');
         let current = '';
-        
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-            
+
             if(pageYOffset >= (sectionTop - 100)) {
                 current = section.getAttribute('id');
             }
