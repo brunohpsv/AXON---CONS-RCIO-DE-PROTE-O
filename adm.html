@@ -82,7 +82,7 @@
             flex-wrap: wrap;
         }
         
-        input, button {
+        input, button, select, textarea {
             padding: 8px 12px;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -107,6 +107,15 @@
         
         button.delete:hover {
             background-color: #d33426;
+        }
+        
+        button.secondary {
+            background-color: #f1f1f1;
+            color: #333;
+        }
+        
+        button.secondary:hover {
+            background-color: #e1e1e1;
         }
         
         .documents-list {
@@ -143,12 +152,13 @@
         .field {
             margin-bottom: 10px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
         }
         
         .field-key {
             font-weight: bold;
             min-width: 120px;
+            padding-top: 8px;
         }
         
         .field-value {
@@ -159,8 +169,34 @@
             background-color: white;
         }
         
+        .field-type {
+            min-width: 120px;
+            margin-left: 10px;
+        }
+        
         .editable {
             border: 1px dashed #ccc;
+        }
+        
+        .array-item {
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: white;
+        }
+        
+        .array-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .object-field {
+            margin-left: 20px;
+            border-left: 2px solid #eee;
+            padding-left: 10px;
         }
         
         .actions {
@@ -193,6 +229,23 @@
             border: 1px solid #eee;
             max-height: 300px;
             overflow-y: auto;
+        }
+        
+        .add-item-btn {
+            margin-top: 10px;
+        }
+        
+        .timestamp-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .timestamp-value {
+            background-color: #f5f5f5;
+            padding: 8px;
+            border-radius: 4px;
+            font-family: monospace;
         }
     </style>
 </head>
@@ -363,28 +416,128 @@
                 <div class="actions">
                     <button id="saveDocBtn">Salvar Alterações</button>
                     <button class="delete" id="deleteDocBtn">Excluir Documento</button>
+                    <button class="secondary" id="addFieldBtn">Adicionar Campo</button>
                 </div>
             `;
             
             // Adicionar event listeners aos botões
             document.getElementById('saveDocBtn').addEventListener('click', saveDocumentChanges);
             document.getElementById('deleteDocBtn').addEventListener('click', deleteCurrentDocument);
+            document.getElementById('addFieldBtn').addEventListener('click', addNewField);
         }
 
         // Renderizar dados do documento em formato editável
         function renderDocumentData(data) {
             let html = '';
             for (const key in data) {
-                html += `
-                    <div class="field">
-                        <span class="field-key">${key}:</span>
-                        <input type="text" class="field-value editable" 
-                               data-key="${key}" 
-                               value="${typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]}">
-                    </div>
-                `;
+                html += renderField(key, data[key]);
             }
             return html;
+        }
+
+        // Renderizar um campo individual
+        function renderField(key, value, path = '') {
+            const fullPath = path ? `${path}.${key}` : key;
+            let fieldHtml = '';
+            
+            // Determinar o tipo do campo
+            let fieldType = typeof value;
+            if (Array.isArray(value)) fieldType = 'array';
+            if (value instanceof Date) fieldType = 'date';
+            if (value && typeof value === 'object' && 'toDate' in value) fieldType = 'timestamp';
+            
+            fieldHtml += `<div class="field">
+                <span class="field-key">${key}:</span>`;
+            
+            // Renderizar baseado no tipo
+            switch (fieldType) {
+                case 'string':
+                    fieldHtml += `<input type="text" class="field-value editable" data-path="${fullPath}" value="${value}">`;
+                    break;
+                    
+                case 'number':
+                    fieldHtml += `<input type="number" class="field-value editable" data-path="${fullPath}" value="${value}">`;
+                    break;
+                    
+                case 'boolean':
+                    fieldHtml += `
+                        <select class="field-value editable" data-path="${fullPath}">
+                            <option value="true" ${value ? 'selected' : ''}>Verdadeiro</option>
+                            <option value="false" ${!value ? 'selected' : ''}>Falso</option>
+                        </select>`;
+                    break;
+                    
+                case 'timestamp':
+                    const date = value.toDate();
+                    const dateStr = date.toISOString().split('T')[0];
+                    const timeStr = date.toTimeString().split(' ')[0];
+                    
+                    fieldHtml += `
+                        <div class="field-value">
+                            <div class="timestamp-value">${date.toString()}</div>
+                            <div class="timestamp-controls">
+                                <input type="date" class="timestamp-date" value="${dateStr}">
+                                <input type="time" class="timestamp-time" value="${timeStr}">
+                                <button class="secondary update-timestamp" data-path="${fullPath}">Atualizar</button>
+                            </div>
+                        </div>`;
+                    break;
+                    
+                case 'array':
+                    fieldHtml += `<div class="field-value">
+                        <div class="array-container">`;
+                    
+                    value.forEach((item, index) => {
+                        fieldHtml += `
+                            <div class="array-item">
+                                <div class="array-header">
+                                    <strong>Item ${index + 1}</strong>
+                                    <button class="delete delete-array-item" data-path="${fullPath}" data-index="${index}">Remover</button>
+                                </div>`;
+                        
+                        if (typeof item === 'object' && item !== null) {
+                            // Se for um objeto dentro do array
+                            for (const itemKey in item) {
+                                fieldHtml += renderField(itemKey, item[itemKey], `${fullPath}[${index}]`);
+                            }
+                        } else {
+                            // Se for um valor primitivo
+                            fieldHtml += renderField('value', item, `${fullPath}[${index}]`);
+                        }
+                        
+                        fieldHtml += `</div>`;
+                    });
+                    
+                    fieldHtml += `
+                            <button class="secondary add-array-item add-item-btn" data-path="${fullPath}">Adicionar Item</button>
+                        </div>
+                    </div>`;
+                    break;
+                    
+                case 'object':
+                    fieldHtml += `<div class="field-value object-field">`;
+                    for (const objKey in value) {
+                        fieldHtml += renderField(objKey, value[objKey], fullPath);
+                    }
+                    fieldHtml += `</div>`;
+                    break;
+                    
+                default:
+                    fieldHtml += `<input type="text" class="field-value editable" data-path="${fullPath}" value="${value}">`;
+            }
+            
+            fieldHtml += `
+                <select class="field-type" data-path="${fullPath}">
+                    <option value="string" ${fieldType === 'string' ? 'selected' : ''}>String</option>
+                    <option value="number" ${fieldType === 'number' ? 'selected' : ''}>Number</option>
+                    <option value="boolean" ${fieldType === 'boolean' ? 'selected' : ''}>Boolean</option>
+                    <option value="timestamp" ${fieldType === 'timestamp' ? 'selected' : ''}>Timestamp</option>
+                    <option value="array" ${fieldType === 'array' ? 'selected' : ''}>Array</option>
+                    <option value="object" ${fieldType === 'object' ? 'selected' : ''}>Object</option>
+                </select>
+            </div>`;
+            
+            return fieldHtml;
         }
 
         // Ocultar detalhes do documento
@@ -398,19 +551,8 @@
             if (!currentDocument) return;
             
             try {
-                const inputs = documentDetail.querySelectorAll('.editable');
                 const updateData = {};
-                
-                inputs.forEach(input => {
-                    const key = input.getAttribute('data-key');
-                    try {
-                        // Tentar analisar como JSON
-                        updateData[key] = JSON.parse(input.value);
-                    } catch {
-                        // Se falhar, usar como string
-                        updateData[key] = input.value;
-                    }
-                });
+                processFieldsForUpdate(updateData, documentDetail);
                 
                 await db.collection(currentCollection).doc(currentDocument.id).update(updateData);
                 alert('Documento atualizado com sucesso!');
@@ -420,6 +562,118 @@
             } catch (error) {
                 showError('Erro ao salvar documento: ' + error.message);
             }
+        }
+
+        // Processar campos para atualização
+        function processFieldsForUpdate(updateData, container) {
+            // Processar campos editáveis
+            const inputs = container.querySelectorAll('.editable');
+            inputs.forEach(input => {
+                const path = input.getAttribute('data-path');
+                setNestedField(updateData, path, input.value);
+            });
+            
+            // Processar selects
+            const selects = container.querySelectorAll('.field-type');
+            selects.forEach(select => {
+                const path = select.getAttribute('data-path');
+                const currentValue = getNestedField(currentDocument.data, path);
+                const newType = select.value;
+                
+                // Se o tipo mudou, converter o valor
+                if (typeof currentValue !== newType) {
+                    let newValue;
+                    
+                    switch (newType) {
+                        case 'string':
+                            newValue = String(currentValue);
+                            break;
+                        case 'number':
+                            newValue = Number(currentValue);
+                            break;
+                        case 'boolean':
+                            newValue = Boolean(currentValue);
+                            break;
+                        default:
+                            newValue = currentValue;
+                    }
+                    
+                    setNestedField(updateData, path, newValue);
+                }
+            });
+            
+            // Processar timestamps atualizados
+            const timestampButtons = container.querySelectorAll('.update-timestamp');
+            timestampButtons.forEach(button => {
+                const path = button.getAttribute('data-path');
+                const dateInput = button.parentElement.querySelector('.timestamp-date');
+                const timeInput = button.parentElement.querySelector('.timestamp-time');
+                
+                if (dateInput.value && timeInput.value) {
+                    const dateTimeStr = `${dateInput.value}T${timeInput.value}`;
+                    const newDate = new Date(dateTimeStr);
+                    setNestedField(updateData, path, firebase.firestore.Timestamp.fromDate(newDate));
+                }
+            });
+        }
+
+        // Helper para definir campos aninhados
+        function setNestedField(obj, path, value) {
+            const keys = path.split('.');
+            let current = obj;
+            
+            for (let i = 0; i < keys.length - 1; i++) {
+                const key = keys[i];
+                
+                // Verificar se é um array index
+                if (key.includes('[') && key.includes(']')) {
+                    const arrayKey = key.split('[')[0];
+                    const index = parseInt(key.split('[')[1].split(']')[0]);
+                    
+                    if (!current[arrayKey]) current[arrayKey] = [];
+                    if (!current[arrayKey][index]) current[arrayKey][index] = {};
+                    
+                    current = current[arrayKey][index];
+                } else {
+                    if (!current[key]) current[key] = {};
+                    current = current[key];
+                }
+            }
+            
+            const lastKey = keys[keys.length - 1];
+            
+            // Verificar se é um array index
+            if (lastKey.includes('[') && lastKey.includes(']')) {
+                const arrayKey = lastKey.split('[')[0];
+                const index = parseInt(lastKey.split('[')[1].split(']')[0]);
+                
+                if (!current[arrayKey]) current[arrayKey] = [];
+                current[arrayKey][index] = value;
+            } else {
+                current[lastKey] = value;
+            }
+        }
+
+        // Helper para obter campos aninhados
+        function getNestedField(obj, path) {
+            const keys = path.split('.');
+            let current = obj;
+            
+            for (const key of keys) {
+                if (current === undefined || current === null) return undefined;
+                
+                // Verificar se é um array index
+                if (key.includes('[') && key.includes(']')) {
+                    const arrayKey = key.split('[')[0];
+                    const index = parseInt(key.split('[')[1].split(']')[0]);
+                    
+                    current = current[arrayKey][index];
+                } else {
+                    current = current[key];
+                }
+            }
+            
+            return current;
         }
 
         // Excluir documento atual
@@ -437,6 +691,38 @@
             } catch (error) {
                 showError('Erro ao excluir documento: ' + error.message);
             }
+        }
+
+        // Adicionar novo campo
+        function addNewField() {
+            const fieldName = prompt('Nome do novo campo:');
+            if (!fieldName) return;
+            
+            const fieldType = prompt('Tipo do campo (string, number, boolean, array, object):', 'string');
+            
+            let defaultValue;
+            switch (fieldType) {
+                case 'number':
+                    defaultValue = 0;
+                    break;
+                case 'boolean':
+                    defaultValue = false;
+                    break;
+                case 'array':
+                    defaultValue = [];
+                    break;
+                case 'object':
+                    defaultValue = {};
+                    break;
+                default:
+                    defaultValue = '';
+            }
+            
+            // Adicionar ao documento atual
+            currentDocument.data[fieldName] = defaultValue;
+            
+            // Atualizar a visualização
+            showDocumentDetail(currentDocument);
         }
 
         // Criar novo documento
@@ -486,6 +772,36 @@
             errorDiv.style.display = 'block';
             hideLoading();
         }
+
+        // Delegar eventos para elementos dinâmicos
+        document.addEventListener('click', function(e) {
+            // Adicionar item a array
+            if (e.target.classList.contains('add-array-item')) {
+                const path = e.target.getAttribute('data-path');
+                const currentValue = getNestedField(currentDocument.data, path) || [];
+                
+                // Adicionar item vazio baseado no tipo do primeiro item
+                if (currentValue.length > 0 && typeof currentValue[0] === 'object') {
+                    currentValue.push({});
+                } else {
+                    currentValue.push('');
+                }
+                
+                setNestedField(currentDocument.data, path, currentValue);
+                showDocumentDetail(currentDocument);
+            }
+            
+            // Remover item de array
+            if (e.target.classList.contains('delete-array-item')) {
+                const path = e.target.getAttribute('data-path');
+                const index = parseInt(e.target.getAttribute('data-index'));
+                const currentValue = getNestedField(currentDocument.data, path) || [];
+                
+                currentValue.splice(index, 1);
+                setNestedField(currentDocument.data, path, currentValue);
+                showDocumentDetail(currentDocument);
+            }
+        });
 
         // Event Listeners
         loadCollectionBtn.addEventListener('click', () => {
