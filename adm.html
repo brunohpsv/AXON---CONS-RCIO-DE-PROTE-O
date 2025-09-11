@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Firestore</title>
+    <title>Dashboard Firestore - Axon</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <style>
@@ -15,8 +15,9 @@
         }
         
         body {
-            background-color: #f5f5f5;
+            background-color: #f0f2f5;
             padding: 20px;
+            color: #333;
         }
         
         .container {
@@ -26,12 +27,52 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+            min-height: 80vh;
         }
         
         h1 {
+            grid-column: 1 / -1;
             text-align: center;
             margin-bottom: 20px;
-            color: #333;
+            color: #2c3e50;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .sidebar {
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            padding: 15px;
+            height: 100%;
+        }
+        
+        .collections-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+        
+        .collections-list li {
+            padding: 8px 12px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .collections-list li:hover {
+            background-color: #e9ecef;
+        }
+        
+        .collections-list li.active {
+            background-color: #4285f4;
+            color: white;
+        }
+        
+        .content {
+            padding: 10px;
         }
         
         .controls {
@@ -41,7 +82,7 @@
             flex-wrap: wrap;
         }
         
-        select, input, button {
+        input, button {
             padding: 8px 12px;
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -68,36 +109,39 @@
             background-color: #d33426;
         }
         
-        .documents {
-            margin-top: 20px;
-        }
-        
-        .document {
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 15px;
-            margin-bottom: 15px;
-            background-color: #f9f9f9;
-        }
-        
-        .document-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .document-id {
-            font-weight: bold;
-            color: #555;
-        }
-        
-        .document-data {
+        .documents-list {
             margin-top: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+        
+        .document-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .document-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .document-item:last-child {
+            border-bottom: none;
+        }
+        
+        .document-detail {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            background-color: #f8f9fa;
         }
         
         .field {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
         }
@@ -109,19 +153,18 @@
         
         .field-value {
             flex: 1;
-            padding: 5px;
-            border: 1px solid #eee;
+            padding: 8px;
+            border: 1px solid #ddd;
             border-radius: 4px;
             background-color: white;
         }
         
         .editable {
             border: 1px dashed #ccc;
-            padding: 5px;
         }
         
         .actions {
-            margin-top: 10px;
+            margin-top: 15px;
             display: flex;
             gap: 10px;
             justify-content: flex-end;
@@ -151,40 +194,38 @@
             max-height: 300px;
             overflow-y: auto;
         }
-        
-        .manual-collection-input {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            align-items: center;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Dashboard Firestore</h1>
+        <h1>Dashboard Firestore - Axon</h1>
         
-        <div class="controls">
-            <select id="collectionSelect">
-                <option value="">Selecione uma coleção</option>
-            </select>
-            <div class="manual-collection-input">
-                <input type="text" id="manualCollectionInput" placeholder="Ou digite o nome da coleção">
-                <button id="loadManualCollectionBtn">Carregar</button>
+        <div class="sidebar">
+            <h3>Coleções</h3>
+            <div class="controls">
+                <input type="text" id="collectionInput" placeholder="Nome da coleção">
+                <button id="loadCollectionBtn">Carregar</button>
             </div>
-            <input type="text" id="filterInput" placeholder="Filtrar documentos...">
-            <button id="refreshBtn">Atualizar</button>
-            <button id="newDocBtn">Novo Documento</button>
+            <ul id="collectionsList" class="collections-list"></ul>
         </div>
         
-        <div id="loading" class="loading">Carregando...</div>
-        <div id="error" class="error" style="display: none;"></div>
-        
-        <div id="documents" class="documents"></div>
+        <div class="content">
+            <div class="controls">
+                <input type="text" id="filterInput" placeholder="Filtrar documentos...">
+                <button id="refreshBtn">Atualizar</button>
+                <button id="newDocBtn">Novo Documento</button>
+            </div>
+            
+            <div id="loading" class="loading">Carregando...</div>
+            <div id="error" class="error" style="display: none;"></div>
+            
+            <div id="documentsList" class="documents-list"></div>
+            <div id="documentDetail" class="document-detail" style="display: none;"></div>
+        </div>
     </div>
 
     <script>
-        // Sua configuração do Firebase
+        // Configuração do Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
             authDomain: "axon-ec708.firebaseapp.com",
@@ -199,88 +240,72 @@
         const db = firebase.firestore();
 
         // Elementos da UI
-        const collectionSelect = document.getElementById('collectionSelect');
-        const manualCollectionInput = document.getElementById('manualCollectionInput');
-        const loadManualCollectionBtn = document.getElementById('loadManualCollectionBtn');
+        const collectionInput = document.getElementById('collectionInput');
+        const loadCollectionBtn = document.getElementById('loadCollectionBtn');
+        const collectionsList = document.getElementById('collectionsList');
         const filterInput = document.getElementById('filterInput');
         const refreshBtn = document.getElementById('refreshBtn');
         const newDocBtn = document.getElementById('newDocBtn');
-        const documentsDiv = document.getElementById('documents');
+        const documentsList = document.getElementById('documentsList');
+        const documentDetail = document.getElementById('documentDetail');
         const loadingDiv = document.getElementById('loading');
         const errorDiv = document.getElementById('error');
 
         // Variáveis de estado
         let collections = [];
         let currentCollection = '';
+        let currentDocument = null;
         let documents = [];
 
-        // Carregar coleções - Método alternativo já que listCollections não está disponível
-        async function loadCollections() {
-            try {
-                showLoading();
-                
-                // Como listCollections() não está disponível na versão compat,
-                // vamos usar uma abordagem alternativa: manter uma lista fixa de coleções
-                // ou pedir ao usuário para inserir manualmente
-                
-                // Para este exemplo, vamos usar uma lista pré-definida ou armazenada localmente
-                collections = getStoredCollections();
-                
-                // Atualizar dropdown
-                collectionSelect.innerHTML = '<option value="">Selecione uma coleção</option>';
-                collections.forEach(col => {
-                    const option = document.createElement('option');
-                    option.value = col;
-                    option.textContent = col;
-                    collectionSelect.appendChild(option);
-                });
-                
-                hideLoading();
-            } catch (error) {
-                showError('Erro ao carregar coleções: ' + error.message);
+        // Carregar coleções salvas
+        function loadSavedCollections() {
+            const savedCollections = localStorage.getItem('firestoreCollections');
+            if (savedCollections) {
+                collections = JSON.parse(savedCollections);
+                renderCollections();
             }
         }
 
-        // Obter coleções armazenadas localmente
-        function getStoredCollections() {
-            const stored = localStorage.getItem('firestoreCollections');
-            return stored ? JSON.parse(stored) : [];
+        // Salvar coleções
+        function saveCollections() {
+            localStorage.setItem('firestoreCollections', JSON.stringify(collections));
         }
 
-        // Salvar coleções localmente
-        function saveCollection(collectionName) {
-            if (!collectionName) return;
-            
-            const storedCollections = getStoredCollections();
-            if (!storedCollections.includes(collectionName)) {
-                storedCollections.push(collectionName);
-                localStorage.setItem('firestoreCollections', JSON.stringify(storedCollections));
-                collections = storedCollections;
-                
-                // Atualizar dropdown
-                collectionSelect.innerHTML = '<option value="">Selecione uma coleção</option>';
-                collections.forEach(col => {
-                    const option = document.createElement('option');
-                    option.value = col;
-                    option.textContent = col;
-                    collectionSelect.appendChild(option);
+        // Renderizar lista de coleções
+        function renderCollections() {
+            collectionsList.innerHTML = '';
+            collections.forEach(collection => {
+                const li = document.createElement('li');
+                li.textContent = collection;
+                li.addEventListener('click', () => {
+                    // Remover classe active de todos
+                    document.querySelectorAll('#collectionsList li').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    // Adicionar classe active ao item clicado
+                    li.classList.add('active');
+                    // Carregar documentos da coleção
+                    loadDocuments(collection);
                 });
-            }
+                collectionsList.appendChild(li);
+            });
         }
 
-        // Carregar documentos da coleção selecionada
+        // Carregar documentos da coleção
         async function loadDocuments(collectionName) {
-            if (!collectionName) {
-                documentsDiv.innerHTML = '';
-                return;
-            }
+            if (!collectionName) return;
             
             try {
                 showLoading();
                 currentCollection = collectionName;
+                collectionInput.value = collectionName;
                 
-                // Salvar esta coleção para uso futuro
-                saveCollection(collectionName);
+                // Adicionar à lista de coleções se não existir
+                if (!collections.includes(collectionName)) {
+                    collections.push(collectionName);
+                    saveCollections();
+                    renderCollections();
+                }
                 
                 const querySnapshot = await db.collection(collectionName).get();
                 documents = [];
@@ -292,158 +317,123 @@
                     });
                 });
                 
-                renderDocuments();
+                renderDocumentsList();
                 hideLoading();
+                hideDocumentDetail();
             } catch (error) {
                 showError('Erro ao carregar documentos: ' + error.message);
             }
         }
 
-        // Renderizar documentos na UI
-        function renderDocuments() {
+        // Renderizar lista de documentos
+        function renderDocumentsList() {
             const filterText = filterInput.value.toLowerCase();
             
-            documentsDiv.innerHTML = '';
+            documentsList.innerHTML = '';
             
             const filteredDocs = documents.filter(doc => {
                 if (!filterText) return true;
-                
-                // Verificar se o ID corresponde ao filtro
-                if (doc.id.toLowerCase().includes(filterText)) return true;
-                
-                // Verificar se algum campo corresponde ao filtro
-                const dataStr = JSON.stringify(doc.data).toLowerCase();
-                return dataStr.includes(filterText);
+                return doc.id.toLowerCase().includes(filterText);
             });
             
             if (filteredDocs.length === 0) {
-                documentsDiv.innerHTML = '<div class="loading">Nenhum documento encontrado</div>';
+                documentsList.innerHTML = '<div class="loading">Nenhum documento encontrado</div>';
                 return;
             }
             
             filteredDocs.forEach(doc => {
-                const docEl = document.createElement('div');
-                docEl.className = 'document';
-                
-                const header = document.createElement('div');
-                header.className = 'document-header';
-                
-                const idSpan = document.createElement('span');
-                idSpan.className = 'document-id';
-                idSpan.textContent = doc.id;
-                
-                const deleteBtn = document.createElement('button');
-                deleteBtn.className = 'delete';
-                deleteBtn.textContent = 'Excluir';
-                deleteBtn.onclick = () => deleteDocument(doc.id);
-                
-                header.appendChild(idSpan);
-                header.appendChild(deleteBtn);
-                
-                const dataDiv = document.createElement('div');
-                dataDiv.className = 'document-data';
-                
-                // Mostrar dados do documento em formato editável
-                for (const key in doc.data) {
-                    const fieldDiv = document.createElement('div');
-                    fieldDiv.className = 'field';
-                    
-                    const keySpan = document.createElement('span');
-                    keySpan.className = 'field-key';
-                    keySpan.textContent = key + ':';
-                    
-                    const valueDiv = document.createElement('div');
-                    valueDiv.className = 'field-value editable';
-                    valueDiv.contentEditable = true;
-                    valueDiv.textContent = typeof doc.data[key] === 'object' 
-                        ? JSON.stringify(doc.data[key], null, 2) 
-                        : doc.data[key];
-                    
-                    valueDiv.onblur = (e) => {
-                        try {
-                            // Tentar analisar como JSON, se falhar, usar como string
-                            const newValue = JSON.parse(e.target.textContent);
-                            updateField(doc.id, key, newValue);
-                        } catch {
-                            updateField(doc.id, key, e.target.textContent);
-                        }
-                    };
-                    
-                    fieldDiv.appendChild(keySpan);
-                    fieldDiv.appendChild(valueDiv);
-                    dataDiv.appendChild(fieldDiv);
-                }
-                
-                const actionsDiv = document.createElement('div');
-                actionsDiv.className = 'actions';
-                
-                const addFieldBtn = document.createElement('button');
-                addFieldBtn.textContent = 'Adicionar Campo';
-                addFieldBtn.onclick = () => addNewField(doc.id, docEl);
-                
-                actionsDiv.appendChild(addFieldBtn);
-                
-                docEl.appendChild(header);
-                docEl.appendChild(dataDiv);
-                docEl.appendChild(actionsDiv);
-                
-                documentsDiv.appendChild(docEl);
+                const docItem = document.createElement('div');
+                docItem.className = 'document-item';
+                docItem.textContent = doc.id;
+                docItem.addEventListener('click', () => showDocumentDetail(doc));
+                documentsList.appendChild(docItem);
             });
         }
 
-        // Adicionar novo campo a um documento
-        function addNewField(docId, docEl) {
-            const fieldName = prompt('Nome do novo campo:');
-            if (!fieldName) return;
+        // Mostrar detalhes do documento
+        function showDocumentDetail(doc) {
+            currentDocument = doc;
+            documentDetail.style.display = 'block';
             
-            const fieldValue = prompt('Valor do novo campo (para objetos, use JSON):');
-            if (fieldValue === null) return;
+            documentDetail.innerHTML = `
+                <h3>Documento: ${doc.id}</h3>
+                <div class="document-data">
+                    ${renderDocumentData(doc.data)}
+                </div>
+                <div class="actions">
+                    <button id="saveDocBtn">Salvar Alterações</button>
+                    <button class="delete" id="deleteDocBtn">Excluir Documento</button>
+                </div>
+            `;
             
-            try {
-                // Tentar analisar como JSON
-                const parsedValue = JSON.parse(fieldValue);
-                updateField(docId, fieldName, parsedValue);
-            } catch {
-                // Se falhar, usar como string
-                updateField(docId, fieldName, fieldValue);
-            }
+            // Adicionar event listeners aos botões
+            document.getElementById('saveDocBtn').addEventListener('click', saveDocumentChanges);
+            document.getElementById('deleteDocBtn').addEventListener('click', deleteCurrentDocument);
         }
 
-        // Atualizar campo de um documento
-        async function updateField(docId, fieldName, newValue) {
+        // Renderizar dados do documento em formato editável
+        function renderDocumentData(data) {
+            let html = '';
+            for (const key in data) {
+                html += `
+                    <div class="field">
+                        <span class="field-key">${key}:</span>
+                        <input type="text" class="field-value editable" 
+                               data-key="${key}" 
+                               value="${typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]}">
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+        // Ocultar detalhes do documento
+        function hideDocumentDetail() {
+            documentDetail.style.display = 'none';
+            currentDocument = null;
+        }
+
+        // Salvar alterações no documento
+        async function saveDocumentChanges() {
+            if (!currentDocument) return;
+            
             try {
+                const inputs = documentDetail.querySelectorAll('.editable');
                 const updateData = {};
-                updateData[fieldName] = newValue;
                 
-                await db.collection(currentCollection).doc(docId).update(updateData);
+                inputs.forEach(input => {
+                    const key = input.getAttribute('data-key');
+                    try {
+                        // Tentar analisar como JSON
+                        updateData[key] = JSON.parse(input.value);
+                    } catch {
+                        // Se falhar, usar como string
+                        updateData[key] = input.value;
+                    }
+                });
                 
-                // Atualizar localmente
-                const docIndex = documents.findIndex(d => d.id === docId);
-                if (docIndex !== -1) {
-                    documents[docIndex].data[fieldName] = newValue;
-                }
+                await db.collection(currentCollection).doc(currentDocument.id).update(updateData);
+                alert('Documento atualizado com sucesso!');
                 
-                // Recarregar documentos para refletir mudanças
+                // Recarregar documentos
                 loadDocuments(currentCollection);
             } catch (error) {
-                showError('Erro ao atualizar campo: ' + error.message);
+                showError('Erro ao salvar documento: ' + error.message);
             }
         }
 
-        // Excluir documento
-        async function deleteDocument(docId) {
-            if (!confirm(`Tem certeza que deseja excluir o documento "${docId}"?`)) {
+        // Excluir documento atual
+        async function deleteCurrentDocument() {
+            if (!currentDocument || !confirm(`Tem certeza que deseja excluir o documento "${currentDocument.id}"?`)) {
                 return;
             }
             
             try {
-                await db.collection(currentCollection).doc(docId).delete();
-                
-                // Remover localmente
-                documents = documents.filter(d => d.id !== docId);
+                await db.collection(currentCollection).doc(currentDocument.id).delete();
+                alert('Documento excluído com sucesso!');
                 
                 // Recarregar documentos
-                renderDocuments();
+                loadDocuments(currentCollection);
             } catch (error) {
                 showError('Erro ao excluir documento: ' + error.message);
             }
@@ -456,38 +446,33 @@
                 return;
             }
             
-            const docDataStr = prompt('Cole o JSON para o novo documento:');
-            if (!docDataStr) return;
+            const docId = prompt('ID do novo documento (deixe em branco para ID automático):');
+            if (docId === null) return;
             
             try {
-                const docData = JSON.parse(docDataStr);
-                
-                // Se for um objeto válido, adicionar ao Firestore
-                if (typeof docData === 'object' && docData !== null) {
-                    let docRef;
-                    if (docData.id) {
-                        // Se o JSON tiver um campo ID, usar esse ID
-                        const { id, ...dataWithoutId } = docData;
-                        docRef = await db.collection(currentCollection).doc(id).set(dataWithoutId);
-                    } else {
-                        // Caso contrário, deixar o Firestore gerar um ID
-                        docRef = await db.collection(currentCollection).add(docData);
-                    }
-                    
-                    // Recarregar documentos
-                    loadDocuments(currentCollection);
+                // Criar um documento com um campo vazio inicial
+                if (docId) {
+                    await db.collection(currentCollection).doc(docId).set({ 
+                        campo_exemplo: "Valor inicial" 
+                    });
                 } else {
-                    alert('Os dados devem ser um objeto JSON válido');
+                    await db.collection(currentCollection).add({ 
+                        campo_exemplo: "Valor inicial" 
+                    });
                 }
+                
+                alert('Documento criado com sucesso!');
+                
+                // Recarregar documentos
+                loadDocuments(currentCollection);
             } catch (error) {
-                alert('Erro ao analisar JSON: ' + error.message);
+                showError('Erro ao criar documento: ' + error.message);
             }
         }
 
         // Mostrar/ocultar loading
         function showLoading() {
             loadingDiv.style.display = 'block';
-            documentsDiv.innerHTML = '';
             errorDiv.style.display = 'none';
         }
         
@@ -503,30 +488,26 @@
         }
 
         // Event Listeners
-        collectionSelect.addEventListener('change', (e) => {
-            loadDocuments(e.target.value);
-        });
-        
-        loadManualCollectionBtn.addEventListener('click', () => {
-            const collectionName = manualCollectionInput.value.trim();
+        loadCollectionBtn.addEventListener('click', () => {
+            const collectionName = collectionInput.value.trim();
             if (collectionName) {
                 loadDocuments(collectionName);
-                collectionSelect.value = collectionName;
             }
         });
         
-        filterInput.addEventListener('input', () => {
-            renderDocuments();
-        });
+        filterInput.addEventListener('input', renderDocumentsList);
         
         refreshBtn.addEventListener('click', () => {
-            loadDocuments(currentCollection);
+            if (currentCollection) {
+                loadDocuments(currentCollection);
+            }
         });
         
         newDocBtn.addEventListener('click', createNewDocument);
 
         // Inicializar
-        loadCollections();
+        loadSavedCollections();
+        hideLoading();
     </script>
 </body>
 </html>
