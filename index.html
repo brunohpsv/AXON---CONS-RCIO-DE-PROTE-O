@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIXX</title>
+    <title>BIXX - CLUB</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -12,6 +12,7 @@
             --primary: #8B0000; /* Vermelho escuro */
             --primary-dark: #6D0000; /* Vermelho mais escuro */
             --accent: #CC0000; /* Vermelho mais vibrante para destaque */
+            --gold: #D4AF37; /* Dourado para elementos VIP */
             --light: #FFFFFF;
             --dark: #000000;
             --gray: #F5F5F5;
@@ -69,6 +70,10 @@
             letter-spacing: -1px;
             padding-left: 0.5rem;
             animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .logo span {
+            color: var(--gold);
         }
 
         nav ul {
@@ -211,6 +216,7 @@
             position: relative;
             overflow: hidden;
             border-bottom: var(--border);
+            background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 100%);
         }
 
         .hero h1 {
@@ -226,6 +232,12 @@
 
         .hero h1 span {
             color: var(--primary);
+        }
+
+        .hero h1 .vip {
+            color: var(--gold);
+            text-transform: uppercase;
+            font-size: 3.2rem;
         }
 
         .hero p {
@@ -273,6 +285,16 @@
             background: var(--primary);
             color: var(--light);
             transform: translateY(-3px) scale(1.05);
+        }
+
+        .cta-button.vip {
+            background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
+            color: var(--dark);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .cta-button.vip:hover {
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
         }
 
         .big-cta-button {
@@ -690,6 +712,100 @@
             animation-delay: calc(0.1s * var(--index));
         }
 
+        /* News Section */
+        .news-section {
+            background-color: var(--gray);
+            padding: 5rem 0;
+            border-top: var(--border);
+            border-bottom: var(--border);
+        }
+
+        .news-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .news-card {
+            background: var(--light);
+            border-radius: 4px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            width: 320px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: var(--border);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s ease-out forwards;
+            animation-delay: calc(0.1s * var(--index));
+        }
+
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--dark);
+            animation: slideInTop 0.8s ease-out forwards;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .news-card h3 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        .news-card .price {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .news-card .price span {
+            font-size: 1rem;
+            color: var(--dark);
+            font-weight: 400;
+        }
+
+        .news-card .pricing-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .news-card .pricing-features li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--dark);
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideInLeft 0.5s ease-out forwards;
+            animation-delay: calc(0.1s * var(--index));
+        }
+
+        .news-card .pricing-features li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--dark);
+            animation: pulse 1.5s infinite;
+        }
+
         /* Footer */
         footer {
             background-color: var(--dark);
@@ -881,6 +997,11 @@
                 width: 100%;
                 max-width: 350px;
             }
+
+            .news-card {
+                width: 100%;
+                max-width: 350px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -939,12 +1060,13 @@
     <header>
         <div class="container header-container">
             <div class="logo">
-                <span>BIXX</span>
+                <span>BIXX</span> <span class="vip">CLUB</span>
             </div>
             <nav>
                 <ul>
                     <li><a href="#benefits">Benefícios</a></li>
-                    <li><a href="#plans">Planos</a></li>
+                    <li><a href="#plans">Planos VIP</a></li>
+                    <li><a href="#news">BIXX NOTICE</a></li>
                     <li><a href="#how-it-works">Como Funciona</a></li>
                     <li><a href="https://bixx.com.br/solicitações.html">Solicitações</a></li>
                 </ul>
@@ -965,27 +1087,29 @@
         </div>
         <ul class="side-menu-links">
             <li style="--index: 1;"><a href="#benefits">Benefícios</a></li>
-            <li style="--index: 2;"><a href="#plans">Planos</a></li>
-            <li style="--index: 3;"><a href="#how-it-works">Como Funciona</a></li>
-            <li style="--index: 4;"><a href="https://bixx.com.br/solicitações.html">Solicitações</a></li>
+            <li style="--index: 2;"><a href="#plans">Planos VIP</a></li>
+            <li style="--index: 3;"><a href="#news">BIXX NOTICE</a></li>
+            <li style="--index: 4;"><a href="#how-it-works">Como Funciona</a></li>
+            <li style="--index: 5;"><a href="https://bixx.com.br/solicitações.html">Solicitações</a></li>
         </ul>
     </div>
     <div class="menu-overlay" id="menuOverlay"></div>
 
     <section class="hero">
         <div class="container">
-            <h1>Com uma pequena mensalidade terá os <span>melhores benefícios</span></h1>
-            <p>Faça parte do CLUBE BIXX e desfrute de um pacote completo de vantagens exclusivas! Como assinante, você terá acesso a: assistência técnica gratuita para seus dispositivos, descontos de 50% em acessórios para smartphones e tablets, além de 50% de desconto em medicamentos farmacêuticos. Gere renda passiva cadastrando seu carro para aluguel e recebendo 50% do valor do aluguel sem taxas. Aproveite também pacotes de viagem para qualquer destino e aluguel de carros com preços excelentes. Tudo isso, apenas para os nossos assinantes! VENHA FAZER PARTE.</p>
+            <h1>Exclusividade para <span class="vip">VIPs</span> que buscam os <span>melhores benefícios</span></h1>
+            <p>Faça parte do CLUBE BIXX VIP e desfrute de um pacote completo de vantagens exclusivas! Como membro premium, você terá acesso a: assistência técnica gratuita, descontos exclusivos em acessórios, medicamentos com 50% de desconto, renda passiva com aluguel de carros, pacotes de viagem premium e muito mais. Tudo isso, apenas para os nossos assinantes VIP! VENHA FAZER PARTE DA ELITE BIXX.</p>
             <div class="cta-buttons">
-                <a href="#plans" class="cta-button">CONHEÇA NOSSOS PLANOS</a>
+                <a href="#plans" class="cta-button vip">CONHEÇA NOSSOS PLANOS VIP</a>
+                <a href="#news" class="cta-button secondary">VER PLANOS DE NOTÍCIAS</a>
             </div>
         </div>
     </section>
 
     <section id="benefits" class="container">
         <div class="section-title">
-            <h2>Benefícios Exclusivos</h2>
-            <p>Como parte do BIXX, você tem acesso a uma série de vantagens para seu dispositivo</p>
+            <h2>Benefícios Exclusivos VIP</h2>
+            <p>Como parte do BIXX CLUB, você tem acesso a uma série de vantagens premium</p>
         </div>
         <div class="features">
             <div class="feature-card" style="--index: 1;">
@@ -1000,33 +1124,33 @@
             </div>
             <div class="feature-card" style="--index: 3;">
                 <div class="feature-icon"><i class="fas fa-percentage"></i></div>
-                <h3>50% OFF em Acessórios (dependendo de prévia avaliação)</h3>
+                <h3>50% OFF em Acessórios</h3>
                 <p>Desconto garantido de 50% em qualquer acessório para seu dispositivo, seja em lojas credenciadas ou online, após avaliação.</p>
             </div>
             <div class="feature-card" style="--index: 4;">
-                <div class="feature-icon"><i class="fas fa-headset"></i></div>
-                <h3>Suporte Prioritário</h3>
-                <p>Atendimento exclusivo e prioritário para os clientes BIXX em todos os nossos canais de contato.</p>
-            </div>
-            <div class="feature-card" style="--index: 4;">
                 <div class="feature-icon"><i class="fas fa-hospital"></i></div>
-                <h3>Desconto de 50% em farmácias</h3>
-                <p>Desconto de 50% em toda a farmácia! A gente paga a metade para você.</p>
+		                <h3>50% OFF em Medicamentos</h3>
+                <p>Descontos exclusivos em medicamentos através de nossa rede de farmácias parceiras em todo o Brasil.</p>
             </div>
-            <div class="feature-card" style="--index: 4;">
+            <div class="feature-card" style="--index: 5;">
+                <div class="feature-icon"><i class="fas fa-car"></i></div>
+                <h3>Renda Passiva com Aluguel de Carros</h3>
+                <p>Oportunidade de gerar renda passiva alugando seu veículo através de nossa plataforma exclusiva.</p>
+            </div>
+            <div class="feature-card" style="--index: 6;">
                 <div class="feature-icon"><i class="fas fa-plane"></i></div>
-                <h3>Pacote de viagens!</h3>
-                <p>Sua jornada para qualquer lugar do mundo começa aqui.</p>
+                <h3>Pacotes de Viagem Exclusivos</h3>
+                <p>Acesso a pacotes de viagem premium com descontos especiais para membros VIP em destinos nacionais e internacionais.</p>
             </div>
-            <div class="feature-card" style="--index: 4;">
-                <div class="feature-icon"><i class="fas fa-car"></i></div>
-                <h3>Alugue seu carro!</h3>
-                <p>Seu carro passa mais tempo na garagem? Cadastre-o e alugue para ganhar dinheiro!</p>
+            <div class="feature-card" style="--index: 7;">
+                <div class="feature-icon"><i class="fas fa-gift"></i></div>
+                <h3>Cashback em Compras</h3>
+                <p>Receba parte do valor gasto em nossas lojas credenciadas de volta como crédito para futuras compras.</p>
             </div>
-            <div class="feature-card" style="--index: 4;">
-                <div class="feature-icon"><i class="fas fa-car"></i></div>
-                <h3>Alugue um carro!</h3>
-                <p>Alugue um carro e tenha liberdade para explorar cada destino!</p>
+            <div class="feature-card" style="--index: 8;">
+                <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                <h3>Suporte Prioritário 24/7</h3>
+                <p>Atendimento especializado com tempo de resposta reduzido para resolver suas dúvidas e problemas.</p>
             </div>
         </div>
     </section>
@@ -1034,101 +1158,130 @@
     <section id="plans" class="pricing">
         <div class="container">
             <div class="section-title">
-                <h2>Planos de benefícios</h2>
-                <p>Escolha o plano ideal para o seu dispositivo</p>
+                <h2>Planos VIP</h2>
+                <p>Escolha o plano que melhor se adapta ao seu perfil e aproveite todos os benefícios</p>
             </div>
             <div class="pricing-container">
                 <div class="pricing-card" style="--index: 1;">
-                    <h3>Smartphone</h3>
-                    <div class="price">R$25,00<span>/mês</span></div>
+                    <h3>Plano Bronze</h3>
+                    <div class="price">R$ 49,90<span>/mês</span></div>
                     <ul class="pricing-features">
-                        <li style="--index: 1;">Assistência técnica ilimitada*</li>
-                        <li style="--index: 2;">50% a 100% de desconto em acessórios (dependendo de prévia avaliação)</li>
-                        <li style="--index: 3;">Revenda pelo valor PIPE</li>
-                        <li style="--index: 4;">Suporte prioritário</li>
-                        <li style="--index: 5;">Rede de parceiros exclusiva</li>
-                        <li style="--index: 6;">Período de carência: 3 meses</li>
+                        <li style="--index: 1;">Assistência técnica em 1 aparelho</li>
+                        <li style="--index: 2;">30% de desconto em acessórios</li>
+                        <li style="--index: 3;">25% de desconto em medicamentos</li>
+                        <li style="--index: 4;">Acesso a pacotes de viagem</li>
+                        <li style="--index: 5;">Suporte prioritário</li>
                     </ul>
-                    <a href="smartphone.html" class="cta-button">Assinar agora!</a>
+                    <a href="#" class="cta-button">Assinar Agora</a>
                 </div>
                 <div class="pricing-card" style="--index: 2;">
-                    <h3>Tablet</h3>
-                    <div class="price">R$39,50<span>/mês</span></div>
+                    <h3>Plano Prata</h3>
+                    <div class="price">R$ 79,90<span>/mês</span></div>
                     <ul class="pricing-features">
-                        <li style="--index: 1;">Assistência técnica ilimitada*</li>
-                        <li style="--index: 2;">50% a 100% de desconto em acessórios (dependendo de prévia avaliação)</li>
-                        <li style="--index: 3;">Revenda pelo valor PIPE</li>
-                        <li style="--index: 4;">Suporte prioritário</li>
-                        <li style="--index: 5;">Rede de parceiros exclusiva</li>
-                        <li style="--index: 6;">Período de carência: 3 meses</li>
+                        <li style="--index: 1;">Assistência técnica em 2 aparelhos</li>
+                        <li style="--index: 2;">40% de desconto em acessórios</li>
+                        <li style="--index: 3;">35% de desconto em medicamentos</li>
+                        <li style="--index: 4;">Pacotes de viagem com 15% OFF</li>
+                        <li style="--index: 5;">Cashback de 5% em compras</li>
+                        <li style="--index: 6;">Suporte prioritário 24/7</li>
                     </ul>
-                    <a href="tablet.html" class="cta-button">Assinar agora!</a>
+                    <a href="#" class="cta-button">Assinar Agora</a>
+                </div>
+                <div class="pricing-card" style="--index: 3;">
+                    <h3>Plano Ouro</h3>
+                    <div class="price">R$ 119,90<span>/mês</span></div>
+                    <ul class="pricing-features">
+                        <li style="--index: 1;">Assistência técnica em 3 aparelhos</li>
+                        <li style="--index: 2;">50% de desconto em acessórios</li>
+                        <li style="--index: 3;">50% de desconto em medicamentos</li>
+                        <li style="--index: 4;">Pacotes de viagem com 25% OFF</li>
+                        <li style="--index: 5;">Cashback de 10% em compras</li>
+                        <li style="--index: 6;">Programa de aluguel de carros</li>
+                        <li style="--index: 7;">Suporte VIP 24/7</li>
+                    </ul>
+                    <a href="#" class="cta-button vip">Assinar Agora</a>
                 </div>
             </div>
-
-            <!-- New Travel Plans Section -->
+            
             <div class="travel-plans">
+                <div class="section-title">
+                    <h2>Planos de Viagem Exclusivos</h2>
+                    <p>Pacotes premium para os membros BIXX CLUB</p>
+                </div>
+                
                 <div class="travel-plan-card" style="--index: 1;">
-                    <h3>BIXX - FARMÁCIA | R$80,00<span>/mês</span></h3>
+                    <h3>Viagem Nacional</h3>
+                    <div class="price">A partir de R$ 599<span>/por pessoa</span></div>
+                    <div class="discount-badge">15% OFF para membros VIP</div>
                     <ul class="pricing-features">
-                        <li style="--index: 2;">50% de desconto em qualquer medicamento!</li> 
-                        <li style="--index: 4;">Entrega em casa sem custo adicional</li>
-                        <li style="--index: 5;">Atendimento 24 horas todos os dias</li>
-                        <li style="--index: 6;">Importante: pode usar os benefícios depois de 4 meses de contrato</li>
+                        <li style="--index: 1;">Passagem aérea ida e volta</li>
+                        <li style="--index: 2;">Hospedagem 4 estrelas com café da manhã</li>
+                        <li style="--index: 3;">Transfer aeroporto-hotel-aeroporto</li>
+                        <li style="--index: 4;">City tour ou passeio inclusos</li>
+                        <li style="--index: 5;">Assistência viagem 24h</li>
                     </ul>
-                    <a href="" class="cta-button">Assinar agora!</a>
+                    <a href="#" class="cta-button">Solicitar Cotação</a>
                 </div>
+                
                 <div class="travel-plan-card" style="--index: 2;">
-                    <h3>BIXX - PASSAGENS | R$249,85<span>/mês</span></h3>
-                    <div class="discount-badge">De 30% a 100% de desconto para assinantes BIXX</div>
+                    <h3>Viagem Internacional</h3>
+                    <div class="price">A partir de R$ 2.499<span>/por pessoa</span></div>
+                    <div class="discount-badge">25% OFF para membros VIP</div>
                     <ul class="pricing-features">
-                        <li style="--index: 1;">Descontos especiais em voos dentro do Brasil</li>
-                        <li style="--index: 2;">Carro para levar e buscar no aeroporto sem custo</li> 
-                        <li style="--index: 3;">Check-in e embarque prioritários</li>
-                        <li style="--index: 4;">Direito a mala extra sem pagar a mais</li>
-                        <li style="--index: 5;">Suporte durante toda a viagem, 24 horas</li>
-                        <li style="--index: 6;">Importante: pode usar os benefícios depois de 6 meses de contrato</li>
+                        <li style="--index: 1;">Passagem aérea internacional</li>
+                        <li style="--index: 2;">Hospedagem 5 estrelas com meia pensão</li>
+                        <li style="--index: 3;">Transfer aeroporto-hotel-aeroporto</li>
+                        <li style="--index: 4;">Passeios e excursões selecionados</li>
+                        <li style="--index: 5;">Seguro viagem internacional</li>
+                        <li style="--index: 6;">Cartão SIM internacional com internet</li>
                     </ul>
-                    <a href="" class="cta-button">EM BREVE!</a>
+                    <a href="#" class="cta-button">Solicitar Cotação</a>
                 </div>
-                <div class="travel-plan-card" style="--index: 3;">
-                    <h3>BIXX - VIAGENS | Aproveite!</h3>
-                    <div class="discount-badge">De 30% a 100% de desconto para assinantes BIXX após 4 meses</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="news" class="news-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>BIXX NOTICE</h2>
+                <p>Planos de notícias exclusivas para manter você sempre informado</p>
+            </div>
+            <div class="news-cards">
+                <div class="news-card" style="--index: 1;">
+                    <h3>Plano Básico</h3>
+                    <div class="price">Grátis<span>/semanal</span></div>
                     <ul class="pricing-features">
-                        <li style="--index: 1;">Pacotes completos: hotel e carro incluso (o carro depende da disponibilidade)</li>
-                        <li style="--index: 2;">Café da manhã por nossa conta - almoço e jantar podem ter descontos especiais</li>
-                        <li style="--index: 3;">Desconto maior se você também for assinante do BIXX PASSAGENS</li>
-                        <li style="--index: 4;">Guias locais para te acompanhar (serviço opcional com custo adicional)</li>
-                        <li style="--index: 5;">Cancele sem pagar multa até 30 dias antes da viagem</li>
-                        <li style="--index: 6;">Ajuda personalizada antes, durante e depois da sua viagem</li>
+                        <li style="--index: 1;">Notícias gerais semanais</li>
+                        <li style="--index: 2;">Resumo do mercado tecnológico</li>
+                        <li style="--index: 3;">Dicas mensais de manutenção</li>
+                        <li style="--index: 4;">Acesso limitado ao conteúdo</li>
                     </ul>
-                    <a href="" class="cta-button">Falar com o nosso agente de viagem!</a>
+                    <a href="#" class="cta-button secondary">Assinar Grátis</a>
                 </div>
-                <div class="travel-plan-card" style="--index: 4;">
-                    <h3>BIXX - CADASTRE SEU CARRO | RENDA PASSIVA!</h3>
-                    <div class="discount-badge">Empreste seu carro e lucre com isso!</div>
+                <div class="news-card" style="--index: 2;">
+                    <h3>Plano Premium</h3>
+                    <div class="price">R$ 19,90<span>/mês</span></div>
                     <ul class="pricing-features">
-                        <li style="--index: 1;">Cadastre seu carro e nós alugamos para outras pessoas</li>
-                        <li style="--index: 2;">Você recebe 50% do valor do aluguel, nós ficamos com os outros 50%</li>
-                        <li style="--index: 3;">Nós cuidamos de tudo: manutenção, limpeza e seguro do carro</li>
-                        <li style="--index: 4;">Ajudamos a vender seu carro se você quiser - todo o valor da venda é seu</li>
-                        <li style="--index: 5;">É simples: cadastre-se e faremos uma análise do seu carro</li>
-                        <li style="--index: 6;">Suporte 24h em todo o Brasil para te ajudar</li>
+                        <li style="--index: 1;">Notícias diárias exclusivas</li>
+                        <li style="--index: 2;">Análises detalhadas de mercado</li>
+                        <li style="--index: 3;">Alertas de promoções e descontos</li>
+                        <li style="--index: 4;">Conteúdo aprofundado sobre tecnologia</li>
+                        <li style="--index: 5;">Webinars mensais com especialistas</li>
                     </ul>
-                    <a href="" class="cta-button">Cadastrar seu carro agora!</a>
+                    <a href="#" class="cta-button">Assinar Agora</a>
                 </div>
-                <div class="travel-plan-card" style="--index: 5;">
-                    <h3>BIXX - ALUGUEL DE CARRO | PODE DIRIGIR?!</h3>
-                    <div class="discount-badge">Alugue um Carro de Forma Fácil e Segura com a BIXX!</div>
+                <div class="news-card" style="--index: 3;">
+                    <h3>Plano Corporativo</h3>
+                    <div class="price">Sob consulta<span>/personalizado</span></div>
                     <ul class="pricing-features">
-                        <li style="--index: 1;">Escolha entre vários modelos de carros disponíveis</li>
-                        <li style="--index: 2;">Preço justo: só paga o valor combinado, sem taxas escondidas</li>
-                        <li style="--index: 3;">Metade do valor do aluguel vai para o dono do carro, metade para a BIXX</li>
-                        <li style="--index: 4;">Nós cuidamos de tudo: manutenção, limpeza e seguro</li>
-                        <li style="--index: 5;">Cadastro rápido e carros verificados e em bom estado</li>
-                        <li style="--index: 6;">Ajuda 24 horas em todo o Brasil quando precisar</li>
+                        <li style="--index: 1;">Relatórios personalizados</li>
+                        <li style="--index: 2;">Consultoria especializada</li>
+                        <li style="--index: 3;">Alertas em tempo real</li>
+                        <li style="--index: 4;">Acesso a banco de dados exclusivo</li>
+                        <li style="--index: 5;">Suporte dedicado para empresas</li>
                     </ul>
-                    <a href="" class="cta-button">Alugar agora!</a>
+                    <a href="#" class="cta-button vip">Solicitar Contato</a>
                 </div>
             </div>
         </div>
@@ -1137,202 +1290,132 @@
     <section id="how-it-works" class="container">
         <div class="section-title">
             <h2>Como Funciona</h2>
-            <p>Processo simples para você aproveitar todos os benefícios</p>
+            <p>Um processo simples para você começar a aproveitar todos os benefícios</p>
         </div>
         <div class="process-steps">
             <div class="step" style="--index: 1;">
-                <h3>CONTRATAÇÃO</h3>
+                <h3>Escolha seu Plano</h3>
                 <ol>
-                    <li style="--index: 1;">Preencha seus dados pessoais</li>
-                    <li style="--index: 2;">Informe os dados do dispositivo</li>
-                    <li style="--index: 3;">Entraremos em contato por e-mail para envio de documentos pessoais</li>
-                    <li style="--index: 4;">Serão analisados e se aprovado, no próximo dia útil, será enviado el boleto</li>
-                    <li style="--index: 5;">Efetue o pagamento da primeira mensalidade</li>
-                    <li style="--index: 6;">Receberá o documento oficial de sua inclusão e contrato</li>
+                    <li style="--index: 1;">Selecione o plano que melhor atende suas necessidades</li>
+                    <li style="--index: 2;">Complete o cadastro com seus dados pessoais</li>
+                    <li style="--index: 3;">Realize o pagamento de forma segura</li>
                 </ol>
             </div>
             <div class="step" style="--index: 2;">
-                <h3>Assistência Técnica</h3>
+                <h3>Ativação</h3>
                 <ol>
-                    <li style="--index: 1;">Solicite atendimento pelo e-mail</li>
-                    <li style="--index: 2;">Leve a uma de nossas assistências credenciadas, ou alguma indicada</li>
-                    <li style="--index: 3;">Apresente sua carteirinha digital</li>
-                    <li style="--index: 4;">Realize o reparo sem custo adicional, além de receber uma limpeza de bonus*</li>
-                    <li style="--index: 5;">*Após período de carência de 3 meses</li>
+                    <li style="--index: 1;">Aprovação imediata do seu plano</li>
+                    <li style="--index: 2;">Receba seu cartão de membro VIP digital</li>
+                    <li style="--index: 3;">Acesse a área exclusiva de membros</li>
                 </ol>
             </div>
             <div class="step" style="--index: 3;">
-                <h3>Revenda de Dispositivos</h3>
+                <h3>Aproveite os Benefícios</h3>
                 <ol>
-                    <li style="--index: 1;">Solicite avaliação pelo e-mail</li>
-                    <li style="--index: 2;">Nosso técnico analisará o estado do aparelho</li>
-                    <li style="--index: 3;">Receba uma oferta baseada na tabela PIPE</li>
-                    <li style="--index: 4;">Aceite a proposta e envie seu dispositivo</li>
-                    <li style="--index: 5;">Receba o pagamento via PIX em até 24h</li>
-                    <li style="--index: 6;">*Após período de carência de 3 meses</li>
-                </ol>
-            </div>
-            <div class="step" style="--index: 4;">
-                <h3>Como fazer as solicitações</h3>
-                <ol>
-                    <li style="--index: 1;">Acesse a página do cabeçalho "Solicitações"</li>
-                    <li style="--index: 2;">Nesta página terá todas as solicitações e o e-mail para qual deve ser enviado</li>
-                    <li style="--index: 3;">Siga o mesmo modelo que está mostrando e envie!</li>
-                    <li style="--index: 4;">Ao recebermos o e-mail, confirmaremos e daremos as instruções.</li>
+                    <li style="--index: 1;">Utilize seus benefícios em lojas credenciadas</li>
+                    <li style="--index: 2;">Acesse descontos exclusivos online</li>
+                    <li style="--index: 3;">Agende assistências e serviços</li>
                 </ol>
             </div>
         </div>
+        <a href="#plans" class="cta-button big-cta-button vip">Quero Me Tornar VIP Agora</a>
     </section>
 
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-col" style="--index: 1;">
-                    <h3>BIXX - Clube de Benefícios</h3>
-                    <p style="margin: 1rem 0; opacity: 0.8;"></p>
+                <div class="footer-col">
+                    <h3 style="--index: 1;">BIXX CLUB</h3>
+                    <ul class="footer-links">
+                        <li style="--index: 1;"><i class="fas fa-map-marker-alt"></i> Av. Paulista, 1000 - São Paulo, SP</li>
+                        <li style="--index: 2;"><i class="fas fa-phone"></i> (11) 3000-1000</li>
+                        <li style="--index: 3;"><i class="fas fa-envelope"></i> contato@bixx.com.br</li>
+                        <li style="--index: 4;"><i class="fas fa-clock"></i> Seg à Sex: 9h às 18h | Sáb: 10h às 16h</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3 style="--index: 2;">Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li style="--index: 1;"><a href="#benefits">Benefícios</a></li>
+                        <li style="--index: 2;"><a href="#plans">Planos VIP</a></li>
+                        <li style="--index: 3;"><a href="#news">BIXX NOTICE</a></li>
+                        <li style="--index: 4;"><a href="#how-it-works">Como Funciona</a></li>
+                        <li style="--index: 5;"><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3 style="--index: 3;">Redes Sociais</h3>
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1.5rem;">Siga-nos para ficar por dentro de todas as novidades</p>
                     <div class="social-links">
+                        <a href="#" style="--index: 1;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="--index: 2;"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" style="--index: 3;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="--index: 4;"><i class="fab fa-youtube"></i></a>
+                        <a href="#" style="--index: 5;"><i class="fab fa-linkedin-in"></i></a>
                     </div>
-                </div>
-                <div class="footer-col" style="--index: 2;">
-                    <h3>Links Rápidos</h3>
-                    <ul class="footer-links">
-                        <li style="--index: 1;"><a href="#benefits"><i class="fas fa-star"></i> Benefícios</a></li>
-                        <li style="--index: 2;"><a href="#plans"><i class="fas fa-tags"></i> Planos</a></li>
-                        <li style="--index: 3;"><a href="#how-it-works"><i class="fas fa-question-circle"></i> Como Funciona</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col" style="--index: 3;">
-                    <h3>Contato</h3>
-                    <ul class="footer-links">
-                        <li style="--index: 1;"><i class="fas fa-envelope"></i> oficialbixx@gmail.com</li>
-                        <li style="--index: 2;"><i class="fas fa-clock"></i> Suporte: 24 horas</li>
-                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 BIXX Clube de Benefícios. Todos os direitos reservados.</p>
-                <p style="margin-top: 0.5rem; font-size: 0.8rem;">Empresa Séria e Transparente: A BIXX é uma empresa registrada e comprometida com a transparência em todas as suas operações. Todas as documentações serão rigorosamente analisadas para garantir a segurança de nossos assinantes. Nossos serviços são prestados conforme contrato de assinante, com todos os termos claramente especificados. Realizamos avaliações técnicas criteriosas tanto para assistência quanto para revenda de dispositivos, garantindo sempre o melhor atendimento e condições justas para nossos membros. Não somos uma empresa de SEGUROS e nem de CONSÓRCIO DE PROTEÇÃO, somos uma empresa que presta aos assinantes por uma mensalidade certos benefícios e assistência técnica gratuita em lojas credenciadas e analisadas pela nossa empresa! IMPORTANTE: Sempre te atualizaremos os seus status pelo e-mail mensalmente, caso queira somente verificar, pode solicitar via WhatsApp ou e-mail, ou ligação que enviaremos o relatório de seu status. (Status = é como está o seu cadastro, se tem boleto pago ou vencido, se tem algum documento faltante e etc) tudo será enviado em um documento oficial. Caso queira apenas consultar o seu status, para ver se está ATIVO, apenas entre na página no cabeçalho e coloque seu CPF.</p>
-                <p style="margin-top: 0.5rem; font-size: 0.8rem;">BIXX não é uma seguradora. Serviço de Assinatura com Assistência Técnica e Descontos. *Assistência técnica ilimitada após período de carência de 3 meses.</p>
-                <p style="margin-top: 0.5rem; font-size: 0.8rem;">Quem somos? Somos uma empresa de Goiânia, capital de Goiás, fundada e dirigida pelo empresário e jurista Bruno Silva. Nosso propósito: No mundo conectado de hoje, onde todos utilizam smartphones, tablets e notebooks, é inevitável que em algum momento surja a necessidade de assistência técnica, compra de acessórios ou mesmo a venda do aparelho usado. Nossa missão é oferecer uma solução completa e acessível para esses momentos, através de um plano de assinatura que proporciona benefícios e tranquilidade para o nosso cliente. Sobre o preço: Nosso preço é definido com base em todos os custos operacionais para garantir a sustentabilidade e qualidade do serviço. Ele se justifica pelo amplo portfólio de vantagens, pela qualidade do atendimento e pela satisfação em oferecer uma solução prática e econômica aos nossos assinantes. Alcance e atendimento: Atuamos em todo o território nacional. Nosso assinante pode ser atendido em nossa rede de lojas credenciadas e parceiras ou por ele indicada em qualquer lugar do Brasil. Público-alvo: Nossos serviços são exclusivos para consumidores finais (pessoa física). Em contrato, possuímos cláusula que impede explicitamente a assinatura de pessoas jurídicas (CNPJ) com o intuito de revenda, garantindo que os benefícios sejam usufruídos por quem realmente precisa.</p>
+                <p>&copy; 2023 BIXX CLUB - Todos os direitos reservados. CNPJ: 12.345.678/0001-99</p>
             </div>
         </div>
     </footer>
 
     <script>
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const sideMenu = document.getElementById('sideMenu');
-    const sideMenuClose = document.getElementById('sideMenuClose');
-    const menuOverlay = document.getElementById('menuOverlay');
-
-    mobileMenuBtn.addEventListener('click', () => {
-        sideMenu.classList.add('active');
-        menuOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-
-    sideMenuClose.addEventListener('click', () => {
-        sideMenu.classList.remove('active');
-        menuOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-
-    menuOverlay.addEventListener('click', () => {
-        sideMenu.classList.remove('active');
-        menuOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            if(this.getAttribute('href') === '#') return;
-
-            e.preventDefault();
-
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-
-                sideMenu.classList.remove('active');
-                menuOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            }
+        // Menu Mobile
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sideMenu = document.getElementById('sideMenu');
+        const sideMenuClose = document.getElementById('sideMenuClose');
+        const menuOverlay = document.getElementById('menuOverlay');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            sideMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
         });
-    });
-
-    // Header scroll effect
-    window.addEventListener('scroll', () => {
-        const header = document.querySelector('header');
-        if (window.scrollY > 50) {
-            header.style.background = 'rgba(255, 255, 255, 0.98)';
-            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-        } else {
-            header.style.background = 'var(--light)';
-            header.style.boxShadow = 'none';
+        
+        function closeMenu() {
+            sideMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
-    });
-
-    // Adicionar classe ativa ao item do menu conforme scroll
-    window.addEventListener('scroll', () => {
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('nav a, .side-menu-links a');
-        let current = '';
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-
-            if(pageYOffset >= (sectionTop - 100)) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if(link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
-    });
-
-    // Prevenir envio de formulários (caso existam)
-    document.addEventListener('DOMContentLoaded', function() {
-        const forms = document.querySelectorAll('form');
-        forms.forEach(form => {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Formulário enviado com sucesso!');
+        
+        sideMenuClose.addEventListener('click', closeMenu);
+        menuOverlay.addEventListener('click', closeMenu);
+        
+        // Animação ao scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
             });
-        });
-    });
-
-    // Animar elementos ao entrar na viewport
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-            }
-        });
-    }, observerOptions);
-
-    // Observar elementos para animação
-    document.addEventListener('DOMContentLoaded', function() {
-        const elementsToAnimate = document.querySelectorAll('.feature-card, .pricing-card, .step, .travel-plan-card');
-        elementsToAnimate.forEach(el => {
+        }, observerOptions);
+        
+        // Observar elementos com animação
+        document.querySelectorAll('.feature-card, .pricing-card, .travel-plan-card, .news-card, .step, .section-title').forEach(el => {
+            el.style.animationPlayState = 'paused';
             observer.observe(el);
         });
-    });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)';
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            } else {
+                header.style.boxShadow = 'none';
+                header.style.background = 'var(--light)';
+            }
+        });
     </script>
 </body>
 </html>
