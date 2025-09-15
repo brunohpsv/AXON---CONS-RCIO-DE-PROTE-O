@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -9,19 +10,20 @@
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <style>
         :root {
-            --primary: #FF0000; /* Vermelho para o BIXX CLUB */
-            --primary-dark: #CC0000; /* Vermelho mais escuro */
-            --accent: #FF5252; /* Vermelho mais vibrante para destaque */
-            --bronze: #CD7F32; /* Cor bronze */
-            --silver: #C0C0C0; /* Cor prata */
-            --gold: #FFD700; /* Cor ouro */
-            --light: #FFFFFF;
-            --dark: #000000;
-            --gray: #F5F5F5;
-            --border: 2px solid #000000;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
+    --primary: #FF0000;
+    --primary-dark: #CC0000;
+    --accent: #FF5252;
+    --bronze: #CD7F32;
+    --silver: #C0C0C0;
+    --gold: #FFD700;
+    --light: #FFFFFF;
+    --dark: #000000;
+    --gray: #F5F5F5;
+    --border: 2px solid #000000;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
 
         * {
             margin: 0;
@@ -450,31 +452,45 @@
         }
 
         .plan-card h3 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            color: var(--dark);
-        }
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    color: var(--dark); /* ALTERAR: cor preta para todos os títulos */
+}
 
-        .plan-card.bronze h3 {
-            color: var(--bronze);
-        }
+        .plan-seal {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    /* REMOVER: animation: pulse 1.5s infinite; */
+    color: var(--dark); /* ADICIONAR: cor preta para as medalhas */
+}
 
-        .plan-card.silver h3 {
-            color: var(--silver);
-        }
+        .plan-card.bronze h3,
+.plan-card.bronze .plan-seal {
+    color: var(--dark); /* Alterar para preto */
+}
 
-        .plan-card.gold h3 {
-            color: var(--gold);
-        }
+        .plan-card.silver h3,
+.plan-card.silver .plan-seal {
+    color: var(--dark); /* Alterar para preto */
+}
+
+        .plan-card.gold h3,
+.plan-card.gold .plan-seal {
+    color: var(--dark); /* Alterar para preto */
+}
 
         .price {
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin: 1.5rem 0;
-            text-align: center;
-            position: relative;
-        }
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin: 1.5rem 0;
+    text-align: center;
+    position: relative;
+    /* REMOVER: text-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 0 10px currentColor; */
+    /* REMOVER: animation: glow 1.5s ease-in-out infinite alternate; */
+    color: var(--dark); /* ADICIONAR: cor preta para todos os preços */
+}
 
         .plan-card.bronze .price {
             color: var(--bronze);
@@ -895,6 +911,12 @@
             100% { transform: scale(1); }
         }
 
+        /* REMOVER este keyframe se não for usado em outros lugares */
+@keyframes glow {
+    from { text-shadow: 0 0 5px currentColor, 0 0 10px currentColor; }
+    to { text-shadow: 0 0 10px currentColor, 0 0 20px currentColor; }
+}
+
         /* Responsive */
         @media (max-width: 992px) {
             .hero h1 {
@@ -1094,6 +1116,7 @@
         <div class="plans">
             <div class="plan-card bronze" style="--index: 1;">
                 <h3>Plano Bronze</h3>
+                <div class="plan-seal"><i class="fas fa-medal"></i></div>
                 <div class="price">R$119,90<span>/mês</span></div>
                 <ul class="plan-features">
                     <li style="--index: 1;">Descontos de até 20% em pousadas</li>
@@ -1110,6 +1133,7 @@
             
             <div class="plan-card silver" style="--index: 2;">
                 <h3>Plano Prata</h3>
+                <div class="plan-seal"><i class="fas fa-medal"></i></div>
                 <div class="price">R$143,50<span>/mês</span></div>
                 <ul class="plan-features">
                     <li style="--index: 1;">Descontos de até 30% em pousadas</li>
@@ -1127,6 +1151,7 @@
             
             <div class="plan-card gold" style="--index: 3;">
                 <h3>Plano Ouro</h3>
+                <div class="plan-seal"><i class="fas fa-medal"></i></div>
                 <div class="price">R$170,80<span>/mês</span></div>
                 <ul class="plan-features">
                     <li style="--index: 1;">Descontos de até 40% em pousadas</li>
@@ -1248,7 +1273,7 @@
         </div>
     </section>
 
-    <footer>
+    <footer id="contact">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col" style="--index: 1;">
@@ -1367,28 +1392,7 @@
             }
         });
     });
-
-    // Animar elementos ao entrar na viewport
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-            }
-        });
-    }, observerOptions);
-
-    // Observar elementos para animação
-    document.addEventListener('DOMContentLoaded', function() {
-        const elementsToAnimate = document.querySelectorAll('.category-card, .plan-card, .step, .coverage-card, .benefit-item');
-        elementsToAnimate.forEach(el => {
-            observer.observe(el);
-        });
-    });
     </script>
 </body>
 </html>
+```
