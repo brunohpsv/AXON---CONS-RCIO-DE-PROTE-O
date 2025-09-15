@@ -1,4 +1,4 @@
-```html
+html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -461,24 +461,33 @@
         .plan-seal {
     text-align: center;
     font-size: 3rem;
+    font-weight: 800;
     margin-bottom: 1rem;
-    /* REMOVER: animation: pulse 1.5s infinite; */
-    color: var(--dark); /* ADICIONAR: cor preta para as medalhas */
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #f0f0f0, #e0e0e0);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-        .plan-card.bronze h3,
 .plan-card.bronze .plan-seal {
-    color: var(--dark); /* Alterar para preto */
+    background: linear-gradient(145deg, #f0e6d2, #e6d6b8);
+    border: 2px solid var(--bronze);
 }
 
-        .plan-card.silver h3,
 .plan-card.silver .plan-seal {
-    color: var(--dark); /* Alterar para preto */
+    background: linear-gradient(145deg, #f0f0f0, #e8e8e8);
+    border: 2px solid var(--silver);
 }
 
-        .plan-card.gold h3,
 .plan-card.gold .plan-seal {
-    color: var(--dark); /* Alterar para preto */
+    background: linear-gradient(145deg, #fff9d0, #ffe87c);
+    border: 2px solid var(--gold);
 }
 
         .price {
@@ -905,11 +914,7 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
+
 
         /* REMOVER este keyframe se não for usado em outros lugares */
 @keyframes glow {
@@ -1114,62 +1119,61 @@
         </div>
         
         <div class="plans">
-            <div class="plan-card bronze" style="--index: 1;">
-                <h3>Plano Bronze</h3>
-                <div class="plan-seal"><i class="fas fa-medal"></i></div>
-                <div class="price">R$119,90<span>/mês</span></div>
-                <ul class="plan-features">
-                    <li style="--index: 1;">Descontos de até 20% em pousadas</li>
-                    <li style="--index: 2;">Acesso a clubes com 15% de desconto</li>
-                    <li style="--index: 3;">10% off em cursos selecionados</li>
-                    <li style="--index: 4;">15% de desconto em aluguel de carros</li>
-                    <li style="--index: 5;">20% off em acessórios tecnológicos</li>
-                    <li style="--index: 6;">50% de desconto em farmácias parceiras</li>
-                    <li style="--index: 7;">Assistência técnica limitada (2 consultas/mês)</li>
-                    <li style="--index: 8;">10% off em peças e pneus</li>
-                </ul>
-                <a href="#contact" class="cta-button">ASSINAR AGORA</a>
-            </div>
-            
-            <div class="plan-card silver" style="--index: 2;">
-                <h3>Plano Prata</h3>
-                <div class="plan-seal"><i class="fas fa-medal"></i></div>
-                <div class="price">R$143,50<span>/mês</span></div>
-                <ul class="plan-features">
-                    <li style="--index: 1;">Descontos de até 30% em pousadas</li>
-                    <li style="--index: 2;">Acesso a clubes com 25% de desconto</li>
-                    <li style="--index: 3;">15% off em cursos selecionados</li>
-                    <li style="--index: 4;">25% de desconto em aluguel de carros</li>
-                    <li style="--index: 5;">30% off em acessórios tecnológicos</li>
-                    <li style="--index: 6;">50% de desconto em farmácias parceiras</li>
-                    <li style="--index: 7;">15% off em cinema e teatro</li>
-                    <li style="--index: 8;">Assistência técnica (5 consultas/mês)</li>
-                    <li style="--index: 9;">15% off em peças e pneus</li>
-                </ul>
-                <a href="#contact" class="cta-button">ASSINAR AGORA</a>
-            </div>
-            
-            <div class="plan-card gold" style="--index: 3;">
-                <h3>Plano Ouro</h3>
-                <div class="plan-seal"><i class="fas fa-medal"></i></div>
-                <div class="price">R$170,80<span>/mês</span></div>
-                <ul class="plan-features">
-                    <li style="--index: 1;">Descontos de até 40% em pousadas</li>
-                    <li style="--index: 2;">Acesso a clubes com 35% de desconto</li>
-                    <li style="--index: 3;">20% off em cursos selecionados</li>
-                    <li style="--index: 4;">35% de desconto em aluguel de carros</li>
-                    <li style="--index: 5;">40% off em acessórios tecnológicos</li>
-                    <li style="--index: 6;">50% de desconto em farmácias parceiras</li>
-                    <li style="--index: 7;">25% off em cinema e teatro</li>
-                    <li style="--index: 8;">Descontos em passagens aéreas</li>
-                    <li style="--index: 9;">Assistência técnica gratuita e ilimitada</li>
-                    <li style="--index: 10;">20% off em peças e pneus</li>
-                    <li style="--index: 11;">Acesso ao BIXX Notícias Premium</li>
-                </ul>
-                <a href="#contact" class="cta-button">ASSINAR AGORA</a>
-            </div>
-        </div>
-    </section>
+    <div class="plan-card bronze" style="--index: 1;">
+        <h3>Plano Bronze</h3>
+        <div class="plan-seal">B</div>
+        <div class="price">R$119,90<span>/mês</span></div>
+        <ul class="plan-features">
+            <li style="--index: 1;">Descontos de até 20% em pousadas</li>
+            <li style="--index: 2;">Acesso a clubes com 15% de desconto</li>
+            <li style="--index: 3;">10% off em cursos selecionados</li>
+            <li style="--index: 4;">15% de desconto em aluguel de carros</li>
+            <li style="--index: 5;">20% off em acessórios tecnológicos</li>
+            <li style="--index: 6;">50% de desconto em farmácias parceiras</li>
+            <li style="--index: 7;">Assistência técnica limitada (2 consultas/mês)</li>
+            <li style="--index: 8;">10% off em peças e pneus</li>
+        </ul>
+        <a href="#contact" class="cta-button">ASSINAR AGORA</a>
+    </div>
+    
+    <div class="plan-card silver" style="--index: 2;">
+        <h3>Plano Prata</h3>
+        <div class="plan-seal">P</div>
+        <div class="price">R$143,50<span>/mês</span></div>
+        <ul class="plan-features">
+            <li style="--index: 1;">Descontos de até 30% em pousadas</li>
+            <li style="--index: 2;">Acesso a clubes com 25% de desconto</li>
+            <li style="--index: 3;">15% off em cursos selecionados</li>
+            <li style="--index: 4;">25% de desconto em aluguel de carros</li>
+            <li style="--index: 5;">30% off em acessórios tecnológicos</li>
+            <li style="--index: 6;">50% de desconto em farmácias parceiras</li>
+            <li style="--index: 7;">15% off em cinema e teatro</li>
+            <li style="--index: 8;">Assistência técnica (5 consultas/mês)</li>
+            <li style="--index: 9;">15% off em peças e pneus</li>
+        </ul>
+        <a href="#contact" class="cta-button">ASSINAR AGORA</a>
+    </div>
+    
+    <div class="plan-card gold" style="--index: 3;">
+        <h3>Plano Ouro</h3>
+        <div class="plan-seal">O</div>
+        <div class="price">R$170,80<span>/mês</span></div>
+        <ul class="plan-features">
+            <li style="--index: 1;">Descontos de até 40% em pousadas</li>
+            <li style="--index: 2;">Acesso a clubes com 35% de desconto</li>
+            <li style="--index: 3;">20% off em cursos selecionados</li>
+            <li style="--index: 4;">35% de desconto em aluguel de carros</li>
+            <li style="--index: 5;">40% off em acessórios tecnológicos</li>
+            <li style="--index: 6;">50% de desconto em farmácias parceiras</li>
+            <li style="--index: 7;">25% off em cinema e teatro</li>
+            <li style="--index: 8;">Descontos em passagens aéreas</li>
+            <li style="--index: 9;">Assistência técnica gratuita e ilimitada</li>
+            <li style="--index: 10;">20% off em peças e pneus</li>
+            <li style="--index: 11;">Acesso ao BIXX Notícias Premium</li>
+        </ul>
+        <a href="#contact" class="cta-button">ASSINAR AGORA</a>
+    </div>
+</div>
 
     <section id="coverage" class="container">
         <div class="section-title">
@@ -1395,4 +1399,3 @@
     </script>
 </body>
 </html>
-```
