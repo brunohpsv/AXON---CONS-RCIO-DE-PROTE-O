@@ -1,29 +1,28 @@
-html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BIXX CLUB - Clube de benefícios com descontos exclusivos em viagens, hospedagem, cursos e mais">
     <title>BIXX CLUB</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <style>
         :root {
-    --primary: #FF0000;
-    --primary-dark: #CC0000;
-    --accent: #FF5252;
-    --bronze: #CD7F32;
-    --silver: #C0C0C0;
-    --gold: #FFD700;
-    --light: #FFFFFF;
-    --dark: #000000;
-    --gray: #F5F5F5;
-    --border: 2px solid #000000;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
+            --primary: #FF0000;
+            --primary-dark: #CC0000;
+            --accent: #FF5252;
+            --bronze: #CD7F32;
+            --silver: #C0C0C0;
+            --gold: #FFD700;
+            --light: #FFFFFF;
+            --dark: #000000;
+            --gray: #F5F5F5;
+            --border: 2px solid #000000;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
 
         * {
             margin: 0;
@@ -68,7 +67,7 @@ html
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
-            color: var(--primary); /* Vermelho para o logo */
+            color: var(--primary);
             display: flex;
             align-items: center;
             letter-spacing: -1px;
@@ -93,7 +92,8 @@ html
             border-bottom: 1px solid transparent;
         }
 
-        nav a:hover {
+        nav a:hover,
+        nav a.active {
             border-bottom: 1px solid var(--dark);
             transform: translateY(-2px);
         }
@@ -186,7 +186,8 @@ html
             border-bottom: 1px solid transparent;
         }
 
-        .side-menu-links a:hover {
+        .side-menu-links a:hover,
+        .side-menu-links a.active {
             border-bottom: 1px solid var(--dark);
             transform: translateX(5px);
         }
@@ -231,7 +232,7 @@ html
         }
 
         .hero h1 span {
-            color: var(--primary); /* Vermelho para o destaque */
+            color: var(--primary);
         }
 
         .hero p {
@@ -452,54 +453,52 @@ html
         }
 
         .plan-card h3 {
-    text-align: center;
-    margin-bottom: 0.5rem;
-    font-size: 1.5rem;
-    color: var(--dark); /* ALTERAR: cor preta para todos os títulos */
-}
+            text-align: center;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
 
         .plan-seal {
-    text-align: center;
-    font-size: 3rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    color: var(--dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 1rem;
-    border-radius: 50%;
-    background: linear-gradient(145deg, #f0f0f0, #e0e0e0);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #f0f0f0, #e0e0e0);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
 
-.plan-card.bronze .plan-seal {
-    background: linear-gradient(145deg, #f0e6d2, #e6d6b8);
-    border: 2px solid var(--bronze);
-}
+        .plan-card.bronze .plan-seal {
+            background: linear-gradient(145deg, #f0e6d2, #e6d6b8);
+            border: 2px solid var(--bronze);
+        }
 
-.plan-card.silver .plan-seal {
-    background: linear-gradient(145deg, #f0f0f0, #e8e8e8);
-    border: 2px solid var(--silver);
-}
+        .plan-card.silver .plan-seal {
+            background: linear-gradient(145deg, #f0f0f0, #e8e8e8);
+            border: 2px solid var(--silver);
+        }
 
-.plan-card.gold .plan-seal {
-    background: linear-gradient(145deg, #fff9d0, #ffe87c);
-    border: 2px solid var(--gold);
-}
+        .plan-card.gold .plan-seal {
+            background: linear-gradient(145deg, #fff9d0, #ffe87c);
+            border: 2px solid var(--gold);
+        }
 
         .price {
-    font-size: 2.8rem;
-    font-weight: 700;
-    margin: 1.5rem 0;
-    text-align: center;
-    position: relative;
-    /* REMOVER: text-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 0 10px currentColor; */
-    /* REMOVER: animation: glow 1.5s ease-in-out infinite alternate; */
-    color: var(--dark); /* ADICIONAR: cor preta para todos os preços */
-}
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 1.5rem 0;
+            text-align: center;
+            position: relative;
+            color: var(--dark);
+        }
 
         .plan-card.bronze .price {
             color: var(--bronze);
@@ -554,64 +553,6 @@ html
 
         .plan-card.gold .plan-features li::before {
             color: var(--gold);
-        }
-
-        /* Benefits Flowchart */
-        .benefits-flowchart {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-
-        .benefit-item {
-            background: var(--light);
-            border-radius: 4px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            width: 200px;
-            transition: var(--transition);
-            position: relative;
-            border: var(--border);
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: slideUp 0.6s ease-out forwards;
-            animation-delay: calc(0.1s * var(--index));
-        }
-
-        .benefit-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--primary);
-            animation: slideInTop 0.8s ease-out forwards;
-        }
-
-        .benefit-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .benefit-icon {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .benefit-item h4 {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-
-        .benefit-item p {
-            font-size: 0.9rem;
-            color: var(--dark);
         }
 
         /* Coverage Section */
@@ -769,10 +710,18 @@ html
             animation: slideInTop 0.8s ease-out forwards;
         }
 
+        .footer-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 3rem;
+            margin-bottom: 3rem;
         }
 
         .footer-col h3 {
@@ -856,6 +805,52 @@ html
             transform: translateY(-3px) scale(1.1);
         }
 
+        .footer-contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-contact-form input,
+        .footer-contact-form textarea {
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-contact-form input:focus,
+        .footer-contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-contact-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .footer-contact-form button {
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .footer-contact-form button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
         .footer-bottom {
             text-align: center;
             margin-top: 3rem;
@@ -866,14 +861,7 @@ html
             animation: fadeInUp 0.8s ease-out 0.4s forwards;
         }
 
-	.footer-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-}
-
-        /* Keyframes para animações */
+        /* Keyframes */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -921,13 +909,11 @@ html
             100% { transform: scale(1); opacity: 1; }
         }
 
-
-
-        /* REMOVER este keyframe se não for usado em outros lugares */
-@keyframes glow {
-    from { text-shadow: 0 0 5px currentColor, 0 0 10px currentColor; }
-    to { text-shadow: 0 0 10px currentColor, 0 0 20px currentColor; }
-}
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
 
         /* Responsive */
         @media (max-width: 992px) {
@@ -984,11 +970,6 @@ html
                 padding: 1.2rem;
                 font-size: 1rem;
             }
-
-            .benefit-item {
-                width: 100%;
-                max-width: 250px;
-            }
         }
 
         @media (min-width: 769px) {
@@ -1014,19 +995,19 @@ html
                     <li><a href="#plans">Planos</a></li>
                     <li><a href="#coverage">Cobertura</a></li>
                     <li><a href="#how-it-works">Como Funciona</a></li>
+                    <li><a href="#contact">Contato</a></li>
                 </ul>
             </nav>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menu">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </header>
 
-    <!-- Side Menu -->
     <div class="side-menu" id="sideMenu">
         <div class="side-menu-header">
             <h3>Menu</h3>
-            <button class="side-menu-close" id="sideMenuClose">
+            <button class="side-menu-close" id="sideMenuClose" aria-label="Fechar menu">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -1035,6 +1016,7 @@ html
             <li style="--index: 2;"><a href="#plans">Planos</a></li>
             <li style="--index: 3;"><a href="#coverage">Cobertura</a></li>
             <li style="--index: 4;"><a href="#how-it-works">Como Funciona</a></li>
+            <li style="--index: 5;"><a href="#contact">Contato</a></li>
         </ul>
     </div>
     <div class="menu-overlay" id="menuOverlay"></div>
@@ -1126,61 +1108,62 @@ html
         </div>
         
         <div class="plans">
-    <div class="plan-card bronze" style="--index: 1;">
-        <h3>Plano Bronze</h3>
-        <div class="plan-seal">B</div>
-        <div class="price">R$119,90<span>/mês</span></div>
-        <ul class="plan-features">
-            <li style="--index: 1;">Descontos de até 20% em pousadas</li>
-            <li style="--index: 2;">Acesso a clubes com 15% de desconto</li>
-            <li style="--index: 3;">10% off em cursos selecionados</li>
-            <li style="--index: 4;">15% de desconto em aluguel de carros</li>
-            <li style="--index: 5;">20% off em acessórios tecnológicos</li>
-            <li style="--index: 6;">50% de desconto em farmácias parceiras</li>
-            <li style="--index: 7;">Assistência técnica limitada (2 consultas/mês)</li>
-            <li style="--index: 8;">10% off em peças e pneus</li>
-        </ul>
-        <a href="#contact" class="cta-button">ASSINAR AGORA</a>
-    </div>
-    
-    <div class="plan-card silver" style="--index: 2;">
-        <h3>Plano Prata</h3>
-        <div class="plan-seal">P</div>
-        <div class="price">R$143,50<span>/mês</span></div>
-        <ul class="plan-features">
-            <li style="--index: 1;">Descontos de até 30% em pousadas</li>
-            <li style="--index: 2;">Acesso a clubes com 25% de desconto</li>
-            <li style="--index: 3;">15% off em cursos selecionados</li>
-            <li style="--index: 4;">25% de desconto em aluguel de carros</li>
-            <li style="--index: 5;">30% off em acessórios tecnológicos</li>
-            <li style="--index: 6;">50% de desconto em farmácias parceiras</li>
-            <li style="--index: 7;">15% off em cinema e teatro</li>
-            <li style="--index: 8;">Assistência técnica (5 consultas/mês)</li>
-            <li style="--index: 9;">15% off em peças e pneus</li>
-        </ul>
-        <a href="#contact" class="cta-button">ASSINAR AGORA</a>
-    </div>
-    
-    <div class="plan-card gold" style="--index: 3;">
-        <h3>Plano Ouro</h3>
-        <div class="plan-seal">O</div>
-        <div class="price">R$170,80<span>/mês</span></div>
-        <ul class="plan-features">
-            <li style="--index: 1;">Descontos de até 40% em pousadas</li>
-            <li style="--index: 2;">Acesso a clubes com 35% de desconto</li>
-            <li style="--index: 3;">20% off em cursos selecionados</li>
-            <li style="--index: 4;">35% de desconto em aluguel de carros</li>
-            <li style="--index: 5;">40% off em acessórios tecnológicos</li>
-            <li style="--index: 6;">50% de desconto em farmácias parceiras</li>
-            <li style="--index: 7;">25% off em cinema e teatro</li>
-            <li style="--index: 8;">Descontos em passagens aéreas</li>
-            <li style="--index: 9;">Assistência técnica gratuita e ilimitada</li>
-            <li style="--index: 10;">20% off em peças e pneus</li>
-            <li style="--index: 11;">Acesso ao BIXX Notícias Premium</li>
-        </ul>
-        <a href="#contact" class="cta-button">ASSINAR AGORA</a>
-    </div>
-</div>
+            <div class="plan-card bronze" style="--index: 1;">
+                <h3>Plano Bronze</h3>
+                <div class="plan-seal">B</div>
+                <div class="price">R$119,90<span>/mês</span></div>
+                <ul class="plan-features">
+                    <li style="--index: 1;">Descontos de até 20% em pousadas</li>
+                    <li style="--index: 2;">Acesso a clubes com 15% de desconto</li>
+                    <li style="--index: 3;">10% off em cursos selecionados</li>
+                    <li style="--index: 4;">15% de desconto em aluguel de carros</li>
+                    <li style="--index: 5;">20% off em acessórios tecnológicos</li>
+                    <li style="--index: 6;">50% de desconto em farmácias parceiras</li>
+                    <li style="--index: 7;">Assistência técnica limitada (2 consultas/mês)</li>
+                    <li style="--index: 8;">10% off em peças e pneus</li>
+                </ul>
+                <a href="#contact" class="cta-button">ASSINAR AGORA</a>
+            </div>
+            
+            <div class="plan-card silver" style="--index: 2;">
+                <h3>Plano Prata</h3>
+                <div class="plan-seal">P</div>
+                <div class="price">R$143,50<span>/mês</span></div>
+                <ul class="plan-features">
+                    <li style="--index: 1;">Descontos de até 30% em pousadas</li>
+                    <li style="--index: 2;">Acesso a clubes com 25% de desconto</li>
+                    <li style="--index: 3;">15% off em cursos selecionados</li>
+                    <li style="--index: 4;">25% de desconto em aluguel de carros</li>
+                    <li style="--index: 5;">30% off em acessórios tecnológicos</li>
+                    <li style="--index: 6;">50% de desconto em farmácias parceiras</li>
+                    <li style="--index: 7;">15% off em cinema e teatro</li>
+                    <li style="--index: 8;">Assistência técnica (5 consultas/mês)</li>
+                    <li style="--index: 9;">15% off em peças e pneus</li>
+                </ul>
+                <a href="#contact" class="cta-button">ASSINAR AGORA</a>
+            </div>
+            
+            <div class="plan-card gold" style="--index: 3;">
+                <h3>Plano Ouro</h3>
+                <div class="plan-seal">O</div>
+                <div class="price">R$170,80<span>/mês</span></div>
+                <ul class="plan-features">
+                    <li style="--index: 1;">Descontos de até 40% em pousadas</li>
+                    <li style="--index: 2;">Acesso a clubes com 35% de desconto</li>
+                    <li style="--index: 3;">20% off em cursos selecionados</li>
+                    <li style="--index: 4;">35% de desconto em aluguel de carros</li>
+                    <li style="--index: 5;">40% off em acessórios tecnológicos</li>
+                    <li style="--index: 6;">50% de desconto em farmácias parceiras</li>
+                    <li style="--index: 7;">25% off em cinema e teatro</li>
+                    <li style="--index: 8;">Descontos em passagens aéreas</li>
+                    <li style="--index: 9;">Assistência técnica gratuita e ilimitada</li>
+                    <li style="--index: 10;">20% off em peças e pneus</li>
+                    <li style="--index: 11;">Acesso ao BIXX Notícias Premium</li>
+                </ul>
+                <a href="#contact" class="cta-button">ASSINAR AGORA</a>
+            </div>
+        </div>
+    </section>
 
     <section id="coverage" class="container">
         <div class="section-title">
@@ -1284,125 +1267,113 @@ html
         </div>
     </section>
 
-    <footer id="contact">
-    <div class="footer-container">
-        <div class="footer-content">
-            <div class="footer-col" style="--index: 1;">
-                <h3>BIXX CLUB</h3>
-                <p style="margin: 1rem 0; opacity: 0.8;">O clube de benefícios mais completo do mercado.</p>
-                <div class="social-links">
-                    <a href="#" style="--index: 1;"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" style="--index: 2;"><i class="fab fa-instagram"></i></a>
-                    <a href="#" style="--index: 3;"><i class="fab fa-twitter"></i></a>
-                    <a href="#" style="--index: 4;"><i class="fab fa-linkedin-in"></i></a>
+    <footer id="contact" class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-col" style="--index: 1;">
+                    <h3>BIXX CLUB</h3>
+                    <p style="margin: 1rem 0; opacity: 0.8;">O clube de benefícios mais completo do mercado.</p>
+                    <div class="social-links">
+                        <a href="#" style="--index: 1;" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" style="--index: 2;" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="--index: 3;" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="--index: 4;" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col" style="--index: 2;">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li style="--index: 1;"><a href="#benefits"><i class="fas fa-star"></i> Benefícios</a></li>
+                        <li style="--index: 2;"><a href="#plans"><i class="fas fa-tags"></i> Planos</a></li>
+                        <li style="--index: 3;"><a href="#coverage"><i class="fas fa-check-circle"></i> Cobertura</a></li>
+                        <li style="--index: 4;"><a href="#how-it-works"><i class="fas fa-question-circle"></i> Como Funciona</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col" style="--index: 3;">
+                    <h3>Entre em Contato</h3>
+                    <div class="footer-contact-form">
+                        <input type="text" placeholder="Nome" required aria-label="Nome">
+                        <input type="email" placeholder="E-mail" required aria-label="E-mail">
+                        <textarea placeholder="Mensagem" required aria-label="Mensagem"></textarea>
+                        <button type="button">Enviar Mensagem</button>
+                    </div>
                 </div>
             </div>
-            <div class="footer-col" style="--index: 2;">
-                <h3>Links Rápidos</h3>
-                <ul class="footer-links">
-                    <li style="--index: 1;"><a href="#benefits"><i class="fas fa-star"></i> Benefícios</a></li>
-                    <li style="--index: 2;"><a href="#plans"><i class="fas fa-tags"></i> Planos</a></li>
-                    <li style="--index: 3;"><a href="#coverage"><i class="fas fa-check-circle"></i> Cobertura</a></li>
-                    <li style="--index: 4;"><a href="#how-it-works"><i class="fas fa-question-circle"></i> Como Funciona</a></li>
-                </ul>
-            </div>
-            <div class="footer-col" style="--index: 3;">
-                <h3>Contato</h3>
-                <ul class="footer-links">
-                    <li style="--index: 1;"><i class="fas fa-envelope"></i> contato@bixxclub.com</li>
-                    <li style="--index: 2;"><i class="fas fa-phone"></i> (11) 9999-9999</li>
-                    <li style="--index: 3;"><i class="fas fa-clock"></i> Seg a Sex: 9h às 18h</li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BIXX CLUB. Todos os direitos reservados.</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 BIXX CLUB. Todos os direitos reservados.</p>
-        </div>
-    </div>
-</footer>
+    </footer>
 
     <script>
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const sideMenu = document.getElementById('sideMenu');
-    const sideMenuClose = document.getElementById('sideMenuClose');
-    const menuOverlay = document.getElementById('menuOverlay');
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sideMenu = document.getElementById('sideMenu');
+        const sideMenuClose = document.getElementById('sideMenuClose');
+        const menuOverlay = document.getElementById('menuOverlay');
 
-    mobileMenuBtn.addEventListener('click', () => {
-        sideMenu.classList.add('active');
-        menuOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-
-    sideMenuClose.addEventListener('click', () => {
-        sideMenu.classList.remove('active');
-        menuOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-
-    menuOverlay.addEventListener('click', () => {
-        sideMenu.classList.remove('active');
-        menuOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            if(this.getAttribute('href') === '#') return;
-
-            e.preventDefault();
-
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-
-                sideMenu.classList.remove('active');
-                menuOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-    });
-
-    // Header scroll effect
-    window.addEventListener('scroll', () => {
-        const header = document.querySelector('header');
-        if (window.scrollY > 50) {
-            header.style.background = 'rgba(255, 255, 255, 0.98)';
-            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-        } else {
-            header.style.background = 'var(--light)';
-            header.style.boxShadow = 'none';
+        function toggleMenu() {
+            const isActive = sideMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = isActive ? 'hidden' : '';
+            mobileMenuBtn.setAttribute('aria-expanded', isActive);
         }
-    });
 
-    // Adicionar classe ativa ao item do menu conforme scroll
-    window.addEventListener('scroll', () => {
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('nav a, .side-menu-links a');
-        let current = '';
+        mobileMenuBtn.addEventListener('click', toggleMenu);
+        sideMenuClose.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
 
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#') return;
 
-            if(pageYOffset >= (sectionTop - 100)) {
-                current = section.getAttribute('id');
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'var(--light)';
+                header.style.boxShadow = 'none';
             }
         });
 
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if(link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
+        // Active menu item on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a, .side-menu-links a');
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
         });
-    });
     </script>
 </body>
 </html>
