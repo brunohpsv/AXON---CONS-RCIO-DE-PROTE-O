@@ -1,4 +1,4 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <title>Modelo de Solicitação - BIXX CLUB</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="logo.png" type="image/svg+xml">
+    <link rel="icon" href="logo.png" type="image/png">
     <style>
         :root {
             --primary: #FF0000;
@@ -179,6 +179,7 @@
             cursor: pointer;
             transition: var(--transition);
             margin-top: 1.5rem;
+            position: relative;
         }
 
         .copy-btn:hover {
@@ -192,6 +193,12 @@
             margin-bottom: 1rem;
             text-align: center;
             display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            min-width: 300px;
         }
 
         .success {
@@ -222,6 +229,11 @@
             
             .instructions, .email-model {
                 padding: 1.5rem;
+            }
+            
+            .message {
+                width: 90%;
+                min-width: unset;
             }
         }
     </style>
@@ -328,6 +340,7 @@
     <script>
         // Função para copiar o conteúdo do e-mail
         document.getElementById('copyBtn').addEventListener('click', function() {
+            // Seleciona apenas o conteúdo do e-mail, não o cabeçalho e rodapé
             const emailContent = document.getElementById('emailContent');
             const range = document.createRange();
             range.selectNode(emailContent);
@@ -336,8 +349,17 @@
             
             try {
                 const successful = document.execCommand('copy');
-                const msg = successful ? 'Modelo de e-mail copiado com sucesso!' : 'Falha ao copiar o modelo.';
-                showMessage(msg, 'success');
+                if (successful) {
+                    showMessage('Modelo de e-mail copiado com sucesso!', 'success');
+                    // Altera o texto do botão temporariamente
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check"></i> COPIADO!';
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                    }, 2000);
+                } else {
+                    showMessage('Falha ao copiar o modelo. Tente novamente.', 'error');
+                }
             } catch (err) {
                 showMessage('Erro ao copiar: ' + err, 'error');
             }
