@@ -553,11 +553,11 @@
                     telefone: telefone,
                     plano: plano,
                     familiares: familiares,
-                    dataCadastro: new Date()
+                    dataCadastro: firebase.firestore.FieldValue.serverTimestamp()
                 };
                 
                 // Salvar no Firestore
-                await docRef.set(userData);
+                await db.collection('cadastros').doc(cpf).set(userData);
                 
                 // Limpar formulário
                 document.getElementById('cadastroForm').reset();
