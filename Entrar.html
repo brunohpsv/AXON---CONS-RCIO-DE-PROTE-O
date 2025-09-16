@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Membro - BIXX CLUB</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF0000;
+            --primary-dark: #CC0000;
+            --light: #FFFFFF;
+            --dark: #000000;
+            --gray: #F5F5F5;
+            --border: 2px solid #000000;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--light);
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+            border-bottom: var(--border);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+        
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        /* Login Form */
+        .login-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 2rem;
+        }
+
+        .login-container {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 450px;
+            border: var(--border);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .login-header p {
+            color: var(--dark);
+            opacity: 0.8;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .error-message {
+            color: var(--primary);
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            padding: 2rem 0;
+        }
+
+        .dashboard-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .dashboard-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .user-info {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            border: var(--border);
+        }
+
+        .user-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-card {
+            padding: 1.5rem;
+            border-radius: 4px;
+            border: var(--border);
+        }
+
+        .info-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+
+        .info-card p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .plan-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .bronze-badge {
+            background-color: #CD7F32;
+            color: white;
+        }
+
+        .silver-badge {
+            background-color: #C0C0C0;
+            color: white;
+        }
+
+        .gold-badge {
+            background-color: #FFD700;
+            color: black;
+        }
+
+        .benefits-section {
+            margin-top: 2rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .benefit-item {
+            padding: 1rem;
+            border: var(--border);
+            border-radius: 4px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .benefit-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .logout-btn {
+            display: block;
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-bottom {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 1.5rem;
+            }
+            
+            .user-info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+    
+    <!-- Firebase App (core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <!-- Firebase Authentication -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <!-- Cloud Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="logo.png" alt="BIXX CLUB" class="logo-img">
+                <span>BIXX CLUB</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="login-section" id="loginSection">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>Acesso do Membro</h2>
+                <p>Digite suas credenciais para acessar o painel</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" required placeholder="Seu e-mail cadastrado">
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" required placeholder="Sua senha">
+                </div>
+                <div class="error-message" id="errorMessage"></div>
+                <button type="submit" class="btn">Entrar</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="dashboard container" id="dashboard">
+        <div class="dashboard-header">
+            <h2>Painel do Membro</h2>
+            <p>Bem-vindo de volta ao BIXX CLUB</p>
+        </div>
+
+        <div class="user-info">
+            <h3>Seus Dados</h3>
+            <div class="user-info-grid">
+                <div class="info-card">
+                    <h3>Nome Completo</h3>
+                    <p id="userName">Carregando...</p>
+                </div>
+                <div class="info-card">
+                    <h3>Plano Atual</h3>
+                    <p><span class="plan-badge" id="userPlan">Carregando...</span></p>
+                </div>
+                <div class="info-card">
+                    <h3>Data de Adesão</h3>
+                    <p id="joinDate">Carregando...</p>
+                </div>
+                <div class="info-card">
+                    <h3>Próxima Renovação</h3>
+                    <p id="renewalDate">Carregando...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="benefits-section">
+            <h3>Seus Benefícios Ativos</h3>
+            <div class="benefits-grid" id="benefitsGrid">
+                <!-- Benefícios serão carregados via JavaScript -->
+            </div>
+        </div>
+
+        <a href="#" class="logout-btn" id="logoutBtn">Sair da Conta</a>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <p>BIXX CLUB - Clube de benefícios exclusivos</p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BIXX CLUB. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Configuração do Firebase (substitua com suas credenciais)
+        const firebaseConfig = {
+            apiKey: "SUA_API_KEY",
+            authDomain: "SEU_PROJETO.firebaseapp.com",
+            projectId: "SEU_PROJETO_ID",
+            storageBucket: "SEU_PROJETO.appspot.com",
+            messagingSenderId: "SEU_SENDER_ID",
+            appId: "SEU_APP_ID"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Elementos da DOM
+        const loginSection = document.getElementById('loginSection');
+        const dashboard = document.getElementById('dashboard');
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        // Ouvinte para o formulário de login
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Fazer login com Firebase Auth
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Login bem-sucedido
+                    const user = userCredential.user;
+                    getUserData(user.uid);
+                })
+                .catch((error) => {
+                    // Tratar erros
+                    errorMessage.textContent = error.message;
+                    errorMessage.style.display = 'block';
+                });
+        });
+
+        // Função para obter dados do usuário do Firestore
+        function getUserData(uid) {
+            db.collection('users').doc(uid).get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        // Exibir dados do usuário
+                        displayUserData(doc.data());
+                        
+                        // Alternar para o dashboard
+                        loginSection.style.display = 'none';
+                        dashboard.style.display = 'block';
+                    } else {
+                        throw new Error('Dados do usuário não encontrados');
+                    }
+                })
+                .catch((error) => {
+                    errorMessage.textContent = error.message;
+                    errorMessage.style.display = 'block';
+                    auth.signOut(); // Deslogar se não encontrar dados
+                });
+        }
+
+        // Função para exibir dados do usuário
+        function displayUserData(userData) {
+            // Preencher informações básicas
+            document.getElementById('userName').textContent = userData.name || 'Não informado';
+            
+            // Formatar e exibir o plano
+            const planElement = document.getElementById('userPlan');
+            planElement.textContent = userData.plan || 'Não definido';
+            
+            // Adicionar classe baseada no tipo de plano
+            planElement.classList.remove('bronze-badge', 'silver-badge', 'gold-badge');
+            if (userData.plan) {
+                const planType = userData.plan.toLowerCase();
+                if (planType.includes('bronze')) planElement.classList.add('bronze-badge');
+                else if (planType.includes('prata')) planElement.classList.add('silver-badge');
+                else if (planType.includes('ouro')) planElement.classList.add('gold-badge');
+            }
+            
+            // Formatar e exibir datas
+            const joinDate = userData.joinDate ? userData.joinDate.toDate().toLocaleDateString('pt-BR') : 'Não informada';
+            document.getElementById('joinDate').textContent = joinDate;
+            
+            const renewalDate = userData.renewalDate ? userData.renewalDate.toDate().toLocaleDateString('pt-BR') : 'Não informada';
+            document.getElementById('renewalDate').textContent = renewalDate;
+            
+            // Exibir benefícios baseados no plano
+            displayUserBenefits(userData.plan);
+        }
+
+        // Função para exibir benefícios do usuário
+        function displayUserBenefits(plan) {
+            const benefitsGrid = document.getElementById('benefitsGrid');
+            benefitsGrid.innerHTML = '';
+            
+            // Mapeamento de benefícios por plano (simplificado)
+            const benefitsByPlan = {
+                'bronze': ['Hospedagem', 'Clubes', 'Cursos', 'Aluguel de Carros', 'Tecnologia', 'Farmácias'],
+                'prata': ['Hospedagem', 'Clubes', 'Cursos', 'Aluguel de Carros', 'Tecnologia', 'Farmácias', 'Cinema', 'Assistência Técnica'],
+                'ouro': ['Hospedagem', 'Clubes', 'Cursos', 'Aluguel de Carros', 'Tecnologia', 'Farmácias', 'Cinema', 'Passagens Aéreas', 'Assistência Técnica', 'Peças e Pneus', 'BIXX Notícias']
+            };
+            
+            // Determinar quais benefícios mostrar
+            const planKey = plan ? plan.toLowerCase() : '';
+            let benefits = [];
+            
+            if (planKey.includes('bronze')) benefits = benefitsByPlan.bronze;
+            else if (planKey.includes('prata')) benefits = benefitsByPlan.prata;
+            else if (planKey.includes('ouro')) benefits = benefitsByPlan.ouro;
+            
+            // Ícones para cada tipo de benefício
+            const benefitIcons = {
+                'Hospedagem': 'fa-hotel',
+                'Clubes': 'fa-dumbbell',
+                'Cursos': 'fa-graduation-cap',
+                'Aluguel de Carros': 'fa-car',
+                'Tecnologia': 'fa-mobile-alt',
+                'Farmácias': 'fa-pills',
+                'Cinema': 'fa-film',
+                'Assistência Técnica': 'fa-tools',
+                'Passagens Aéreas': 'fa-plane',
+                'Peças e Pneus': 'fa-car-battery',
+                'BIXX Notícias': 'fa-newspaper'
+            };
+            
+            // Adicionar benefícios à grade
+            benefits.forEach(benefit => {
+                const benefitItem = document.createElement('div');
+                benefitItem.className = 'benefit-item';
+                
+                benefitItem.innerHTML = `
+                    <div class="benefit-icon">
+                        <i class="fas ${benefitIcons[benefit] || 'fa-star'}"></i>
+                    </div>
+                    <p>${benefit}</p>
+                `;
+                
+                benefitsGrid.appendChild(benefitItem);
+            });
+        }
+
+        // Ouvinte para o botão de logout
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            auth.signOut().then(() => {
+                // Voltar para a tela de login
+                dashboard.style.display = 'none';
+                loginSection.style.display = 'flex';
+                loginForm.reset();
+            });
+        });
+
+        // Verificar se o usuário já está logado ao carregar a página
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // Usuário está logado, buscar dados
+                getUserData(user.uid);
+            } else {
+                // Usuário não está logado, mostrar formulário de login
+                dashboard.style.display = 'none';
+                loginSection.style.display = 'flex';
+            }
+        });
+    </script>
+</body>
+</html>
