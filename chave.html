@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <title>Chave 3D Rotacionável</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script type="module">
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.module.js';
+        import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.168.0/examples/jsm/controls/OrbitControls.js';
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Define a forma 2D da chave com curvas exatas baseadas na imagem
+        const keyShape = new THREE.Shape();
+
+        // Começa no topo esquerdo do trevo
+        keyShape.moveTo(-0.3, 1.0); // Escala normalizada: y positivo para cima
+
+        // Lóbulo esquerdo: curva circular
+        keyShape.absarc(-0.4, 0.8, 0.2, Math.PI / 2, Math.PI * 1.5, false);
+
+        // Conecta ao lóbulo central
+        keyShape.lineTo(-0.2, 0.6);
+
+        // Lóbulo central: curva circular com corte de lua
+        keyShape.absarc(0, 0.8, 0.2, Math.PI * 1.5, Math.PI / 2, false);
+
+        // Lóbulo direito
+        keyShape.lineTo(0.2, 0.6);
+        keyShape.absarc(0.4, 0.8, 0.2, Math.PI / 2, Math.PI * 1.5, false);
+
+        // Volta para baixo, conectando ao pescoço
+        keyShape.lineTo(0.3, 1.0);
+        keyShape.quadraticCurveTo(0.25, 1.05, 0.15, 1.0); // Curva suave no topo direito
+        keyShape.lineTo(0.1, 0.4); // Haste com colarinho
+
+        // Colarinho: curvas decorativas
+        keyShape.bezierCurveTo(0.12, 0.35, 0.15, 0.3, 0.1, 0.25);
+        keyShape.bezierCurveTo(0.05, 0.2, 0.1, 0.15, 0.1, 0.1);
+
+        // Haste reta
+        keyShape.lineTo(0.1, -1.5);
+
+        // Dente no final: formato pixelado/step
+        keyShape.lineTo(0.0, -1.5);
+        keyShape.lineTo(0.0, -1.6);
+        keyShape.lineTo(-0.1, -1.6);
+        keyShape.lineTo(-0.1, -1.7);
+        keyShape.lineTo(-0.2, -1.7);
+        keyShape.lineTo(-0.2, -1.8);
+
+        // Volta pelo lado esquerdo
+        keyShape.lineTo(-0.1, -1.8);
+        keyShape.lineTo(-0.1, -1.7);
+        keyShape.lineTo(0.0, -1.7);
+        keyShape.lineTo(0.0, -1.6);
+        keyShape.lineTo(0.1, -1.6);
+        keyShape.lineTo(0.1, -0.1);
+
+        // Colarinho esquerdo
+        keyShape.bezierCurveTo(0.1, 0.15, 0.05, 0.2, 0.1, 0.25);
+        keyShape.bezierCurveTo(0.15, 0.3, 0.12, 0.35, 0.1, 0.4);
+
+        // Fecha o topo esquerdo
+        keyShape.lineTo(-0.1, 0.4);
+        keyShape.quadraticCurveTo(-0.25, 1.05, -0.3, 1.0);
+
+        // Adiciona o buraco/furo da lua no lóbulo central
+        const moonHole = new THREE.Path();
+        moonHole.absarc(0, 0.75, 0.1, 0, Math.PI * 2, false); // Círculo pequeno
+        const crescentCut = new THREE.Path();
+        crescentCut.absarc(0.05, 0.75, 0.08, Math.PI, Math.PI * 2, true); // Corte para formar lua
+        moonHole.holes.push(crescentCut);
+        keyShape.holes.push(moonHole);
+
+        // Extrude a forma para dar profundidade 3D
+        const extrudeSettings = {
+            steps: 2,
+            depth: 0.05, // Espessura fina para parecer 3D
+            bevelEnabled: true,
+            bevelThickness: 0.02,
+            bevelSize: 0.01,
+            bevelSegments: 5
+        };
+        const geometry = new THREE.ExtrudeGeometry(keyShape, extrudeSettings);
+        const material = new THREE.MeshStandardMaterial({ color: 0x800000, side: THREE.DoubleSide });
+        const keyMesh = new THREE.Mesh(geometry, material);
+        scene.add(keyMesh);
+
+        // Posiciona a câmera
+        camera.position.z = 2;
+
+        // Controles para rotacionar com o mouse
+        const controls = new OrbitControls(camera, renderer.domElement);
+
+        // Iluminação para destacar as curvas 3D
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0xffffff, 1);
+        pointLight.position.set(5, 5, 5);
+        scene.add(pointLight);
+        const pointLight2 = new THREE.PointLight(0xffffff, 0.5);
+        pointLight2.position.set(-5, -5, 5);
+        scene.add(pointLight2);
+
+        // Função de animação
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Ajusta ao redimensionar
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
