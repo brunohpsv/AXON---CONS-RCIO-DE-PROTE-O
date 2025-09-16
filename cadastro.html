@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cadastro BIXX CLUB - Faça parte do clube de benefícios">
-    <title>Cadastro - BIXX CLUB</title>
+    <meta name="description" content="Modelo de Solicitação - BIXX CLUB - Como solicitar seu cadastro">
+    <title>Modelo de Solicitação - BIXX CLUB</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -37,7 +37,7 @@
 
         .container {
             width: 90%;
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 2rem 0;
             flex: 1;
@@ -96,53 +96,76 @@
             opacity: 0.8;
         }
 
-        .cadastro-form {
+        .instructions {
             background-color: var(--light);
             border-radius: 4px;
             padding: 2rem;
             box-shadow: var(--shadow);
             border: var(--border);
+            margin-bottom: 2rem;
         }
 
-        .form-group {
+        .instructions h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .steps {
+            margin-left: 1.5rem;
             margin-bottom: 1.5rem;
         }
 
-        .form-group label {
-            display: block;
+        .steps li {
             margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--dark);
         }
 
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 0.8rem;
-            border: var(--border);
+        .security-notice {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
             border-radius: 4px;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            transition: var(--transition);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
         }
 
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.2);
+        .security-notice h4 {
+            color: #856404;
+            margin-bottom: 0.5rem;
         }
 
-        .form-row {
-            display: flex;
-            gap: 1rem;
+        .email-model {
+            background-color: var(--light);
+            border-radius: 4px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: var(--border);
+            margin-top: 2rem;
         }
 
-        .form-row .form-group {
-            flex: 1;
+        .email-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
         }
 
-        .submit-btn {
+        .email-content {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 4px;
+        }
+
+        .email-footer {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #ddd;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .copy-btn {
             display: block;
             width: 100%;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
@@ -154,47 +177,12 @@
             font-size: 1.1rem;
             cursor: pointer;
             transition: var(--transition);
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
 
-        .submit-btn:hover {
+        .copy-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(255, 0, 0, 0.3);
-        }
-
-        .submit-btn:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .secondary-btn {
-            background: #f5f5f5;
-            color: #333;
-            border: var(--border);
-            padding: 0.6rem 1.2rem;
-            border-radius: 4px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .secondary-btn:hover {
-            background: #e0e0e0;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 1.5rem;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .back-link:hover {
-            transform: translateX(-5px);
         }
 
         .message {
@@ -209,68 +197,6 @@
             background-color: #d4edda;
             color: #155724;
             border: 1px solid #c3e6cb;
-        }
-
-        .error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        /* Núcleo Familiar */
-        .nucleo-familiar {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            border: var(--border);
-            border-radius: 4px;
-        }
-
-        .nucleo-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .nucleo-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .familiar-item {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            align-items: flex-end;
-        }
-
-        .familiar-item .form-group {
-            margin-bottom: 0;
-            flex: 1;
-        }
-
-        .remove-familiar {
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            width: 36px;
-            height: 36px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .empty-nucleo {
-            text-align: center;
-            padding: 1rem;
-            color: #666;
-            font-style: italic;
         }
 
         /* Footer */
@@ -289,29 +215,15 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .form-row,
-            .familiar-item {
-                flex-direction: column;
-                gap: 0;
-            }
-            
             .container {
                 padding: 1rem 0;
             }
             
-            .cadastro-form {
+            .instructions, .email-model {
                 padding: 1.5rem;
-            }
-            
-            .familiar-item .form-group {
-                width: 100%;
             }
         }
     </style>
-    <!-- Firebase App (core Firebase SDK) -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <!-- Firebase Firestore -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
     <header>
@@ -326,65 +238,80 @@
     <div class="container">
         <section class="form-section">
             <div class="form-title">
-                <h2>Cadastre-se no BIXX CLUB</h2>
-                <p>Preencha os dados abaixo para fazer parte do clube</p>
+                <h2>Como Solicitar seu Cadastro no BIXX CLUB</h2>
+                <p>Envie um e-mail para nossa equipe seguindo o modelo abaixo</p>
+            </div>
+            
+            <div class="instructions">
+                <h3>Instruções de Solicitação:</h3>
+                <ol class="steps">
+                    <li>Copie o modelo de e-mail abaixo</li>
+                    <li>Preencha com seus dados pessoais</li>
+                    <li>Envie para: <strong>oficialbixx@gmail.com</strong></li>
+                    <li>Aguarde nosso contato para os próximos passos</li>
+                </ol>
+                
+                <div class="security-notice">
+                    <h4><i class="fas fa-shield-alt"></i> Importante: Segurança das Informações</h4>
+                    <p>Nunca solicitaremos documentos ou informações sensíveis pelo WhatsApp. O contato via WhatsApp será apenas para suporte e orientações. Todo o processo de documentação será realizado exclusivamente por e-mail.</p>
+                </div>
             </div>
             
             <div id="message" class="message"></div>
             
-            <form id="cadastroForm" class="cadastro-form">
-                <div class="form-group">
-                    <label for="nome">Nome Completo *</label>
-                    <input type="text" id="nome" name="nome" required>
+            <div class="email-model">
+                <div class="email-header">
+                    <h3>Modelo de E-mail para Solicitação de Cadastro</h3>
                 </div>
                 
-                <div class="form-group">
-                    <label for="cpf">CPF *</label>
-                    <input type="text" id="cpf" name="cpf" required maxlength="14" placeholder="000.000.000-00">
+                <div class="email-content" id="emailContent">
+                    <p><strong>Assunto:</strong> Solicitação de Cadastro - BIXX CLUB</p>
+                    <br>
+                    <p>Prezada Equipe BIXX CLUB,</p>
+                    <br>
+                    <p>Gostaria de solicitar meu cadastro no clube de benefícios BIXX CLUB com os seguintes dados:</p>
+                    <br>
+                    <p><strong>Dados Pessoais:</strong></p>
+                    <ul>
+                        <li><strong>Nome Completo:</strong> [Seu Nome Completo]</li>
+                        <li><strong>CPF:</strong> [Seu CPF]</li>
+                        <li><strong>E-mail:</strong> [Seu E-mail]</li>
+                        <li><strong>Telefone/WhatsApp:</strong> [Seu Telefone]</li>
+                        <li><strong>Plano Desejado:</strong> [Bronze/Prata/Ouro]</li>
+                    </ul>
+                    <br>
+                    <p><strong>Núcleo Familiar (se aplicável):</strong></p>
+                    <ul>
+                        <li>[Nome do Familiar], [Idade] anos ([Relação])</li>
+                        <li>[Nome do Familiar], [Idade] anos ([Relação])</li>
+                    </ul>
+                    <br>
+                    <p>Estou ciente de que após o envio desta solicitação:</p>
+                    <ul>
+                        <li>Serei contactado(a) por WhatsApp para confirmação dos dados</li>
+                        <li>Receberei um e-mail com a solicitação dos documentos necessários</li>
+                        <li>Nunca serei solicitado(a) a enviar documentos por WhatsApp</li>
+                        <li>Meu cadastro será ativado após a conferência documental</li>
+                    </ul>
+                    <br>
+                    <p>Aguardo o retorno de vocês com as instruções para finalizar meu cadastro.</p>
+                    <br>
+                    <p>Atenciosamente,</p>
+                    <p>[Seu Nome]</p>
                 </div>
                 
-                <div class="form-group">
-                    <label for="email">E-mail *</label>
-                    <input type="email" id="email" name="email" required>
+                <div class="email-footer">
+                    <p><em>Esta é uma solicitação de cadastro gerada através do site oficial do BIXX CLUB.</em></p>
                 </div>
                 
-                <div class="form-group">
-                    <label for="telefone">Telefone *</label>
-                    <input type="tel" id="telefone" name="telefone" required placeholder="(00) 00000-0000">
-                </div>
-                
-                <div class="form-group">
-                    <label for="plano">Plano Desejado *</label>
-                    <select id="plano" name="plano" required>
-                        <option value="">Selecione um plano</option>
-                        <option value="bronze">Bronze - R$119,90/mês</option>
-                        <option value="prata">Prata - R$143,50/mês</option>
-                        <option value="ouro">Ouro - R$170,80/mês</option>
-                    </select>
-                </div>
-                
-                <!-- Seção do Núcleo Familiar -->
-                <div class="nucleo-familiar">
-                    <div class="nucleo-header">
-                        <h3 class="nucleo-title">Núcleo Familiar</h3>
-                        <button type="button" id="addFamiliar" class="secondary-btn">
-                            <i class="fas fa-plus"></i> Adicionar Familiar
-                        </button>
-                    </div>
-                    
-                    <div id="familiaresContainer">
-                        <div class="empty-nucleo" id="emptyNucleo">
-                            Nenhum familiar adicionado ainda
-                        </div>
-                    </div>
-                </div>
-                
-                <button type="submit" id="submitBtn" class="submit-btn">FINALIZAR CADASTRO</button>
-                
-                <a href="index.html" class="back-link">
-                    <i class="fas fa-arrow-left"></i> Voltar para a página inicial
-                </a>
-            </form>
+                <button type="button" id="copyBtn" class="copy-btn">
+                    <i class="fas fa-copy"></i> COPIAR MODELO DE E-MAIL
+                </button>
+            </div>
+            
+            <a href="index.html" class="back-link" style="display: block; text-align: center; margin-top: 2rem;">
+                <i class="fas fa-arrow-left"></i> Voltar para a página inicial
+            </a>
         </section>
     </div>
 
@@ -395,193 +322,23 @@
     </footer>
 
     <script>
-        // Inicializar Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyCoaoSjp7EOYv9Kc2npdX4lHjieawtU5ao",
-            authDomain: "axon-ec708.firebaseapp.com",
-            projectId: "axon-ec708",
-            storageBucket: "axon-ec708.firebasestorage.app",
-            messagingSenderId: "403077673595",
-            appId: "1:403077673595:web:a4cb91bdf662f8d8e9e8de"
-        };
-        
-        // Inicializar Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        
-        // Formatadores de entrada
-        document.getElementById('cpf').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 11) value = value.slice(0, 11);
-            
-            if (value.length > 9) {
-                value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-            } else if (value.length > 6) {
-                value = value.replace(/(\d{3})(\d{3})(\d+)/, '$1.$2.$3');
-            } else if (value.length > 3) {
-                value = value.replace(/(\d{3})(\d+)/, '$1.$2');
-            }
-            e.target.value = value;
-        });
-        
-        document.getElementById('telefone').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 11) value = value.slice(0, 11);
-            
-            if (value.length > 10) {
-                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-            } else if (value.length > 6) {
-                value = value.replace(/(\d{2})(\d{4})(\d+)/, '($1) $2-$3');
-            } else if (value.length > 2) {
-                value = value.replace(/(\d{2})(\d+)/, '($1) $2');
-            }
-            e.target.value = value;
-        });
-        
-        // Gerenciamento do Núcleo Familiar
-        let familiarCount = 0;
-        
-        document.getElementById('addFamiliar').addEventListener('click', function() {
-            // Ocultar mensagem de lista vazia
-            document.getElementById('emptyNucleo').style.display = 'none';
-            
-            const container = document.getElementById('familiaresContainer');
-            const newFamiliar = document.createElement('div');
-            newFamiliar.className = 'familiar-item';
-            newFamiliar.innerHTML = `
-                <div class="form-group" style="flex: 2;">
-                    <label>Nome do Familiar</label>
-                    <input type="text" name="familiarNome[]" required>
-                </div>
-                <div class="form-group">
-                    <label>Idade</label>
-                    <input type="number" name="familiarIdade[]" min="0" max="120" required>
-                </div>
-                <div class="form-group" style="flex: 1.5;">
-                    <label>Relação</label>
-                    <select name="familiarRelacao[]" required>
-                        <option value="">Selecione</option>
-                        <option value="filho">Filho(a)</option>
-                        <option value="conjuge">Conjuge</option>
-                        <option value="outro">Outro</option>
-                    </select>
-                </div>
-                <button type="button" class="remove-familiar">
-                    <i class="fas fa-times"></i>
-                </button>
-            `;
-            
-            container.appendChild(newFamiliar);
-            
-            // Adicionar evento para remover familiar
-            newFamiliar.querySelector('.remove-familiar').addEventListener('click', function() {
-                newFamiliar.remove();
-                
-                // Mostrar mensagem de lista vazia se não houver mais familiares
-                if (document.querySelectorAll('.familiar-item').length === 0) {
-                    document.getElementById('emptyNucleo').style.display = 'block';
-                }
-            });
-            
-            familiarCount++;
-        });
-        
-        // Envio do formulário
-        document.getElementById('cadastroForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const messageEl = document.getElementById('message');
-            
-            // Obter valores do formulário
-            const nome = document.getElementById('nome').value.trim();
-            const cpf = document.getElementById('cpf').value.replace(/\D/g, '');
-            const email = document.getElementById('email').value.trim();
-            const telefone = document.getElementById('telefone').value.replace(/\D/g, '');
-            const plano = document.getElementById('plano').value;
-            
-            // Coletar dados dos familiares
-            const familiares = [];
-            const familiarItems = document.querySelectorAll('.familiar-item');
-            
-            familiarItems.forEach(item => {
-                const nomeFamiliar = item.querySelector('input[name="familiarNome[]"]').value.trim();
-                const idadeFamiliar = item.querySelector('input[name="familiarIdade[]"]').value;
-                const relacaoFamiliar = item.querySelector('select[name="familiarRelacao[]"]').value;
-                
-                if (nomeFamiliar && idadeFamiliar && relacaoFamiliar) {
-                    familiares.push({
-                        nome: nomeFamiliar,
-                        idade: parseInt(idadeFamiliar),
-                        relacao: relacaoFamiliar
-                    });
-                }
-            });
-            
-            // Validação básica
-            if (cpf.length !== 11) {
-                showMessage('CPF inválido. Digite um CPF com 11 dígitos.', 'error');
-                return;
-            }
-            
-            if (!plano) {
-                showMessage('Por favor, selecione um plano.', 'error');
-                return;
-            }
-            
-            // Desabilitar botão durante o processamento
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'CADASTRANDO...';
+        // Função para copiar o conteúdo do e-mail
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const emailContent = document.getElementById('emailContent');
+            const range = document.createRange();
+            range.selectNode(emailContent);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
             
             try {
-                // Verificar se CPF já existe
-                const docRef = db.collection('cadastros').doc(cpf);
-                const doc = await docRef.get();
-                
-                if (doc.exists) {
-                    showMessage('Este CPF já está cadastrado em nosso sistema.', 'error');
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'FINALIZAR CADASTRO';
-                    return;
-                }
-                
-                // Criar objeto com dados do usuário
-                const userData = {
-                    nome: nome,
-                    cpf: cpf,
-                    email: email,
-                    telefone: telefone,
-                    plano: plano,
-                    familiares: familiares,
-                    dataCadastro: firebase.firestore.FieldValue.serverTimestamp()
-                };
-                
-                // Salvar no Firestore
-                await db.collection('cadastros').doc(cpf).set(userData);
-                
-                // Limpar formulário
-                document.getElementById('cadastroForm').reset();
-                
-                // Limpar lista de familiares
-                document.getElementById('familiaresContainer').innerHTML = '';
-                document.getElementById('emptyNucleo').style.display = 'block';
-                familiarCount = 0;
-                
-                // Mostrar mensagem de sucesso
-                showMessage('Cadastro realizado com sucesso! Redirecionando para a página inicial...', 'success');
-                
-                // Redirecionar para a página inicial após 3 segundos
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 3000);
-                
-            } catch (error) {
-                console.error('Erro ao salvar no Firestore:', error);
-                showMessage('Erro ao realizar cadastro. Tente novamente.', 'error');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'FINALIZAR CADASTRO';
+                const successful = document.execCommand('copy');
+                const msg = successful ? 'Modelo de e-mail copiado com sucesso!' : 'Falha ao copiar o modelo.';
+                showMessage(msg, 'success');
+            } catch (err) {
+                showMessage('Erro ao copiar: ' + err, 'error');
             }
+            
+            window.getSelection().removeAllRanges();
         });
         
         // Função para mostrar mensagens
@@ -591,12 +348,10 @@
             messageEl.className = `message ${type}`;
             messageEl.style.display = 'block';
             
-            // Esconder mensagem após 5 segundos (apenas para erros)
-            if (type === 'error') {
-                setTimeout(() => {
-                    messageEl.style.display = 'none';
-                }, 5000);
-            }
+            // Esconder mensagem após 3 segundos
+            setTimeout(() => {
+                messageEl.style.display = 'none';
+            }, 3000);
         }
     </script>
 </body>
