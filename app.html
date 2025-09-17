@@ -318,6 +318,34 @@
             margin-bottom: 15px;
         }
         
+        .update-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 90%;
+            display: none;
+        }
+        
+        .update-notification button {
+            background: #cc0000;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
@@ -354,6 +382,11 @@
                 right: 5px;
                 font-size: 10px;
             }
+            
+            .update-notification {
+                flex-direction: column;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -368,6 +401,11 @@
     <div class="loading-screen" id="loadingScreen">
         <div class="spinner"></div>
         <p>Atualizando dados...</p>
+    </div>
+    
+    <div class="update-notification" id="updateNotification">
+        <span>Nova versão disponível!</span>
+        <button id="refreshApp">Atualizar Agora</button>
     </div>
     
     <button class="btn-exit" id="exitBtn" style="display: none;">✕</button>
@@ -420,6 +458,9 @@
     <div class="refresh-indicator" id="refreshIndicator">Atualizando...</div>
 
     <script>
+        // Versão do aplicativo - atualize este valor sempre que fizer mudanças
+        const APP_VERSION = "1.2.0";
+        
         // Verificar se está sendo executado em um dispositivo Android
         function isAndroid() {
             return /Android/i.test(navigator.userAgent);
@@ -484,11 +525,50 @@
         const exitBtn = document.getElementById('exitBtn');
         const refreshIndicator = document.getElementById('refreshIndicator');
         const loadingScreen = document.getElementById('loadingScreen');
+        const updateNotification = document.getElementById('updateNotification');
+        const refreshAppBtn = document.getElementById('refreshApp');
         
         // Variáveis para controle de atualização
         let refreshInterval;
         let lastAccessCode = '';
         let appOpenedTimestamp = Date.now();
+        
+        // Verificar atualizações do app
+        function checkForUpdates() {
+            const lastVersion = localStorage.getItem('app_version');
+            
+            // Se for uma versão diferente, mostrar notificação
+            if (lastVersion !== APP_VERSION) {
+                updateNotification.style.display = 'flex';
+                
+                // Se for iOS em modo PWA, instruções especiais
+                if (isIOS() && isInStandaloneMode()) {
+                    updateNotification.innerHTML = `
+                        <span>Nova versão disponível!</span>
+                        <p>Para atualizar: feche o app e reabra</p>
+                    `;
+                }
+            }
+            
+            // Salvar a versão atual
+            localStorage.setItem('app_version', APP_VERSION);
+        }
+        
+        // Forçar atualização do app
+        function forceAppRefresh() {
+            if (isInStandaloneMode()) {
+                // Para apps em modo standalone, recarregar a página
+                window.location.reload(true);
+            } else {
+                // Para PWAs, limpar cache e recarregar
+                if ('caches' in window) {
+                    caches.keys().then(function(names) {
+                        for (let name of names) caches.delete(name);
+                    });
+                }
+                window.location.reload(true);
+            }
+        }
         
         // Função para gerar um timestamp único para evitar cache
         function getCacheBuster() {
@@ -676,10 +756,18 @@
             }
         });
         
+        // Evento para o botão de atualizar app
+        refreshAppBtn.addEventListener('click', function() {
+            forceAppRefresh();
+        });
+        
         // Focar no input ao carregar a página
         window.addEventListener('load', function() {
             // Registrar o momento em que o app foi aberto
             appOpenedTimestamp = Date.now();
+            
+            // Verificar atualizações
+            checkForUpdates();
             
             // Adicionar parâmetro anti-cache se estiver em modo standalone
             if (isInStandaloneMode() && !window.location.search) {
@@ -738,6 +826,17 @@
                 localStorage.setItem('lastAccessCode', lastAccessCode);
             }
         });
+        
+        // Service Worker para melhor controle de cache (PWA)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registrado com sucesso: ', registration.scope);
+                }, function(err) {
+                    console.log('Falha ao registrar ServiceWorker: ', err);
+                });
+            });
+        }
     </script>
 </body>
 </html>
