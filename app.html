@@ -287,6 +287,36 @@
             display: none;
         }
         
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            color: white;
+            display: none;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
@@ -327,6 +357,11 @@
         <p>Para melhor experiência, adicione esta página à sua tela inicial:</p>
         <p>1. Toque no menu (⋮) no canto superior direito</p>
         <p>2. Selecione "Adicionar à tela inicial"</p>
+    </div>
+    
+    <div class="loading-screen" id="loadingScreen">
+        <div class="spinner"></div>
+        <p>Atualizando dados...</p>
     </div>
     
     <button class="btn-exit" id="exitBtn" style="display: none;">✕</button>
@@ -391,7 +426,7 @@
         
         // Verificar se está em modo standalone (adicionado à tela inicial)
         function isInStandaloneMode() {
-            return (window.matchMedia('(display-mode: standalone)').matches) || 
+            return (window.matchMedia('(display-mode: standalone').matches) || 
                    (window.navigator.standalone) || 
                    (document.referrer.includes('android-app://'));
         }
@@ -432,10 +467,37 @@
         const errorMessage = document.getElementById('errorMessage');
         const exitBtn = document.getElementById('exitBtn');
         const refreshIndicator = document.getElementById('refreshIndicator');
+        const loadingScreen = document.getElementById('loadingScreen');
         
         // Variáveis para controle de atualização
         let refreshInterval;
         let lastAccessCode = '';
+        
+        // Função para simular busca de dados atualizados (substitua por uma chamada real à API)
+        function fetchUpdatedUserData(code) {
+            return new Promise((resolve, reject) => {
+                // Simular tempo de resposta da API (1-2 segundos)
+                const delay = Math.floor(Math.random() * 1000) + 1000;
+                
+                setTimeout(() => {
+                    if (userData[code]) {
+                        // Simular possíveis mudanças nos dados
+                        const updatedData = {...userData[code]};
+                        
+                        // Em uma implementação real, aqui você faria uma requisição para sua API
+                        // Exemplo: 
+                        // fetch(`https://suaapi.com/user/${code}`)
+                        //   .then(response => response.json())
+                        //   .then(data => resolve(data))
+                        //   .catch(error => reject(error))
+                        
+                        resolve(updatedData);
+                    } else {
+                        reject(new Error("Código inválido"));
+                    }
+                }, delay);
+            });
+        }
         
         // Função para forçar atualização da página
         function forceRefresh() {
@@ -466,28 +528,42 @@
         }
         
         // Evento para acessar o cartão
-        accessBtn.addEventListener('click', function() {
+        accessBtn.addEventListener('click', async function() {
             const code = codeInput.value.trim().toUpperCase();
             
             if (userData[code]) {
-                // Código válido
-                lastAccessCode = code;
-                loginScreen.style.display = 'none';
-                cardContainer.style.display = 'block';
-                hintText.style.display = 'block';
-                exitBtn.style.display = 'block';
+                // Mostrar tela de carregamento
+                loadingScreen.style.display = 'flex';
                 
-                // Preencher dados do usuário
-                const user = userData[code];
-                document.getElementById('userName').textContent = user.name;
-                document.getElementById('userPlan').textContent = user.plan;
-                document.getElementById('userId').textContent = user.id;
-                document.querySelector('.status-badge span').textContent = user.status;
-                
-                errorMessage.style.display = 'none';
-                
-                // Iniciar temporizador de atualização
-                startRefreshTimer();
+                try {
+                    // Buscar dados atualizados
+                    const user = await fetchUpdatedUserData(code);
+                    
+                    // Código válido e dados recebidos
+                    lastAccessCode = code;
+                    loginScreen.style.display = 'none';
+                    cardContainer.style.display = 'block';
+                    hintText.style.display = 'block';
+                    exitBtn.style.display = 'block';
+                    
+                    // Preencher dados do usuário
+                    document.getElementById('userName').textContent = user.name;
+                    document.getElementById('userPlan').textContent = user.plan;
+                    document.getElementById('userId').textContent = user.id;
+                    document.querySelector('.status-badge span').textContent = user.status;
+                    
+                    errorMessage.style.display = 'none';
+                    
+                    // Iniciar temporizador de atualização
+                    startRefreshTimer();
+                } catch (error) {
+                    // Em caso de erro na busca
+                    errorMessage.textContent = "Erro ao buscar dados. Tente novamente.";
+                    errorMessage.style.display = 'block';
+                } finally {
+                    // Sempre esconder a tela de carregamento
+                    loadingScreen.style.display = 'none';
+                }
             } else {
                 // Código inválido
                 errorMessage.style.display = 'block';
