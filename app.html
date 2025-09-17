@@ -274,6 +274,19 @@
             display: none;
         }
         
+        .refresh-indicator {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            z-index: 1001;
+            display: none;
+        }
+        
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
@@ -299,6 +312,12 @@
             
             .bixx-club-text {
                 font-size: 24px;
+            }
+            
+            .refresh-indicator {
+                bottom: 5px;
+                right: 5px;
+                font-size: 10px;
             }
         }
     </style>
@@ -356,6 +375,8 @@
         </div>
     </div>
     <p class="hint" id="hintText">Clique no cartão para virar</p>
+    
+    <div class="refresh-indicator" id="refreshIndicator">Atualizando...</div>
 
     <script>
         // Verificar se está sendo executado em um dispositivo Android
@@ -363,8 +384,20 @@
             return /Android/i.test(navigator.userAgent);
         }
         
-        // Mostrar instruções para Android
-        if (isAndroid()) {
+        // Verificar se está sendo executado em iOS
+        function isIOS() {
+            return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        }
+        
+        // Verificar se está em modo standalone (adicionado à tela inicial)
+        function isInStandaloneMode() {
+            return (window.matchMedia('(display-mode: standalone)').matches) || 
+                   (window.navigator.standalone) || 
+                   (document.referrer.includes('android-app://'));
+        }
+        
+        // Mostrar instruções para Android se não estiver em modo standalone
+        if (isAndroid() && !isInStandaloneMode()) {
             document.getElementById('androidWarning').style.display = 'block';
         }
         
@@ -398,6 +431,39 @@
         const accessBtn = document.getElementById('accessBtn');
         const errorMessage = document.getElementById('errorMessage');
         const exitBtn = document.getElementById('exitBtn');
+        const refreshIndicator = document.getElementById('refreshIndicator');
+        
+        // Variáveis para controle de atualização
+        let refreshInterval;
+        let lastAccessCode = '';
+        
+        // Função para forçar atualização da página
+        function forceRefresh() {
+            if (isInStandaloneMode()) {
+                // Mostrar indicador de atualização
+                refreshIndicator.style.display = 'block';
+                
+                // Forçar recarregamento da página após um breve delay
+                setTimeout(() => {
+                    window.location.reload(true);
+                }, 1000);
+            }
+        }
+        
+        // Iniciar temporizador de atualização se estiver em modo standalone
+        function startRefreshTimer() {
+            if (isInStandaloneMode()) {
+                // Limpar intervalo anterior se existir
+                if (refreshInterval) {
+                    clearInterval(refreshInterval);
+                }
+                
+                // Configurar novo intervalo (2 minutos)
+                refreshInterval = setInterval(() => {
+                    forceRefresh();
+                }, 2 * 60 * 1000); // 2 minutos em milissegundos
+            }
+        }
         
         // Evento para acessar o cartão
         accessBtn.addEventListener('click', function() {
@@ -405,6 +471,7 @@
             
             if (userData[code]) {
                 // Código válido
+                lastAccessCode = code;
                 loginScreen.style.display = 'none';
                 cardContainer.style.display = 'block';
                 hintText.style.display = 'block';
@@ -418,6 +485,9 @@
                 document.querySelector('.status-badge span').textContent = user.status;
                 
                 errorMessage.style.display = 'none';
+                
+                // Iniciar temporizador de atualização
+                startRefreshTimer();
             } else {
                 // Código inválido
                 errorMessage.style.display = 'block';
@@ -450,6 +520,12 @@
             exitBtn.style.display = 'none';
             codeInput.value = '';
             codeInput.focus();
+            
+            // Parar temporizador de atualização
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+                refreshInterval = null;
+            }
         });
         
         // Focar no input ao carregar a página
@@ -459,6 +535,13 @@
             // Verificar se a página está sendo executada localmente
             if (window.location.protocol === 'file:') {
                 alert('Para o melhor funcionamento em dispositivos Android, este aplicativo deve ser hospedado em um servidor web.');
+            }
+            
+            // Se estiver em modo standalone e já tiver um código de acesso salvo, tentar carregar automaticamente
+            if (isInStandaloneMode() && localStorage.getItem('lastAccessCode')) {
+                const savedCode = localStorage.getItem('lastAccessCode');
+                codeInput.value = savedCode;
+                accessBtn.click();
             }
         });
 
@@ -477,6 +560,13 @@
             }
             lastTouchEnd = now;
         }, false);
+        
+        // Salvar código de acesso quando a página for descarregada
+        window.addEventListener('beforeunload', function() {
+            if (lastAccessCode) {
+                localStorage.setItem('lastAccessCode', lastAccessCode);
+            }
+        });
     </script>
 </body>
 </html>
