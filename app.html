@@ -14,7 +14,6 @@
     <link rel="icon" type="image/png" sizes="192x192" href="logo.png">
     <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
     <link rel="icon" type="image/png" sizes="16x16" href="logo.png">
-    <link rel="manifest" href="manifest.json">
     
     <title>Cartão Virtual - BIXX CLUB</title>
     <style>
@@ -52,12 +51,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        
-        .app-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+            background: #cc0000;
+            border-radius: 16px;
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
         }
         
         .login-screen h2 {
@@ -147,8 +145,11 @@
         }
         
         .logo {
-            max-width: 180px;
-            margin-bottom: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            color: #cc0000;
+            margin-bottom: 5px;
         }
         
         .membro {
@@ -216,13 +217,17 @@
             margin-top: 10px;
             display: none;
         }
+        
+        .logo-img {
+            max-width: 180px;
+            margin-bottom: 10px;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="login-screen" id="loginScreen">
-        <div class="app-icon">
-            <img src="logo.png" alt="BIXX CLUB Logo">
-        </div>
+        <div class="app-icon">B</div>
         <h2>BIXX CLUB</h2>
         <div class="input-group">
             <input type="text" id="codeInput" placeholder="Digite seu código de acesso">
@@ -237,7 +242,8 @@
                 <div class="status-badge">
                     <span>ATIVO</span>
                 </div>
-                <img src="logo.png" alt="BIXX CLUB" class="logo">
+                <img src="logo.png" alt="BIXX CLUB" class="logo-img" id="logoFront">
+                <div class="logo" id="textLogoFront">BIXX CLUB</div>
                 <div class="membro">MEMBRO</div>
             </div>
             <div class="card-face card-back">
@@ -290,6 +296,24 @@
         const codeInput = document.getElementById('codeInput');
         const accessBtn = document.getElementById('accessBtn');
         const errorMessage = document.getElementById('errorMessage');
+        const logoFront = document.getElementById('logoFront');
+        const textLogoFront = document.getElementById('textLogoFront');
+        
+        // Verificar se a logo existe
+        function checkLogo() {
+            const img = new Image();
+            img.onload = function() {
+                // Logo existe, mostrar imagem e esconder texto
+                logoFront.style.display = 'block';
+                textLogoFront.style.display = 'none';
+            };
+            img.onerror = function() {
+                // Logo não existe, mostrar texto e esconder imagem
+                logoFront.style.display = 'none';
+                textLogoFront.style.display = 'block';
+            };
+            img.src = 'logo.png';
+        }
         
         // Evento para acessar o cartão
         accessBtn.addEventListener('click', function() {
@@ -336,6 +360,7 @@
         // Focar no input ao carregar a página
         window.addEventListener('load', function() {
             codeInput.focus();
+            checkLogo();
         });
     </script>
 </body>
