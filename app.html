@@ -8,12 +8,15 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="BIXX CLUB">
     <meta name="description" content="Cartão Virtual BIXX CLUB - Acesse seu cartão de membro">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
     
     <!-- Ícones para adicionar à tela inicial -->
-    <link rel="apple-touch-icon" sizes="180x180" href="https://bixx.com.br/logo.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://bixx.com.br/logo.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://bixx.com.br/logo.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://bixx.com.br/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://bixx.com.br/logo.png?v=2">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://bixx.com.br/logo.png?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://bixx.com.br/logo.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://bixx.com.br/logo.png?v=2">
     
     <title>Cartão Virtual - BIXX CLUB</title>
     <style>
@@ -368,7 +371,7 @@
     
     <div class="login-screen" id="loginScreen">
         <div class="app-icon">
-            <img src="https://bixx.com.br/logo.png" alt="BIXX CLUB Logo" id="logoIcon" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='block';">
+            <img src="https://bixx.com.br/logo.png?v=2" alt="BIXX CLUB Logo" id="logoIcon" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='block';">
             <div class="fallback-logo" id="fallbackLogo">BIXX</div>
         </div>
         <h2>BIXX CLUB</h2>
@@ -386,7 +389,7 @@
                     <span>ATIVO</span>
                 </div>
                 <div class="logo-center">
-                    <img src="https://bixx.com.br/logo.png" alt="BIXX CLUB" id="logoFront" onerror="this.style.display='none';">
+                    <img src="https://bixx.com.br/logo.png?v=2" alt="BIXX CLUB" id="logoFront" onerror="this.style.display='none';">
                     <div class="bixx-club-text">BIXX CLUB</div>
                 </div>
                 <div class="membro">MEMBRO</div>
@@ -476,6 +479,9 @@
         // Função para simular busca de dados atualizados (substitua por uma chamada real à API)
         function fetchUpdatedUserData(code) {
             return new Promise((resolve, reject) => {
+                // Adicionar timestamp para evitar cache
+                const timestamp = new Date().getTime();
+                
                 // Simular tempo de resposta da API (1-2 segundos)
                 const delay = Math.floor(Math.random() * 1000) + 1000;
                 
@@ -484,12 +490,23 @@
                         // Simular possíveis mudanças nos dados
                         const updatedData = {...userData[code]};
                         
+                        // Adicionar timestamp aos dados para garantir que sejam sempre diferentes
+                        updatedData.timestamp = timestamp;
+                        
                         // Em uma implementação real, aqui você faria uma requisição para sua API
-                        // Exemplo: 
-                        // fetch(`https://suaapi.com/user/${code}`)
-                        //   .then(response => response.json())
-                        //   .then(data => resolve(data))
-                        //   .catch(error => reject(error))
+                        // com headers para evitar cache:
+                        /*
+                        fetch(`https://suaapi.com/user/${code}?t=${timestamp}`, {
+                            headers: {
+                                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                                'Pragma': 'no-cache',
+                                'Expires': '0'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => resolve(data))
+                        .catch(error => reject(error))
+                        */
                         
                         resolve(updatedData);
                     } else {
@@ -619,6 +636,13 @@
                 codeInput.value = savedCode;
                 accessBtn.click();
             }
+            
+            // Forçar atualização se a página foi carregada do cache (especialmente iOS)
+            window.onpageshow = function(event) {
+                if (event.persisted) {
+                    window.location.reload();
+                }
+            };
         });
 
         // Prevenir zoom indesejado em dispositivos móveis
@@ -643,6 +667,20 @@
                 localStorage.setItem('lastAccessCode', lastAccessCode);
             }
         });
+        
+        // Service Worker para controlar cache (opcional, mas útil para PWA)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                // Registrar um service worker que não cache nada
+                navigator.serviceWorker.register('/sw.js', { scope: '/' })
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(function(error) {
+                        console.log('ServiceWorker registration failed: ', error);
+                    });
+            });
+        }
     </script>
 </body>
 </html>
