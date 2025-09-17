@@ -1,0 +1,21 @@
+{
+  "name": "BIXX CLUB",
+  "short_name": "BIXX",
+  "description": "Cartão Virtual BIXX CLUB - Acesse seu cartão de membro",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#cc0000",
+  "theme_color": "#cc0000",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
