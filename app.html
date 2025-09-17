@@ -94,6 +94,26 @@
             background: #a30000;
         }
         
+        .btn-secondary {
+            background: transparent;
+            color: #cc0000;
+            border: 1px solid #cc0000;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-secondary:hover {
+            background: #cc0000;
+            color: white;
+        }
+        
         .btn-exit {
             background: rgba(255, 255, 255, 0.9);
             color: #cc0000;
@@ -288,6 +308,7 @@
             <input type="text" id="codeInput" placeholder="Digite seu código de acesso" autocomplete="off">
         </div>
         <button class="btn" id="accessBtn">Acessar Cartão</button>
+        <a href="https://bixx.com.br" class="btn-secondary" id="backBtn">Voltar ao Início</a>
         <div class="error-message" id="errorMessage">Código inválido. Tente novamente.</div>
     </div>
     
@@ -348,6 +369,7 @@
         const accessBtn = document.getElementById('accessBtn');
         const errorMessage = document.getElementById('errorMessage');
         const exitBtn = document.getElementById('exitBtn');
+        const backBtn = document.getElementById('backBtn');
         
         // Evento para acessar o cartão
         accessBtn.addEventListener('click', function() {
