@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#cc0000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="BIXX CLUB">
+    <meta name="description" content="Cartão Virtual BIXX CLUB - Acesse seu cartão de membro">
+    <title>Cartão Virtual - BIXX CLUB</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff4d4d, #cc0000);
+            padding: 20px;
+        }
+        
+        .login-screen {
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            background: #cc0000;
+            border-radius: 16px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        
+        .login-screen h2 {
+            color: #cc0000;
+            margin-bottom: 20px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .btn {
+            background: #cc0000;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+            margin-bottom: 10px;
+        }
+        
+        .btn:hover {
+            background: #a30000;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #cc0000;
+            border: 2px solid #cc0000;
+        }
+        
+        .card-container {
+            width: 100%;
+            max-width: 400px;
+            height: 250px;
+            perspective: 1000px;
+            margin-bottom: 30px;
+            display: none;
+        }
+        
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            cursor: pointer;
+        }
+        
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .card-front {
+            background: white;
+            color: #cc0000;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .card-back {
+            background: white;
+            color: #333;
+            transform: rotateY(180deg);
+            justify-content: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            color: #cc0000;
+            margin-bottom: 5px;
+        }
+        
+        .membro {
+            font-size: 14px;
+            font-weight: bold;
+            color: #cc0000;
+            margin-top: 0;
+            letter-spacing: 1px;
+        }
+        
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .info-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .info-line {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .label {
+            font-size: 12px;
+            color: #777;
+            font-weight: 600;
+        }
+        
+        .value {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .hint {
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+            font-size: 14px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: none;
+        }
+        
+        .error-message {
+            color: #cc0000;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .instructions {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            max-width: 400px;
+            display: none;
+        }
+        
+        .instructions h3 {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        .instructions-icon {
+            font-size: 24px;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        
+        /* iOS específico */
+        .ios-instructions {
+            display: none;
+        }
+        
+        /* Android específico */
+        .android-instructions {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-screen" id="loginScreen">
+        <div class="app-icon">B</div>
+        <h2>BIXX CLUB</h2>
+        <div class="input-group">
+            <input type="text" id="codeInput" placeholder="Digite seu código de acesso">
+        </div>
+        <button class="btn" id="accessBtn">Acessar Cartão</button>
+        <button class="btn btn-secondary" id="showInstructionsBtn">Como Instalar</button>
+        <div class="error-message" id="errorMessage">Código inválido. Tente novamente.</div>
+        
+        <div class="instructions ios-instructions" id="iosInstructions">
+            <h3>Como instalar no iPhone</h3>
+            <ol>
+                <li><span class="instructions-icon">📱</span> Abra no Safari (não funciona no Chrome)</li>
+                <li><span class="instructions-icon">📤</span> Toque no ícone de compartilhar</li>
+                <li><span class="instructions-icon">➕</span> Role e toque em "Adicionar à Tela de Início"</li>
+                <li><span class="instructions-icon">✅</span> Toque em "Adicionar" no canto superior direito</li>
+            </ol>
+        </div>
+        
+        <div class="instructions android-instructions" id="androidInstructions">
+            <h3>Como instalar no Android</h3>
+            <ol>
+                <li><span class="instructions-icon">📱</span> Abra no Chrome</li>
+                <li><span class="instructions-icon">⋮</span> Toque no menu (três pontos)</li>
+                <li><span class="instructions-icon">➕</span> Selecione "Adicionar à tela inicial"</li>
+                <li><span class="instructions-icon">✅</span> Toque em "Adicionar" para confirmar</li>
+            </ol>
+        </div>
+    </div>
+    
+    <div class="card-container" id="cardContainer">
+        <div class="card" id="card">
+            <div class="card-face card-front">
+                <div class="status-badge">
+                    <span>ATIVO</span>
+                </div>
+                <div class="logo">BIXX CLUB</div>
+                <div class="membro">MEMBRO</div>
+            </div>
+            <div class="card-face card-back">
+                <div class="info-container">
+                    <div class="info-line">
+                        <span class="label">NOME:</span>
+                        <span class="value" id="userName">FULANO DA SILVA</span>
+                    </div>
+                    <div class="info-line">
+                        <span class="label">PLANO:</span>
+                        <span class="value" id="userPlan">PREMIUM</span>
+                    </div>
+                    <div class="info-line">
+                        <span class="label">ID:</span>
+                        <span class="value" id="userId">BIXX-7890-1234</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="hint" id="hintText">Clique no cartão para virar</p>
+
+    <script>
+        // Dados simulados (em um caso real, isso viria de uma API)
+        const userData = {
+            "ABC123": {
+                name: "FULANO DA SILVA",
+                plan: "PREMIUM",
+                id: "BIXX-7890-1234",
+                status: "ATIVO"
+            },
+            "XYZ789": {
+                name: "CICLANO OLIVEIRA",
+                plan: "BASIC",
+                id: "BIXX-5567-8910",
+                status: "ATIVO"
+            },
+            "BIXX2024": {
+                name: "MARIA SANTOS",
+                plan: "VIP",
+                id: "BIXX-2024-0001",
+                status: "ATIVO"
+            }
+        };
+        
+        // Elementos da DOM
+        const loginScreen = document.getElementById('loginScreen');
+        const cardContainer = document.getElementById('cardContainer');
+        const hintText = document.getElementById('hintText');
+        const codeInput = document.getElementById('codeInput');
+        const accessBtn = document.getElementById('accessBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const showInstructionsBtn = document.getElementById('showInstructionsBtn');
+        const iosInstructions = document.getElementById('iosInstructions');
+        const androidInstructions = document.getElementById('androidInstructions');
+        
+        // Verificar se é iOS
+        function isIOS() {
+            return [
+                'iPad Simulator',
+                'iPhone Simulator',
+                'iPod Simulator',
+                'iPad',
+                'iPhone',
+                'iPod'
+            ].includes(navigator.platform) || 
+            (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+        }
+        
+        // Verificar se é Android
+        function isAndroid() {
+            return /Android/i.test(navigator.userAgent);
+        }
+        
+        // Mostrar instruções de instalação
+        showInstructionsBtn.addEventListener('click', function() {
+            if (isIOS()) {
+                iosInstructions.style.display = 'block';
+                androidInstructions.style.display = 'none';
+            } else if (isAndroid()) {
+                androidInstructions.style.display = 'block';
+                iosInstructions.style.display = 'none';
+            } else {
+                iosInstructions.style.display = 'block';
+                androidInstructions.style.display = 'none';
+            }
+        });
+        
+        // Evento para acessar o cartão
+        accessBtn.addEventListener('click', function() {
+            const code = codeInput.value.trim().toUpperCase();
+            
+            if (userData[code]) {
+                // Código válido
+                loginScreen.style.display = 'none';
+                cardContainer.style.display = 'block';
+                hintText.style.display = 'block';
+                
+                // Preencher dados do usuário
+                const user = userData[code];
+                document.getElementById('userName').textContent = user.name;
+                document.getElementById('userPlan').textContent = user.plan;
+                document.getElementById('userId').textContent = user.id;
+                
+                errorMessage.style.display = 'none';
+            } else {
+                // Código inválido
+                errorMessage.style.display = 'block';
+            }
+        });
+        
+        // Tecla Enter para submeter o código
+        codeInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                accessBtn.click();
+            }
+        });
+        
+        // Evento para virar o cartão
+        document.getElementById('card').addEventListener('click', function() {
+            this.classList.toggle('flipped');
+        });
+        
+        // Verificar se está executando como app instalado
+        if (window.navigator.standalone) {
+            console.log('Executando como PWA no iOS');
+        } else if (window.matchMedia('(display-mode: standalone)').matches) {
+            console.log('Executando como PWA no Android');
+        }
+        
+        // Focar no input ao carregar a página
+        window.addEventListener('load', function() {
+            codeInput.focus();
+        });
+    </script>
+</body>
+</html>
