@@ -279,19 +279,47 @@
             10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
             20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
+
+        /* Adicionado para melhorar compatibilidade com Android */
+        .android-warning {
+            display: none;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            max-width: 400px;
+        }
+
+        @media (max-width: 480px) {
+            .card-container {
+                height: 220px;
+            }
+            
+            .bixx-club-text {
+                font-size: 24px;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="android-warning" id="androidWarning">
+        <p>Para melhor experiência, adicione esta página à sua tela inicial:</p>
+        <p>1. Toque no menu (⋮) no canto superior direito</p>
+        <p>2. Selecione "Adicionar à tela inicial"</p>
+    </div>
+    
     <button class="btn-exit" id="exitBtn" style="display: none;">✕</button>
     
     <div class="login-screen" id="loginScreen">
         <div class="app-icon">
-            <img src="https://bixx.com.br/logo.png" alt="BIXX CLUB Logo" id="logoIcon">
+            <img src="https://bixx.com.br/logo.png" alt="BIXX CLUB Logo" id="logoIcon" onerror="this.style.display='none'; document.getElementById('fallbackLogo').style.display='block';">
             <div class="fallback-logo" id="fallbackLogo">BIXX</div>
         </div>
         <h2>BIXX CLUB</h2>
         <div class="input-group">
-            <input type="text" id="codeInput" placeholder="Digite seu código de acesso">
+            <input type="text" id="codeInput" placeholder="Digite seu código de acesso" autocomplete="off">
         </div>
         <button class="btn" id="accessBtn">Acessar Cartão</button>
         <div class="error-message" id="errorMessage">Código inválido. Tente novamente.</div>
@@ -304,7 +332,7 @@
                     <span>ATIVO</span>
                 </div>
                 <div class="logo-center">
-                    <img src="https://bixx.com.br/logo.png" alt="BIXX CLUB" id="logoFront">
+                    <img src="https://bixx.com.br/logo.png" alt="BIXX CLUB" id="logoFront" onerror="this.style.display='none';">
                     <div class="bixx-club-text">BIXX CLUB</div>
                 </div>
                 <div class="membro">MEMBRO</div>
@@ -330,6 +358,16 @@
     <p class="hint" id="hintText">Clique no cartão para virar</p>
 
     <script>
+        // Verificar se está sendo executado em um dispositivo Android
+        function isAndroid() {
+            return /Android/i.test(navigator.userAgent);
+        }
+        
+        // Mostrar instruções para Android
+        if (isAndroid()) {
+            document.getElementById('androidWarning').style.display = 'block';
+        }
+        
         // Dados simulados (em um caso real, isso viria de uma API)
         const userData = {
             "ABC123": {
@@ -359,42 +397,7 @@
         const codeInput = document.getElementById('codeInput');
         const accessBtn = document.getElementById('accessBtn');
         const errorMessage = document.getElementById('errorMessage');
-        const logoIcon = document.getElementById('logoIcon');
-        const fallbackLogo = document.getElementById('fallbackLogo');
-        const logoFront = document.getElementById('logoFront');
         const exitBtn = document.getElementById('exitBtn');
-        
-        // Verificar se as imagens da logo existem
-        function checkLogos() {
-            // Verificar logo do ícone
-            const img1 = new Image();
-            img1.onload = function() {
-                logoIcon.style.display = 'block';
-                fallbackLogo.style.display = 'none';
-            };
-            img1.onerror = function() {
-                logoIcon.style.display = 'none';
-                fallbackLogo.style.display = 'block';
-            };
-            img1.src = 'https://bixx.com.br/logo.png';
-            
-            // Verificar logo da frente do cartão
-            const img2 = new Image();
-            img2.onload = function() {
-                logoFront.style.display = 'block';
-            };
-            img2.onerror = function() {
-                logoFront.style.display = 'none';
-                // Criar fallback para a logo frontal se necessário
-                const logoCenter = document.querySelector('.logo-center');
-                const fallback = document.createElement('div');
-                fallback.className = 'fallback-logo';
-                fallback.textContent = 'BIXX';
-                fallback.style.display = 'block';
-                logoCenter.appendChild(fallback);
-            };
-            img2.src = 'https://bixx.com.br/logo.png';
-        }
         
         // Evento para acessar o cartão
         accessBtn.addEventListener('click', function() {
@@ -452,8 +455,28 @@
         // Focar no input ao carregar a página
         window.addEventListener('load', function() {
             codeInput.focus();
-            checkLogos();
+            
+            // Verificar se a página está sendo executada localmente
+            if (window.location.protocol === 'file:') {
+                alert('Para o melhor funcionamento em dispositivos Android, este aplicativo deve ser hospedado em um servidor web.');
+            }
         });
+
+        // Prevenir zoom indesejado em dispositivos móveis
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(e) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
     </script>
 </body>
 </html>
