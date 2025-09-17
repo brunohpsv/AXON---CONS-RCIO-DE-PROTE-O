@@ -8,9 +8,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="BIXX CLUB">
     <meta name="description" content="Cartão Virtual BIXX CLUB - Acesse seu cartão de membro">
-    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="expires" content="0">
+    
+    <!-- Meta tags para prevenir cache -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     
     <!-- Ícones para adicionar à tela inicial -->
     <link rel="apple-touch-icon" sizes="180x180" href="https://bixx.com.br/logo.png?v=2">
@@ -326,8 +328,8 @@
             20%, 40%, 60%, 80% { transform: translateX(5px); }
         }
 
-        /* Adicionado para melhorar compatibilidade com Android */
-        .android-warning {
+        /* Adicionado para melhorar compatibilidade com iOS */
+        .ios-warning {
             display: none;
             background: rgba(0, 0, 0, 0.7);
             color: white;
@@ -360,6 +362,12 @@
         <p>Para melhor experiência, adicione esta página à sua tela inicial:</p>
         <p>1. Toque no menu (⋮) no canto superior direito</p>
         <p>2. Selecione "Adicionar à tela inicial"</p>
+    </div>
+    
+    <div class="ios-warning" id="iosWarning">
+        <p>Para garantir que os dados estejam sempre atualizados:</p>
+        <p>1. Feche o app completamente (swipe up)</p>
+        <p>2. Reabra a partir da tela inicial</p>
     </div>
     
     <div class="loading-screen" id="loadingScreen">
@@ -439,13 +447,23 @@
             document.getElementById('androidWarning').style.display = 'block';
         }
         
+        // Mostrar instruções para iOS em modo standalone
+        if (isIOS() && isInStandaloneMode()) {
+            document.getElementById('iosWarning').style.display = 'block';
+            
+            // Esconder o aviso após 5 segundos
+            setTimeout(() => {
+                document.getElementById('iosWarning').style.display = 'none';
+            }, 5000);
+        }
+        
         // Dados simulados (em um caso real, isso viria de uma API)
         const userData = {
             "ABC123": {
                 name: "FULANO DA SILVA",
                 plan: "PREMIUM",
                 id: "BIXX-7890-1234",
-                status: "ATIVO"
+                status: "INATIVO"
             },
             "XYZ789": {
                 name: "CICLANO OLIVEIRA",
@@ -475,12 +493,18 @@
         // Variáveis para controle de atualização
         let refreshInterval;
         let lastAccessCode = '';
+        let appOpenedTimestamp = Date.now();
+        
+        // Função para gerar um timestamp único para evitar cache
+        function getCacheBuster() {
+            return 't=' + new Date().getTime();
+        }
         
         // Função para simular busca de dados atualizados (substitua por uma chamada real à API)
         function fetchUpdatedUserData(code) {
             return new Promise((resolve, reject) => {
-                // Adicionar timestamp para evitar cache
-                const timestamp = new Date().getTime();
+                // Adicionar parâmetro anti-cache
+                const cacheBuster = getCacheBuster();
                 
                 // Simular tempo de resposta da API (1-2 segundos)
                 const delay = Math.floor(Math.random() * 1000) + 1000;
@@ -490,23 +514,15 @@
                         // Simular possíveis mudanças nos dados
                         const updatedData = {...userData[code]};
                         
-                        // Adicionar timestamp aos dados para garantir que sejam sempre diferentes
-                        updatedData.timestamp = timestamp;
+                        // Adicionar timestamp para simular dados atualizados
+                        updatedData.lastUpdated = new Date().toLocaleTimeString();
                         
                         // Em uma implementação real, aqui você faria uma requisição para sua API
-                        // com headers para evitar cache:
-                        /*
-                        fetch(`https://suaapi.com/user/${code}?t=${timestamp}`, {
-                            headers: {
-                                'Cache-Control': 'no-cache, no-store, must-revalidate',
-                                'Pragma': 'no-cache',
-                                'Expires': '0'
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => resolve(data))
-                        .catch(error => reject(error))
-                        */
+                        // com parâmetros anti-cache:
+                        // fetch(`https://suaapi.com/user/${code}?${cacheBuster}`)
+                        //   .then(response => response.json())
+                        //   .then(data => resolve(data))
+                        //   .catch(error => reject(error))
                         
                         resolve(updatedData);
                     } else {
@@ -516,15 +532,30 @@
             });
         }
         
+        // Função para verificar se precisa forçar atualização
+        function checkIfNeedsRefresh() {
+            if (isInStandaloneMode()) {
+                const now = Date.now();
+                const timeSinceLastOpen = now - appOpenedTimestamp;
+                
+                // Se o app foi aberto há mais de 5 minutos, forçar refresh completo
+                if (timeSinceLastOpen > 5 * 60 * 1000) {
+                    forceRefresh();
+                    return true;
+                }
+            }
+            return false;
+        }
+        
         // Função para forçar atualização da página
         function forceRefresh() {
             if (isInStandaloneMode()) {
                 // Mostrar indicador de atualização
                 refreshIndicator.style.display = 'block';
                 
-                // Forçar recarregamento da página após um breve delay
+                // Forçar recarregamento da página com parâmetro anti-cache
                 setTimeout(() => {
-                    window.location.reload(true);
+                    window.location.href = window.location.href.split('?')[0] + '?' + getCacheBuster();
                 }, 1000);
             }
         }
@@ -539,8 +570,37 @@
                 
                 // Configurar novo intervalo (2 minutos)
                 refreshInterval = setInterval(() => {
-                    forceRefresh();
+                    // Verificar se estamos na tela do cartão
+                    if (cardContainer.style.display === 'block') {
+                        // Atualizar os dados sem recarregar a página inteira
+                        refreshUserData();
+                    }
                 }, 2 * 60 * 1000); // 2 minutos em milissegundos
+            }
+        }
+        
+        // Função para atualizar os dados do usuário
+        async function refreshUserData() {
+            if (!lastAccessCode) return;
+            
+            try {
+                refreshIndicator.style.display = 'block';
+                const user = await fetchUpdatedUserData(lastAccessCode);
+                
+                // Atualizar dados na interface
+                document.getElementById('userName').textContent = user.name;
+                document.getElementById('userPlan').textContent = user.plan;
+                document.getElementById('userId').textContent = user.id;
+                document.querySelector('.status-badge span').textContent = user.status;
+                
+                // Esconder indicador após um breve período
+                setTimeout(() => {
+                    refreshIndicator.style.display = 'none';
+                }, 2000);
+                
+            } catch (error) {
+                console.error("Erro ao atualizar dados:", error);
+                refreshIndicator.style.display = 'none';
             }
         }
         
@@ -623,6 +683,14 @@
         
         // Focar no input ao carregar a página
         window.addEventListener('load', function() {
+            // Registrar o momento em que o app foi aberto
+            appOpenedTimestamp = Date.now();
+            
+            // Adicionar parâmetro anti-cache se estiver em modo standalone
+            if (isInStandaloneMode() && !window.location.search) {
+                window.history.replaceState({}, document.title, window.location.pathname + '?' + getCacheBuster());
+            }
+            
             codeInput.focus();
             
             // Verificar se a página está sendo executada localmente
@@ -634,17 +702,25 @@
             if (isInStandaloneMode() && localStorage.getItem('lastAccessCode')) {
                 const savedCode = localStorage.getItem('lastAccessCode');
                 codeInput.value = savedCode;
-                accessBtn.click();
-            }
-            
-            // Forçar atualização se a página foi carregada do cache (especialmente iOS)
-            window.onpageshow = function(event) {
-                if (event.persisted) {
-                    window.location.reload();
+                
+                // Verificar se precisa atualizar antes de mostrar os dados
+                if (checkIfNeedsRefresh()) {
+                    // Se precisa atualizar, forçar o usuário a clicar no botão
+                    codeInput.focus();
+                } else {
+                    accessBtn.click();
                 }
-            };
+            }
         });
 
+        // Detectar quando a página é mostrada (visível novamente)
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && isInStandaloneMode()) {
+                // A página ficou visível novamente, verificar se precisa atualizar
+                checkIfNeedsRefresh();
+            }
+        });
+        
         // Prevenir zoom indesejado em dispositivos móveis
         document.addEventListener('touchstart', function(e) {
             if (e.touches.length > 1) {
@@ -667,20 +743,6 @@
                 localStorage.setItem('lastAccessCode', lastAccessCode);
             }
         });
-        
-        // Service Worker para controlar cache (opcional, mas útil para PWA)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                // Registrar um service worker que não cache nada
-                navigator.serviceWorker.register('/sw.js', { scope: '/' })
-                    .then(function(registration) {
-                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                    })
-                    .catch(function(error) {
-                        console.log('ServiceWorker registration failed: ', error);
-                    });
-            });
-        }
     </script>
 </body>
 </html>
