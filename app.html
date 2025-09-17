@@ -32,6 +32,7 @@
             min-height: 100vh;
             background: linear-gradient(135deg, #ff4d4d, #cc0000);
             padding: 20px;
+            position: relative;
         }
         
         .login-screen {
@@ -111,6 +112,8 @@
             transform-style: preserve-3d;
             transition: transform 0.8s;
             cursor: pointer;
+            border: 2px solid #cc0000; /* Borda vermelha adicionada */
+            border-radius: 12px;
         }
         
         .card.flipped {
@@ -133,9 +136,7 @@
         .card-front {
             background: white;
             color: #cc0000;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            justify-content: space-between;
         }
         
         .card-back {
@@ -145,23 +146,52 @@
             justify-content: center;
         }
         
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
         .logo {
-            max-width: 180px;
-            margin-bottom: 10px;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            object-fit: contain;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-text .bixx {
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 1;
+        }
+        
+        .logo-text .club {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
         
         .membro {
             font-size: 14px;
             font-weight: bold;
             color: #cc0000;
-            margin-top: 0;
             letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 20px;
         }
         
         .status-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
             background: #4CAF50;
             color: white;
             padding: 5px 10px;
@@ -224,9 +254,32 @@
             margin-bottom: 5px;
             display: none;
         }
+        
+        .exit-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+        
+        .exit-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
 <body>
+    <button class="exit-btn" id="exitBtn">✕</button>
+    
     <div class="login-screen" id="loginScreen">
         <div class="app-icon">
             <img src="https://bixx.com.br/logo.png" alt="BIXX CLUB Logo" id="logoIcon">
@@ -243,11 +296,18 @@
     <div class="card-container" id="cardContainer">
         <div class="card" id="card">
             <div class="card-face card-front">
-                <div class="status-badge">
-                    <span>ATIVO</span>
+                <div class="card-header">
+                    <div class="logo-container">
+                        <img src="https://bixx.com.br/logo.png" alt="BIXX CLUB" class="logo" id="logoFront">
+                        <div class="logo-text">
+                            <div class="bixx">BIXX</div>
+                            <div class="club">CLUB</div>
+                        </div>
+                    </div>
+                    <div class="status-badge">
+                        <span>ATIVO</span>
+                    </div>
                 </div>
-                <img src="https://bixx.com.br/logo.png" alt="BIXX CLUB" class="logo" id="logoFront">
-                <div class="fallback-logo" id="fallbackLogoFront">BIXX CLUB</div>
                 <div class="membro">MEMBRO</div>
             </div>
             <div class="card-face card-back">
@@ -303,7 +363,7 @@
         const logoIcon = document.getElementById('logoIcon');
         const fallbackLogo = document.getElementById('fallbackLogo');
         const logoFront = document.getElementById('logoFront');
-        const fallbackLogoFront = document.getElementById('fallbackLogoFront');
+        const exitBtn = document.getElementById('exitBtn');
         
         // Verificar se as imagens da logo existem
         function checkLogos() {
@@ -323,11 +383,11 @@
             const img2 = new Image();
             img2.onload = function() {
                 logoFront.style.display = 'block';
-                fallbackLogoFront.style.display = 'none';
+                document.getElementById('fallbackLogoFront')?.style.display = 'none';
             };
             img2.onerror = function() {
                 logoFront.style.display = 'none';
-                fallbackLogoFront.style.display = 'block';
+                document.getElementById('fallbackLogoFront')?.style.display = 'block';
             };
             img2.src = 'https://bixx.com.br/logo.png';
         }
@@ -341,12 +401,14 @@
                 loginScreen.style.display = 'none';
                 cardContainer.style.display = 'block';
                 hintText.style.display = 'block';
+                exitBtn.style.display = 'block';
                 
                 // Preencher dados do usuário
                 const user = userData[code];
                 document.getElementById('userName').textContent = user.name;
                 document.getElementById('userPlan').textContent = user.plan;
                 document.getElementById('userId').textContent = user.id;
+                document.querySelector('.status-badge span').textContent = user.status;
                 
                 errorMessage.style.display = 'none';
             } else {
@@ -367,17 +429,39 @@
             this.classList.toggle('flipped');
         });
         
+        // Evento para o botão de sair
+        exitBtn.addEventListener('click', function() {
+            // Fechar o aplicativo (apenas funciona em contexto de PWA)
+            if (window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) {
+                // Para PWAs, não podemos fechar a janela, então voltamos para a tela de login
+                loginScreen.style.display = 'block';
+                cardContainer.style.display = 'none';
+                hintText.style.display = 'none';
+                exitBtn.style.display = 'none';
+                codeInput.value = '';
+            } else {
+                // Para navegadores normais
+                window.close();
+                
+                // Fallback para navegadores que não permitem window.close()
+                alert('Para sair, feche a aba/janela do navegador.');
+            }
+        });
+        
         // Verificar se está executando como app instalado
-        if (window.navigator.standalone) {
-            console.log('Executando como PWA no iOS');
-        } else if (window.matchMedia('(display-mode: standalone)').matches) {
-            console.log('Executando como PWA no Android');
+        function isRunningAsPWA() {
+            return window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
         }
         
         // Focar no input ao carregar a página
         window.addEventListener('load', function() {
             codeInput.focus();
             checkLogos();
+            
+            // Se estiver rodando como PWA, mostrar o botão de sair desde o início
+            if (isRunningAsPWA()) {
+                exitBtn.style.display = 'block';
+            }
         });
     </script>
 </body>
