@@ -84,6 +84,10 @@
             object-fit: contain;
         }
 
+        nav {
+            display: flex;
+        }
+
         nav ul {
             display: flex;
             list-style: none;
@@ -122,82 +126,50 @@
             transform: scale(1.1);
         }
 
-        /* Side Menu */
-        .side-menu {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 280px;
-            height: 100%;
+        /* Updated Menu: Now a dropdown menu that expands below the header */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 100%;
             background-color: var(--light);
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             z-index: 1001;
             transition: var(--transition);
-            padding: 2rem 1.5rem;
-            overflow-y: auto;
-            border-left: var(--border);
-        }
-
-        .side-menu.active {
-            right: 0;
-            animation: slideInRight 0.5s ease-out forwards;
-        }
-
-        .side-menu-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
+            padding: 1rem;
             border-bottom: var(--border);
+            border-left: var(--border);
+            border-right: var(--border);
+            animation: slideDown 0.5s ease-out forwards;
         }
 
-        .side-menu-close {
-            background: none;
-            border: var(--border);
-            font-size: 1.5rem;
-            color: var(--dark);
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            transition: var(--transition);
+        .dropdown-menu.active {
+            display: block;
         }
 
-        .side-menu-close:hover {
-            transform: rotate(90deg);
-        }
-
-        .side-menu-links {
+        .dropdown-menu ul {
             list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
-        .side-menu-links li {
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            transform: translateX(20px);
-            animation: slideInRight 0.5s ease-out forwards;
-            animation-delay: calc(0.1s * var(--index));
-        }
-
-        .side-menu-links a {
+        .dropdown-menu a {
             color: var(--dark);
             text-decoration: none;
             font-weight: 500;
             font-size: 1.1rem;
             display: block;
-            padding: 0.5rem 0;
+            padding: 0.5rem 1rem;
             transition: var(--transition);
             border-bottom: 1px solid transparent;
         }
 
-        .side-menu-links a:hover,
-        .side-menu-links a.active {
-            border-bottom: 1px solid var(--dark);
-            transform: translateX(5px);
+        .dropdown-menu a:hover,
+        .dropdown-menu a.active {
+            background-color: var(--gray);
+            border-radius: 4px;
         }
 
         .menu-overlay {
@@ -877,19 +849,48 @@
             100% { transform: scale(1); }
         }
 
-        /* Responsive */
-        @media (max-width: 992px) {
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Updated Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                width: 95%;
+            }
+
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
 
             .section-title h2 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+
+            .plans {
+                gap: 1.5rem;
             }
 
             .plan-card {
-                width: 100%;
-                max-width: 350px;
+                width: 45%;
+            }
+
+            .categories {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .coverage {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .process-steps {
+                gap: 1.5rem;
+            }
+
+            .step {
+                min-width: 45%;
+                padding: 2rem 1.5rem 2rem 4rem;
             }
         }
 
@@ -898,16 +899,25 @@
                 display: block;
             }
 
-            nav {
-                display: none;
+            nav ul {
+                display: none; /* Hide desktop nav on mobile */
+            }
+
+            .dropdown-menu {
+                position: fixed; /* Make it full-width on mobile */
+                top: 60px; /* Below header */
+                left: 0;
+                width: 100%;
+                border-left: none;
+                border-right: none;
             }
 
             .hero {
-                padding: 8rem 0 4rem;
+                padding: 8rem 1rem 4rem;
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
 
             .hero p {
@@ -918,28 +928,151 @@
                 display: flex;
                 flex-direction: column;
                 gap: 1rem;
+                align-items: center;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+                padding: 0.8rem 1.5rem;
             }
 
             .cta-button.secondary {
                 margin-left: 0;
             }
 
+            .categories {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .plan-card {
+                width: 100%;
+                max-width: none;
+            }
+
+            .coverage {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
             .step {
-                padding: 2rem 1.5rem 2rem 4rem;
+                min-width: 100%;
+                padding: 2rem 1rem 2rem 3rem;
+            }
+
+            .step::before {
+                left: 1rem;
+                top: -30px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
             }
 
             .big-cta-button {
-                padding: 1.2rem;
+                padding: 1rem;
                 font-size: 1rem;
             }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .logo-img {
+                width: 30px;
+                height: 30px;
+            }
         }
-         @media (min-width: 769px) {
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem 0.5rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-title p {
+                font-size: 0.9rem;
+            }
+
+            .category-card {
+                padding: 1rem;
+            }
+
+            .category-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .plan-card {
+                padding: 1.5rem;
+            }
+
+            .price {
+                font-size: 2rem;
+            }
+
+            .plan-features li {
+                font-size: 0.9rem;
+            }
+
+            .coverage-card {
+                padding: 1.5rem;
+            }
+
+            .step h3 {
+                font-size: 1.1rem;
+            }
+
+            .step li {
+                font-size: 0.9rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-col h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .footer-links {
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 769px) {
             .mobile-menu-btn {
                 display: none;
             }
 
-            nav {
-                display: block;
+            nav ul {
+                display: flex;
+            }
+
+            .dropdown-menu {
+                display: none !important; /* Ensure dropdown not shown on desktop */
             }
         }
     </style>
@@ -964,23 +1097,17 @@
                 <i class="fas fa-bars"></i>
             </button>
         </div>
-    </header>
-
-    <div class="side-menu" id="sideMenu">
-        <div class="side-menu-header">
-            <h3>Menu</h3>
-            <button class="side-menu-close" id="sideMenuClose" aria-label="Fechar menu">
-                <i class="fas fa-times"></i>
-            </button>
+        <!-- Updated Dropdown Menu -->
+        <div class="dropdown-menu" id="dropdownMenu">
+            <ul>
+                <li><a href="#benefits">Benefícios</a></li>
+                <li><a href="#plans">Planos</a></li>
+                <li><a href="#coverage">Cobertura</a></li>
+                <li><a href="#how-it-works">Como Funciona</a></li>
+                <li><a href="app.html">Seu cartão virtual</a></li>
+            </ul>
         </div>
-        <ul class="side-menu-links">
-             <li><a href="#benefits">Benefícios</a></li>
-             <li><a href="#plans">Planos</a></li>
-             <li><a href="#coverage">Cobertura</a></li>
-             <li><a href="#how-it-works">Como Funciona</a></li>
-			 <li><a href="app.html">Seu cartão virtual</a></li>
-        </ul>
-    </div>
+    </header>
     <div class="menu-overlay" id="menuOverlay"></div>
 
     <section class="hero">
@@ -1256,21 +1383,24 @@
     </footer>
 
     <script>
-        // Mobile Menu Toggle
+        // Updated Mobile Menu Toggle for Dropdown
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const sideMenu = document.getElementById('sideMenu');
-        const sideMenuClose = document.getElementById('sideMenuClose');
+        const dropdownMenu = document.getElementById('dropdownMenu');
         const menuOverlay = document.getElementById('menuOverlay');
 
         function toggleMenu() {
-            const isActive = sideMenu.classList.toggle('active');
+            const isActive = dropdownMenu.classList.toggle('active');
             menuOverlay.classList.toggle('active');
             document.body.style.overflow = isActive ? 'hidden' : '';
             mobileMenuBtn.setAttribute('aria-expanded', isActive);
+            if (isActive) {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
         }
 
         mobileMenuBtn.addEventListener('click', toggleMenu);
-        sideMenuClose.addEventListener('click', toggleMenu);
         menuOverlay.addEventListener('click', toggleMenu);
 
         // Smooth scrolling for anchor links
@@ -1287,7 +1417,9 @@
                         top: targetElement.offsetTop - 80,
                         behavior: 'smooth'
                     });
-
+                }
+                if (window.innerWidth <= 768) {
+                    toggleMenu(); // Close menu on mobile after click
                 }
             });
         });
@@ -1307,7 +1439,7 @@
         // Active menu item on scroll
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('nav a, .side-menu-links a');
+            const navLinks = document.querySelectorAll('nav a, .dropdown-menu a');
             let current = '';
 
             sections.forEach(section => {
