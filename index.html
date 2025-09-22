@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-	
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="BIXX CLUB - Clube de benefícios com descontos exclusivos em viagens, hospedagem, cursos e mais">
@@ -10,7 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-	<link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#FF0000">
     <style>
         :root {
             --primary: #FF0000;
@@ -837,9 +842,19 @@
             to { opacity: 1; }
         }
 
+        @-webkit-keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @-webkit-keyframes fadeInUp {
+            from { opacity: 0; -webkit-transform: translateY(30px); }
+            to { opacity: 1; -webkit-transform: translateY(0); }
         }
 
         @keyframes slideInLeft {
@@ -847,12 +862,27 @@
             to { opacity: 1; transform: translateX(0); }
         }
 
+        @-webkit-keyframes slideInLeft {
+            from { opacity: 0; -webkit-transform: translateX(-20px); }
+            to { opacity: 1; -webkit-transform: translateX(0); }
+        }
+
         @keyframes slideInRight {
             from { opacity: 0; transform: translateX(20px); }
             to { opacity: 1; transform: translateX(0); }
         }
 
+        @-webkit-keyframes slideInRight {
+            from { opacity: 0; -webkit-transform: translateX(20px); }
+            to { opacity: 1; -webkit-transform: translateX(0); }
+        }
+
         @keyframes slideInTop {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @-webkit-keyframes slideInTop {
             from { width: 0; }
             to { width: 100%; }
         }
@@ -862,12 +892,27 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @-webkit-keyframes slideUp {
+            from { opacity: 0; -webkit-transform: translateY(20px); }
+            to { opacity: 1; -webkit-transform: translateY(0); }
+        }
+
         @keyframes popIn {
             from { opacity: 0; transform: scale(0.8); }
             to { opacity: 1; transform: scale(1); }
         }
 
+        @-webkit-keyframes popIn {
+            from { opacity: 0; -webkit-transform: scale(0.8); }
+            to { opacity: 1; -webkit-transform: scale(1); }
+        }
+
         @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 80px; }
+        }
+
+        @-webkit-keyframes expandWidth {
             from { width: 0; }
             to { width: 80px; }
         }
@@ -879,15 +924,33 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
+        @-webkit-keyframes bounceIn {
+            0% { -webkit-transform: scale(0.3); opacity: 0; }
+            50% { -webkit-transform: scale(1.2); opacity: 0.7; }
+            70% { -webkit-transform: scale(0.9); opacity: 1; }
+            100% { -webkit-transform: scale(1); opacity: 1; }
+        }
+
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
 
+        @-webkit-keyframes pulse {
+            0% { -webkit-transform: scale(1); }
+            50% { -webkit-transform: scale(1.2); }
+            100% { -webkit-transform: scale(1); }
+        }
+
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @-webkit-keyframes slideDown {
+            from { opacity: 0; -webkit-transform: translateY(-20px); }
+            to { opacity: 1; -webkit-transform: translateY(0); }
         }
 
         /* Updated Responsive Design */
