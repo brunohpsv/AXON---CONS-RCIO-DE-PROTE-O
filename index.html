@@ -828,63 +828,6 @@
                 <p>Nossa missão é transformar sonhos em realidade, proporcionando viagens inesquecíveis com segurança, conforto e preços competitivos.</p>
                 <p>Contamos com uma equipe de especialistas apaixonados por viagens, sempre prontos para oferecer o melhor atendimento e criar roteiros personalizados que atendam às suas expectativas.</p>
             </div>
-            <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Equipe BIXX VIAGENS">
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Entre em Contato</h2>
-                <p>Estamos prontos para ajudar a planejar sua próxima viagem</p>
-            </div>
-            
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>Informações de Contato</h3>
-                    <ul class="contact-details">
-                        <li><i class="fas fa-map-marker-alt"></i> Av. Paulista, 1000 - São Paulo, SP</li>
-                        <li><i class="fas fa-phone"></i> (11) 9999-9999</li>
-                        <li><i class="fas fa-envelope"></i> contato@bixxviagens.com.br</li>
-                        <li><i class="fas fa-clock"></i> Segunda a Sexta: 9h às 18h</li>
-                    </ul>
-                    
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Nome</label>
-                            <input type="text" id="name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input type="email" id="email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">Telefone</label>
-                            <input type="tel" id="phone" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Mensagem</label>
-                            <textarea id="message" required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="consult-button">ENVIAR MENSAGEM</button>
-                    </form>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -1067,13 +1010,6 @@
         // Inicializar estado ativo no carregamento da página
         window.dispatchEvent(new Event('scroll'));
 
-        // Formulário de contato
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-                this.reset();
             });
         }
     </script>
