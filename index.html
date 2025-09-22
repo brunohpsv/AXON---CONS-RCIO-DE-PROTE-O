@@ -749,323 +749,209 @@
             </div>
             
             <div class="destination-card special-card">
-                <img src="https://images.unsplash.com/photo-1594736797933-d0d69c1d75d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Lençóis Maranhenses" class="destination-image">
-                <div class="destination-info">
-                    <h3>Lençóis Maranhenses</h3>
-                    <p>4 dias e 3 noites com guia local</p>
-                    <div class="destination-price">
-                        <div class="price">R$ 1.199<span>/pessoa</span></div>
-                    </div>
-                    <div class="consultation-form">
-                        <div class="form-group">
-                            <label for="state">Estado</label>
-                            <select id="state" required>
-                                <option value="" disabled selected>Selecione seu estado</option>
-                                <option value="MA">Maranhão</option>
-                                <option value="PA">Pará</option>
-                                <option value="PI">Piauí</option>
-                                <option value="CE">Ceará</option>
-                                <option value="outro">Outro</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="city">Cidade</label>
-                            <select id="city" required>
-                                <option value="" disabled selected>Selecione sua cidade</option>
-                                <!-- As opções de cidades serão preenchidas dinamicamente -->
-                            </select>
-                        </div>
-                        <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
-                    </div>
-                </div>
+    <img src="https://images.unsplash.com/photo-1594736797933-d0d69c1d75d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Lençóis Maranhenses" class="destination-image">
+    <div class="destination-info">
+        <h3>Lençóis Maranhenses</h3>
+        <p>4 dias e 3 noites com guia local</p>
+        <div class="destination-price">
+            <div class="price">R$ 1.199<span>/pessoa</span></div>
+        </div>
+        <div class="consultation-form">
+            <div class="form-group">
+                <label for="state">Estado</label>
+                <select id="state" required onchange="updateCities()">
+                    <option value="" disabled selected>Selecione seu estado</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                </select>
             </div>
+            <div class="form-group">
+                <label for="city">Cidade</label>
+                <select id="city" required>
+                    <option value="" disabled selected>Selecione seu estado primeiro</option>
+                </select>
+            </div>
+            <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
         </div>
-        <div class="image-disclaimer">
-            * As imagens utilizadas neste site são meramente decorativas e podem não representar exatamente os destinos oferecidos.
-        </div>
-    </section>
+    </div>
+</div>
 
-    <section class="services" id="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>Nossos Serviços</h2>
-                <p>Tudo que você precisa para uma viagem perfeita</p>
-            </div>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-hotel"></i>
-                    </div>
-                    <h3>Hospedagem</h3>
-                    <p>Hotéis e pousadas selecionadas para seu conforto</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-plane"></i>
-                    </div>
-                    <h3>Passagens Aéreas</h3>
-                    <p>Melhores tarifas com as principais companhias</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-car"></i>
-                    </div>
-                    <h3>Aluguel de Carros</h3>
-                    <p>Veículos para explorar seu destino com liberdade</p>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-map-marked-alt"></i>
-                    </div>
-                    <h3>Roteiros Personalizados</h3>
-                    <p>Planejamento de viagens sob medida para você</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<script>
+// Função para atualizar cidades baseado no estado selecionado
+function updateCities() {
+    const stateSelect = document.getElementById('state');
+    const citySelect = document.getElementById('city');
+    const selectedState = stateSelect.value;
+    
+    // Limpa as cidades atuais
+    citySelect.innerHTML = '<option value="" disabled selected>Selecione sua cidade</option>';
+    
+    const cities = {
+        'AC': ['Rio Branco', 'Cruzeiro do Sul', 'Sena Madureira', 'Tarauacá', 'Feijó'],
+        'AL': ['Maceió', 'Arapiraca', 'Palmeira dos Índios', 'Rio Largo', 'São Miguel dos Campos'],
+        'AP': ['Macapá', 'Santana', 'Laranjal do Jari', 'Oiapoque', 'Porto Grande'],
+        'AM': ['Manaus', 'Parintins', 'Itacoatiara', 'Manacapuru', 'Coari'],
+        'BA': ['Salvador', 'Feira de Santana', 'Vitória da Conquista', 'Camaçari', 'Juazeiro'],
+        'CE': ['Fortaleza', 'Caucaia', 'Juazeiro do Norte', 'Maracanaú', 'Sobral'],
+        'DF': ['Brasília'],
+        'ES': ['Vitória', 'Vila Velha', 'Serra', 'Cariacica', 'Linhares'],
+        'GO': ['Goiânia', 'Aparecida de Goiânia', 'Anápolis', 'Rio Verde', 'Luziânia'],
+        'MA': ['São Luís', 'Imperatriz', 'Timon', 'Caxias', 'Codó'],
+        'MT': ['Cuiabá', 'Várzea Grande', 'Rondonópolis', 'Sinop', 'Tangará da Serra'],
+        'MS': ['Campo Grande', 'Dourados', 'Três Lagoas', 'Corumbá', 'Ponta Porã'],
+        'MG': ['Belo Horizonte', 'Uberlândia', 'Contagem', 'Juiz de Fora', 'Betim'],
+        'PA': ['Belém', 'Ananindeua', 'Santarém', 'Marabá', 'Parauapebas'],
+        'PB': ['João Pessoa', 'Campina Grande', 'Santa Rita', 'Patos', 'Bayeux'],
+        'PR': ['Curitiba', 'Londrina', 'Maringá', 'Ponta Grossa', 'Cascavel'],
+        'PE': ['Recife', 'Jaboatão dos Guararapes', 'Olinda', 'Caruaru', 'Petrolina'],
+        'PI': ['Teresina', 'Parnaíba', 'Picos', 'Piripiri', 'Floriano'],
+        'RJ': ['Rio de Janeiro', 'São Gonçalo', 'Duque de Caxias', 'Nova Iguaçu', 'Niterói'],
+        'RN': ['Natal', 'Mossoró', 'Parnamirim', 'São Gonçalo do Amarante', 'Macaíba'],
+        'RS': ['Porto Alegre', 'Caxias do Sul', 'Pelotas', 'Canoas', 'Santa Maria'],
+        'RO': ['Porto Velho', 'Ji-Paraná', 'Ariquemes', 'Vilhena', 'Cacoal'],
+        'RR': ['Boa Vista', 'Rorainópolis', 'Caracaraí', 'Alto Alegre', 'Mucajaí'],
+        'SC': ['Florianópolis', 'Joinville', 'Blumenau', 'São José', 'Criciúma'],
+        'SP': ['São Paulo', 'Guarulhos', 'Campinas', 'São Bernardo do Campo', 'Santo André'],
+        'SE': ['Aracaju', 'Nossa Senhora do Socorro', 'Lagarto', 'Itabaiana', 'São Cristóvão'],
+        'TO': ['Palmas', 'Araguaína', 'Gurupi', 'Porto Nacional', 'Paraíso do Tocantins']
+    };
+    
+    if (cities[selectedState]) {
+        cities[selectedState].forEach(city => {
+            const option = document.createElement('option');
+            option.value = city.toLowerCase().replace(/\s+/g, '-');
+            option.textContent = city;
+            citySelect.appendChild(option);
+        });
+    }
+}
 
-    <section id="about" class="container">
-        <div class="about">
-            <div>
-                <img src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Sobre a BIXX VIAGENS" class="about-image">
-            </div>
-            <div class="about-content">
-                <h2>Sobre a BIXX VIAGENS</h2>
-                <p>Com mais de 10 anos de experiência no mercado, a BIXX VIAGENS se especializou em criar experiências de viagem únicas e memoráveis para nossos clientes.</p>
-                <p>Nossa missão é simplificar o planejamento de viagens, oferecendo pacotes completos com o melhor custo-benefício e atendimento personalizado.</p>
-                <p>Seja para uma escapada de fim de semana ou uma aventura internacional, temos a solução ideal para você.</p>
-                <a href="#contact" class="cta-button">FALE CONOSCO</a>
-            </div>
-        </div>
-        <div class="image-disclaimer">
-            * As imagens utilizadas neste site são meramente decorativas e podem não representar exatamente os serviços oferecidos.
-        </div>
-    </section>
+// Menu Mobile Toggle
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const navMenu = document.getElementById('navMenu');
 
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Entre em Contato</h2>
-                <p>Estamos prontos para planejar sua próxima viagem</p>
-            </div>
-            
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>Informações de Contato</h3>
-                    <ul class="contact-details">
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Av. Paulista, 1000 - São Paulo, SP</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-phone"></i>
-                            <span>(11) 9999-9999</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-envelope"></i>
-                            <span>contato@bixxviagens.com.br</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-clock"></i>
-                            <span>Segunda a Sexta: 9h às 18h</span>
-                        </li>
-                    </ul>
-                    
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-                
-                <div class="contact-form">
-                    <h3>Envie sua Mensagem</h3>
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Nome Completo</label>
-                            <input type="text" id="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input type="email" id="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Telefone</label>
-                            <input type="tel" id="phone">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Mensagem</label>
-                            <textarea id="message" required></textarea>
-                        </div>
-                        <button type="submit" class="consult-button">ENVIAR MENSAGEM</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-col">
-                    <h3>BIXX VIAGENS</h3>
-                    <p>Sua agência de viagens de confiança, criando experiências únicas desde 2013.</p>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Links Rápidos</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Início</a></li>
-                        <li><a href="#destinations">Destinos</a></li>
-                        <li><a href="#services">Serviços</a></li>
-                        <li><a href="#about">Sobre</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Destinos Populares</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Rio de Janeiro</a></li>
-                        <li><a href="#">Fernando de Noronha</a></li>
-                        <li><a href="#">Gramado</a></li>
-                        <li><a href="#">Bonito</a></li>
-                        <li><a href="#">Jericoacoara</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2023 BIXX VIAGENS. Todos os direitos reservados.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Dados das cidades por estado
-        const citiesByState = {
-            "MA": [
-                { value: "barreirinhas", name: "Barreirinhas" },
-                { value: "santo-amaro", name: "Santo Amaro" },
-                { value: "primeira-cruz", name: "Primeira Cruz" },
-                { value: "humberto-de-campos", name: "Humberto de Campos" },
-                { value: "outra", name: "Outra" }
-            ],
-            "PA": [
-                { value: "belem", name: "Belém" },
-                { value: "santarem", name: "Santarém" },
-                { value: "maraba", name: "Marabá" },
-                { value: "outra", name: "Outra" }
-            ],
-            "PI": [
-                { value: "teresina", name: "Teresina" },
-                { value: "parnaiba", name: "Parnaíba" },
-                { value: "picos", name: "Picos" },
-                { value: "outra", name: "Outra" }
-            ],
-            "CE": [
-                { value: "fortaleza", name: "Fortaleza" },
-                { value: "juazeiro-do-norte", name: "Juazeiro do Norte" },
-                { value: "sobral", name: "Sobral" },
-                { value: "outra", name: "Outra" }
-            ],
-            "outro": [
-                { value: "outra", name: "Outra" }
-            ]
-        };
-
-        // Menu Mobile Toggle - Corrigido
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
+if (mobileMenuBtn && navMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        mobileMenuBtn.classList.toggle('active');
         
-        mobileMenuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            mobileMenuBtn.classList.toggle('active');
-            
-            // Prevenir scroll do body quando o menu está aberto
-            if (navMenu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'auto';
-            }
+        // Prevenir scroll do body quando o menu está aberto
+        if (navMenu.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    // Fechar menu ao clicar em um link
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            mobileMenuBtn.classList.remove('active');
+            document.body.style.overflow = 'auto';
         });
+    });
+}
 
-        // Fechar menu ao clicar em um link
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                mobileMenuBtn.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-        });
+// Smooth scrolling para links âncora
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    if (anchor.getAttribute('href') !== '#') {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
 
-        // Smooth scrolling para links âncora
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            if (anchor.getAttribute('href') !== '#') {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
                 });
             }
         });
+    }
+});
 
-        // Efeito de scroll no header - Melhorado
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            const headerContainer = document.querySelector('.header-container');
-            
-            if (window.scrollY > 50) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-                header.style.backdropFilter = 'blur(10px)';
-                headerContainer.style.padding = '0.5rem 0';
-            } else {
-                header.style.background = 'var(--light)';
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
-                header.style.backdropFilter = 'none';
-                headerContainer.style.padding = '1rem 0';
-            }
-        });
+// Efeito de scroll no header
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    const headerContainer = document.querySelector('.header-container');
+    
+    if (header && headerContainer) {
+        if (window.scrollY > 50) {
+            header.style.background = 'rgba(255, 255, 255, 0.98)';
+            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            header.style.backdropFilter = 'blur(10px)';
+            headerContainer.style.padding = '0.5rem 0';
+        } else {
+            header.style.background = 'var(--light)';
+            header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
+            header.style.backdropFilter = 'none';
+            headerContainer.style.padding = '1rem 0';
+        }
+    }
+});
 
-        // Item ativo no menu durante scroll
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('nav a');
-            let current = '';
+// Item ativo no menu durante scroll
+window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+    let current = '';
 
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-                
-                if (window.pageYOffset >= sectionTop - 100 && 
-                    window.pageYOffset < sectionTop + sectionHeight - 100) {
-                    current = section.getAttribute('id');
-                }
-            });
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        
+        if (window.pageYOffset >= sectionTop - 100 && 
+            window.pageYOffset < sectionTop + sectionHeight - 100) {
+            current = section.getAttribute('id');
+        }
+    });
 
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        });
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+            link.classList.add('active');
+        }
+    });
+});
 
-        // Inicializar estado ativo no carregamento da página
-        window.dispatchEvent(new Event('scroll'));
-        });
-    </script>
+// Inicializar estado ativo no carregamento da página
+window.dispatchEvent(new Event('scroll'));
+
+// Formulário de contato
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+        this.reset();
+    });
+}
+</script>
 </body>
 </html>
