@@ -196,16 +196,13 @@
             nav ul.active li:nth-child(2) { transition-delay: 0.2s; }
             nav ul.active li:nth-child(3) { transition-delay: 0.3s; }
             nav ul.active li:nth-child(4) { transition-delay: 0.4s; }
-            nav ul.active li:nth-child(5) { transition-delay: 0.5s; }
         }
 
-        /* Hero Section */
+        /* Hero Section - Removida imagem de fundo */
         .hero {
             padding: 10rem 0 5rem;
             text-align: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             color: var(--light);
             margin-top: 70px;
         }
@@ -226,8 +223,8 @@
 
         .cta-button {
             display: inline-block;
-            background: var(--accent);
-            color: white;
+            background: var(--light);
+            color: var(--primary);
             padding: 1rem 2.5rem;
             border-radius: 4px;
             text-decoration: none;
@@ -239,7 +236,7 @@
         .cta-button:hover {
             transform: translateY(-3px);
             box-shadow: var(--shadow-hover);
-            background: #ff5500;
+            background: rgba(255, 255, 255, 0.9);
         }
 
         /* Destinations Section */
@@ -328,6 +325,28 @@
             color: #5f6368;
         }
 
+        /* Botões dos cards - Corrigidos para vermelho */
+        .consult-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .consult-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
         /* Card especial para Lençóis Maranhenses */
         .special-card {
             position: relative;
@@ -372,27 +391,6 @@
             border-radius: 4px;
             font-family: 'Inter', sans-serif;
             background-color: white;
-        }
-
-        .consult-button {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        .consult-button:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
         }
 
         /* Services Section */
@@ -664,7 +662,6 @@
                     <li><a href="#destinations">Destinos</a></li>
                     <li><a href="#services">Serviços</a></li>
                     <li><a href="#about">Sobre</a></li>
-                    <li><a href="#contact">Contato</a></li>
                 </ul>
             </nav>
             
@@ -698,8 +695,8 @@
                     <p>5 dias e 4 noites com hospedagem em Copacabana</p>
                     <div class="destination-price">
                         <div class="price">R$ 1.299<span>/pessoa</span></div>
-                        <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
                     </div>
+                    <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
                 </div>
             </div>
             
@@ -710,8 +707,8 @@
                     <p>7 dias e 6 noites com passeios inclusos</p>
                     <div class="destination-price">
                         <div class="price">R$ 2.899<span>/pessoa</span></div>
-                        <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
                     </div>
+                    <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
                 </div>
             </div>
             
@@ -722,8 +719,8 @@
                     <p>4 dias e 3 noites com café colonial incluso</p>
                     <div class="destination-price">
                         <div class="price">R$ 899<span>/pessoa</span></div>
-                        <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
                     </div>
+                    <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
                 </div>
             </div>
             
@@ -734,8 +731,8 @@
                     <p>5 dias e 4 noites com passeios ecológicos</p>
                     <div class="destination-price">
                         <div class="price">R$ 1.599<span>/pessoa</span></div>
-                        <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
                     </div>
+                    <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
                 </div>
             </div>
             
@@ -746,8 +743,8 @@
                     <p>6 dias e 5 noites com passeio às dunas</p>
                     <div class="destination-price">
                         <div class="price">R$ 1.799<span>/pessoa</span></div>
-                        <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
                     </div>
+                    <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
                 </div>
             </div>
             
@@ -851,7 +848,7 @@
             * As imagens utilizadas neste site são meramente decorativas e podem não representar exatamente os serviços oferecidos.
         </div>
     </section>
-
+    
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -867,7 +864,6 @@
                         <li><a href="#destinations">Destinos</a></li>
                         <li><a href="#services">Serviços</a></li>
                         <li><a href="#about">Sobre</a></li>
-                        <li><a href="#contact">Contato</a></li>
                     </ul>
                 </div>
                 
@@ -977,6 +973,7 @@
 
         // Inicializar estado ativo no carregamento da página
         window.dispatchEvent(new Event('scroll'));
+        });
     </script>
 </body>
 </html>
