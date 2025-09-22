@@ -772,10 +772,7 @@
                             <label for="city">Cidade</label>
                             <select id="city" required>
                                 <option value="" disabled selected>Selecione sua cidade</option>
-                                <option value="barreirinhas">Barreirinhas</option>
-                                <option value="santo-amaro">Santo Amaro</option>
-                                <option value="primeira-cruz">Primeira Cruz</option>
-                                <option value="outra">Outra</option>
+                                <!-- As opções de cidades serão preenchidas dinamicamente -->
                             </select>
                         </div>
                         <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
@@ -848,7 +845,70 @@
             * As imagens utilizadas neste site são meramente decorativas e podem não representar exatamente os serviços oferecidos.
         </div>
     </section>
-    
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Entre em Contato</h2>
+                <p>Estamos prontos para planejar sua próxima viagem</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Informações de Contato</h3>
+                    <ul class="contact-details">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Av. Paulista, 1000 - São Paulo, SP</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>(11) 9999-9999</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>contato@bixxviagens.com.br</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Segunda a Sexta: 9h às 18h</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Envie sua Mensagem</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nome Completo</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefone</label>
+                            <input type="tel" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensagem</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="consult-button">ENVIAR MENSAGEM</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -886,6 +946,38 @@
     </footer>
 
     <script>
+        // Dados das cidades por estado
+        const citiesByState = {
+            "MA": [
+                { value: "barreirinhas", name: "Barreirinhas" },
+                { value: "santo-amaro", name: "Santo Amaro" },
+                { value: "primeira-cruz", name: "Primeira Cruz" },
+                { value: "humberto-de-campos", name: "Humberto de Campos" },
+                { value: "outra", name: "Outra" }
+            ],
+            "PA": [
+                { value: "belem", name: "Belém" },
+                { value: "santarem", name: "Santarém" },
+                { value: "maraba", name: "Marabá" },
+                { value: "outra", name: "Outra" }
+            ],
+            "PI": [
+                { value: "teresina", name: "Teresina" },
+                { value: "parnaiba", name: "Parnaíba" },
+                { value: "picos", name: "Picos" },
+                { value: "outra", name: "Outra" }
+            ],
+            "CE": [
+                { value: "fortaleza", name: "Fortaleza" },
+                { value: "juazeiro-do-norte", name: "Juazeiro do Norte" },
+                { value: "sobral", name: "Sobral" },
+                { value: "outra", name: "Outra" }
+            ],
+            "outro": [
+                { value: "outra", name: "Outra" }
+            ]
+        };
+
         // Menu Mobile Toggle - Corrigido
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navMenu = document.getElementById('navMenu');
