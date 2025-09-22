@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" href="logotipo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>>
+    <style>
         :root {
             --primary: #e82a1a;
             --primary-dark: #a10d0d;
@@ -328,6 +328,73 @@
             color: #5f6368;
         }
 
+        /* Card especial para Lençóis Maranhenses */
+        .special-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .special-card:before {
+            content: "Personalizado";
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+
+        .consultation-form {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid var(--gray);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            background-color: white;
+        }
+
+        .consult-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .consult-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
         /* Services Section */
         .services {
             background: var(--gray-light);
@@ -430,18 +497,18 @@
             box-shadow: var(--shadow);
         }
 
-        .form-group {
+        .contact-form .form-group {
             margin-bottom: 1.5rem;
         }
 
-        .form-group label {
+        .contact-form .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
         }
 
-        .form-group input,
-        .form-group textarea {
+        .contact-form .form-group input,
+        .contact-form .form-group textarea {
             width: 100%;
             padding: 0.8rem;
             border: 1px solid var(--gray);
@@ -449,7 +516,7 @@
             font-family: 'Inter', sans-serif;
         }
 
-        .form-group textarea {
+        .contact-form .form-group textarea {
             height: 120px;
             resize: vertical;
         }
@@ -631,7 +698,7 @@
                     <p>5 dias e 4 noites com hospedagem em Copacabana</p>
                     <div class="destination-price">
                         <div class="price">R$ 1.299<span>/pessoa</span></div>
-                        <a href="#" class="cta-button">Detalhes</a>
+                        <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
                     </div>
                 </div>
             </div>
@@ -643,7 +710,7 @@
                     <p>7 dias e 6 noites com passeios inclusos</p>
                     <div class="destination-price">
                         <div class="price">R$ 2.899<span>/pessoa</span></div>
-                        <a href="#" class="cta-button">Detalhes</a>
+                        <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
                     </div>
                 </div>
             </div>
@@ -655,7 +722,7 @@
                     <p>4 dias e 3 noites com café colonial incluso</p>
                     <div class="destination-price">
                         <div class="price">R$ 899<span>/pessoa</span></div>
-                        <a href="#" class="cta-button">Detalhes</a>
+                        <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
                     </div>
                 </div>
             </div>
@@ -667,7 +734,7 @@
                     <p>5 dias e 4 noites com passeios ecológicos</p>
                     <div class="destination-price">
                         <div class="price">R$ 1.599<span>/pessoa</span></div>
-                        <a href="#" class="cta-button">Detalhes</a>
+                        <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
                     </div>
                 </div>
             </div>
@@ -679,19 +746,42 @@
                     <p>6 dias e 5 noites com passeio às dunas</p>
                     <div class="destination-price">
                         <div class="price">R$ 1.799<span>/pessoa</span></div>
-                        <a href="#" class="cta-button">Detalhes</a>
+                        <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
                     </div>
                 </div>
             </div>
             
-            <div class="destination-card">
+            <div class="destination-card special-card">
                 <img src="https://images.unsplash.com/photo-1594736797933-d0d69c1d75d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Lençóis Maranhenses" class="destination-image">
                 <div class="destination-info">
                     <h3>Lençóis Maranhenses</h3>
                     <p>4 dias e 3 noites com guia local</p>
                     <div class="destination-price">
                         <div class="price">R$ 1.199<span>/pessoa</span></div>
-                        <a href="#" class="cta-button">Detalhes</a>
+                    </div>
+                    <div class="consultation-form">
+                        <div class="form-group">
+                            <label for="state">Estado</label>
+                            <select id="state" required>
+                                <option value="" disabled selected>Selecione seu estado</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="PA">Pará</option>
+                                <option value="PI">Piauí</option>
+                                <option value="CE">Ceará</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">Cidade</label>
+                            <select id="city" required>
+                                <option value="" disabled selected>Selecione sua cidade</option>
+                                <option value="barreirinhas">Barreirinhas</option>
+                                <option value="santo-amaro">Santo Amaro</option>
+                                <option value="primeira-cruz">Primeira Cruz</option>
+                                <option value="outra">Outra</option>
+                            </select>
+                        </div>
+                        <button class="consult-button">CONSULTAR COM ESPECIALISTA</button>
                     </div>
                 </div>
             </div>
