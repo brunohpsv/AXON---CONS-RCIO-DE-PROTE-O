@@ -3,28 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BIXX VIAGENS - Agência de viagens especializada em pacotes exclusivos e experiências únicas">
-    <title>BIXX VIAGENS</title>
-    <link rel="icon" type="image/png" href="logotipo.png">
-    <link rel="icon" type="image/png" href="/bixx.com.br/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/bixx.com.br/favicon.svg" />
-    <link rel="shortcut icon" href="/bixx.com.br/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/bixx.com.br/apple-touch-icon.png" />
-    <link rel="manifest" href="/bixx.com.br/site.webmanifest" />
+    <meta name="description" content="BIXX CLUB - Clube de benefícios com descontos exclusivos em viagens, hospedagem, cursos e mais">
+    <title>BIXX CLUB</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#FF0000">
     <style>
         :root {
-            --primary: #e82a1a;
-            --primary-dark: #a10d0d;
-            --primary-light: #ff6b5c;
-            --light: #ffffff;
-            --dark: #202124;
-            --gray-light: #f8f9fa;
-            --gray: #dadce0;
-            --transition: all 0.3s ease;
-            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+            --primary: #FF0000;
+            --primary-dark: #CC0000;
+            --accent: #FF5252;
+            --bronze: #CD7F32;
+            --silver: #C0C0C0;
+            --gold: #FFD700;
+            --light: #FFFFFF;
+            --dark: #000000;
+            --gray: #F5F5F5;
+            --border: 2px solid #000000;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         * {
@@ -34,18 +39,19 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: var(--dark);
             background-color: var(--light);
             overflow-x: hidden;
+            position: relative;
         }
 
         .container {
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 2rem 0;
         }
 
         /* Header */
@@ -56,8 +62,7 @@
             top: 0;
             z-index: 1000;
             transition: var(--transition);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            padding: 0;
+            border-bottom: var(--border);
         }
 
         .header-container {
@@ -65,59 +70,55 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 0;
-            transition: var(--transition);
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo i {
+            gap: 10px;
             font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -1px;
+            padding-left: 0.5rem;
+            animation: slideInLeft 0.8s ease-out forwards;
+            text-transform: uppercase;
+        }
+        
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
         }
 
-        .logo span {
-            font-weight: 300;
-            color: var(--dark);
+        /* Navegação Desktop */
+        nav.desktop-nav {
+            display: flex;
         }
 
-        nav ul {
+        nav.desktop-nav ul {
             display: flex;
             list-style: none;
             gap: 2rem;
         }
 
-        nav a {
+        nav.desktop-nav a {
             color: var(--dark);
             text-decoration: none;
             font-weight: 500;
-            transition: var(--transition);
-            position: relative;
             padding: 0.5rem 0;
-        }
-
-        nav a:after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
+            position: relative;
             transition: var(--transition);
+            border-bottom: 1px solid transparent;
         }
 
-        nav a:hover:after,
-        nav a.active:after {
-            width: 100%;
+        nav.desktop-nav a:hover,
+        nav.desktop-nav a.active {
+            border-bottom: 1px solid var(--dark);
+            transform: translateY(-2px);
         }
 
+        /* Menu Mobile - NOVO DESIGN */
         .mobile-menu-btn {
             display: none;
             flex-direction: column;
@@ -126,10 +127,11 @@
             width: 40px;
             height: 40px;
             background: transparent;
-            border: none;
+            border: var(--border);
             cursor: pointer;
             padding: 0;
-            z-index: 1001;
+            z-index: 1010;
+            transition: var(--transition);
         }
 
         .mobile-menu-btn span {
@@ -142,7 +144,7 @@
         }
 
         .mobile-menu-btn.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
+            transform: translateY(6px) rotate(45deg);
         }
 
         .mobile-menu-btn.active span:nth-child(2) {
@@ -150,137 +152,246 @@
         }
 
         .mobile-menu-btn.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -6px);
+            transform: translateY(-6px) rotate(-45deg);
         }
 
-        /* Menu Mobile */
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: flex;
-            }
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 350px;
+            height: 100vh;
+            background: var(--light);
+            z-index: 1005;
+            transition: right 0.4s ease-in-out;
+            padding: 80px 30px 30px;
+            display: flex;
+            flex-direction: column;
+            border-left: var(--border);
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+        }
 
-            nav ul {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                height: 100vh;
-                background: var(--light);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 2rem;
-                transition: var(--transition);
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-                z-index: 1000;
-            }
+        .mobile-nav.active {
+            right: 0;
+        }
 
-            nav ul.active {
-                right: 0;
-            }
+        .mobile-nav ul {
+            list-style: none;
+        }
 
-            nav ul li {
-                opacity: 0;
-                transform: translateX(20px);
-                transition: opacity 0.3s ease, transform 0.3s ease;
-            }
+        .mobile-nav li {
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateX(20px);
+        }
 
-            nav ul.active li {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .mobile-nav.active li {
+            animation: slideInRight 0.5s ease forwards;
+        }
 
-            nav ul.active li:nth-child(1) { transition-delay: 0.1s; }
-            nav ul.active li:nth-child(2) { transition-delay: 0.2s; }
-            nav ul.active li:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-nav.active li:nth-child(1) { animation-delay: 0.1s; }
+        .mobile-nav.active li:nth-child(2) { animation-delay: 0.2s; }
+        .mobile-nav.active li:nth-child(3) { animation-delay: 0.3s; }
+        .mobile-nav.active li:nth-child(4) { animation-delay: 0.4s; }
+        .mobile-nav.active li:nth-child(5) { animation-delay: 0.5s; }
+
+        .mobile-nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: block;
+            padding: 0.8rem 0;
+            transition: var(--transition);
+            border-bottom: 2px solid transparent;
+        }
+
+        .mobile-nav a:hover,
+        .mobile-nav a.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-left: 10px;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         /* Hero Section */
         .hero {
             padding: 10rem 0 5rem;
             text-align: center;
-            background: linear-gradient(135deg, var(--primary) 0%, #ff4500 100%);
-            color: var(--light);
-            margin-top: 70px;
             position: relative;
             overflow: hidden;
-        }
-
-        .hero:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,192C1248,192,1344,128,1392,96L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-            background-size: cover;
-            background-position: bottom;
-            opacity: 0.2;
+            border-bottom: var(--border);
         }
 
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 1.5rem;
-            font-weight: 700;
+            color: var(--dark);
+            font-weight: 800;
             line-height: 1.2;
-            position: relative;
-            z-index: 1;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
         }
 
         .hero p {
             max-width: 700px;
             margin: 0 auto 3rem;
             font-size: 1.2rem;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
+            color: var(--dark);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
         }
 
         .cta-button {
             display: inline-block;
-            background: var(--light);
-            color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
             padding: 1rem 2.5rem;
             border-radius: 4px;
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition);
-            box-shadow: var(--shadow);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
             position: relative;
-            z-index: 1;
             overflow: hidden;
-        }
-
-        .cta-button:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: all 0.6s;
-        }
-
-        .cta-button:hover:before {
-            left: 100%;
+            border: none;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: popIn 0.6s ease-out 0.6s forwards;
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
         }
 
-        /* Sections */
-        section {
-            padding: 5rem 0;
+        .cta-button.secondary {
+            background: var(--light);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            margin-left: 1rem;
         }
 
+        .cta-button.secondary:hover {
+            background: var(--primary);
+            color: var(--light);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .big-cta-button {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 3rem auto 0;
+            padding: 1.5rem;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        /* Categories Section */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .category-card {
+            background-color: var(--light);
+            border-radius: 4px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            border: var(--border);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 200px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s ease-out forwards;
+            animation-delay: calc(0.1s * var(--index));
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--dark);
+            animation: slideInTop 0.8s ease-out forwards;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .category-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            background: rgba(255, 0, 0, 0.05);
+            width: 60px;
+            height: 60px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+            flex-shrink: 0;
+            border: 1px solid var(--primary);
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .category-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: var(--dark);
+            flex-shrink: 0;
+        }
+
+        /* Section Title */
         .section-title {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
         }
 
         .section-title h2 {
@@ -288,9 +399,10 @@
             margin-bottom: 1rem;
             position: relative;
             display: inline-block;
+            color: var(--dark);
         }
 
-        .section-title h2:after {
+        .section-title h2::after {
             content: '';
             position: absolute;
             bottom: -10px;
@@ -298,185 +410,195 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background: var(--primary);
+            background: var(--dark);
             border-radius: 2px;
+            animation: expandWidth 0.8s ease-out forwards;
         }
 
-        /* Destinations */
-        .destinations {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .destination-card {
-            background: var(--light);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .destination-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .destination-image {
-            height: 200px;
-            width: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .destination-card:hover .destination-image {
-            transform: scale(1.05);
-        }
-
-        .destination-info {
-            padding: 1.5rem;
-        }
-
-        .destination-info h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .destination-info p {
-            color: #5f6368;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .destination-benefits {
-            margin: 1rem 0;
-            padding: 0.8rem;
-            background: var(--gray-light);
-            border-radius: 4px;
-            font-size: 0.85rem;
-        }
-
-        .destination-benefits p {
-            margin-bottom: 0;
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
             color: var(--dark);
         }
 
-        .consult-button {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            text-align: center;
-            font-size: 0.9rem;
-            position: relative;
-            overflow: hidden;
+        /* Plans Section */
+        .plans {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
         }
 
-        .consult-button:before {
+        .plan-card {
+            background: var(--light);
+            border-radius: 4px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            width: 320px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: var(--border);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s ease-out forwards;
+            animation-delay: calc(0.1s * var(--index));
+        }
+
+        .plan-card::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
+            left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: all 0.6s;
+            height: 8px;
+            animation: slideInTop 0.8s ease-out forwards;
         }
 
-        .consult-button:hover:before {
-            left: 100%;
+        .plan-card.bronze::before {
+            background: var(--bronze);
         }
 
-        .consult-button:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
+        .plan-card.silver::before {
+            background: var(--silver);
         }
 
-        /* Special Card */
-        .special-card {
-            position: relative;
-            overflow: hidden;
-            border: 2px dashed var(--primary);
+        .plan-card.gold::before {
+            background: var(--gold);
         }
 
-        .special-card:before {
-            content: "Personalizado";
-            position: absolute;
-            top: 15px;
-            right: -30px;
-            background: var(--primary);
-            color: white;
-            padding: 5px 30px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            transform: rotate(45deg);
-            z-index: 1;
+        .plan-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
 
-        .consultation-form {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .form-group select {
-            width: 100%;
-            padding: 0.7rem;
-            border: 1px solid var(--gray);
-            border-radius: 4px;
-            font-family: 'Inter', sans-serif;
-            background-color: white;
-            transition: var(--transition);
-        }
-
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(232, 42, 26, 0.2);
-        }
-
-        /* Services */
-        .services {
-            background: var(--gray-light);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
+        .plan-card h3 {
             text-align: center;
-            padding: 2rem 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        .plan-seal {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #f0f0f0, #e0e0e0);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .plan-card.bronze .plan-seal {
+            background: linear-gradient(145deg, #f0e6d2, #e6d6b8);
+            border: 2px solid var(--bronze);
+        }
+
+        .plan-card.silver .plan-seal {
+            background: linear-gradient(145deg, #f0f0f0, #e8e8e8);
+            border: 2px solid var(--silver);
+        }
+
+        .plan-card.gold .plan-seal {
+            background: linear-gradient(145deg, #fff9d0, #ffe87c);
+            border: 2px solid var(--gold);
+        }
+
+        .price {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 1.5rem 0;
+            text-align: center;
+            position: relative;
+            color: var(--dark);
+        }
+
+        .plan-card.bronze .price {
+            color: var(--bronze);
+        }
+
+        .plan-card.silver .price {
+            color: var(--silver);
+        }
+
+        .plan-card.gold .price {
+            color: var(--gold);
+        }
+
+        .price span {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .plan-features li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--dark);
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideInLeft 0.5s ease-out forwards;
+            animation-delay: calc(0.1s * var(--index));
+        }
+
+        .plan-features li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--dark);
+            animation: pulse 1.5s infinite;
+        }
+
+        .plan-card.bronze .plan-features li::before {
+            color: var(--bronze);
+        }
+
+        .plan-card.silver .plan-features li::before {
+            color: var(--silver);
+        }
+
+        .plan-card.gold .plan-features li::before {
+            color: var(--gold);
+        }
+
+        /* Coverage Section */
+        .coverage {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .coverage-card {
             background: var(--light);
-            border-radius: 8px;
+            border-radius: 4px;
+            padding: 2rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
-            overflow: hidden;
+            border: var(--border);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s ease-out forwards;
+            animation-delay: calc(0.1s * var(--index));
         }
 
-        .service-card:before {
+        .coverage-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -484,40 +606,136 @@
             width: 100%;
             height: 4px;
             background: var(--primary);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
+            animation: slideInTop 0.8s ease-out forwards;
         }
 
-        .service-card:hover:before {
-            transform: scaleX(1);
-        }
-
-        .service-card:hover {
+        .coverage-card:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        .service-icon {
-            font-size: 2.5rem;
+        .coverage-card h3 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            color: var(--dark);
+        }
+
+        .coverage-list {
+            list-style: none;
+        }
+
+        .coverage-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--dark);
+        }
+
+        .coverage-list li::before {
+            content: '\f105';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
             color: var(--primary);
-            margin-bottom: 1rem;
+        }
+
+        /* Process Section */
+        .process-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            counter-reset: step;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 280px;
+            background-color: var(--light);
+            border-radius: 4px;
+            padding: 2.5rem 2rem 2.5rem 5rem;
+            box-shadow: var(--shadow);
             transition: var(--transition);
+            position: relative;
+            counter-increment: step;
+            border: var(--border);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s ease-out forwards;
+            animation-delay: calc(0.1s * var(--index));
         }
 
-        .service-card:hover .service-icon {
-            transform: scale(1.1);
+        .step::before {
+            content: counter(step);
+            position: absolute;
+            top: 2rem;
+            left: -1rem;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            animation: bounceIn 0.8s ease-out forwards;
         }
 
-        .service-card h3 {
+        .step:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+
+        .step h3 {
             margin-bottom: 1rem;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            color: var(--dark);
+        }
+
+        .step ol {
+            padding-left: 1rem;
+        }
+
+        .step li {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideInLeft 0.5s ease-out forwards;
+            animation-delay: calc(0.1s * var(--index));
         }
 
         /* Footer */
         footer {
-            background: var(--dark);
-            color: var(--light);
+            background-color: var(--dark);
+            color: white;
             padding: 4rem 0 2rem;
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--primary);
+            animation: slideInTop 0.8s ease-out forwards;
+        }
+
+        .footer-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
         }
 
         .footer-content {
@@ -528,13 +746,18 @@
         }
 
         .footer-col h3 {
+            color: var(--light);
             margin-bottom: 1.5rem;
             font-size: 1.3rem;
             position: relative;
             display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s ease-out forwards;
+            animation-delay: calc(0.1s * var(--index));
         }
 
-        .footer-col h3:after {
+        .footer-col h3::after {
             content: '';
             position: absolute;
             bottom: -8px;
@@ -542,6 +765,7 @@
             width: 40px;
             height: 3px;
             background: var(--primary);
+            animation: expandWidth 0.8s ease-out forwards;
         }
 
         .footer-links {
@@ -550,33 +774,28 @@
 
         .footer-links li {
             margin-bottom: 0.8rem;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideInLeft 0.5s ease-out forwards;
+            animation-delay: calc(0.1s * var(--index));
         }
 
         .footer-links a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             transition: var(--transition);
-            position: relative;
-            padding-left: 0;
-            transition: padding-left 0.3s ease;
+            display: inline-block;
         }
 
         .footer-links a:hover {
             color: var(--primary);
-            padding-left: 10px;
+            transform: translateX(5px);
         }
 
-        .footer-links a:before {
-            content: '›';
-            position: absolute;
-            left: -10px;
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover:before {
-            left: 0;
-            opacity: 1;
+        .footer-links i {
+            margin-right: 0.5rem;
+            width: 20px;
+            color: var(--primary);
         }
 
         .social-links {
@@ -595,63 +814,355 @@
             color: white;
             border-radius: 4px;
             transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transform: scale(0.8);
+            animation: popIn 0.6s ease-out forwards;
+            animation-delay: calc(0.1s * var(--index));
         }
 
         .social-links a:hover {
             background-color: var(--primary);
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.1);
         }
 
         .footer-bottom {
             text-align: center;
+            margin-top: 3rem;
             padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
         }
 
-        /* Animations */
+        /* Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @-webkit-keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @-webkit-keyframes fadeInUp {
+            from { opacity: 0; -webkit-transform: translateY(30px); }
+            to { opacity: 1; -webkit-transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @-webkit-keyframes slideInLeft {
+            from { opacity: 0; -webkit-transform: translateX(-20px); }
+            to { opacity: 1; -webkit-transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @-webkit-keyframes slideInRight {
+            from { opacity: 0; -webkit-transform: translateX(20px); }
+            to { opacity: 1; -webkit-transform: translateX(0); }
+        }
+
+        @keyframes slideInTop {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @-webkit-keyframes slideInTop {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @-webkit-keyframes slideUp {
+            from { opacity: 0; -webkit-transform: translateY(20px); }
+            to { opacity: 1; -webkit-transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @-webkit-keyframes popIn {
+            from { opacity: 0; -webkit-transform: scale(0.8); }
+            to { opacity: 1; -webkit-transform: scale(1); }
+        }
+
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 80px; }
+        }
+
+        @-webkit-keyframes expandWidth {
+            from { width: 0; }
+            to { width: 80px; }
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            70% { transform: scale(0.9); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @-webkit-keyframes bounceIn {
+            0% { -webkit-transform: scale(0.3); opacity: 0; }
+            50% { -webkit-transform: scale(1.2); opacity: 0.7; }
+            70% { -webkit-transform: scale(0.9); opacity: 1; }
+            100% { -webkit-transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @-webkit-keyframes pulse {
+            0% { -webkit-transform: scale(1); }
+            50% { -webkit-transform: scale(1.2); }
+            100% { -webkit-transform: scale(1); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @-webkit-keyframes slideDown {
+            from { opacity: 0; -webkit-transform: translateY(-20px); }
+            to { opacity: 1; -webkit-transform: translateY(0); }
+        }
+
+        /* Updated Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                width: 95%;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+
+            .plans {
+                gap: 1.5rem;
+            }
+
+            .plan-card {
+                width: 45%;
+            }
+
+            .categories {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .coverage {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .process-steps {
+                gap: 1.5rem;
+            }
+
+            .step {
+                min-width: 45%;
+                padding: 2rem 1.5rem 2rem 4rem;
             }
         }
 
-        .fade-in-up {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
+            nav.desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
             .hero {
-                padding: 8rem 0 4rem;
+                padding: 8rem 1rem 4rem;
             }
 
             .hero h1 {
                 font-size: 2.2rem;
             }
 
-            .destinations {
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .cta-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+                padding: 0.8rem 1.5rem;
+            }
+
+            .cta-button.secondary {
+                margin-left: 0;
+            }
+
+            .categories {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .plan-card {
+                width: 100%;
+                max-width: none;
+            }
+
+            .coverage {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .step {
+                min-width: 100%;
+                padding: 2rem 1rem 2rem 3rem;
+            }
+
+            .step::before {
+                left: 1rem;
+                top: -30px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .big-cta-button {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .logo-img {
+                width: 30px;
+                height: 30px;
             }
         }
 
         @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem 0.5rem;
+            }
+
             .hero h1 {
                 font-size: 1.8rem;
             }
 
+            .hero p {
+                font-size: 0.9rem;
+            }
+
             .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-title p {
+                font-size: 0.9rem;
+            }
+
+            .category-card {
+                padding: 1rem;
+            }
+
+            .category-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .plan-card {
+                padding: 1.5rem;
+            }
+
+            .price {
                 font-size: 2rem;
             }
 
-            .services-grid {
+            .plan-features li {
+                font-size: 0.9rem;
+            }
+
+            .coverage-card {
+                padding: 1.5rem;
+            }
+
+            .step h3 {
+                font-size: 1.1rem;
+            }
+
+            .step li {
+                font-size: 0.9rem;
+            }
+
+            .footer-content {
                 grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-col h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .footer-links {
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+
+            nav.desktop-nav {
+                display: flex;
+            }
+
+            .mobile-nav {
+                display: none !important;
             }
         }
     </style>
@@ -659,498 +1170,359 @@
 <body>
     <header>
         <div class="container header-container">
-            <a href="#" class="logo">
-                <i class=""></i> BIXX <span>VIAGENS</span>
-            </a>
-
-            <nav>
-                <ul id="navMenu">
-                    <li><a href="#home" class="active">Início</a></li>
-                    <li><a href="#destinations">Destinos</a></li>
-                    <li><a href="#services">Serviços</a></li>
-                    <li><a href="app.html">Cartão de confirmação</a></li>
+            <div class="logo">
+                <img src="logo.png" alt="BIXX CLUB" class="logo-img">
+                <span>BIXX CLUB</span>
+            </div>
+            
+            <!-- Menu Desktop -->
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="#benefits">Benefícios</a></li>
+                    <li><a href="#plans">Planos</a></li>
+                    <li><a href="#coverage">Cobertura</a></li>
+                    <li><a href="#how-it-works">Como Funciona</a></li>
+                    <li><a href="app.html">Seu cartão virtual</a></li>
                 </ul>
             </nav>
-
+            
+            <!-- Botão Menu Mobile -->
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menu">
-                <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </div>
     </header>
-
-    <section class="hero" id="home">
-        <div class="container">
-            <h1>Descubra o mundo com a BIXX VIAGENS</h1>
-            <p>Pacotes exclusivos e experiências inesquecíveis para as suas próximas férias. Oferecemos um atendimento humano e totalmente personalizado, sempre com preços acessíveis e respostas rápidas, para que você aproveite cada momento da sua viagem com tranquilidade.</p>
-            <a href="#destinations" class="cta-button">EXPLORAR DESTINOS</a>
-        </div>
-    </section>
-
-    <section id="destinations">
-        <div class="container">
-            <div class="section-title">
-                <h2>Destinos Populares</h2>
-                <p>Confira nossos pacotes mais procurados</p>
+    
+    <!-- Menu Mobile (Fora do header para melhor posicionamento) -->
+    <nav class="mobile-nav" id="mobileNav">
+        <ul>
+            <li><a href="#benefits"><i class="fas fa-star"></i> Benefícios</a></li>
+            <li><a href="#plans"><i class="fas fa-tags"></i> Planos</a></li>
+            <li><a href="#coverage"><i class="fas fa-check-circle"></i> Cobertura</a></li>
+            <li><a href="#how-it-works"><i class="fas fa-question-circle"></i> Como Funciona</a></li>
+            <li><a href="app.html"><i class="fas fa-credit-card"></i> Seu cartão virtual</a></li>
+        </ul>
+        
+        <div class="mobile-nav-footer">
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
             </div>
+            <p>&copy; 2025 BIXX CLUB</p>
+        </div>
+    </nav>
+    
+    <div class="menu-overlay" id="menuOverlay"></div>
 
-            <div class="destinations">
-                <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/RIO-DE-JANEIRO.png" alt="Rio de Janeiro" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Rio de Janeiro</h3>
-                        <p>O Rio de Janeiro é um destino vibrante, repleto de praias icônicas, paisagens deslumbrantes e cultura contagiante.</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/FERNANDO-DE-NORONHA.png" alt="Fernando de Noronha" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Fernando de Noronha</h3>
-                        <p>Fernando de Noronha é um paraíso natural com praias deslumbrantes, mar cristalino e uma energia única.</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/GRAMADO.png" alt="Gramado" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Gramado</h3>
-                        <p>Gramado é o destino dos sonhos para quem busca charme, conforto e experiências inesquecíveis. Entre paisagens encantadoras, gastronomia irresistível e cultura única, viva momentos especiais.</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/BONITO.png" alt="Bonito" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Bonito - MS</h3>
-                        <p>Bonito é o cenário ideal para quem deseja se conectar com a natureza. Entre rios cristalinos, grutas deslumbrantes e cachoeiras.</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/JERICOACOARA.png" alt="Jericoacoara" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Jericoacoara</h3>
-                        <p>Jericoacoara é o destino perfeito para quem busca sol, mar e paisagens inesquecíveis. Descubra um dos lugares mais encantadores do Brasil e viva momentos únicos.</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/LENÇOES.png" alt="Lençóis Maranhenses" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Lençóis Maranhenses</h3>
-                        <p>Descubra as belezas dos Lençóis Maranhenses, um verdadeiro paraíso com dunas impressionantes e lagoas cristalinas. Viva essa experiência única e transforme suas férias em memórias inesquecíveis</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                 <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/ALTOPARAISO.png" alt="Lençóis Maranhenses" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Alto Paraíso de Goiás</h3>
-                        <p>Descubra Alto Paraíso de Goiás, um refúgio místico e encantador no coração do Cerrado, com cachoeiras de águas cristalinas, trilhas surpreendentes e a energia única da Chapada dos Veadeiros. Um destino perfeito para quem busca natureza, espiritualidade e aventura.</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/ARUANA.png" alt="Lençóis Maranhenses" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Aruanã – Goiás</h3>
-                        <p>Aruanã é o lugar ideal para quem ama sol, praia de rio e contato com a cultura goiana. Às margens do Rio Araguaia, oferece lazer, festas típicas e cenários inesquecíveis para quem quer relaxar ou se divertir com amigos e família.</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/CALDANOVAS.png" alt="Lençóis Maranhenses" class="destination-image">
-                    <img src="https://bixx.com.br/CALDASNOVAS.png" alt="Lençóis Maranhenses" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Caldas Novas – Goiás</h3>
-                        <p>Caldas Novas é o maior complexo hidrotermal do mundo! Um paraíso de águas quentes, parques aquáticos e resorts perfeitos para famílias, casais ou grupos de amigos que buscam diversão, descanso e bem-estar.</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                 <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/CALVACANTE.png" alt="Lençóis Maranhenses" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Cavalcante – Goiás</h3>
-                        <p>Cavalcante é um tesouro da Chapada dos Veadeiros, famoso pela Cachoeira de Santa Bárbara e pela força da cultura Kalunga. Um destino que combina belezas naturais e experiências culturais inesquecíveis.</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/CHAPADA.png" alt="Lençóis Maranhenses" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Chapada dos Veadeiros – Goiás</h3>
-                        <p>A Chapada dos Veadeiros é um espetáculo da natureza, com cânions, cachoeiras impressionantes e paisagens que parecem de outro planeta. Ideal para quem busca aventura, contato com o misticismo e momentos de pura conexão com a natureza.</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/FORMOSA.png" alt="Lençóis Maranhenses" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Formosa – Goiás</h3>
-                        <p>Formosa encanta com suas grutas, cachoeiras e aventuras radicais como rapel e trilhas. Conhecida pela famosa Cachoeira do Itiquira, é o destino certo para quem gosta de adrenalina e beleza natural.</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/MONTEVERDE.png" alt="Lençóis Maranhenses" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Monte Verde – Minas Gerais</h3>
-                        <p>Monte Verde é um pedacinho da Europa em Minas Gerais. Charmosa e romântica, a cidade é perfeita para casais, com clima frio, gastronomia deliciosa, chalés aconchegantes e paisagens deslumbrantes da Serra da Mantiqueira.</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/PIRENOPOLIS.png" alt="Lençóis Maranhenses" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Pirenópolis – Goiás</h3>
-                        <p>História, cultura e natureza se encontram em Pirenópolis. Conhecida por suas festas tradicionais, ruas de pedra, casarios coloniais e cachoeiras ao redor, é um destino charmoso e cheio de experiências únicas.</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/RIOQUENTE.png" alt="Lençóis Maranhenses" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Rio Quente – Goiás</h3>
-                        <p>Rio Quente é diversão garantida com suas águas termais e o famoso Hot Park, um dos maiores parques aquáticos da América Latina. Ideal para famílias e aventureiros que querem relaxar e se divertir.</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/SALTOE.png" alt="Lençóis Maranhenses" class="destination-image">
-                    <img src="https://bixx.com.br/SALTO.png" alt="Lençóis Maranhenses" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Salto de Corumbá – Goiás</h3>
-                        <p>Salto de Corumbá é o paraíso das águas, com cachoeiras imponentes, trilhas e opções de lazer em meio à natureza. Um destino que combina descanso e aventura em um só lugar.</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/SAODOMINGO.png" alt="Lençóis Maranhenses" class="destination-image">
-                    <div class="destination-info">
-                        <h3>São Domingos – Goiás</h3>
-                        <p>São Domingos surpreende com o Parque Estadual de Terra Ronca, lar de algumas das maiores cavernas do Brasil. É o destino perfeito para quem busca ecoturismo, aventura e paisagens de tirar o fôlego.</p>
-                        <div class="destination-benefits">
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                 <div class="destination-card fade-in-up">
-                    <img src="https://bixx.com.br/TRINDADE.png" alt="Lençóis Maranhenses" class="destination-image">
-                    <div class="destination-info">
-                        <h3>Trindade – Goiás</h3>
-                        <p>Trindade é a capital da fé em Goiás, famosa pelo Santuário Basílica do Divino Pai Eterno. Um destino de espiritualidade, devoção e acolhimento que atrai romeiros e turistas o ano inteiro.</p>
-                            <p>✨ Pacotes personalizados | 🏨 Melhores hospedagens | ✅ Assistência 24h</p>
-                        </div>
-                        <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR NOSSO ESPECIALISTA</button>
-                    </div>
-                </div>
-
-                <div class="destination-card special-card fade-in-up">
-                    <div class="destination-info">
-                        <h3>Escolha o seu lugar!</h3>
-                        <div class="consultation-form">
-                            <div class="form-group">
-                                <label for="state">Estado</label>
-                                <select id="state" required onchange="updateCities()">
-                                    <option value="" disabled selected>Selecione seu estado</option>
-                                    <option value="AC">Acre</option>
-                                    <option value="AL">Alagoas</option>
-                                    <option value="AP">Amapá</option>
-                                    <option value="AM">Amazonas</option>
-                                    <option value="BA">Bahia</option>
-                                    <option value="CE">Ceará</option>
-                                    <option value="DF">Distrito Federal</option>
-                                    <option value="ES">Espírito Santo</option>
-                                    <option value="GO">Goiás</option>
-                                    <option value="MA">Maranhão</option>
-                                    <option value="MT">Mato Grosso</option>
-                                    <option value="MS">Mato Grosso do Sul</option>
-                                    <option value="MG">Minas Gerais</option>
-                                    <option value="PA">Pará</option>
-                                    <option value="PB">Paraíba</option>
-                                    <option value="PR">Paraná</option>
-                                    <option value="PE">Pernambuco</option>
-                                    <option value="PI">Piauí</option>
-                                    <option value="RJ">Rio de Janeiro</option>
-                                    <option value="RN">Rio Grande do Norte</option>
-                                    <option value="RS">Rio Grande do Sul</option>
-                                    <option value="RO">Rondônia</option>
-                                    <option value="RR">Roraima</option>
-                                    <option value="SC">Santa Catarina</option>
-                                    <option value="SP">São Paulo</option>
-                                    <option value="SE">Sergipe</option>
-                                    <option value="TO">Tocantins</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="city">Cidade</label>
-                                <select id="city" required>
-                                    <option value="" disabled selected>Selecione seu estado primeiro</option>
-                                </select>
-                            </div>
-                            <button class="consult-button" onclick="window.open('https://wa.me/556281596601', '_blank')">CONSULTAR COM ESPECIALISTA</button>
-                        </div>
-                    </div>
-                </div>
+    <section class="hero">
+        <div class="container">
+            <h1>Com uma pequena mensalidade terá os <span>melhores benefícios </span> para o Estado de Goiás.</h1>
+            <p>Faça parte do BIXX CLUB e tenha acesso a descontos exclusivos em pousadas, clubes, cursos, aluguel de carros, acessórios tecnológicos, farmácias, cinema, teatro, passagens aéreas e muito mais!</p>
+            <div class="cta-buttons">
+                <a href="#plans" class="cta-button">CONHEÇA NOSSOS PLANOS</a>
             </div>
         </div>
     </section>
 
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>Nossos Serviços</h2>
-                <p>Oferecemos uma experiência completa para sua viagem</p>
+    <section id="benefits" class="container">
+        <div class="section-title">
+            <h2>Benefícios Exclusivos</h2>
+            <p>Como parte do BIXX CLUB, você tem acesso a uma série de vantagens exclusivas</p>
+        </div>
+        
+        <div class="categories">
+            <div class="category-card" style="--index: 1;">
+                <div class="category-icon"><i class="fas fa-hotel"></i></div>
+                <h3>Pousadas & Hospedagem</h3>
+                <p>Descontos especiais em pousadas e hotéis em todo o Brasil.</p>
             </div>
-
-            <div class="services-grid">
-                <div class="service-card fade-in-up">
-                    <div class="service-icon">
-                        <i class="fas fa-plane"></i>
-                    </div>
-                    <h3>Passagens Aéreas</h3>
-                    <p>Encontramos as melhores opções de voo para seu destino</p>
-                </div>
-
-                <div class="service-card fade-in-up">
-                    <div class="service-icon">
-                        <i class="fas fa-hotel"></i>
-                    </div>
-                    <h3>Hospedagem</h3>
-                    <p>Hotéis e pousadas selecionados para seu conforto</p>
-                </div>
-
-                <div class="service-card fade-in-up">
-                    <div class="service-icon">
-                        <i class="fas fa-map-marked-alt"></i>
-                    </div>
-                    <h3>Roteiros Personalizados</h3>
-                    <p>Criamos itinerários exclusivos para suas preferências</p>
-                </div>
-
-                <div class="service-card fade-in-up">
-                    <div class="service-icon">
-                        <i class="fas fa-car"></i>
-                    </div>
-                    <h3>Aluguel de Veículos</h3>
-                    <p>Reservamos o carro ideal para sua viagem</p>
-                </div>
-
-                <div class="service-card fade-in-up">
-                    <div class="service-icon">
-                        <i class="fas fa-money-bill-wave"></i>
-                    </div>
-                    <h3>Pagamento Parcelado</h3>
-                    <p>Parcelamos sua viagem em até 24x</p>
-                </div>
-
-                <div class="service-card fade-in-up">
-                    <div class="service-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Cancelamento</h3>
-                    <p>Pode cancelar a sua viagem em até 1 semana, com reembolso total!</p>
-                </div>
-
-                <div class="service-card fade-in-up">
-                    <div class="service-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3>Suporte 24h</h3>
-                    <p>Assistência completa durante toda a sua viagem</p>
-                </div>
-
-                <div class="service-card fade-in-up">
-                    <div class="service-icon">
-                        <i class="fas fa-gift"></i>
-                    </div>
-                    <h3>Programa de Fidelidade</h3>
-                    <p>Acumule pontos e ganhe descontos em suas próximas viagens</p>
-                </div>
+            <div class="category-card" style="--index: 2;">
+                <div class="category-icon"><i class="fas fa-dumbbell"></i></div>
+                <h3>Clubes Esportivos</h3>
+                <p>Acesso a clubes de tênis, golfe e outros esportes com condições especiais.</p>
+            </div>
+            <div class="category-card" style="--index: 3;">
+                <div class="category-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>Cursos & Educação</h3>
+                <p>Descontos em cursos diversos, incluindo idiomas e capacitação profissional.</p>
+            </div>
+            <div class="category-card" style="--index: 4;">
+                <div class="category-icon"><i class="fas fa-car"></i></div>
+                <h3>Aluguel de Carros</h3>
+                <p>Preços especiais para locação de veículos em todo o país.</p>
+            </div>
+            <div class="category-card" style="--index: 5;">
+                <div class="category-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3>Acessórios Tecnológicos</h3>
+                <p>Descontos em acessórios para smartphones, tablets, notebooks e computadores.</p>
+            </div>
+            <div class="category-card" style="--index: 6;">
+                <div class="category-icon"><i class="fas fa-pills"></i></div>
+                <h3>Farmácias</h3>
+                <p>Descontos de 50% em medicamentos e produtos de farmácia.</p>
+            </div>
+            <div class="category-card" style="--index: 7;">
+                <div class="category-icon"><i class="fas fa-film"></i></div>
+                <h3>Cinema & Teatro</h3>
+                <p>Ingressos com preços promocionais para cinemas e teatros.</p>
+            </div>
+            <div class="category-card" style="--index: 8;">
+                <div class="category-icon"><i class="fas fa-plane"></i></div>
+                <h3>Passagens Aéreas</h3>
+                <p>Tarifas especiais em voos nacionais e internacionais.</p>
+            </div>
+            <div class="category-card" style="--index: 9;">
+                <div class="category-icon"><i class="fas fa-tools"></i></div>
+                <h3>Assistência Técnica</h3>
+                <p>Assistência gratuita e ilimitada para smartphones, tablets e computadores.</p>
+            </div>
+            <div class="category-card" style="--index: 10;">
+                <div class="category-icon"><i class="fas fa-car-battery"></i></div>
+                <h3>Peças e Pneus</h3>
+                <p>Descontos especiais em peças de carros e pneus.</p>
+            </div>
+            <div class="category-card" style="--index: 11;">
+                <div class="category-icon"><i class="fas fa-globe"></i></div>
+                <h3>BIXX Viagens</h3>
+                <p>Pacotes completos de viagem com hospedagem, transporte e passeios.</p>
+            </div>
+            <div class="category-card" style="--index: 12;">
+                <div class="category-icon"><i class="fas fa-newspaper"></i></div>
+                <h3>BIXX Notícias</h3>
+                <p>Conteúdo exclusivo sobre geopolítica, finanças e investimentos.</p>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="container">
+    <section id="plans" class="container">
+        <div class="section-title">
+            <h2>Nossos Planos</h2>
+            <p>Escolha o plano ideal para suas necessidades</p>
+        </div>
+        
+        <div class="plans">
+            <div class="plan-card bronze" style="--index: 1;">
+                <h3>Plano Bronze</h3>
+                <div class="plan-seal">B</div>
+                <div class="price">R$119,90<span>/mês</span></div>
+                <ul class="plan-features">
+                    <li style="--index: 1;">Descontos de até 20% em pousadas</li>
+                    <li style="--index: 2;">Acesso a clubes com 15% de desconto</li>
+                    <li style="--index: 3;">10% off em cursos selecionados</li>
+                    <li style="--index: 4;">15% de desconto em aluguel de carros</li>
+                    <li style="--index: 5;">20% off em acessórios tecnológicos</li>
+                    <li style="--index: 6;">50% de desconto em farmácias parceiras</li>
+                    <li style="--index: 7;">Assistência técnica limitada (2 consultas/mês)</li>
+                    <li style="--index: 8;">10% off em peças e pneus</li>
+					<li style="--index: 8;">Tempo de carência - 9 meses</li>
+                </ul>
+                <a href="cadastro.html" class="cta-button">ASSINAR AGORA</a>
+            </div>
+            
+            <div class="plan-card silver" style="--index: 2;">
+                <h3>Plano Prata</h3>
+                <div class="plan-seal">P</div>
+                <div class="price">R$143,50<span>/mês</span></div>
+                <ul class="plan-features">
+                    <li style="--index: 1;">Descontos de até 30% em pousadas</li>
+                    <li style="--index: 2;">Acesso a clubes com 25% de desconto</li>
+                    <li style="--index: 3;">15% off em cursos selecionados</li>
+                    <li style="--index: 4;">25% de desconto em aluguel de carros</li>
+                    <li style="--index: 5;">30% off em acessórios tecnológicos</li>
+                    <li style="--index: 6;">50% de desconto em farmácias parceiras</li>
+                    <li style="--index: 7;">15% off em cinema e teatro</li>
+                    <li style="--index: 8;">Assistência técnica (5 consultas/mês)</li>
+                    <li style="--index: 9;">15% off em peças e pneus</li>
+					<li style="--index: 8;">Tempo de carência - 6 meses</li>
+                </ul>
+                <a href="cadastro.html" class="cta-button">ASSINAR AGORA</a>
+            </div>
+            
+            <div class="plan-card gold" style="--index: 3;">
+                <h3>Plano Ouro</h3>
+                <div class="plan-seal">O</div>
+                <div class="price">R$170,80<span>/mês</span></div>
+                <ul class="plan-features">
+                    <li style="--index: 1;">Descontos de até 40% em pousadas</li>
+                    <li style="--index: 2;">Acesso a clubes com 35% de desconto</li>
+                    <li style="--index: 3;">20% off em cursos selecionados</li>
+                    <li style="--index: 4;">35% de desconto em aluguel de carros</li>
+                    <li style="--index: 5;">40% off em acessórios tecnológicos</li>
+                    <li style="--index: 6;">50% de desconto em farmácias parceiras</li>
+                    <li style="--index: 7;">25% off em cinema e teatro</li>
+                    <li style="--index: 8;">Descontos em passagens aéreas</li>
+                    <li style="--index: 9;">Assistência técnica gratuita e ilimitada</li>
+                    <li style="--index: 10;">20% off em peças e pneus</li>
+                    <li style="--index: 11;">Acesso ao BIXX Notícias Premium</li>
+					<li style="--index: 8;">Tempo de carência - 3 meses</li>
+                </ul>
+                <a href="cadastro.html" class="cta-button">ASSINAR AGORA</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="coverage" class="container">
+        <div class="section-title">
+            <h2>Cobertura dos Planos</h2>
+            <p>Entenda o que cada plano oferece em diferentes categorias</p>
+        </div>
+        
+        <div class="coverage">
+            <div class="coverage-card" style="--index: 1;">
+                <h3>Pousadas & Hospedagem</h3>
+                <ul class="coverage-list">
+                    <li>Bronze: até 20% de desconto</li>
+                    <li>Prata: até 30% de desconto</li>
+                    <li>Ouro: até 40% de desconto</li>
+                </ul>
+            </div>
+            
+            <div class="coverage-card" style="--index: 2;">
+                <h3>Clubes Esportivos</h3>
+                <ul class="coverage-list">
+                    <li>Bronze: 15% de desconto</li>
+                    <li>Prata: 25% de desconto</li>
+                    <li>Ouro: 35% de desconto</li>
+                </ul>
+            </div>
+            
+            <div class="coverage-card" style="--index: 3;">
+                <h3>Farmácias</h3>
+                <ul class="coverage-list">
+                    <li>Todos os planos: 50% de desconto</li>
+                </ul>
+            </div>
+            
+            <div class="coverage-card" style="--index: 4;">
+                <h3>Assistência Técnica</h3>
+                <ul class="coverage-list">
+                    <li>Bronze: 2 consultas mensais</li>
+                    <li>Prata: 5 consultas mensais</li>
+                    <li>Ouro: Ilimitada e gratuita</li>
+                </ul>
+            </div>
+            
+            <div class="coverage-card" style="--index: 5;">
+                <h3>Peças e Pneus</h3>
+                <ul class="coverage-list">
+                    <li>Bronze: 10% de desconto</li>
+                    <li>Prata: 15% de desconto</li>
+                    <li>Ouro: 20% de desconto</li>
+                </ul>
+            </div>
+            
+            <div class="coverage-card" style="--index: 6;">
+                <h3>Acessórios Tecnológicos</h3>
+                <ul class="coverage-list">
+                    <li>Bronze: 20% de desconto</li>
+                    <li>Prata: 30% de desconto</li>
+                    <li>Ouro: 40% de desconto</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="container">
+        <div class="section-title">
+            <h2>Como Funciona</h2>
+            <p>Processo simples para você aproveitar todos os benefícios</p>
+        </div>
+        <div class="process-steps">
+            <div class="step" style="--index: 1;">
+                <h3>ESCOLHA SEU PLANO</h3>
+                <ol>
+                    <li style="--index: 1;">Selecione o plano que melhor atende suas necessidades</li>
+                    <li style="--index: 2;">Bronze, Prata ou Ouro - cada um com benefícios específicos</li>
+                    <li style="--index: 3;">Considere seus hábitos de consumo para a melhor escolha</li>
+                </ol>
+            </div>
+            <div class="step" style="--index: 2;">
+                <h3>FAÇA SUA ASSINATURA</h3>
+                <ol>
+                    <li style="--index: 1;">Preencha o formulário de cadastro</li>
+                    <li style="--index: 2;">Entraremos em contato pelo seu e-mail cadastrado</li>
+                    <li style="--index: 3;">Após o pagamento, começa a vigorá o seu contrato</li>
+                </ol>
+            </div>
+            <div class="step" style="--index: 3;">
+                <h3>ACESSE SEUS BENEFÍCIOS</h3>
+                <ol>
+                    <li style="--index: 1;">Receba seu cartão digital de benefícios e credenciais</li>
+                    <li style="--index: 2;">Acesse a plataforma exclusiva de descontos</li>
+                    <li style="--index: 3;">Utilize os benefícios conforme suas necessidades</li>
+                </ol>
+            </div>
+            <div class="step" style="--index: 4;">
+                <h3>RENOVE SEUS BENEFÍCIOS</h3>
+                <ol>
+                    <li style="--index: 1;">A assinatura é renovada automaticamente</li>
+                    <li style="--index: 2;">Você pode alterar seu plano a qualquer momento</li>
+                    <li style="--index: 3;">Cancele quando quiser sem multa</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="footer">
+        <div class="footer-container">
             <div class="footer-content">
-                <div class="footer-col">
-                    <h3>BIXX VIAGENS</h3>
-                    <p>Transformando sonhos em experiências inesquecíveis através de viagens memoráveis.</p>
+                <div class="footer-col" style="--index: 1;">
+                    <h3>BIXX CLUB</h3>
+                    <p style="margin: 1rem 0; opacity: 0.8;">O clube de benefícios mais completo do mercado.</p>
+					<p style="margin: 1rem 0; opacity: 0.8;">A extensão de nossos benefícios é somente no Estado de Goiás, em breve será para outros Estados!.</p>
                 </div>
-
-                <div class="footer-col">
+                <div class="footer-col" style="--index: 2;">
                     <h3>Links Rápidos</h3>
                     <ul class="footer-links">
-                        <li><a href="#home">Início</a></li>
-                        <li><a href="#destinations">Destinos</a></li>
-                        <li><a href="#services">Serviços</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h3>Destinos Populares</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Rio de Janeiro</a></li>
-                        <li><a href="#">Fernando de Noronha</a></li>
-                        <li><a href="#">Gramado</a></li>
-                        <li><a href="#">Bonito</a></li>
-                        <li><a href="#">Jericoacoara</a></li>
+                        <li style="--index: 1;"><a href="#benefits"><i class="fas fa-star"></i> Benefícios</a></li>
+                        <li style="--index: 2;"><a href="#plans"><i class="fas fa-tags"></i> Planos</a></li>
+                        <li style="--index: 3;"><a href="#coverage"><i class="fas fa-check-circle"></i> Cobertura</a></li>
+                        <li style="--index: 4;"><a href="#how-it-works"><i class="fas fa-question-circle"></i> Como Funciona</a></li>
                     </ul>
                 </div>
             </div>
-
             <div class="footer-bottom">
-                <p>&copy; 2023 BIXX VIAGENS. Todos os direitos reservados.</p>
+                <p>&copy; 2025 BIXX CLUB. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Função para atualizar cidades baseado no estado selecionado
-        function updateCities() {
-            const stateSelect = document.getElementById('state');
-            const citySelect = document.getElementById('city');
-            const selectedState = stateSelect.value;
+        // Menu Mobile Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const body = document.body;
 
-            // Limpa as cidades atuais
-            citySelect.innerHTML = '<option value="" disabled selected>Selecione sua cidade</option>';
-
-            const cities = {
-                'AC': ['Rio Branco', 'Cruzeiro do Sul', 'Sena Madureira', 'Tarauacá', 'Feijó', 'outro'],
-                'AL': ['Maceió', 'Arapiraca', 'Palmeira dos Índios', 'Rio Largo', 'São Miguel dos Campos', 'outro'],
-                'AP': ['Macapá', 'Santana', 'Laranjal do Jari', 'Oiapoque', 'Porto Grande', 'outro'],
-                'AM': ['Manaus', 'Parintins', 'Itacoatiara', 'Manacapuru', 'Coari', 'outro'],
-                'BA': ['Salvador', 'Feira de Santana', 'Vitória da Conquista', 'Camaçari', 'Juazeiro', 'outro'],
-                'CE': ['Fortaleza', 'Caucaia', 'Juazeiro do Norte', 'Maracanaú', 'Sobral', 'outro'],
-                'DF': ['Brasília', 'outro'],
-                'ES': ['Vitória', 'Vila Velha', 'Serra', 'Cariacica', 'Linhares', 'outro'],
-                'GO': ['Goiânia', 'Aparecida de Goiânia', 'Anápolis', 'Rio Verde', 'Luziânia', 'outro'],
-                'MA': ['São Luís', 'Imperatriz', 'Timon', 'Caxias', 'Codó', 'outro'],
-                'MT': ['Cuiabá', 'Várzea Grande', 'Rondonópolis', 'Sinop', 'Tangará da Serra', 'outro'],
-                'MS': ['Campo Grande', 'Dourados', 'Três Lagoas', 'Corumbá', 'Ponta Porã', 'outro'],
-                'MG': ['Belo Horizonte', 'Uberlândia', 'Contagem', 'Juiz de Fora', 'Betim', 'outro'],
-                'PA': ['Belém', 'Ananindeua', 'Santarém', 'Marabá', 'Parauapebas', 'outro'],
-                'PB': ['João Pessoa', 'Campina Grande', 'Santa Rita', 'Patos', 'Bayeux', 'outro'],
-                'PR': ['Curitiba', 'Londrina', 'Maringá', 'Ponta Grossa', 'Cascavel', 'outro'],
-                'PE': ['Recife', 'Jaboatão dos Guararapes', 'Olinda', 'Caruaru', 'Petrolina', 'outro'],
-                'PI': ['Teresina', 'Parnaíba', 'Picos', 'Piripiri', 'Floriano', 'outro'],
-                'RJ': ['Rio de Janeiro', 'São Gonçalo', 'Duque de Caxias', 'Nova Iguaçu', 'Niterói', 'outro'],
-                'RN': ['Natal', 'Mossoró', 'Parnamirim', 'São Gonçalo do Amarante', 'Macaíba', 'outro'],
-                'RS': ['Porto Alegre', 'Caxias do Sul', 'Pelotas', 'Canoas', 'Santa Maria', 'outro'],
-                'RO': ['Porto Velho', 'Ji-Paraná', 'Ariquemes', 'Vilhena', 'Cacoal', 'outro'],
-                'RR': ['Boa Vista', 'Rorainópolis', 'Caracaraí', 'Alto Alegre', 'Mucajaí', 'outro'],
-                'SC': ['Florianópolis', 'Joinville', 'Blumenau', 'São José', 'Criciúma', 'outro'],
-                'SP': ['São Paulo', 'Guarulhos', 'Campinas', 'São Bernardo do Campo', 'Santo André', 'outro'],
-                'SE': ['Aracaju', 'Nossa Senhora do Socorro', 'Lagarto', 'Itabaiana', 'São Cristóvão', 'outro'],
-                'TO': ['Palmas', 'Araguaína', 'Gurupi', 'Porto Nacional', 'Paraíso do Tocantins', 'outro']
-            };
-
-            if (cities[selectedState]) {
-                cities[selectedState].forEach(city => {
-                    const option = document.createElement('option');
-                    option.value = city.toLowerCase().replace(/\s+/g, '-');
-                    option.textContent = city;
-                    citySelect.appendChild(option);
+        function toggleMenu() {
+            const isActive = mobileNav.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            body.style.overflow = isActive ? 'hidden' : '';
+            mobileMenuBtn.setAttribute('aria-expanded', isActive);
+            
+            // Animar itens do menu quando aberto
+            if (isActive) {
+                const menuItems = mobileNav.querySelectorAll('li');
+                menuItems.forEach((item, index) => {
+                    item.style.animationDelay = `${0.1 * index}s`;
+                    item.classList.add('animate-in');
                 });
             }
         }
 
-        // Menu Mobile Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
+        mobileMenuBtn.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
 
-        if (mobileMenuBtn && navMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                mobileMenuBtn.classList.toggle('active');
-
-                // Prevenir scroll do body quando o menu está aberto
-                if (navMenu.classList.contains('active')) {
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    document.body.style.overflow = 'auto';
-                }
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                toggleMenu();
             });
-
-            // Fechar menu ao clicar em um link
-            document.querySelectorAll('nav a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navMenu.classList.remove('active');
-                    mobileMenuBtn.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                });
-            });
-        }
+        });
 
         // Smooth scrolling para links âncora
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1173,33 +1545,27 @@
         // Efeito de scroll no header
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
-            const headerContainer = document.querySelector('.header-container');
-
-            if (header && headerContainer) {
-                if (window.scrollY > 50) {
-                    header.style.background = 'rgba(255, 255, 255, 0.98)';
-                    header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-                    header.style.backdropFilter = 'blur(10px)';
-                    headerContainer.style.padding = '0.5rem 0';
-                } else {
-                    header.style.background = 'var(--light)';
-                    header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
-                    header.style.backdropFilter = 'none';
-                    headerContainer.style.padding = '1rem 0';
-                }
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'var(--light)';
+                header.style.boxShadow = 'none';
+                header.style.backdropFilter = 'none';
             }
         });
 
         // Item ativo no menu durante scroll
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('nav a');
+            const navLinks = document.querySelectorAll('.desktop-nav a, .mobile-nav a');
             let current = '';
 
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.offsetHeight;
-
+                
                 if (window.pageYOffset >= sectionTop - 100 && 
                     window.pageYOffset < sectionTop + sectionHeight - 100) {
                     current = section.getAttribute('id');
@@ -1216,29 +1582,6 @@
 
         // Inicializar estado ativo no carregamento da página
         window.dispatchEvent(new Event('scroll'));
-
-        // Animação de entrada dos elementos
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Aplicar animação aos elementos com a classe fade-in-up
-        document.querySelectorAll('.fade-in-up').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
     </script>
 </body>
 </html>
