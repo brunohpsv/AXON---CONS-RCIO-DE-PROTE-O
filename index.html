@@ -362,13 +362,13 @@
         /* Destinations */
         .destinations {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
         }
 
         .destination-card {
             background: var(--light);
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
@@ -376,47 +376,43 @@
         }
 
         .destination-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
             box-shadow: var(--shadow-hover);
         }
 
         .destination-image {
-            height: 200px;
+            height: 240px;
             width: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s ease;
         }
 
         .destination-card:hover .destination-image {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .destination-info {
-            padding: 1.5rem;
+            padding: 1.8rem;
         }
 
         .destination-info h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+            color: var(--primary);
         }
 
         .destination-info p {
             color: #5f6368;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
         }
 
         .destination-benefits {
-            margin: 1rem 0;
-            padding: 0.8rem;
+            margin: 1.2rem 0;
+            padding: 1rem;
             background: var(--gray-light);
-            border-radius: 4px;
-            font-size: 0.85rem;
-        }
-
-        .destination-benefits p {
-            margin-bottom: 0;
-            color: var(--dark);
+            border-radius: 6px;
+            font-size: 0.9rem;
         }
 
         .consult-button {
@@ -778,18 +774,6 @@
             <h1>Descubra o mundo com a BIXX VIAGENS</h1>
             <p>Pacotes exclusivos e experiências inesquecíveis para as suas próximas férias. Oferecemos um atendimento humano e totalmente personalizado, sempre com preços acessíveis e respostas rápidas, para que você aproveite cada momento da sua viagem com tranquilidade.</p>
             <a href="#destinations" class="cta-button">EXPLORAR DESTINOS</a>
-            <form class="search-form">
-                <input type="text" placeholder="Destino" required>
-                <input type="date" placeholder="Data de Ida" required>
-                <input type="date" placeholder="Data de Volta" required>
-                <select>
-                    <option>Adultos</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3+</option>
-                </select>
-                <button type="submit">Buscar</button>
-            </form>
         </div>
     </section>
 
