@@ -268,6 +268,43 @@
             background: rgba(255, 255, 255, 0.95);
         }
 
+        /* Search Form in Hero */
+        .search-form {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            padding: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .search-form input,
+        .search-form select {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.8rem;
+            border: 1px solid var(--gray);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .search-form button {
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-form button:hover {
+            background: var(--primary-dark);
+        }
+
         /* Sections */
         section {
             padding: 5rem 0;
@@ -295,6 +332,31 @@
             height: 4px;
             background: var(--primary);
             border-radius: 2px;
+        }
+
+        /* Scrolling Banner */
+        .hotel-banner {
+            overflow: hidden;
+            background: var(--gray-light);
+            padding: 2rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .hotel-scroller {
+            display: flex;
+            animation: scroll 30s linear infinite;
+        }
+
+        .hotel-scroller img {
+            height: 100px;
+            margin: 0 1rem;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         /* Destinations */
@@ -508,6 +570,39 @@
             font-size: 1.2rem;
         }
 
+        /* Testimonials */
+        .testimonials {
+            background: var(--light);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--gray-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .testimonial-card i {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-card p {
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-card span {
+            font-weight: 600;
+        }
+
         /* Footer */
         footer {
             background: var(--dark);
@@ -634,6 +729,10 @@
             .destinations {
                 grid-template-columns: 1fr;
             }
+
+            .search-form {
+                flex-direction: column;
+            }
         }
 
         @media (max-width: 480px) {
@@ -679,11 +778,43 @@
             <h1>Descubra o mundo com a BIXX VIAGENS</h1>
             <p>Pacotes exclusivos e experiências inesquecíveis para as suas próximas férias. Oferecemos um atendimento humano e totalmente personalizado, sempre com preços acessíveis e respostas rápidas, para que você aproveite cada momento da sua viagem com tranquilidade.</p>
             <a href="#destinations" class="cta-button">EXPLORAR DESTINOS</a>
+            <form class="search-form">
+                <input type="text" placeholder="Destino" required>
+                <input type="date" placeholder="Data de Ida" required>
+                <input type="date" placeholder="Data de Volta" required>
+                <select>
+                    <option>Adultos</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3+</option>
+                </select>
+                <button type="submit">Buscar</button>
+            </form>
         </div>
     </section>
 
     <section id="destinations">
         <div class="container">
+            <div class="hotel-banner">
+                <div class="hotel-scroller">
+                    <!-- Duplicar os itens para scroll infinito -->
+                    <img src="https://via.placeholder.com/200x100?text=Hotel+1" alt="Hotel 1">
+                    <img src="https://via.placeholder.com/200x100?text=Pousada+2" alt="Pousada 2">
+                    <img src="https://via.placeholder.com/200x100?text=Hotel+3" alt="Hotel 3">
+                    <img src="https://via.placeholder.com/200x100?text=Pousada+4" alt="Pousada 4">
+                    <img src="https://via.placeholder.com/200x100?text=Hotel+5" alt="Hotel 5">
+                    <img src="https://via.placeholder.com/200x100?text=Pousada+6" alt="Pousada 6">
+                    <img src="https://via.placeholder.com/200x100?text=Hotel+7" alt="Hotel 7">
+                    <!-- Repetir para loop -->
+                    <img src="https://via.placeholder.com/200x100?text=Hotel+1" alt="Hotel 1">
+                    <img src="https://via.placeholder.com/200x100?text=Pousada+2" alt="Pousada 2">
+                    <img src="https://via.placeholder.com/200x100?text=Hotel+3" alt="Hotel 3">
+                    <img src="https://via.placeholder.com/200x100?text=Pousada+4" alt="Pousada 4">
+                    <img src="https://via.placeholder.com/200x100?text=Hotel+5" alt="Hotel 5">
+                    <img src="https://via.placeholder.com/200x100?text=Pousada+6" alt="Pousada 6">
+                    <img src="https://via.placeholder.com/200x100?text=Hotel+7" alt="Hotel 7">
+                </div>
+            </div>
             <div class="section-title">
                 <h2>Destinos Populares</h2>
                 <p>Confira nossos pacotes mais procurados</p>
@@ -1031,6 +1162,32 @@
         </div>
     </section>
 
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Depoimentos</h2>
+                <p>O que nossos clientes dizem</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-in-up">
+                    <i class="fas fa-quote-left"></i>
+                    <p>"A BIXX VIAGENS transformou minhas férias em uma experiência inesquecível! Recomendo a todos."</p>
+                    <span>- Maria Silva</span>
+                </div>
+                <div class="testimonial-card fade-in-up">
+                    <i class="fas fa-quote-left"></i>
+                    <p>"Atendimento personalizado e preços acessíveis. Viajei para Gramado e amei cada momento."</p>
+                    <span>- João Oliveira</span>
+                </div>
+                <div class="testimonial-card fade-in-up">
+                    <i class="fas fa-quote-left"></i>
+                    <p>"Suporte 24h realmente funciona! Tive um imprevisto e eles resolveram rapidamente."</p>
+                    <span>- Ana Costa</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -1058,10 +1215,21 @@
                         <li><a href="#">Jericoacoara</a></li>
                     </ul>
                 </div>
+
+                <div class="footer-col">
+                    <h3>Contato</h3>
+                    <p>Telefone: (55) 62 8159-6601</p>
+                    <p>Email: contato@bixxviagens.com</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2023 BIXX VIAGENS. Todos os direitos reservados.</p>
+                <p>&copy; 2023 BIXX VIAGENS. Todos os direitos reservados. | <a href="#">Política de Privacidade</a> | <a href="#">Termos de Uso</a></p>
             </div>
         </div>
     </footer>
