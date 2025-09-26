@@ -13,10 +13,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Favicon simplificado -->
-	<!-- Favicon simplificado para máxima compatibilidade Android -->
-	<link rel="icon" href="favicon.png" type="image/png" sizes="32x32">
-	<link rel="icon" href="favicon.png" type="image/x-icon" sizes="16x16 32x32">
-	<link rel="apple-touch-icon" href="favicon.png">
+    <link rel="icon" href="favicon.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="favicon.png" type="image/x-icon" sizes="16x16 32x32">
+    <link rel="apple-touch-icon" href="favicon.png">
     
     <!-- Meta tags otimizadas para Android -->
     <meta name="theme-color" content="#FF0000">
@@ -180,6 +179,7 @@
             display: flex;
             flex-direction: column;
             border-left: var(--border);
+            overflow-y: auto;
         }
 
         .mobile-nav.active {
@@ -188,6 +188,7 @@
 
         .mobile-nav ul {
             list-style: none;
+            margin-bottom: 2rem;
         }
 
         .mobile-nav li {
@@ -210,6 +211,19 @@
             color: var(--primary);
             border-bottom: 1px solid var(--primary);
             padding-left: 8px;
+        }
+
+        .mobile-nav-footer {
+            margin-top: auto;
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-nav-footer p {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: rgba(0, 0, 0, 0.6);
         }
 
         .menu-overlay {
@@ -881,6 +895,13 @@
                 width: 100%;
                 height: 100%;
             }
+            
+            /* Garantir que os ícones apareçam no mobile */
+            .category-icon {
+                font-size: 1.5rem;
+                width: 45px;
+                height: 45px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -997,9 +1018,9 @@
     <header>
         <div class="container header-container">
             <div class="logo">
- 			   <img src="favicon.png" alt="BIXX CLUB" class="logo-img" onerror="this.style.display='none'">
- 			   <span>BIXX CLUB</span>
-			</div>
+                <img src="favicon.png" alt="BIXX CLUB" class="logo-img" onerror="this.style.display='none'">
+                <span>BIXX CLUB</span>
+            </div>
             
             <!-- Menu Desktop -->
             <nav class="desktop-nav">
@@ -1207,7 +1228,7 @@
                 <div class="footer-col">
                     <h3>BIXX CLUB</h3>
                     <p style="margin: 1rem 0; opacity: 0.8;">O clube de benefícios mais completo do mercado.</p>
-					<p style="margin: 1rem 0; opacity: 0.8;">A extensão de nossos benefícios é somente no Estado de Goiás, em breve será para outros Estados!.</p>
+                    <p style="margin: 1rem 0; opacity: 0.8;">A extensão de nossos benefícios é somente no Estado de Goiás, em breve será para outros Estados!.</p>
                 </div>
                 <div class="footer-col">
                     <h3>Links Rápidos</h3>
@@ -1241,9 +1262,11 @@
         if (isActive) {
             body.style.touchAction = 'none';
             body.style.overflow = 'hidden';
+            body.classList.add('menu-open');
         } else {
             body.style.touchAction = '';
             body.style.overflow = '';
+            body.classList.remove('menu-open');
         }
         
         mobileMenuBtn.setAttribute('aria-expanded', isActive);
@@ -1352,6 +1375,28 @@
         return /Android/i.test(navigator.userAgent);
     }
 
+    // Função para forçar abertura no Chrome Android
+    function forceChromeAndroid() {
+        if (isAndroid() && !/Chrome/.test(navigator.userAgent)) {
+            // Se é Android mas não está usando Chrome
+            const isChromeInstalled = confirm(
+                "Para uma melhor experiência, recomendamos abrir este site no Google Chrome. " +
+                "Deseja abrir no Chrome agora?"
+            );
+            
+            if (isChromeInstalled) {
+                // Tentar abrir no Chrome
+                const url = window.location.href;
+                window.location.href = 'intent://' + url.replace(/https?:\/\//, '') + '#Intent;scheme=http;package=com.android.chrome;end';
+                
+                // Fallback: redirecionar após um tempo
+                setTimeout(() => {
+                    window.location.href = 'https://play.google.com/store/apps/details?id=com.android.chrome';
+                }, 2000);
+            }
+        }
+    }
+
     function applyAndroidFixes() {
         if (!isAndroid()) return;
         
@@ -1392,6 +1437,9 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Aplicar correções para Android
         applyAndroidFixes();
+        
+        // Forçar abertura no Chrome Android (opcional - descomente se quiser ativar)
+        // forceChromeAndroid();
         
         // Inicializar estado ativo no carregamento da página
         setTimeout(() => {
