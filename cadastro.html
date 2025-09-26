@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BIXX CLUB - Cadastro para solicitação de benefícios">
+    <title>Cadastro - BIXX CLUB</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <style>
+        :root {
+            --primary: #FF0000;
+            --primary-dark: #CC0000;
+            --accent: #FF5252;
+            --bronze: #CD7F32;
+            --silver: #C0C0C0;
+            --gold: #FFD700;
+            --light: #FFFFFF;
+            --dark: #000000;
+            --gray: #F5F5F5;
+            --border: 2px solid #000000;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--light);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+            border-bottom: var(--border);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -1px;
+            padding-left: 0.5rem;
+            animation: slideInLeft 0.8s ease-out forwards;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+        
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        /* Navegação Desktop */
+        nav.desktop-nav {
+            display: flex;
+        }
+
+        nav.desktop-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav.desktop-nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: var(--transition);
+            border-bottom: 1px solid transparent;
+        }
+
+        nav.desktop-nav a:hover,
+        nav.desktop-nav a.active {
+            border-bottom: 1px solid var(--dark);
+            transform: translateY(-2px);
+        }
+
+        /* Menu Mobile */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: var(--border);
+            cursor: pointer;
+            padding: 0;
+            z-index: 1010;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 2px;
+            background: var(--dark);
+            margin: 2px 0;
+            transition: var(--transition);
+            transform-origin: center;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 350px;
+            height: 100vh;
+            background: var(--light);
+            z-index: 1005;
+            transition: right 0.4s ease-in-out;
+            padding: 80px 30px 30px;
+            display: flex;
+            flex-direction: column;
+            border-left: var(--border);
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+        }
+
+        .mobile-nav li {
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .mobile-nav.active li {
+            animation: slideInRight 0.5s ease forwards;
+        }
+
+        .mobile-nav.active li:nth-child(1) { animation-delay: 0.1s; }
+        .mobile-nav.active li:nth-child(2) { animation-delay: 0.2s; }
+        .mobile-nav.active li:nth-child(3) { animation-delay: 0.3s; }
+        .mobile-nav.active li:nth-child(4) { animation-delay: 0.4s; }
+        .mobile-nav.active li:nth-child(5) { animation-delay: 0.5s; }
+
+        .mobile-nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: block;
+            padding: 0.8rem 0;
+            transition: var(--transition);
+            border-bottom: 2px solid transparent;
+        }
+
+        .mobile-nav a:hover,
+        .mobile-nav a.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-left: 10px;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10rem 0 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: var(--border);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-weight: 800;
+            line-height: 1.2;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.2rem;
+            color: var(--dark);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+        }
+
+        /* Cadastro Section */
+        .cadastro-section {
+            padding: 5rem 0;
+            background-color: var(--gray);
+        }
+
+        .cadastro-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--light);
+            border-radius: 8px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            border: var(--border);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            color: var(--dark);
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--dark);
+            border-radius: 2px;
+            animation: expandWidth 0.8s ease-out forwards;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--dark);
+        }
+
+        .info-box {
+            background: rgba(255, 0, 0, 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+        }
+
+        .info-box h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-box p {
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box ul {
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .info-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .family-member {
+            background: rgba(0, 0, 0, 0.03);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--primary);
+        }
+
+        .family-member h4 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .add-member-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .add-member-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .remove-member-btn {
+            background: #ff5252;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+
+        .remove-member-btn:hover {
+            background: #ff0000;
+        }
+
+        .email-template {
+            background: #f9f9f9;
+            border: 1px dashed #ccc;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin: 2rem 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: popIn 0.6s ease-out 0.6s forwards;
+            width: 100%;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+        }
+
+        .back-button {
+            display: inline-block;
+            background: var(--light);
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .back-button:hover {
+            background: var(--primary);
+            color: var(--light);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--primary);
+            animation: slideInTop 0.8s ease-out forwards;
+        }
+
+        .footer-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h3 {
+            color: var(--light);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            position: relative;
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s ease-out forwards;
+            animation-delay: calc(0.1s * var(--index));
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+            animation: expandWidth 0.8s ease-out forwards;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideInLeft 0.5s ease-out forwards;
+            animation-delay: calc(0.1s * var(--index));
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .footer-links i {
+            margin-right: 0.5rem;
+            width: 20px;
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 4px;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transform: scale(0.8);
+            animation: popIn 0.6s ease-out forwards;
+            animation-delay: calc(0.1s * var(--index));
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+        }
+
+        /* Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @-webkit-keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @-webkit-keyframes fadeInUp {
+            from { opacity: 0; -webkit-transform: translateY(30px); }
+            to { opacity: 1; -webkit-transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @-webkit-keyframes slideInLeft {
+            from { opacity: 0; -webkit-transform: translateX(-20px); }
+            to { opacity: 1; -webkit-transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @-webkit-keyframes slideInRight {
+            from { opacity: 0; -webkit-transform: translateX(20px); }
+            to { opacity: 1; -webkit-transform: translateX(0); }
+        }
+
+        @keyframes slideInTop {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @-webkit-keyframes slideInTop {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @-webkit-keyframes slideUp {
+            from { opacity: 0; -webkit-transform: translateY(20px); }
+            to { opacity: 1; -webkit-transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @-webkit-keyframes popIn {
+            from { opacity: 0; -webkit-transform: scale(0.8); }
+            to { opacity: 1; -webkit-transform: scale(1); }
+        }
+
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 80px; }
+        }
+
+        @-webkit-keyframes expandWidth {
+            from { width: 0; }
+            to { width: 80px; }
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            70% { transform: scale(0.9); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @-webkit-keyframes bounceIn {
+            0% { -webkit-transform: scale(0.3); opacity: 0; }
+            50% { -webkit-transform: scale(1.2); opacity: 0.7; }
+            70% { -webkit-transform: scale(0.9); opacity: 1; }
+            100% { -webkit-transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @-webkit-keyframes pulse {
+            0% { -webkit-transform: scale(1); }
+            50% { -webkit-transform: scale(1.2); }
+            100% { -webkit-transform: scale(1); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @-webkit-keyframes slideDown {
+            from { opacity: 0; -webkit-transform: translateY(-20px); }
+            to { opacity: 1; -webkit-transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav.desktop-nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .hero {
+                padding: 8rem 1rem 4rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .cadastro-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .family-member {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem 0.5rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-title p {
+                font-size: 0.9rem;
+            }
+
+            .cadastro-container {
+                padding: 1.5rem 1rem;
+            }
+
+            .email-template {
+                font-size: 0.9rem;
+                padding: 1rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+
+            nav.desktop-nav {
+                display: flex;
+            }
+
+            .mobile-nav {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="favicon.png" alt="BIXX CLUB" class="logo-img">
+                <span>BIXX CLUB</span>
+            </a>
+            
+            <!-- Menu Desktop -->
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="index.html#benefits">Benefícios</a></li>
+                    <li><a href="index.html#plans">Planos</a></li>
+                    <li><a href="index.html#coverage">Cobertura</a></li>
+                    <li><a href="index.html#how-it-works">Como Funciona</a></li>
+                    <li><a href="app.html">Seu cartão virtual</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Botão Menu Mobile -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Menu Mobile (Fora do header para melhor posicionamento) -->
+    <nav class="mobile-nav" id="mobileNav">
+        <ul>
+            <li><a href="index.html#benefits"><i class="fas fa-star"></i> Benefícios</a></li>
+            <li><a href="index.html#plans"><i class="fas fa-tags"></i> Planos</a></li>
+            <li><a href="index.html#coverage"><i class="fas fa-check-circle"></i> Cobertura</a></li>
+            <li><a href="index.html#how-it-works"><i class="fas fa-question-circle"></i> Como Funciona</a></li>
+            <li><a href="app.html"><i class="fas fa-credit-card"></i> Seu cartão virtual</a></li>
+        </ul>
+        
+        <div class="mobile-nav-footer">
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p>&copy; 2025 BIXX CLUB</p>
+        </div>
+    </nav>
+    
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Cadastro <span>BIXX CLUB</span></h1>
+            <p>Solicite sua adesão ao clube de benefícios mais completo do Estado de Goiás</p>
+        </div>
+    </section>
+
+    <section class="cadastro-section">
+        <div class="container">
+            <div class="cadastro-container">
+                <div class="section-title">
+                    <h2>Solicitação de Cadastro</h2>
+                    <p>Preencha as informações abaixo para solicitar seu cadastro no BIXX CLUB</p>
+                </div>
+
+                <div class="info-box">
+                    <h3><i class="fas fa-info-circle"></i> Informações Importantes</h3>
+                    <p>Após preencher este formulário, você receberá um modelo de e-mail para enviar para <strong>oficialbixxclub@outlook.com.br</strong>.</p>
+                    <p><strong>Documentos necessários (serão solicitados posteriormente por e-mail):</strong></p>
+                    <ul>
+                        <li>CPF do titular e de todos os dependentes</li>
+                        <li>Comprovante de residência</li>
+                        <li>Documento de identidade (RG ou CNH)</li>
+                        <li>Comprovante de renda (apenas para alguns planos)</li>
+                    </ul>
+                </div>
+
+                <form id="cadastroForm">
+                    <div class="form-group">
+                        <label for="plano">Plano Desejado</label>
+                        <select id="plano" name="plano" required>
+                            <option value="">Selecione um plano</option>
+                            <option value="bronze">Bronze - R$75,00/mês</option>
+                            <option value="prata">Prata - R$95,00/mês</option>
+                            <option value="ouro">Ouro - R$135,00/mês</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nome">Nome Completo do Titular</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cpf">CPF do Titular</label>
+                        <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="whatsapp">WhatsApp</label>
+                        <input type="tel" id="whatsapp" name="whatsapp" placeholder="(00) 00000-0000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endereco">Endereço Completo</label>
+                        <textarea id="endereco" name="endereco" placeholder="Rua, número, bairro, cidade, estado, CEP" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qtd_familia">Quantidade de Membros da Família</label>
+                        <select id="qtd_familia" name="qtd_familia" required>
+                            <option value="1">1 pessoa (apenas titular)</option>
+                            <option value="2">2 pessoas</option>
+                            <option value="3">3 pessoas</option>
+                            <option value="4">4 pessoas</option>
+                            <option value="5">5 pessoas</option>
+                            <option value="6">6 ou mais pessoas</option>
+                        </select>
+                    </div>
+
+                    <div id="membrosFamilia">
+                        <h3>Membros da Família</h3>
+                        <p>Adicione informações sobre cada membro da família que será incluído no plano</p>
+                        
+                        <div class="family-member">
+                            <h4>Membro 1 (Titular)</h4>
+                            <div class="form-group">
+                                <label for="parentesco1">Parentesco</label>
+                                <select id="parentesco1" name="parentesco[]" required>
+                                    <option value="titular">Titular</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="nome_membro1">Nome Completo</label>
+                                <input type="text" id="nome_membro1" name="nome_membro[]" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cpf_membro1">CPF</label>
+                                <input type="text" id="cpf_membro1" name="cpf_membro[]" placeholder="000.000.000-00" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="add-member-btn" id="addMemberBtn">
+                        <i class="fas fa-plus"></i> Adicionar Membro da Família
+                    </button>
+
+                    <div class="form-group">
+                        <label for="observacoes">Observações Adicionais (opcional)</label>
+                        <textarea id="observacoes" name="observacoes" placeholder="Alguma informação adicional que considere importante"></textarea>
+                    </div>
+
+                    <button type="button" class="cta-button" id="generateEmailBtn">GERAR MODELO DE E-MAIL</button>
+                </form>
+
+                <div id="emailTemplate" style="display: none;">
+                    <h3>Modelo de E-mail para Envio</h3>
+                    <p>Copie o texto abaixo e envie para: <strong>oficialbixxclub@outlook.com.br</strong></p>
+                    <div class="email-template" id="emailContent"></div>
+                    <a href="mailto:oficialbixxclub@outlook.com.br?subject=Solicitação de Cadastro - BIXX CLUB&body=" id="sendEmailLink" class="cta-button">
+                        <i class="fas fa-envelope"></i> ABRIR CLIENTE DE E-MAIL
+                    </a>
+                    <a href="index.html" class="back-button">VOLTAR PARA A PÁGINA INICIAL</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-col" style="--index: 1;">
+                    <h3>BIXX CLUB</h3>
+                    <p style="margin: 1rem 0; opacity: 0.8;">O clube de benefícios mais completo do mercado.</p>
+                    <p style="margin: 1rem 0; opacity: 0.8;">A extensão de nossos benefícios é somente no Estado de Goiás, em breve será para outros Estados!.</p>
+                </div>
+                <div class="footer-col" style="--index: 2;">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li style="--index: 1;"><a href="index.html#benefits"><i class="fas fa-star"></i> Benefícios</a></li>
+                        <li style="--index: 2;"><a href="index.html#plans"><i class="fas fa-tags"></i> Planos</a></li>
+                        <li style="--index: 3;"><a href="index.html#coverage"><i class="fas fa-check-circle"></i> Cobertura</a></li>
+                        <li style="--index: 4;"><a href="index.html#how-it-works"><i class="fas fa-question-circle"></i> Como Funciona</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BIXX CLUB. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Mobile Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const body = document.body;
+
+        function toggleMenu() {
+            const isActive = mobileNav.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            body.style.overflow = isActive ? 'hidden' : '';
+            mobileMenuBtn.setAttribute('aria-expanded', isActive);
+            
+            // Animar itens do menu quando aberto
+            if (isActive) {
+                const menuItems = mobileNav.querySelectorAll('li');
+                menuItems.forEach((item, index) => {
+                    item.style.animationDelay = `${0.1 * index}s`;
+                    item.classList.add('animate-in');
+                });
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+
+        // Fechar menu ao clicar em um link
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                toggleMenu();
+            });
+        });
+
+        // Smooth scrolling para links âncora
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            if (anchor.getAttribute('href') !== '#') {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            }
+        });
+
+        // Efeito de scroll no header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'var(--light)';
+                header.style.boxShadow = 'none';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Item ativo no menu durante scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.desktop-nav a, .mobile-nav a');
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (window.pageYOffset >= sectionTop - 100 && 
+                    window.pageYOffset < sectionTop + sectionHeight - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Inicializar estado ativo no carregamento da página
+        window.dispatchEvent(new Event('scroll'));
+
+        // Lógica do formulário de cadastro
+        document.addEventListener('DOMContentLoaded', function() {
+            const qtdFamiliaSelect = document.getElementById('qtd_familia');
+            const membrosFamiliaDiv = document.getElementById('membrosFamilia');
+            const addMemberBtn = document.getElementById('addMemberBtn');
+            const generateEmailBtn = document.getElementById('generateEmailBtn');
+            const emailTemplateDiv = document.getElementById('emailTemplate');
+            const emailContentDiv = document.getElementById('emailContent');
+            const sendEmailLink = document.getElementById('sendEmailLink');
+            
+            let memberCount = 1; // Já temos o titular
+
+            // Atualizar a quantidade de membros da família
+            qtdFamiliaSelect.addEventListener('change', function() {
+                const qtd = parseInt(this.value);
+                updateFamilyMembers(qtd);
+            });
+
+            // Adicionar membro da família
+            addMemberBtn.addEventListener('click', function() {
+                addFamilyMember();
+            });
+
+            // Gerar modelo de e-mail
+            generateEmailBtn.addEventListener('click', function() {
+                if (validateForm()) {
+                    generateEmailTemplate();
+                    emailTemplateDiv.style.display = 'block';
+                    window.scrollTo({
+                        top: emailTemplateDiv.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    alert('Por favor, preencha todos os campos obrigatórios.');
+                }
+            });
+
+            // Função para atualizar membros da família
+            function updateFamilyMembers(qtd) {
+                const currentMembers = document.querySelectorAll('.family-member').length;
+                
+                if (qtd > currentMembers) {
+                    // Adicionar membros
+                    for (let i = currentMembers; i < qtd; i++) {
+                        addFamilyMember();
+                    }
+                } else if (qtd < currentMembers) {
+                    // Remover membros (exceto o titular)
+                    for (let i = currentMembers - 1; i >= qtd; i--) {
+                        if (i > 0) { // Não remover o titular
+                            removeFamilyMember(i);
+                        }
+                    }
+                }
+            }
+
+            // Função para adicionar membro da família
+            function addFamilyMember() {
+                memberCount++;
+                const newMemberDiv = document.createElement('div');
+                newMemberDiv.className = 'family-member';
+                newMemberDiv.innerHTML = `
+                    <h4>Membro ${memberCount}</h4>
+                    <div class="form-group">
+                        <label for="parentesco${memberCount}">Parentesco</label>
+                        <select id="parentesco${memberCount}" name="parentesco[]" required>
+                            <option value="">Selecione</option>
+                            <option value="conjuge">Cônjuge/Companheiro(a)</option>
+                            <option value="filho">Filho(a)</option>
+                            <option value="pai">Pai</option>
+                            <option value="mae">Mãe</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nome_membro${memberCount}">Nome Completo</label>
+                        <input type="text" id="nome_membro${memberCount}" name="nome_membro[]" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cpf_membro${memberCount}">CPF</label>
+                        <input type="text" id="cpf_membro${memberCount}" name="cpf_membro[]" placeholder="000.000.000-00" required>
+                    </div>
+                    <button type="button" class="remove-member-btn" data-index="${memberCount}">Remover Membro</button>
+                `;
+                
+                membrosFamiliaDiv.appendChild(newMemberDiv);
+                
+                // Atualizar o select de quantidade
+                qtdFamiliaSelect.value = memberCount;
+                
+                // Adicionar evento ao botão de remover
+                newMemberDiv.querySelector('.remove-member-btn').addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    removeFamilyMember(index);
+                });
+            }
+
+            // Função para remover membro da família
+            function removeFamilyMember(index) {
+                const memberToRemove = document.querySelector(`.family-member:nth-child(${index + 1})`);
+                if (memberToRemove) {
+                    memberToRemove.remove();
+                    memberCount--;
+                    
+                    // Reorganizar os índices
+                    const members = document.querySelectorAll('.family-member');
+                    members.forEach((member, i) => {
+                        const h4 = member.querySelector('h4');
+                        h4.textContent = `Membro ${i + 1}${i === 0 ? ' (Titular)' : ''}`;
+                        
+                        const inputs = member.querySelectorAll('input, select');
+                        inputs.forEach(input => {
+                            const id = input.id.replace(/\d+$/, i + 1);
+                            input.id = id;
+                            input.name = input.name.replace(/\[\d+\]/, `[${i}]`);
+                        });
+                        
+                        const removeBtn = member.querySelector('.remove-member-btn');
+                        if (removeBtn) {
+                            removeBtn.setAttribute('data-index', i + 1);
+                        }
+                    });
+                    
+                    // Atualizar o select de quantidade
+                    qtdFamiliaSelect.value = memberCount;
+                }
+            }
+
+            // Função para validar o formulário
+            function validateForm() {
+                const requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = 'red';
+                    } else {
+                        field.style.borderColor = '';
+                    }
+                });
+                
+                return isValid;
+            }
+
+            // Função para gerar o modelo de e-mail
+            function generateEmailTemplate() {
+                const plano = document.getElementById('plano').options[document.getElementById('plano').selectedIndex].text;
+                const nome = document.getElementById('nome').value;
+                const cpf = document.getElementById('cpf').value;
+                const email = document.getElementById('email').value;
+                const whatsapp = document.getElementById('whatsapp').value;
+                const endereco = document.getElementById('endereco').value;
+                const observacoes = document.getElementById('observacoes').value;
+                
+                // Coletar informações dos membros da família
+                let membrosInfo = '';
+                const membros = document.querySelectorAll('.family-member');
+                
+                membros.forEach((membro, index) => {
+                    const parentesco = membro.querySelector('select').options[membro.querySelector('select').selectedIndex].text;
+                    const nomeMembro = membro.querySelector('input[type="text"]').value;
+                    const cpfMembro = membro.querySelector('input[type="text"]:last-child').value;
+                    
+                    membrosInfo += `Membro ${index + 1}:
+- Parentesco: ${parentesco}
+- Nome: ${nomeMembro}
+- CPF: ${cpfMembro}
+
+`;
+                });
+                
+                const emailBody = `Prezados,
+
+Gostaria de solicitar o cadastro no BIXX CLUB com as seguintes informações:
+
+PLANO SOLICITADO: ${plano}
+
+INFORMAÇÕES DO TITULAR:
+- Nome: ${nome}
+- CPF: ${cpf}
+- E-mail: ${email}
+- WhatsApp: ${whatsapp}
+- Endereço: ${endereco}
+
+MEMBROS DA FAMÍLIA:
+${membrosInfo}
+
+OBSERVAÇÕES ADICIONAIS: ${observacoes || 'Nenhuma'}
+
+Aguardo o retorno para prosseguir com o envio dos documentos necessários.
+
+Atenciosamente,
+${nome}`;
+
+                emailContentDiv.textContent = emailBody;
+                
+                // Configurar o link de e-mail
+                const subject = encodeURIComponent('Solicitação de Cadastro - BIXX CLUB');
+                const body = encodeURIComponent(emailBody);
+                sendEmailLink.href = `mailto:oficialbixxclub@outlook.com.br?subject=${subject}&body=${body}`;
+            }
+
+            // Adicionar eventos de remoção aos botões existentes
+            document.querySelectorAll('.remove-member-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    removeFamilyMember(index);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
