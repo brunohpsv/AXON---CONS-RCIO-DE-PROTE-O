@@ -2,42 +2,20 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="BIXX CLUB - Clube de benefícios com descontos exclusivos em viagens, hospedagem, cursos e mais">
-    <title>BIXX CLUB</title>
-    
-    <!-- Font Awesome 5 (versão mais compatível) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIXX VIAGENS - Pacotes Personalizados para Goiás</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    
-    <!-- Google Fonts com fallback -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Favicon simplificado -->
-    <link rel="icon" href="favicon.png" type="image/png" sizes="32x32">
-    <link rel="icon" href="favicon.png" type="image/x-icon" sizes="16x16 32x32">
-    <link rel="apple-touch-icon" href="favicon.png">
-    
-    <!-- Meta tags otimizadas para Android -->
-    <meta name="theme-color" content="#FF0000">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Reset simplificado para melhor compatibilidade */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
         }
 
         :root {
             --primary: #FF0000;
             --primary-dark: #CC0000;
-            --accent: #FF5252;
-            --bronze: #CD7F32;
-            --silver: #C0C0C0;
-            --gold: #FFD700;
             --light: #FFFFFF;
             --dark: #000000;
             --gray: #F5F5F5;
@@ -47,14 +25,10 @@
         }
 
         body {
-            font-family: 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Inter', Arial, sans-serif;
             line-height: 1.5;
             color: var(--dark);
             background-color: var(--light);
-            overflow-x: hidden;
-            position: relative;
-            -webkit-font-smoothing: antialiased;
-            -webkit-text-size-adjust: 100%;
         }
 
         .container {
@@ -64,18 +38,13 @@
             padding: 1rem 0;
         }
 
-        /* Header otimizado para Android */
         header {
             background-color: var(--light);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            transition: var(--transition);
             border-bottom: var(--border);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            will-change: transform;
         }
 
         .header-container {
@@ -94,25 +63,14 @@
             color: var(--primary);
             text-transform: uppercase;
         }
-        
-        .logo-img {
-            width: 35px;
-            height: 35px;
-            object-fit: contain;
-        }
 
-        /* Navegação Desktop */
-        nav.desktop-nav {
-            display: flex;
-        }
-
-        nav.desktop-nav ul {
+        nav ul {
             display: flex;
             list-style: none;
             gap: 1.5rem;
         }
 
-        nav.desktop-nav a {
+        nav a {
             color: var(--dark);
             text-decoration: none;
             font-weight: 500;
@@ -123,132 +81,14 @@
             font-size: 0.9rem;
         }
 
-        nav.desktop-nav a:hover,
-        nav.desktop-nav a.active {
+        nav a:hover,
+        nav a.active {
             border-bottom: 1px solid var(--dark);
         }
 
-        /* Menu Mobile - Design simplificado */
-        .mobile-menu-btn {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            background: transparent;
-            border: var(--border);
-            cursor: pointer;
-            padding: 0;
-            z-index: 1010;
-            transition: var(--transition);
-        }
-
-        .mobile-menu-btn span {
-            width: 20px;
-            height: 2px;
-            background: var(--dark);
-            margin: 2px 0;
-            transition: var(--transition);
-            transform-origin: center;
-        }
-
-        .mobile-menu-btn.active span:nth-child(1) {
-            transform: translateY(5px) rotate(45deg);
-        }
-
-        .mobile-menu-btn.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .mobile-menu-btn.active span:nth-child(3) {
-            transform: translateY(-5px) rotate(-45deg);
-        }
-
-        .mobile-nav {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 85%;
-            max-width: 300px;
-            height: 100vh;
-            background: var(--light);
-            z-index: 1005;
-            transition: right 0.3s ease;
-            padding: 70px 20px 20px;
-            display: flex;
-            flex-direction: column;
-            border-left: var(--border);
-            overflow-y: auto;
-        }
-
-        .mobile-nav.active {
-            right: 0;
-        }
-
-        .mobile-nav ul {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .mobile-nav li {
-            margin-bottom: 1rem;
-        }
-
-        .mobile-nav a {
-            color: var(--dark);
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            display: block;
-            padding: 0.6rem 0;
-            transition: var(--transition);
-            border-bottom: 1px solid transparent;
-        }
-
-        .mobile-nav a:hover,
-        .mobile-nav a.active {
-            color: var(--primary);
-            border-bottom: 1px solid var(--primary);
-            padding-left: 8px;
-        }
-
-        .mobile-nav-footer {
-            margin-top: auto;
-            text-align: center;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .mobile-nav-footer p {
-            margin-top: 1rem;
-            font-size: 0.8rem;
-            color: rgba(0, 0, 0, 0.6);
-        }
-
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-        }
-
-        .menu-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Hero Section simplificada */
         .hero {
             padding: 8rem 0 4rem;
             text-align: center;
-            position: relative;
             border-bottom: var(--border);
         }
 
@@ -289,18 +129,6 @@
             transform: translateY(-2px);
         }
 
-        .cta-button.secondary {
-            background: var(--light);
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            margin-left: 0.5rem;
-        }
-
-        .cta-button.secondary:hover {
-            background: var(--primary);
-            color: var(--light);
-        }
-
         .big-cta-button {
             display: block;
             width: 100%;
@@ -311,54 +139,6 @@
             text-align: center;
         }
 
-        /* Categories Section simplificada */
-        .categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .category-card {
-            background-color: var(--light);
-            border-radius: 4px;
-            padding: 1.2rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            text-align: center;
-            border: var(--border);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            min-height: 180px;
-        }
-
-        .category-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .category-icon {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 0.8rem;
-            background: rgba(255, 0, 0, 0.05);
-            width: 50px;
-            height: 50px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: var(--transition);
-            border: 1px solid var(--primary);
-        }
-
-        .category-card h3 {
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
-            color: var(--dark);
-        }
-
-        /* Section Title simplificada */
         .section-title {
             text-align: center;
             margin-bottom: 3rem;
@@ -384,149 +164,14 @@
             border-radius: 2px;
         }
 
-        .section-title p {
-            max-width: 700px;
-            margin: 0 auto;
-            color: var(--dark);
-            font-size: 0.95rem;
-        }
-
-        /* Plans Section simplificada */
-        .plans {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .plan-card {
-            background: var(--light);
-            border-radius: 4px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            width: 300px;
-            transition: var(--transition);
-            position: relative;
-            border: var(--border);
-        }
-
-        .plan-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .plan-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 6px;
-        }
-
-        .plan-card.bronze::before {
-            background: var(--bronze);
-        }
-
-        .plan-card.silver::before {
-            background: var(--silver);
-        }
-
-        .plan-card.gold::before {
-            background: var(--gold);
-        }
-
-        .plan-card h3 {
-            text-align: center;
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
-            color: var(--dark);
-        }
-
-        .plan-seal {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.8rem;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 0.8rem;
-            border-radius: 50%;
-        }
-
-        .plan-card.bronze .plan-seal {
-            background: #f0e6d2;
-            border: 2px solid var(--bronze);
-        }
-
-        .plan-card.silver .plan-seal {
-            background: #f0f0f0;
-            border: 2px solid var(--silver);
-        }
-
-        .plan-card.gold .plan-seal {
-            background: #fff9d0;
-            border: 2px solid var(--gold);
-        }
-
-        .price {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin: 1rem 0;
-            text-align: center;
-            color: var(--dark);
-        }
-
-        .plan-card.bronze .price {
-            color: var(--bronze);
-        }
-
-        .plan-card.silver .price {
-            color: var(--silver);
-        }
-
-        .plan-card.gold .price {
-            color: var(--gold);
-        }
-
-        .price span {
-            font-size: 0.9rem;
-            font-weight: 400;
-        }
-
-        .plan-features {
-            list-style: none;
-            margin: 1.5rem 0;
-        }
-
-        .plan-features li {
-            margin-bottom: 0.8rem;
-            padding-left: 1.2rem;
-            position: relative;
-            color: var(--dark);
-        }
-
-        .plan-features li::before {
-            content: '✓';
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-            color: var(--dark);
-        }
-
-        /* Coverage Section simplificada */
-        .coverage {
+        .destinations {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             margin: 2rem 0;
         }
 
-        .coverage-card {
+        .destination-card {
             background: var(--light);
             border-radius: 4px;
             padding: 1.5rem;
@@ -534,9 +179,10 @@
             transition: var(--transition);
             position: relative;
             border: var(--border);
+            text-align: center;
         }
 
-        .coverage-card::before {
+        .destination-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -546,37 +192,22 @@
             background: var(--primary);
         }
 
-        .coverage-card:hover {
+        .destination-card:hover {
             transform: translateY(-3px);
         }
 
-        .coverage-card h3 {
-            text-align: center;
-            margin-bottom: 1.2rem;
+        .destination-card h3 {
+            margin-bottom: 1rem;
             font-size: 1.2rem;
             color: var(--dark);
         }
 
-        .coverage-list {
-            list-style: none;
-        }
-
-        .coverage-list li {
-            margin-bottom: 0.6rem;
-            padding-left: 1.2rem;
-            position: relative;
-            color: var(--dark);
-        }
-
-        .coverage-list li::before {
-            content: '›';
-            font-weight: bold;
-            position: absolute;
-            left: 0;
+        .destination-icon {
+            font-size: 2.5rem;
             color: var(--primary);
+            margin-bottom: 1rem;
         }
 
-        /* Process Section simplificada */
         .process-steps {
             display: flex;
             flex-wrap: wrap;
@@ -626,21 +257,12 @@
             color: var(--dark);
         }
 
-        .step ol {
-            padding-left: 0.8rem;
-        }
-
-        .step li {
-            margin-bottom: 0.4rem;
-            color: var(--dark);
-        }
-
-        /* Footer simplificado */
         footer {
             background-color: var(--dark);
             color: white;
             padding: 3rem 0 1.5rem;
             position: relative;
+            margin-top: 3rem;
         }
 
         footer::before {
@@ -706,36 +328,6 @@
             transform: translateX(3px);
         }
 
-        .footer-links i {
-            margin-right: 0.4rem;
-            width: 16px;
-            color: var(--primary);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 0.8rem;
-            margin-top: 1.2rem;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 35px;
-            height: 35px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-radius: 4px;
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .social-links a:hover {
-            background-color: var(--primary);
-            transform: translateY(-2px);
-        }
-
         .footer-bottom {
             text-align: center;
             margin-top: 2rem;
@@ -744,75 +336,7 @@
             font-size: 0.8rem;
         }
 
-        /* Animações simplificadas para Android */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(20px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
-        }
-
-        @keyframes slideIn {
-            from { 
-                opacity: 0; 
-                transform: translateX(-15px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateX(0); 
-            }
-        }
-
-        /* Aplicar animações básicas apenas se o dispositivo suportar */
-        @media (prefers-reduced-motion: no-preference) {
-            .hero h1, .hero p, .cta-button,
-            .category-card, .plan-card, .coverage-card, .step,
-            .section-title, .footer-col h3 {
-                animation: fadeIn 0.8s ease forwards;
-            }
-        }
-
-        /* Media Queries otimizadas para Android */
-        @media (max-width: 1024px) {
-            .container {
-                width: 95%;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .section-title h2 {
-                font-size: 1.8rem;
-            }
-
-            .plans {
-                gap: 1rem;
-            }
-
-            .plan-card {
-                width: 45%;
-            }
-        }
-
         @media (max-width: 768px) {
-            nav.desktop-nav {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: flex;
-            }
-
             .hero {
                 padding: 6rem 1rem 3rem;
             }
@@ -821,39 +345,8 @@
                 font-size: 1.8rem;
             }
 
-            .hero p {
-                font-size: 0.95rem;
-            }
-
-            .cta-buttons {
-                display: flex;
-                flex-direction: column;
-                gap: 0.8rem;
-                align-items: center;
-            }
-
-            .cta-button {
-                width: 100%;
-                max-width: 280px;
-                padding: 0.7rem 1.2rem;
-            }
-
-            .cta-button.secondary {
-                margin-left: 0;
-            }
-
-            .categories {
-                grid-template-columns: 1fr;
-                gap: 0.8rem;
-            }
-
-            .plan-card {
-                width: 100%;
-                max-width: none;
-            }
-
-            .coverage {
-                grid-template-columns: 1fr;
+            .section-title h2 {
+                font-size: 1.8rem;
             }
 
             .process-steps {
@@ -874,143 +367,23 @@
                 font-size: 1.1rem;
             }
 
-            .big-cta-button {
-                padding: 1rem;
-                font-size: 0.95rem;
-            }
-
-            .logo {
-                font-size: 1.3rem;
-            }
-
-            .logo-img {
-                width: 28px;
-                height: 28px;
-            }
-            
-            /* Prevenir problemas de scroll no Android */
-            body.menu-open {
-                overflow: hidden;
-                position: fixed;
-                width: 100%;
-                height: 100%;
-            }
-            
-            /* Garantir que os ícones apareçam no mobile */
-            .category-icon {
-                font-size: 1.5rem;
-                width: 45px;
-                height: 45px;
+            nav ul {
+                display: none;
             }
         }
 
         @media (max-width: 480px) {
-            .container {
-                padding: 1rem 0.5rem;
-            }
-
             .hero h1 {
                 font-size: 1.5rem;
-            }
-
-            .hero p {
-                font-size: 0.9rem;
             }
 
             .section-title h2 {
                 font-size: 1.5rem;
             }
 
-            .section-title p {
-                font-size: 0.85rem;
-            }
-
-            .category-card {
-                padding: 1rem;
-                min-height: 160px;
-            }
-
-            .category-icon {
-                width: 45px;
-                height: 45px;
-                font-size: 1.3rem;
-            }
-
-            .plan-card {
+            .destination-card {
                 padding: 1.2rem;
             }
-
-            .price {
-                font-size: 1.8rem;
-            }
-
-            .plan-features li {
-                font-size: 0.85rem;
-            }
-
-            .coverage-card {
-                padding: 1.2rem;
-            }
-
-            .step h3 {
-                font-size: 1rem;
-            }
-
-            .step li {
-                font-size: 0.85rem;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .footer-col h3::after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .footer-links {
-                text-align: center;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-        }
-
-        @media (min-width: 769px) {
-            .mobile-menu-btn {
-                display: none;
-            }
-
-            nav.desktop-nav {
-                display: flex;
-            }
-
-            .mobile-nav {
-                display: none !important;
-            }
-        }
-
-        /* Fallback para navegadores muito antigos */
-        .no-flexbox .container {
-            width: 100%;
-            padding: 10px;
-        }
-
-        .no-flexbox .header-container {
-            display: block;
-            text-align: center;
-        }
-
-        .no-flexbox nav.desktop-nav ul {
-            display: block;
-        }
-
-        .no-flexbox nav.desktop-nav li {
-            display: inline-block;
-            margin: 0 10px;
         }
     </style>
 </head>
@@ -1018,355 +391,196 @@
     <header>
         <div class="container header-container">
             <div class="logo">
-                <img src="favicon.png" alt="BIXX CLUB" class="logo-img" onerror="this.style.display='none'">
-                <span>BIXX CLUB</span>
+                <span>BIXX VIAGENS</span>
             </div>
             
-            <!-- Menu Desktop -->
-            <nav class="desktop-nav">
+            <nav>
                 <ul>
-                    <li><a href="#benefits">Benefícios</a></li>
-                    <li><a href="#plans">Planos</a></li>
-                    <li><a href="#coverage">Cobertura</a></li>
+                    <li><a href="#destinations">Destinos</a></li>
                     <li><a href="#how-it-works">Como Funciona</a></li>
-                    <li><a href="app.html">Seu cartão virtual</a></li>
+                    <li><a href="#advantages">Vantagens</a></li>
+                    <li><a href="#contact">Contato</a></li>
                 </ul>
             </nav>
-            
-            <!-- Botão Menu Mobile -->
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
         </div>
     </header>
-    
-    <!-- Menu Mobile -->
-    <nav class="mobile-nav" id="mobileNav">
-        <ul>
-            <li><a href="#benefits"><i class="fas fa-star"></i> Benefícios</a></li>
-            <li><a href="#plans"><i class="fas fa-tags"></i> Planos</a></li>
-            <li><a href="#coverage"><i class="fas fa-check-circle"></i> Cobertura</a></li>
-            <li><a href="#how-it-works"><i class="fas fa-question-circle"></i> Como Funciona</a></li>
-            <li><a href="app.html"><i class="fas fa-credit-card"></i> Seu cartão virtual</a></li>
-        </ul>
-        
-        <div class="mobile-nav-footer">
-            <div class="social-links">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            </div>
-            <p>&copy; 2025 BIXX CLUB</p>
-        </div>
-    </nav>
-    
-    <div class="menu-overlay" id="menuOverlay"></div>
 
     <section class="hero">
         <div class="container">
-            <h1>Com uma pequena mensalidade terá os <span>melhores benefícios </span> para o Estado de Goiás.</h1>
-            <p>Faça parte do BIXX CLUB e tenha acesso a descontos exclusivos em pousadas, clubes, cursos, aluguel de carros, farmácias, cinema, teatro e muito mais!</p>
-            <div class="cta-buttons">
-                <a href="#plans" class="cta-button">CONHEÇA NOSSOS PLANOS</a>
-            </div>
+            <h1>Pacotes de Viagens <span>Personalizados</span> para o Estado de Goiás</h1>
+            <p>Descubra as belezas de Goiás com pacotes de viagem personalizados, suporte 24h e experiências únicas.</p>
+            <a href="#destinations" class="cta-button">CONHEÇA NOSSOS DESTINOS</a>
         </div>
     </section>
 
-    <section id="benefits" class="container">
+    <section id="destinations" class="container">
         <div class="section-title">
-            <h2>Benefícios Exclusivos</h2>
-            <p>Como parte do BIXX CLUB, você tem acesso a uma série de vantagens exclusivas</p>
+            <h2>Destinos em Goiás</h2>
+            <p>Explore os melhores destinos que o estado de Goiás tem para oferecer</p>
         </div>
         
-        <div class="categories">
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-hotel"></i></div>
-                <h3>Pousadas & Hospedagem</h3>
-                <p>Descontos especiais em pousadas e hotéis em todo o Brasil.</p>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-dumbbell"></i></div>
-                <h3>Clubes Esportivos</h3>
-                <p>Acesso a clubes de tênis, golfe e outros esportes com condições especiais.</p>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-graduation-cap"></i></div>
-                <h3>Cursos & Educação</h3>
-                <p>Descontos em cursos diversos, incluindo idiomas e capacitação profissional.</p>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-car"></i></div>
-                <h3>Aluguel de Carros</h3>
-                <p>Preços especiais para locação de veículos em todo o país.</p>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-shopping-cart"></i></div>
-                <h3>Supermercados/Atacadão</h3>
-                <p>Descontos em supermercados ou atacadões com valores acima da R$ 500,00.</p>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-pills"></i></div>
-                <h3>Farmácias</h3>
-                <p>Descontos em medicamentos e produtos de farmácia.</p>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-film"></i></div>
-                <h3>Cinema & Teatro</h3>
-                <p>Ingressos com preços promocionais para cinemas e teatros.</p>
-            </div>
-            <div class="category-card">
-                <div class="category-icon"><i class="fas fa-car-battery"></i></div>
-                <h3>Peças e Pneus</h3>
-                <p>Descontos especiais em peças de carros e pneus.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="plans" class="container">
-        <div class="section-title">
-            <h2>Nossos Planos</h2>
-            <p>Escolha o plano ideal para suas necessidades</p>
-        </div>
-        
-        <div class="plans">
-            <div class="plan-card bronze">
-                <h3>Plano Bronze</h3>
-                <div class="plan-seal">B</div>
-                <div class="price">R$75,00<span>/mês</span></div>
-                <ul class="plan-features">
-                    <li>Descontos de 10% a 30% em todos nossos benefícios</li>
-                </ul>
-                <a href="cadastro.html" class="cta-button">ASSINAR AGORA</a>
+        <div class="destinations">
+            <div class="destination-card">
+                <div class="destination-icon"><i class="fas fa-city"></i></div>
+                <h3>Goiânia</h3>
+                <p>Conheça a capital goiana com seus parques, museus e vibrante vida noturna.</p>
             </div>
             
-            <div class="plan-card silver">
-                <h3>Plano Prata</h3>
-                <div class="plan-seal">P</div>
-                <div class="price">R$95,00<span>/mês</span></div>
-                <ul class="plan-features">
-                    <li>Descontos de 30% a 50% em todos nossos benefícios</li>
-                </ul>
-                <a href="cadastro.html" class="cta-button">ASSINAR AGORA</a>
+            <div class="destination-card">
+                <div class="destination-icon"><i class="fas fa-water"></i></div>
+                <h3>Caldas Novas</h3>
+                <p>Relaxe nas águas termais da maior estância hidrotermal do mundo.</p>
             </div>
             
-            <div class="plan-card gold">
-                <h3>Plano Ouro</h3>
-                <div class="plan-seal">O</div>
-                <div class="price">R$135,00<span>/mês</span></div>
-                <ul class="plan-features">
-                    <li>Descontos de 50% a 80% em todos nossos benefícios</li>
-                </ul>
-                <a href="cadastro.html" class="cta-button">ASSINAR AGORA</a>
+            <div class="destination-card">
+                <div class="destination-icon"><i class="fas fa-mountain"></i></div>
+                <h3>Pirenópolis</h3>
+                <p>Descubra a charmosa cidade histórica com cachoeiras deslumbrantes.</p>
             </div>
-        </div>
-    </section>
-
-    <section id="coverage" class="container">
-        <div class="section-title">
-            <h2>Pacotes de Viagens - Apenas para o Estado de Goiás</h2>
-            <p>Oferecemos a você um pacote de viagens para qualquer lugar do Estado de Goiás</p>
+            
+            <div class="destination-card">
+                <div class="destination-icon"><i class="fas fa-tree"></i></div>
+                <h3>Chapada dos Veadeiros</h3>
+                <p>Aventure-se no paraíso ecológico com cânions, cachoeiras e trilhas.</p>
+            </div>
         </div>
         
-        <div class="coverage">
-            <div class="coverage-card">
-                <h3>Estado de Goiás</h3>
-                <ul class="coverage-list">
-                    <li>Pacote personalizado para qualquer local do Estado de Goiás, local a sua escolha!</li>
-                    <li>Te acompanhamos em todo a viagem, com suporte 24h</li>
-                    <li>Caso seja assinante do BIXX CLUB, conforme o seu plano, ganhará todos os descontos em relação aos benefícios oferecidos.</li>
-                    <h4>Aproveite!</h4>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="coverage" class="container">
         <div class="section-title">
-            <h2>Cobertura de nossos benefícios</h2>
-            <p>A extensão de nossos benefícios e onde eles estão disponíveis</p>
-        </div>
-        
-        <div class="coverage">
-            <div class="coverage-card">
-                <h3>Estado de Goiás</h3>
-                <ul class="coverage-list">
-                    <li>Benefícios disponíveis exclusivamente no Estado de Goiás</li>
-                    <li>Em breve expansão para outros estados</li>
-                    <li>Acesso completo a todos os parceiros locais</li>
-                </ul>
-            </div>
+            <h3>Pacote Personalizado</h3>
+            <p>Não encontrou o que procura? Criamos um pacote personalizado para qualquer local do Estado de Goiás!</p>
+            <a href="#contact" class="cta-button big-cta-button">SOLICITAR PACOTE PERSONALIZADO</a>
         </div>
     </section>
 
     <section id="how-it-works" class="container">
         <div class="section-title">
             <h2>Como Funciona</h2>
-            <p>Processo simples para você aproveitar todos os benefícios</p>
+            <p>Processo simples para sua viagem dos sonhos em Goiás</p>
         </div>
         <div class="process-steps">
             <div class="step">
-                <h3>ESCOLHA SEU PLANO</h3>
-                <ol>
-                    <li>Selecione o plano que melhor atende suas necessidades</li>
-                    <li>Bronze, Prata ou Ouro - cada um com benefícios específicos</li>
-                    <li>Considere seus hábitos de consumo para a melhor escolha</li>
-                </ol>
+                <h3>ESCOLHA SEU DESTINO</h3>
+                <p>Selecione um dos nossos destinos pré-definidos ou solicite um pacote personalizado para qualquer lugar de Goiás.</p>
             </div>
             <div class="step">
-                <h3>FAÇA SUA ASSINATURA</h3>
-                <ol>
-                    <li>Preencha o formulário de cadastro</li>
-                    <li>Entraremos em contato pelo seu e-mail cadastrado</li>
-                    <li>Após o pagamento, começa a vigorá o seu contrato</li>
-                </ol>
+                <h3>PERSONALIZAÇÃO</h3>
+                <p>Nossa equipe entra em contato para entender suas preferências e criar o pacote ideal para você.</p>
             </div>
             <div class="step">
-                <h3>ACESSE SEUS BENEFÍCIOS</h3>
-                <ol>
-                    <li>Receba seu cartão digital de benefícios e credenciais</li>
-                    <li>Acesse a plataforma exclusiva de descontos</li>
-                    <li>Utilize os benefícios conforme suas necessidades</li>
-                </ol>
+                <h3>CONFIRMAÇÃO</h3>
+                <p>Após aprovação do pacote, confirmamos todos os detalhes e preparativos da sua viagem.</p>
             </div>
             <div class="step">
-                <h3>RENOVE SEUS BENEFÍCIOS</h3>
-                <ol>
-                    <li>A assinatura é renovada automaticamente</li>
-                    <li>Você pode alterar seu plano a qualquer momento</li>
-                    <li>Cancele quando quiser sem multa</li>
-                </ol>
+                <h3>APROVEITE A VIAGEM</h3>
+                <p>Viaje com tranquilidade sabendo que temos suporte 24h para qualquer necessidade durante seu passeio.</p>
             </div>
         </div>
     </section>
 
-    <footer id="contact" class="footer">
+    <section id="advantages" class="container">
+        <div class="section-title">
+            <h2>Vantagens Exclusivas</h2>
+            <p>Descubra por que escolher a BIXX VIAGENS para sua próxima aventura em Goiás</p>
+        </div>
+        <div class="destinations">
+            <div class="destination-card">
+                <div class="destination-icon"><i class="fas fa-headset"></i></div>
+                <h3>Suporte 24h</h3>
+                <p>Te acompanhamos em toda a viagem, com suporte disponível 24 horas por dia, 7 dias por semana.</p>
+            </div>
+            
+            <div class="destination-card">
+                <div class="destination-icon"><i class="fas fa-car-side"></i></div>
+                <h3>Transporte Incluso</h3>
+                <p>Oferecemos traslados e transporte terrestre incluso em todos os nossos pacotes.</p>
+            </div>
+            
+            <div class="destination-card">
+                <div class="destination-icon"><i class="fas fa-camera"></i></div>
+                <h3>Fotógrafo Profissional</h3>
+                <p>Registramos os melhores momentos da sua viagem com sessão fotográfica inclusa.</p>
+            </div>
+            
+            <div class="destination-card">
+                <div class="destination-icon"><i class="fas fa-utensils"></i></div>
+                <h3>Experiências Gastronômicas</h3>
+                <p>Incluímos degustações e jantares em restaurantes locais selecionados.</p>
+            </div>
+            
+            <div class="destination-card">
+                <div class="destination-icon"><i class="fas fa-map-signs"></i></div>
+                <h3>Guias Locais Especializados</h3>
+                <p>Conheça cada destino com guias locais que dominam a história e cultura regional.</p>
+            </div>
+            
+            <div class="destination-card">
+                <div class="destination-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Seguro Viagem</h3>
+                <p>Todos os pacotes incluem seguro viagem completo para sua tranquilidade.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-col">
-                    <h3>BIXX CLUB</h3>
-                    <p style="margin: 1rem 0; opacity: 0.8;">O clube de benefícios mais completo do mercado.</p>
-                    <p style="margin: 1rem 0; opacity: 0.8;">A extensão de nossos benefícios é somente no Estado de Goiás, em breve será para outros Estados!.</p>
+                    <h3>BIXX VIAGENS</h3>
+                    <p style="margin: 1rem 0; opacity: 0.8;">Pacotes de viagem personalizados exclusivamente para o Estado de Goiás.</p>
                 </div>
                 <div class="footer-col">
-                    <h3>Links Rápidos</h3>
+                    <h3>Contato</h3>
                     <ul class="footer-links">
-                        <li><a href="#benefits"><i class="fas fa-star"></i> Benefícios</a></li>
-                        <li><a href="#plans"><i class="fas fa-tags"></i> Planos</a></li>
-                        <li><a href="#coverage"><i class="fas fa-check-circle"></i> Cobertura</a></li>
-                        <li><a href="#how-it-works"><i class="fas fa-question-circle"></i> Como Funciona</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> (62) 99999-9999</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> contato@bixxviagens.com</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Goiânia, GO</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 BIXX CLUB. Todos os direitos reservados.</p>
+                <p>&copy; 2025 BIXX VIAGENS. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
     <script>
-    // Menu Mobile Toggle - Versão simplificada para Android
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileNav = document.getElementById('mobileNav');
-    const menuOverlay = document.getElementById('menuOverlay');
-    const body = document.body;
-
-    function toggleMenu() {
-        const isActive = mobileNav.classList.toggle('active');
-        mobileMenuBtn.classList.toggle('active');
-        menuOverlay.classList.toggle('active');
-        
-        // Solução alternativa para Android: usar touch-action em vez de overflow
-        if (isActive) {
-            body.style.touchAction = 'none';
-            body.style.overflow = 'hidden';
-            body.classList.add('menu-open');
-        } else {
-            body.style.touchAction = '';
-            body.style.overflow = '';
-            body.classList.remove('menu-open');
-        }
-        
-        mobileMenuBtn.setAttribute('aria-expanded', isActive);
-    }
-
-    // Event listeners simplificados
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', toggleMenu);
-    }
-    
-    if (menuOverlay) {
-        menuOverlay.addEventListener('click', toggleMenu);
-    }
-
-    // Fechar menu ao clicar em um link - com verificação de existência
-    const mobileLinks = document.querySelectorAll('.mobile-nav a');
-    if (mobileLinks.length > 0) {
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                toggleMenu();
-            });
-        });
-    }
-
-    // Smooth scrolling simplificado para Android
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        if (anchor.getAttribute('href') !== '#' && anchor.getAttribute('href') !== '') {
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 
-                // Verificação adicional para segurança
                 if (!targetId || targetId === '#') return;
                 
                 const targetElement = document.querySelector(targetId);
 
                 if (targetElement) {
-                    // Scroll suave com fallback para Android antigo
-                    if ('scrollBehavior' in document.documentElement.style) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    } else {
-                        // Fallback para Android antigo - scroll instantâneo
-                        window.scrollTo(0, targetElement.offsetTop - 80);
-                    }
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
                 }
             });
-        }
-    });
+        });
 
-    // Efeito de scroll no header - otimizado para performance
-    let scrollTimeout;
-    window.addEventListener('scroll', () => {
-        // Debounce para melhor performance no Android
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             if (header) {
                 if (window.scrollY > 50) {
                     header.style.background = 'rgba(255, 255, 255, 0.98)';
                     header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-                    // Usar filter em vez de backdrop-filter para compatibilidade
-                    header.style.filter = 'blur(0)';
                 } else {
                     header.style.background = 'var(--light)';
                     header.style.boxShadow = 'none';
-                    header.style.filter = 'none';
                 }
             }
-        }, 10);
-    });
+        });
 
-    // Item ativo no menu durante scroll - versão simplificada
-    let activeScrollTimeout;
-    window.addEventListener('scroll', () => {
-        clearTimeout(activeScrollTimeout);
-        activeScrollTimeout = setTimeout(() => {
+        // Set active navigation link
+        window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.desktop-nav a, .mobile-nav a');
+            const navLinks = document.querySelectorAll('nav a');
             let current = '';
 
             sections.forEach(section => {
@@ -1386,143 +600,7 @@
                     link.classList.add('active');
                 }
             });
-        }, 50);
-    });
-
-    // Detectar Android e aplicar correções específicas
-    function isAndroid() {
-        return /Android/i.test(navigator.userAgent);
-    }
-
-    // Função para forçar abertura no Chrome Android
-    function forceChromeAndroid() {
-        if (isAndroid() && !/Chrome/.test(navigator.userAgent)) {
-            // Se é Android mas não está usando Chrome
-            const isChromeInstalled = confirm(
-                "Para uma melhor experiência, recomendamos abrir este site no Google Chrome. " +
-                "Deseja abrir no Chrome agora?"
-            );
-            
-            if (isChromeInstalled) {
-                // Tentar abrir no Chrome
-                const url = window.location.href;
-                window.location.href = 'intent://' + url.replace(/https?:\/\//, '') + '#Intent;scheme=http;package=com.android.chrome;end';
-                
-                // Fallback: redirecionar após um tempo
-                setTimeout(() => {
-                    window.location.href = 'https://play.google.com/store/apps/details?id=com.android.chrome';
-                }, 2000);
-            }
-        }
-    }
-
-    function applyAndroidFixes() {
-        if (!isAndroid()) return;
-        
-        console.log('Aplicando otimizações para Android');
-        
-        // Remover animações complexas em dispositivos Android antigos
-        const isOldAndroid = /Android [2-6]/.test(navigator.userAgent);
-        if (isOldAndroid) {
-            document.body.classList.add('old-android');
-            
-            // Desativar algumas animações
-            const style = document.createElement('style');
-            style.textContent = `
-                .old-android .category-card,
-                .old-android .plan-card,
-                .old-android .coverage-card,
-                .old-android .step {
-                    animation: none !important;
-                    opacity: 1 !important;
-                    transform: none !important;
-                }
-                
-                .old-android .cta-button:hover {
-                    transform: none !important;
-                }
-            `;
-            document.head.appendChild(style);
-        }
-        
-        // Prevenir problemas com viewport
-        const viewport = document.querySelector('meta[name="viewport"]');
-        if (viewport) {
-            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes');
-        }
-    }
-
-    // Inicializar quando o DOM estiver pronto
-    document.addEventListener('DOMContentLoaded', function() {
-        // Aplicar correções para Android
-        applyAndroidFixes();
-        
-        // Forçar abertura no Chrome Android (opcional - descomente se quiser ativar)
-        // forceChromeAndroid();
-        
-        // Inicializar estado ativo no carregamento da página
-        setTimeout(() => {
-            window.dispatchEvent(new Event('scroll'));
-        }, 100);
-        
-        // Prevenir zoom duplo-tap em elementos interativos (Android)
-        if (isAndroid()) {
-            const interactiveElements = document.querySelectorAll('button, a, .cta-button');
-            interactiveElements.forEach(el => {
-                el.style.touchAction = 'manipulation';
-            });
-        }
-    });
-
-    // Fallback para navegadores muito antigos
-    if (!window.addEventListener) {
-        // Suporte para IE8 e navegadores antigos
-        document.attachEvent('onscroll', function() {
-            const header = document.querySelector('header');
-            if (header) {
-                if (document.documentElement.scrollTop > 50) {
-                    header.style.background = 'white';
-                } else {
-                    header.style.background = '';
-                }
-            }
         });
-    }
-
-    // Prevenir erro de ícones Font Awesome inexistentes
-    document.addEventListener('DOMContentLoaded', function() {
-        const icons = document.querySelectorAll('i');
-        icons.forEach(icon => {
-            if (!icon.className || icon.className.indexOf('fa-') === -1) {
-                icon.style.display = 'none';
-            }
-        });
-    });
-</script>
-
-<!-- Fallback para navegadores sem suporte a JavaScript -->
-<noscript>
-    <style>
-        .mobile-menu-btn { display: none !important; }
-        .mobile-nav { display: none !important; }
-        nav.desktop-nav { display: flex !important; }
-        
-        /* Estilos básicos sem JavaScript */
-        .category-card:hover,
-        .plan-card:hover,
-        .coverage-card:hover,
-        .step:hover {
-            transform: none;
-        }
-        
-        .cta-button:hover {
-            transform: none;
-        }
-    </style>
-    <div style="position: fixed; top: 0; left: 0; width: 100%; background: #ffeb3b; color: #000; padding: 10px; text-align: center; z-index: 10000;">
-        JavaScript está desativado. Algumas funcionalidades podem não estar disponíveis.
-    </div>
-</noscript>
-
+    </script>
 </body>
 </html>
