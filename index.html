@@ -332,6 +332,29 @@
             box-shadow: 0 8px 20px rgba(255, 0, 0, 0.3);
         }
 
+        .clear-button {
+            background: var(--light-gray);
+            color: var(--gray-dark);
+            border: 1px solid var(--gray);
+            border-radius: var(--border-radius-sm);
+            padding: 1rem 2rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            align-self: flex-end;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .clear-button:hover {
+            background: var(--gray);
+            transform: translateY(-2px);
+        }
+
         .cta-button {
             display: inline-flex;
             align-items: center;
@@ -402,6 +425,9 @@
             padding: 1.5rem 0.5rem;
             scrollbar-width: none;
             -ms-overflow-style: none;
+            margin: 0 -5%;
+            padding-left: 5%;
+            padding-right: 5%;
         }
 
         .destinations-scroll::-webkit-scrollbar {
@@ -1535,10 +1561,16 @@
                         </select>
                     </div>
                     
-                    <button type="submit" class="search-button">
-                        <i class="fas fa-search"></i>
-                        BUSCAR PASSAGENS
-                    </button>
+                    <div class="form-group" style="display: flex; gap: 1rem;">
+                        <button type="submit" class="search-button">
+                            <i class="fas fa-search"></i>
+                            BUSCAR PASSAGENS
+                        </button>
+                        <button type="button" class="clear-button" id="clear-search">
+                            <i class="fas fa-times"></i>
+                            LIMPAR
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -1572,126 +1604,152 @@
             <p>Confira os destinos mais procurados pelos nossos clientes</p>
         </div>
         
-        <div class="destinations-container">
-            <button class="scroll-button left" id="scroll-left">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            
-            <div class="destinations-scroll" id="destinations-scroll">
-                <!-- Destinos de voo (padrão) -->
-                <div class="destination-card">
-                    <div class="destination-icon"><i class="fas fa-plane"></i></div>
-                    <h3>São Paulo</h3>
-                    <p>Voe para a maior cidade do Brasil com os melhores preços.</p>
-                    <div class="destination-price">R$ 299<span> ida e volta</span></div>
-                    <span class="badge">Oferta Especial</span>
-                    <a href="#" class="cta-button">VER OFERTAS</a>
-                </div>
-                
-                <div class="destination-card">
-                    <div class="destination-icon"><i class="fas fa-plane"></i></div>
-                    <h3>Rio de Janeiro</h3>
-                    <p>Descubra as maravilhas da Cidade Maravilhosa.</p>
-                    <div class="destination-price">R$ 349<span> ida e volta</span></div>
-                    <span class="badge">Mais Procurado</span>
-                    <a href="#" class="cta-button">VER OFERTAS</a>
-                </div>
-                
-                <div class="destination-card">
-                    <div class="destination-icon"><i class="fas fa-plane"></i></div>
-                    <h3>Salvador</h3>
-                    <p>Conheça a capital baiana com suas praias e cultura.</p>
-                    <div class="destination-price">R$ 459<span> ida e volta</span></div>
-                    <span class="tag"><i class="fas fa-bolt"></i> Viagem Rápida</span>
-                    <a href="#" class="cta-button">VER OFERTAS</a>
-                </div>
-                
-                <div class="destination-card">
-                    <div class="destination-icon"><i class="fas fa-plane"></i></div>
-                    <h3>Florianópolis</h3>
-                    <p>Desfrute das belas praias da Ilha da Magia.</p>
-                    <div class="destination-price">R$ 399<span> ida e volta</span></div>
-                    <span class="tag"><i class="fas fa-sun"></i> Destino de Verão</span>
-                    <a href="#" class="cta-button">VER OFERTAS</a>
-                </div>
-                
-                <div class="destination-card">
-                    <div class="destination-icon"><i class="fas fa-plane"></i></div>
-                    <h3>Fortaleza</h3>
-                    <p>Aproveite as lindas praias do Nordeste brasileiro.</p>
-                    <div class="destination-price">R$ 499<span> ida e volta</span></div>
-                    <span class="badge">Promoção</span>
-                    <a href="#" class="cta-button">VER OFERTAS</a>
-                </div>
-                
-                <div class="destination-card">
-                    <div class="destination-icon"><i class="fas fa-plane"></i></div>
-                    <h3>Belo Horizonte</h3>
-                    <p>Explore a capital mineira e sua rica culinária.</p>
-                    <div class="destination-price">R$ 379<span> ida e volta</span></div>
-                    <span class="tag"><i class="fas fa-utensils"></i> Gastronomia</span>
-                    <a href="#" class="cta-button">VER OFERTAS</a>
-                </div>
-                
-                <!-- Destinos de ônibus (ocultos inicialmente) -->
-                <div class="destination-card bus-destination" style="display: none;">
-                    <div class="destination-icon"><i class="fas fa-bus"></i></div>
-                    <h3>São Paulo</h3>
-                    <p>Viaje de ônibus para a maior cidade do Brasil com conforto.</p>
-                    <div class="destination-price">R$ 120<span> ida</span></div>
-                    <span class="tag"><i class="fas fa-bed"></i> Leito Executivo</span>
-                    <a href="#" class="cta-button">VER OFERTAS</a>
-                </div>
-                
-                <div class="destination-card bus-destination" style="display: none;">
-                    <div class="destination-icon"><i class="fas fa-bus"></i></div>
-                    <h3>Rio de Janeiro</h3>
-                    <p>Conheça a Cidade Maravilhosa em uma viagem de ônibus.</p>
-                    <div class="destination-price">R$ 150<span> ida</span></div>
-                    <span class="badge">Mais Vendido</span>
-                    <a href="#" class="cta-button">VER OFERTAS</a>
-                </div>
-                
-                <div class="destination-card bus-destination" style="display: none;">
-                    <div class="destination-icon"><i class="fas fa-bus"></i></div>
-                    <h3>Brasília</h3>
-                    <p>Descubra a capital federal em uma viagem confortável.</p>
-                    <div class="destination-price">R$ 90<span> ida</span></div>
-                    <span class="tag"><i class="fas fa-wifi"></i> Wi-Fi Grátis</span>
-                    <a href="#" class="cta-button">VER OFERTAS</a>
-                </div>
-                
-                <div class="destination-card bus-destination" style="display: none;">
-                    <div class="destination-icon"><i class="fas fa-bus"></i></div>
-                    <h3>Curitiba</h3>
-                    <p>Explore a cidade modelo do Brasil de ônibus.</p>
-                    <div class="destination-price">R$ 180<span> ida</span></div>
-                    <span class="tag"><i class="fas fa-city"></i> Turismo Urbano</span>
-                    <a href="#" class="cta-button">VER OFERTAS</a>
-                </div>
-                
-                <div class="destination-card bus-destination" style="display: none;">
-                    <div class="destination-icon"><i class="fas fa-bus"></i></div>
-                    <h3>Porto Alegre</h3>
-                    <p>Conheça a capital gaúcha em uma viagem de ônibus.</p>
-                    <div class="destination-price">R$ 220<span> ida</span></div>
-                    <span class="badge">Novo Destino</span>
-                    <a href="#" class="cta-button">VER OFERTAS</a>
-                </div>
-                
-                <div class="destination-card bus-destination" style="display: none;">
-                    <div class="destination-icon"><i class="fas fa-bus"></i></div>
-                    <h3>Vitória</h3>
-                    <p>Desfrute das belezas capixabas em uma viagem de ônibus.</p>
-                    <div class="destination-price">R$ 160<span> ida</span></div>
-                    <span class="tag"><i class="fas fa-umbrella-beach"></i> Destino de Praia</span>
-                    <a href="#" class="cta-button">VER OFERTAS</a>
-                </div>
+        <!-- Seção de Voos -->
+        <div class="transport-section">
+            <div class="transport-title">
+                <i class="fas fa-plane"></i>
+                <h3>Passagens Aéreas</h3>
             </div>
             
-            <button class="scroll-button right" id="scroll-right">
-                <i class="fas fa-chevron-right"></i>
-            </button>
+            <div class="destinations-container">
+                <button class="scroll-button left" id="flight-scroll-left">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="destinations-scroll" id="flight-destinations-scroll">
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                        <h3>São Paulo</h3>
+                        <p>Voe para a maior cidade do Brasil com os melhores preços.</p>
+                        <div class="destination-price">R$ 299<span> ida e volta</span></div>
+                        <span class="badge">Oferta Especial</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                        <h3>Rio de Janeiro</h3>
+                        <p>Descubra as maravilhas da Cidade Maravilhosa.</p>
+                        <div class="destination-price">R$ 349<span> ida e volta</span></div>
+                        <span class="badge">Mais Procurado</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                        <h3>Salvador</h3>
+                        <p>Conheça a capital baiana com suas praias e cultura.</p>
+                        <div class="destination-price">R$ 459<span> ida e volta</span></div>
+                        <span class="tag"><i class="fas fa-bolt"></i> Viagem Rápida</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                        <h3>Florianópolis</h3>
+                        <p>Desfrute das belas praias da Ilha da Magia.</p>
+                        <div class="destination-price">R$ 399<span> ida e volta</span></div>
+                        <span class="tag"><i class="fas fa-sun"></i> Destino de Verão</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                        <h3>Fortaleza</h3>
+                        <p>Aproveite as lindas praias do Nordeste brasileiro.</p>
+                        <div class="destination-price">R$ 499<span> ida e volta</span></div>
+                        <span class="badge">Promoção</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                        <h3>Belo Horizonte</h3>
+                        <p>Explore a capital mineira e sua rica culinária.</p>
+                        <div class="destination-price">R$ 379<span> ida e volta</span></div>
+                        <span class="tag"><i class="fas fa-utensils"></i> Gastronomia</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                </div>
+                
+                <button class="scroll-button right" id="flight-scroll-right">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Seção de Ônibus -->
+        <div class="transport-section">
+            <div class="transport-title">
+                <i class="fas fa-bus"></i>
+                <h3>Passagens de Ônibus</h3>
+            </div>
+            
+            <div class="destinations-container">
+                <button class="scroll-button left" id="bus-scroll-left">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="destinations-scroll" id="bus-destinations-scroll">
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                        <h3>São Paulo</h3>
+                        <p>Viaje de ônibus para a maior cidade do Brasil com conforto.</p>
+                        <div class="destination-price">R$ 120<span> ida</span></div>
+                        <span class="tag"><i class="fas fa-bed"></i> Leito Executivo</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                        <h3>Rio de Janeiro</h3>
+                        <p>Conheça a Cidade Maravilhosa em uma viagem de ônibus.</p>
+                        <div class="destination-price">R$ 150<span> ida</span></div>
+                        <span class="badge">Mais Vendido</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                        <h3>Brasília</h3>
+                        <p>Descubra a capital federal em uma viagem confortável.</p>
+                        <div class="destination-price">R$ 90<span> ida</span></div>
+                        <span class="tag"><i class="fas fa-wifi"></i> Wi-Fi Grátis</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                        <h3>Curitiba</h3>
+                        <p>Explore a cidade modelo do Brasil de ônibus.</p>
+                        <div class="destination-price">R$ 180<span> ida</span></div>
+                        <span class="tag"><i class="fas fa-city"></i> Turismo Urbano</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                        <h3>Porto Alegre</h3>
+                        <p>Conheça a capital gaúcha em uma viagem de ônibus.</p>
+                        <div class="destination-price">R$ 220<span> ida</span></div>
+                        <span class="badge">Novo Destino</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                        <h3>Vitória</h3>
+                        <p>Desfrute das belezas capixabas em uma viagem de ônibus.</p>
+                        <div class="destination-price">R$ 160<span> ida</span></div>
+                        <span class="tag"><i class="fas fa-umbrella-beach"></i> Destino de Praia</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                </div>
+                
+                <button class="scroll-button right" id="bus-scroll-right">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
     </section>
 
@@ -1704,7 +1762,7 @@
             </div>
             
             <!-- Lista de Voos -->
-            <div class="transport-section">
+            <div class="transport-section" id="flight-results">
                 <div class="transport-title">
                     <i class="fas fa-plane"></i>
                     <h3>Passagens Aéreas</h3>
@@ -1756,7 +1814,7 @@
             </div>
             
             <!-- Lista de Ônibus -->
-            <div class="transport-section">
+            <div class="transport-section" id="bus-results">
                 <div class="transport-title">
                     <i class="fas fa-bus"></i>
                     <h3>Passagens de Ônibus</h3>
@@ -2210,20 +2268,24 @@
         const searchForm = document.getElementById('search-form');
         const searchTabs = document.querySelectorAll('.search-tab');
         const resultsSection = document.getElementById('results');
+        const flightResults = document.getElementById('flight-results');
+        const busResults = document.getElementById('bus-results');
         const flightList = document.getElementById('flight-list');
         const busList = document.getElementById('bus-list');
         const contactModal = document.getElementById('contact-modal');
         const contactLink = document.getElementById('contact-link');
         const closeContact = document.getElementById('close-contact');
         const cartCount = document.querySelector('.cart-count');
-        const destinationsScroll = document.getElementById('destinations-scroll');
-        const scrollLeft = document.getElementById('scroll-left');
-        const scrollRight = document.getElementById('scroll-right');
+        const clearSearchButton = document.getElementById('clear-search');
+        const flightDestinationsScroll = document.getElementById('flight-destinations-scroll');
+        const busDestinationsScroll = document.getElementById('bus-destinations-scroll');
+        const flightScrollLeft = document.getElementById('flight-scroll-left');
+        const flightScrollRight = document.getElementById('flight-scroll-right');
+        const busScrollLeft = document.getElementById('bus-scroll-left');
+        const busScrollRight = document.getElementById('bus-scroll-right');
         const advantagesScroll = document.getElementById('advantages-scroll');
         const advantageScrollLeft = document.getElementById('advantage-scroll-left');
         const advantageScrollRight = document.getElementById('advantage-scroll-right');
-        const flightCards = document.querySelectorAll('.destination-card:not(.bus-destination)');
-        const busCards = document.querySelectorAll('.bus-destination');
 
         // Variáveis de estado
         let currentSearchType = 'flight';
@@ -2237,15 +2299,6 @@
                     searchTabs.forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
                     currentSearchType = this.getAttribute('data-type');
-                    
-                    // Alternar entre destinos de voo e ônibus
-                    if (currentSearchType === 'flight') {
-                        flightCards.forEach(card => card.style.display = 'flex');
-                        busCards.forEach(card => card.style.display = 'none');
-                    } else {
-                        flightCards.forEach(card => card.style.display = 'none');
-                        busCards.forEach(card => card.style.display = 'flex');
-                    }
                 });
             });
 
@@ -2253,6 +2306,24 @@
             searchForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 performSearch();
+            });
+
+            // Botão limpar busca
+            clearSearchButton.addEventListener('click', function() {
+                document.getElementById('origin').value = '';
+                document.getElementById('destination').value = '';
+                document.getElementById('departure-date').value = '';
+                document.getElementById('return-date').value = '';
+                document.getElementById('passengers').value = '2';
+                
+                // Ocultar resultados
+                resultsSection.style.display = 'none';
+                
+                // Rolar para o topo
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             });
 
             // Modal de contato
@@ -2283,16 +2354,31 @@
             document.getElementById('bus-time-filter').addEventListener('change', filterResults);
             document.getElementById('bus-company-filter').addEventListener('change', filterResults);
 
-            // Rolagem dos destinos
-            scrollLeft.addEventListener('click', function() {
-                destinationsScroll.scrollBy({
+            // Rolagem dos destinos de voo
+            flightScrollLeft.addEventListener('click', function() {
+                flightDestinationsScroll.scrollBy({
                     left: -350,
                     behavior: 'smooth'
                 });
             });
 
-            scrollRight.addEventListener('click', function() {
-                destinationsScroll.scrollBy({
+            flightScrollRight.addEventListener('click', function() {
+                flightDestinationsScroll.scrollBy({
+                    left: 350,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Rolagem dos destinos de ônibus
+            busScrollLeft.addEventListener('click', function() {
+                busDestinationsScroll.scrollBy({
+                    left: -350,
+                    behavior: 'smooth'
+                });
+            });
+
+            busScrollRight.addEventListener('click', function() {
+                busDestinationsScroll.scrollBy({
                     left: 350,
                     behavior: 'smooth'
                 });
@@ -2340,6 +2426,15 @@
             
             // Mostrar seção de resultados
             resultsSection.style.display = 'block';
+            
+            // Mostrar apenas o tipo selecionado
+            if (currentSearchType === 'flight') {
+                flightResults.style.display = 'block';
+                busResults.style.display = 'none';
+            } else {
+                flightResults.style.display = 'none';
+                busResults.style.display = 'block';
+            }
             
             // Rolar para resultados
             window.scrollTo({
