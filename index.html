@@ -929,6 +929,30 @@
         .advantages-container {
             position: relative;
             margin: 3rem 0;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, rgba(26, 26, 46, 0.05) 100%);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        .advantages-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: var(--border-radius);
+            padding: 2px;
+            background: var(--gradient);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
 
         .advantages-scroll {
@@ -1561,7 +1585,7 @@
                         </select>
                     </div>
                     
-                    <div class="form-group" style="display: flex; gap: 1rem;">
+                    <div class="form-group" style="display: flex; gap: 1rem; grid-column: 1 / -1;">
                         <button type="submit" class="search-button">
                             <i class="fas fa-search"></i>
                             BUSCAR PASSAGENS
