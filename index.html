@@ -946,139 +946,10 @@
             left: 0;
         }
 
-        /* ANIMAÇÕES DE AVIÃO E ÔNIBUS */
-        .animation-container {
-            position: relative;
-            height: 100px;
-            margin: 2rem 0;
-            overflow: hidden;
-        }
-
-        .plane-animation {
-            position: absolute;
-            left: -100px;
-            top: 50%;
-            transform: translateY(-50%);
-            animation: planeMove 15s linear infinite;
-            z-index: 1;
-        }
-
-        .bus-animation {
-            position: absolute;
-            right: -100px;
-            top: 50%;
-            transform: translateY(-50%);
-            animation: busMove 15s linear infinite;
-            z-index: 1;
-        }
-
-        .plane-animation i, .bus-animation i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-        }
-
-        .dust {
-            position: absolute;
-            width: 40px;
-            height: 10px;
-            background: rgba(0,0,0,0.1);
-            border-radius: 50%;
-            filter: blur(3px);
-            animation: dustFade 1s linear infinite;
-        }
-
-        .dust-1 {
-            bottom: 15px;
-            right: 10px;
-            animation-delay: 0s;
-        }
-
-        .dust-2 {
-            bottom: 15px;
-            right: 25px;
-            animation-delay: 0.2s;
-        }
-
-        .dust-3 {
-            bottom: 15px;
-            right: 40px;
-            animation-delay: 0.4s;
-        }
-
-        .cloud {
-            position: absolute;
-            width: 40px;
-            height: 15px;
-            background: rgba(255,255,255,0.8);
-            border-radius: 50%;
-            filter: blur(5px);
-            animation: cloudMove 20s linear infinite;
-        }
-
-        .cloud-1 {
-            top: 20px;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .cloud-2 {
-            top: 40px;
-            left: 30%;
-            animation-delay: 5s;
-        }
-
-        .cloud-3 {
-            top: 60px;
-            left: 50%;
-            animation-delay: 10s;
-        }
-
-        @keyframes planeMove {
-            0% {
-                left: -100px;
-            }
-            100% {
-                left: calc(100% + 100px);
-            }
-        }
-
-        @keyframes busMove {
-            0% {
-                right: -100px;
-            }
-            100% {
-                right: calc(100% + 100px);
-            }
-        }
-
-        @keyframes dustFade {
-            0% {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(1.5);
-            }
-        }
-
-        @keyframes cloudMove {
-            0% {
-                left: -50px;
-            }
-            100% {
-                left: calc(100% + 50px);
-            }
-        }
-
         /* SEPARAÇÃO ENTRE LISTAS DE AVIÕES E ÔNIBUS */
         .transport-section {
             margin: 4rem 0;
+            position: relative;
         }
 
         .transport-title {
@@ -1097,6 +968,24 @@
         .transport-title h3 {
             font-size: 1.8rem;
             color: var(--dark);
+        }
+
+        /* NOVOS ESTILOS PARA AS IMAGENS */
+        .transport-image {
+            position: absolute;
+            z-index: 5;
+            max-width: 300px;
+            pointer-events: none;
+        }
+
+        .flight-image {
+            top: -50px;
+            right: 0;
+        }
+
+        .bus-image {
+            bottom: -50px;
+            left: 0;
         }
 
         @media (max-width: 768px) {
@@ -1164,12 +1053,16 @@
                 grid-template-columns: 1fr;
             }
 
-            .animation-container {
-                height: 80px;
+            .transport-image {
+                max-width: 200px;
             }
 
-            .plane-animation i, .bus-animation i {
-                font-size: 2rem;
+            .flight-image {
+                top: -30px;
+            }
+
+            .bus-image {
+                bottom: -30px;
             }
         }
 
@@ -1200,12 +1093,16 @@
                 border-left: 3px solid var(--primary);
             }
 
-            .animation-container {
-                height: 60px;
+            .transport-image {
+                max-width: 150px;
             }
 
-            .plane-animation i, .bus-animation i {
-                font-size: 1.5rem;
+            .flight-image {
+                top: -20px;
+            }
+
+            .bus-image {
+                bottom: -20px;
             }
         }
     </style>
@@ -1412,18 +1309,11 @@
                 <p>Encontramos as melhores opções para sua viagem</p>
             </div>
             
-            <!-- Animação de avião -->
-            <div class="animation-container">
-                <div class="plane-animation">
-                    <i class="fas fa-plane"></i>
-                    <div class="cloud cloud-1"></div>
-                    <div class="cloud cloud-2"></div>
-                    <div class="cloud cloud-3"></div>
-                </div>
-            </div>
-            
             <!-- Lista de Voos -->
             <div class="transport-section">
+                <!-- Imagem da mulher apontando para os voos -->
+                <img src="https://images.unsplash.com/photo-1551834593-55b5c0d7a9f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Mulher apontando para passagens aéreas" class="transport-image flight-image">
+                
                 <div class="transport-title">
                     <i class="fas fa-plane"></i>
                     <h3>Passagens Aéreas</h3>
@@ -1474,18 +1364,11 @@
                 </div>
             </div>
             
-            <!-- Animação de ônibus -->
-            <div class="animation-container">
-                <div class="bus-animation">
-                    <i class="fas fa-bus"></i>
-                    <div class="dust dust-1"></div>
-                    <div class="dust dust-2"></div>
-                    <div class="dust dust-3"></div>
-                </div>
-            </div>
-            
             <!-- Lista de Ônibus -->
             <div class="transport-section">
+                <!-- Imagem do homem apontando para os ônibus -->
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Homem apontando para passagens de ônibus" class="transport-image bus-image">
+                
                 <div class="transport-title">
                     <i class="fas fa-bus"></i>
                     <h3>Passagens de Ônibus</h3>
