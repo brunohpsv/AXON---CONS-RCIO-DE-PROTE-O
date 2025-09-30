@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIXX VIAGENS - Pacotes Personalizados para Goiás</title>
+    <title>BIXX PASS - Passagens Aéreas e de Ônibus</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Favicon corrigido -->
+    <!-- Favicon -->
     <link rel="icon" href="favicon-16x16.png" type="image/png">
     <link rel="shortcut icon" href="favicon-16x16.png" type="image/x-icon">
     <link rel="apple-touch-icon" href="favicon-16x16.png">
@@ -25,7 +25,8 @@
             --light: #FFFFFF;
             --dark: #000000;
             --gray: #F5F5F5;
-            --border: 2px solid #000000;
+            --gray-dark: #E0E0E0;
+            --border: 1px solid #DDDDDD;
             --shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
             --transition: all 0.3s ease;
         }
@@ -51,6 +52,7 @@
             top: 0;
             z-index: 1000;
             border-bottom: var(--border);
+            transition: var(--transition);
         }
 
         .header-container {
@@ -89,13 +91,62 @@
 
         nav a:hover,
         nav a.active {
-            border-bottom: 1px solid var(--dark);
+            color: var(--primary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .user-actions a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .user-actions a:hover {
+            color: var(--primary);
+        }
+
+        .cart-icon {
+            position: relative;
+            color: var(--dark);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .cart-icon:hover {
+            color: var(--primary);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .hero {
             padding: 8rem 0 4rem;
             text-align: center;
-            border-bottom: var(--border);
+            background-color: var(--gray);
         }
 
         .hero h1 {
@@ -117,6 +168,83 @@
             color: var(--dark);
         }
 
+        .search-container {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .search-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--gray-dark);
+        }
+
+        .search-tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+        }
+
+        .search-tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            padding: 0.8rem;
+            border: 1px solid var(--gray-dark);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1);
+        }
+
+        .search-button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            align-self: flex-end;
+        }
+
+        .search-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 0, 0, 0.2);
+        }
+
         .cta-button {
             display: inline-block;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
@@ -133,16 +261,7 @@
 
         .cta-button:hover {
             transform: translateY(-2px);
-        }
-
-        .big-cta-button {
-            display: block;
-            width: 100%;
-            max-width: 350px;
-            margin: 2rem auto 0;
-            padding: 1.2rem;
-            font-size: 1.1rem;
-            text-align: center;
+            box-shadow: 0 4px 12px rgba(255, 0, 0, 0.2);
         }
 
         .section-title {
@@ -166,7 +285,7 @@
             transform: translateX(-50%);
             width: 60px;
             height: 3px;
-            background: var(--dark);
+            background: var(--primary);
             border-radius: 2px;
         }
 
@@ -179,13 +298,14 @@
 
         .destination-card {
             background: var(--light);
-            border-radius: 4px;
+            border-radius: 8px;
             padding: 1.5rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
             border: var(--border);
             text-align: center;
+            overflow: hidden;
         }
 
         .destination-card::before {
@@ -199,7 +319,8 @@
         }
 
         .destination-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
 
         .destination-card h3 {
@@ -214,6 +335,140 @@
             margin-bottom: 1rem;
         }
 
+        .destination-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+
+        .destination-price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--dark);
+        }
+
+        .results-container {
+            margin: 3rem 0;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: var(--gray);
+            border-radius: 8px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 150px;
+        }
+
+        .filter-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .filter-select {
+            padding: 0.5rem;
+            border: 1px solid var(--gray-dark);
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .trip-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .trip-card {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .trip-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .trip-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .trip-route {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .trip-route span {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .trip-details {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .trip-company {
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .trip-price {
+            text-align: right;
+            min-width: 150px;
+        }
+
+        .trip-price .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .trip-price .seats {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.8rem;
+        }
+
+        .buy-button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.6rem 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .buy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 0, 0, 0.2);
+        }
+
         .process-steps {
             display: flex;
             flex-wrap: wrap;
@@ -226,7 +481,7 @@
             flex: 1;
             min-width: 250px;
             background-color: var(--light);
-            border-radius: 4px;
+            border-radius: 8px;
             padding: 2rem 1.5rem 1.5rem 4rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
@@ -349,6 +604,69 @@
             font-style: italic;
         }
 
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        .modal-title {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .form-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
         @media (max-width: 768px) {
             .hero {
                 padding: 6rem 1rem 3rem;
@@ -380,7 +698,25 @@
                 font-size: 1.1rem;
             }
 
-            nav ul {
+            .trip-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .trip-price {
+                text-align: left;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .user-actions {
                 display: none;
             }
         }
@@ -397,6 +733,20 @@
             .destination-card {
                 padding: 1.2rem;
             }
+
+            .search-tabs {
+                flex-direction: column;
+            }
+
+            .search-tab {
+                border-bottom: 1px solid var(--gray-dark);
+                border-left: 3px solid transparent;
+            }
+
+            .search-tab.active {
+                border-bottom: 1px solid var(--gray-dark);
+                border-left: 3px solid var(--primary);
+            }
         }
     </style>
 </head>
@@ -404,88 +754,193 @@
     <header>
         <div class="container header-container">
             <div class="logo">
-                <span>BIXX VIAGENS</span>
+                <span>BIXX PASS</span>
             </div>
             
             <nav>
                 <ul>
-                    <li><a href="#destinations">Destinos</a></li>
-                    <li><a href="#how-it-works">Como Funciona</a></li>
+                    <li><a href="#destinations" class="active">Voos</a></li>
+                    <li><a href="#bus">Ônibus</a></li>
                     <li><a href="#advantages">Vantagens</a></li>
-                    <li><a href="#contact">Contato</a></li>
+                    <li><a href="#contact">Ajuda</a></li>
                 </ul>
             </nav>
+            
+            <div class="header-actions">
+                <div class="user-actions">
+                    <a href="#" id="login-link">Entrar</a>
+                    <a href="#" id="register-link">Cadastrar</a>
+                </div>
+                <a href="#" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
         </div>
     </header>
 
     <section class="hero">
         <div class="container">
-            <h1>Pacotes de Viagens <span>Personalizados</span> para o Estado de Goiás</h1>
-            <p>Descubra as belezas de Goiás com pacotes de viagem personalizados, suporte 24h e experiências únicas.</p>
-            <a href="#destinations" class="cta-button">CONHEÇA NOSSOS DESTINOS</a>
+            <h1>Encontre as melhores <span>passagens aéreas e de ônibus</span></h1>
+            <p>Compare preços, horários e companhias para encontrar a viagem perfeita para você.</p>
+            
+            <div class="search-container">
+                <div class="search-tabs">
+                    <div class="search-tab active" data-type="flight">Passagens Aéreas</div>
+                    <div class="search-tab" data-type="bus">Passagens de Ônibus</div>
+                </div>
+                
+                <form class="search-form" id="search-form">
+                    <div class="form-group">
+                        <label for="origin">Origem</label>
+                        <input type="text" id="origin" class="form-control" placeholder="Cidade de origem" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="destination">Destino</label>
+                        <input type="text" id="destination" class="form-control" placeholder="Cidade de destino" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="departure-date">Data de Ida</label>
+                        <input type="date" id="departure-date" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="return-date">Data de Volta</label>
+                        <input type="date" id="return-date" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="passengers">Passageiros</label>
+                        <select id="passengers" class="form-control">
+                            <option value="1">1 passageiro</option>
+                            <option value="2" selected>2 passageiros</option>
+                            <option value="3">3 passageiros</option>
+                            <option value="4">4 passageiros</option>
+                            <option value="5">5 passageiros</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="search-button">BUSCAR PASSAGENS</button>
+                </form>
+            </div>
         </div>
     </section>
 
     <section id="destinations" class="container">
         <div class="section-title">
-            <h2>Destinos em Goiás</h2>
-            <p>Explore os melhores destinos que o estado de Goiás tem para oferecer</p>
+            <h2>Destinos Populares</h2>
+            <p>Confira os destinos mais procurados pelos nossos clientes</p>
         </div>
         
         <div class="destinations">
             <div class="destination-card">
-                <div class="destination-icon"><i class="fas fa-city"></i></div>
-                <h3>Goiânia</h3>
-                <p>Conheça a capital goiana com seus parques, museus e vibrante vida noturna.</p>
+                <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                <h3>São Paulo</h3>
+                <p>Voe para a maior cidade do Brasil com os melhores preços.</p>
+                <div class="destination-price">R$ 299<span> ida e volta</span></div>
+                <a href="#" class="cta-button">VER OFERTAS</a>
             </div>
             
             <div class="destination-card">
-                <div class="destination-icon"><i class="fas fa-water"></i></div>
-                <h3>Caldas Novas</h3>
-                <p>Relaxe nas águas termais da maior estância hidrotermal do mundo.</p>
+                <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                <h3>Rio de Janeiro</h3>
+                <p>Descubra as maravilhas da Cidade Maravilhosa.</p>
+                <div class="destination-price">R$ 349<span> ida e volta</span></div>
+                <a href="#" class="cta-button">VER OFERTAS</a>
             </div>
             
             <div class="destination-card">
-                <div class="destination-icon"><i class="fas fa-mountain"></i></div>
-                <h3>Pirenópolis</h3>
-                <p>Descubra a charmosa cidade histórica com cachoeiras deslumbrantes.</p>
+                <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                <h3>Salvador</h3>
+                <p>Conheça a capital baiana com suas praias e cultura.</p>
+                <div class="destination-price">R$ 459<span> ida e volta</span></div>
+                <a href="#" class="cta-button">VER OFERTAS</a>
             </div>
             
             <div class="destination-card">
-                <div class="destination-icon"><i class="fas fa-tree"></i></div>
-                <h3>Chapada dos Veadeiros</h3>
-                <p>Aventure-se no paraíso ecológico com cânions, cachoeiras e trilhas.</p>
+                <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                <h3>Florianópolis</h3>
+                <p>Desfrute das belas praias da Ilha da Magia.</p>
+                <div class="destination-price">R$ 399<span> ida e volta</span></div>
+                <a href="#" class="cta-button">VER OFERTAS</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="results" class="container results-container" style="display: none;">
+        <div class="section-title">
+            <h2>Resultados da Busca</h2>
+            <p>Encontramos as melhores opções para sua viagem</p>
+        </div>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <label for="price-filter">Preço</label>
+                <select id="price-filter" class="filter-select">
+                    <option value="all">Todos</option>
+                    <option value="low">Mais baratos</option>
+                    <option value="high">Mais caros</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="duration-filter">Duração</label>
+                <select id="duration-filter" class="filter-select">
+                    <option value="all">Todas</option>
+                    <option value="short">Mais curtas</option>
+                    <option value="long">Mais longas</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="time-filter">Horário</label>
+                <select id="time-filter" class="filter-select">
+                    <option value="all">Todos</option>
+                    <option value="morning">Manhã</option>
+                    <option value="afternoon">Tarde</option>
+                    <option value="evening">Noite</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="company-filter">Companhia</label>
+                <select id="company-filter" class="filter-select">
+                    <option value="all">Todas</option>
+                    <option value="latam">LATAM</option>
+                    <option value="gol">GOL</option>
+                    <option value="azul">Azul</option>
+                </select>
             </div>
         </div>
         
-        <div class="section-title">
-            <h3>Pacote Personalizado</h3>
-            <p>Não encontrou o que procura? Criamos um pacote personalizado para qualquer local do Estado de Goiás!</p>
-            <a href="https://wa.me/556281596601" target="_blank" class="cta-button big-cta-button">SOLICITAR PACOTE PERSONALIZADO</a>
+        <div class="trip-list" id="trip-list">
+            <!-- Os resultados serão inseridos aqui via JavaScript -->
         </div>
     </section>
 
     <section id="how-it-works" class="container">
         <div class="section-title">
             <h2>Como Funciona</h2>
-            <p>Processo simples para sua viagem dos sonhos em Goiás</p>
+            <p>Processo simples para comprar suas passagens</p>
         </div>
         <div class="process-steps">
             <div class="step">
-                <h3>ESCOLHA SEU DESTINO</h3>
-                <p>Selecione um dos nossos destinos pré-definidos ou solicite um pacote personalizado para qualquer lugar de Goiás.</p>
+                <h3>PESQUISE SUA VIAGEM</h3>
+                <p>Informe origem, destino, datas e número de passageiros para encontrar as melhores opções.</p>
             </div>
             <div class="step">
-                <h3>PERSONALIZAÇÃO</h3>
-                <p>Nossa equipe entra em contato para entender suas preferências e criar o pacote ideal para você.</p>
+                <h3>SELECIONE SUA PASSAGEM</h3>
+                <p>Compare preços, horários e companhias para escolher a opção que mais combina com você.</p>
             </div>
             <div class="step">
-                <h3>CONFIRMAÇÃO</h3>
-                <p>Após aprovação do pacote, confirmamos todos os detalhes e preparativos da sua viagem.</p>
+                <h3>FAÇA SEU PAGAMENTO</h3>
+                <p>Pague com cartão de crédito, PIX ou boleto de forma rápida e segura.</p>
             </div>
             <div class="step">
-                <h3>APROVEITE A VIAGEM</h3>
-                <p>Viaje com tranquilidade sabendo que temos suporte 24h para qualquer necessidade durante seu passeio.</p>
+                <h3>RECEBA SUA PASSAGEM</h3>
+                <p>Receba sua passagem por e-mail e esteja pronto para embarcar!</p>
             </div>
         </div>
     </section>
@@ -493,47 +948,43 @@
     <section id="advantages" class="container">
         <div class="section-title">
             <h2>Vantagens Exclusivas</h2>
-            <p>Descubra por que escolher a BIXX VIAGENS para sua próxima aventura em Goiás</p>
+            <p>Descubra por que escolher a BIXX PASS para suas viagens</p>
         </div>
         <div class="destinations">
             <div class="destination-card">
+                <div class="destination-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Compra Segura</h3>
+                <p>Seus dados estão protegidos com criptografia de última geração.</p>
+            </div>
+            
+            <div class="destination-card">
+                <div class="destination-icon"><i class="fas fa-percentage"></i></div>
+                <h3>Melhor Preço Garantido</h3>
+                <p>Encontrou mais barato? Reembolsamos a diferença.</p>
+            </div>
+            
+            <div class="destination-card">
                 <div class="destination-icon"><i class="fas fa-headset"></i></div>
                 <h3>Suporte 24h</h3>
-                <p>Te acompanhamos em toda a viagem, com suporte disponível 24 horas por dia, 7 dias por semana.</p>
+                <p>Nossa equipe está disponível 24 horas para ajudar você.</p>
             </div>
             
             <div class="destination-card">
-                <div class="destination-icon"><i class="fas fa-car-side"></i></div>
-                <h3>Transporte</h3>
-                <p>Oferecemos veículos alugados ou transporte de ônibus, de acordo com a disponibilidade.</p>
-                <p class="availability-note">Sujeito à disponibilidade</p>
+                <div class="destination-icon"><i class="fas fa-undo"></i></div>
+                <h3>Cancelamento Facilitado</h3>
+                <p>Cancele sua viagem com até 24h de antecedência sem taxas.</p>
             </div>
             
             <div class="destination-card">
-                <div class="destination-icon"><i class="fas fa-camera"></i></div>
-                <h3>Fotógrafo Profissional</h3>
-                <p>Registramos os melhores momentos da sua viagem com sessão fotográfica inclusa.</p>
-                <p class="availability-note">Sujeito à disponibilidade</p>
+                <div class="destination-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3>App Exclusivo</h3>
+                <p>Baixe nosso app e gerencie suas viagens de qualquer lugar.</p>
             </div>
             
             <div class="destination-card">
-                <div class="destination-icon"><i class="fas fa-utensils"></i></div>
-                <h3>Experiências Gastronômicas</h3>
-                <p>Opção de incluir degustações e jantares em restaurantes locais selecionados.</p>
-                <p class="availability-note">Opcional</p>
-            </div>
-            
-            <div class="destination-card">
-                <div class="destination-icon"><i class="fas fa-map-signs"></i></div>
-                <h3>Guias Locais</h3>
-                <p>Conheça cada destino com guias locais que dominam a história e cultura regional.</p>
-                <p class="availability-note">Sujeito à disponibilidade</p>
-            </div>
-            
-            <div class="destination-card">
-                <div class="destination-icon"><i class="fas fa-shield-alt"></i></div>
-                <h3>Reembolso Garantido</h3>
-                <p>Cancelamentos com até 15 dias úteis de antecedência garantem reembolso total do valor pago.</p>
+                <div class="destination-icon"><i class="fas fa-gift"></i></div>
+                <h3>Programa de Fidelidade</h3>
+                <p>Acumule pontos e troque por descontos em suas próximas viagens.</p>
             </div>
         </div>
     </section>
@@ -542,25 +993,331 @@
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-col">
-                    <h3>BIXX VIAGENS</h3>
-                    <p style="margin: 1rem 0; opacity: 0.8;">Pacotes de viagem personalizados exclusivamente para o Estado de Goiás.</p>
+                    <h3>BIXX PASS</h3>
+                    <p style="margin: 1rem 0; opacity: 0.8;">Encontre as melhores passagens aéreas e de ônibus com os melhores preços.</p>
                 </div>
                 <div class="footer-col">
                     <h3>Contato</h3>
                     <ul class="footer-links">
                         <li><a href="#"><i class="fas fa-phone"></i> (62) 99999-9999</a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i> contato@bixxviagens.com</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> contato@bixxair.com</a></li>
                         <li><a href="#"><i class="fas fa-map-marker-alt"></i> Goiânia, GO</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Links Úteis</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Sobre nós</a></li>
+                        <li><a href="#">Perguntas Frequentes</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Formas de Pagamento</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Cartão de Crédito</a></li>
+                        <li><a href="#">PIX</a></li>
+                        <li><a href="#">Boleto Bancário</a></li>
+                        <li><a href="#">Cartão de Débito</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 BIXX VIAGENS. Todos os direitos reservados.</p>
+                <p>&copy; 2025 BIXX PASS. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Modal de Login -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-login">&times;</span>
+            <h2 class="modal-title">Entrar na Conta</h2>
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="login-email">E-mail</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="Seu e-mail" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Senha</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="Sua senha" required>
+                </div>
+                <div class="form-actions">
+                    <a href="#" class="form-link">Esqueci minha senha</a>
+                    <button type="submit" class="cta-button">ENTRAR</button>
+                </div>
+            </form>
+            <p style="margin-top: 1rem; text-align: center;">Não tem uma conta? <a href="#" class="form-link" id="go-to-register">Cadastre-se</a></p>
+        </div>
+    </div>
+
+    <!-- Modal de Cadastro -->
+    <div class="modal" id="register-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-register">&times;</span>
+            <h2 class="modal-title">Criar Conta</h2>
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="register-name">Nome Completo</label>
+                    <input type="text" id="register-name" class="form-control" placeholder="Seu nome completo" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">E-mail</label>
+                    <input type="email" id="register-email" class="form-control" placeholder="Seu e-mail" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Senha</label>
+                    <input type="password" id="register-password" class="form-control" placeholder="Crie uma senha" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm">Confirmar Senha</label>
+                    <input type="password" id="register-confirm" class="form-control" placeholder="Confirme sua senha" required>
+                </div>
+                <button type="submit" class="cta-button" style="margin-top: 1rem;">CRIAR CONTA</button>
+            </form>
+            <p style="margin-top: 1rem; text-align: center;">Já tem uma conta? <a href="#" class="form-link" id="go-to-login">Entrar</a></p>
+        </div>
+    </div>
+
     <script>
+        // Dados de exemplo para passagens
+        const sampleTrips = [
+            {
+                id: 1,
+                origin: "Goiânia",
+                destination: "São Paulo",
+                departure: "08:00",
+                arrival: "10:15",
+                duration: "2h15min",
+                company: "LATAM",
+                price: 299,
+                seats: 12,
+                type: "flight"
+            },
+            {
+                id: 2,
+                origin: "Goiânia",
+                destination: "São Paulo",
+                departure: "11:30",
+                arrival: "13:45",
+                duration: "2h15min",
+                company: "GOL",
+                price: 329,
+                seats: 8,
+                type: "flight"
+            },
+            {
+                id: 3,
+                origin: "Goiânia",
+                destination: "São Paulo",
+                departure: "15:20",
+                arrival: "17:35",
+                duration: "2h15min",
+                company: "Azul",
+                price: 279,
+                seats: 5,
+                type: "flight"
+            },
+            {
+                id: 4,
+                origin: "Goiânia",
+                destination: "São Paulo",
+                departure: "19:00",
+                arrival: "21:15",
+                duration: "2h15min",
+                company: "LATAM",
+                price: 349,
+                seats: 15,
+                type: "flight"
+            },
+            {
+                id: 5,
+                origin: "Goiânia",
+                destination: "São Paulo",
+                departure: "22:00",
+                arrival: "06:30",
+                duration: "8h30min",
+                company: "Viação Nacional",
+                price: 120,
+                seats: 20,
+                type: "bus"
+            }
+        ];
+
+        // Elementos DOM
+        const searchForm = document.getElementById('search-form');
+        const searchTabs = document.querySelectorAll('.search-tab');
+        const resultsSection = document.getElementById('results');
+        const tripList = document.getElementById('trip-list');
+        const loginModal = document.getElementById('login-modal');
+        const registerModal = document.getElementById('register-modal');
+        const loginLink = document.getElementById('login-link');
+        const registerLink = document.getElementById('register-link');
+        const closeLogin = document.getElementById('close-login');
+        const closeRegister = document.getElementById('close-register');
+        const goToRegister = document.getElementById('go-to-register');
+        const goToLogin = document.getElementById('go-to-login');
+        const cartCount = document.querySelector('.cart-count');
+
+        // Variáveis de estado
+        let currentSearchType = 'flight';
+        let cartItems = 0;
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tabs de busca
+            searchTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    searchTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    currentSearchType = this.getAttribute('data-type');
+                });
+            });
+
+            // Formulário de busca
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                performSearch();
+            });
+
+            // Modal de login
+            loginLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.style.display = 'flex';
+            });
+
+            closeLogin.addEventListener('click', function() {
+                loginModal.style.display = 'none';
+            });
+
+            // Modal de cadastro
+            registerLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                registerModal.style.display = 'flex';
+            });
+
+            closeRegister.addEventListener('click', function() {
+                registerModal.style.display = 'none';
+            });
+
+            // Navegação entre modais
+            goToRegister.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.style.display = 'none';
+                registerModal.style.display = 'flex';
+            });
+
+            goToLogin.addEventListener('click', function(e) {
+                e.preventDefault();
+                registerModal.style.display = 'none';
+                loginModal.style.display = 'flex';
+            });
+
+            // Fechar modais ao clicar fora
+            window.addEventListener('click', function(e) {
+                if (e.target === loginModal) {
+                    loginModal.style.display = 'none';
+                }
+                if (e.target === registerModal) {
+                    registerModal.style.display = 'none';
+                }
+            });
+
+            // Filtros
+            document.getElementById('price-filter').addEventListener('change', filterResults);
+            document.getElementById('duration-filter').addEventListener('change', filterResults);
+            document.getElementById('time-filter').addEventListener('change', filterResults);
+            document.getElementById('company-filter').addEventListener('change', filterResults);
+        });
+
+        // Função para realizar a busca
+        function performSearch() {
+            const origin = document.getElementById('origin').value;
+            const destination = document.getElementById('destination').value;
+            
+            if (!origin || !destination) {
+                alert('Por favor, preencha origem e destino.');
+                return;
+            }
+
+            // Simular busca
+            const filteredTrips = sampleTrips.filter(trip => 
+                trip.type === currentSearchType
+            );
+
+            displayResults(filteredTrips);
+            
+            // Mostrar seção de resultados
+            resultsSection.style.display = 'block';
+            
+            // Rolar para resultados
+            window.scrollTo({
+                top: resultsSection.offsetTop - 80,
+                behavior: 'smooth'
+            });
+        }
+
+        // Função para exibir resultados
+        function displayResults(trips) {
+            tripList.innerHTML = '';
+            
+            if (trips.length === 0) {
+                tripList.innerHTML = '<p style="text-align: center; padding: 2rem;">Nenhuma passagem encontrada para os critérios selecionados.</p>';
+                return;
+            }
+            
+            trips.forEach(trip => {
+                const tripCard = document.createElement('div');
+                tripCard.className = 'trip-card';
+                tripCard.innerHTML = `
+                    <div class="trip-info">
+                        <div class="trip-route">
+                            <span>${trip.origin}</span>
+                            <i class="fas fa-arrow-right"></i>
+                            <span>${trip.destination}</span>
+                        </div>
+                        <div class="trip-details">
+                            <div><i class="far fa-clock"></i> ${trip.departure} - ${trip.arrival}</div>
+                            <div><i class="fas fa-hourglass-half"></i> ${trip.duration}</div>
+                        </div>
+                        <div class="trip-company">${trip.company}</div>
+                    </div>
+                    <div class="trip-price">
+                        <div class="price">R$ ${trip.price}</div>
+                        <div class="seats">${trip.seats} assentos disponíveis</div>
+                        <button class="buy-button" data-id="${trip.id}">COMPRAR</button>
+                    </div>
+                `;
+                
+                tripList.appendChild(tripCard);
+            });
+            
+            // Adicionar event listeners aos botões de compra
+            document.querySelectorAll('.buy-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const tripId = this.getAttribute('data-id');
+                    addToCart(tripId);
+                });
+            });
+        }
+
+        // Função para filtrar resultados
+        function filterResults() {
+            // Em uma implementação real, isso filtraria os resultados já carregados
+            // Por simplicidade, vamos apenas refazer a busca
+            performSearch();
+        }
+
+        // Função para adicionar ao carrinho
+        function addToCart(tripId) {
+            cartItems++;
+            cartCount.textContent = cartItems;
+            
+            // Em uma implementação real, isso adicionaria o item ao carrinho
+            alert('Passagem adicionada ao carrinho!');
+        }
+
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
