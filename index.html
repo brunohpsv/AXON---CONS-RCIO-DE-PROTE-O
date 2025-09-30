@@ -459,6 +459,8 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            position: relative;
+            overflow: hidden;
         }
 
         .trip-card:hover {
@@ -944,6 +946,159 @@
             left: 0;
         }
 
+        /* ANIMAÇÕES DE AVIÃO E ÔNIBUS */
+        .animation-container {
+            position: relative;
+            height: 100px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .plane-animation {
+            position: absolute;
+            left: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: planeMove 15s linear infinite;
+            z-index: 1;
+        }
+
+        .bus-animation {
+            position: absolute;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: busMove 15s linear infinite;
+            z-index: 1;
+        }
+
+        .plane-animation i, .bus-animation i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .dust {
+            position: absolute;
+            width: 40px;
+            height: 10px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 50%;
+            filter: blur(3px);
+            animation: dustFade 1s linear infinite;
+        }
+
+        .dust-1 {
+            bottom: 15px;
+            right: 10px;
+            animation-delay: 0s;
+        }
+
+        .dust-2 {
+            bottom: 15px;
+            right: 25px;
+            animation-delay: 0.2s;
+        }
+
+        .dust-3 {
+            bottom: 15px;
+            right: 40px;
+            animation-delay: 0.4s;
+        }
+
+        .cloud {
+            position: absolute;
+            width: 40px;
+            height: 15px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            filter: blur(5px);
+            animation: cloudMove 20s linear infinite;
+        }
+
+        .cloud-1 {
+            top: 20px;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .cloud-2 {
+            top: 40px;
+            left: 30%;
+            animation-delay: 5s;
+        }
+
+        .cloud-3 {
+            top: 60px;
+            left: 50%;
+            animation-delay: 10s;
+        }
+
+        @keyframes planeMove {
+            0% {
+                left: -100px;
+            }
+            100% {
+                left: calc(100% + 100px);
+            }
+        }
+
+        @keyframes busMove {
+            0% {
+                right: -100px;
+            }
+            100% {
+                right: calc(100% + 100px);
+            }
+        }
+
+        @keyframes dustFade {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.5);
+            }
+        }
+
+        @keyframes cloudMove {
+            0% {
+                left: -50px;
+            }
+            100% {
+                left: calc(100% + 50px);
+            }
+        }
+
+        /* SEPARAÇÃO ENTRE LISTAS DE AVIÕES E ÔNIBUS */
+        .transport-section {
+            margin: 4rem 0;
+        }
+
+        .transport-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .transport-title i {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .transport-title h3 {
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+
         @media (max-width: 768px) {
             .hero {
                 padding: 6rem 1rem 3rem;
@@ -1008,6 +1163,14 @@
             .dashboard-features {
                 grid-template-columns: 1fr;
             }
+
+            .animation-container {
+                height: 80px;
+            }
+
+            .plane-animation i, .bus-animation i {
+                font-size: 2rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1035,6 +1198,14 @@
             .search-tab.active {
                 border-bottom: 1px solid var(--gray-dark);
                 border-left: 3px solid var(--primary);
+            }
+
+            .animation-container {
+                height: 60px;
+            }
+
+            .plane-animation i, .bus-animation i {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -1241,48 +1412,128 @@
                 <p>Encontramos as melhores opções para sua viagem</p>
             </div>
             
-            <div class="filters">
-                <div class="filter-group">
-                    <label for="price-filter">Preço</label>
-                    <select id="price-filter" class="filter-select">
-                        <option value="all">Todos</option>
-                        <option value="low">Mais baratos</option>
-                        <option value="high">Mais caros</option>
-                    </select>
-                </div>
-                
-                <div class="filter-group">
-                    <label for="duration-filter">Duração</label>
-                    <select id="duration-filter" class="filter-select">
-                        <option value="all">Todas</option>
-                        <option value="short">Mais curtas</option>
-                        <option value="long">Mais longas</option>
-                    </select>
-                </div>
-                
-                <div class="filter-group">
-                    <label for="time-filter">Horário</label>
-                    <select id="time-filter" class="filter-select">
-                        <option value="all">Todos</option>
-                        <option value="morning">Manhã</option>
-                        <option value="afternoon">Tarde</option>
-                        <option value="evening">Noite</option>
-                    </select>
-                </div>
-                
-                <div class="filter-group">
-                    <label for="company-filter">Companhia</label>
-                    <select id="company-filter" class="filter-select">
-                        <option value="all">Todas</option>
-                        <option value="latam">LATAM</option>
-                        <option value="gol">GOL</option>
-                        <option value="azul">Azul</option>
-                    </select>
+            <!-- Animação de avião -->
+            <div class="animation-container">
+                <div class="plane-animation">
+                    <i class="fas fa-plane"></i>
+                    <div class="cloud cloud-1"></div>
+                    <div class="cloud cloud-2"></div>
+                    <div class="cloud cloud-3"></div>
                 </div>
             </div>
             
-            <div class="trip-list" id="trip-list">
-                <!-- Os resultados serão inseridos aqui via JavaScript -->
+            <!-- Lista de Voos -->
+            <div class="transport-section">
+                <div class="transport-title">
+                    <i class="fas fa-plane"></i>
+                    <h3>Passagens Aéreas</h3>
+                </div>
+                
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="price-filter">Preço</label>
+                        <select id="price-filter" class="filter-select">
+                            <option value="all">Todos</option>
+                            <option value="low">Mais baratos</option>
+                            <option value="high">Mais caros</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="duration-filter">Duração</label>
+                        <select id="duration-filter" class="filter-select">
+                            <option value="all">Todas</option>
+                            <option value="short">Mais curtas</option>
+                            <option value="long">Mais longas</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="time-filter">Horário</label>
+                        <select id="time-filter" class="filter-select">
+                            <option value="all">Todos</option>
+                            <option value="morning">Manhã</option>
+                            <option value="afternoon">Tarde</option>
+                            <option value="evening">Noite</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="company-filter">Companhia</label>
+                        <select id="company-filter" class="filter-select">
+                            <option value="all">Todas</option>
+                            <option value="latam">LATAM</option>
+                            <option value="gol">GOL</option>
+                            <option value="azul">Azul</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="trip-list" id="flight-list">
+                    <!-- Os resultados de voo serão inseridos aqui via JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Animação de ônibus -->
+            <div class="animation-container">
+                <div class="bus-animation">
+                    <i class="fas fa-bus"></i>
+                    <div class="dust dust-1"></div>
+                    <div class="dust dust-2"></div>
+                    <div class="dust dust-3"></div>
+                </div>
+            </div>
+            
+            <!-- Lista de Ônibus -->
+            <div class="transport-section">
+                <div class="transport-title">
+                    <i class="fas fa-bus"></i>
+                    <h3>Passagens de Ônibus</h3>
+                </div>
+                
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="bus-price-filter">Preço</label>
+                        <select id="bus-price-filter" class="filter-select">
+                            <option value="all">Todos</option>
+                            <option value="low">Mais baratos</option>
+                            <option value="high">Mais caros</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="bus-duration-filter">Duração</label>
+                        <select id="bus-duration-filter" class="filter-select">
+                            <option value="all">Todas</option>
+                            <option value="short">Mais curtas</option>
+                            <option value="long">Mais longas</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="bus-time-filter">Horário</label>
+                        <select id="bus-time-filter" class="filter-select">
+                            <option value="all">Todos</option>
+                            <option value="morning">Manhã</option>
+                            <option value="afternoon">Tarde</option>
+                            <option value="evening">Noite</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="bus-company-filter">Companhia</label>
+                        <select id="bus-company-filter" class="filter-select">
+                            <option value="all">Todas</option>
+                            <option value="viação-nacional">Viação Nacional</option>
+                            <option value="cometa">Cometa</option>
+                            <option value="util">Util</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="trip-list" id="bus-list">
+                    <!-- Os resultados de ônibus serão inseridos aqui via JavaScript -->
+                </div>
             </div>
         </div>
     </section>
@@ -1523,6 +1774,7 @@
     <script>
         // Dados de exemplo para passagens
         const sampleTrips = [
+            // Voos
             {
                 id: 1,
                 origin: "Goiânia",
@@ -1571,6 +1823,7 @@
                 seats: 15,
                 type: "flight"
             },
+            // Ônibus
             {
                 id: 5,
                 origin: "Goiânia",
@@ -1582,6 +1835,30 @@
                 price: 120,
                 seats: 20,
                 type: "bus"
+            },
+            {
+                id: 6,
+                origin: "Goiânia",
+                destination: "São Paulo",
+                departure: "08:00",
+                arrival: "16:30",
+                duration: "8h30min",
+                company: "Cometa",
+                price: 110,
+                seats: 15,
+                type: "bus"
+            },
+            {
+                id: 7,
+                origin: "Goiânia",
+                destination: "São Paulo",
+                departure: "14:00",
+                arrival: "22:30",
+                duration: "8h30min",
+                company: "Util",
+                price: 130,
+                seats: 10,
+                type: "bus"
             }
         ];
 
@@ -1589,7 +1866,8 @@
         const searchForm = document.getElementById('search-form');
         const searchTabs = document.querySelectorAll('.search-tab');
         const resultsSection = document.getElementById('results');
-        const tripList = document.getElementById('trip-list');
+        const flightList = document.getElementById('flight-list');
+        const busList = document.getElementById('bus-list');
         const contactModal = document.getElementById('contact-modal');
         const contactLink = document.getElementById('contact-link');
         const closeContact = document.getElementById('close-contact');
@@ -1655,6 +1933,11 @@
             document.getElementById('duration-filter').addEventListener('change', filterResults);
             document.getElementById('time-filter').addEventListener('change', filterResults);
             document.getElementById('company-filter').addEventListener('change', filterResults);
+            
+            document.getElementById('bus-price-filter').addEventListener('change', filterResults);
+            document.getElementById('bus-duration-filter').addEventListener('change', filterResults);
+            document.getElementById('bus-time-filter').addEventListener('change', filterResults);
+            document.getElementById('bus-company-filter').addEventListener('change', filterResults);
 
             // Rolagem dos destinos
             scrollLeft.addEventListener('click', function() {
@@ -1698,11 +1981,10 @@
             }
 
             // Simular busca
-            const filteredTrips = sampleTrips.filter(trip => 
-                trip.type === currentSearchType
-            );
+            const flightTrips = sampleTrips.filter(trip => trip.type === 'flight');
+            const busTrips = sampleTrips.filter(trip => trip.type === 'bus');
 
-            displayResults(filteredTrips);
+            displayResults(flightTrips, busTrips);
             
             // Mostrar seção de resultados
             resultsSection.style.display = 'block';
@@ -1715,39 +1997,27 @@
         }
 
         // Função para exibir resultados
-        function displayResults(trips) {
-            tripList.innerHTML = '';
+        function displayResults(flightTrips, busTrips) {
+            flightList.innerHTML = '';
+            busList.innerHTML = '';
             
-            if (trips.length === 0) {
-                tripList.innerHTML = '<p style="text-align: center; padding: 2rem;">Nenhuma passagem encontrada para os critérios selecionados.</p>';
-                return;
+            if (flightTrips.length === 0) {
+                flightList.innerHTML = '<p style="text-align: center; padding: 2rem;">Nenhuma passagem aérea encontrada para os critérios selecionados.</p>';
+            } else {
+                flightTrips.forEach(trip => {
+                    const tripCard = createTripCard(trip);
+                    flightList.appendChild(tripCard);
+                });
             }
             
-            trips.forEach(trip => {
-                const tripCard = document.createElement('div');
-                tripCard.className = 'trip-card';
-                tripCard.innerHTML = `
-                    <div class="trip-info">
-                        <div class="trip-route">
-                            <span>${trip.origin}</span>
-                            <i class="fas fa-arrow-right"></i>
-                            <span>${trip.destination}</span>
-                        </div>
-                        <div class="trip-details">
-                            <div><i class="far fa-clock"></i> ${trip.departure} - ${trip.arrival}</div>
-                            <div><i class="fas fa-hourglass-half"></i> ${trip.duration}</div>
-                        </div>
-                        <div class="trip-company">${trip.company}</div>
-                    </div>
-                    <div class="trip-price">
-                        <div class="price">R$ ${trip.price}</div>
-                        <div class="seats">${trip.seats} assentos disponíveis</div>
-                        <button class="buy-button" data-id="${trip.id}">COMPRAR</button>
-                    </div>
-                `;
-                
-                tripList.appendChild(tripCard);
-            });
+            if (busTrips.length === 0) {
+                busList.innerHTML = '<p style="text-align: center; padding: 2rem;">Nenhuma passagem de ônibus encontrada para os critérios selecionados.</p>';
+            } else {
+                busTrips.forEach(trip => {
+                    const tripCard = createTripCard(trip);
+                    busList.appendChild(tripCard);
+                });
+            }
             
             // Adicionar event listeners aos botões de compra
             document.querySelectorAll('.buy-button').forEach(button => {
@@ -1756,6 +2026,32 @@
                     addToCart(tripId);
                 });
             });
+        }
+
+        // Função para criar um card de viagem
+        function createTripCard(trip) {
+            const tripCard = document.createElement('div');
+            tripCard.className = 'trip-card';
+            tripCard.innerHTML = `
+                <div class="trip-info">
+                    <div class="trip-route">
+                        <span>${trip.origin}</span>
+                        <i class="fas fa-arrow-right"></i>
+                        <span>${trip.destination}</span>
+                    </div>
+                    <div class="trip-details">
+                        <div><i class="far fa-clock"></i> ${trip.departure} - ${trip.arrival}</div>
+                        <div><i class="fas fa-hourglass-half"></i> ${trip.duration}</div>
+                    </div>
+                    <div class="trip-company">${trip.company}</div>
+                </div>
+                <div class="trip-price">
+                    <div class="price">R$ ${trip.price}</div>
+                    <div class="seats">${trip.seats} assentos disponíveis</div>
+                    <button class="buy-button" data-id="${trip.id}">COMPRAR</button>
+                </div>
+            `;
+            return tripCard;
         }
 
         // Função para filtrar resultados
