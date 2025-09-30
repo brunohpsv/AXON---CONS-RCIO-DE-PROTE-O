@@ -400,6 +400,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
         }
 
         .filters {
@@ -1096,54 +1097,57 @@
         </div>
     </section>
 
-    <section id="results" class="container results-container" style="display: none;">
-        <div class="section-title">
-            <h2>Resultados da Busca</h2>
-            <p>Encontramos as melhores opções para sua viagem</p>
-        </div>
-        
-        <div class="filters">
-            <div class="filter-group">
-                <label for="price-filter">Preço</label>
-                <select id="price-filter" class="filter-select">
-                    <option value="all">Todos</option>
-                    <option value="low">Mais baratos</option>
-                    <option value="high">Mais caros</option>
-                </select>
+    <!-- Seção de Resultados Centralizada -->
+    <section id="results" class="results-container" style="display: none;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Resultados da Busca</h2>
+                <p>Encontramos as melhores opções para sua viagem</p>
             </div>
             
-            <div class="filter-group">
-                <label for="duration-filter">Duração</label>
-                <select id="duration-filter" class="filter-select">
-                    <option value="all">Todas</option>
-                    <option value="short">Mais curtas</option>
-                    <option value="long">Mais longas</option>
-                </select>
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="price-filter">Preço</label>
+                    <select id="price-filter" class="filter-select">
+                        <option value="all">Todos</option>
+                        <option value="low">Mais baratos</option>
+                        <option value="high">Mais caros</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="duration-filter">Duração</label>
+                    <select id="duration-filter" class="filter-select">
+                        <option value="all">Todas</option>
+                        <option value="short">Mais curtas</option>
+                        <option value="long">Mais longas</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="time-filter">Horário</label>
+                    <select id="time-filter" class="filter-select">
+                        <option value="all">Todos</option>
+                        <option value="morning">Manhã</option>
+                        <option value="afternoon">Tarde</option>
+                        <option value="evening">Noite</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="company-filter">Companhia</label>
+                    <select id="company-filter" class="filter-select">
+                        <option value="all">Todas</option>
+                        <option value="latam">LATAM</option>
+                        <option value="gol">GOL</option>
+                        <option value="azul">Azul</option>
+                    </select>
+                </div>
             </div>
             
-            <div class="filter-group">
-                <label for="time-filter">Horário</label>
-                <select id="time-filter" class="filter-select">
-                    <option value="all">Todos</option>
-                    <option value="morning">Manhã</option>
-                    <option value="afternoon">Tarde</option>
-                    <option value="evening">Noite</option>
-                </select>
+            <div class="trip-list" id="trip-list">
+                <!-- Os resultados serão inseridos aqui via JavaScript -->
             </div>
-            
-            <div class="filter-group">
-                <label for="company-filter">Companhia</label>
-                <select id="company-filter" class="filter-select">
-                    <option value="all">Todas</option>
-                    <option value="latam">LATAM</option>
-                    <option value="gol">GOL</option>
-                    <option value="azul">Azul</option>
-                </select>
-            </div>
-        </div>
-        
-        <div class="trip-list" id="trip-list">
-            <!-- Os resultados serão inseridos aqui via JavaScript -->
         </div>
     </section>
 
