@@ -289,11 +289,23 @@
             border-radius: 2px;
         }
 
-        .destinations {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+        .destinations-container {
+            position: relative;
             margin: 2rem 0;
+        }
+
+        .destinations-scroll {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            gap: 1.5rem;
+            padding: 1rem 0;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .destinations-scroll::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
         }
 
         .destination-card {
@@ -306,6 +318,8 @@
             border: var(--border);
             text-align: center;
             overflow: hidden;
+            flex: 0 0 auto;
+            width: 280px;
         }
 
         .destination-card::before {
@@ -346,6 +360,38 @@
             font-size: 0.9rem;
             font-weight: 400;
             color: var(--dark);
+        }
+
+        .scroll-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition);
+            opacity: 0.8;
+        }
+
+        .scroll-button:hover {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .scroll-button.left {
+            left: -20px;
+        }
+
+        .scroll-button.right {
+            right: -20px;
         }
 
         .results-container {
@@ -719,6 +765,10 @@
             .user-actions {
                 display: none;
             }
+
+            .scroll-button {
+                display: none;
+            }
         }
 
         @media (max-width: 480px) {
@@ -768,8 +818,7 @@
             
             <div class="header-actions">
                 <div class="user-actions">
-                    <a href="#" id="login-link">Entrar</a>
-                    <a href="#" id="register-link">Cadastrar</a>
+                    <a href="#" id="contact-link">Contato</a>
                 </div>
                 <a href="#" class="cart-icon">
                     <i class="fas fa-shopping-cart"></i>
@@ -834,38 +883,114 @@
             <p>Confira os destinos mais procurados pelos nossos clientes</p>
         </div>
         
-        <div class="destinations">
-            <div class="destination-card">
-                <div class="destination-icon"><i class="fas fa-plane"></i></div>
-                <h3>São Paulo</h3>
-                <p>Voe para a maior cidade do Brasil com os melhores preços.</p>
-                <div class="destination-price">R$ 299<span> ida e volta</span></div>
-                <a href="#" class="cta-button">VER OFERTAS</a>
+        <div class="destinations-container">
+            <button class="scroll-button left" id="scroll-left">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            
+            <div class="destinations-scroll" id="destinations-scroll">
+                <!-- Destinos de voo (padrão) -->
+                <div class="destination-card">
+                    <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                    <h3>São Paulo</h3>
+                    <p>Voe para a maior cidade do Brasil com os melhores preços.</p>
+                    <div class="destination-price">R$ 299<span> ida e volta</span></div>
+                    <a href="#" class="cta-button">VER OFERTAS</a>
+                </div>
+                
+                <div class="destination-card">
+                    <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                    <h3>Rio de Janeiro</h3>
+                    <p>Descubra as maravilhas da Cidade Maravilhosa.</p>
+                    <div class="destination-price">R$ 349<span> ida e volta</span></div>
+                    <a href="#" class="cta-button">VER OFERTAS</a>
+                </div>
+                
+                <div class="destination-card">
+                    <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                    <h3>Salvador</h3>
+                    <p>Conheça a capital baiana com suas praias e cultura.</p>
+                    <div class="destination-price">R$ 459<span> ida e volta</span></div>
+                    <a href="#" class="cta-button">VER OFERTAS</a>
+                </div>
+                
+                <div class="destination-card">
+                    <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                    <h3>Florianópolis</h3>
+                    <p>Desfrute das belas praias da Ilha da Magia.</p>
+                    <div class="destination-price">R$ 399<span> ida e volta</span></div>
+                    <a href="#" class="cta-button">VER OFERTAS</a>
+                </div>
+                
+                <div class="destination-card">
+                    <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                    <h3>Fortaleza</h3>
+                    <p>Aproveite as lindas praias do Nordeste brasileiro.</p>
+                    <div class="destination-price">R$ 499<span> ida e volta</span></div>
+                    <a href="#" class="cta-button">VER OFERTAS</a>
+                </div>
+                
+                <div class="destination-card">
+                    <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                    <h3>Belo Horizonte</h3>
+                    <p>Explore a capital mineira e sua rica culinária.</p>
+                    <div class="destination-price">R$ 379<span> ida e volta</span></div>
+                    <a href="#" class="cta-button">VER OFERTAS</a>
+                </div>
+                
+                <!-- Destinos de ônibus (ocultos inicialmente) -->
+                <div class="destination-card bus-destination" style="display: none;">
+                    <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                    <h3>São Paulo</h3>
+                    <p>Viaje de ônibus para a maior cidade do Brasil com conforto.</p>
+                    <div class="destination-price">R$ 120<span> ida</span></div>
+                    <a href="#" class="cta-button">VER OFERTAS</a>
+                </div>
+                
+                <div class="destination-card bus-destination" style="display: none;">
+                    <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                    <h3>Rio de Janeiro</h3>
+                    <p>Conheça a Cidade Maravilhosa em uma viagem de ônibus.</p>
+                    <div class="destination-price">R$ 150<span> ida</span></div>
+                    <a href="#" class="cta-button">VER OFERTAS</a>
+                </div>
+                
+                <div class="destination-card bus-destination" style="display: none;">
+                    <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                    <h3>Brasília</h3>
+                    <p>Descubra a capital federal em uma viagem confortável.</p>
+                    <div class="destination-price">R$ 90<span> ida</span></div>
+                    <a href="#" class="cta-button">VER OFERTAS</a>
+                </div>
+                
+                <div class="destination-card bus-destination" style="display: none;">
+                    <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                    <h3>Curitiba</h3>
+                    <p>Explore a cidade modelo do Brasil de ônibus.</p>
+                    <div class="destination-price">R$ 180<span> ida</span></div>
+                    <a href="#" class="cta-button">VER OFERTAS</a>
+                </div>
+                
+                <div class="destination-card bus-destination" style="display: none;">
+                    <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                    <h3>Porto Alegre</h3>
+                    <p>Conheça a capital gaúcha em uma viagem de ônibus.</p>
+                    <div class="destination-price">R$ 220<span> ida</span></div>
+                    <a href="#" class="cta-button">VER OFERTAS</a>
+                </div>
+                
+                <div class="destination-card bus-destination" style="display: none;">
+                    <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                    <h3>Vitória</h3>
+                    <p>Desfrute das belezas capixabas em uma viagem de ônibus.</p>
+                    <div class="destination-price">R$ 160<span> ida</span></div>
+                    <a href="#" class="cta-button">VER OFERTAS</a>
+                </div>
             </div>
             
-            <div class="destination-card">
-                <div class="destination-icon"><i class="fas fa-plane"></i></div>
-                <h3>Rio de Janeiro</h3>
-                <p>Descubra as maravilhas da Cidade Maravilhosa.</p>
-                <div class="destination-price">R$ 349<span> ida e volta</span></div>
-                <a href="#" class="cta-button">VER OFERTAS</a>
-            </div>
-            
-            <div class="destination-card">
-                <div class="destination-icon"><i class="fas fa-plane"></i></div>
-                <h3>Salvador</h3>
-                <p>Conheça a capital baiana com suas praias e cultura.</p>
-                <div class="destination-price">R$ 459<span> ida e volta</span></div>
-                <a href="#" class="cta-button">VER OFERTAS</a>
-            </div>
-            
-            <div class="destination-card">
-                <div class="destination-icon"><i class="fas fa-plane"></i></div>
-                <h3>Florianópolis</h3>
-                <p>Desfrute das belas praias da Ilha da Magia.</p>
-                <div class="destination-price">R$ 399<span> ida e volta</span></div>
-                <a href="#" class="cta-button">VER OFERTAS</a>
-            </div>
+            <button class="scroll-button right" id="scroll-right">
+                <i class="fas fa-chevron-right"></i>
+            </button>
         </div>
     </section>
 
@@ -974,18 +1099,6 @@
                 <h3>Cancelamento Facilitado</h3>
                 <p>Cancele sua viagem com até 24h de antecedência sem taxas.</p>
             </div>
-            
-            <div class="destination-card">
-                <div class="destination-icon"><i class="fas fa-mobile-alt"></i></div>
-                <h3>App Exclusivo</h3>
-                <p>Baixe nosso app e gerencie suas viagens de qualquer lugar.</p>
-            </div>
-            
-            <div class="destination-card">
-                <div class="destination-icon"><i class="fas fa-gift"></i></div>
-                <h3>Programa de Fidelidade</h3>
-                <p>Acumule pontos e troque por descontos em suas próximas viagens.</p>
-            </div>
         </div>
     </section>
 
@@ -1000,7 +1113,7 @@
                     <h3>Contato</h3>
                     <ul class="footer-links">
                         <li><a href="#"><i class="fas fa-phone"></i> (62) 99999-9999</a></li>
-                        <li><a href="#"><i class="fas fa-envelope"></i> contato@bixxair.com</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> contato@bixxpass.com</a></li>
                         <li><a href="#"><i class="fas fa-map-marker-alt"></i> Goiânia, GO</a></li>
                     </ul>
                 </div>
@@ -1029,54 +1142,18 @@
         </div>
     </footer>
 
-    <!-- Modal de Login -->
-    <div class="modal" id="login-modal">
+    <!-- Modal de Contato -->
+    <div class="modal" id="contact-modal">
         <div class="modal-content">
-            <span class="close-modal" id="close-login">&times;</span>
-            <h2 class="modal-title">Entrar na Conta</h2>
-            <form class="login-form">
-                <div class="form-group">
-                    <label for="login-email">E-mail</label>
-                    <input type="email" id="login-email" class="form-control" placeholder="Seu e-mail" required>
-                </div>
-                <div class="form-group">
-                    <label for="login-password">Senha</label>
-                    <input type="password" id="login-password" class="form-control" placeholder="Sua senha" required>
-                </div>
-                <div class="form-actions">
-                    <a href="#" class="form-link">Esqueci minha senha</a>
-                    <button type="submit" class="cta-button">ENTRAR</button>
-                </div>
-            </form>
-            <p style="margin-top: 1rem; text-align: center;">Não tem uma conta? <a href="#" class="form-link" id="go-to-register">Cadastre-se</a></p>
-        </div>
-    </div>
-
-    <!-- Modal de Cadastro -->
-    <div class="modal" id="register-modal">
-        <div class="modal-content">
-            <span class="close-modal" id="close-register">&times;</span>
-            <h2 class="modal-title">Criar Conta</h2>
-            <form class="login-form">
-                <div class="form-group">
-                    <label for="register-name">Nome Completo</label>
-                    <input type="text" id="register-name" class="form-control" placeholder="Seu nome completo" required>
-                </div>
-                <div class="form-group">
-                    <label for="register-email">E-mail</label>
-                    <input type="email" id="register-email" class="form-control" placeholder="Seu e-mail" required>
-                </div>
-                <div class="form-group">
-                    <label for="register-password">Senha</label>
-                    <input type="password" id="register-password" class="form-control" placeholder="Crie uma senha" required>
-                </div>
-                <div class="form-group">
-                    <label for="register-confirm">Confirmar Senha</label>
-                    <input type="password" id="register-confirm" class="form-control" placeholder="Confirme sua senha" required>
-                </div>
-                <button type="submit" class="cta-button" style="margin-top: 1rem;">CRIAR CONTA</button>
-            </form>
-            <p style="margin-top: 1rem; text-align: center;">Já tem uma conta? <a href="#" class="form-link" id="go-to-login">Entrar</a></p>
+            <span class="close-modal" id="close-contact">&times;</span>
+            <h2 class="modal-title">Entre em Contato</h2>
+            <p style="margin-bottom: 1.5rem;">Para comprar suas passagens ou tirar dúvidas, entre em contato conosco pelo WhatsApp:</p>
+            <div style="text-align: center; margin: 2rem 0;">
+                <a href="https://wa.me/5562999999999" class="cta-button" style="display: inline-flex; align-items: center; gap: 10px;">
+                    <i class="fab fa-whatsapp"></i> WhatsApp: (62) 99999-9999
+                </a>
+            </div>
+            <p style="text-align: center; font-size: 0.9rem; color: #666;">Atendimento de segunda a sábado, das 8h às 20h.</p>
         </div>
     </div>
 
@@ -1150,15 +1227,15 @@
         const searchTabs = document.querySelectorAll('.search-tab');
         const resultsSection = document.getElementById('results');
         const tripList = document.getElementById('trip-list');
-        const loginModal = document.getElementById('login-modal');
-        const registerModal = document.getElementById('register-modal');
-        const loginLink = document.getElementById('login-link');
-        const registerLink = document.getElementById('register-link');
-        const closeLogin = document.getElementById('close-login');
-        const closeRegister = document.getElementById('close-register');
-        const goToRegister = document.getElementById('go-to-register');
-        const goToLogin = document.getElementById('go-to-login');
+        const contactModal = document.getElementById('contact-modal');
+        const contactLink = document.getElementById('contact-link');
+        const closeContact = document.getElementById('close-contact');
         const cartCount = document.querySelector('.cart-count');
+        const destinationsScroll = document.getElementById('destinations-scroll');
+        const scrollLeft = document.getElementById('scroll-left');
+        const scrollRight = document.getElementById('scroll-right');
+        const flightCards = document.querySelectorAll('.destination-card:not(.bus-destination)');
+        const busCards = document.querySelectorAll('.bus-destination');
 
         // Variáveis de estado
         let currentSearchType = 'flight';
@@ -1172,6 +1249,15 @@
                     searchTabs.forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
                     currentSearchType = this.getAttribute('data-type');
+                    
+                    // Alternar entre destinos de voo e ônibus
+                    if (currentSearchType === 'flight') {
+                        flightCards.forEach(card => card.style.display = 'block');
+                        busCards.forEach(card => card.style.display = 'none');
+                    } else {
+                        flightCards.forEach(card => card.style.display = 'none');
+                        busCards.forEach(card => card.style.display = 'block');
+                    }
                 });
             });
 
@@ -1181,46 +1267,20 @@
                 performSearch();
             });
 
-            // Modal de login
-            loginLink.addEventListener('click', function(e) {
+            // Modal de contato
+            contactLink.addEventListener('click', function(e) {
                 e.preventDefault();
-                loginModal.style.display = 'flex';
+                contactModal.style.display = 'flex';
             });
 
-            closeLogin.addEventListener('click', function() {
-                loginModal.style.display = 'none';
+            closeContact.addEventListener('click', function() {
+                contactModal.style.display = 'none';
             });
 
-            // Modal de cadastro
-            registerLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                registerModal.style.display = 'flex';
-            });
-
-            closeRegister.addEventListener('click', function() {
-                registerModal.style.display = 'none';
-            });
-
-            // Navegação entre modais
-            goToRegister.addEventListener('click', function(e) {
-                e.preventDefault();
-                loginModal.style.display = 'none';
-                registerModal.style.display = 'flex';
-            });
-
-            goToLogin.addEventListener('click', function(e) {
-                e.preventDefault();
-                registerModal.style.display = 'none';
-                loginModal.style.display = 'flex';
-            });
-
-            // Fechar modais ao clicar fora
+            // Fechar modal ao clicar fora
             window.addEventListener('click', function(e) {
-                if (e.target === loginModal) {
-                    loginModal.style.display = 'none';
-                }
-                if (e.target === registerModal) {
-                    registerModal.style.display = 'none';
+                if (e.target === contactModal) {
+                    contactModal.style.display = 'none';
                 }
             });
 
@@ -1229,6 +1289,21 @@
             document.getElementById('duration-filter').addEventListener('change', filterResults);
             document.getElementById('time-filter').addEventListener('change', filterResults);
             document.getElementById('company-filter').addEventListener('change', filterResults);
+
+            // Rolagem dos destinos
+            scrollLeft.addEventListener('click', function() {
+                destinationsScroll.scrollBy({
+                    left: -300,
+                    behavior: 'smooth'
+                });
+            });
+
+            scrollRight.addEventListener('click', function() {
+                destinationsScroll.scrollBy({
+                    left: 300,
+                    behavior: 'smooth'
+                });
+            });
         });
 
         // Função para realizar a busca
@@ -1315,7 +1390,8 @@
             cartCount.textContent = cartItems;
             
             // Em uma implementação real, isso adicionaria o item ao carrinho
-            alert('Passagem adicionada ao carrinho!');
+            // Aqui vamos apenas redirecionar para o WhatsApp
+            window.open('https://wa.me/5562999999999?text=Olá! Gostaria de comprar a passagem ID ' + tripId, '_blank');
         }
 
         // Smooth scrolling
