@@ -5,54 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIXX PASS - Passagens Aéreas e de Ônibus</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <!-- Favicon -->
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <link rel="apple-touch-icon" href="favicon.png">
     
     <style>
+        :root {
+            --primary: #FF0000;
+            --primary-dark: #CC0000;
+            --primary-light: #FF3333;
+            --secondary: #1A1A2E;
+            --secondary-light: #2D3047;
+            --accent: #00A8FF;
+            --accent-dark: #0097E6;
+            --light: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --gray: #E9ECEF;
+            --gray-medium: #ADB5BD;
+            --gray-dark: #495057;
+            --dark: #212529;
+            --success: #28A745;
+            --warning: #FFC107;
+            --danger: #DC3545;
+            --border: 1px solid #E0E0E0;
+            --border-radius: 12px;
+            --border-radius-sm: 8px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-fast: all 0.15s ease;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+            --gradient-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #FF0000;
-            --primary-dark: #CC0000;
-            --light: #FFFFFF;
-            --dark: #000000;
-            --gray: #F5F5F5;
-            --gray-dark: #E0E0E0;
-            --border: 1px solid #DDDDDD;
-            --shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            --transition: all 0.3s ease;
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Inter', Arial, sans-serif;
-            line-height: 1.5;
+            line-height: 1.6;
             color: var(--dark);
             background-color: var(--light);
+            overflow-x: hidden;
         }
 
         .container {
             width: 90%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 1rem 0;
         }
 
+        /* Header Modernizado */
         header {
-            background-color: var(--light);
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             border-bottom: var(--border);
             transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .header-container {
@@ -65,28 +91,44 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 1.5rem;
-            font-weight: 700;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 800;
             color: var(--primary);
             text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--primary);
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
         nav a {
             color: var(--dark);
             text-decoration: none;
             font-weight: 500;
-            padding: 0.4rem 0;
+            padding: 0.5rem 0;
             position: relative;
             transition: var(--transition);
-            border-bottom: 1px solid transparent;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: var(--transition);
         }
 
         nav a:hover,
@@ -94,15 +136,20 @@
             color: var(--primary);
         }
 
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
+        }
+
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         .user-actions {
             display: flex;
-            gap: 0.8rem;
+            gap: 1.2rem;
         }
 
         .user-actions a {
@@ -111,6 +158,9 @@
             font-weight: 500;
             font-size: 0.9rem;
             transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .user-actions a:hover {
@@ -120,75 +170,104 @@
         .cart-icon {
             position: relative;
             color: var(--dark);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             transition: var(--transition);
         }
 
         .cart-icon:hover {
             color: var(--primary);
+            transform: translateY(-2px);
         }
 
         .cart-count {
             position: absolute;
             top: -8px;
             right: -8px;
-            background-color: var(--primary);
+            background: var(--gradient);
             color: white;
             font-size: 0.7rem;
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: 600;
         }
 
+        /* Hero Section Modernizada */
         .hero {
-            padding: 8rem 0 4rem;
+            padding: 10rem 0 5rem;
             text-align: center;
-            background-color: var(--gray);
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, rgba(26, 26, 46, 0.05) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23FF0000" opacity="0.03"><polygon points="0,0 1000,50 1000,100 0,100"/></svg>');
+            background-size: cover;
+            z-index: -1;
         }
 
         .hero h1 {
-            font-size: 2.2rem;
-            margin-bottom: 1.2rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
             color: var(--dark);
-            font-weight: 700;
-            line-height: 1.3;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
         }
 
         .hero h1 span {
-            color: var(--primary);
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero p {
             max-width: 700px;
-            margin: 0 auto 2rem;
-            font-size: 1rem;
-            color: var(--dark);
+            margin: 0 auto 2.5rem;
+            font-size: 1.2rem;
+            color: var(--gray-dark);
+            font-weight: 400;
         }
 
         .search-container {
             background-color: var(--light);
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            max-width: 900px;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+            max-width: 1000px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .search-tabs {
             display: flex;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--gray-dark);
+            margin-bottom: 1.8rem;
+            border-bottom: 1px solid var(--gray);
+            position: relative;
         }
 
         .search-tab {
-            padding: 0.8rem 1.5rem;
+            padding: 1rem 2rem;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: 600;
             transition: var(--transition);
             border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray-dark);
         }
 
         .search-tab.active {
@@ -199,7 +278,7 @@
         .search-form {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         .form-group {
@@ -209,109 +288,130 @@
 
         .form-group label {
             margin-bottom: 0.5rem;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.9rem;
+            color: var(--dark);
         }
 
         .form-control {
-            padding: 0.8rem;
-            border: 1px solid var(--gray-dark);
-            border-radius: 4px;
+            padding: 1rem;
+            border: 1px solid var(--gray);
+            border-radius: var(--border-radius-sm);
             font-size: 1rem;
             transition: var(--transition);
+            background-color: var(--light-gray);
         }
 
         .form-control:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1);
+            box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+            background-color: var(--light);
         }
 
         .search-button {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: var(--gradient);
             color: white;
             border: none;
-            border-radius: 4px;
-            padding: 0.8rem 1.5rem;
-            font-weight: 600;
+            border-radius: var(--border-radius-sm);
+            padding: 1rem 2rem;
+            font-weight: 700;
             font-size: 1rem;
             cursor: pointer;
             transition: var(--transition);
             align-self: flex-end;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
         }
 
         .search-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 0, 0, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.3);
         }
 
         .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--gradient);
             color: white;
-            padding: 0.8rem 2rem;
-            border-radius: 4px;
+            padding: 1rem 2.5rem;
+            border-radius: var(--border-radius-sm);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             transition: var(--transition);
             border: none;
             cursor: pointer;
             font-size: 1rem;
+            letter-spacing: 0.5px;
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 0, 0, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.3);
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
         }
 
         .section-title h2 {
-            font-size: 2rem;
-            margin-bottom: 0.8rem;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
             position: relative;
             display: inline-block;
             color: var(--dark);
+            font-weight: 800;
         }
 
         .section-title h2::after {
             content: '';
             position: absolute;
-            bottom: -8px;
+            bottom: -12px;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: var(--primary);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
             border-radius: 2px;
         }
 
+        .section-title p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--gray-dark);
+            font-size: 1.1rem;
+        }
+
+        /* Destinos Modernizados */
         .destinations-container {
             position: relative;
-            margin: 2rem 0;
+            margin: 3rem 0;
         }
 
         .destinations-scroll {
             display: flex;
             overflow-x: auto;
             scroll-behavior: smooth;
-            gap: 1.5rem;
-            padding: 1rem 0;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE and Edge */
+            gap: 1.8rem;
+            padding: 1.5rem 0.5rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
 
         .destinations-scroll::-webkit-scrollbar {
-            display: none; /* Chrome, Safari and Opera */
+            display: none;
         }
 
         .destination-card {
             background: var(--light);
-            border-radius: 8px;
-            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            padding: 2rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
@@ -319,7 +419,10 @@
             text-align: center;
             overflow: hidden;
             flex: 0 0 auto;
-            width: 280px;
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .destination-card::before {
@@ -328,49 +431,57 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
-            background: var(--primary);
+            height: 5px;
+            background: var(--gradient);
         }
 
         .destination-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
         }
 
         .destination-card h3 {
             margin-bottom: 1rem;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: var(--dark);
+            font-weight: 700;
         }
 
         .destination-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--primary);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 0, 0, 0.1);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .destination-price {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.8rem;
+            font-weight: 800;
             color: var(--primary);
-            margin: 1rem 0;
+            margin: 1.5rem 0;
         }
 
         .destination-price span {
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: var(--dark);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--gray-dark);
         }
 
         .scroll-button {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
+            background: var(--light);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -378,25 +489,26 @@
             cursor: pointer;
             z-index: 10;
             transition: var(--transition);
-            opacity: 0.8;
+            box-shadow: var(--shadow);
         }
 
         .scroll-button:hover {
-            opacity: 1;
+            background: var(--primary);
+            color: white;
             transform: translateY(-50%) scale(1.1);
         }
 
         .scroll-button.left {
-            left: -20px;
+            left: -25px;
         }
 
         .scroll-button.right {
-            right: -20px;
+            right: -25px;
         }
 
-        /* ESTILOS ATUALIZADOS PARA A SEÇÃO DE RESULTADOS */
+        /* Seção de Resultados Modernizada */
         .results-container {
-            margin: 3rem 0;
+            margin: 4rem 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -413,45 +525,56 @@
         .filters {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            padding: 1rem 5%;
-            background-color: var(--gray);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            padding: 1.5rem 5%;
+            background-color: var(--light-gray);
             justify-content: center;
             width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
         }
 
         .filter-group {
             display: flex;
             flex-direction: column;
-            min-width: 150px;
+            min-width: 180px;
         }
 
         .filter-group label {
             margin-bottom: 0.5rem;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.9rem;
+            color: var(--dark);
         }
 
         .filter-select {
-            padding: 0.5rem;
-            border: 1px solid var(--gray-dark);
-            border-radius: 4px;
+            padding: 0.8rem;
+            border: 1px solid var(--gray);
+            border-radius: var(--border-radius-sm);
             font-size: 0.9rem;
+            background-color: var(--light);
+            transition: var(--transition);
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1);
         }
 
         .trip-list {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.5rem;
             width: 100%;
             padding: 0 5%;
         }
 
         .trip-card {
             background: var(--light);
-            border-radius: 8px;
-            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            padding: 2rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
             border: var(--border);
@@ -463,89 +586,106 @@
             overflow: hidden;
         }
 
+        .trip-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient);
+        }
+
         .trip-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
         }
 
         .trip-info {
             flex: 1;
-            min-width: 300px;
+            min-width: 350px;
         }
 
         .trip-route {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 0.5rem;
+            gap: 1.2rem;
+            margin-bottom: 0.8rem;
         }
 
         .trip-route span {
-            font-weight: 600;
-            font-size: 1.1rem;
+            font-weight: 700;
+            font-size: 1.3rem;
         }
 
         .trip-details {
             display: flex;
-            gap: 1.5rem;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            color: #666;
+            gap: 2rem;
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+            color: var(--gray-dark);
         }
 
         .trip-company {
-            font-weight: 500;
+            font-weight: 600;
             color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .trip-price {
             text-align: center;
-            min-width: 150px;
+            min-width: 180px;
         }
 
         .trip-price .price {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.8rem;
+            font-weight: 800;
             color: var(--primary);
             margin-bottom: 0.5rem;
         }
 
         .trip-price .seats {
-            font-size: 0.8rem;
-            color: #666;
-            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+            color: var(--gray-dark);
+            margin-bottom: 1rem;
         }
 
         .buy-button {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: var(--gradient);
             color: white;
             border: none;
-            border-radius: 4px;
-            padding: 0.6rem 1.2rem;
-            font-weight: 600;
+            border-radius: var(--border-radius-sm);
+            padding: 0.8rem 1.5rem;
+            font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .buy-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(255, 0, 0, 0.2);
+            box-shadow: 0 6px 15px rgba(255, 0, 0, 0.3);
         }
 
+        /* Processo Modernizado */
         .process-steps {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 2rem;
             counter-reset: step;
         }
 
         .step {
             flex: 1;
-            min-width: 250px;
+            min-width: 280px;
             background-color: var(--light);
-            border-radius: 8px;
-            padding: 2rem 1.5rem 1.5rem 4rem;
+            border-radius: var(--border-radius);
+            padding: 2.5rem 2rem 2rem 5rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
@@ -556,37 +696,40 @@
         .step::before {
             content: counter(step);
             position: absolute;
-            top: 1.5rem;
-            left: -15px;
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
+            top: 2rem;
+            left: -25px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
             color: white;
-            border-radius: 4px;
+            border-radius: var(--border-radius);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            font-weight: 800;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-lg);
         }
 
         .step:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
         }
 
         .step h3 {
-            margin-bottom: 0.8rem;
-            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
             color: var(--dark);
+            font-weight: 700;
         }
 
+        /* Footer Modernizado */
         footer {
-            background-color: var(--dark);
+            background: var(--gradient-secondary);
             color: white;
-            padding: 3rem 0 1.5rem;
+            padding: 4rem 0 2rem;
             position: relative;
-            margin-top: 3rem;
+            margin-top: 4rem;
         }
 
         footer::before {
@@ -596,39 +739,41 @@
             left: 0;
             width: 100%;
             height: 6px;
-            background: var(--primary);
+            background: var(--gradient);
         }
 
         .footer-container {
             width: 90%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 1rem;
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
 
         .footer-col h3 {
             color: var(--light);
-            margin-bottom: 1.2rem;
-            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
             position: relative;
             display: inline-block;
+            font-weight: 700;
         }
 
         .footer-col h3::after {
             content: '';
             position: absolute;
-            bottom: -6px;
+            bottom: -8px;
             left: 0;
-            width: 30px;
-            height: 2px;
+            width: 40px;
+            height: 3px;
             background: var(--primary);
+            border-radius: 2px;
         }
 
         .footer-links {
@@ -636,38 +781,41 @@
         }
 
         .footer-links li {
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.8rem;
         }
 
         .footer-links a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             transition: var(--transition);
-            display: inline-block;
-            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
         }
 
         .footer-links a:hover {
             color: var(--primary);
-            transform: translateX(3px);
+            transform: translateX(5px);
         }
 
         .footer-bottom {
             text-align: center;
-            margin-top: 2rem;
-            padding-top: 1.5rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.8rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .availability-note {
-            font-size: 0.85rem;
-            color: #666;
+            font-size: 0.9rem;
+            color: var(--gray-dark);
             margin-top: 0.5rem;
             font-style: italic;
         }
 
-        /* Modal Styles */
+        /* Modal Modernizado */
         .modal {
             display: none;
             position: fixed;
@@ -675,85 +823,106 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.6);
             z-index: 2000;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(5px);
         }
 
         .modal-content {
             background-color: white;
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             width: 90%;
             max-width: 500px;
-            padding: 2rem;
+            padding: 2.5rem;
             position: relative;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-xl);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .close-modal {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: 1.2rem;
+            right: 1.2rem;
             font-size: 1.5rem;
             cursor: pointer;
-            color: #666;
+            color: var(--gray-dark);
             transition: var(--transition);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
 
         .close-modal:hover {
             color: var(--primary);
+            background-color: rgba(255, 0, 0, 0.1);
         }
 
         .modal-title {
             margin-bottom: 1.5rem;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--dark);
+            font-weight: 700;
         }
 
         .login-form {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.2rem;
         }
 
         .form-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
 
         .form-link {
             color: var(--primary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
         }
 
-        /* CORREÇÃO: Estilo para a seção de vantagens */
+        .form-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Seção Vantagens Modernizada */
         .advantages-container {
             position: relative;
-            margin: 2rem 0;
+            margin: 3rem 0;
         }
 
         .advantages-scroll {
             display: flex;
             overflow-x: auto;
             scroll-behavior: smooth;
-            gap: 1.5rem;
-            padding: 1rem 0;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE and Edge */
+            gap: 2rem;
+            padding: 1.5rem 0.5rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
 
         .advantages-scroll::-webkit-scrollbar {
-            display: none; /* Chrome, Safari and Opera */
+            display: none;
         }
 
         .advantage-card {
             background: var(--light);
-            border-radius: 8px;
-            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            padding: 2.5rem 2rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
@@ -761,7 +930,10 @@
             text-align: center;
             overflow: hidden;
             flex: 0 0 auto;
-            width: 280px;
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .advantage-card::before {
@@ -770,36 +942,44 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
-            background: var(--primary);
+            height: 5px;
+            background: var(--gradient);
         }
 
         .advantage-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
         }
 
         .advantage-card h3 {
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.4rem;
             color: var(--dark);
+            font-weight: 700;
         }
 
         .advantage-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--primary);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 0, 0, 0.1);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .advantage-scroll-button {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
+            background: var(--light);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -807,27 +987,42 @@
             cursor: pointer;
             z-index: 10;
             transition: var(--transition);
-            opacity: 0.8;
+            box-shadow: var(--shadow);
         }
 
         .advantage-scroll-button:hover {
-            opacity: 1;
+            background: var(--primary);
+            color: white;
             transform: translateY(-50%) scale(1.1);
         }
 
         .advantage-scroll-button.left {
-            left: -20px;
+            left: -25px;
         }
 
         .advantage-scroll-button.right {
-            right: -20px;
+            right: -25px;
         }
 
-        /* NOVA SEÇÃO: Cadastro de Companhias */
+        /* Seção de Companhias Modernizada */
         .companies-section {
-            background-color: var(--gray);
-            padding: 4rem 0;
-            margin: 3rem 0;
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, rgba(26, 26, 46, 0.05) 100%);
+            padding: 5rem 0;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .companies-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%2300A8FF" opacity="0.03"><polygon points="0,100 1000,50 1000,0 0,0"/></svg>');
+            background-size: cover;
+            z-index: -1;
         }
 
         .companies-container {
@@ -838,94 +1033,103 @@
         }
 
         .companies-content {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         .companies-content p {
             margin-bottom: 1.5rem;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            color: var(--gray-dark);
         }
 
         .companies-email {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             background-color: var(--light);
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
+            padding: 1.2rem 2rem;
+            border-radius: var(--border-radius);
             box-shadow: var(--shadow);
-            margin: 1.5rem 0;
-            font-weight: 600;
+            margin: 2rem 0;
+            font-weight: 700;
             color: var(--primary);
             text-decoration: none;
             transition: var(--transition);
+            font-size: 1.1rem;
         }
 
         .companies-email:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
         }
 
         .companies-benefits {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2rem;
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
         .benefit-item {
             flex: 1;
-            min-width: 200px;
+            min-width: 250px;
             background-color: var(--light);
-            padding: 1.5rem;
-            border-radius: 8px;
+            padding: 2rem;
+            border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             transition: var(--transition);
         }
 
         .benefit-item:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
         }
 
         .benefit-item h4 {
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
             color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: 700;
         }
 
-        /* Seção de Painel de Controle */
+        /* Seção de Painel de Controle Modernizada */
         .dashboard-section {
             background-color: var(--light);
-            padding: 4rem 0;
-            margin: 3rem 0;
+            padding: 5rem 0;
+            margin: 4rem 0;
         }
 
         .dashboard-features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
             margin-top: 3rem;
         }
 
         .dashboard-feature {
-            background-color: var(--gray);
-            padding: 2rem;
-            border-radius: 8px;
+            background-color: var(--light-gray);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             transition: var(--transition);
+            border-left: 5px solid var(--primary);
         }
 
         .dashboard-feature:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
         }
 
         .dashboard-feature h3 {
             color: var(--primary);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
         }
 
         .dashboard-feature ul {
@@ -934,8 +1138,8 @@
         }
 
         .dashboard-feature li {
-            margin-bottom: 0.5rem;
-            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            padding-left: 1.8rem;
             position: relative;
         }
 
@@ -944,11 +1148,12 @@
             color: var(--primary);
             position: absolute;
             left: 0;
+            font-size: 1.5rem;
         }
 
-        /* SEPARAÇÃO ENTRE LISTAS DE AVIÕES E ÔNIBUS */
+        /* Separação entre listas de aviões e ônibus */
         .transport-section {
-            margin: 4rem 0;
+            margin: 5rem 0;
             position: relative;
         }
 
@@ -956,75 +1161,180 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 2rem;
+            gap: 15px;
+            margin-bottom: 2.5rem;
         }
 
         .transport-title i {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             color: var(--primary);
         }
 
         .transport-title h3 {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             color: var(--dark);
+            font-weight: 800;
         }
 
-        /* NOVOS ESTILOS PARA AS IMAGENS */
-        .transport-image {
+        /* Novos elementos visuais */
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--gradient);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 0.4rem 0.8rem;
+            background: rgba(0, 168, 255, 0.1);
+            color: var(--accent);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 4rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            min-width: 180px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--gray-dark);
+            font-weight: 600;
+        }
+
+        .testimonials {
+            background: var(--light-gray);
+            padding: 5rem 0;
+            margin: 4rem 0;
+        }
+
+        .testimonial-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            margin: 1rem;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
             position: absolute;
-            z-index: 5;
-            max-width: 300px;
-            pointer-events: none;
+            top: 1rem;
+            left: 1.5rem;
+            font-size: 4rem;
+            color: rgba(255, 0, 0, 0.1);
+            font-family: Georgia, serif;
         }
 
-        .flight-image {
-            top: -50px;
-            right: 0;
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--gray-dark);
+            line-height: 1.7;
         }
 
-        .bus-image {
-            bottom: -50px;
-            left: 0;
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
-        @media (max-width: 768px) {
-            .hero {
-                padding: 6rem 1rem 3rem;
-            }
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
 
+        .author-info h4 {
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            color: var(--gray-medium);
+            font-size: 0.9rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 1200px) {
             .hero h1 {
-                font-size: 1.8rem;
+                font-size: 3rem;
             }
-
+            
             .section-title h2 {
-                font-size: 1.8rem;
+                font-size: 2.2rem;
             }
+        }
 
+        @media (max-width: 992px) {
+            .hero {
+                padding: 8rem 0 4rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
             .process-steps {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 2rem;
             }
-
+            
             .step {
                 min-width: 100%;
-                padding: 2rem 1rem 1rem 3.5rem;
+                padding: 2.5rem 2rem 2rem 4rem;
             }
-
+            
             .step::before {
-                left: 0.8rem;
-                top: -25px;
-                width: 45px;
-                height: 45px;
-                font-size: 1.1rem;
+                left: 1rem;
+                top: -30px;
+                width: 55px;
+                height: 55px;
+                font-size: 1.3rem;
             }
-
+            
             .trip-card {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 1rem;
+                gap: 1.5rem;
             }
-
+            
             .trip-price {
                 text-align: left;
                 width: 100%;
@@ -1032,77 +1342,114 @@
                 justify-content: space-between;
                 align-items: center;
             }
-
+            
             .search-form {
                 grid-template-columns: 1fr;
             }
-
+            
             .user-actions {
                 display: none;
             }
-
+            
             .scroll-button, .advantage-scroll-button {
                 display: none;
             }
-
+            
             .filters, .trip-list {
-                padding: 0 2%;
+                padding: 0 3%;
             }
-
+            
             .dashboard-features {
                 grid-template-columns: 1fr;
             }
-
-            .transport-image {
-                max-width: 200px;
-            }
-
-            .flight-image {
-                top: -30px;
-            }
-
-            .bus-image {
-                bottom: -30px;
+            
+            .stats-container {
+                gap: 2rem;
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
             .hero h1 {
-                font-size: 1.5rem;
+                font-size: 2rem;
             }
-
+            
             .section-title h2 {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
             }
-
+            
             .destination-card, .advantage-card {
-                padding: 1.2rem;
+                padding: 1.8rem;
+                width: 280px;
             }
-
+            
             .search-tabs {
                 flex-direction: column;
             }
-
+            
             .search-tab {
-                border-bottom: 1px solid var(--gray-dark);
-                border-left: 3px solid transparent;
+                border-bottom: 1px solid var(--gray);
+                border-left: 4px solid transparent;
+                justify-content: center;
             }
-
+            
             .search-tab.active {
-                border-bottom: 1px solid var(--gray-dark);
-                border-left: 3px solid var(--primary);
+                border-bottom: 1px solid var(--gray);
+                border-left: 4px solid var(--primary);
             }
-
-            .transport-image {
-                max-width: 150px;
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
-
-            .flight-image {
-                top: -20px;
+            
+            .companies-benefits {
+                flex-direction: column;
             }
+            
+            .benefit-item {
+                min-width: 100%;
+            }
+        }
 
-            .bus-image {
-                bottom: -20px;
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+            
+            .search-container {
+                padding: 1.5rem;
+            }
+            
+            .destination-card, .advantage-card {
+                padding: 1.5rem;
+                width: 260px;
+            }
+            
+            .trip-card {
+                padding: 1.5rem;
+            }
+            
+            .trip-route {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .trip-details {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .dashboard-feature {
+                padding: 1.8rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
             }
         }
     </style>
@@ -1111,6 +1458,7 @@
     <header>
         <div class="container header-container">
             <div class="logo">
+                <i class="fas fa-plane-departure logo-icon"></i>
                 <span>BIXX PASS</span>
             </div>
             
@@ -1119,13 +1467,16 @@
                     <li><a href="#destinations" class="active">Voos</a></li>
                     <li><a href="#bus">Ônibus</a></li>
                     <li><a href="#advantages">Vantagens</a></li>
+                    <li><a href="#companies">Parcerias</a></li>
+                    <li><a href="#dashboard">Dashboard</a></li>
                     <li><a href="#contact">Ajuda</a></li>
                 </ul>
             </nav>
             
             <div class="header-actions">
                 <div class="user-actions">
-                    <a href="#" id="contact-link">Contato</a>
+                    <a href="#"><i class="fas fa-user"></i> Minha Conta</a>
+                    <a href="#" id="contact-link"><i class="fas fa-headset"></i> Contato</a>
                 </div>
                 <a href="#" class="cart-icon">
                     <i class="fas fa-shopping-cart"></i>
@@ -1138,12 +1489,18 @@
     <section class="hero">
         <div class="container">
             <h1>Encontre as melhores <span>passagens aéreas e de ônibus</span></h1>
-            <p>Compare preços, horários e companhias para encontrar a viagem perfeita para você.</p>
+            <p>Compare preços, horários e companhias para encontrar a viagem perfeita para você. Economize tempo e dinheiro com a BIXX PASS.</p>
             
             <div class="search-container">
                 <div class="search-tabs">
-                    <div class="search-tab active" data-type="flight">Passagens Aéreas</div>
-                    <div class="search-tab" data-type="bus">Passagens de Ônibus</div>
+                    <div class="search-tab active" data-type="flight">
+                        <i class="fas fa-plane"></i>
+                        Passagens Aéreas
+                    </div>
+                    <div class="search-tab" data-type="bus">
+                        <i class="fas fa-bus"></i>
+                        Passagens de Ônibus
+                    </div>
                 </div>
                 
                 <form class="search-form" id="search-form">
@@ -1178,8 +1535,33 @@
                         </select>
                     </div>
                     
-                    <button type="submit" class="search-button">BUSCAR PASSAGENS</button>
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i>
+                        BUSCAR PASSAGENS
+                    </button>
                 </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estatísticas -->
+    <section class="container">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">500K+</div>
+                <div class="stat-label">Clientes Satisfeitos</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Companhias Parceiras</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1.2K+</div>
+                <div class="stat-label">Destinos Disponíveis</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Suporte ao Cliente</div>
             </div>
         </div>
     </section>
@@ -1202,6 +1584,7 @@
                     <h3>São Paulo</h3>
                     <p>Voe para a maior cidade do Brasil com os melhores preços.</p>
                     <div class="destination-price">R$ 299<span> ida e volta</span></div>
+                    <span class="badge">Oferta Especial</span>
                     <a href="#" class="cta-button">VER OFERTAS</a>
                 </div>
                 
@@ -1210,6 +1593,7 @@
                     <h3>Rio de Janeiro</h3>
                     <p>Descubra as maravilhas da Cidade Maravilhosa.</p>
                     <div class="destination-price">R$ 349<span> ida e volta</span></div>
+                    <span class="badge">Mais Procurado</span>
                     <a href="#" class="cta-button">VER OFERTAS</a>
                 </div>
                 
@@ -1218,6 +1602,7 @@
                     <h3>Salvador</h3>
                     <p>Conheça a capital baiana com suas praias e cultura.</p>
                     <div class="destination-price">R$ 459<span> ida e volta</span></div>
+                    <span class="tag"><i class="fas fa-bolt"></i> Viagem Rápida</span>
                     <a href="#" class="cta-button">VER OFERTAS</a>
                 </div>
                 
@@ -1226,6 +1611,7 @@
                     <h3>Florianópolis</h3>
                     <p>Desfrute das belas praias da Ilha da Magia.</p>
                     <div class="destination-price">R$ 399<span> ida e volta</span></div>
+                    <span class="tag"><i class="fas fa-sun"></i> Destino de Verão</span>
                     <a href="#" class="cta-button">VER OFERTAS</a>
                 </div>
                 
@@ -1234,6 +1620,7 @@
                     <h3>Fortaleza</h3>
                     <p>Aproveite as lindas praias do Nordeste brasileiro.</p>
                     <div class="destination-price">R$ 499<span> ida e volta</span></div>
+                    <span class="badge">Promoção</span>
                     <a href="#" class="cta-button">VER OFERTAS</a>
                 </div>
                 
@@ -1242,6 +1629,7 @@
                     <h3>Belo Horizonte</h3>
                     <p>Explore a capital mineira e sua rica culinária.</p>
                     <div class="destination-price">R$ 379<span> ida e volta</span></div>
+                    <span class="tag"><i class="fas fa-utensils"></i> Gastronomia</span>
                     <a href="#" class="cta-button">VER OFERTAS</a>
                 </div>
                 
@@ -1251,6 +1639,7 @@
                     <h3>São Paulo</h3>
                     <p>Viaje de ônibus para a maior cidade do Brasil com conforto.</p>
                     <div class="destination-price">R$ 120<span> ida</span></div>
+                    <span class="tag"><i class="fas fa-bed"></i> Leito Executivo</span>
                     <a href="#" class="cta-button">VER OFERTAS</a>
                 </div>
                 
@@ -1259,6 +1648,7 @@
                     <h3>Rio de Janeiro</h3>
                     <p>Conheça a Cidade Maravilhosa em uma viagem de ônibus.</p>
                     <div class="destination-price">R$ 150<span> ida</span></div>
+                    <span class="badge">Mais Vendido</span>
                     <a href="#" class="cta-button">VER OFERTAS</a>
                 </div>
                 
@@ -1267,6 +1657,7 @@
                     <h3>Brasília</h3>
                     <p>Descubra a capital federal em uma viagem confortável.</p>
                     <div class="destination-price">R$ 90<span> ida</span></div>
+                    <span class="tag"><i class="fas fa-wifi"></i> Wi-Fi Grátis</span>
                     <a href="#" class="cta-button">VER OFERTAS</a>
                 </div>
                 
@@ -1275,6 +1666,7 @@
                     <h3>Curitiba</h3>
                     <p>Explore a cidade modelo do Brasil de ônibus.</p>
                     <div class="destination-price">R$ 180<span> ida</span></div>
+                    <span class="tag"><i class="fas fa-city"></i> Turismo Urbano</span>
                     <a href="#" class="cta-button">VER OFERTAS</a>
                 </div>
                 
@@ -1283,6 +1675,7 @@
                     <h3>Porto Alegre</h3>
                     <p>Conheça a capital gaúcha em uma viagem de ônibus.</p>
                     <div class="destination-price">R$ 220<span> ida</span></div>
+                    <span class="badge">Novo Destino</span>
                     <a href="#" class="cta-button">VER OFERTAS</a>
                 </div>
                 
@@ -1291,6 +1684,7 @@
                     <h3>Vitória</h3>
                     <p>Desfrute das belezas capixabas em uma viagem de ônibus.</p>
                     <div class="destination-price">R$ 160<span> ida</span></div>
+                    <span class="tag"><i class="fas fa-umbrella-beach"></i> Destino de Praia</span>
                     <a href="#" class="cta-button">VER OFERTAS</a>
                 </div>
             </div>
@@ -1311,9 +1705,6 @@
             
             <!-- Lista de Voos -->
             <div class="transport-section">
-                <!-- Imagem da mulher apontando para os voos -->
-                <img src="https://images.unsplash.com/photo-1551834593-55b5c0d7a9f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Mulher apontando para passagens aéreas" class="transport-image flight-image">
-                
                 <div class="transport-title">
                     <i class="fas fa-plane"></i>
                     <h3>Passagens Aéreas</h3>
@@ -1366,9 +1757,6 @@
             
             <!-- Lista de Ônibus -->
             <div class="transport-section">
-                <!-- Imagem do homem apontando para os ônibus -->
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Homem apontando para passagens de ônibus" class="transport-image bus-image">
-                
                 <div class="transport-title">
                     <i class="fas fa-bus"></i>
                     <h3>Passagens de Ônibus</h3>
@@ -1421,6 +1809,59 @@
         </div>
     </section>
 
+    <!-- Seção de Depoimentos -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>O Que Nossos Clientes Dizem</h2>
+                <p>Confira a experiência de quem já viajou com a BIXX PASS</p>
+            </div>
+            
+            <div class="destinations-container">
+                <div class="destinations-scroll">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "Encontrei as passagens mais baratas para minha viagem a negócios. O processo foi rápido e fácil, e o suporte foi excelente quando precisei de ajuda."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">MC</div>
+                            <div class="author-info">
+                                <h4>Maria Clara</h4>
+                                <p>Executiva de Vendas</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "Viajo frequentemente de ônibus e a BIXX PASS sempre tem as melhores opções. A plataforma é intuitiva e os filtros me ajudam a encontrar exatamente o que preciso."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">RS</div>
+                            <div class="author-info">
+                                <h4>Roberto Silva</h4>
+                                <p>Universitário</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "Comprei passagens para toda a família com desconto. A experiência foi ótima e o pagamento via PIX facilitou muito. Recomendo a todos!"
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">AS</div>
+                            <div class="author-info">
+                                <h4>Ana Souza</h4>
+                                <p>Arquiteta</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="how-it-works" class="container">
         <div class="section-title">
             <h2>Como Funciona</h2>
@@ -1446,7 +1887,7 @@
         </div>
     </section>
     
-    <!-- CORREÇÃO: Seção Vantagens Exclusivas com layout horizontal -->
+    <!-- Seção Vantagens Exclusivas -->
     <section id="advantages" class="container">
         <div class="section-title">
             <h2>Vantagens Exclusivas</h2>
@@ -1482,6 +1923,18 @@
                     <h3>Cancelamento Facilitado</h3>
                     <p>Cancele sua viagem com até 24h de antecedência sem taxas.</p>
                 </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>App Móvel</h3>
+                    <p>Baixe nosso app e compre passagens de qualquer lugar.</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon"><i class="fas fa-gift"></i></div>
+                    <h3>Programa de Fidelidade</h3>
+                    <p>Acumule pontos e troque por descontos em suas próximas viagens.</p>
+                </div>
             </div>
             
             <button class="advantage-scroll-button right" id="advantage-scroll-right">
@@ -1490,7 +1943,7 @@
         </div>
     </section>
 
-    <!-- NOVA SEÇÃO: Cadastro de Companhias -->
+    <!-- Seção: Cadastro de Companhias -->
     <section id="companies" class="companies-section">
         <div class="container companies-container">
             <div class="section-title">
@@ -1527,7 +1980,7 @@
         </div>
     </section>
 
-    <!-- NOVA SEÇÃO: Painel de Controle -->
+    <!-- Seção: Painel de Controle -->
     <section id="dashboard" class="dashboard-section">
         <div class="container">
             <div class="section-title">
@@ -1604,7 +2057,13 @@
             <div class="footer-content">
                 <div class="footer-col">
                     <h3>BIXX PASS</h3>
-                    <p style="margin: 1rem 0; opacity: 0.8;">Encontre as melhores passagens aéreas e de ônibus com os melhores preços.</p>
+                    <p style="margin: 1rem 0; opacity: 0.8;">Encontre as melhores passagens aéreas e de ônibus com os melhores preços. Sua viagem começa aqui!</p>
+                    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                        <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
+                    </div>
                 </div>
                 <div class="footer-col">
                     <h3>Contato</h3>
@@ -1612,6 +2071,7 @@
                         <li><a href="#"><i class="fas fa-phone"></i> (62) 99999-9999</a></li>
                         <li><a href="#"><i class="fas fa-envelope"></i> contato@bixxpass.com</a></li>
                         <li><a href="#"><i class="fas fa-map-marker-alt"></i> Goiânia, GO</a></li>
+                        <li><a href="#"><i class="fab fa-whatsapp"></i> WhatsApp Comercial</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -1621,20 +2081,21 @@
                         <li><a href="#">Perguntas Frequentes</a></li>
                         <li><a href="#">Política de Privacidade</a></li>
                         <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Trabalhe Conosco</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h3>Formas de Pagamento</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Cartão de Crédito</a></li>
-                        <li><a href="#">PIX</a></li>
-                        <li><a href="#">Boleto Bancário</a></li>
-                        <li><a href="#">Cartão de Débito</a></li>
+                        <li><a href="#"><i class="fas fa-credit-card"></i> Cartão de Crédito</a></li>
+                        <li><a href="#"><i class="fas fa-qrcode"></i> PIX</a></li>
+                        <li><a href="#"><i class="fas fa-barcode"></i> Boleto Bancário</a></li>
+                        <li><a href="#"><i class="fas fa-money-bill-wave"></i> Cartão de Débito</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 BIXX PASS. Todos os direitos reservados.</p>
+                <p>&copy; 2025 BIXX PASS. Todos os direitos reservados. CNPJ: 12.345.678/0001-90</p>
             </div>
         </div>
     </footer>
@@ -1779,11 +2240,11 @@
                     
                     // Alternar entre destinos de voo e ônibus
                     if (currentSearchType === 'flight') {
-                        flightCards.forEach(card => card.style.display = 'block');
+                        flightCards.forEach(card => card.style.display = 'flex');
                         busCards.forEach(card => card.style.display = 'none');
                     } else {
                         flightCards.forEach(card => card.style.display = 'none');
-                        busCards.forEach(card => card.style.display = 'block');
+                        busCards.forEach(card => card.style.display = 'flex');
                     }
                 });
             });
@@ -1825,14 +2286,14 @@
             // Rolagem dos destinos
             scrollLeft.addEventListener('click', function() {
                 destinationsScroll.scrollBy({
-                    left: -300,
+                    left: -350,
                     behavior: 'smooth'
                 });
             });
 
             scrollRight.addEventListener('click', function() {
                 destinationsScroll.scrollBy({
-                    left: 300,
+                    left: 350,
                     behavior: 'smooth'
                 });
             });
@@ -1840,17 +2301,25 @@
             // Rolagem das vantagens
             advantageScrollLeft.addEventListener('click', function() {
                 advantagesScroll.scrollBy({
-                    left: -300,
+                    left: -350,
                     behavior: 'smooth'
                 });
             });
 
             advantageScrollRight.addEventListener('click', function() {
                 advantagesScroll.scrollBy({
-                    left: 300,
+                    left: 350,
                     behavior: 'smooth'
                 });
             });
+
+            // Configurar datas mínimas
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            document.getElementById('departure-date').min = today.toISOString().split('T')[0];
+            document.getElementById('return-date').min = tomorrow.toISOString().split('T')[0];
         });
 
         // Função para realizar a busca
@@ -1874,7 +2343,7 @@
             
             // Rolar para resultados
             window.scrollTo({
-                top: resultsSection.offsetTop - 80,
+                top: resultsSection.offsetTop - 100,
                 behavior: 'smooth'
             });
         }
@@ -1885,7 +2354,7 @@
             busList.innerHTML = '';
             
             if (flightTrips.length === 0) {
-                flightList.innerHTML = '<p style="text-align: center; padding: 2rem;">Nenhuma passagem aérea encontrada para os critérios selecionados.</p>';
+                flightList.innerHTML = '<div class="trip-card" style="text-align: center; padding: 3rem;"><p>Nenhuma passagem aérea encontrada para os critérios selecionados.</p><p class="availability-note">Tente alterar suas datas ou destinos.</p></div>';
             } else {
                 flightTrips.forEach(trip => {
                     const tripCard = createTripCard(trip);
@@ -1894,7 +2363,7 @@
             }
             
             if (busTrips.length === 0) {
-                busList.innerHTML = '<p style="text-align: center; padding: 2rem;">Nenhuma passagem de ônibus encontrada para os critérios selecionados.</p>';
+                busList.innerHTML = '<div class="trip-card" style="text-align: center; padding: 3rem;"><p>Nenhuma passagem de ônibus encontrada para os critérios selecionados.</p><p class="availability-note">Tente alterar suas datas ou destinos.</p></div>';
             } else {
                 busTrips.forEach(trip => {
                     const tripCard = createTripCard(trip);
@@ -1926,12 +2395,15 @@
                         <div><i class="far fa-clock"></i> ${trip.departure} - ${trip.arrival}</div>
                         <div><i class="fas fa-hourglass-half"></i> ${trip.duration}</div>
                     </div>
-                    <div class="trip-company">${trip.company}</div>
+                    <div class="trip-company"><i class="fas fa-${trip.type === 'flight' ? 'plane' : 'bus'}"></i> ${trip.company}</div>
                 </div>
                 <div class="trip-price">
                     <div class="price">R$ ${trip.price}</div>
                     <div class="seats">${trip.seats} assentos disponíveis</div>
-                    <button class="buy-button" data-id="${trip.id}">COMPRAR</button>
+                    <button class="buy-button" data-id="${trip.id}">
+                        <i class="fas fa-shopping-cart"></i>
+                        COMPRAR
+                    </button>
                 </div>
             `;
             return tripCard;
@@ -1948,6 +2420,12 @@
         function addToCart(tripId) {
             cartItems++;
             cartCount.textContent = cartItems;
+            
+            // Animação do carrinho
+            cartCount.style.transform = 'scale(1.3)';
+            setTimeout(() => {
+                cartCount.style.transform = 'scale(1)';
+            }, 300);
             
             // Em uma implementação real, isso adicionaria o item ao carrinho
             // Aqui vamos apenas redirecionar para o WhatsApp
@@ -1966,7 +2444,7 @@
 
                 if (targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: targetElement.offsetTop - 100,
                         behavior: 'smooth'
                     });
                 }
@@ -1980,9 +2458,10 @@
                 if (window.scrollY > 50) {
                     header.style.background = 'rgba(255, 255, 255, 0.98)';
                     header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                    header.style.backdropFilter = 'blur(10px)';
                 } else {
-                    header.style.background = 'var(--light)';
-                    header.style.boxShadow = 'none';
+                    header.style.background = 'rgba(255, 255, 255, 0.95)';
+                    header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
                 }
             }
         });
@@ -1997,8 +2476,8 @@
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
                 
-                if (window.pageYOffset >= sectionTop - 100 && 
-                    window.pageYOffset < sectionTop + sectionHeight - 100) {
+                if (window.pageYOffset >= sectionTop - 120 && 
+                    window.pageYOffset < sectionTop + sectionHeight - 120) {
                     current = section.getAttribute('id') || '';
                 }
             });
@@ -2010,6 +2489,31 @@
                     link.classList.add('active');
                 }
             });
+        });
+
+        // Efeito de digitação no título
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Iniciar efeito de digitação quando a página carregar
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.hero h1');
+            const originalText = heroTitle.innerHTML;
+            
+            // Apenas para demonstração - em produção, isso pode ser ativado em certas condições
+            // typeWriter(heroTitle, originalText, 50);
         });
     </script>
 </body>
