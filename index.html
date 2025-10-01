@@ -99,11 +99,6 @@
             letter-spacing: -0.5px;
         }
 
-        .logo-icon {
-            font-size: 2rem;
-            color: var(--primary);
-        }
-
         nav ul {
             display: flex;
             list-style: none;
@@ -197,7 +192,7 @@
 
         /* Hero Section Modernizada */
         .hero {
-            padding: 6rem 0 2rem; /* Reduzido para diminuir a altura da seção */
+            padding: 6rem 0 2rem;
             text-align: center;
             background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, rgba(26, 26, 46, 0.05) 100%);
             position: relative;
@@ -243,7 +238,7 @@
         .search-container {
             background-color: var(--light);
             border-radius: var(--border-radius);
-            padding: 1.5rem; /* Reduzido para ajudar na diminuição da altura */
+            padding: 1.5rem;
             box-shadow: var(--shadow-xl);
             max-width: 1000px;
             margin: 0 auto;
@@ -253,13 +248,13 @@
 
         .search-tabs {
             display: flex;
-            margin-bottom: 1.2rem; /* Reduzido */
+            margin-bottom: 1.2rem;
             border-bottom: 1px solid var(--gray);
             position: relative;
         }
 
         .search-tab {
-            padding: 0.8rem 1.5rem; /* Reduzido */
+            padding: 0.8rem 1.5rem;
             cursor: pointer;
             font-weight: 600;
             transition: var(--transition);
@@ -278,7 +273,7 @@
         .search-form {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem; /* Reduzido */
+            gap: 1rem;
         }
 
         .form-group {
@@ -287,14 +282,14 @@
         }
 
         .form-group label {
-            margin-bottom: 0.4rem; /* Reduzido */
+            margin-bottom: 0.4rem;
             font-weight: 600;
             font-size: 0.9rem;
             color: var(--dark);
         }
 
         .form-control {
-            padding: 0.8rem; /* Reduzido */
+            padding: 0.8rem;
             border: 1px solid var(--gray);
             border-radius: var(--border-radius-sm);
             font-size: 1rem;
@@ -349,7 +344,7 @@
             color: white;
             border: none;
             border-radius: var(--border-radius-sm);
-            padding: 0.8rem 1.5rem; /* Reduzido */
+            padding: 0.8rem 1.5rem;
             font-weight: 700;
             font-size: 1rem;
             cursor: pointer;
@@ -372,7 +367,7 @@
             color: var(--gray-dark);
             border: 1px solid var(--gray);
             border-radius: var(--border-radius-sm);
-            padding: 0.8rem 1.5rem; /* Reduzido */
+            padding: 0.8rem 1.5rem;
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
@@ -1131,153 +1126,6 @@
             right: -25px;
         }
 
-        /* Seção de Companhias Modernizada */
-        .companies-section {
-            background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, rgba(26, 26, 46, 0.05) 100%);
-            padding: 5rem 0;
-            margin: 4rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .companies-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%2300A8FF" opacity="0.03"><polygon points="0,100 1000,50 1000,0 0,0"/></svg>');
-            background-size: cover;
-            z-index: -1;
-        }
-
-        .companies-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .companies-content {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .companies-content p {
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-            color: var(--gray-dark);
-        }
-
-        .companies-email {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background-color: var(--light);
-            padding: 1.2rem 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            margin: 2rem 0;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 1.1rem;
-        }
-
-        .companies-email:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .companies-benefits {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .benefit-item {
-            flex: 1;
-            min-width: 250px;
-            background-color: var(--light);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .benefit-item:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .benefit-item h4 {
-            margin-bottom: 1rem;
-            color: var(--primary);
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-
-        /* Seção de Painel de Controle Modernizada */
-        .dashboard-section {
-            background-color: var(--light);
-            padding: 5rem 0;
-            margin: 4rem 0;
-        }
-
-        .dashboard-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
-            margin-top: 3rem;
-        }
-
-        .dashboard-feature {
-            background-color: var(--light-gray);
-            padding: 2.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border-left: 5px solid var(--primary);
-        }
-
-        .dashboard-feature:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .dashboard-feature h3 {
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-
-        .dashboard-feature ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .dashboard-feature li {
-            margin-bottom: 0.8rem;
-            padding-left: 1.8rem;
-            position: relative;
-        }
-
-        .dashboard-feature li:before {
-            content: "•";
-            color: var(--primary);
-            position: absolute;
-            left: 0;
-            font-size: 1.5rem;
-        }
-
         /* Separação entre listas de ônibus */
         .transport-section {
             margin: 2rem 0;
@@ -1413,7 +1261,7 @@
 
         @media (max-width: 992px) {
             .hero {
-                padding: 5rem 0 2rem; /* Ajuste para telas menores */
+                padding: 5rem 0 2rem;
             }
             
             .hero h1 {
@@ -1471,22 +1319,6 @@
             .filters, .trip-list {
                 padding: 0 3%;
             }
-            
-            .dashboard-features {
-                grid-template-columns: 1fr;
-            }
-
-            nav ul {
-                gap: 1rem;
-            }
-
-            .logo {
-                font-size: 1.5rem;
-            }
-
-            .header-actions {
-                gap: 1rem;
-            }
         }
 
         @media (max-width: 768px) {
@@ -1522,17 +1354,9 @@
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
-            
-            .companies-benefits {
-                flex-direction: column;
-            }
-            
-            .benefit-item {
-                min-width: 100%;
-            }
 
             .hero {
-                padding: 4rem 0 1.5rem; /* Mais ajuste para telas menores */
+                padding: 4rem 0 1.5rem;
             }
 
             .search-container {
@@ -1550,14 +1374,6 @@
 
             .filter-group {
                 min-width: 150px;
-            }
-
-            .companies-section {
-                padding: 3rem 0;
-            }
-
-            .dashboard-section {
-                padding: 3rem 0;
             }
 
             .testimonials {
@@ -1597,13 +1413,9 @@
                 flex-direction: column;
                 gap: 0.5rem;
             }
-            
-            .dashboard-feature {
-                padding: 1.8rem;
-            }
 
             .hero {
-                padding: 3rem 0 1rem; /* Ajuste final para telas muito pequenas */
+                padding: 3rem 0 1rem;
             }
 
             .hero p {
@@ -1613,10 +1425,6 @@
 
             .logo {
                 font-size: 1.2rem;
-            }
-
-            .logo-icon {
-                font-size: 1.5rem;
             }
 
             nav ul {
@@ -1721,10 +1529,6 @@
                 font-size: 1rem;
             }
 
-            .logo-icon {
-                font-size: 1.2rem;
-            }
-
             nav a {
                 font-size: 0.75rem;
             }
@@ -1764,15 +1568,12 @@
                 <ul>
                     <li><a href="#destinations" class="active">Destinos</a></li>
                     <li><a href="#advantages">Vantagens</a></li>
-                    <li><a href="#companies">Parcerias</a></li>
-                    <li><a href="#dashboard">Dashboard</a></li>
                     <li><a href="#contact">Ajuda</a></li>
                 </ul>
             </nav>
             
             <div class="header-actions">
                 <div class="user-actions">
-                    <a href="dashboard.html"><i class="fas fa-user"></i> Minha Conta</a>
                     <a href="#" id="contact-link"><i class="fas fa-headset"></i> Contato</a>
                 </div>
                 <a href="#" class="cart-icon">
@@ -2110,116 +1911,7 @@
         </div>
     </section>
 
-    <!-- Seção: Cadastro de Companhias -->
-    <section id="companies" class="companies-section">
-        <div class="container companies-container">
-            <div class="section-title">
-                <h2>Cadastro de Companhias</h2>
-                <p>Seja nosso parceiro e aumente suas vendas</p>
-            </div>
-            
-            <div class="companies-content">
-                <p>Você é uma companhia de ônibus e gostaria de cadastrar seus preços e rotas em nossa plataforma?</p>
-                <p>Entre em contato conosco para fazer parte da nossa rede de parceiros e alcançar milhares de clientes em todo o Brasil.</p>
-                
-                <a href="mailto:bixxpass@outlook.com.br" class="companies-email">
-                    <i class="fas fa-envelope"></i>
-                    bixxpass@outlook.com.br
-                </a>
-                
-                <p>Envie sua solicitação de cadastro para o e-mail acima com as seguintes informações:</p>
-                
-                <div class="companies-benefits">
-                    <div class="benefit-item">
-                        <h4>Maior Visibilidade</h4>
-                        <p>Sua empresa será vista por milhares de potenciais clientes</p>
-                    </div>
-                    <div class="benefit-item">
-                        <h4>Processo Simplificado</h4>
-                        <p>Cadastro rápido e suporte dedicado para parceiros</p>
-                    </div>
-                    <div class="benefit-item">
-                        <h4>Aumento nas Vendas</h4>
-                        <p>Expanda seu alcance e aumente suas receitas</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção: Painel de Controle -->
-    <section id="dashboard" class="dashboard-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Painel de Controle para Empresas</h2>
-                <p>Gerencie todas as suas operações em uma única plataforma</p>
-            </div>
-            
-            <div class="dashboard-features">
-                <div class="dashboard-feature">
-                    <h3><i class="fas fa-route"></i> Gestão de Rotas</h3>
-                    <ul>
-                        <li>Cadastro de novas rotas e destinos</li>
-                        <li>Configuração de horários de partida e chegada</li>
-                        <li>Definição de frequência (diária, semanal, etc.)</li>
-                        <li>Gerenciamento de pontos de parada</li>
-                    </ul>
-                </div>
-                
-                <div class="dashboard-feature">
-                    <h3><i class="fas fa-tags"></i> Gestão de Preços</h3>
-                    <ul>
-                        <li>Definição de tarifas base por rota</li>
-                        <li>Configuração de preços dinâmicos</li>
-                        <li>Estabelecimento de preços por temporada</li>
-                        <li>Gerenciamento de descontos promocionais</li>
-                    </ul>
-                </div>
-                
-                <div class="dashboard-feature">
-                    <h3><i class="fas fa-chair"></i> Controle de Assentos</h3>
-                    <ul>
-                        <li>Visualização do mapa de assentos em tempo real</li>
-                        <li>Controle de disponibilidade por viagem</li>
-                        <li>Gerenciamento de blocos de assentos</li>
-                        <li>Configuração de categorias (econômico, executivo, leito)</li>
-                    </ul>
-                </div>
-                
-                <div class="dashboard-feature">
-                    <h3><i class="fas fa-calendar-alt"></i> Agendamentos</h3>
-                    <ul>
-                        <li>Visualização de todas as reservas confirmadas</li>
-                        <li>Gerenciamento de check-in dos passageiros</li>
-                        <li>Controle de embarques</li>
-                        <li>Emissão de relatórios de ocupação</li>
-                    </ul>
-                </div>
-                
-                <div class="dashboard-feature">
-                    <h3><i class="fas fa-chart-line"></i> Análise Financeira</h3>
-                    <ul>
-                        <li>Acompanhamento de vendas em tempo real</li>
-                        <li>Visualização de comissões e taxas</li>
-                        <li>Emissão de relatórios financeiros</li>
-                        <li>Controle de repasses e pagamentos</li>
-                    </ul>
-                </div>
-                
-                <div class="dashboard-feature">
-                    <h3><i class="fas fa-chart-bar"></i> Relatórios e Analytics</h3>
-                    <ul>
-                        <li>Relatórios de ocupação por rota</li>
-                        <li>Análise de desempenho financeiro</li>
-                        <li>Métricas de satisfação do cliente</li>
-                        <li>Previsões de demanda</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção de Depoimentos (movida para o final) -->
+    <!-- Seção de Depoimentos -->
     <section class="testimonials">
         <div class="container">
             <div class="section-title">
