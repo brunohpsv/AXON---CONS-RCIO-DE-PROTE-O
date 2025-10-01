@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIXX PASS - Painel de Controle para Companhias</title>
+    <title>BIXX PASS - Painel de Controle para Empresas de Ônibus</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
@@ -825,7 +825,7 @@
     <header>
         <div class="container header-container">
             <div class="logo">
-                <i class="fas fa-plane-departure logo-icon"></i>
+                <i class="fas fa-bus logo-icon"></i>
                 <span>BIXX PASS</span>
             </div>
             
@@ -854,10 +854,10 @@
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="company-info">
-                    <div class="company-logo">LA</div>
+                    <div class="company-logo">CA</div>
                     <div class="company-details">
-                        <div class="company-name">Latam Airlines</div>
-                        <div class="company-type">Companhia Aérea</div>
+                        <div class="company-name">Cometa Express</div>
+                        <div class="company-type">Empresa de Ônibus</div>
                     </div>
                 </div>
             </div>
@@ -919,8 +919,8 @@
             <div class="tab-content active" id="dashboard">
                 <div class="dashboard-header">
                     <div class="dashboard-title">
-                        <h1>Dashboard da Companhia</h1>
-                        <p>Bem-vindo de volta, Latam Airlines. Aqui está o resumo das suas operações.</p>
+                        <h1>Dashboard da Empresa</h1>
+                        <p>Bem-vindo de volta, Cometa Express. Aqui está o resumo das suas operações.</p>
                     </div>
                     <div class="dashboard-actions">
                         <button class="btn btn-secondary" id="exportDataBtn">
@@ -936,23 +936,23 @@
                 
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-value">142</div>
-                        <div class="stat-label">Voos Ativos</div>
-                        <div class="stat-change positive">
-                            <i class="fas fa-arrow-up"></i>
-                            12% em relação ao mês anterior
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">R$ 284.560</div>
-                        <div class="stat-label">Receita do Mês</div>
+                        <div class="stat-value">68</div>
+                        <div class="stat-label">Viagens Ativas</div>
                         <div class="stat-change positive">
                             <i class="fas fa-arrow-up"></i>
                             8% em relação ao mês anterior
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">78%</div>
+                        <div class="stat-value">R$ 184.320</div>
+                        <div class="stat-label">Receita do Mês</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            12% em relação ao mês anterior
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">82%</div>
                         <div class="stat-label">Taxa de Ocupação</div>
                         <div class="stat-change positive">
                             <i class="fas fa-arrow-up"></i>
@@ -960,11 +960,11 @@
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">4.7</div>
+                        <div class="stat-value">4.5</div>
                         <div class="stat-label">Avaliação dos Clientes</div>
                         <div class="stat-change negative">
                             <i class="fas fa-arrow-down"></i>
-                            0.2 em relação ao mês anterior
+                            0.1 em relação ao mês anterior
                         </div>
                     </div>
                 </div>
@@ -1005,7 +1005,7 @@
                 
                 <div class="dashboard-section">
                     <div class="section-header">
-                        <h2 class="section-title">Próximos Voos</h2>
+                        <h2 class="section-title">Próximas Viagens</h2>
                         <div class="section-actions">
                             <button class="btn btn-secondary" id="viewCalendarBtn">
                                 <i class="fas fa-calendar"></i>
@@ -1018,7 +1018,7 @@
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Voo</th>
+                                    <th>Viagem</th>
                                     <th>Rota</th>
                                     <th>Partida</th>
                                     <th>Chegada</th>
@@ -1026,8 +1026,8 @@
                                     <th>Status</th>
                                 </tr>
                             </thead>
-                            <tbody id="flightsTableBody">
-                                <!-- Voos serão carregados dinamicamente -->
+                            <tbody id="tripsTableBody">
+                                <!-- Viagens serão carregadas dinamicamente -->
                             </tbody>
                         </table>
                     </div>
@@ -1039,7 +1039,7 @@
                 <div class="dashboard-header">
                     <div class="dashboard-title">
                         <h1>Gerenciamento de Rotas</h1>
-                        <p>Gerencie todas as rotas da sua companhia aérea.</p>
+                        <p>Gerencie todas as rotas da sua empresa de ônibus.</p>
                     </div>
                     <div class="dashboard-actions">
                         <button class="btn btn-secondary" id="importRoutesBtn">
@@ -1195,7 +1195,7 @@
                 <div class="dashboard-header">
                     <div class="dashboard-title">
                         <h1>Agendamentos</h1>
-                        <p>Gerencie os horários e frequências dos voos.</p>
+                        <p>Gerencie os horários e frequências das viagens.</p>
                     </div>
                 </div>
                 <div class="dashboard-section">
@@ -1208,7 +1208,7 @@
                 <div class="dashboard-header">
                     <div class="dashboard-title">
                         <h1>Financeiro</h1>
-                        <p>Acompanhe o desempenho financeiro da companhia.</p>
+                        <p>Acompanhe o desempenho financeiro da empresa.</p>
                     </div>
                 </div>
                 <div class="dashboard-section">
@@ -1255,12 +1255,12 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label" for="routeOrigin">Origem</label>
-                        <input type="text" id="routeOrigin" class="form-control" placeholder="Código do aeroporto (ex: GRU)" required>
+                        <input type="text" id="routeOrigin" class="form-control" placeholder="Cidade de origem (ex: São Paulo)" required>
                     </div>
                     
                     <div class="form-group">
                         <label class="form-label" for="routeDestination">Destino</label>
-                        <input type="text" id="routeDestination" class="form-control" placeholder="Código do aeroporto (ex: GYN)" required>
+                        <input type="text" id="routeDestination" class="form-control" placeholder="Cidade de destino (ex: Rio de Janeiro)" required>
                     </div>
                 </div>
                 
@@ -1279,7 +1279,7 @@
                     
                     <div class="form-group">
                         <label class="form-label" for="routeBasePrice">Preço Base (R$)</label>
-                        <input type="number" id="routeBasePrice" class="form-control" placeholder="299.00" min="0" step="0.01" required>
+                        <input type="number" id="routeBasePrice" class="form-control" placeholder="89.90" min="0" step="0.01" required>
                     </div>
                 </div>
                 
@@ -1296,13 +1296,13 @@
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label" for="routeAircraft">Aeronave</label>
-                    <select id="routeAircraft" class="form-control" required>
-                        <option value="">Selecione a aeronave</option>
-                        <option value="airbus320">Airbus A320 (180 assentos)</option>
-                        <option value="boeing737">Boeing 737 (150 assentos)</option>
-                        <option value="airbus321">Airbus A321 (220 assentos)</option>
-                        <option value="embraer195">Embraer 195 (120 assentos)</option>
+                    <label class="form-label" for="routeBus">Ônibus</label>
+                    <select id="routeBus" class="form-control" required>
+                        <option value="">Selecione o ônibus</option>
+                        <option value="mercedes4400">Mercedes-Benz O-500 RSD (44 assentos)</option>
+                        <option value="marcopolo860">Marcopolo Viaggio 860 (40 assentos)</option>
+                        <option value="volarew9">Volare W9 (38 assentos)</option>
+                        <option value="comilveloce">Comil Veloce (42 assentos)</option>
                     </select>
                 </div>
                 
@@ -1327,27 +1327,27 @@
     </div>
 
     <script>
-        // Dados de exemplo
+        // Dados de exemplo para ônibus
         const sampleRoutes = [
-            { id: 1, route: "GRU → GYN", frequency: "Diária", basePrice: "R$ 299", availableSeats: "142/180", status: "active" },
-            { id: 2, route: "SSA → BSB", frequency: "3x por semana", basePrice: "R$ 459", availableSeats: "85/150", status: "active" },
-            { id: 3, route: "FLN → FOR", frequency: "2x por semana", basePrice: "R$ 399", availableSeats: "120/180", status: "active" },
-            { id: 4, route: "POA → MAO", frequency: "Semanal", basePrice: "R$ 599", availableSeats: "45/180", status: "inactive" },
-            { id: 5, route: "REC → CGH", frequency: "Diária", basePrice: "R$ 349", availableSeats: "160/180", status: "pending" }
+            { id: 1, route: "São Paulo → Rio de Janeiro", frequency: "Diária", basePrice: "R$ 89,90", availableSeats: "32/44", status: "active" },
+            { id: 2, route: "Belo Horizonte → Brasília", frequency: "3x por semana", basePrice: "R$ 129,90", availableSeats: "28/40", status: "active" },
+            { id: 3, route: "Curitiba → Florianópolis", frequency: "2x por semana", basePrice: "R$ 79,90", availableSeats: "35/42", status: "active" },
+            { id: 4, route: "Salvador → Recife", frequency: "Semanal", basePrice: "R$ 159,90", availableSeats: "15/38", status: "inactive" },
+            { id: 5, route: "Porto Alegre → São Paulo", frequency: "Diária", basePrice: "R$ 139,90", availableSeats: "38/44", status: "pending" }
         ];
 
-        const sampleFlights = [
-            { id: 1, flight: "LA3157", route: "GRU → GYN", departure: "08:00 (15/03)", arrival: "10:15 (15/03)", occupancy: "78%", status: "active" },
-            { id: 2, flight: "LA2289", route: "SSA → BSB", departure: "11:30 (15/03)", arrival: "14:45 (15/03)", occupancy: "65%", status: "active" },
-            { id: 3, flight: "LA4021", route: "FLN → FOR", departure: "15:20 (15/03)", arrival: "18:35 (15/03)", occupancy: "82%", status: "active" },
-            { id: 4, flight: "LA1895", route: "POA → MAO", departure: "19:00 (15/03)", arrival: "22:15 (15/03)", occupancy: "45%", status: "pending" }
+        const sampleTrips = [
+            { id: 1, trip: "CE3157", route: "São Paulo → Rio de Janeiro", departure: "08:00 (15/03)", arrival: "13:30 (15/03)", occupancy: "73%", status: "active" },
+            { id: 2, trip: "CE2289", route: "Belo Horizonte → Brasília", departure: "11:30 (15/03)", arrival: "18:45 (15/03)", occupancy: "70%", status: "active" },
+            { id: 3, trip: "CE4021", route: "Curitiba → Florianópolis", departure: "15:20 (15/03)", arrival: "20:35 (15/03)", occupancy: "83%", status: "active" },
+            { id: 4, trip: "CE1895", route: "Salvador → Recife", departure: "19:00 (15/03)", arrival: "06:15 (16/03)", occupancy: "39%", status: "pending" }
         ];
 
         const samplePricing = [
-            { id: 1, route: "GRU → GYN", basePrice: "R$ 299", flexPrice: "R$ 399", promoPrice: "R$ 249", startDate: "01/03/2023", endDate: "31/03/2023" },
-            { id: 2, route: "SSA → BSB", basePrice: "R$ 459", flexPrice: "R$ 559", promoPrice: "R$ 399", startDate: "01/03/2023", endDate: "31/03/2023" },
-            { id: 3, route: "FLN → FOR", basePrice: "R$ 399", flexPrice: "R$ 499", promoPrice: "R$ 349", startDate: "01/03/2023", endDate: "31/03/2023" },
-            { id: 4, route: "POA → MAO", basePrice: "R$ 599", flexPrice: "R$ 699", promoPrice: "R$ 549", startDate: "01/03/2023", endDate: "31/03/2023" }
+            { id: 1, route: "São Paulo → Rio de Janeiro", basePrice: "R$ 89,90", flexPrice: "R$ 109,90", promoPrice: "R$ 69,90", startDate: "01/03/2023", endDate: "31/03/2023" },
+            { id: 2, route: "Belo Horizonte → Brasília", basePrice: "R$ 129,90", flexPrice: "R$ 149,90", promoPrice: "R$ 99,90", startDate: "01/03/2023", endDate: "31/03/2023" },
+            { id: 3, route: "Curitiba → Florianópolis", basePrice: "R$ 79,90", flexPrice: "R$ 99,90", promoPrice: "R$ 59,90", startDate: "01/03/2023", endDate: "31/03/2023" },
+            { id: 4, route: "Salvador → Recife", basePrice: "R$ 159,90", flexPrice: "R$ 179,90", promoPrice: "R$ 129,90", startDate: "01/03/2023", endDate: "31/03/2023" }
         ];
 
         // Elementos DOM
@@ -1369,7 +1369,7 @@
         const filterPricesBtn = document.getElementById('filterPricesBtn');
         const addPriceRuleBtn = document.getElementById('addPriceRuleBtn');
         const routesTableBody = document.getElementById('routesTableBody');
-        const flightsTableBody = document.getElementById('flightsTableBody');
+        const tripsTableBody = document.getElementById('tripsTableBody');
         const activeRoutesTableBody = document.getElementById('activeRoutesTableBody');
         const inactiveRoutesTableBody = document.getElementById('inactiveRoutesTableBody');
         const pendingRoutesTableBody = document.getElementById('pendingRoutesTableBody');
@@ -1382,7 +1382,7 @@
         // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
             loadRoutesData();
-            loadFlightsData();
+            loadTripsData();
             loadPricingData();
             generateSeatMap();
         });
@@ -1468,7 +1468,7 @@
             const basePrice = document.getElementById('routeBasePrice').value;
             const departureTime = document.getElementById('routeDepartureTime').value;
             const arrivalTime = document.getElementById('routeArrivalTime').value;
-            const aircraft = document.getElementById('routeAircraft').value;
+            const bus = document.getElementById('routeBus').value;
             
             // Criar nova rota
             const newRoute = {
@@ -1476,7 +1476,7 @@
                 route: `${origin} → ${destination}`,
                 frequency: getFrequencyText(frequency),
                 basePrice: `R$ ${basePrice}`,
-                availableSeats: "180/180",
+                availableSeats: "44/44",
                 status: "active"
             };
             
@@ -1517,7 +1517,7 @@
         // Botão de ver calendário
         viewCalendarBtn.addEventListener('click', function() {
             alert('Abrindo calendário...');
-            // Em uma implementação real, isso mostraria um calendário de voos
+            // Em uma implementação real, isso mostraria um calendário de viagens
         });
 
         // Botão de importar rotas
@@ -1625,34 +1625,34 @@
             return row;
         }
 
-        // Função para carregar dados dos voos
-        function loadFlightsData() {
+        // Função para carregar dados das viagens
+        function loadTripsData() {
             // Limpar tabela
-            flightsTableBody.innerHTML = '';
+            tripsTableBody.innerHTML = '';
             
             // Preencher tabela
-            sampleFlights.forEach(flight => {
+            sampleTrips.forEach(trip => {
                 const row = document.createElement('tr');
                 
                 // Determinar classe de status
                 let statusClass = 'status-active';
-                let statusText = 'Confirmado';
+                let statusText = 'Confirmada';
                 
-                if (flight.status === 'pending') {
+                if (trip.status === 'pending') {
                     statusClass = 'status-pending';
                     statusText = 'Check-in';
                 }
                 
                 row.innerHTML = `
-                    <td>${flight.flight}</td>
-                    <td>${flight.route}</td>
-                    <td>${flight.departure}</td>
-                    <td>${flight.arrival}</td>
-                    <td>${flight.occupancy}</td>
+                    <td>${trip.trip}</td>
+                    <td>${trip.route}</td>
+                    <td>${trip.departure}</td>
+                    <td>${trip.arrival}</td>
+                    <td>${trip.occupancy}</td>
                     <td><span class="status-badge ${statusClass}">${statusText}</span></td>
                 `;
                 
-                flightsTableBody.appendChild(row);
+                tripsTableBody.appendChild(row);
             });
         }
 
@@ -1692,13 +1692,15 @@
         function generateSeatMap() {
             seatMapContainer.innerHTML = '';
             
-            // Gerar 10 linhas de assentos
-            for (let row = 1; row <= 10; row++) {
+            // Gerar 8 linhas de assentos (ônibus típico tem 44 assentos)
+            for (let row = 1; row <= 8; row++) {
                 const seatRow = document.createElement('div');
                 seatRow.className = 'seat-row';
                 
-                // Gerar 6 assentos por linha (A-F)
-                for (let seat = 0; seat < 6; seat++) {
+                // Gerar 5-6 assentos por linha
+                const seatsPerRow = row === 8 ? 4 : 6; // Última linha com menos assentos
+                
+                for (let seat = 0; seat < seatsPerRow; seat++) {
                     const seatLetter = String.fromCharCode(65 + seat); // A, B, C, D, E, F
                     const seatElement = document.createElement('div');
                     seatElement.className = 'seat seat-available';
