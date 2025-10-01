@@ -396,6 +396,35 @@
             gap: 1rem;
         }
 
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: var(--border);
+            margin-bottom: 1.5rem;
+        }
+
+        .tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--gray-dark);
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         /* Tables */
         .table-container {
             overflow-x: auto;
@@ -835,49 +864,49 @@
             
             <ul class="sidebar-menu">
                 <li class="menu-item">
-                    <a href="#" class="menu-link active">
+                    <a href="#" class="menu-link active" data-tab="dashboard">
                         <i class="fas fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="#" class="menu-link" data-tab="routes">
                         <i class="fas fa-route"></i>
                         <span>Rotas</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="#" class="menu-link" data-tab="pricing">
                         <i class="fas fa-tags"></i>
                         <span>Preços</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="#" class="menu-link" data-tab="seats">
                         <i class="fas fa-chair"></i>
                         <span>Assentos</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="#" class="menu-link" data-tab="scheduling">
                         <i class="fas fa-calendar-alt"></i>
                         <span>Agendamentos</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="#" class="menu-link" data-tab="financial">
                         <i class="fas fa-chart-line"></i>
                         <span>Financeiro</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="#" class="menu-link" data-tab="reports">
                         <i class="fas fa-chart-bar"></i>
                         <span>Relatórios</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="#" class="menu-link" data-tab="settings">
                         <i class="fas fa-cog"></i>
                         <span>Configurações</span>
                     </a>
@@ -886,217 +915,331 @@
         </aside>
         
         <main class="main-content">
-            <div class="dashboard-header">
-                <div class="dashboard-title">
-                    <h1>Dashboard da Companhia</h1>
-                    <p>Bem-vindo de volta, Latam Airlines. Aqui está o resumo das suas operações.</p>
-                </div>
-                <div class="dashboard-actions">
-                    <button class="btn btn-secondary">
-                        <i class="fas fa-download"></i>
-                        Exportar Dados
-                    </button>
-                    <button class="btn btn-primary" id="addRouteBtn">
-                        <i class="fas fa-plus"></i>
-                        Nova Rota
-                    </button>
-                </div>
-            </div>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-value">142</div>
-                    <div class="stat-label">Voos Ativos</div>
-                    <div class="stat-change positive">
-                        <i class="fas fa-arrow-up"></i>
-                        12% em relação ao mês anterior
+            <!-- Dashboard Tab -->
+            <div class="tab-content active" id="dashboard">
+                <div class="dashboard-header">
+                    <div class="dashboard-title">
+                        <h1>Dashboard da Companhia</h1>
+                        <p>Bem-vindo de volta, Latam Airlines. Aqui está o resumo das suas operações.</p>
                     </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">R$ 284.560</div>
-                    <div class="stat-label">Receita do Mês</div>
-                    <div class="stat-change positive">
-                        <i class="fas fa-arrow-up"></i>
-                        8% em relação ao mês anterior
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">78%</div>
-                    <div class="stat-label">Taxa de Ocupação</div>
-                    <div class="stat-change positive">
-                        <i class="fas fa-arrow-up"></i>
-                        5% em relação ao mês anterior
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">4.7</div>
-                    <div class="stat-label">Avaliação dos Clientes</div>
-                    <div class="stat-change negative">
-                        <i class="fas fa-arrow-down"></i>
-                        0.2 em relação ao mês anterior
-                    </div>
-                </div>
-            </div>
-            
-            <div class="dashboard-section">
-                <div class="section-header">
-                    <h2 class="section-title">Rotas Ativas</h2>
-                    <div class="section-actions">
-                        <button class="btn btn-secondary">
-                            <i class="fas fa-filter"></i>
-                            Filtrar
+                    <div class="dashboard-actions">
+                        <button class="btn btn-secondary" id="exportDataBtn">
+                            <i class="fas fa-download"></i>
+                            Exportar Dados
                         </button>
-                        <button class="btn btn-primary" id="manageRoutesBtn">
-                            <i class="fas fa-cog"></i>
-                            Gerenciar Rotas
+                        <button class="btn btn-primary" id="addRouteBtn">
+                            <i class="fas fa-plus"></i>
+                            Nova Rota
                         </button>
                     </div>
                 </div>
                 
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Rota</th>
-                                <th>Frequência</th>
-                                <th>Preço Base</th>
-                                <th>Assentos Disponíveis</th>
-                                <th>Status</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>GRU → GYN</td>
-                                <td>Diária</td>
-                                <td>R$ 299</td>
-                                <td>142/180</td>
-                                <td><span class="status-badge status-active">Ativa</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn-icon btn-edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn-icon btn-delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>SSA → BSB</td>
-                                <td>3x por semana</td>
-                                <td>R$ 459</td>
-                                <td>85/150</td>
-                                <td><span class="status-badge status-active">Ativa</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn-icon btn-edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn-icon btn-delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>FLN → FOR</td>
-                                <td>2x por semana</td>
-                                <td>R$ 399</td>
-                                <td>120/180</td>
-                                <td><span class="status-badge status-active">Ativa</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn-icon btn-edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn-icon btn-delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>POA → MAO</td>
-                                <td>Semanal</td>
-                                <td>R$ 599</td>
-                                <td>45/180</td>
-                                <td><span class="status-badge status-inactive">Inativa</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn-icon btn-edit">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn-icon btn-delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <div class="dashboard-section">
-                <div class="section-header">
-                    <h2 class="section-title">Próximos Voos</h2>
-                    <div class="section-actions">
-                        <button class="btn btn-secondary">
-                            <i class="fas fa-calendar"></i>
-                            Ver Calendário
-                        </button>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">142</div>
+                        <div class="stat-label">Voos Ativos</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            12% em relação ao mês anterior
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">R$ 284.560</div>
+                        <div class="stat-label">Receita do Mês</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            8% em relação ao mês anterior
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">78%</div>
+                        <div class="stat-label">Taxa de Ocupação</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            5% em relação ao mês anterior
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">4.7</div>
+                        <div class="stat-label">Avaliação dos Clientes</div>
+                        <div class="stat-change negative">
+                            <i class="fas fa-arrow-down"></i>
+                            0.2 em relação ao mês anterior
+                        </div>
                     </div>
                 </div>
                 
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Voo</th>
-                                <th>Rota</th>
-                                <th>Partida</th>
-                                <th>Chegada</th>
-                                <th>Ocupação</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>LA3157</td>
-                                <td>GRU → GYN</td>
-                                <td>08:00 (15/03)</td>
-                                <td>10:15 (15/03)</td>
-                                <td>78%</td>
-                                <td><span class="status-badge status-active">Confirmado</span></td>
-                            </tr>
-                            <tr>
-                                <td>LA2289</td>
-                                <td>SSA → BSB</td>
-                                <td>11:30 (15/03)</td>
-                                <td>14:45 (15/03)</td>
-                                <td>65%</td>
-                                <td><span class="status-badge status-active">Confirmado</span></td>
-                            </tr>
-                            <tr>
-                                <td>LA4021</td>
-                                <td>FLN → FOR</td>
-                                <td>15:20 (15/03)</td>
-                                <td>18:35 (15/03)</td>
-                                <td>82%</td>
-                                <td><span class="status-badge status-active">Confirmado</span></td>
-                            </tr>
-                            <tr>
-                                <td>LA1895</td>
-                                <td>POA → MAO</td>
-                                <td>19:00 (15/03)</td>
-                                <td>22:15 (15/03)</td>
-                                <td>45%</td>
-                                <td><span class="status-badge status-pending">Check-in</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Rotas Ativas</h2>
+                        <div class="section-actions">
+                            <button class="btn btn-secondary" id="filterRoutesBtn">
+                                <i class="fas fa-filter"></i>
+                                Filtrar
+                            </button>
+                            <button class="btn btn-primary" id="manageRoutesBtn">
+                                <i class="fas fa-cog"></i>
+                                Gerenciar Rotas
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Rota</th>
+                                    <th>Frequência</th>
+                                    <th>Preço Base</th>
+                                    <th>Assentos Disponíveis</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="routesTableBody">
+                                <!-- Rotas serão carregadas dinamicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Próximos Voos</h2>
+                        <div class="section-actions">
+                            <button class="btn btn-secondary" id="viewCalendarBtn">
+                                <i class="fas fa-calendar"></i>
+                                Ver Calendário
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Voo</th>
+                                    <th>Rota</th>
+                                    <th>Partida</th>
+                                    <th>Chegada</th>
+                                    <th>Ocupação</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="flightsTableBody">
+                                <!-- Voos serão carregados dinamicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rotas Tab -->
+            <div class="tab-content" id="routes">
+                <div class="dashboard-header">
+                    <div class="dashboard-title">
+                        <h1>Gerenciamento de Rotas</h1>
+                        <p>Gerencie todas as rotas da sua companhia aérea.</p>
+                    </div>
+                    <div class="dashboard-actions">
+                        <button class="btn btn-secondary" id="importRoutesBtn">
+                            <i class="fas fa-file-import"></i>
+                            Importar Rotas
+                        </button>
+                        <button class="btn btn-primary" id="addRouteFromRoutesBtn">
+                            <i class="fas fa-plus"></i>
+                            Nova Rota
+                        </button>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <div class="tabs">
+                        <div class="tab active" data-route-tab="active">Rotas Ativas</div>
+                        <div class="tab" data-route-tab="inactive">Rotas Inativas</div>
+                        <div class="tab" data-route-tab="pending">Rotas Pendentes</div>
+                    </div>
+
+                    <div class="tab-content active" id="activeRoutesTab">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Rota</th>
+                                        <th>Frequência</th>
+                                        <th>Preço Base</th>
+                                        <th>Assentos Disponíveis</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="activeRoutesTableBody">
+                                    <!-- Rotas ativas serão carregadas dinamicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="inactiveRoutesTab">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Rota</th>
+                                        <th>Frequência</th>
+                                        <th>Preço Base</th>
+                                        <th>Assentos Disponíveis</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="inactiveRoutesTableBody">
+                                    <!-- Rotas inativas serão carregadas dinamicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="pendingRoutesTab">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Rota</th>
+                                        <th>Frequência</th>
+                                        <th>Preço Base</th>
+                                        <th>Assentos Disponíveis</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pendingRoutesTableBody">
+                                    <!-- Rotas pendentes serão carregadas dinamicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preços Tab -->
+            <div class="tab-content" id="pricing">
+                <div class="dashboard-header">
+                    <div class="dashboard-title">
+                        <h1>Gestão de Preços</h1>
+                        <p>Configure e gerencie os preços das suas rotas.</p>
+                    </div>
+                    <div class="dashboard-actions">
+                        <button class="btn btn-secondary" id="exportPricingBtn">
+                            <i class="fas fa-download"></i>
+                            Exportar Preços
+                        </button>
+                        <button class="btn btn-primary" id="bulkUpdatePricesBtn">
+                            <i class="fas fa-sync-alt"></i>
+                            Atualização em Massa
+                        </button>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Tabela de Preços</h2>
+                        <div class="section-actions">
+                            <button class="btn btn-secondary" id="filterPricesBtn">
+                                <i class="fas fa-filter"></i>
+                                Filtrar
+                            </button>
+                            <button class="btn btn-primary" id="addPriceRuleBtn">
+                                <i class="fas fa-plus"></i>
+                                Nova Regra
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Rota</th>
+                                    <th>Preço Base</th>
+                                    <th>Preço Flex</th>
+                                    <th>Preço Promocional</th>
+                                    <th>Data de Início</th>
+                                    <th>Data de Término</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pricingTableBody">
+                                <!-- Preços serão carregados dinamicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Outras abas (Assentos, Agendamentos, Financeiro, Relatórios, Configurações) -->
+            <div class="tab-content" id="seats">
+                <div class="dashboard-header">
+                    <div class="dashboard-title">
+                        <h1>Gestão de Assentos</h1>
+                        <p>Configure a disponibilidade e layout dos assentos.</p>
+                    </div>
+                </div>
+                <div class="dashboard-section">
+                    <h2>Em desenvolvimento...</h2>
+                    <p>Esta funcionalidade estará disponível em breve.</p>
+                </div>
+            </div>
+
+            <div class="tab-content" id="scheduling">
+                <div class="dashboard-header">
+                    <div class="dashboard-title">
+                        <h1>Agendamentos</h1>
+                        <p>Gerencie os horários e frequências dos voos.</p>
+                    </div>
+                </div>
+                <div class="dashboard-section">
+                    <h2>Em desenvolvimento...</h2>
+                    <p>Esta funcionalidade estará disponível em breve.</p>
+                </div>
+            </div>
+
+            <div class="tab-content" id="financial">
+                <div class="dashboard-header">
+                    <div class="dashboard-title">
+                        <h1>Financeiro</h1>
+                        <p>Acompanhe o desempenho financeiro da companhia.</p>
+                    </div>
+                </div>
+                <div class="dashboard-section">
+                    <h2>Em desenvolvimento...</h2>
+                    <p>Esta funcionalidade estará disponível em breve.</p>
+                </div>
+            </div>
+
+            <div class="tab-content" id="reports">
+                <div class="dashboard-header">
+                    <div class="dashboard-title">
+                        <h1>Relatórios</h1>
+                        <p>Gere relatórios detalhados sobre suas operações.</p>
+                    </div>
+                </div>
+                <div class="dashboard-section">
+                    <h2>Em desenvolvimento...</h2>
+                    <p>Esta funcionalidade estará disponível em breve.</p>
+                </div>
+            </div>
+
+            <div class="tab-content" id="settings">
+                <div class="dashboard-header">
+                    <div class="dashboard-title">
+                        <h1>Configurações</h1>
+                        <p>Personalize as configurações do sistema.</p>
+                    </div>
+                </div>
+                <div class="dashboard-section">
+                    <h2>Em desenvolvimento...</h2>
+                    <p>Esta funcionalidade estará disponível em breve.</p>
                 </div>
             </div>
         </main>
@@ -1165,39 +1308,8 @@
                 
                 <div class="form-group">
                     <label class="form-label">Configuração de Assentos</label>
-                    <div class="seat-map">
-                        <div class="seat-row">
-                            <div class="seat seat-available">1A</div>
-                            <div class="seat seat-available">1B</div>
-                            <div class="seat seat-available">1C</div>
-                            <div class="seat seat-available">1D</div>
-                            <div class="seat seat-available">1E</div>
-                            <div class="seat seat-available">1F</div>
-                        </div>
-                        <div class="seat-row">
-                            <div class="seat seat-available">2A</div>
-                            <div class="seat seat-available">2B</div>
-                            <div class="seat seat-available">2C</div>
-                            <div class="seat seat-available">2D</div>
-                            <div class="seat seat-available">2E</div>
-                            <div class="seat seat-available">2F</div>
-                        </div>
-                        <!-- Mais linhas de assentos seriam adicionadas dinamicamente -->
-                        
-                        <div class="seat-map-legend">
-                            <div class="legend-item">
-                                <div class="legend-color legend-available"></div>
-                                <span>Disponível</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="legend-color legend-selected"></div>
-                                <span>Selecionado</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="legend-color legend-occupied"></div>
-                                <span>Ocupado</span>
-                            </div>
-                        </div>
+                    <div class="seat-map" id="seatMapContainer">
+                        <!-- Assentos serão gerados dinamicamente -->
                     </div>
                 </div>
                 
@@ -1215,23 +1327,117 @@
     </div>
 
     <script>
+        // Dados de exemplo
+        const sampleRoutes = [
+            { id: 1, route: "GRU → GYN", frequency: "Diária", basePrice: "R$ 299", availableSeats: "142/180", status: "active" },
+            { id: 2, route: "SSA → BSB", frequency: "3x por semana", basePrice: "R$ 459", availableSeats: "85/150", status: "active" },
+            { id: 3, route: "FLN → FOR", frequency: "2x por semana", basePrice: "R$ 399", availableSeats: "120/180", status: "active" },
+            { id: 4, route: "POA → MAO", frequency: "Semanal", basePrice: "R$ 599", availableSeats: "45/180", status: "inactive" },
+            { id: 5, route: "REC → CGH", frequency: "Diária", basePrice: "R$ 349", availableSeats: "160/180", status: "pending" }
+        ];
+
+        const sampleFlights = [
+            { id: 1, flight: "LA3157", route: "GRU → GYN", departure: "08:00 (15/03)", arrival: "10:15 (15/03)", occupancy: "78%", status: "active" },
+            { id: 2, flight: "LA2289", route: "SSA → BSB", departure: "11:30 (15/03)", arrival: "14:45 (15/03)", occupancy: "65%", status: "active" },
+            { id: 3, flight: "LA4021", route: "FLN → FOR", departure: "15:20 (15/03)", arrival: "18:35 (15/03)", occupancy: "82%", status: "active" },
+            { id: 4, flight: "LA1895", route: "POA → MAO", departure: "19:00 (15/03)", arrival: "22:15 (15/03)", occupancy: "45%", status: "pending" }
+        ];
+
+        const samplePricing = [
+            { id: 1, route: "GRU → GYN", basePrice: "R$ 299", flexPrice: "R$ 399", promoPrice: "R$ 249", startDate: "01/03/2023", endDate: "31/03/2023" },
+            { id: 2, route: "SSA → BSB", basePrice: "R$ 459", flexPrice: "R$ 559", promoPrice: "R$ 399", startDate: "01/03/2023", endDate: "31/03/2023" },
+            { id: 3, route: "FLN → FOR", basePrice: "R$ 399", flexPrice: "R$ 499", promoPrice: "R$ 349", startDate: "01/03/2023", endDate: "31/03/2023" },
+            { id: 4, route: "POA → MAO", basePrice: "R$ 599", flexPrice: "R$ 699", promoPrice: "R$ 549", startDate: "01/03/2023", endDate: "31/03/2023" }
+        ];
+
         // Elementos DOM
         const menuToggle = document.getElementById('menuToggle');
         const sidebar = document.getElementById('sidebar');
         const addRouteBtn = document.getElementById('addRouteBtn');
+        const addRouteFromRoutesBtn = document.getElementById('addRouteFromRoutesBtn');
         const addRouteModal = document.getElementById('addRouteModal');
         const closeAddRoute = document.getElementById('closeAddRoute');
         const cancelRouteBtn = document.getElementById('cancelRouteBtn');
         const routeForm = document.getElementById('routeForm');
         const manageRoutesBtn = document.getElementById('manageRoutesBtn');
+        const exportDataBtn = document.getElementById('exportDataBtn');
+        const filterRoutesBtn = document.getElementById('filterRoutesBtn');
+        const viewCalendarBtn = document.getElementById('viewCalendarBtn');
+        const importRoutesBtn = document.getElementById('importRoutesBtn');
+        const exportPricingBtn = document.getElementById('exportPricingBtn');
+        const bulkUpdatePricesBtn = document.getElementById('bulkUpdatePricesBtn');
+        const filterPricesBtn = document.getElementById('filterPricesBtn');
+        const addPriceRuleBtn = document.getElementById('addPriceRuleBtn');
+        const routesTableBody = document.getElementById('routesTableBody');
+        const flightsTableBody = document.getElementById('flightsTableBody');
+        const activeRoutesTableBody = document.getElementById('activeRoutesTableBody');
+        const inactiveRoutesTableBody = document.getElementById('inactiveRoutesTableBody');
+        const pendingRoutesTableBody = document.getElementById('pendingRoutesTableBody');
+        const pricingTableBody = document.getElementById('pricingTableBody');
+        const seatMapContainer = document.getElementById('seatMapContainer');
+        const menuLinks = document.querySelectorAll('.menu-link');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const routeTabs = document.querySelectorAll('[data-route-tab]');
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRoutesData();
+            loadFlightsData();
+            loadPricingData();
+            generateSeatMap();
+        });
 
         // Toggle do menu lateral em dispositivos móveis
         menuToggle.addEventListener('click', function() {
             sidebar.classList.toggle('active');
         });
 
+        // Navegação entre abas do menu lateral
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remover classe active de todos os links
+                menuLinks.forEach(item => item.classList.remove('active'));
+                
+                // Adicionar classe active ao link clicado
+                this.classList.add('active');
+                
+                // Ocultar todas as abas
+                tabContents.forEach(tab => tab.classList.remove('active'));
+                
+                // Mostrar a aba correspondente
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Navegação entre abas de rotas
+        routeTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remover classe active de todas as abas
+                routeTabs.forEach(item => item.classList.remove('active'));
+                
+                // Adicionar classe active à aba clicada
+                this.classList.add('active');
+                
+                // Ocultar todos os conteúdos de aba
+                document.querySelectorAll('[id$="RoutesTab"]').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Mostrar o conteúdo correspondente
+                const tabType = this.getAttribute('data-route-tab');
+                document.getElementById(`${tabType}RoutesTab`).classList.add('active');
+            });
+        });
+
         // Abrir modal de adicionar rota
         addRouteBtn.addEventListener('click', function() {
+            addRouteModal.style.display = 'flex';
+        });
+
+        addRouteFromRoutesBtn.addEventListener('click', function() {
             addRouteModal.style.display = 'flex';
         });
 
@@ -1255,26 +1461,320 @@
         routeForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Aqui você enviaria os dados para o servidor
-            // Por enquanto, apenas fechamos o modal e mostramos uma mensagem
+            // Coletar dados do formulário
+            const origin = document.getElementById('routeOrigin').value;
+            const destination = document.getElementById('routeDestination').value;
+            const frequency = document.getElementById('routeFrequency').value;
+            const basePrice = document.getElementById('routeBasePrice').value;
+            const departureTime = document.getElementById('routeDepartureTime').value;
+            const arrivalTime = document.getElementById('routeArrivalTime').value;
+            const aircraft = document.getElementById('routeAircraft').value;
+            
+            // Criar nova rota
+            const newRoute = {
+                id: sampleRoutes.length + 1,
+                route: `${origin} → ${destination}`,
+                frequency: getFrequencyText(frequency),
+                basePrice: `R$ ${basePrice}`,
+                availableSeats: "180/180",
+                status: "active"
+            };
+            
+            // Adicionar à lista de rotas
+            sampleRoutes.push(newRoute);
+            
+            // Atualizar a tabela
+            loadRoutesData();
+            
+            // Fechar modal e resetar formulário
             alert('Rota adicionada com sucesso!');
             addRouteModal.style.display = 'none';
             routeForm.reset();
         });
 
-        // Simulação de interação com assentos
-        document.querySelectorAll('.seat-available').forEach(seat => {
-            seat.addEventListener('click', function() {
-                this.classList.toggle('seat-selected');
-                this.classList.toggle('seat-available');
-            });
-        });
-
         // Botão de gerenciar rotas
         manageRoutesBtn.addEventListener('click', function() {
-            alert('Redirecionando para a página de gerenciamento de rotas...');
-            // Em uma implementação real, isso redirecionaria para outra página
+            // Navegar para a aba de rotas
+            menuLinks.forEach(item => item.classList.remove('active'));
+            document.querySelector('[data-tab="routes"]').classList.add('active');
+            
+            tabContents.forEach(tab => tab.classList.remove('active'));
+            document.getElementById('routes').classList.add('active');
         });
+
+        // Botão de exportar dados
+        exportDataBtn.addEventListener('click', function() {
+            alert('Exportando dados...');
+            // Em uma implementação real, isso iniciaria o download de um arquivo
+        });
+
+        // Botão de filtrar rotas
+        filterRoutesBtn.addEventListener('click', function() {
+            alert('Abrindo filtros de rotas...');
+            // Em uma implementação real, isso mostraria opções de filtro
+        });
+
+        // Botão de ver calendário
+        viewCalendarBtn.addEventListener('click', function() {
+            alert('Abrindo calendário...');
+            // Em uma implementação real, isso mostraria um calendário de voos
+        });
+
+        // Botão de importar rotas
+        importRoutesBtn.addEventListener('click', function() {
+            alert('Importando rotas de arquivo...');
+            // Em uma implementação real, isso permitiria importar de um arquivo CSV/Excel
+        });
+
+        // Botão de exportar preços
+        exportPricingBtn.addEventListener('click', function() {
+            alert('Exportando tabela de preços...');
+            // Em uma implementação real, isso iniciaria o download de um arquivo
+        });
+
+        // Botão de atualização em massa de preços
+        bulkUpdatePricesBtn.addEventListener('click', function() {
+            alert('Abrindo ferramenta de atualização em massa...');
+            // Em uma implementação real, isso abriria um modal para atualizar preços em massa
+        });
+
+        // Botão de filtrar preços
+        filterPricesBtn.addEventListener('click', function() {
+            alert('Abrindo filtros de preços...');
+            // Em uma implementação real, isso mostraria opções de filtro
+        });
+
+        // Botão de adicionar regra de preço
+        addPriceRuleBtn.addEventListener('click', function() {
+            alert('Abrindo formulário de nova regra de preço...');
+            // Em uma implementação real, isso abriria um modal para criar nova regra
+        });
+
+        // Função para carregar dados das rotas
+        function loadRoutesData() {
+            // Limpar tabela
+            routesTableBody.innerHTML = '';
+            activeRoutesTableBody.innerHTML = '';
+            inactiveRoutesTableBody.innerHTML = '';
+            pendingRoutesTableBody.innerHTML = '';
+            
+            // Preencher tabelas
+            sampleRoutes.forEach(route => {
+                const row = createRouteRow(route);
+                
+                // Adicionar à tabela principal
+                routesTableBody.appendChild(row.cloneNode(true));
+                
+                // Adicionar à tabela correspondente ao status
+                if (route.status === 'active') {
+                    activeRoutesTableBody.appendChild(row);
+                } else if (route.status === 'inactive') {
+                    inactiveRoutesTableBody.appendChild(row);
+                } else if (route.status === 'pending') {
+                    pendingRoutesTableBody.appendChild(row);
+                }
+            });
+        }
+
+        // Função para criar uma linha de rota
+        function createRouteRow(route) {
+            const row = document.createElement('tr');
+            
+            // Determinar classe de status
+            let statusClass = 'status-active';
+            let statusText = 'Ativa';
+            
+            if (route.status === 'inactive') {
+                statusClass = 'status-inactive';
+                statusText = 'Inativa';
+            } else if (route.status === 'pending') {
+                statusClass = 'status-pending';
+                statusText = 'Pendente';
+            }
+            
+            row.innerHTML = `
+                <td>${route.route}</td>
+                <td>${route.frequency}</td>
+                <td>${route.basePrice}</td>
+                <td>${route.availableSeats}</td>
+                <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="btn-icon btn-edit" data-route-id="${route.id}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-icon btn-delete" data-route-id="${route.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            
+            // Adicionar eventos aos botões
+            const editBtn = row.querySelector('.btn-edit');
+            const deleteBtn = row.querySelector('.btn-delete');
+            
+            editBtn.addEventListener('click', function() {
+                editRoute(route.id);
+            });
+            
+            deleteBtn.addEventListener('click', function() {
+                deleteRoute(route.id);
+            });
+            
+            return row;
+        }
+
+        // Função para carregar dados dos voos
+        function loadFlightsData() {
+            // Limpar tabela
+            flightsTableBody.innerHTML = '';
+            
+            // Preencher tabela
+            sampleFlights.forEach(flight => {
+                const row = document.createElement('tr');
+                
+                // Determinar classe de status
+                let statusClass = 'status-active';
+                let statusText = 'Confirmado';
+                
+                if (flight.status === 'pending') {
+                    statusClass = 'status-pending';
+                    statusText = 'Check-in';
+                }
+                
+                row.innerHTML = `
+                    <td>${flight.flight}</td>
+                    <td>${flight.route}</td>
+                    <td>${flight.departure}</td>
+                    <td>${flight.arrival}</td>
+                    <td>${flight.occupancy}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                `;
+                
+                flightsTableBody.appendChild(row);
+            });
+        }
+
+        // Função para carregar dados de preços
+        function loadPricingData() {
+            // Limpar tabela
+            pricingTableBody.innerHTML = '';
+            
+            // Preencher tabela
+            samplePricing.forEach(price => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${price.route}</td>
+                    <td>${price.basePrice}</td>
+                    <td>${price.flexPrice}</td>
+                    <td>${price.promoPrice}</td>
+                    <td>${price.startDate}</td>
+                    <td>${price.endDate}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-icon btn-edit" data-price-id="${price.id}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon btn-delete" data-price-id="${price.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                
+                pricingTableBody.appendChild(row);
+            });
+        }
+
+        // Função para gerar mapa de assentos
+        function generateSeatMap() {
+            seatMapContainer.innerHTML = '';
+            
+            // Gerar 10 linhas de assentos
+            for (let row = 1; row <= 10; row++) {
+                const seatRow = document.createElement('div');
+                seatRow.className = 'seat-row';
+                
+                // Gerar 6 assentos por linha (A-F)
+                for (let seat = 0; seat < 6; seat++) {
+                    const seatLetter = String.fromCharCode(65 + seat); // A, B, C, D, E, F
+                    const seatElement = document.createElement('div');
+                    seatElement.className = 'seat seat-available';
+                    seatElement.textContent = `${row}${seatLetter}`;
+                    
+                    // Adicionar evento de clique
+                    seatElement.addEventListener('click', function() {
+                        if (this.classList.contains('seat-available')) {
+                            this.classList.remove('seat-available');
+                            this.classList.add('seat-selected');
+                        } else if (this.classList.contains('seat-selected')) {
+                            this.classList.remove('seat-selected');
+                            this.classList.add('seat-available');
+                        }
+                    });
+                    
+                    seatRow.appendChild(seatElement);
+                }
+                
+                seatMapContainer.appendChild(seatRow);
+            }
+            
+            // Adicionar legenda
+            const legend = document.createElement('div');
+            legend.className = 'seat-map-legend';
+            legend.innerHTML = `
+                <div class="legend-item">
+                    <div class="legend-color legend-available"></div>
+                    <span>Disponível</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color legend-selected"></div>
+                    <span>Selecionado</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color legend-occupied"></div>
+                    <span>Ocupado</span>
+                </div>
+            `;
+            
+            seatMapContainer.appendChild(legend);
+        }
+
+        // Função para editar rota
+        function editRoute(routeId) {
+            const route = sampleRoutes.find(r => r.id === routeId);
+            if (route) {
+                alert(`Editando rota: ${route.route}`);
+                // Em uma implementação real, isso abriria um modal de edição
+            }
+        }
+
+        // Função para excluir rota
+        function deleteRoute(routeId) {
+            if (confirm('Tem certeza que deseja excluir esta rota?')) {
+                const index = sampleRoutes.findIndex(r => r.id === routeId);
+                if (index !== -1) {
+                    sampleRoutes.splice(index, 1);
+                    loadRoutesData();
+                    alert('Rota excluída com sucesso!');
+                }
+            }
+        }
+
+        // Função auxiliar para obter texto da frequência
+        function getFrequencyText(frequency) {
+            const frequencyMap = {
+                'daily': 'Diária',
+                'weekly': 'Semanal',
+                'biweekly': '2x por semana',
+                'triweekly': '3x por semana',
+                'monthly': 'Mensal'
+            };
+            
+            return frequencyMap[frequency] || frequency;
+        }
 
         // Atualizar dados em tempo real (simulação)
         function updateStats() {
