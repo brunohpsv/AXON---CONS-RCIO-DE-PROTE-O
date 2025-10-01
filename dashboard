@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIXX PASS - Painel de Controle para Companhias</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #FF0000;
+            --primary-dark: #CC0000;
+            --primary-light: #FF3333;
+            --secondary: #1A1A2E;
+            --secondary-light: #2D3047;
+            --accent: #00A8FF;
+            --accent-dark: #0097E6;
+            --light: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --gray: #E9ECEF;
+            --gray-medium: #ADB5BD;
+            --gray-dark: #495057;
+            --dark: #212529;
+            --success: #28A745;
+            --warning: #FFC107;
+            --danger: #DC3545;
+            --border: 1px solid #E0E0E0;
+            --border-radius: 12px;
+            --border-radius-sm: 8px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-fast: all 0.15s ease;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+            --gradient-accent: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light-gray);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 0;
+        }
+
+        /* Header Modernizado */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: var(--border);
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: var(--transition);
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--primary);
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .user-actions a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .user-actions a:hover {
+            color: var(--primary);
+        }
+
+        /* Dashboard Layout */
+        .dashboard-container {
+            display: flex;
+            min-height: calc(100vh - 80px);
+            margin-top: 80px;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--light);
+            border-right: var(--border);
+            padding: 2rem 0;
+            position: fixed;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+            transition: var(--transition);
+        }
+
+        .sidebar-header {
+            padding: 0 2rem 2rem;
+            border-bottom: var(--border);
+            margin-bottom: 1.5rem;
+        }
+
+        .company-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--border-radius);
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .company-name {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.2rem;
+        }
+
+        .company-type {
+            font-size: 0.8rem;
+            color: var(--gray-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .menu-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            color: var(--gray-dark);
+            text-decoration: none;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+
+        .menu-link:hover,
+        .menu-link.active {
+            background-color: rgba(255, 0, 0, 0.05);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .menu-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-title h1 {
+            font-size: 2.2rem;
+            color: var(--dark);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-title p {
+            color: var(--gray-dark);
+            font-size: 1.1rem;
+        }
+
+        .dashboard-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--dark);
+            border: 1px solid var(--gray);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray);
+            transform: translateY(-2px);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 5px solid var(--primary);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--gray-dark);
+            font-weight: 500;
+        }
+
+        .stat-change {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .stat-change.positive {
+            color: var(--success);
+        }
+
+        .stat-change.negative {
+            color: var(--danger);
+        }
+
+        /* Dashboard Sections */
+        .dashboard-section {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: var(--border);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: var(--border);
+        }
+
+        .data-table th {
+            background-color: var(--light-gray);
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .data-table tr:hover {
+            background-color: rgba(255, 0, 0, 0.02);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-active {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+        }
+
+        .status-inactive {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+        }
+
+        .status-pending {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: var(--warning);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-edit {
+            background-color: rgba(0, 168, 255, 0.1);
+            color: var(--accent);
+        }
+
+        .btn-edit:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+        }
+
+        .btn-delete:hover {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--gray);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--light);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow: var(--shadow-xl);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-dark);
+            transition: var(--transition);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+
+        .modal-title {
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        /* Seat Map */
+        .seat-map {
+            background-color: var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .seat-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .seat {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .seat-available {
+            background-color: var(--light);
+            border-color: var(--gray);
+        }
+
+        .seat-available:hover {
+            border-color: var(--primary);
+        }
+
+        .seat-selected {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .seat-occupied {
+            background-color: var(--gray-medium);
+            color: var(--gray-dark);
+            cursor: not-allowed;
+        }
+
+        .seat-map-legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .legend-available {
+            background-color: var(--light);
+            border: 2px solid var(--gray);
+        }
+
+        .legend-selected {
+            background-color: var(--primary);
+        }
+
+        .legend-occupied {
+            background-color: var(--gray-medium);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 250px;
+            }
+            
+            .main-content {
+                margin-left: 250px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+                overflow: visible;
+            }
+            
+            .sidebar-header {
+                padding: 0 1rem 1rem;
+            }
+            
+            .company-info .company-details {
+                display: none;
+            }
+            
+            .menu-link span {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 80px;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .dashboard-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+                z-index: 1001;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .section-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .dashboard-section {
+                padding: 1.5rem;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+            }
+            
+            .seat-map {
+                padding: 1rem;
+            }
+            
+            .seat {
+                width: 35px;
+                height: 35px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Menu Toggle Button */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .menu-toggle:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-plane-departure logo-icon"></i>
+                <span>BIXX PASS</span>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Painel</a></li>
+                    <li><a href="#">Relatórios</a></li>
+                    <li><a href="#">Configurações</a></li>
+                    <li><a href="#">Ajuda</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <div class="user-actions">
+                    <a href="#"><i class="fas fa-user"></i> Minha Conta</a>
+                    <a href="#"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                </div>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="company-info">
+                    <div class="company-logo">LA</div>
+                    <div class="company-details">
+                        <div class="company-name">Latam Airlines</div>
+                        <div class="company-type">Companhia Aérea</div>
+                    </div>
+                </div>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li class="menu-item">
+                    <a href="#" class="menu-link active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link">
+                        <i class="fas fa-route"></i>
+                        <span>Rotas</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link">
+                        <i class="fas fa-tags"></i>
+                        <span>Preços</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link">
+                        <i class="fas fa-chair"></i>
+                        <span>Assentos</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Agendamentos</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Financeiro</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Relatórios</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        
+        <main class="main-content">
+            <div class="dashboard-header">
+                <div class="dashboard-title">
+                    <h1>Dashboard da Companhia</h1>
+                    <p>Bem-vindo de volta, Latam Airlines. Aqui está o resumo das suas operações.</p>
+                </div>
+                <div class="dashboard-actions">
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-download"></i>
+                        Exportar Dados
+                    </button>
+                    <button class="btn btn-primary" id="addRouteBtn">
+                        <i class="fas fa-plus"></i>
+                        Nova Rota
+                    </button>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">142</div>
+                    <div class="stat-label">Voos Ativos</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        12% em relação ao mês anterior
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">R$ 284.560</div>
+                    <div class="stat-label">Receita do Mês</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        8% em relação ao mês anterior
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">78%</div>
+                    <div class="stat-label">Taxa de Ocupação</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        5% em relação ao mês anterior
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">4.7</div>
+                    <div class="stat-label">Avaliação dos Clientes</div>
+                    <div class="stat-change negative">
+                        <i class="fas fa-arrow-down"></i>
+                        0.2 em relação ao mês anterior
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2 class="section-title">Rotas Ativas</h2>
+                    <div class="section-actions">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-filter"></i>
+                            Filtrar
+                        </button>
+                        <button class="btn btn-primary" id="manageRoutesBtn">
+                            <i class="fas fa-cog"></i>
+                            Gerenciar Rotas
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Rota</th>
+                                <th>Frequência</th>
+                                <th>Preço Base</th>
+                                <th>Assentos Disponíveis</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>GRU → GYN</td>
+                                <td>Diária</td>
+                                <td>R$ 299</td>
+                                <td>142/180</td>
+                                <td><span class="status-badge status-active">Ativa</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SSA → BSB</td>
+                                <td>3x por semana</td>
+                                <td>R$ 459</td>
+                                <td>85/150</td>
+                                <td><span class="status-badge status-active">Ativa</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>FLN → FOR</td>
+                                <td>2x por semana</td>
+                                <td>R$ 399</td>
+                                <td>120/180</td>
+                                <td><span class="status-badge status-active">Ativa</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>POA → MAO</td>
+                                <td>Semanal</td>
+                                <td>R$ 599</td>
+                                <td>45/180</td>
+                                <td><span class="status-badge status-inactive">Inativa</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon btn-edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-icon btn-delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2 class="section-title">Próximos Voos</h2>
+                    <div class="section-actions">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-calendar"></i>
+                            Ver Calendário
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Voo</th>
+                                <th>Rota</th>
+                                <th>Partida</th>
+                                <th>Chegada</th>
+                                <th>Ocupação</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>LA3157</td>
+                                <td>GRU → GYN</td>
+                                <td>08:00 (15/03)</td>
+                                <td>10:15 (15/03)</td>
+                                <td>78%</td>
+                                <td><span class="status-badge status-active">Confirmado</span></td>
+                            </tr>
+                            <tr>
+                                <td>LA2289</td>
+                                <td>SSA → BSB</td>
+                                <td>11:30 (15/03)</td>
+                                <td>14:45 (15/03)</td>
+                                <td>65%</td>
+                                <td><span class="status-badge status-active">Confirmado</span></td>
+                            </tr>
+                            <tr>
+                                <td>LA4021</td>
+                                <td>FLN → FOR</td>
+                                <td>15:20 (15/03)</td>
+                                <td>18:35 (15/03)</td>
+                                <td>82%</td>
+                                <td><span class="status-badge status-active">Confirmado</span></td>
+                            </tr>
+                            <tr>
+                                <td>LA1895</td>
+                                <td>POA → MAO</td>
+                                <td>19:00 (15/03)</td>
+                                <td>22:15 (15/03)</td>
+                                <td>45%</td>
+                                <td><span class="status-badge status-pending">Check-in</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para Adicionar Rota -->
+    <div class="modal" id="addRouteModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeAddRoute">&times;</span>
+            <h2 class="modal-title">Adicionar Nova Rota</h2>
+            
+            <form id="routeForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="routeOrigin">Origem</label>
+                        <input type="text" id="routeOrigin" class="form-control" placeholder="Código do aeroporto (ex: GRU)" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="routeDestination">Destino</label>
+                        <input type="text" id="routeDestination" class="form-control" placeholder="Código do aeroporto (ex: GYN)" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="routeFrequency">Frequência</label>
+                        <select id="routeFrequency" class="form-control" required>
+                            <option value="">Selecione a frequência</option>
+                            <option value="daily">Diária</option>
+                            <option value="weekly">Semanal</option>
+                            <option value="biweekly">2x por semana</option>
+                            <option value="triweekly">3x por semana</option>
+                            <option value="monthly">Mensal</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="routeBasePrice">Preço Base (R$)</label>
+                        <input type="number" id="routeBasePrice" class="form-control" placeholder="299.00" min="0" step="0.01" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="routeDepartureTime">Horário de Partida</label>
+                        <input type="time" id="routeDepartureTime" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="routeArrivalTime">Horário de Chegada</label>
+                        <input type="time" id="routeArrivalTime" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="routeAircraft">Aeronave</label>
+                    <select id="routeAircraft" class="form-control" required>
+                        <option value="">Selecione a aeronave</option>
+                        <option value="airbus320">Airbus A320 (180 assentos)</option>
+                        <option value="boeing737">Boeing 737 (150 assentos)</option>
+                        <option value="airbus321">Airbus A321 (220 assentos)</option>
+                        <option value="embraer195">Embraer 195 (120 assentos)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Configuração de Assentos</label>
+                    <div class="seat-map">
+                        <div class="seat-row">
+                            <div class="seat seat-available">1A</div>
+                            <div class="seat seat-available">1B</div>
+                            <div class="seat seat-available">1C</div>
+                            <div class="seat seat-available">1D</div>
+                            <div class="seat seat-available">1E</div>
+                            <div class="seat seat-available">1F</div>
+                        </div>
+                        <div class="seat-row">
+                            <div class="seat seat-available">2A</div>
+                            <div class="seat seat-available">2B</div>
+                            <div class="seat seat-available">2C</div>
+                            <div class="seat seat-available">2D</div>
+                            <div class="seat seat-available">2E</div>
+                            <div class="seat seat-available">2F</div>
+                        </div>
+                        <!-- Mais linhas de assentos seriam adicionadas dinamicamente -->
+                        
+                        <div class="seat-map-legend">
+                            <div class="legend-item">
+                                <div class="legend-color legend-available"></div>
+                                <span>Disponível</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color legend-selected"></div>
+                                <span>Selecionado</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color legend-occupied"></div>
+                                <span>Ocupado</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group" style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+                    <button type="button" class="btn btn-secondary" id="cancelRouteBtn">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i>
+                        Salvar Rota
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Elementos DOM
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const addRouteBtn = document.getElementById('addRouteBtn');
+        const addRouteModal = document.getElementById('addRouteModal');
+        const closeAddRoute = document.getElementById('closeAddRoute');
+        const cancelRouteBtn = document.getElementById('cancelRouteBtn');
+        const routeForm = document.getElementById('routeForm');
+        const manageRoutesBtn = document.getElementById('manageRoutesBtn');
+
+        // Toggle do menu lateral em dispositivos móveis
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+        });
+
+        // Abrir modal de adicionar rota
+        addRouteBtn.addEventListener('click', function() {
+            addRouteModal.style.display = 'flex';
+        });
+
+        // Fechar modal de adicionar rota
+        closeAddRoute.addEventListener('click', function() {
+            addRouteModal.style.display = 'none';
+        });
+
+        cancelRouteBtn.addEventListener('click', function() {
+            addRouteModal.style.display = 'none';
+        });
+
+        // Fechar modal ao clicar fora
+        window.addEventListener('click', function(e) {
+            if (e.target === addRouteModal) {
+                addRouteModal.style.display = 'none';
+            }
+        });
+
+        // Envio do formulário de rota
+        routeForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Aqui você enviaria os dados para o servidor
+            // Por enquanto, apenas fechamos o modal e mostramos uma mensagem
+            alert('Rota adicionada com sucesso!');
+            addRouteModal.style.display = 'none';
+            routeForm.reset();
+        });
+
+        // Simulação de interação com assentos
+        document.querySelectorAll('.seat-available').forEach(seat => {
+            seat.addEventListener('click', function() {
+                this.classList.toggle('seat-selected');
+                this.classList.toggle('seat-available');
+            });
+        });
+
+        // Botão de gerenciar rotas
+        manageRoutesBtn.addEventListener('click', function() {
+            alert('Redirecionando para a página de gerenciamento de rotas...');
+            // Em uma implementação real, isso redirecionaria para outra página
+        });
+
+        // Atualizar dados em tempo real (simulação)
+        function updateStats() {
+            // Em uma implementação real, isso buscaria dados do servidor
+            // Por enquanto, apenas simulamos uma atualização
+            const occupancyElement = document.querySelector('.stat-card:nth-child(3) .stat-value');
+            const currentOccupancy = parseInt(occupancyElement.textContent);
+            const newOccupancy = currentOccupancy + (Math.random() > 0.5 ? 1 : -1);
+            
+            if (newOccupancy >= 70 && newOccupancy <= 85) {
+                occupancyElement.textContent = newOccupancy + '%';
+            }
+        }
+
+        // Atualizar stats a cada 30 segundos
+        setInterval(updateStats, 30000);
+    </script>
+</body>
+</html>
