@@ -409,7 +409,7 @@
 
         .section-title {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
         .section-title h2 {
@@ -440,50 +440,82 @@
             font-size: 1rem;
         }
 
-        /* Banner Horizontal */
+        /* Banner Horizontal - Carrossel de Imagens */
         .banner-horizontal {
             width: 100%;
-            height: 120px;
+            height: 180px;
             overflow: hidden;
             position: relative;
-            margin: 2rem 0;
+            margin: 1.5rem 0;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
         }
 
         .banner-track {
             display: flex;
-            width: 300%;
+            width: 400%;
             animation: scrollBanner 30s linear infinite;
         }
 
         .banner-slide {
-            width: 100%;
-            height: 120px;
+            width: 25%;
+            height: 180px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: 700;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .banner-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .banner-slide span {
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            padding: 0 1rem;
         }
 
         .banner-slide:nth-child(1) {
-            background: linear-gradient(90deg, #FF6B6B, #FF8E53);
+            background-image: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
         }
 
         .banner-slide:nth-child(2) {
-            background: linear-gradient(90deg, #4ECDC4, #44A08D);
+            background-image: url('https://images.unsplash.com/photo-1570125909232-eb263c188f7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
         }
 
         .banner-slide:nth-child(3) {
-            background: linear-gradient(90deg, #FFD166, #FF9E6D);
+            background-image: url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+        }
+
+        .banner-slide:nth-child(4) {
+            background-image: url('https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
         }
 
         @keyframes scrollBanner {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-66.66%); }
+            25% { transform: translateX(0); }
+            30% { transform: translateX(-25%); }
+            55% { transform: translateX(-25%); }
+            60% { transform: translateX(-50%); }
+            85% { transform: translateX(-50%); }
+            90% { transform: translateX(-75%); }
+            100% { transform: translateX(-75%); }
         }
 
         /* Banner Vertical */
@@ -492,7 +524,7 @@
             height: 300px;
             overflow: hidden;
             position: relative;
-            margin: 2rem 0;
+            margin: 1.5rem 0;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
         }
@@ -532,7 +564,7 @@
         /* Destinos Modernizados */
         .destinations-container {
             position: relative;
-            margin: 2rem 0;
+            margin: 1.5rem 0;
         }
 
         .destinations-scroll {
@@ -652,7 +684,7 @@
 
         /* Seção de Resultados Modernizada */
         .results-container {
-            margin: 3rem 0;
+            margin: 2rem 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1044,65 +1076,33 @@
             text-decoration: underline;
         }
 
-        /* Seção Vantagens Modernizada */
-        .advantages-container {
-            position: relative;
-            margin: 2.5rem 0;
-            padding: 1.5rem;
-            border-radius: var(--border-radius);
+        /* Seção Vantagens Exclusivas - MELHORADA */
+        .advantages-section {
+            padding: 3rem 0;
             background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, rgba(26, 26, 46, 0.05) 100%);
-            border: 2px solid transparent;
-            background-clip: padding-box;
-            position: relative;
         }
 
-        .advantages-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: var(--border-radius);
-            padding: 2px;
-            background: var(--gradient);
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-
-        .advantages-scroll {
-            display: flex;
-            overflow-x: auto;
-            scroll-behavior: smooth;
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
-            padding: 1.2rem 0.5rem;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .advantages-scroll::-webkit-scrollbar {
-            display: none;
+            margin-top: 2rem;
         }
 
         .advantage-card {
             background: var(--light);
             border-radius: var(--border-radius);
-            padding: 2rem 1.5rem;
+            padding: 2rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
             border: var(--border);
             text-align: center;
             overflow: hidden;
-            flex: 0 0 auto;
-            width: 280px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 100%;
         }
 
         .advantage-card::before {
@@ -1140,44 +1140,11 @@
             justify-content: center;
         }
 
-        .advantage-scroll-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--light);
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-        }
-
-        .advantage-scroll-button:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .advantage-scroll-button.left {
-            left: -20px;
-        }
-
-        .advantage-scroll-button.right {
-            right: -20px;
-        }
-
         /* Seção de Companhias Modernizada */
         .companies-section {
             background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, rgba(26, 26, 46, 0.05) 100%);
-            padding: 4rem 0;
-            margin: 3rem 0;
+            padding: 3rem 0;
+            margin: 2rem 0;
             position: relative;
             overflow: hidden;
         }
@@ -1266,8 +1233,8 @@
         /* Seção de Painel de Controle Modernizada */
         .dashboard-section {
             background-color: var(--light);
-            padding: 4rem 0;
-            margin: 3rem 0;
+            padding: 3rem 0;
+            margin: 2rem 0;
         }
 
         .dashboard-features {
@@ -1322,7 +1289,7 @@
 
         /* Separação entre listas de aviões e ônibus */
         .transport-section {
-            margin: 4rem 0;
+            margin: 2.5rem 0;
             position: relative;
         }
 
@@ -1331,7 +1298,7 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .transport-title i {
@@ -1374,7 +1341,7 @@
             display: flex;
             justify-content: center;
             gap: 2.5rem;
-            margin: 3rem 0;
+            margin: 2rem 0;
             flex-wrap: wrap;
         }
 
@@ -1398,8 +1365,8 @@
 
         .testimonials {
             background: var(--light-gray);
-            padding: 4rem 0;
-            margin: 3rem 0;
+            padding: 3rem 0;
+            margin: 2rem 0;
         }
 
         .testimonial-card {
@@ -1461,19 +1428,19 @@
             display: grid;
             grid-template-columns: 1fr 300px;
             gap: 2rem;
-            margin: 2rem 0;
+            margin: 1.5rem 0;
         }
 
         .main-content {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .sidebar {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         /* Responsividade */
@@ -1552,7 +1519,7 @@
                 display: none;
             }
             
-            .scroll-button, .advantage-scroll-button {
+            .scroll-button {
                 display: none;
             }
             
@@ -1571,6 +1538,10 @@
             .sidebar {
                 grid-template-columns: 1fr;
             }
+            
+            .advantages-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1582,7 +1553,7 @@
                 font-size: 1.6rem;
             }
             
-            .destination-card, .advantage-card {
+            .destination-card {
                 padding: 1.5rem;
                 width: 250px;
             }
@@ -1616,12 +1587,12 @@
             }
             
             .banner-horizontal {
-                height: 100px;
+                height: 150px;
             }
             
             .banner-slide {
-                height: 100px;
-                font-size: 1.2rem;
+                height: 150px;
+                font-size: 1.5rem;
             }
             
             .banner-vertical {
@@ -1651,7 +1622,7 @@
                 padding: 1.2rem;
             }
             
-            .destination-card, .advantage-card {
+            .destination-card {
                 padding: 1.2rem;
                 width: 230px;
             }
@@ -1680,12 +1651,12 @@
             }
             
             .banner-horizontal {
-                height: 80px;
+                height: 120px;
             }
             
             .banner-slide {
-                height: 80px;
-                font-size: 1rem;
+                height: 120px;
+                font-size: 1.2rem;
             }
             
             .banner-vertical {
@@ -1811,13 +1782,22 @@
         </div>
     </section>
 
-    <!-- Banner Horizontal -->
+    <!-- Banner Horizontal - Carrossel de Imagens -->
     <div class="container">
         <div class="banner-horizontal">
             <div class="banner-track">
-                <div class="banner-slide">✈️ OFERTAS ESPECIAIS EM PASSAGENS AÉREAS</div>
-                <div class="banner-slide">🚌 VIAGEM DE ÔNIBUS COM ATÉ 30% OFF</div>
-                <div class="banner-slide">🎟️ GANHE 10% DE DESCONTO NO PIX</div>
+                <div class="banner-slide">
+                    <span>✈️ OFERTAS ESPECIAIS EM PASSAGENS AÉREAS</span>
+                </div>
+                <div class="banner-slide">
+                    <span>🚌 VIAGEM DE ÔNIBUS COM ATÉ 30% OFF</span>
+                </div>
+                <div class="banner-slide">
+                    <span>🎟️ GANHE 10% DE DESCONTO NO PIX</span>
+                </div>
+                <div class="banner-slide">
+                    <span>🏖️ DESTINOS DE PRAIA COM PREÇOS IMPERDÍVEIS</span>
+                </div>
             </div>
         </div>
     </div>
@@ -2157,19 +2137,15 @@
                 </div>
             </section>
             
-            <!-- Seção Vantagens Exclusivas -->
-            <section id="advantages" class="container">
-                <div class="section-title">
-                    <h2>Vantagens Exclusivas</h2>
-                    <p>Descubra por que escolher a BIXX PASS para suas viagens</p>
-                </div>
-                
-                <div class="advantages-container">
-                    <button class="advantage-scroll-button left" id="advantage-scroll-left">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
+            <!-- Seção Vantagens Exclusivas - MELHORADA -->
+            <section id="advantages" class="advantages-section">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Vantagens Exclusivas</h2>
+                        <p>Descubra por que escolher a BIXX PASS para suas viagens</p>
+                    </div>
                     
-                    <div class="advantages-scroll" id="advantages-scroll">
+                    <div class="advantages-grid">
                         <div class="advantage-card">
                             <div class="advantage-icon"><i class="fas fa-shield-alt"></i></div>
                             <h3>Compra Segura</h3>
@@ -2206,10 +2182,6 @@
                             <p>Acumule pontos e troque por descontos em suas próximas viagens.</p>
                         </div>
                     </div>
-                    
-                    <button class="advantage-scroll-button right" id="advantage-scroll-right">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
                 </div>
             </section>
 
