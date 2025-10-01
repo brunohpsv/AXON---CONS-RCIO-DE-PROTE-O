@@ -197,7 +197,7 @@
 
         /* Hero Section Modernizada */
         .hero {
-            padding: 10rem 0 5rem;
+            padding: 6rem 0 2rem; /* Reduzido para diminuir a altura da seção */
             text-align: center;
             background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, rgba(26, 26, 46, 0.05) 100%);
             position: relative;
@@ -243,7 +243,7 @@
         .search-container {
             background-color: var(--light);
             border-radius: var(--border-radius);
-            padding: 2rem;
+            padding: 1.5rem; /* Reduzido para ajudar na diminuição da altura */
             box-shadow: var(--shadow-xl);
             max-width: 1000px;
             margin: 0 auto;
@@ -253,13 +253,13 @@
 
         .search-tabs {
             display: flex;
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.2rem; /* Reduzido */
             border-bottom: 1px solid var(--gray);
             position: relative;
         }
 
         .search-tab {
-            padding: 1rem 2rem;
+            padding: 0.8rem 1.5rem; /* Reduzido */
             cursor: pointer;
             font-weight: 600;
             transition: var(--transition);
@@ -278,7 +278,7 @@
         .search-form {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
+            gap: 1rem; /* Reduzido */
         }
 
         .form-group {
@@ -287,14 +287,14 @@
         }
 
         .form-group label {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem; /* Reduzido */
             font-weight: 600;
             font-size: 0.9rem;
             color: var(--dark);
         }
 
         .form-control {
-            padding: 1rem;
+            padding: 0.8rem; /* Reduzido */
             border: 1px solid var(--gray);
             border-radius: var(--border-radius-sm);
             font-size: 1rem;
@@ -349,7 +349,7 @@
             color: white;
             border: none;
             border-radius: var(--border-radius-sm);
-            padding: 1rem 2rem;
+            padding: 0.8rem 1.5rem; /* Reduzido */
             font-weight: 700;
             font-size: 1rem;
             cursor: pointer;
@@ -372,7 +372,7 @@
             color: var(--gray-dark);
             border: 1px solid var(--gray);
             border-radius: var(--border-radius-sm);
-            padding: 1rem 2rem;
+            padding: 0.8rem 1.5rem; /* Reduzido */
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
@@ -1388,7 +1388,7 @@
             font-size: 0.9rem;
         }
 
-        /* Responsividade */
+        /* Responsividade Melhorada */
         @media (max-width: 1200px) {
             .hero h1 {
                 font-size: 3rem;
@@ -1397,11 +1397,23 @@
             .section-title h2 {
                 font-size: 2.2rem;
             }
+
+            .container {
+                width: 95%;
+            }
+
+            .destinations-scroll {
+                gap: 1.5rem;
+            }
+
+            .destination-card {
+                width: 280px;
+            }
         }
 
         @media (max-width: 992px) {
             .hero {
-                padding: 8rem 0 4rem;
+                padding: 5rem 0 2rem; /* Ajuste para telas menores */
             }
             
             .hero h1 {
@@ -1463,6 +1475,18 @@
             .dashboard-features {
                 grid-template-columns: 1fr;
             }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .header-actions {
+                gap: 1rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1506,6 +1530,39 @@
             .benefit-item {
                 min-width: 100%;
             }
+
+            .hero {
+                padding: 4rem 0 1.5rem; /* Mais ajuste para telas menores */
+            }
+
+            .search-container {
+                padding: 1rem;
+            }
+
+            .search-form {
+                gap: 0.8rem;
+            }
+
+            .filters {
+                gap: 1rem;
+                padding: 1rem 3%;
+            }
+
+            .filter-group {
+                min-width: 150px;
+            }
+
+            .companies-section {
+                padding: 3rem 0;
+            }
+
+            .dashboard-section {
+                padding: 3rem 0;
+            }
+
+            .testimonials {
+                padding: 3rem 0;
+            }
         }
 
         @media (max-width: 576px) {
@@ -1543,6 +1600,155 @@
             
             .dashboard-feature {
                 padding: 1.8rem;
+            }
+
+            .hero {
+                padding: 3rem 0 1rem; /* Ajuste final para telas muito pequenas */
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .logo-icon {
+                font-size: 1.5rem;
+            }
+
+            nav ul {
+                gap: 0.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 0.5rem 0;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .filter-group {
+                width: 100%;
+                min-width: auto;
+            }
+
+            .process-steps {
+                gap: 1.5rem;
+            }
+
+            .step {
+                padding: 2rem 1.5rem 1.5rem 3.5rem;
+            }
+
+            .step::before {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+                left: 1rem;
+                top: -25px;
+            }
+
+            .transport-title h3 {
+                font-size: 1.8rem;
+            }
+
+            .transport-title i {
+                font-size: 1.8rem;
+            }
+
+            .banner-item {
+                width: 250px;
+                height: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 98%;
+                padding: 0.5rem 0;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group {
+                margin-bottom: 0.5rem;
+            }
+
+            .search-button, .clear-button {
+                width: 100%;
+                padding: 0.8rem;
+            }
+
+            .form-group[style*="flex"] {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .trip-info {
+                min-width: 100%;
+            }
+
+            .trip-details {
+                gap: 1rem;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .logo {
+                font-size: 1rem;
+            }
+
+            .logo-icon {
+                font-size: 1.2rem;
+            }
+
+            nav a {
+                font-size: 0.75rem;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.4rem;
+            }
+
+            .destination-card {
+                width: 100%;
+            }
+
+            .advantage-card {
+                width: 100%;
+            }
+
+            .scroll-button, .advantage-scroll-button {
+                width: 40px;
+                height: 40px;
+                font-size: 0.8rem;
             }
         }
     </style>
