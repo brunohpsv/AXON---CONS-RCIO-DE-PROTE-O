@@ -291,6 +291,298 @@
             font-size: 18px;
         }
 
+        /* Banner de Imagens */
+        .banner-section {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .banner-slider {
+            display: flex;
+            width: 400%;
+            height: 100%;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        .banner-slide {
+            width: 25%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .banner-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .banner-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .banner-dot.active {
+            background-color: white;
+        }
+
+        /* Seção de Vantagens */
+        .benefits-section {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--dark);
+            font-size: 32px;
+        }
+
+        .benefits-container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .benefit-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .benefit-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .benefit-list {
+            list-style-type: none;
+        }
+
+        .benefit-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+
+        .benefit-list li:last-child {
+            border-bottom: none;
+        }
+
+        .benefit-list i {
+            color: var(--secondary);
+            margin-right: 10px;
+        }
+
+        /* Seção de Cálculo de Lucros */
+        .earnings-section {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 40px 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .earnings-container {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .calculator {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .calculator-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .calculator-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .calculator-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .calculator-group label {
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .calculator-input {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .calculator-input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .calculator-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .calculator-btn:hover {
+            background-color: #0d5bb9;
+        }
+
+        .results {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--light);
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .results-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        .commission-note {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff8e1;
+            border-radius: 5px;
+            font-size: 14px;
+            color: var(--dark);
+        }
+
+        /* Seção de Requisitos */
+        .requirements-section {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 40px 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .requirements-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .requirements-list {
+            list-style-type: none;
+            margin-bottom: 30px;
+        }
+
+        .requirements-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+
+        .requirements-list li:last-child {
+            border-bottom: none;
+        }
+
+        .requirements-list i {
+            color: var(--primary);
+            margin-right: 15px;
+            font-size: 20px;
+        }
+
+        .insurance-offer {
+            background-color: #e8f0fe;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .insurance-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .insurance-btn {
+            background-color: var(--secondary);
+            color: var(--dark);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 15px;
+        }
+
+        .insurance-btn:hover {
+            background-color: #e6a800;
+        }
+
         /* Conteúdo principal */
         .hero {
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
@@ -380,6 +672,10 @@
 
             .search-btn {
                 width: 100%;
+            }
+
+            .banner-section {
+                height: 300px;
             }
         }
     </style>
@@ -479,6 +775,144 @@
         </div>
     </header>
 
+    <!-- Banner de Imagens -->
+    <div class="banner-section">
+        <div class="banner-slider" id="bannerSlider">
+            <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+            <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+            <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80');"></div>
+            <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80');"></div>
+        </div>
+        <div class="banner-dots" id="bannerDots">
+            <div class="banner-dot active" data-slide="0"></div>
+            <div class="banner-dot" data-slide="1"></div>
+            <div class="banner-dot" data-slide="2"></div>
+            <div class="banner-dot" data-slide="3"></div>
+        </div>
+    </div>
+
+    <!-- Seção de Vantagens -->
+    <section class="benefits-section">
+        <h2 class="section-title">Vantagens BIXX CAR</h2>
+        <div class="benefits-container">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-car-side"></i>
+                </div>
+                <h3 class="benefit-title">Alugar Carro</h3>
+                <ul class="benefit-list">
+                    <li><i class="fas fa-check"></i> Preços até 30% mais baixos</li>
+                    <li><i class="fas fa-check"></i> Diversos modelos disponíveis</li>
+                    <li><i class="fas fa-check"></i> Locação por hora, dia ou semana</li>
+                    <li><i class="fas fa-check"></i> Retirada e entrega flexíveis</li>
+                    <li><i class="fas fa-check"></i> Seguro incluso em todas as locações</li>
+                    <li><i class="fas fa-check"></i> Suporte 24/7 durante a locação</li>
+                </ul>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <h3 class="benefit-title">Anunciar seu Carro</h3>
+                <ul class="benefit-list">
+                    <li><i class="fas fa-check"></i> Ganhe dinheiro com seu carro parado</li>
+                    <li><i class="fas fa-check"></i> Você define o preço da diária</li>
+                    <li><i class="fas fa-check"></i> Controle total sobre a disponibilidade</li>
+                    <li><i class="fas fa-check"></i> Seguro para proteção do seu veículo</li>
+                    <li><i class="fas fa-check"></i> Pagamento rápido e seguro</li>
+                    <li><i class="fas fa-check"></i> Comunidade de usuários verificados</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Cálculo de Lucros -->
+    <section class="earnings-section">
+        <h2 class="section-title">Calcule seus Lucros</h2>
+        <div class="earnings-container">
+            <div class="calculator">
+                <h3 class="calculator-title">Simulador de Ganhos</h3>
+                <div class="calculator-form">
+                    <div class="calculator-group">
+                        <label for="daily-rate">Valor da diária (R$)</label>
+                        <input type="number" id="daily-rate" class="calculator-input" placeholder="Ex: 100" min="0">
+                    </div>
+                    <div class="calculator-group">
+                        <label for="rental-days">Dias alugados por mês</label>
+                        <input type="number" id="rental-days" class="calculator-input" placeholder="Ex: 15" min="0" max="31">
+                    </div>
+                    <div class="calculator-group">
+                        <label for="operational-costs">Custos operacionais mensais (R$)</label>
+                        <input type="number" id="operational-costs" class="calculator-input" placeholder="Ex: 200" min="0">
+                    </div>
+                    <button class="calculator-btn" id="calculate-btn">Calcular Lucro</button>
+                </div>
+            </div>
+            <div class="results">
+                <h3 class="results-title">Resultado</h3>
+                <div class="result-item">
+                    <span>Faturamento Bruto:</span>
+                    <span id="gross-revenue">R$ 0,00</span>
+                </div>
+                <div class="result-item">
+                    <span>Comissão BIXX CAR (30%):</span>
+                    <span id="commission">R$ 0,00</span>
+                </div>
+                <div class="result-item">
+                    <span>Custos Operacionais:</span>
+                    <span id="operational-costs-result">R$ 0,00</span>
+                </div>
+                <div class="result-item">
+                    <span>Lucro Líquido:</span>
+                    <span id="net-profit">R$ 0,00</span>
+                </div>
+                <div class="commission-note">
+                    <p><strong>Observação:</strong> A BIXX CAR fica com 30% do valor da locação como comissão pelo serviço. Os 70% restantes são repassados integralmente para você.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Requisitos -->
+    <section class="requirements-section">
+        <h2 class="requirements-title">Requisitos para Anunciar seu Carro</h2>
+        <ul class="requirements-list">
+            <li>
+                <i class="fas fa-file-contract"></i>
+                <div>
+                    <strong>Documentação em Dia</strong>
+                    <p>É necessário ter todos os documentos do veículo em dia, incluindo IPVA, licenciamento e DPVAT.</p>
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-receipt"></i>
+                <div>
+                    <strong>Situação Fiscal Regular</strong>
+                    <p>O veículo deve estar com a situação fiscal regularizada, sem débitos ou pendências.</p>
+                </div>
+            </li>
+            <li>
+                <i class="fas fa-shield-alt"></i>
+                <div>
+                    <strong>Seguro Obrigatório</strong>
+                    <p>Todo veículo anunciado na BIXX CAR deve possuir seguro contra terceiros no mínimo.</p>
+                </div>
+            </li>
+        </ul>
+        
+        <div class="insurance-offer">
+            <h3 class="insurance-title">Não tem seguro? Conte com a gente!</h3>
+            <p>A BIXX CAR tem parceria com as melhores seguradoras do mercado para oferecer condições especiais aos nossos parceiros. Com nosso seguro parceiro, você tem:</p>
+            <ul class="benefit-list">
+                <li><i class="fas fa-check"></i> Cobertura completa para seu veículo</li>
+                <li><i class="fas fa-check"></i> Assistência 24 horas</li>
+                <li><i class="fas fa-check"></i> Carro reserva em caso de sinistro</li>
+                <li><i class="fas fa-check"></i> Preços especiais para parceiros BIXX CAR</li>
+            </ul>
+            <button class="insurance-btn">Solicitar Cotação de Seguro</button>
+        </div>
+    </section>
+
     <!-- Conteúdo Principal -->
     <section class="hero">
         <div class="hero-content">
@@ -540,6 +974,59 @@
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('pickup-date').min = today;
             document.getElementById('return-date').min = today;
+            
+            // Banner de imagens automático
+            const bannerSlider = document.getElementById('bannerSlider');
+            const bannerDots = document.querySelectorAll('.banner-dot');
+            let currentSlide = 0;
+            const totalSlides = 4;
+            
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateBanner();
+            }
+            
+            function updateBanner() {
+                bannerSlider.style.transform = `translateX(-${currentSlide * 25}%)`;
+                
+                // Atualizar dots
+                bannerDots.forEach((dot, index) => {
+                    if (index === currentSlide) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Mudar slide a cada 3 segundos
+            setInterval(nextSlide, 3000);
+            
+            // Permitir clique nos dots
+            bannerDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    currentSlide = parseInt(this.getAttribute('data-slide'));
+                    updateBanner();
+                });
+            });
+            
+            // Calculadora de lucros
+            const calculateBtn = document.getElementById('calculate-btn');
+            
+            calculateBtn.addEventListener('click', function() {
+                const dailyRate = parseFloat(document.getElementById('daily-rate').value) || 0;
+                const rentalDays = parseInt(document.getElementById('rental-days').value) || 0;
+                const operationalCosts = parseFloat(document.getElementById('operational-costs').value) || 0;
+                
+                const grossRevenue = dailyRate * rentalDays;
+                const commission = grossRevenue * 0.3;
+                const netProfit = grossRevenue - commission - operationalCosts;
+                
+                document.getElementById('gross-revenue').textContent = `R$ ${grossRevenue.toFixed(2)}`;
+                document.getElementById('commission').textContent = `R$ ${commission.toFixed(2)}`;
+                document.getElementById('operational-costs-result').textContent = `R$ ${operationalCosts.toFixed(2)}`;
+                document.getElementById('net-profit').textContent = `R$ ${netProfit.toFixed(2)}`;
+            });
         });
     </script>
 </body>
