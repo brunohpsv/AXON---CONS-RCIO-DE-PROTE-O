@@ -91,45 +91,6 @@
             color: var(--secondary);
         }
 
-        .search-bar {
-            display: flex;
-            align-items: center;
-            background-color: var(--light);
-            border-radius: 30px;
-            padding: 8px 15px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 40%;
-            transition: all 0.3s;
-        }
-
-        .search-bar:focus-within {
-            box-shadow: 0 2px 10px rgba(26, 115, 232, 0.3);
-        }
-
-        .search-bar input {
-            border: none;
-            background: transparent;
-            padding: 8px;
-            width: 100%;
-            outline: none;
-            font-size: 16px;
-        }
-
-        .search-bar button {
-            background: var(--primary);
-            border: none;
-            color: white;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .search-bar button:hover {
-            background: #0d5bb9;
-        }
-
         .header-actions {
             display: flex;
             align-items: center;
@@ -288,113 +249,39 @@
             font-size: 18px;
         }
 
-        /* Calendário */
-        .calendar-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .calendar {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+        /* Banner de Imagens */
+        .banner-section {
             width: 100%;
-            max-width: 400px;
-        }
-
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .calendar-header button {
-            background: none;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            color: var(--primary);
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-        }
-
-        .calendar-day {
-            text-align: center;
-            padding: 8px 0;
-            font-weight: bold;
-            color: var(--gray);
-        }
-
-        .calendar-date {
-            text-align: center;
-            padding: 10px 0;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .calendar-date:hover {
-            background-color: #f0f0f0;
-        }
-
-        .calendar-date.selected {
-            background-color: #4caf50;
-            color: white;
-        }
-
-        .calendar-date.other-month {
-            color: #ccc;
-        }
-
-        /* Banner Vertical */
-        .vertical-banner-section {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-            display: flex;
-            gap: 20px;
-            height: 400px;
-        }
-
-        .vertical-banner {
-            flex: 1;
+            height: 500px;
             overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             position: relative;
+            margin: 30px 0;
         }
 
-        .vertical-slider {
-            height: 100%;
+        .banner-slider {
             display: flex;
-            flex-direction: column;
+            width: 400%;
+            height: 100%;
             transition: transform 0.8s ease-in-out;
         }
 
-        .vertical-slide {
+        .banner-slide {
+            width: 25%;
             height: 100%;
             background-size: cover;
             background-position: center;
         }
 
-        .vertical-dots {
+        .banner-dots {
             position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
-            flex-direction: column;
             gap: 10px;
         }
 
-        .vertical-dot {
+        .banner-dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
@@ -403,7 +290,7 @@
             transition: background-color 0.3s;
         }
 
-        .vertical-dot.active {
+        .banner-dot.active {
             background-color: white;
         }
 
@@ -654,43 +541,52 @@
             background-color: #e6a800;
         }
 
-        /* Conteúdo principal */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            padding: 0 20px;
+        /* Seção de Modelo de Negócio */
+        .business-model-section {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 40px 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .hero-content h2 {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .hero-content p {
-            font-size: 20px;
+        .business-model-title {
+            font-size: 32px;
             margin-bottom: 30px;
-        }
-
-        .cta-btn {
-            background-color: var(--secondary);
             color: var(--dark);
-            padding: 15px 30px;
-            border-radius: 30px;
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 18px;
-            transition: background 0.3s;
+            text-align: center;
         }
 
-        .cta-btn:hover {
-            background-color: #e6a800;
+        .business-model-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .business-model-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .business-model-text p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: var(--gray);
+        }
+
+        .business-model-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .business-model-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* Footer */
@@ -720,31 +616,47 @@
             color: var(--secondary);
         }
 
-        .footer-column ul {
+        .footer-links {
             list-style: none;
         }
 
-        .footer-column ul li {
+        .footer-links li {
             margin-bottom: 10px;
         }
 
-        .footer-column ul li a {
+        .footer-links a {
             color: #ddd;
             text-decoration: none;
             transition: color 0.3s;
         }
 
-        .footer-column ul li a:hover {
+        .footer-links a:hover {
             color: var(--secondary);
         }
 
-        .social-links {
+        .footer-contact {
+            list-style: none;
+        }
+
+        .footer-contact li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .footer-contact i {
+            color: var(--secondary);
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+
+        .social-icons {
             display: flex;
             gap: 15px;
             margin-top: 20px;
         }
 
-        .social-links a {
+        .social-icons a {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -757,7 +669,7 @@
             transition: background 0.3s;
         }
 
-        .social-links a:hover {
+        .social-icons a:hover {
             background-color: var(--primary);
         }
 
@@ -772,12 +684,6 @@
         }
 
         /* Responsividade */
-        @media (max-width: 992px) {
-            .search-bar {
-                width: 30%;
-            }
-        }
-
         @media (max-width: 768px) {
             .top-bar {
                 display: none;
@@ -785,12 +691,6 @@
 
             .main-header {
                 flex-wrap: wrap;
-            }
-
-            .search-bar {
-                order: 3;
-                width: 100%;
-                margin-top: 15px;
             }
 
             .nav-menu {
@@ -823,12 +723,7 @@
                 width: 100%;
             }
 
-            .vertical-banner-section {
-                flex-direction: column;
-                height: auto;
-            }
-
-            .vertical-banner {
+            .banner-section {
                 height: 300px;
             }
         }
@@ -853,11 +748,6 @@
         <div class="main-header">
             <div class="logo">
                 <h1>BIXX <span>CAR</span></h1>
-            </div>
-            
-            <div class="search-bar">
-                <input type="text" placeholder="Pesquisar carros, locais...">
-                <button><i class="fas fa-search"></i></button>
             </div>
             
             <div class="header-actions">
@@ -925,62 +815,23 @@
                     </div>
                     <button class="search-btn">Buscar Carros</button>
                 </div>
-                
-                <!-- Calendário -->
-                <div class="calendar-container">
-                    <div class="calendar" id="calendar">
-                        <div class="calendar-header">
-                            <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
-                            <h4 id="current-month">Junho 2023</h4>
-                            <button id="next-month"><i class="fas fa-chevron-right"></i></button>
-                        </div>
-                        <div class="calendar-grid" id="calendar-grid">
-                            <!-- Dias da semana -->
-                            <div class="calendar-day">Dom</div>
-                            <div class="calendar-day">Seg</div>
-                            <div class="calendar-day">Ter</div>
-                            <div class="calendar-day">Qua</div>
-                            <div class="calendar-day">Qui</div>
-                            <div class="calendar-day">Sex</div>
-                            <div class="calendar-day">Sáb</div>
-                            <!-- Datas serão preenchidas via JavaScript -->
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </header>
 
-    <!-- Banner Vertical -->
-    <div class="vertical-banner-section">
-        <div class="vertical-banner">
-            <div class="vertical-slider" id="verticalSlider1">
-                <div class="vertical-slide" style="background-image: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
-                <div class="vertical-slide" style="background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
-                <div class="vertical-slide" style="background-image: url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80');"></div>
-                <div class="vertical-slide" style="background-image: url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80');"></div>
-            </div>
-            <div class="vertical-dots" id="verticalDots1">
-                <div class="vertical-dot active" data-slide="0"></div>
-                <div class="vertical-dot" data-slide="1"></div>
-                <div class="vertical-dot" data-slide="2"></div>
-                <div class="vertical-dot" data-slide="3"></div>
-            </div>
+    <!-- Banner de Imagens -->
+    <div class="banner-section">
+        <div class="banner-slider" id="bannerSlider">
+            <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+            <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+            <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80');"></div>
+            <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80');"></div>
         </div>
-        
-        <div class="vertical-banner">
-            <div class="vertical-slider" id="verticalSlider2">
-                <div class="vertical-slide" style="background-image: url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
-                <div class="vertical-slide" style="background-image: url('https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80');"></div>
-                <div class="vertical-slide" style="background-image: url('https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1364&q=80');"></div>
-                <div class="vertical-slide" style="background-image: url('https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1450&q=80');"></div>
-            </div>
-            <div class="vertical-dots" id="verticalDots2">
-                <div class="vertical-dot active" data-slide="0"></div>
-                <div class="vertical-dot" data-slide="1"></div>
-                <div class="vertical-dot" data-slide="2"></div>
-                <div class="vertical-dot" data-slide="3"></div>
-            </div>
+        <div class="banner-dots" id="bannerDots">
+            <div class="banner-dot active" data-slide="0"></div>
+            <div class="banner-dot" data-slide="1"></div>
+            <div class="banner-dot" data-slide="2"></div>
+            <div class="banner-dot" data-slide="3"></div>
         </div>
     </div>
 
@@ -1060,7 +911,7 @@
                     <span id="net-profit">R$ 0,00</span>
                 </div>
                 <div class="commission-note">
-                    <p><strong>Observação:</strong> A BIXX CAR fica com 30% do valor da locação como comissão pelo serviço. Os 70% restantes são repassados integralmente para você. Incluímos um custo operacional fixo de R$ 15,00 mensais para manutenção da plataforma.</p>
+                    <p><strong>Observação:</strong> A BIXX CAR fica com 30% do valor da locação como comissão pelo serviço. Os 70% restantes são repassados integralmente para você. O custo operacional fixo de R$ 15,00 é referente à manutenção mensal da plataforma.</p>
                 </div>
             </div>
         </div>
@@ -1106,12 +957,28 @@
         </div>
     </section>
 
-    <!-- Conteúdo Principal -->
-    <section class="hero">
-        <div class="hero-content">
-            <h2>Aluguel de Carros P2P</h2>
-            <p>Encontre o carro perfeito ou alugue o seu!</p>
-            <a href="#" class="cta-btn">Comece Agora</a>
+    <!-- Seção de Modelo de Negócio -->
+    <section class="business-model-section">
+        <h2 class="business-model-title">Modelo de Negócio BIXX CAR</h2>
+        <div class="business-model-content">
+            <div class="business-model-text">
+                <p>A BIXX CAR é uma plataforma inovadora de aluguel de carros peer-to-peer (P2P) que conecta proprietários de veículos com pessoas que precisam alugar um carro por um período determinado.</p>
+                
+                <p>Nosso modelo de negócio é baseado na economia compartilhada, permitindo que proprietários de veículos ganhem dinheiro extra com seus carros quando não estão usando, enquanto oferecemos aos locatários uma alternativa mais acessível e conveniente do que as locadoras tradicionais.</p>
+                
+                <p>Como funciona:</p>
+                <ul class="benefit-list">
+                    <li><i class="fas fa-check"></i> Proprietários cadastram seus veículos na plataforma definindo preços e disponibilidade</li>
+                    <li><i class="fas fa-check"></i> Locatários buscam carros por localização, datas e preferências</li>
+                    <li><i class="fas fa-check"></i> A BIXX CAR facilita todo o processo: reserva, pagamento seguro e suporte</li>
+                    <li><i class="fas fa-check"></i> Após cada locação bem-sucedida, os proprietários recebem 70% do valor da diária</li>
+                </ul>
+                
+                <p>Nosso diferencial está na tecnologia que oferece segurança para ambas as partes, com verificação de usuários, sistema de avaliações, seguro incluso e suporte 24/7 durante as locações.</p>
+            </div>
+            <div class="business-model-image">
+                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Modelo de Negócio BIXX CAR">
+            </div>
         </div>
     </section>
 
@@ -1120,17 +987,18 @@
         <div class="footer-content">
             <div class="footer-column">
                 <h3>BIXX CAR</h3>
-                <p>A BIXX CAR é a principal plataforma de aluguel de carros P2P do Brasil, conectando proprietários e locatários de forma segura e eficiente.</p>
-                <div class="social-links">
+                <p>A plataforma de aluguel de carros P2P que conecta proprietários e locatários de forma segura e conveniente.</p>
+                <div class="social-icons">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
+            
             <div class="footer-column">
                 <h3>Links Rápidos</h3>
-                <ul>
+                <ul class="footer-links">
                     <li><a href="#">Início</a></li>
                     <li><a href="#">Alugar Carro</a></li>
                     <li><a href="#">Anunciar Carro</a></li>
@@ -1138,27 +1006,43 @@
                     <li><a href="#">Promoções</a></li>
                 </ul>
             </div>
+            
             <div class="footer-column">
-                <h3>Suporte</h3>
-                <ul>
-                    <li><a href="#">Central de Ajuda</a></li>
-                    <li><a href="#">Perguntas Frequentes</a></li>
-                    <li><a href="#">Contato</a></li>
-                    <li><a href="#">Termos de Uso</a></li>
-                    <li><a href="#">Política de Privacidade</a></li>
+                <h3>Para Proprietários</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Cadastrar Veículo</a></li>
+                    <li><a href="#">Calculadora de Lucros</a></li>
+                    <li><a href="#">Seguro Parceiro</a></li>
+                    <li><a href="#">Dicas de Sucesso</a></li>
+                    <li><a href="#">Central do Proprietário</a></li>
                 </ul>
             </div>
+            
             <div class="footer-column">
                 <h3>Contato</h3>
-                <ul>
-                    <li><i class="fas fa-phone"></i> (11) 4002-8922</li>
-                    <li><i class="fas fa-envelope"></i> contato@bixxcar.com</li>
-                    <li><i class="fas fa-map-marker-alt"></i> Av. Paulista, 1000 - São Paulo, SP</li>
+                <ul class="footer-contact">
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Av. Paulista, 1000 - São Paulo, SP</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <span>(11) 4002-8922</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <span>contato@bixxcar.com</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <span>Segunda a Sexta: 8h às 18h</span>
+                    </li>
                 </ul>
             </div>
         </div>
+        
         <div class="footer-bottom">
-            <p>&copy; 2023 BIXX CAR - Todos os direitos reservados</p>
+            <p>&copy; 2023 BIXX CAR - Aluguel de Carros P2P. Todos os direitos reservados.</p>
         </div>
     </footer>
 
@@ -1215,31 +1099,23 @@
             document.getElementById('pickup-date').min = today;
             document.getElementById('return-date').min = today;
             
-            // Banner vertical automático
-            const verticalSliders = [
-                document.getElementById('verticalSlider1'),
-                document.getElementById('verticalSlider2')
-            ];
+            // Banner de imagens automático
+            const bannerSlider = document.getElementById('bannerSlider');
+            const bannerDots = document.querySelectorAll('.banner-dot');
+            let currentSlide = 0;
+            const totalSlides = 4;
             
-            const verticalDots = [
-                document.querySelectorAll('#verticalDots1 .vertical-dot'),
-                document.querySelectorAll('#verticalDots2 .vertical-dot')
-            ];
-            
-            let currentVerticalSlides = [0, 0];
-            const totalVerticalSlides = 4;
-            
-            function nextVerticalSlide(sliderIndex) {
-                currentVerticalSlides[sliderIndex] = (currentVerticalSlides[sliderIndex] + 1) % totalVerticalSlides;
-                updateVerticalBanner(sliderIndex);
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateBanner();
             }
             
-            function updateVerticalBanner(sliderIndex) {
-                verticalSliders[sliderIndex].style.transform = `translateY(-${currentVerticalSlides[sliderIndex] * 100}%)`;
+            function updateBanner() {
+                bannerSlider.style.transform = `translateX(-${currentSlide * 25}%)`;
                 
                 // Atualizar dots
-                verticalDots[sliderIndex].forEach((dot, index) => {
-                    if (index === currentVerticalSlides[sliderIndex]) {
+                bannerDots.forEach((dot, index) => {
+                    if (index === currentSlide) {
                         dot.classList.add('active');
                     } else {
                         dot.classList.remove('active');
@@ -1247,17 +1123,14 @@
                 });
             }
             
-            // Mudar slide a cada 4 segundos
-            setInterval(() => nextVerticalSlide(0), 4000);
-            setInterval(() => nextVerticalSlide(1), 4000);
+            // Mudar slide a cada 3 segundos
+            setInterval(nextSlide, 3000);
             
             // Permitir clique nos dots
-            verticalDots.forEach((dots, sliderIndex) => {
-                dots.forEach(dot => {
-                    dot.addEventListener('click', function() {
-                        currentVerticalSlides[sliderIndex] = parseInt(this.getAttribute('data-slide'));
-                        updateVerticalBanner(sliderIndex);
-                    });
+            bannerDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    currentSlide = parseInt(this.getAttribute('data-slide'));
+                    updateBanner();
                 });
             });
             
@@ -1278,119 +1151,6 @@
                 document.getElementById('operational-costs-result').textContent = `R$ ${operationalCosts.toFixed(2)}`;
                 document.getElementById('net-profit').textContent = `R$ ${netProfit.toFixed(2)}`;
             });
-            
-            // Calendário
-            const calendarGrid = document.getElementById('calendar-grid');
-            const currentMonthElement = document.getElementById('current-month');
-            const prevMonthBtn = document.getElementById('prev-month');
-            const nextMonthBtn = document.getElementById('next-month');
-            
-            let currentDate = new Date();
-            let currentMonth = currentDate.getMonth();
-            let currentYear = currentDate.getFullYear();
-            
-            function renderCalendar() {
-                // Limpar o calendário
-                while (calendarGrid.children.length > 7) {
-                    calendarGrid.removeChild(calendarGrid.lastChild);
-                }
-                
-                // Atualizar o cabeçalho do mês
-                const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-                    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-                ];
-                currentMonthElement.textContent = `${monthNames[currentMonth]} ${currentYear}`;
-                
-                // Primeiro dia do mês
-                const firstDay = new Date(currentYear, currentMonth, 1);
-                // Último dia do mês
-                const lastDay = new Date(currentYear, currentMonth + 1, 0);
-                // Dia da semana do primeiro dia (0 = Domingo, 1 = Segunda, etc.)
-                const firstDayIndex = firstDay.getDay();
-                // Número de dias no mês
-                const daysInMonth = lastDay.getDate();
-                
-                // Dias do mês anterior
-                const prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
-                
-                // Adicionar dias do mês anterior
-                for (let i = firstDayIndex; i > 0; i--) {
-                    const dateElement = document.createElement('div');
-                    dateElement.classList.add('calendar-date', 'other-month');
-                    dateElement.textContent = prevMonthLastDay - i + 1;
-                    calendarGrid.appendChild(dateElement);
-                }
-                
-                // Adicionar dias do mês atual
-                for (let i = 1; i <= daysInMonth; i++) {
-                    const dateElement = document.createElement('div');
-                    dateElement.classList.add('calendar-date');
-                    dateElement.textContent = i;
-                    
-                    // Verificar se é a data atual
-                    if (currentYear === currentDate.getFullYear() && 
-                        currentMonth === currentDate.getMonth() && 
-                        i === currentDate.getDate()) {
-                        dateElement.classList.add('selected');
-                    }
-                    
-                    dateElement.addEventListener('click', function() {
-                        // Remover seleção de todas as datas
-                        document.querySelectorAll('.calendar-date').forEach(date => {
-                            date.classList.remove('selected');
-                        });
-                        
-                        // Adicionar seleção à data clicada
-                        this.classList.add('selected');
-                        
-                        // Atualizar o campo de data de retirada
-                        const selectedDate = new Date(currentYear, currentMonth, i);
-                        const formattedDate = selectedDate.toISOString().split('T')[0];
-                        document.getElementById('pickup-date').value = formattedDate;
-                        
-                        // Calcular data de devolução (3 dias depois)
-                        const returnDate = new Date(selectedDate);
-                        returnDate.setDate(returnDate.getDate() + 3);
-                        const formattedReturnDate = returnDate.toISOString().split('T')[0];
-                        document.getElementById('return-date').value = formattedReturnDate;
-                    });
-                    
-                    calendarGrid.appendChild(dateElement);
-                }
-                
-                // Adicionar dias do próximo mês
-                const totalCells = 42; // 6 semanas * 7 dias
-                const nextDays = totalCells - (firstDayIndex + daysInMonth);
-                
-                for (let i = 1; i <= nextDays; i++) {
-                    const dateElement = document.createElement('div');
-                    dateElement.classList.add('calendar-date', 'other-month');
-                    dateElement.textContent = i;
-                    calendarGrid.appendChild(dateElement);
-                }
-            }
-            
-            // Navegação do calendário
-            prevMonthBtn.addEventListener('click', function() {
-                currentMonth--;
-                if (currentMonth < 0) {
-                    currentMonth = 11;
-                    currentYear--;
-                }
-                renderCalendar();
-            });
-            
-            nextMonthBtn.addEventListener('click', function() {
-                currentMonth++;
-                if (currentMonth > 11) {
-                    currentMonth = 0;
-                    currentYear++;
-                }
-                renderCalendar();
-            });
-            
-            // Inicializar o calendário
-            renderCalendar();
         });
     </script>
 </body>
