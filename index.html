@@ -197,7 +197,7 @@
 
         /* Hero Section Modernizada */
         .hero {
-            padding: 8rem 0 4rem;
+            padding: 10rem 0 5rem;
             text-align: center;
             background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, rgba(26, 26, 46, 0.05) 100%);
             position: relative;
@@ -217,8 +217,8 @@
         }
 
         .hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 1.2rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
             color: var(--dark);
             font-weight: 800;
             line-height: 1.2;
@@ -234,8 +234,8 @@
 
         .hero p {
             max-width: 700px;
-            margin: 0 auto 2rem;
-            font-size: 1.1rem;
+            margin: 0 auto 2.5rem;
+            font-size: 1.2rem;
             color: var(--gray-dark);
             font-weight: 400;
         }
@@ -243,7 +243,7 @@
         .search-container {
             background-color: var(--light);
             border-radius: var(--border-radius);
-            padding: 1.5rem;
+            padding: 2rem;
             box-shadow: var(--shadow-xl);
             max-width: 1000px;
             margin: 0 auto;
@@ -253,13 +253,13 @@
 
         .search-tabs {
             display: flex;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
             border-bottom: 1px solid var(--gray);
             position: relative;
         }
 
         .search-tab {
-            padding: 0.8rem 1.5rem;
+            padding: 1rem 2rem;
             cursor: pointer;
             font-weight: 600;
             transition: var(--transition);
@@ -277,8 +277,8 @@
 
         .search-form {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.2rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
         }
 
         .form-group {
@@ -294,7 +294,7 @@
         }
 
         .form-control {
-            padding: 0.9rem;
+            padding: 1rem;
             border: 1px solid var(--gray);
             border-radius: var(--border-radius-sm);
             font-size: 1rem;
@@ -309,41 +309,12 @@
             background-color: var(--light);
         }
 
-        .passengers-selector {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .passenger-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 1px solid var(--gray);
-            background-color: var(--light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .passenger-btn:hover {
-            background-color: var(--gray);
-        }
-
-        .passenger-count {
-            font-weight: 600;
-            min-width: 30px;
-            text-align: center;
-        }
-
         .search-button {
             background: var(--gradient);
             color: white;
             border: none;
             border-radius: var(--border-radius-sm);
-            padding: 0.9rem 1.8rem;
+            padding: 1rem 2rem;
             font-weight: 700;
             font-size: 1rem;
             cursor: pointer;
@@ -366,7 +337,7 @@
             color: var(--gray-dark);
             border: 1px solid var(--gray);
             border-radius: var(--border-radius-sm);
-            padding: 0.9rem 1.8rem;
+            padding: 1rem 2rem;
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
@@ -391,14 +362,14 @@
             gap: 10px;
             background: var(--gradient);
             color: white;
-            padding: 0.9rem 2rem;
+            padding: 1rem 2.5rem;
             border-radius: var(--border-radius-sm);
             text-decoration: none;
             font-weight: 700;
             transition: var(--transition);
             border: none;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: 1rem;
             letter-spacing: 0.5px;
         }
 
@@ -409,11 +380,11 @@
 
         .section-title {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 4rem;
         }
 
         .section-title h2 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
             position: relative;
             display: inline-block;
@@ -437,142 +408,21 @@
             max-width: 600px;
             margin: 0 auto;
             color: var(--gray-dark);
-            font-size: 1rem;
-        }
-
-        /* Banner Horizontal - Carrossel de Imagens */
-        .banner-horizontal {
-            width: 100%;
-            height: 180px;
-            overflow: hidden;
-            position: relative;
-            margin: 1.5rem 0;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-        }
-
-        .banner-track {
-            display: flex;
-            width: 400%;
-            animation: scrollBanner 30s linear infinite;
-        }
-
-        .banner-slide {
-            width: 25%;
-            height: 180px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.8rem;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .banner-slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            z-index: 1;
-        }
-
-        .banner-slide span {
-            position: relative;
-            z-index: 2;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            padding: 0 1rem;
-        }
-
-        .banner-slide:nth-child(1) {
-            background-image: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-        }
-
-        .banner-slide:nth-child(2) {
-            background-image: url('https://images.unsplash.com/photo-1570125909232-eb263c188f7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-        }
-
-        .banner-slide:nth-child(3) {
-            background-image: url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-        }
-
-        .banner-slide:nth-child(4) {
-            background-image: url('https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-        }
-
-        @keyframes scrollBanner {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(0); }
-            30% { transform: translateX(-25%); }
-            55% { transform: translateX(-25%); }
-            60% { transform: translateX(-50%); }
-            85% { transform: translateX(-50%); }
-            90% { transform: translateX(-75%); }
-            100% { transform: translateX(-75%); }
-        }
-
-        /* Banner Vertical */
-        .banner-vertical {
-            width: 100%;
-            height: 300px;
-            overflow: hidden;
-            position: relative;
-            margin: 1.5rem 0;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-        }
-
-        .banner-vertical-track {
-            height: 300%;
-            animation: scrollVertical 15s linear infinite;
-        }
-
-        .banner-vertical-slide {
-            height: 33.33%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.5rem;
-        }
-
-        .banner-vertical-slide:nth-child(1) {
-            background: linear-gradient(180deg, #6A11CB, #2575FC);
-        }
-
-        .banner-vertical-slide:nth-child(2) {
-            background: linear-gradient(180deg, #FF416C, #FF4B2B);
-        }
-
-        .banner-vertical-slide:nth-child(3) {
-            background: linear-gradient(180deg, #11998E, #38EF7D);
-        }
-
-        @keyframes scrollVertical {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-66.66%); }
+            font-size: 1.1rem;
         }
 
         /* Destinos Modernizados */
         .destinations-container {
             position: relative;
-            margin: 1.5rem 0;
+            margin: 3rem 0;
         }
 
         .destinations-scroll {
             display: flex;
             overflow-x: auto;
             scroll-behavior: smooth;
-            gap: 1.5rem;
-            padding: 1.2rem 0.5rem;
+            gap: 1.8rem;
+            padding: 1.5rem 0.5rem;
             scrollbar-width: none;
             -ms-overflow-style: none;
             margin: 0 -5%;
@@ -587,7 +437,7 @@
         .destination-card {
             background: var(--light);
             border-radius: var(--border-radius);
-            padding: 1.8rem;
+            padding: 2rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
@@ -595,7 +445,7 @@
             text-align: center;
             overflow: hidden;
             flex: 0 0 auto;
-            width: 280px;
+            width: 320px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -612,24 +462,24 @@
         }
 
         .destination-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px);
             box-shadow: var(--shadow-xl);
         }
 
         .destination-card h3 {
-            margin-bottom: 0.8rem;
-            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
             color: var(--dark);
             font-weight: 700;
         }
 
         .destination-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--primary);
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
             background: rgba(255, 0, 0, 0.1);
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -637,14 +487,14 @@
         }
 
         .destination-price {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 800;
             color: var(--primary);
-            margin: 1.2rem 0;
+            margin: 1.5rem 0;
         }
 
         .destination-price span {
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 500;
             color: var(--gray-dark);
         }
@@ -656,8 +506,8 @@
             background: var(--light);
             color: var(--primary);
             border: 2px solid var(--primary);
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -675,16 +525,16 @@
         }
 
         .scroll-button.left {
-            left: -20px;
+            left: -25px;
         }
 
         .scroll-button.right {
-            right: -20px;
+            right: -25px;
         }
 
         /* Seção de Resultados Modernizada */
         .results-container {
-            margin: 2rem 0;
+            margin: 4rem 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -701,9 +551,9 @@
         .filters {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.2rem;
-            margin-bottom: 2rem;
-            padding: 1.2rem 5%;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            padding: 1.5rem 5%;
             background-color: var(--light-gray);
             justify-content: center;
             width: 100%;
@@ -714,7 +564,7 @@
         .filter-group {
             display: flex;
             flex-direction: column;
-            min-width: 160px;
+            min-width: 180px;
         }
 
         .filter-group label {
@@ -725,7 +575,7 @@
         }
 
         .filter-select {
-            padding: 0.7rem;
+            padding: 0.8rem;
             border: 1px solid var(--gray);
             border-radius: var(--border-radius-sm);
             font-size: 0.9rem;
@@ -742,7 +592,7 @@
         .trip-list {
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 1.5rem;
             width: 100%;
             padding: 0 5%;
         }
@@ -750,7 +600,7 @@
         .trip-card {
             background: var(--light);
             border-radius: var(--border-radius);
-            padding: 1.8rem;
+            padding: 2rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
             border: var(--border);
@@ -779,26 +629,26 @@
 
         .trip-info {
             flex: 1;
-            min-width: 300px;
+            min-width: 350px;
         }
 
         .trip-route {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 0.7rem;
+            gap: 1.2rem;
+            margin-bottom: 0.8rem;
         }
 
         .trip-route span {
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
 
         .trip-details {
             display: flex;
-            gap: 1.5rem;
-            margin-bottom: 0.7rem;
-            font-size: 0.95rem;
+            gap: 2rem;
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
             color: var(--gray-dark);
         }
 
@@ -812,18 +662,18 @@
 
         .trip-price {
             text-align: center;
-            min-width: 160px;
+            min-width: 180px;
         }
 
         .trip-price .price {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 800;
             color: var(--primary);
             margin-bottom: 0.5rem;
         }
 
         .trip-price .seats {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--gray-dark);
             margin-bottom: 1rem;
         }
@@ -833,14 +683,13 @@
             color: white;
             border: none;
             border-radius: var(--border-radius-sm);
-            padding: 0.7rem 1.2rem;
+            padding: 0.8rem 1.5rem;
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.9rem;
         }
 
         .buy-button:hover {
@@ -853,16 +702,16 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 2rem;
             counter-reset: step;
         }
 
         .step {
             flex: 1;
-            min-width: 250px;
+            min-width: 280px;
             background-color: var(--light);
             border-radius: var(--border-radius);
-            padding: 2rem 1.5rem 1.5rem 4rem;
+            padding: 2.5rem 2rem 2rem 5rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
@@ -873,10 +722,10 @@
         .step::before {
             content: counter(step);
             position: absolute;
-            top: 1.5rem;
-            left: -20px;
-            width: 50px;
-            height: 50px;
+            top: 2rem;
+            left: -25px;
+            width: 60px;
+            height: 60px;
             background: var(--gradient);
             color: white;
             border-radius: var(--border-radius);
@@ -884,7 +733,7 @@
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             box-shadow: var(--shadow-lg);
         }
 
@@ -894,8 +743,8 @@
         }
 
         .step h3 {
-            margin-bottom: 0.8rem;
-            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
             color: var(--dark);
             font-weight: 700;
         }
@@ -904,9 +753,9 @@
         footer {
             background: var(--gradient-secondary);
             color: white;
-            padding: 3rem 0 1.5rem;
+            padding: 4rem 0 2rem;
             position: relative;
-            margin-top: 3rem;
+            margin-top: 4rem;
         }
 
         footer::before {
@@ -928,15 +777,15 @@
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
 
         .footer-col h3 {
             color: var(--light);
-            margin-bottom: 1.2rem;
-            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
             position: relative;
             display: inline-block;
             font-weight: 700;
@@ -958,7 +807,7 @@
         }
 
         .footer-links li {
-            margin-bottom: 0.7rem;
+            margin-bottom: 0.8rem;
         }
 
         .footer-links a {
@@ -968,7 +817,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
         .footer-links a:hover {
@@ -978,15 +827,15 @@
 
         .footer-bottom {
             text-align: center;
-            margin-top: 2.5rem;
-            padding-top: 1.5rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.7);
         }
 
         .availability-note {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--gray-dark);
             margin-top: 0.5rem;
             font-style: italic;
@@ -1011,8 +860,8 @@
             background-color: white;
             border-radius: var(--border-radius);
             width: 90%;
-            max-width: 450px;
-            padding: 2rem;
+            max-width: 500px;
+            padding: 2.5rem;
             position: relative;
             box-shadow: var(--shadow-xl);
             animation: modalFadeIn 0.3s ease;
@@ -1025,8 +874,8 @@
 
         .close-modal {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: 1.2rem;
+            right: 1.2rem;
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--gray-dark);
@@ -1045,8 +894,8 @@
         }
 
         .modal-title {
-            margin-bottom: 1.2rem;
-            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
             color: var(--dark);
             font-weight: 700;
         }
@@ -1054,20 +903,20 @@
         .login-form {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.2rem;
         }
 
         .form-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1.2rem;
+            margin-top: 1.5rem;
         }
 
         .form-link {
             color: var(--primary);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 500;
             transition: var(--transition);
         }
@@ -1076,33 +925,65 @@
             text-decoration: underline;
         }
 
-        /* Seção Vantagens Exclusivas - MELHORADA */
-        .advantages-section {
-            padding: 3rem 0;
+        /* Seção Vantagens Modernizada */
+        .advantages-container {
+            position: relative;
+            margin: 3rem 0;
+            padding: 2rem;
+            border-radius: var(--border-radius);
             background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, rgba(26, 26, 46, 0.05) 100%);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
         }
 
-        .advantages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+        .advantages-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: var(--border-radius);
+            padding: 2px;
+            background: var(--gradient);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .advantages-scroll {
+            display: flex;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            gap: 2rem;
+            padding: 1.5rem 0.5rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .advantages-scroll::-webkit-scrollbar {
+            display: none;
         }
 
         .advantage-card {
             background: var(--light);
             border-radius: var(--border-radius);
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
             border: var(--border);
             text-align: center;
             overflow: hidden;
+            flex: 0 0 auto;
+            width: 320px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 100%;
         }
 
         .advantage-card::before {
@@ -1116,35 +997,68 @@
         }
 
         .advantage-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px);
             box-shadow: var(--shadow-xl);
         }
 
         .advantage-card h3 {
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.4rem;
             color: var(--dark);
             font-weight: 700;
         }
 
         .advantage-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--primary);
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
             background: rgba(255, 0, 0, 0.1);
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
+        .advantage-scroll-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--light);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .advantage-scroll-button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .advantage-scroll-button.left {
+            left: -25px;
+        }
+
+        .advantage-scroll-button.right {
+            right: -25px;
+        }
+
         /* Seção de Companhias Modernizada */
         .companies-section {
             background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, rgba(26, 26, 46, 0.05) 100%);
-            padding: 3rem 0;
-            margin: 2rem 0;
+            padding: 5rem 0;
+            margin: 4rem 0;
             position: relative;
             overflow: hidden;
         }
@@ -1169,30 +1083,30 @@
         }
 
         .companies-content {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         .companies-content p {
-            margin-bottom: 1.2rem;
-            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
             color: var(--gray-dark);
         }
 
         .companies-email {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             background-color: var(--light);
-            padding: 1rem 1.8rem;
+            padding: 1.2rem 2rem;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
-            margin: 1.5rem 0;
+            margin: 2rem 0;
             font-weight: 700;
             color: var(--primary);
             text-decoration: none;
             transition: var(--transition);
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
 
         .companies-email:hover {
@@ -1204,15 +1118,15 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2.5rem;
+            gap: 2rem;
+            margin-top: 3rem;
         }
 
         .benefit-item {
             flex: 1;
-            min-width: 220px;
+            min-width: 250px;
             background-color: var(--light);
-            padding: 1.8rem;
+            padding: 2rem;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             transition: var(--transition);
@@ -1224,29 +1138,29 @@
         }
 
         .benefit-item h4 {
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
             color: var(--primary);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 700;
         }
 
         /* Seção de Painel de Controle Modernizada */
         .dashboard-section {
             background-color: var(--light);
-            padding: 3rem 0;
-            margin: 2rem 0;
+            padding: 5rem 0;
+            margin: 4rem 0;
         }
 
         .dashboard-features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
         }
 
         .dashboard-feature {
             background-color: var(--light-gray);
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             transition: var(--transition);
@@ -1260,11 +1174,11 @@
 
         .dashboard-feature h3 {
             color: var(--primary);
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.2rem;
+            gap: 12px;
+            font-size: 1.3rem;
             font-weight: 700;
         }
 
@@ -1274,8 +1188,8 @@
         }
 
         .dashboard-feature li {
-            margin-bottom: 0.7rem;
-            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            padding-left: 1.8rem;
             position: relative;
         }
 
@@ -1284,12 +1198,12 @@
             color: var(--primary);
             position: absolute;
             left: 0;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
         }
 
         /* Separação entre listas de aviões e ônibus */
         .transport-section {
-            margin: 2.5rem 0;
+            margin: 5rem 0;
             position: relative;
         }
 
@@ -1297,17 +1211,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 1.5rem;
+            gap: 15px;
+            margin-bottom: 2.5rem;
         }
 
         .transport-title i {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             color: var(--primary);
         }
 
         .transport-title h3 {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             color: var(--dark);
             font-weight: 800;
         }
@@ -1315,11 +1229,11 @@
         /* Novos elementos visuais */
         .badge {
             display: inline-block;
-            padding: 0.3rem 0.7rem;
+            padding: 0.3rem 0.8rem;
             background: var(--gradient);
             color: white;
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -1329,50 +1243,50 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            padding: 0.3rem 0.7rem;
+            padding: 0.4rem 0.8rem;
             background: rgba(0, 168, 255, 0.1);
             color: var(--accent);
             border-radius: var(--border-radius-sm);
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 600;
         }
 
         .stats-container {
             display: flex;
             justify-content: center;
-            gap: 2.5rem;
-            margin: 2rem 0;
+            gap: 3rem;
+            margin: 4rem 0;
             flex-wrap: wrap;
         }
 
         .stat-item {
             text-align: center;
-            min-width: 150px;
+            min-width: 180px;
         }
 
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 800;
             color: var(--primary);
             margin-bottom: 0.5rem;
         }
 
         .stat-label {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--gray-dark);
             font-weight: 600;
         }
 
         .testimonials {
             background: var(--light-gray);
-            padding: 3rem 0;
-            margin: 2rem 0;
+            padding: 5rem 0;
+            margin: 4rem 0;
         }
 
         .testimonial-card {
             background: var(--light);
             border-radius: var(--border-radius);
-            padding: 2rem;
+            padding: 2.5rem;
             box-shadow: var(--shadow);
             margin: 1rem;
             position: relative;
@@ -1383,16 +1297,16 @@
             position: absolute;
             top: 1rem;
             left: 1.5rem;
-            font-size: 3.5rem;
+            font-size: 4rem;
             color: rgba(255, 0, 0, 0.1);
             font-family: Georgia, serif;
         }
 
         .testimonial-text {
             font-style: italic;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
             color: var(--gray-dark);
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .testimonial-author {
@@ -1402,8 +1316,8 @@
         }
 
         .author-avatar {
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: var(--gradient);
             display: flex;
@@ -1420,43 +1334,25 @@
 
         .author-info p {
             color: var(--gray-medium);
-            font-size: 0.85rem;
-        }
-
-        /* Layout com banner lateral */
-        .content-with-sidebar {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 2rem;
-            margin: 1.5rem 0;
-        }
-
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            font-size: 0.9rem;
         }
 
         /* Responsividade */
-        @media (max-width: 1400px) {
-            .content-with-sidebar {
-                grid-template-columns: 1fr;
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3rem;
             }
             
-            .sidebar {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.5rem;
+            .section-title h2 {
+                font-size: 2.2rem;
             }
         }
 
-        @media (max-width: 1200px) {
+        @media (max-width: 992px) {
+            .hero {
+                padding: 8rem 0 4rem;
+            }
+            
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -1464,43 +1360,29 @@
             .section-title h2 {
                 font-size: 2rem;
             }
-        }
-
-        @media (max-width: 992px) {
-            .hero {
-                padding: 7rem 0 3rem;
-            }
-            
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .section-title h2 {
-                font-size: 1.8rem;
-            }
             
             .process-steps {
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 2rem;
             }
             
             .step {
                 min-width: 100%;
-                padding: 2rem 1.5rem 1.5rem 3.5rem;
+                padding: 2.5rem 2rem 2rem 4rem;
             }
             
             .step::before {
                 left: 1rem;
-                top: -25px;
-                width: 45px;
-                height: 45px;
-                font-size: 1.2rem;
+                top: -30px;
+                width: 55px;
+                height: 55px;
+                font-size: 1.3rem;
             }
             
             .trip-card {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 1.2rem;
+                gap: 1.5rem;
             }
             
             .trip-price {
@@ -1519,7 +1401,7 @@
                 display: none;
             }
             
-            .scroll-button {
+            .scroll-button, .advantage-scroll-button {
                 display: none;
             }
             
@@ -1532,30 +1414,22 @@
             }
             
             .stats-container {
-                gap: 1.5rem;
-            }
-            
-            .sidebar {
-                grid-template-columns: 1fr;
-            }
-            
-            .advantages-grid {
-                grid-template-columns: 1fr;
+                gap: 2rem;
             }
         }
 
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 1.9rem;
+                font-size: 2rem;
             }
             
             .section-title h2 {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
             }
             
-            .destination-card {
-                padding: 1.5rem;
-                width: 250px;
+            .destination-card, .advantage-card {
+                padding: 1.8rem;
+                width: 280px;
             }
             
             .search-tabs {
@@ -1575,7 +1449,7 @@
             
             .footer-content {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 2rem;
             }
             
             .companies-benefits {
@@ -1585,50 +1459,28 @@
             .benefit-item {
                 min-width: 100%;
             }
-            
-            .banner-horizontal {
-                height: 150px;
-            }
-            
-            .banner-slide {
-                height: 150px;
-                font-size: 1.5rem;
-            }
-            
-            .banner-vertical {
-                height: 250px;
-            }
-            
-            .banner-vertical-track {
-                height: 300%;
-            }
-            
-            .banner-vertical-slide {
-                height: 33.33%;
-                font-size: 1.2rem;
-            }
         }
 
         @media (max-width: 576px) {
             .hero h1 {
-                font-size: 1.7rem;
+                font-size: 1.8rem;
             }
             
             .section-title h2 {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
             }
             
             .search-container {
-                padding: 1.2rem;
+                padding: 1.5rem;
             }
             
-            .destination-card {
-                padding: 1.2rem;
-                width: 230px;
+            .destination-card, .advantage-card {
+                padding: 1.5rem;
+                width: 260px;
             }
             
             .trip-card {
-                padding: 1.2rem;
+                padding: 1.5rem;
             }
             
             .trip-route {
@@ -1643,48 +1495,11 @@
             }
             
             .dashboard-feature {
-                padding: 1.5rem;
+                padding: 1.8rem;
             }
             
             .stat-number {
-                font-size: 2rem;
-            }
-            
-            .banner-horizontal {
-                height: 120px;
-            }
-            
-            .banner-slide {
-                height: 120px;
-                font-size: 1.2rem;
-            }
-            
-            .banner-vertical {
-                height: 200px;
-            }
-            
-            .banner-vertical-slide {
-                height: 33.33%;
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .header-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            nav ul {
-                gap: 1rem;
-            }
-            
-            .hero h1 {
-                font-size: 1.5rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
+                font-size: 2.5rem;
             }
         }
     </style>
@@ -1699,7 +1514,8 @@
             
             <nav>
                 <ul>
-                    <li><a href="#destinations" class="active">Passagens</a></li>
+                    <li><a href="#destinations" class="active">Voos</a></li>
+                    <li><a href="#bus">Ônibus</a></li>
                     <li><a href="#advantages">Vantagens</a></li>
                     <li><a href="#companies">Parcerias</a></li>
                     <li><a href="#dashboard">Dashboard</a></li>
@@ -1760,11 +1576,13 @@
                     
                     <div class="form-group">
                         <label for="passengers">Passageiros</label>
-                        <div class="passengers-selector">
-                            <button type="button" class="passenger-btn" id="decrease-passengers">-</button>
-                            <span class="passenger-count" id="passenger-count">2</span>
-                            <button type="button" class="passenger-btn" id="increase-passengers">+</button>
-                        </div>
+                        <select id="passengers" class="form-control">
+                            <option value="1">1 passageiro</option>
+                            <option value="2" selected>2 passageiros</option>
+                            <option value="3">3 passageiros</option>
+                            <option value="4">4 passageiros</option>
+                            <option value="5">5 passageiros</option>
+                        </select>
                     </div>
                     
                     <div class="form-group" style="display: flex; gap: 1rem; grid-column: 1 / -1;">
@@ -1781,26 +1599,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Banner Horizontal - Carrossel de Imagens -->
-    <div class="container">
-        <div class="banner-horizontal">
-            <div class="banner-track">
-                <div class="banner-slide">
-                    <span>✈️ OFERTAS ESPECIAIS EM PASSAGENS AÉREAS</span>
-                </div>
-                <div class="banner-slide">
-                    <span>🚌 VIAGEM DE ÔNIBUS COM ATÉ 30% OFF</span>
-                </div>
-                <div class="banner-slide">
-                    <span>🎟️ GANHE 10% DE DESCONTO NO PIX</span>
-                </div>
-                <div class="banner-slide">
-                    <span>🏖️ DESTINOS DE PRAIA COM PREÇOS IMPERDÍVEIS</span>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Estatísticas -->
     <section class="container">
@@ -1824,497 +1622,517 @@
         </div>
     </section>
 
-    <div class="content-with-sidebar container">
-        <div class="main-content">
-            <section id="destinations">
-                <div class="section-title">
-                    <h2>Destinos Populares</h2>
-                    <p>Confira os destinos mais procurados pelos nossos clientes</p>
-                </div>
-                
-                <!-- Seção de Voos -->
-                <div class="transport-section">
-                    <div class="transport-title">
-                        <i class="fas fa-plane"></i>
-                        <h3>Passagens Aéreas</h3>
-                    </div>
-                    
-                    <div class="destinations-container">
-                        <button class="scroll-button left" id="flight-scroll-left">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        
-                        <div class="destinations-scroll" id="flight-destinations-scroll">
-                            <div class="destination-card">
-                                <div class="destination-icon"><i class="fas fa-plane"></i></div>
-                                <h3>São Paulo</h3>
-                                <p>Voe para a maior cidade do Brasil com os melhores preços.</p>
-                                <div class="destination-price">R$ 299<span> ida e volta</span></div>
-                                <span class="badge">Oferta Especial</span>
-                                <a href="#" class="cta-button">VER OFERTAS</a>
-                            </div>
-                            
-                            <div class="destination-card">
-                                <div class="destination-icon"><i class="fas fa-plane"></i></div>
-                                <h3>Rio de Janeiro</h3>
-                                <p>Descubra as maravilhas da Cidade Maravilhosa.</p>
-                                <div class="destination-price">R$ 349<span> ida e volta</span></div>
-                                <span class="badge">Mais Procurado</span>
-                                <a href="#" class="cta-button">VER OFERTAS</a>
-                            </div>
-                            
-                            <div class="destination-card">
-                                <div class="destination-icon"><i class="fas fa-plane"></i></div>
-                                <h3>Salvador</h3>
-                                <p>Conheça a capital baiana com suas praias e cultura.</p>
-                                <div class="destination-price">R$ 459<span> ida e volta</span></div>
-                                <span class="tag"><i class="fas fa-bolt"></i> Viagem Rápida</span>
-                                <a href="#" class="cta-button">VER OFERTAS</a>
-                            </div>
-                            
-                            <div class="destination-card">
-                                <div class="destination-icon"><i class="fas fa-plane"></i></div>
-                                <h3>Florianópolis</h3>
-                                <p>Desfrute das belas praias da Ilha da Magia.</p>
-                                <div class="destination-price">R$ 399<span> ida e volta</span></div>
-                                <span class="tag"><i class="fas fa-sun"></i> Destino de Verão</span>
-                                <a href="#" class="cta-button">VER OFERTAS</a>
-                            </div>
-                        </div>
-                        
-                        <button class="scroll-button right" id="flight-scroll-right">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Seção de Ônibus -->
-                <div class="transport-section">
-                    <div class="transport-title">
-                        <i class="fas fa-bus"></i>
-                        <h3>Passagens de Ônibus</h3>
-                    </div>
-                    
-                    <div class="destinations-container">
-                        <button class="scroll-button left" id="bus-scroll-left">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        
-                        <div class="destinations-scroll" id="bus-destinations-scroll">
-                            <div class="destination-card">
-                                <div class="destination-icon"><i class="fas fa-bus"></i></div>
-                                <h3>São Paulo</h3>
-                                <p>Viaje de ônibus para a maior cidade do Brasil com conforto.</p>
-                                <div class="destination-price">R$ 120<span> ida</span></div>
-                                <span class="tag"><i class="fas fa-bed"></i> Leito Executivo</span>
-                                <a href="#" class="cta-button">VER OFERTAS</a>
-                            </div>
-                            
-                            <div class="destination-card">
-                                <div class="destination-icon"><i class="fas fa-bus"></i></div>
-                                <h3>Rio de Janeiro</h3>
-                                <p>Conheça a Cidade Maravilhosa em uma viagem de ônibus.</p>
-                                <div class="destination-price">R$ 150<span> ida</span></div>
-                                <span class="badge">Mais Vendido</span>
-                                <a href="#" class="cta-button">VER OFERTAS</a>
-                            </div>
-                            
-                            <div class="destination-card">
-                                <div class="destination-icon"><i class="fas fa-bus"></i></div>
-                                <h3>Brasília</h3>
-                                <p>Descubra a capital federal em uma viagem confortável.</p>
-                                <div class="destination-price">R$ 90<span> ida</span></div>
-                                <span class="tag"><i class="fas fa-wifi"></i> Wi-Fi Grátis</span>
-                                <a href="#" class="cta-button">VER OFERTAS</a>
-                            </div>
-                            
-                            <div class="destination-card">
-                                <div class="destination-icon"><i class="fas fa-bus"></i></div>
-                                <h3>Curitiba</h3>
-                                <p>Explore a cidade modelo do Brasil de ônibus.</p>
-                                <div class="destination-price">R$ 180<span> ida</span></div>
-                                <span class="tag"><i class="fas fa-city"></i> Turismo Urbano</span>
-                                <a href="#" class="cta-button">VER OFERTAS</a>
-                            </div>
-                        </div>
-                        
-                        <button class="scroll-button right" id="bus-scroll-right">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Seção de Resultados Centralizada -->
-            <section id="results" class="results-container" style="display: none;">
-                <div class="container">
-                    <div class="section-title">
-                        <h2>Resultados da Busca</h2>
-                        <p>Encontramos as melhores opções para sua viagem</p>
-                    </div>
-                    
-                    <!-- Lista de Voos -->
-                    <div class="transport-section" id="flight-results">
-                        <div class="transport-title">
-                            <i class="fas fa-plane"></i>
-                            <h3>Passagens Aéreas</h3>
-                        </div>
-                        
-                        <div class="filters">
-                            <div class="filter-group">
-                                <label for="price-filter">Preço</label>
-                                <select id="price-filter" class="filter-select">
-                                    <option value="all">Todos</option>
-                                    <option value="low">Mais baratos</option>
-                                    <option value="high">Mais caros</option>
-                                </select>
-                            </div>
-                            
-                            <div class="filter-group">
-                                <label for="duration-filter">Duração</label>
-                                <select id="duration-filter" class="filter-select">
-                                    <option value="all">Todas</option>
-                                    <option value="short">Mais curtas</option>
-                                    <option value="long">Mais longas</option>
-                                </select>
-                            </div>
-                            
-                            <div class="filter-group">
-                                <label for="time-filter">Horário</label>
-                                <select id="time-filter" class="filter-select">
-                                    <option value="all">Todos</option>
-                                    <option value="morning">Manhã</option>
-                                    <option value="afternoon">Tarde</option>
-                                    <option value="evening">Noite</option>
-                                </select>
-                            </div>
-                            
-                            <div class="filter-group">
-                                <label for="company-filter">Companhia</label>
-                                <select id="company-filter" class="filter-select">
-                                    <option value="all">Todas</option>
-                                    <option value="latam">LATAM</option>
-                                    <option value="gol">GOL</option>
-                                    <option value="azul">Azul</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="trip-list" id="flight-list">
-                            <!-- Os resultados de voo serão inseridos aqui via JavaScript -->
-                        </div>
-                    </div>
-                    
-                    <!-- Lista de Ônibus -->
-                    <div class="transport-section" id="bus-results">
-                        <div class="transport-title">
-                            <i class="fas fa-bus"></i>
-                            <h3>Passagens de Ônibus</h3>
-                        </div>
-                        
-                        <div class="filters">
-                            <div class="filter-group">
-                                <label for="bus-price-filter">Preço</label>
-                                <select id="bus-price-filter" class="filter-select">
-                                    <option value="all">Todos</option>
-                                    <option value="low">Mais baratos</option>
-                                    <option value="high">Mais caros</option>
-                                </select>
-                            </div>
-                            
-                            <div class="filter-group">
-                                <label for="bus-duration-filter">Duração</label>
-                                <select id="bus-duration-filter" class="filter-select">
-                                    <option value="all">Todas</option>
-                                    <option value="short">Mais curtas</option>
-                                    <option value="long">Mais longas</option>
-                                </select>
-                            </div>
-                            
-                            <div class="filter-group">
-                                <label for="bus-time-filter">Horário</label>
-                                <select id="bus-time-filter" class="filter-select">
-                                    <option value="all">Todos</option>
-                                    <option value="morning">Manhã</option>
-                                    <option value="afternoon">Tarde</option>
-                                    <option value="evening">Noite</option>
-                                </select>
-                            </div>
-                            
-                            <div class="filter-group">
-                                <label for="bus-company-filter">Companhia</label>
-                                <select id="bus-company-filter" class="filter-select">
-                                    <option value="all">Todas</option>
-                                    <option value="viação-nacional">Viação Nacional</option>
-                                    <option value="cometa">Cometa</option>
-                                    <option value="util">Util</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="trip-list" id="bus-list">
-                            <!-- Os resultados de ônibus serão inseridos aqui via JavaScript -->
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Seção de Depoimentos -->
-            <section class="testimonials">
-                <div class="container">
-                    <div class="section-title">
-                        <h2>O Que Nossos Clientes Dizem</h2>
-                        <p>Confira a experiência de quem já viajou com a BIXX PASS</p>
-                    </div>
-                    
-                    <div class="destinations-container">
-                        <div class="destinations-scroll">
-                            <div class="testimonial-card">
-                                <div class="testimonial-text">
-                                    "Encontrei as passagens mais baratas para minha viagem a negócios. O processo foi rápido e fácil, e o suporte foi excelente quando precisei de ajuda."
-                                </div>
-                                <div class="testimonial-author">
-                                    <div class="author-avatar">MC</div>
-                                    <div class="author-info">
-                                        <h4>Maria Clara</h4>
-                                        <p>Executiva de Vendas</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="testimonial-card">
-                                <div class="testimonial-text">
-                                    "Viajo frequentemente de ônibus e a BIXX PASS sempre tem as melhores opções. A plataforma é intuitiva e os filtros me ajudam a encontrar exatamente o que preciso."
-                                </div>
-                                <div class="testimonial-author">
-                                    <div class="author-avatar">RS</div>
-                                    <div class="author-info">
-                                        <h4>Roberto Silva</h4>
-                                        <p>Universitário</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="testimonial-card">
-                                <div class="testimonial-text">
-                                    "Comprei passagens para toda a família com desconto. A experiência foi ótima e o pagamento via PIX facilitou muito. Recomendo a todos!"
-                                </div>
-                                <div class="testimonial-author">
-                                    <div class="author-avatar">AS</div>
-                                    <div class="author-info">
-                                        <h4>Ana Souza</h4>
-                                        <p>Arquiteta</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="how-it-works" class="container">
-                <div class="section-title">
-                    <h2>Como Funciona</h2>
-                    <p>Processo simples para comprar suas passagens</p>
-                </div>
-                <div class="process-steps">
-                    <div class="step">
-                        <h3>PESQUISE SUA VIAGEM</h3>
-                        <p>Informe origem, destino, datas e número de passageiros para encontrar as melhores opções.</p>
-                    </div>
-                    <div class="step">
-                        <h3>SELECIONE SUA PASSAGEM</h3>
-                        <p>Compare preços, horários e companhias para escolher a opção que mais combina com você.</p>
-                    </div>
-                    <div class="step">
-                        <h3>FAÇA SEU PAGAMENTO</h3>
-                        <p>Pague com cartão de crédito, PIX ou boleto de forma rápida e segura.</p>
-                    </div>
-                    <div class="step">
-                        <h3>RECEBA SUA PASSAGEM</h3>
-                        <p>Receba sua passagem por e-mail e esteja pronto para embarcar!</p>
-                    </div>
-                </div>
-            </section>
+    <section id="destinations" class="container">
+        <div class="section-title">
+            <h2>Destinos Populares</h2>
+            <p>Confira os destinos mais procurados pelos nossos clientes</p>
+        </div>
+        
+        <!-- Seção de Voos -->
+        <div class="transport-section">
+            <div class="transport-title">
+                <i class="fas fa-plane"></i>
+                <h3>Passagens Aéreas</h3>
+            </div>
             
-            <!-- Seção Vantagens Exclusivas - MELHORADA -->
-            <section id="advantages" class="advantages-section">
-                <div class="container">
-                    <div class="section-title">
-                        <h2>Vantagens Exclusivas</h2>
-                        <p>Descubra por que escolher a BIXX PASS para suas viagens</p>
+            <div class="destinations-container">
+                <button class="scroll-button left" id="flight-scroll-left">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="destinations-scroll" id="flight-destinations-scroll">
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                        <h3>São Paulo</h3>
+                        <p>Voe para a maior cidade do Brasil com os melhores preços.</p>
+                        <div class="destination-price">R$ 299<span> ida e volta</span></div>
+                        <span class="badge">Oferta Especial</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
                     </div>
                     
-                    <div class="advantages-grid">
-                        <div class="advantage-card">
-                            <div class="advantage-icon"><i class="fas fa-shield-alt"></i></div>
-                            <h3>Compra Segura</h3>
-                            <p>Seus dados estão protegidos com criptografia de última geração.</p>
-                        </div>
-                        
-                        <div class="advantage-card">
-                            <div class="advantage-icon"><i class="fas fa-percentage"></i></div>
-                            <h3>Melhor Preço Garantido</h3>
-                            <p>Encontrou mais barato? Reembolsamos a diferença.</p>
-                        </div>
-                        
-                        <div class="advantage-card">
-                            <div class="advantage-icon"><i class="fas fa-headset"></i></div>
-                            <h3>Suporte 24h</h3>
-                            <p>Nossa equipe está disponível 24 horas para ajudar você.</p>
-                        </div>
-                        
-                        <div class="advantage-card">
-                            <div class="advantage-icon"><i class="fas fa-undo"></i></div>
-                            <h3>Cancelamento Facilitado</h3>
-                            <p>Cancele sua viagem com até 24h de antecedência sem taxas.</p>
-                        </div>
-                        
-                        <div class="advantage-card">
-                            <div class="advantage-icon"><i class="fas fa-mobile-alt"></i></div>
-                            <h3>App Móvel</h3>
-                            <p>Baixe nosso app e compre passagens de qualquer lugar.</p>
-                        </div>
-                        
-                        <div class="advantage-card">
-                            <div class="advantage-icon"><i class="fas fa-gift"></i></div>
-                            <h3>Programa de Fidelidade</h3>
-                            <p>Acumule pontos e troque por descontos em suas próximas viagens.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Seção: Cadastro de Companhias -->
-            <section id="companies" class="companies-section">
-                <div class="container companies-container">
-                    <div class="section-title">
-                        <h2>Cadastro de Companhias</h2>
-                        <p>Seja nosso parceiro e aumente suas vendas</p>
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                        <h3>Rio de Janeiro</h3>
+                        <p>Descubra as maravilhas da Cidade Maravilhosa.</p>
+                        <div class="destination-price">R$ 349<span> ida e volta</span></div>
+                        <span class="badge">Mais Procurado</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
                     </div>
                     
-                    <div class="companies-content">
-                        <p>Você é uma companhia aérea ou de ônibus e gostaria de cadastrar seus preços e rotas em nossa plataforma?</p>
-                        <p>Entre em contato conosco para fazer parte da nossa rede de parceiros e alcançar milhares de clientes em todo o Brasil.</p>
-                        
-                        <a href="mailto:bixxpass@outlook.com.br" class="companies-email">
-                            <i class="fas fa-envelope"></i>
-                            bixxpass@outlook.com.br
-                        </a>
-                        
-                        <p>Envie sua solicitação de cadastro para o e-mail acima com as seguintes informações:</p>
-                        
-                        <div class="companies-benefits">
-                            <div class="benefit-item">
-                                <h4>Maior Visibilidade</h4>
-                                <p>Sua empresa será vista por milhares de potenciais clientes</p>
-                            </div>
-                            <div class="benefit-item">
-                                <h4>Processo Simplificado</h4>
-                                <p>Cadastro rápido e suporte dedicado para parceiros</p>
-                            </div>
-                            <div class="benefit-item">
-                                <h4>Aumento nas Vendas</h4>
-                                <p>Expanda seu alcance e aumente suas receitas</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Seção: Painel de Controle -->
-            <section id="dashboard" class="dashboard-section">
-                <div class="container">
-                    <div class="section-title">
-                        <h2>Painel de Controle para Empresas</h2>
-                        <p>Gerencie todas as suas operações em uma única plataforma</p>
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                        <h3>Salvador</h3>
+                        <p>Conheça a capital baiana com suas praias e cultura.</p>
+                        <div class="destination-price">R$ 459<span> ida e volta</span></div>
+                        <span class="tag"><i class="fas fa-bolt"></i> Viagem Rápida</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
                     </div>
                     
-                    <div class="dashboard-features">
-                        <div class="dashboard-feature">
-                            <h3><i class="fas fa-route"></i> Gestão de Rotas</h3>
-                            <ul>
-                                <li>Cadastro de novas rotas e destinos</li>
-                                <li>Configuração de horários de partida e chegada</li>
-                                <li>Definição de frequência (diária, semanal, etc.)</li>
-                                <li>Gerenciamento de pontos de parada</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="dashboard-feature">
-                            <h3><i class="fas fa-tags"></i> Gestão de Preços</h3>
-                            <ul>
-                                <li>Definição de tarifas base por rota</li>
-                                <li>Configuração de preços dinâmicos</li>
-                                <li>Estabelecimento de preços por temporada</li>
-                                <li>Gerenciamento de descontos promocionais</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="dashboard-feature">
-                            <h3><i class="fas fa-chair"></i> Controle de Assentos</h3>
-                            <ul>
-                                <li>Visualização do mapa de assentos em tempo real</li>
-                                <li>Controle de disponibilidade por viagem</li>
-                                <li>Gerenciamento de blocos de assentos</li>
-                                <li>Configuração de categorias (econômico, executivo, leito)</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="dashboard-feature">
-                            <h3><i class="fas fa-calendar-alt"></i> Agendamentos</h3>
-                            <ul>
-                                <li>Visualização de todas as reservas confirmadas</li>
-                                <li>Gerenciamento de check-in dos passageiros</li>
-                                <li>Controle de embarques</li>
-                                <li>Emissão de relatórios de ocupação</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="dashboard-feature">
-                            <h3><i class="fas fa-chart-line"></i> Análise Financeira</h3>
-                            <ul>
-                                <li>Acompanhamento de vendas em tempo real</li>
-                                <li>Visualização de comissões e taxas</li>
-                                <li>Emissão de relatórios financeiros</li>
-                                <li>Controle de repasses e pagamentos</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="dashboard-feature">
-                            <h3><i class="fas fa-chart-bar"></i> Relatórios e Analytics</h3>
-                            <ul>
-                                <li>Relatórios de ocupação por rota</li>
-                                <li>Análise de desempenho financeiro</li>
-                                <li>Métricas de satisfação do cliente</li>
-                                <li>Previsões de demanda</li>
-                            </ul>
-                        </div>
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                        <h3>Florianópolis</h3>
+                        <p>Desfrute das belas praias da Ilha da Magia.</p>
+                        <div class="destination-price">R$ 399<span> ida e volta</span></div>
+                        <span class="tag"><i class="fas fa-sun"></i> Destino de Verão</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                        <h3>Fortaleza</h3>
+                        <p>Aproveite as lindas praias do Nordeste brasileiro.</p>
+                        <div class="destination-price">R$ 499<span> ida e volta</span></div>
+                        <span class="badge">Promoção</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-plane"></i></div>
+                        <h3>Belo Horizonte</h3>
+                        <p>Explore a capital mineira e sua rica culinária.</p>
+                        <div class="destination-price">R$ 379<span> ida e volta</span></div>
+                        <span class="tag"><i class="fas fa-utensils"></i> Gastronomia</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
                     </div>
                 </div>
-            </section>
-        </div>
-
-        <div class="sidebar">
-            <!-- Banner Vertical 1 -->
-            <div class="banner-vertical">
-                <div class="banner-vertical-track">
-                    <div class="banner-vertical-slide">🎫 DESCONTOS EXCLUSIVOS</div>
-                    <div class="banner-vertical-slide">🚀 VIAGENS RÁPIDAS</div>
-                    <div class="banner-vertical-slide">💎 OFERTAS IMPERDÍVEIS</div>
-                </div>
-            </div>
-
-            <!-- Banner Vertical 2 -->
-            <div class="banner-vertical">
-                <div class="banner-vertical-track">
-                    <div class="banner-vertical-slide">🏖️ DESTINOS DE PRAIA</div>
-                    <div class="banner-vertical-slide">🏙️ VIAGENS URBANAS</div>
-                    <div class="banner-vertical-slide">🌄 TURISMO NATUREZA</div>
-                </div>
+                
+                <button class="scroll-button right" id="flight-scroll-right">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
-    </div>
+        
+        <!-- Seção de Ônibus -->
+        <div class="transport-section">
+            <div class="transport-title">
+                <i class="fas fa-bus"></i>
+                <h3>Passagens de Ônibus</h3>
+            </div>
+            
+            <div class="destinations-container">
+                <button class="scroll-button left" id="bus-scroll-left">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="destinations-scroll" id="bus-destinations-scroll">
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                        <h3>São Paulo</h3>
+                        <p>Viaje de ônibus para a maior cidade do Brasil com conforto.</p>
+                        <div class="destination-price">R$ 120<span> ida</span></div>
+                        <span class="tag"><i class="fas fa-bed"></i> Leito Executivo</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                        <h3>Rio de Janeiro</h3>
+                        <p>Conheça a Cidade Maravilhosa em uma viagem de ônibus.</p>
+                        <div class="destination-price">R$ 150<span> ida</span></div>
+                        <span class="badge">Mais Vendido</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                        <h3>Brasília</h3>
+                        <p>Descubra a capital federal em uma viagem confortável.</p>
+                        <div class="destination-price">R$ 90<span> ida</span></div>
+                        <span class="tag"><i class="fas fa-wifi"></i> Wi-Fi Grátis</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                        <h3>Curitiba</h3>
+                        <p>Explore a cidade modelo do Brasil de ônibus.</p>
+                        <div class="destination-price">R$ 180<span> ida</span></div>
+                        <span class="tag"><i class="fas fa-city"></i> Turismo Urbano</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                        <h3>Porto Alegre</h3>
+                        <p>Conheça a capital gaúcha em uma viagem de ônibus.</p>
+                        <div class="destination-price">R$ 220<span> ida</span></div>
+                        <span class="badge">Novo Destino</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                    
+                    <div class="destination-card">
+                        <div class="destination-icon"><i class="fas fa-bus"></i></div>
+                        <h3>Vitória</h3>
+                        <p>Desfrute das belezas capixabas em uma viagem de ônibus.</p>
+                        <div class="destination-price">R$ 160<span> ida</span></div>
+                        <span class="tag"><i class="fas fa-umbrella-beach"></i> Destino de Praia</span>
+                        <a href="#" class="cta-button">VER OFERTAS</a>
+                    </div>
+                </div>
+                
+                <button class="scroll-button right" id="bus-scroll-right">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Resultados Centralizada -->
+    <section id="results" class="results-container" style="display: none;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Resultados da Busca</h2>
+                <p>Encontramos as melhores opções para sua viagem</p>
+            </div>
+            
+            <!-- Lista de Voos -->
+            <div class="transport-section" id="flight-results">
+                <div class="transport-title">
+                    <i class="fas fa-plane"></i>
+                    <h3>Passagens Aéreas</h3>
+                </div>
+                
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="price-filter">Preço</label>
+                        <select id="price-filter" class="filter-select">
+                            <option value="all">Todos</option>
+                            <option value="low">Mais baratos</option>
+                            <option value="high">Mais caros</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="duration-filter">Duração</label>
+                        <select id="duration-filter" class="filter-select">
+                            <option value="all">Todas</option>
+                            <option value="short">Mais curtas</option>
+                            <option value="long">Mais longas</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="time-filter">Horário</label>
+                        <select id="time-filter" class="filter-select">
+                            <option value="all">Todos</option>
+                            <option value="morning">Manhã</option>
+                            <option value="afternoon">Tarde</option>
+                            <option value="evening">Noite</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="company-filter">Companhia</label>
+                        <select id="company-filter" class="filter-select">
+                            <option value="all">Todas</option>
+                            <option value="latam">LATAM</option>
+                            <option value="gol">GOL</option>
+                            <option value="azul">Azul</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="trip-list" id="flight-list">
+                    <!-- Os resultados de voo serão inseridos aqui via JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Lista de Ônibus -->
+            <div class="transport-section" id="bus-results">
+                <div class="transport-title">
+                    <i class="fas fa-bus"></i>
+                    <h3>Passagens de Ônibus</h3>
+                </div>
+                
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="bus-price-filter">Preço</label>
+                        <select id="bus-price-filter" class="filter-select">
+                            <option value="all">Todos</option>
+                            <option value="low">Mais baratos</option>
+                            <option value="high">Mais caros</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="bus-duration-filter">Duração</label>
+                        <select id="bus-duration-filter" class="filter-select">
+                            <option value="all">Todas</option>
+                            <option value="short">Mais curtas</option>
+                            <option value="long">Mais longas</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="bus-time-filter">Horário</label>
+                        <select id="bus-time-filter" class="filter-select">
+                            <option value="all">Todos</option>
+                            <option value="morning">Manhã</option>
+                            <option value="afternoon">Tarde</option>
+                            <option value="evening">Noite</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="bus-company-filter">Companhia</label>
+                        <select id="bus-company-filter" class="filter-select">
+                            <option value="all">Todas</option>
+                            <option value="viação-nacional">Viação Nacional</option>
+                            <option value="cometa">Cometa</option>
+                            <option value="util">Util</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="trip-list" id="bus-list">
+                    <!-- Os resultados de ônibus serão inseridos aqui via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Depoimentos -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>O Que Nossos Clientes Dizem</h2>
+                <p>Confira a experiência de quem já viajou com a BIXX PASS</p>
+            </div>
+            
+            <div class="destinations-container">
+                <div class="destinations-scroll">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "Encontrei as passagens mais baratas para minha viagem a negócios. O processo foi rápido e fácil, e o suporte foi excelente quando precisei de ajuda."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">MC</div>
+                            <div class="author-info">
+                                <h4>Maria Clara</h4>
+                                <p>Executiva de Vendas</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "Viajo frequentemente de ônibus e a BIXX PASS sempre tem as melhores opções. A plataforma é intuitiva e os filtros me ajudam a encontrar exatamente o que preciso."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">RS</div>
+                            <div class="author-info">
+                                <h4>Roberto Silva</h4>
+                                <p>Universitário</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "Comprei passagens para toda a família com desconto. A experiência foi ótima e o pagamento via PIX facilitou muito. Recomendo a todos!"
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">AS</div>
+                            <div class="author-info">
+                                <h4>Ana Souza</h4>
+                                <p>Arquiteta</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="container">
+        <div class="section-title">
+            <h2>Como Funciona</h2>
+            <p>Processo simples para comprar suas passagens</p>
+        </div>
+        <div class="process-steps">
+            <div class="step">
+                <h3>PESQUISE SUA VIAGEM</h3>
+                <p>Informe origem, destino, datas e número de passageiros para encontrar as melhores opções.</p>
+            </div>
+            <div class="step">
+                <h3>SELECIONE SUA PASSAGEM</h3>
+                <p>Compare preços, horários e companhias para escolher a opção que mais combina com você.</p>
+            </div>
+            <div class="step">
+                <h3>FAÇA SEU PAGAMENTO</h3>
+                <p>Pague com cartão de crédito, PIX ou boleto de forma rápida e segura.</p>
+            </div>
+            <div class="step">
+                <h3>RECEBA SUA PASSAGEM</h3>
+                <p>Receba sua passagem por e-mail e esteja pronto para embarcar!</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Seção Vantagens Exclusivas -->
+    <section id="advantages" class="container">
+        <div class="section-title">
+            <h2>Vantagens Exclusivas</h2>
+            <p>Descubra por que escolher a BIXX PASS para suas viagens</p>
+        </div>
+        
+        <div class="advantages-container">
+            <button class="advantage-scroll-button left" id="advantage-scroll-left">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            
+            <div class="advantages-scroll" id="advantages-scroll">
+                <div class="advantage-card">
+                    <div class="advantage-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Compra Segura</h3>
+                    <p>Seus dados estão protegidos com criptografia de última geração.</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon"><i class="fas fa-percentage"></i></div>
+                    <h3>Melhor Preço Garantido</h3>
+                    <p>Encontrou mais barato? Reembolsamos a diferença.</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon"><i class="fas fa-headset"></i></div>
+                    <h3>Suporte 24h</h3>
+                    <p>Nossa equipe está disponível 24 horas para ajudar você.</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon"><i class="fas fa-undo"></i></div>
+                    <h3>Cancelamento Facilitado</h3>
+                    <p>Cancele sua viagem com até 24h de antecedência sem taxas.</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>App Móvel</h3>
+                    <p>Baixe nosso app e compre passagens de qualquer lugar.</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-icon"><i class="fas fa-gift"></i></div>
+                    <h3>Programa de Fidelidade</h3>
+                    <p>Acumule pontos e troque por descontos em suas próximas viagens.</p>
+                </div>
+            </div>
+            
+            <button class="advantage-scroll-button right" id="advantage-scroll-right">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Seção: Cadastro de Companhias -->
+    <section id="companies" class="companies-section">
+        <div class="container companies-container">
+            <div class="section-title">
+                <h2>Cadastro de Companhias</h2>
+                <p>Seja nosso parceiro e aumente suas vendas</p>
+            </div>
+            
+            <div class="companies-content">
+                <p>Você é uma companhia aérea ou de ônibus e gostaria de cadastrar seus preços e rotas em nossa plataforma?</p>
+                <p>Entre em contato conosco para fazer parte da nossa rede de parceiros e alcançar milhares de clientes em todo o Brasil.</p>
+                
+                <a href="mailto:bixxpass@outlook.com.br" class="companies-email">
+                    <i class="fas fa-envelope"></i>
+                    bixxpass@outlook.com.br
+                </a>
+                
+                <p>Envie sua solicitação de cadastro para o e-mail acima com as seguintes informações:</p>
+                
+                <div class="companies-benefits">
+                    <div class="benefit-item">
+                        <h4>Maior Visibilidade</h4>
+                        <p>Sua empresa será vista por milhares de potenciais clientes</p>
+                    </div>
+                    <div class="benefit-item">
+                        <h4>Processo Simplificado</h4>
+                        <p>Cadastro rápido e suporte dedicado para parceiros</p>
+                    </div>
+                    <div class="benefit-item">
+                        <h4>Aumento nas Vendas</h4>
+                        <p>Expanda seu alcance e aumente suas receitas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: Painel de Controle -->
+    <section id="dashboard" class="dashboard-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Painel de Controle para Empresas</h2>
+                <p>Gerencie todas as suas operações em uma única plataforma</p>
+            </div>
+            
+            <div class="dashboard-features">
+                <div class="dashboard-feature">
+                    <h3><i class="fas fa-route"></i> Gestão de Rotas</h3>
+                    <ul>
+                        <li>Cadastro de novas rotas e destinos</li>
+                        <li>Configuração de horários de partida e chegada</li>
+                        <li>Definição de frequência (diária, semanal, etc.)</li>
+                        <li>Gerenciamento de pontos de parada</li>
+                    </ul>
+                </div>
+                
+                <div class="dashboard-feature">
+                    <h3><i class="fas fa-tags"></i> Gestão de Preços</h3>
+                    <ul>
+                        <li>Definição de tarifas base por rota</li>
+                        <li>Configuração de preços dinâmicos</li>
+                        <li>Estabelecimento de preços por temporada</li>
+                        <li>Gerenciamento de descontos promocionais</li>
+                    </ul>
+                </div>
+                
+                <div class="dashboard-feature">
+                    <h3><i class="fas fa-chair"></i> Controle de Assentos</h3>
+                    <ul>
+                        <li>Visualização do mapa de assentos em tempo real</li>
+                        <li>Controle de disponibilidade por viagem</li>
+                        <li>Gerenciamento de blocos de assentos</li>
+                        <li>Configuração de categorias (econômico, executivo, leito)</li>
+                    </ul>
+                </div>
+                
+                <div class="dashboard-feature">
+                    <h3><i class="fas fa-calendar-alt"></i> Agendamentos</h3>
+                    <ul>
+                        <li>Visualização de todas as reservas confirmadas</li>
+                        <li>Gerenciamento de check-in dos passageiros</li>
+                        <li>Controle de embarques</li>
+                        <li>Emissão de relatórios de ocupação</li>
+                    </ul>
+                </div>
+                
+                <div class="dashboard-feature">
+                    <h3><i class="fas fa-chart-line"></i> Análise Financeira</h3>
+                    <ul>
+                        <li>Acompanhamento de vendas em tempo real</li>
+                        <li>Visualização de comissões e taxas</li>
+                        <li>Emissão de relatórios financeiros</li>
+                        <li>Controle de repasses e pagamentos</li>
+                    </ul>
+                </div>
+                
+                <div class="dashboard-feature">
+                    <h3><i class="fas fa-chart-bar"></i> Relatórios e Analytics</h3>
+                    <ul>
+                        <li>Relatórios de ocupação por rota</li>
+                        <li>Análise de desempenho financeiro</li>
+                        <li>Métricas de satisfação do cliente</li>
+                        <li>Previsões de demanda</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <footer id="contact">
         <div class="footer-container">
@@ -2492,14 +2310,10 @@
         const advantagesScroll = document.getElementById('advantages-scroll');
         const advantageScrollLeft = document.getElementById('advantage-scroll-left');
         const advantageScrollRight = document.getElementById('advantage-scroll-right');
-        const passengerCount = document.getElementById('passenger-count');
-        const decreasePassengers = document.getElementById('decrease-passengers');
-        const increasePassengers = document.getElementById('increase-passengers');
 
         // Variáveis de estado
         let currentSearchType = 'flight';
         let cartItems = 0;
-        let passengers = 2;
 
         // Event Listeners
         document.addEventListener('DOMContentLoaded', function() {
@@ -2524,6 +2338,7 @@
                 document.getElementById('destination').value = '';
                 document.getElementById('departure-date').value = '';
                 document.getElementById('return-date').value = '';
+                document.getElementById('passengers').value = '2';
                 
                 // Ocultar resultados
                 resultsSection.style.display = 'none';
@@ -2566,14 +2381,14 @@
             // Rolagem dos destinos de voo
             flightScrollLeft.addEventListener('click', function() {
                 flightDestinationsScroll.scrollBy({
-                    left: -300,
+                    left: -350,
                     behavior: 'smooth'
                 });
             });
 
             flightScrollRight.addEventListener('click', function() {
                 flightDestinationsScroll.scrollBy({
-                    left: 300,
+                    left: 350,
                     behavior: 'smooth'
                 });
             });
@@ -2581,14 +2396,14 @@
             // Rolagem dos destinos de ônibus
             busScrollLeft.addEventListener('click', function() {
                 busDestinationsScroll.scrollBy({
-                    left: -300,
+                    left: -350,
                     behavior: 'smooth'
                 });
             });
 
             busScrollRight.addEventListener('click', function() {
                 busDestinationsScroll.scrollBy({
-                    left: 300,
+                    left: 350,
                     behavior: 'smooth'
                 });
             });
@@ -2596,31 +2411,16 @@
             // Rolagem das vantagens
             advantageScrollLeft.addEventListener('click', function() {
                 advantagesScroll.scrollBy({
-                    left: -300,
+                    left: -350,
                     behavior: 'smooth'
                 });
             });
 
             advantageScrollRight.addEventListener('click', function() {
                 advantagesScroll.scrollBy({
-                    left: 300,
+                    left: 350,
                     behavior: 'smooth'
                 });
-            });
-
-            // Controle de passageiros
-            decreasePassengers.addEventListener('click', function() {
-                if (passengers > 1) {
-                    passengers--;
-                    passengerCount.textContent = passengers;
-                }
-            });
-
-            increasePassengers.addEventListener('click', function() {
-                if (passengers < 10) {
-                    passengers++;
-                    passengerCount.textContent = passengers;
-                }
             });
 
             // Configurar datas mínimas
