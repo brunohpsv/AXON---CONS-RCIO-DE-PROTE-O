@@ -9,6 +9,7 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     
     <style>
         * {
@@ -760,7 +761,7 @@
                     
                     <div class="form-actions">
                         <button class="btn btn-prev" id="step-3-prev">Anterior</button>
-                        <button class="btn btn-next" id="step-3-next">Próximo</button>
+                        <button class="btn btn-next" id="step-3-next">Finalizar Cadastro</button>
                     </div>
                 </div>
                 
@@ -770,20 +771,21 @@
                     
                     <div style="text-align: center; padding: 20px;">
                         <i class="fas fa-check-circle" style="font-size: 60px; color: var(--success); margin-bottom: 20px;"></i>
-                        <h3 style="margin-bottom: 15px;">Cadastro Concluído!</h3>
-                        <p style="margin-bottom: 30px; color: var(--gray);">Seu cadastro foi realizado com sucesso. Em breve você receberá um e-mail com as instruções para ativar sua conta e acessar o painel de controle.</p>
+                        <h3 style="margin-bottom: 15px;" id="success-title">Processando cadastro...</h3>
+                        <p style="margin-bottom: 30px; color: var(--gray);" id="success-message">Aguarde enquanto processamos suas informações.</p>
                         
-                        <div style="background-color: #e8f0fe; padding: 20px; border-radius: 10px; text-align: left; margin-bottom: 30px;">
-                            <h4 style="margin-bottom: 15px; color: var(--primary);">Próximos Passos:</h4>
-                            <ul style="list-style-type: none;">
-                                <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Validação dos documentos enviados</li>
-                                <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Ativação da conta por e-mail</li>
-                                <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Configuração do seu perfil no painel</li>
-                                <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Definição de preços e disponibilidade</li>
-                            </ul>
+                        <div id="success-details" style="display: none;">
+                            <div style="background-color: #e8f0fe; padding: 20px; border-radius: 10px; text-align: left; margin-bottom: 30px;">
+                                <h4 style="margin-bottom: 15px; color: var(--primary);">Próximos Passos:</h4>
+                                <ul style="list-style-type: none;">
+                                    <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Validação dos documentos enviados</li>
+                                    <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Entraremos em contato por e-mail para solicitar as documentações e imagem do veículo</li>
+                                    <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Finalização do cadastro em até 1 dia útil</li>
+                                </ul>
+                            </div>
+                            
+                            <button class="btn btn-submit" id="go-to-dashboard">Acessar Painel de Controle</button>
                         </div>
-                        
-                        <button class="btn btn-submit" id="go-to-dashboard">Acessar Painel de Controle</button>
                     </div>
                 </div>
             </div>
@@ -868,6 +870,7 @@
         // Inicializar Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
+        const db = firebase.firestore();
 
         // Variáveis globais
         let currentStep = 1;
@@ -879,6 +882,9 @@
         const nextButtons = document.querySelectorAll('.btn-next');
         const prevButtons = document.querySelectorAll('.btn-prev');
         const goToDashboardBtn = document.getElementById('go-to-dashboard');
+        const successTitle = document.getElementById('success-title');
+        const successMessage = document.getElementById('success-message');
+        const successDetails = document.getElementById('success-details');
 
         // Event Listeners
         document.addEventListener('DOMContentLoaded', function() {
@@ -1291,21 +1297,45 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
+            // Mostrar mensagem de processamento
+            successTitle.textContent = "Processando cadastro...";
+            successMessage.textContent = "Aguarde enquanto processamos suas informações.";
+            successDetails.style.display = "none";
+            
+            // Avançar para o passo 4
+            currentStep++;
+            updateStepDisplay();
+            
             auth.createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // Conta criada com sucesso
                     const user = userCredential.user;
                     console.log('Usuário criado:', user);
                     
-                    // Avançar para o próximo passo
-                    currentStep++;
-                    updateStepDisplay();
+                    // Salvar dados no Firestore
+                    saveUserData(user.uid)
+                        .then(() => {
+                            // Atualizar mensagem de sucesso
+                            successTitle.textContent = "Cadastro Bem-Sucedido!";
+                            successMessage.textContent = "Seu cadastro foi realizado com sucesso. Entraremos em contato pelo e-mail informado para solicitar as documentações e imagem do veículo para finalizar o cadastro em um prazo de 1 dia útil.";
+                            successDetails.style.display = "block";
+                        })
+                        .catch((error) => {
+                            console.error('Erro ao salvar dados:', error);
+                            successTitle.textContent = "Cadastro Parcialmente Concluído";
+                            successMessage.textContent = "Seu cadastro foi criado, mas houve um problema ao salvar algumas informações. Entre em contato com nosso suporte.";
+                            successDetails.style.display = "block";
+                        });
                 })
                 .catch((error) => {
                     // Tratar erros
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.error('Erro ao criar conta:', errorCode, errorMessage);
+                    
+                    // Voltar para o passo 3 em caso de erro
+                    currentStep = 3;
+                    updateStepDisplay();
                     
                     // Exibir mensagem de erro
                     if (errorCode === 'auth/email-already-in-use') {
@@ -1315,6 +1345,33 @@
                         alert('Erro ao criar conta: ' + errorMessage);
                     }
                 });
+        }
+
+        // Função para salvar dados no Firestore
+        function saveUserData(userId) {
+            // Coletar dados do formulário
+            const userData = {
+                fullName: document.getElementById('full-name').value.trim(),
+                cpf: document.getElementById('cpf').value.replace(/\D/g, ''),
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value.replace(/\D/g, ''),
+                carBrand: document.getElementById('car-brand').value,
+                carModel: document.getElementById('car-model').value.trim(),
+                carYear: document.getElementById('car-year').value,
+                carColor: document.getElementById('car-color').value.trim(),
+                carPlate: document.getElementById('car-plate').value.toUpperCase(),
+                carFuel: document.getElementById('car-fuel').value,
+                carDescription: document.getElementById('car-description').value.trim(),
+                carRenavam: document.getElementById('car-renavam').value.trim(),
+                carChassis: document.getElementById('car-chassis').value.trim(),
+                termsAccepted: document.getElementById('terms-accept').checked,
+                registrationDate: new Date(),
+                status: 'pending_documents',
+                userId: userId
+            };
+            
+            // Salvar dados na coleção 'cadastro' usando CPF como ID do documento
+            return db.collection('cadastro').doc(userData.cpf).set(userData);
         }
     </script>
 </body>
