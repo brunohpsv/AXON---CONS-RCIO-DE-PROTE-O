@@ -309,6 +309,41 @@
             background-color: var(--light);
         }
 
+        .passengers-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .passenger-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .passenger-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 1px solid var(--gray);
+            background-color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .passenger-btn:hover {
+            background-color: var(--gray);
+        }
+
+        .passenger-count {
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center;
+        }
+
         .search-button {
             background: var(--gradient);
             color: white;
@@ -380,7 +415,7 @@
 
         .section-title {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
         }
 
         .section-title h2 {
@@ -411,10 +446,52 @@
             font-size: 1.1rem;
         }
 
+        /* Banner Horizontal */
+        .banner-section {
+            width: 100%;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .banner-container {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .banner-scroll {
+            display: flex;
+            animation: bannerScroll 30s linear infinite;
+        }
+
+        .banner-item {
+            flex: 0 0 auto;
+            width: 300px;
+            height: 150px;
+            margin: 0 10px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes bannerScroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
         /* Destinos Modernizados */
         .destinations-container {
             position: relative;
-            margin: 3rem 0;
+            margin: 1.5rem 0;
         }
 
         .destinations-scroll {
@@ -1203,7 +1280,7 @@
 
         /* Separação entre listas de aviões e ônibus */
         .transport-section {
-            margin: 5rem 0;
+            margin: 2rem 0;
             position: relative;
         }
 
@@ -1248,32 +1325,6 @@
             color: var(--accent);
             border-radius: var(--border-radius-sm);
             font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .stats-container {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin: 4rem 0;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            text-align: center;
-            min-width: 180px;
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 1rem;
-            color: var(--gray-dark);
             font-weight: 600;
         }
 
@@ -1412,10 +1463,6 @@
             .dashboard-features {
                 grid-template-columns: 1fr;
             }
-            
-            .stats-container {
-                gap: 2rem;
-            }
         }
 
         @media (max-width: 768px) {
@@ -1497,10 +1544,6 @@
             .dashboard-feature {
                 padding: 1.8rem;
             }
-            
-            .stat-number {
-                font-size: 2.5rem;
-            }
         }
     </style>
 </head>
@@ -1574,15 +1617,13 @@
                         <input type="date" id="return-date" class="form-control">
                     </div>
                     
-                    <div class="form-group">
+                    <div class="form-group passengers-selector">
                         <label for="passengers">Passageiros</label>
-                        <select id="passengers" class="form-control">
-                            <option value="1">1 passageiro</option>
-                            <option value="2" selected>2 passageiros</option>
-                            <option value="3">3 passageiros</option>
-                            <option value="4">4 passageiros</option>
-                            <option value="5">5 passageiros</option>
-                        </select>
+                        <div class="passenger-controls">
+                            <button type="button" class="passenger-btn" id="decrease-passengers">-</button>
+                            <span class="passenger-count" id="passenger-count">2</span>
+                            <button type="button" class="passenger-btn" id="increase-passengers">+</button>
+                        </div>
                     </div>
                     
                     <div class="form-group" style="display: flex; gap: 1rem; grid-column: 1 / -1;">
@@ -1600,24 +1641,47 @@
         </div>
     </section>
 
-    <!-- Estatísticas -->
-    <section class="container">
-        <div class="stats-container">
-            <div class="stat-item">
-                <div class="stat-number">500K+</div>
-                <div class="stat-label">Clientes Satisfeitos</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">50+</div>
-                <div class="stat-label">Companhias Parceiras</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">1.2K+</div>
-                <div class="stat-label">Destinos Disponíveis</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">24/7</div>
-                <div class="stat-label">Suporte ao Cliente</div>
+    <!-- Banner Horizontal -->
+    <section class="banner-section">
+        <div class="banner-container">
+            <div class="banner-scroll">
+                <div class="banner-item">
+                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Viagem de Avião" class="banner-image">
+                </div>
+                <div class="banner-item">
+                    <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Ônibus de Viagem" class="banner-image">
+                </div>
+                <div class="banner-item">
+                    <img src="https://images.unsplash.com/photo-1576675466969-38eeae4b41f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Destino Praia" class="banner-image">
+                </div>
+                <div class="banner-item">
+                    <img src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Viagem em Família" class="banner-image">
+                </div>
+                <div class="banner-item">
+                    <img src="https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Destino Montanha" class="banner-image">
+                </div>
+                <div class="banner-item">
+                    <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Viagem Internacional" class="banner-image">
+                </div>
+                <!-- Duplicando as imagens para criar o efeito de loop infinito -->
+                <div class="banner-item">
+                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Viagem de Avião" class="banner-image">
+                </div>
+                <div class="banner-item">
+                    <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Ônibus de Viagem" class="banner-image">
+                </div>
+                <div class="banner-item">
+                    <img src="https://images.unsplash.com/photo-1576675466969-38eeae4b41f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Destino Praia" class="banner-image">
+                </div>
+                <div class="banner-item">
+                    <img src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Viagem em Família" class="banner-image">
+                </div>
+                <div class="banner-item">
+                    <img src="https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Destino Montanha" class="banner-image">
+                </div>
+                <div class="banner-item">
+                    <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Viagem Internacional" class="banner-image">
+                </div>
             </div>
         </div>
     </section>
@@ -1891,59 +1955,6 @@
         </div>
     </section>
 
-    <!-- Seção de Depoimentos -->
-    <section class="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>O Que Nossos Clientes Dizem</h2>
-                <p>Confira a experiência de quem já viajou com a BIXX PASS</p>
-            </div>
-            
-            <div class="destinations-container">
-                <div class="destinations-scroll">
-                    <div class="testimonial-card">
-                        <div class="testimonial-text">
-                            "Encontrei as passagens mais baratas para minha viagem a negócios. O processo foi rápido e fácil, e o suporte foi excelente quando precisei de ajuda."
-                        </div>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">MC</div>
-                            <div class="author-info">
-                                <h4>Maria Clara</h4>
-                                <p>Executiva de Vendas</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="testimonial-card">
-                        <div class="testimonial-text">
-                            "Viajo frequentemente de ônibus e a BIXX PASS sempre tem as melhores opções. A plataforma é intuitiva e os filtros me ajudam a encontrar exatamente o que preciso."
-                        </div>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">RS</div>
-                            <div class="author-info">
-                                <h4>Roberto Silva</h4>
-                                <p>Universitário</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="testimonial-card">
-                        <div class="testimonial-text">
-                            "Comprei passagens para toda a família com desconto. A experiência foi ótima e o pagamento via PIX facilitou muito. Recomendo a todos!"
-                        </div>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">AS</div>
-                            <div class="author-info">
-                                <h4>Ana Souza</h4>
-                                <p>Arquiteta</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="how-it-works" class="container">
         <div class="section-title">
             <h2>Como Funciona</h2>
@@ -2134,6 +2145,59 @@
         </div>
     </section>
 
+    <!-- Seção de Depoimentos (movida para o final) -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>O Que Nossos Clientes Dizem</h2>
+                <p>Confira a experiência de quem já viajou com a BIXX PASS</p>
+            </div>
+            
+            <div class="destinations-container">
+                <div class="destinations-scroll">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "Encontrei as passagens mais baratas para minha viagem a negócios. O processo foi rápido e fácil, e o suporte foi excelente quando precisei de ajuda."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">MC</div>
+                            <div class="author-info">
+                                <h4>Maria Clara</h4>
+                                <p>Executiva de Vendas</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "Viajo frequentemente de ônibus e a BIXX PASS sempre tem as melhores opções. A plataforma é intuitiva e os filtros me ajudam a encontrar exatamente o que preciso."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">RS</div>
+                            <div class="author-info">
+                                <h4>Roberto Silva</h4>
+                                <p>Universitário</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "Comprei passagens para toda a família com desconto. A experiência foi ótima e o pagamento via PIX facilitou muito. Recomendo a todos!"
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">AS</div>
+                            <div class="author-info">
+                                <h4>Ana Souza</h4>
+                                <p>Arquiteta</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer id="contact">
         <div class="footer-container">
             <div class="footer-content">
@@ -2310,10 +2374,14 @@
         const advantagesScroll = document.getElementById('advantages-scroll');
         const advantageScrollLeft = document.getElementById('advantage-scroll-left');
         const advantageScrollRight = document.getElementById('advantage-scroll-right');
+        const passengerCount = document.getElementById('passenger-count');
+        const decreasePassengers = document.getElementById('decrease-passengers');
+        const increasePassengers = document.getElementById('increase-passengers');
 
         // Variáveis de estado
         let currentSearchType = 'flight';
         let cartItems = 0;
+        let passengers = 2;
 
         // Event Listeners
         document.addEventListener('DOMContentLoaded', function() {
@@ -2324,6 +2392,21 @@
                     this.classList.add('active');
                     currentSearchType = this.getAttribute('data-type');
                 });
+            });
+
+            // Controles de passageiros
+            decreasePassengers.addEventListener('click', function() {
+                if (passengers > 1) {
+                    passengers--;
+                    passengerCount.textContent = passengers;
+                }
+            });
+
+            increasePassengers.addEventListener('click', function() {
+                if (passengers < 10) {
+                    passengers++;
+                    passengerCount.textContent = passengers;
+                }
             });
 
             // Formulário de busca
@@ -2338,7 +2421,8 @@
                 document.getElementById('destination').value = '';
                 document.getElementById('departure-date').value = '';
                 document.getElementById('return-date').value = '';
-                document.getElementById('passengers').value = '2';
+                passengers = 2;
+                passengerCount.textContent = passengers;
                 
                 // Ocultar resultados
                 resultsSection.style.display = 'none';
@@ -2548,7 +2632,7 @@
             
             // Em uma implementação real, isso adicionaria o item ao carrinho
             // Aqui vamos apenas redirecionar para o WhatsApp
-            window.open('https://wa.me/5562999999999?text=Olá! Gostaria de comprar a passagem ID ' + tripId, '_blank');
+            window.open('https://wa.me/5562999999999?text=Olá! Gostaria de comprar a passagem ID ' + tripId + ' para ' + passengers + ' passageiros', '_blank');
         }
 
         // Smooth scrolling
