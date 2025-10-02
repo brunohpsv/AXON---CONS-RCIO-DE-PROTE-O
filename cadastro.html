@@ -1357,8 +1357,8 @@
                 userId: userId
             };
             
-            // Salvar dados na coleção 'proprietarios' usando userId como ID do documento
-            return db.collection('proprietarios').doc(userId).set(userData);
+            // Salvar dados na coleção 'cadastro' usando userId como ID do documento
+            return db.collection('cadastro').doc(userId).set(userData);
         }
     </script>
 </body>
