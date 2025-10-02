@@ -1299,7 +1299,7 @@
                     const user = userCredential.user;
                     console.log('Usuário criado:', user);
                     
-                    // Salvar dados no Firestore
+                    // Salvar dados no Firestore usando o userId como nome do documento
                     saveUserData(user.uid)
                         .then(() => {
                             // Atualizar mensagem de sucesso
@@ -1357,8 +1357,8 @@
                 userId: userId
             };
             
-            // Salvar dados na coleção 'cadastro' usando CPF como ID do documento
-            return db.collection('cadastro').doc(userData.cpf).set(userData);
+            // Salvar dados na coleção 'proprietarios' usando userId como ID do documento
+            return db.collection('proprietarios').doc(userId).set(userData);
         }
     </script>
 </body>
