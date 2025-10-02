@@ -1500,6 +1500,9 @@
             calcDailyPrice.addEventListener('input', updateCalculator);
             calcRentalDays.addEventListener('input', updateCalculator);
             
+            // Configurações
+            settingsForm.addEventListener('submit', handleUpdateSettings);
+            
             // Inicializar calculadora
             updateCalculator();
         });
@@ -1553,29 +1556,43 @@
 
         // Funções de carregamento de dados
         function loadUserData() {
-            // Buscar dados do usuário no Firestore
-            db.collection('users').doc(currentUser.uid).get()
+            // Buscar dados do usuário no Firestore - coleção 'cadastro'
+            db.collection('cadastro').doc(currentUser.uid).get()
                 .then(doc => {
                     if (doc.exists) {
                         userData = doc.data();
                         updateUserUI();
                     } else {
-                        // Se não existir, criar um documento para o usuário
+                        // Se não existir na coleção 'cadastro', buscar dados do Authentication
                         userData = {
-                            name: currentUser.displayName || 'Proprietário',
+                            name: currentUser.displayName || currentUser.email.split('@')[0],
                             email: currentUser.email,
                             phone: '',
                             registrationDate: new Date()
                         };
                         
-                        db.collection('users').doc(currentUser.uid).set(userData)
+                        // Criar documento na coleção 'cadastro'
+                        db.collection('cadastro').doc(currentUser.uid).set(userData)
                             .then(() => {
+                                updateUserUI();
+                            })
+                            .catch(error => {
+                                console.error('Erro ao criar dados do usuário:', error);
+                                // Usar dados básicos mesmo com erro
                                 updateUserUI();
                             });
                     }
                 })
                 .catch(error => {
                     console.error('Erro ao carregar dados do usuário:', error);
+                    // Usar dados básicos do Authentication
+                    userData = {
+                        name: currentUser.displayName || currentUser.email.split('@')[0],
+                        email: currentUser.email,
+                        phone: '',
+                        registrationDate: new Date()
+                    };
+                    updateUserUI();
                 });
         }
 
@@ -1587,6 +1604,7 @@
         function loadVehicles() {
             if (!currentUser) return;
             
+            // Buscar veículos na coleção 'vehicles' onde o ownerId corresponde ao usuário logado
             db.collection('vehicles')
                 .where('ownerId', '==', currentUser.uid)
                 .get()
@@ -1610,6 +1628,7 @@
         function loadRentals() {
             if (!currentUser) return;
             
+            // Buscar aluguéis na coleção 'rentals' onde o ownerId corresponde ao usuário logado
             db.collection('rentals')
                 .where('ownerId', '==', currentUser.uid)
                 .get()
@@ -1632,18 +1651,18 @@
 
         // Funções de atualização da UI
         function updateUserUI() {
-            userName.textContent = userData.name;
-            sidebarUserName.textContent = userData.name;
-            sidebarUserEmail.textContent = userData.email;
+            userName.textContent = userData.name || currentUser.email;
+            sidebarUserName.textContent = userData.name || currentUser.email;
+            sidebarUserEmail.textContent = userData.email || currentUser.email;
             
             // Atualizar avatar
-            const avatarName = userData.name || 'Proprietário';
+            const avatarName = userData.name || currentUser.email.split('@')[0] || 'Proprietário';
             userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(avatarName)}&background=1a73e8&color=fff`;
             
             // Preencher formulário de configurações
             if (settingsForm) {
                 document.getElementById('settings-name').value = userData.name || '';
-                document.getElementById('settings-email').value = userData.email || '';
+                document.getElementById('settings-email').value = userData.email || currentUser.email;
                 document.getElementById('settings-phone').value = userData.phone || '';
             }
         }
@@ -1663,7 +1682,7 @@
             const currentYear = new Date().getFullYear();
             
             const monthlyRentals = rentals.filter(rental => {
-                const rentalDate = rental.startDate.toDate();
+                const rentalDate = rental.startDate?.toDate ? rental.startDate.toDate() : new Date(rental.startDate);
                 return rentalDate.getMonth() === currentMonth && 
                        rentalDate.getFullYear() === currentYear;
             });
@@ -1689,7 +1708,9 @@
             
             // Ordenar aluguéis por data (mais recentes primeiro)
             const sortedRentals = [...rentals].sort((a, b) => {
-                return b.startDate.toDate() - a.startDate.toDate();
+                const dateA = a.startDate?.toDate ? a.startDate.toDate() : new Date(a.startDate);
+                const dateB = b.startDate?.toDate ? b.startDate.toDate() : new Date(b.startDate);
+                return dateB - dateA;
             });
             
             // Mostrar apenas os 5 mais recentes
@@ -1699,11 +1720,14 @@
                 const vehicle = vehicles.find(v => v.id === rental.vehicleId);
                 const vehicleName = vehicle ? `${vehicle.brand} ${vehicle.model}` : 'Veículo não encontrado';
                 
+                const startDate = rental.startDate?.toDate ? rental.startDate.toDate() : new Date(rental.startDate);
+                const endDate = rental.endDate?.toDate ? rental.endDate.toDate() : new Date(rental.endDate);
+                
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${vehicleName}</td>
                     <td>${rental.customerName || 'Cliente'}</td>
-                    <td>${formatDate(rental.startDate.toDate())} - ${formatDate(rental.endDate.toDate())}</td>
+                    <td>${formatDate(startDate)} - ${formatDate(endDate)}</td>
                     <td><span class="status-badge status-${rental.status}">${getStatusText(rental.status)}</span></td>
                     <td>R$ ${rental.totalAmount ? rental.totalAmount.toFixed(2) : '0.00'}</td>
                 `;
@@ -1831,19 +1855,24 @@
             
             // Ordenar aluguéis por data (mais recentes primeiro)
             const sortedRentals = [...rentals].sort((a, b) => {
-                return b.startDate.toDate() - a.startDate.toDate();
+                const dateA = a.startDate?.toDate ? a.startDate.toDate() : new Date(a.startDate);
+                const dateB = b.startDate?.toDate ? b.startDate.toDate() : new Date(b.startDate);
+                return dateB - dateA;
             });
             
             sortedRentals.forEach(rental => {
                 const vehicle = vehicles.find(v => v.id === rental.vehicleId);
                 const vehicleName = vehicle ? `${vehicle.brand} ${vehicle.model}` : 'Veículo não encontrado';
                 
+                const startDate = rental.startDate?.toDate ? rental.startDate.toDate() : new Date(rental.startDate);
+                const endDate = rental.endDate?.toDate ? rental.endDate.toDate() : new Date(rental.endDate);
+                
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${vehicleName}</td>
                     <td>${rental.customerName || 'Cliente'}</td>
-                    <td>${formatDate(rental.startDate.toDate())}</td>
-                    <td>${formatDate(rental.endDate.toDate())}</td>
+                    <td>${formatDate(startDate)}</td>
+                    <td>${formatDate(endDate)}</td>
                     <td><span class="status-badge status-${rental.status}">${getStatusText(rental.status)}</span></td>
                     <td>R$ ${rental.totalAmount ? rental.totalAmount.toFixed(2) : '0.00'}</td>
                 `;
@@ -1880,7 +1909,7 @@
             
             // Filtrar aluguéis pelo período
             const periodRentals = rentals.filter(rental => {
-                const rentalDate = rental.startDate.toDate();
+                const rentalDate = rental.startDate?.toDate ? rental.startDate.toDate() : new Date(rental.startDate);
                 return rentalDate >= startDate && rentalDate <= endDate;
             });
             
@@ -2110,6 +2139,68 @@
                         alert('Erro ao adicionar veículo. Tente novamente.');
                     });
             }
+        }
+
+        // Funções de configurações
+        function handleUpdateSettings(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('settings-name').value;
+            const email = document.getElementById('settings-email').value;
+            const phone = document.getElementById('settings-phone').value;
+            const password = document.getElementById('settings-password').value;
+            const confirmPassword = document.getElementById('settings-confirm-password').value;
+            
+            // Validar senha
+            if (password && password !== confirmPassword) {
+                alert('As senhas não coincidem');
+                return;
+            }
+            
+            // Atualizar dados no Firestore - coleção 'cadastro'
+            const updateData = {
+                name: name,
+                email: email,
+                phone: phone,
+                updatedAt: new Date()
+            };
+            
+            db.collection('cadastro').doc(currentUser.uid).update(updateData)
+                .then(() => {
+                    // Atualizar dados locais
+                    userData = { ...userData, ...updateData };
+                    updateUserUI();
+                    
+                    // Atualizar email no Authentication se necessário
+                    if (email !== currentUser.email) {
+                        currentUser.updateEmail(email)
+                            .then(() => {
+                                alert('Configurações atualizadas com sucesso!');
+                            })
+                            .catch(error => {
+                                console.error('Erro ao atualizar email:', error);
+                                alert('Dados atualizados, mas houve um erro ao atualizar o email. Faça login novamente.');
+                            });
+                    }
+                    
+                    // Atualizar senha se fornecida
+                    if (password) {
+                        currentUser.updatePassword(password)
+                            .then(() => {
+                                alert('Configurações e senha atualizadas com sucesso!');
+                            })
+                            .catch(error => {
+                                console.error('Erro ao atualizar senha:', error);
+                                alert('Dados atualizados, mas houve um erro ao atualizar a senha.');
+                            });
+                    } else {
+                        alert('Configurações atualizadas com sucesso!');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao atualizar configurações:', error);
+                    alert('Erro ao atualizar configurações. Tente novamente.');
+                });
         }
 
         // Funções auxiliares
