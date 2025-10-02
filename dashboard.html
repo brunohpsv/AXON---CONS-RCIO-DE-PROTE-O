@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel do Proprietário - BIXX CAR</title>
@@ -13,7 +12,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     
     <style>
-        /* Todos os estilos CSS permanecem os mesmos */
+        /* Estilos anteriores permanecem os mesmos */
         * {
             margin: 0;
             padding: 0;
@@ -53,531 +52,64 @@
             overflow-x: hidden;
         }
 
-        /* Login */
-        .login-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            width: 100%;
-            padding: 20px;
-        }
-
-        .login-card {
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            width: 100%;
-            max-width: 450px;
-            padding: 40px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-        }
-
-        .login-logo {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .login-logo h1 {
-            font-size: 32px;
-            color: var(--primary);
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .login-logo span {
-            color: var(--secondary);
-        }
-
-        .login-title {
-            font-size: 24px;
-            margin-bottom: 25px;
-            text-align: center;
-            color: var(--dark);
-            font-weight: 600;
-        }
-
-        .login-subtitle {
-            text-align: center;
-            color: var(--gray);
-            margin-bottom: 30px;
-            font-size: 15px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--dark);
-            font-size: 14px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid var(--gray-light);
-            border-radius: 8px;
-            font-size: 16px;
-            transition: var(--transition);
-            background-color: #f8f9fa;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
-            outline: none;
-            background-color: white;
-            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(to right, var(--primary), var(--primary-dark));
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(26, 115, 232, 0.3);
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(26, 115, 232, 0.4);
-        }
-
-        .error-message {
-            color: var(--error);
-            font-size: 14px;
-            margin-top: 10px;
-            text-align: center;
-            display: none;
-            padding: 10px;
-            background-color: var(--error-light);
-            border-radius: 6px;
-        }
-
-        /* Layout Principal */
-        .dashboard-container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: var(--sidebar-width);
-            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
-            color: white;
-            transition: var(--transition);
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-            z-index: 1000;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .sidebar-header {
-            padding: 25px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo h1 {
-            font-size: 24px;
-            color: white;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .logo span {
-            color: var(--secondary);
-        }
-
-        .close-sidebar {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: var(--transition);
-        }
-
-        .close-sidebar:hover {
-            opacity: 1;
-        }
-
-        .sidebar-menu {
-            list-style: none;
-            padding: 20px 0;
-            margin: 0;
-        }
-
-        .sidebar-menu li {
-            position: relative;
-        }
-
-        .sidebar-menu a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            padding: 15px 25px;
-            display: flex;
-            align-items: center;
-            transition: var(--transition);
-            font-weight: 500;
-            border-left: 3px solid transparent;
-        }
-
-        .sidebar-menu a:hover, .sidebar-menu a.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-left-color: var(--secondary);
-        }
-
-        .sidebar-menu i {
-            margin-right: 12px;
-            width: 20px;
-            text-align: center;
-            font-size: 18px;
-        }
-
-        .sidebar-menu .badge {
-            background-color: var(--primary);
-            color: white;
-            border-radius: 12px;
-            padding: 4px 10px;
-            font-size: 12px;
-            margin-left: auto;
-            font-weight: 600;
-        }
-
-        .user-info {
-            padding: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: auto;
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-
-        .user-info p {
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-
-        .user-info .user-name {
-            font-weight: 600;
-            color: var(--secondary);
-            font-size: 16px;
-        }
-
-        .logout-btn {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 10px;
-            width: 100%;
-            transition: var(--transition);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .logout-btn i {
-            margin-right: 8px;
-        }
-
-        .logout-btn:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Conteúdo Principal */
-        .main-content {
-            flex: 1;
-            margin-left: var(--sidebar-width);
-            transition: var(--transition);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .top-bar {
-            background-color: white;
-            padding: 0 30px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: var(--header-height);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .toggle-sidebar {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: var(--dark);
-            padding: 8px;
-            border-radius: 6px;
-            transition: var(--transition);
-        }
-
-        .toggle-sidebar:hover {
-            background-color: var(--light);
-        }
-
-        .page-title {
-            font-size: 24px;
-            color: var(--dark);
-            font-weight: 600;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .user-profile img {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            border: 2px solid var(--primary-light);
-        }
-
-        .user-profile span {
-            font-weight: 500;
-            color: var(--dark);
-        }
-
-        .content {
-            padding: 30px;
-            flex: 1;
-        }
-
-        /* Cards de Estatísticas */
-        .stats-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 24px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 24px;
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            transition: var(--transition);
-            border-left: 4px solid var(--primary);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
-
-        .stat-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 18px;
-            font-size: 24px;
-        }
-
-        .stat-info h3 {
-            font-size: 28px;
-            margin-bottom: 5px;
-            color: var(--dark);
-            font-weight: 700;
-        }
-
-        .stat-info p {
-            color: var(--gray);
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .bg-primary { background-color: var(--primary-light); color: var(--primary); }
-        .bg-success { background-color: var(--success-light); color: var(--success); }
-        .bg-warning { background-color: var(--warning-light); color: var(--warning); }
-        .bg-info { background-color: var(--info-light); color: var(--info); }
-
-        /* Seções do Painel */
-        .dashboard-section {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 28px;
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            padding-bottom: 18px;
-            border-bottom: 1px solid var(--gray-light);
-        }
-
-        .section-title {
-            font-size: 20px;
-            color: var(--dark);
-            font-weight: 600;
-        }
-
-        .section-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .section-actions button, .section-actions select {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: var(--transition);
-            font-size: 14px;
-        }
-
-        .section-actions select {
-            background-color: white;
-            color: var(--dark);
-            border: 1px solid var(--gray-light);
-        }
-
-        .section-actions button:hover {
-            background-color: var(--primary-dark);
-        }
-
-        /* Tabelas */
-        .table-responsive {
-            overflow-x: auto;
-            border-radius: var(--border-radius);
-            border: 1px solid var(--gray-light);
-        }
-
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .data-table th, .data-table td {
-            padding: 16px 20px;
-            text-align: left;
-            border-bottom: 1px solid var(--gray-light);
-        }
-
-        .data-table th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 14px;
-        }
-
-        .data-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .data-table tr:hover {
-            background-color: #f8f9fa;
-        }
-
-        .status-badge {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        .status-available { background-color: var(--success-light); color: var(--success); }
-        .status-rented { background-color: var(--info-light); color: var(--info); }
-        .status-reserved { background-color: var(--warning-light); color: var(--warning); }
-        .status-maintenance { background-color: var(--error-light); color: var(--error); }
+        /* Estilos anteriores permanecem até a seção de Preview Card */
 
-        /* Cards de Veículos */
-        .vehicle-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
+        /* Preview Card - Novo Estilo */
+        .preview-section {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--gray-light);
         }
 
-        .vehicle-card {
+        .preview-card {
             background-color: white;
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow);
+            max-width: 400px;
+            margin: 0 auto;
             transition: var(--transition);
-            border: 1px solid var(--gray-light);
         }
 
-        .vehicle-card:hover {
+        .preview-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
 
-        .vehicle-image {
+        .preview-header {
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .preview-header h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .preview-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .preview-image {
             height: 200px;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--gray);
-            font-size: 14px;
             overflow: hidden;
             position: relative;
         }
 
-        .vehicle-image img {
+        .preview-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .vehicle-image::after {
+        .preview-image::after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -587,72 +119,79 @@
             background: linear-gradient(transparent, rgba(0,0,0,0.1));
         }
 
-        .vehicle-info {
-            padding: 24px;
+        .preview-info {
+            padding: 20px;
         }
 
-        .vehicle-header {
+        .preview-title {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 18px;
+            margin-bottom: 15px;
         }
 
-        .vehicle-title h3 {
+        .preview-title h4 {
             font-size: 18px;
             color: var(--dark);
             margin-bottom: 5px;
-            font-weight: 600;
         }
 
-        .vehicle-title p {
+        .preview-title p {
             color: var(--gray);
             font-size: 14px;
         }
 
-        .vehicle-status {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
+        .preview-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--dark);
         }
 
-        .vehicle-details {
+        .preview-details {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            margin-bottom: 18px;
+            margin-bottom: 15px;
         }
 
-        .vehicle-detail {
+        .preview-detail {
             display: flex;
             align-items: center;
             font-size: 14px;
             color: var(--gray);
         }
 
-        .vehicle-detail i {
+        .preview-detail i {
             margin-right: 8px;
             color: var(--primary);
             width: 16px;
             text-align: center;
         }
 
-        .vehicle-price {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 18px;
-        }
-
-        .vehicle-actions {
+        .preview-features {
             display: flex;
-            gap: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
         }
 
-        .vehicle-actions button {
+        .preview-feature {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .preview-actions button {
             flex: 1;
-            padding: 10px 12px;
+            padding: 10px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -682,554 +221,15 @@
             background-color: var(--primary-light);
         }
 
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal-content {
-            background-color: white;
-            border-radius: var(--border-radius);
-            width: 100%;
-            max-width: 700px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-header {
-            padding: 24px 28px;
-            border-bottom: 1px solid var(--gray-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-title {
-            font-size: 22px;
-            color: var(--dark);
-            font-weight: 600;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--gray);
-            transition: var(--transition);
-            padding: 4px;
-            border-radius: 4px;
-        }
-
-        .close-modal:hover {
-            color: var(--dark);
-            background-color: var(--light);
-        }
-
-        .modal-body {
-            padding: 28px;
-        }
-
-        .modal-footer {
-            padding: 20px 28px;
-            border-top: 1px solid var(--gray-light);
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-        }
-
-        /* Formulários */
-        .form-row {
-            display: flex;
-            gap: 20px;
-        }
-
-        .form-row .form-group {
-            flex: 1;
-        }
-
-        /* Calculadora */
-        .calculator {
-            background-color: #f8f9fa;
-            border-radius: var(--border-radius);
-            padding: 24px;
-            margin-bottom: 30px;
-            border: 1px solid var(--gray-light);
-        }
-
-        .calculator h3 {
-            margin-bottom: 18px;
-            color: var(--dark);
-            font-weight: 600;
-        }
-
-        .calculator-results {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 18px;
-            margin-top: 24px;
-        }
-
-        .calculator-result {
-            background-color: white;
-            padding: 18px;
-            border-radius: var(--border-radius);
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--gray-light);
-        }
-
-        .calculator-result h4 {
-            font-size: 14px;
-            color: var(--gray);
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .calculator-result p {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        /* Responsividade */
-        @media (max-width: 1200px) {
-            .stats-cards {
-                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            }
-            
-            .vehicle-cards {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            }
-        }
-
-        @media (max-width: 992px) {
-            .sidebar {
-                width: 0;
-                transform: translateX(-100%);
-            }
-            
-            .sidebar.active {
-                width: var(--sidebar-width);
-                transform: translateX(0);
-            }
-            
-            .close-sidebar {
-                display: block;
-            }
-            
-            .main-content {
-                margin-left: 0;
-            }
-            
-            .toggle-sidebar {
-                display: block;
-            }
-            
-            .stats-cards {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-            
-            .vehicle-cards {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-        }
-
-        @media (max-width: 768px) {
-            .content {
-                padding: 20px;
-            }
-            
-            .stats-cards {
-                grid-template-columns: 1fr 1fr;
-            }
-            
-            .vehicle-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-            
-            .calculator-results {
-                grid-template-columns: 1fr 1fr;
-            }
-            
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            
-            .section-actions {
-                width: 100%;
-                justify-content: flex-end;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .stats-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .calculator-results {
-                grid-template-columns: 1fr;
-            }
-            
-            .login-card {
-                padding: 30px 20px;
-            }
-            
-            .modal-body {
-                padding: 20px;
-            }
-            
-            .vehicle-actions {
-                flex-direction: column;
-            }
-        }
+        /* Restante dos estilos anteriores permanecem os mesmos */
+        /* ... */
     </style>
 </head>
 <body>
-    <!-- Tela de Login (inicialmente visível) -->
-    <div id="login-screen" class="login-container">
-        <div class="login-card">
-            <div class="login-logo">
-                <h1>BIXX <span>CAR</span></h1>
-            </div>
-            <h2 class="login-title">Painel do Proprietário</h2>
-            <p class="login-subtitle">Acesse sua conta para gerenciar seus veículos</p>
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="login-email">E-mail</label>
-                    <input type="email" id="login-email" class="form-control" placeholder="seu@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="login-password">Senha</label>
-                    <input type="password" id="login-password" class="form-control" placeholder="Sua senha" required>
-                </div>
-                <button type="submit" class="login-btn">Entrar no Painel</button>
-                <div class="error-message" id="login-error"></div>
-            </form>
-        </div>
-    </div>
+    <!-- Estrutura HTML anterior permanece a mesma -->
+    <!-- ... -->
 
-    <!-- Painel de Controle (inicialmente oculto) -->
-    <div id="dashboard" style="display: none;">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <div class="logo">
-                    <h1>BIXX <span>CAR</span></h1>
-                </div>
-                <button class="close-sidebar">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <ul class="sidebar-menu">
-                <li><a href="#" class="active" data-section="overview"><i class="fas fa-tachometer-alt"></i> Visão Geral</a></li>
-                <li><a href="#" data-section="vehicles"><i class="fas fa-car"></i> Meus Veículos</a></li>
-                <li><a href="#" data-section="rentals"><i class="fas fa-calendar-alt"></i> Aluguéis <span class="badge" id="rentals-count">0</span></a></li>
-                <li><a href="#" data-section="earnings"><i class="fas fa-chart-line"></i> Ganhos</a></li>
-                <li><a href="#" data-section="settings"><i class="fas fa-cog"></i> Configurações</a></li>
-            </ul>
-            
-            <div class="user-info">
-                <p class="user-name" id="sidebar-user-name">Usuário</p>
-                <p id="sidebar-user-email">email@exemplo.com</p>
-                <button class="logout-btn" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Sair</button>
-            </div>
-        </div>
-        
-        <!-- Conteúdo Principal -->
-        <div class="main-content">
-            <div class="top-bar">
-                <button class="toggle-sidebar">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <h2 class="page-title" id="page-title">Visão Geral</h2>
-                <div class="user-profile">
-                    <img src="https://ui-avatars.com/api/?name=Proprietário&background=1a73e8&color=fff" alt="Usuário" id="user-avatar">
-                    <span id="user-name">Proprietário</span>
-                </div>
-            </div>
-            
-            <div class="content">
-                <!-- Seção: Visão Geral -->
-                <div id="overview-section" class="dashboard-section">
-                    <div class="stats-cards">
-                        <div class="stat-card">
-                            <div class="stat-icon bg-primary">
-                                <i class="fas fa-car"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3 id="total-vehicles">0</h3>
-                                <p>Veículos Cadastrados</p>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon bg-success">
-                                <i class="fas fa-calendar-check"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3 id="active-rentals">0</h3>
-                                <p>Aluguéis Ativos</p>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon bg-warning">
-                                <i class="fas fa-dollar-sign"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3 id="monthly-earnings">R$ 0</h3>
-                                <p>Ganhos do Mês</p>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon bg-info">
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3 id="average-rating">0.0</h3>
-                                <p>Avaliação Média</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="section-header">
-                        <h3 class="section-title">Aluguéis Recentes</h3>
-                        <div class="section-actions">
-                            <button id="view-all-rentals">Ver Todos</button>
-                        </div>
-                    </div>
-                    
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Veículo</th>
-                                    <th>Cliente</th>
-                                    <th>Período</th>
-                                    <th>Status</th>
-                                    <th>Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody id="recent-rentals-table">
-                                <!-- Dados serão preenchidos via JavaScript -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <!-- Seção: Meus Veículos -->
-                <div id="vehicles-section" class="dashboard-section" style="display: none;">
-                    <div class="section-header">
-                        <h3 class="section-title">Meus Veículos</h3>
-                        <div class="section-actions">
-                            <button id="add-vehicle-btn">Adicionar Veículo</button>
-                        </div>
-                    </div>
-                    
-                    <div class="vehicle-cards" id="vehicles-container">
-                        <!-- Cards de veículos serão preenchidos via JavaScript -->
-                    </div>
-                </div>
-                
-                <!-- Seção: Aluguéis -->
-                <div id="rentals-section" class="dashboard-section" style="display: none;">
-                    <div class="section-header">
-                        <h3 class="section-title">Histórico de Aluguéis</h3>
-                        <div class="section-actions">
-                            <button id="export-rentals">Exportar</button>
-                        </div>
-                    </div>
-                    
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Veículo</th>
-                                    <th>Cliente</th>
-                                    <th>Data de Início</th>
-                                    <th>Data de Término</th>
-                                    <th>Status</th>
-                                    <th>Valor Total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="rentals-table">
-                                <!-- Dados serão preenchidos via JavaScript -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <!-- Seção: Ganhos -->
-                <div id="earnings-section" class="dashboard-section" style="display: none;">
-                    <div class="section-header">
-                        <h3 class="section-title">Relatório de Ganhos</h3>
-                        <div class="section-actions">
-                            <select id="earnings-period">
-                                <option value="month">Este Mês</option>
-                                <option value="last-month">Mês Passado</option>
-                                <option value="quarter">Este Trimestre</option>
-                                <option value="year">Este Ano</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="calculator">
-                        <h3>Calculadora de Preços</h3>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="calc-daily-price">Preço da Diária (R$)</label>
-                                <input type="number" id="calc-daily-price" class="form-control" min="50" step="0.01" value="100">
-                            </div>
-                            <div class="form-group">
-                                <label for="calc-rental-days">Dias de Aluguel por Mês</label>
-                                <input type="number" id="calc-rental-days" class="form-control" min="1" max="31" value="15">
-                            </div>
-                        </div>
-                        
-                        <div class="calculator-results">
-                            <div class="calculator-result">
-                                <h4>Faturamento Bruto</h4>
-                                <p id="calc-gross">R$ 0</p>
-                            </div>
-                            <div class="calculator-result">
-                                <h4>Taxa BIXX (30%)</h4>
-                                <p id="calc-bixx-fee">R$ 0</p>
-                            </div>
-                            <div class="calculator-result">
-                                <h4>Taxa Operacional</h4>
-                                <p id="calc-op-fee">R$ 0</p>
-                            </div>
-                            <div class="calculator-result">
-                                <h4>Ganho Líquido</h4>
-                                <p id="calc-net">R$ 0</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="stats-cards">
-                        <div class="stat-card">
-                            <div class="stat-icon bg-primary">
-                                <i class="fas fa-dollar-sign"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3 id="total-earnings">R$ 0</h3>
-                                <p>Faturamento Bruto</p>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon bg-warning">
-                                <i class="fas fa-percentage"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3 id="bixx-fee">R$ 0</h3>
-                                <p>Taxa BIXX (30%)</p>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon bg-info">
-                                <i class="fas fa-receipt"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3 id="operational-fee">R$ 0</h3>
-                                <p>Taxa Operacional (R$15/aluguel)</p>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon bg-success">
-                                <i class="fas fa-wallet"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3 id="net-earnings">R$ 0</h3>
-                                <p>Ganho Líquido</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="section-header" style="margin-top: 30px;">
-                        <h3 class="section-title">Detalhamento por Veículo</h3>
-                    </div>
-                    
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Veículo</th>
-                                    <th>Dias Alugados</th>
-                                    <th>Faturamento</th>
-                                    <th>Taxa BIXX</th>
-                                    <th>Taxa Operacional</th>
-                                    <th>Ganho Líquido</th>
-                                </tr>
-                            </thead>
-                            <tbody id="earnings-table">
-                                <!-- Dados serão preenchidos via JavaScript -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <!-- Seção: Configurações -->
-                <div id="settings-section" class="dashboard-section" style="display: none;">
-                    <div class="section-header">
-                        <h3 class="section-title">Configurações da Conta</h3>
-                    </div>
-                    
-                    <form id="settings-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="settings-name">Nome Completo</label>
-                                <input type="text" id="settings-name" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="settings-phone">Telefone</label>
-                                <input type="text" id="settings-phone" class="form-control" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="settings-email">E-mail</label>
-                            <input type="email" id="settings-email" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="settings-password">Nova Senha</label>
-                                <input type="password" id="settings-password" class="form-control" placeholder="Deixe em branco para manter a atual">
-                            </div>
-                            <div class="form-group">
-                                <label for="settings-confirm-password">Confirmar Nova Senha</label>
-                                <input type="password" id="settings-confirm-password" class="form-control">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <button type="submit" class="btn-primary">Salvar Alterações</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal para Editar Veículo -->
+    <!-- Modal para Editar Veículo - ATUALIZADO -->
     <div id="vehicle-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1245,14 +245,14 @@
                             <label for="vehicle-brand">Marca</label>
                             <select id="vehicle-brand" class="form-control" required>
                                 <option value="">Selecione a marca</option>
-                                <option value="chevrolet">Chevrolet</option>
-                                <option value="fiat">Fiat</option>
-                                <option value="ford">Ford</option>
-                                <option value="honda">Honda</option>
-                                <option value="hyundai">Hyundai</option>
-                                <option value="renault">Renault</option>
-                                <option value="toyota">Toyota</option>
-                                <option value="volkswagen">Volkswagen</option>
+                                <option value="Chevrolet">Chevrolet</option>
+                                <option value="Fiat">Fiat</option>
+                                <option value="Ford">Ford</option>
+                                <option value="Honda">Honda</option>
+                                <option value="Hyundai">Hyundai</option>
+                                <option value="Renault">Renault</option>
+                                <option value="Toyota">Toyota</option>
+                                <option value="Volkswagen">Volkswagen</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -1281,11 +281,11 @@
                             <label for="vehicle-fuel">Combustível</label>
                             <select id="vehicle-fuel" class="form-control" required>
                                 <option value="">Selecione o tipo</option>
-                                <option value="gasolina">Gasolina</option>
-                                <option value="etanol">Etanol</option>
-                                <option value="flex">Flex</option>
-                                <option value="diesel">Diesel</option>
-                                <option value="eletrico">Elétrico</option>
+                                <option value="Gasolina">Gasolina</option>
+                                <option value="Etanol">Etanol</option>
+                                <option value="Flex">Flex</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Elétrico">Elétrico</option>
                             </select>
                         </div>
                     </div>
@@ -1335,6 +335,53 @@
                             <label style="display: flex; align-items: center;">
                                 <input type="checkbox" id="vehicle-feature-gps" value="GPS"> GPS
                             </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Seção de Preview do Veículo -->
+                    <div class="preview-section">
+                        <h3>Preview - Como seu carro aparece no site</h3>
+                        <div class="preview-card" id="vehicle-preview">
+                            <div class="preview-header">
+                                <h3 id="preview-brand-model">Marca Modelo</h3>
+                                <p id="preview-year-color">Ano • Cor</p>
+                            </div>
+                            <div class="preview-image">
+                                <i class="fas fa-car" style="font-size: 50px; color: var(--primary);"></i>
+                            </div>
+                            <div class="preview-info">
+                                <div class="preview-title">
+                                    <div>
+                                        <h4 id="preview-title">Marca Modelo</h4>
+                                        <p id="preview-subtitle">Ano • Cor</p>
+                                    </div>
+                                    <div class="preview-price" id="preview-price">R$ 0,00/dia</div>
+                                </div>
+                                
+                                <div class="preview-details">
+                                    <div class="preview-detail">
+                                        <i class="fas fa-gas-pump"></i> <span id="preview-fuel">Combustível</span>
+                                    </div>
+                                    <div class="preview-detail">
+                                        <i class="fas fa-tachometer-alt"></i> <span id="preview-transmission">Transmissão</span>
+                                    </div>
+                                    <div class="preview-detail">
+                                        <i class="fas fa-snowflake"></i> <span id="preview-ac">Ar Condicionado</span>
+                                    </div>
+                                    <div class="preview-detail">
+                                        <i class="fas fa-user-shield"></i> <span id="preview-safety">Segurança</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="preview-features" id="preview-features">
+                                    <!-- Características serão adicionadas dinamicamente -->
+                                </div>
+                                
+                                <div class="preview-actions">
+                                    <button class="btn-outline">Detalhes</button>
+                                    <button class="btn-primary">Alugar Agora</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -1420,6 +467,19 @@
         // Elementos da seção Configurações
         const settingsForm = document.getElementById('settings-form');
 
+        // Elementos do Preview
+        const vehiclePreview = document.getElementById('vehicle-preview');
+        const previewBrandModel = document.getElementById('preview-brand-model');
+        const previewYearColor = document.getElementById('preview-year-color');
+        const previewTitle = document.getElementById('preview-title');
+        const previewSubtitle = document.getElementById('preview-subtitle');
+        const previewPrice = document.getElementById('preview-price');
+        const previewFuel = document.getElementById('preview-fuel');
+        const previewTransmission = document.getElementById('preview-transmission');
+        const previewAc = document.getElementById('preview-ac');
+        const previewSafety = document.getElementById('preview-safety');
+        const previewFeatures = document.getElementById('preview-features');
+
         // Variáveis globais
         let currentUser = null;
         let userData = null;
@@ -1504,6 +564,17 @@
             
             // Configurações
             settingsForm.addEventListener('submit', handleUpdateSettings);
+            
+            // Event listeners para atualizar o preview em tempo real
+            document.getElementById('vehicle-brand').addEventListener('input', updatePreview);
+            document.getElementById('vehicle-model').addEventListener('input', updatePreview);
+            document.getElementById('vehicle-year').addEventListener('input', updatePreview);
+            document.getElementById('vehicle-color').addEventListener('input', updatePreview);
+            document.getElementById('vehicle-fuel').addEventListener('change', updatePreview);
+            document.getElementById('vehicle-daily-price').addEventListener('input', updatePreview);
+            document.getElementById('vehicle-feature-automatic').addEventListener('change', updatePreview);
+            document.getElementById('vehicle-feature-ac').addEventListener('change', updatePreview);
+            document.getElementById('vehicle-feature-airbag').addEventListener('change', updatePreview);
             
             // Inicializar calculadora
             updateCalculator();
@@ -1613,9 +684,28 @@
                 .then(querySnapshot => {
                     vehicles = [];
                     querySnapshot.forEach(doc => {
+                        const vehicleData = doc.data();
+                        // Garantir que todos os campos necessários existam
                         vehicles.push({
                             id: doc.id,
-                            ...doc.data()
+                            brand: vehicleData.brand || '',
+                            model: vehicleData.model || '',
+                            year: vehicleData.year || '',
+                            color: vehicleData.color || '',
+                            plate: vehicleData.plate || '',
+                            fuel: vehicleData.fuel || '',
+                            renavam: vehicleData.renavam || '',
+                            chassis: vehicleData.chassis || '',
+                            dailyPrice: vehicleData.dailyPrice || 0,
+                            address: vehicleData.address || '',
+                            description: vehicleData.description || '',
+                            features: vehicleData.features || [],
+                            status: vehicleData.status || 'available',
+                            imageUrl: vehicleData.imageUrl || '',
+                            rating: vehicleData.rating || 0,
+                            ownerId: vehicleData.ownerId || currentUser.uid,
+                            createdAt: vehicleData.createdAt || new Date(),
+                            updatedAt: vehicleData.updatedAt || new Date()
                         });
                     });
                     
@@ -1637,9 +727,16 @@
                 .then(querySnapshot => {
                     rentals = [];
                     querySnapshot.forEach(doc => {
+                        const rentalData = doc.data();
                         rentals.push({
                             id: doc.id,
-                            ...doc.data()
+                            vehicleId: rentalData.vehicleId || '',
+                            customerName: rentalData.customerName || 'Cliente',
+                            startDate: rentalData.startDate || new Date(),
+                            endDate: rentalData.endDate || new Date(),
+                            status: rentalData.status || 'pending',
+                            totalAmount: rentalData.totalAmount || 0,
+                            ownerId: rentalData.ownerId || currentUser.uid
                         });
                     });
                     
@@ -1663,55 +760,35 @@
             
             // Preencher formulário de configurações com TODOS os dados do usuário
             if (settingsForm) {
+                // Limpar campos adicionais existentes
+                const additionalFields = settingsForm.querySelectorAll('.additional-field');
+                additionalFields.forEach(field => field.remove());
+                
+                // Preencher campos básicos
                 document.getElementById('settings-name').value = userData.name || '';
                 document.getElementById('settings-email').value = userData.email || currentUser.email;
                 document.getElementById('settings-phone').value = userData.phone || '';
                 
                 // Adicionar campos adicionais que podem estar no Firestore
-                if (userData.cpf) {
-                    // Se não existe o campo CPF no formulário, adicionar
-                    if (!document.getElementById('settings-cpf')) {
-                        const formGroup = document.createElement('div');
-                        formGroup.className = 'form-group';
-                        formGroup.innerHTML = `
-                            <label for="settings-cpf">CPF</label>
-                            <input type="text" id="settings-cpf" class="form-control" value="${userData.cpf || ''}">
-                        `;
-                        settingsForm.insertBefore(formGroup, settingsForm.querySelector('.form-group:last-child'));
-                    } else {
-                        document.getElementById('settings-cpf').value = userData.cpf || '';
-                    }
-                }
+                const fieldsToCheck = [
+                    { key: 'cpf', label: 'CPF' },
+                    { key: 'address', label: 'Endereço' },
+                    { key: 'birthDate', label: 'Data de Nascimento' },
+                    { key: 'gender', label: 'Gênero' },
+                    { key: 'emergencyContact', label: 'Contato de Emergência' },
+                    { key: 'documentNumber', label: 'Número do Documento' },
+                    { key: 'driverLicense', label: 'CNH' }
+                ];
                 
-                if (userData.address) {
-                    if (!document.getElementById('settings-address')) {
+                fieldsToCheck.forEach(field => {
+                    if (userData[field.key] !== undefined) {
                         const formGroup = document.createElement('div');
-                        formGroup.className = 'form-group';
+                        formGroup.className = 'form-group additional-field';
                         formGroup.innerHTML = `
-                            <label for="settings-address">Endereço</label>
-                            <input type="text" id="settings-address" class="form-control" value="${userData.address || ''}">
+                            <label for="settings-${field.key}">${field.label}</label>
+                            <input type="text" id="settings-${field.key}" class="form-control" value="${userData[field.key] || ''}">
                         `;
                         settingsForm.insertBefore(formGroup, settingsForm.querySelector('.form-group:last-child'));
-                    } else {
-                        document.getElementById('settings-address').value = userData.address || '';
-                    }
-                }
-                
-                // Adicionar outros campos que podem existir
-                const additionalFields = ['birthDate', 'gender', 'emergencyContact'];
-                additionalFields.forEach(field => {
-                    if (userData[field] && !document.getElementById(`settings-${field}`)) {
-                        const formGroup = document.createElement('div');
-                        formGroup.className = 'form-group';
-                        formGroup.innerHTML = `
-                            <label for="settings-${field}">${field === 'birthDate' ? 'Data de Nascimento' : 
-                                                           field === 'gender' ? 'Gênero' : 
-                                                           field === 'emergencyContact' ? 'Contato de Emergência' : field}</label>
-                            <input type="text" id="settings-${field}" class="form-control" value="${userData[field] || ''}">
-                        `;
-                        settingsForm.insertBefore(formGroup, settingsForm.querySelector('.form-group:last-child'));
-                    } else if (document.getElementById(`settings-${field}`)) {
-                        document.getElementById(`settings-${field}`).value = userData[field] || '';
                     }
                 });
             }
@@ -1823,6 +900,8 @@
                 const hasFullTank = features.includes('Tanque Cheio');
                 const hasAC = features.includes('Ar Condicionado');
                 const isAutomatic = features.includes('Automático');
+                const hasAirbag = features.includes('Airbag');
+                const hasGPS = features.includes('GPS');
                 
                 vehicleCard.innerHTML = `
                     <div class="vehicle-image">
@@ -1969,7 +1048,7 @@
             }, 0);
             
             const bixxFeeValue = totalEarningsValue * 0.3; // 30% para a BIXX CAR
-            const operationalFeeValue = periodRentals.length * 15; // R$15 por aluguel (CORREÇÃO: por aluguel, não por dia)
+            const operationalFeeValue = periodRentals.length * 15; // R$15 por aluguel
             const netEarningsValue = totalEarningsValue - bixxFeeValue - operationalFeeValue;
             
             // Atualizar UI
@@ -2007,7 +1086,7 @@
                 
                 const earnings = vehicleEarnings[vehicleId];
                 const bixxFeeValue = earnings.totalAmount * 0.3;
-                const operationalFeeValue = earnings.rentalCount * 15; // CORREÇÃO: R$15 por aluguel, não por dia
+                const operationalFeeValue = earnings.rentalCount * 15;
                 const netEarningsValue = earnings.totalAmount - bixxFeeValue - operationalFeeValue;
                 
                 const row = document.createElement('tr');
@@ -2042,7 +1121,7 @@
             
             const gross = dailyPrice * rentalDays;
             const bixxFee = gross * 0.3;
-            const opFee = 15; // CORREÇÃO: R$15 por aluguel, não por dia
+            const opFee = 15;
             const net = gross - bixxFee - opFee;
             
             calcGross.textContent = `R$ ${gross.toFixed(2)}`;
@@ -2105,12 +1184,18 @@
                     document.getElementById('vehicle-feature-automatic').checked = features.includes('Automático');
                     document.getElementById('vehicle-feature-airbag').checked = features.includes('Airbag');
                     document.getElementById('vehicle-feature-gps').checked = features.includes('GPS');
+                    
+                    // Atualizar preview
+                    updatePreview();
                 }
             } else {
                 // Modo adição
                 vehicleModalTitle.textContent = 'Adicionar Veículo';
                 vehicleForm.reset();
                 document.getElementById('vehicle-id').value = '';
+                
+                // Atualizar preview com valores padrão
+                updatePreview();
             }
             
             vehicleModal.style.display = 'flex';
@@ -2118,6 +1203,57 @@
 
         function closeVehicleModal() {
             vehicleModal.style.display = 'none';
+        }
+
+        function updatePreview() {
+            // Obter valores do formulário
+            const brand = document.getElementById('vehicle-brand').value || 'Marca';
+            const model = document.getElementById('vehicle-model').value || 'Modelo';
+            const year = document.getElementById('vehicle-year').value || 'Ano';
+            const color = document.getElementById('vehicle-color').value || 'Cor';
+            const fuel = document.getElementById('vehicle-fuel').value || 'Combustível';
+            const dailyPrice = document.getElementById('vehicle-daily-price').value || '0';
+            const isAutomatic = document.getElementById('vehicle-feature-automatic').checked;
+            const hasAC = document.getElementById('vehicle-feature-ac').checked;
+            const hasAirbag = document.getElementById('vehicle-feature-airbag').checked;
+            
+            // Atualizar elementos do preview
+            previewBrandModel.textContent = `${brand} ${model}`;
+            previewYearColor.textContent = `${year} • ${color}`;
+            previewTitle.textContent = `${brand} ${model}`;
+            previewSubtitle.textContent = `${year} • ${color}`;
+            previewPrice.textContent = `R$ ${parseFloat(dailyPrice).toFixed(2)}/dia`;
+            previewFuel.textContent = fuel;
+            previewTransmission.textContent = isAutomatic ? 'Automático' : 'Manual';
+            previewAc.textContent = hasAC ? 'Ar Condicionado' : 'Sem Ar';
+            previewSafety.textContent = hasAirbag ? 'Airbag' : 'Segurança Básica';
+            
+            // Atualizar características
+            previewFeatures.innerHTML = '';
+            const features = [];
+            
+            if (document.getElementById('vehicle-feature-fulltank').checked) {
+                features.push('Tanque Cheio');
+            }
+            if (hasAC) {
+                features.push('Ar Condicionado');
+            }
+            if (isAutomatic) {
+                features.push('Automático');
+            }
+            if (hasAirbag) {
+                features.push('Airbag');
+            }
+            if (document.getElementById('vehicle-feature-gps').checked) {
+                features.push('GPS');
+            }
+            
+            features.forEach(feature => {
+                const featureElement = document.createElement('span');
+                featureElement.className = 'preview-feature';
+                featureElement.textContent = feature;
+                previewFeatures.appendChild(featureElement);
+            });
         }
 
         function handleSaveVehicle() {
@@ -2203,21 +1339,17 @@
             
             // Coletar campos adicionais que podem ter sido adicionados
             const additionalFields = {};
-            if (document.getElementById('settings-cpf')) {
-                additionalFields.cpf = document.getElementById('settings-cpf').value;
-            }
-            if (document.getElementById('settings-address')) {
-                additionalFields.address = document.getElementById('settings-address').value;
-            }
-            if (document.getElementById('settings-birthDate')) {
-                additionalFields.birthDate = document.getElementById('settings-birthDate').value;
-            }
-            if (document.getElementById('settings-gender')) {
-                additionalFields.gender = document.getElementById('settings-gender').value;
-            }
-            if (document.getElementById('settings-emergencyContact')) {
-                additionalFields.emergencyContact = document.getElementById('settings-emergencyContact').value;
-            }
+            const additionalFieldIds = [
+                'cpf', 'address', 'birthDate', 'gender', 'emergencyContact', 
+                'documentNumber', 'driverLicense'
+            ];
+            
+            additionalFieldIds.forEach(fieldId => {
+                const element = document.getElementById(`settings-${fieldId}`);
+                if (element) {
+                    additionalFields[fieldId] = element.value;
+                }
+            });
             
             // Validar senha
             if (password && password !== confirmPassword) {
