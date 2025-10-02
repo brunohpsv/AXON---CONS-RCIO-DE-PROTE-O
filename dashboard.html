@@ -12,6 +12,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     
     <style>
+        /* Todos os estilos CSS permanecem os mesmos */
         * {
             margin: 0;
             padding: 0;
@@ -1659,11 +1660,59 @@
             const avatarName = userData.name || currentUser.email.split('@')[0] || 'Proprietário';
             userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(avatarName)}&background=1a73e8&color=fff`;
             
-            // Preencher formulário de configurações
+            // Preencher formulário de configurações com TODOS os dados do usuário
             if (settingsForm) {
                 document.getElementById('settings-name').value = userData.name || '';
                 document.getElementById('settings-email').value = userData.email || currentUser.email;
                 document.getElementById('settings-phone').value = userData.phone || '';
+                
+                // Adicionar campos adicionais que podem estar no Firestore
+                if (userData.cpf) {
+                    // Se não existe o campo CPF no formulário, adicionar
+                    if (!document.getElementById('settings-cpf')) {
+                        const formGroup = document.createElement('div');
+                        formGroup.className = 'form-group';
+                        formGroup.innerHTML = `
+                            <label for="settings-cpf">CPF</label>
+                            <input type="text" id="settings-cpf" class="form-control" value="${userData.cpf || ''}">
+                        `;
+                        settingsForm.insertBefore(formGroup, settingsForm.querySelector('.form-group:last-child'));
+                    } else {
+                        document.getElementById('settings-cpf').value = userData.cpf || '';
+                    }
+                }
+                
+                if (userData.address) {
+                    if (!document.getElementById('settings-address')) {
+                        const formGroup = document.createElement('div');
+                        formGroup.className = 'form-group';
+                        formGroup.innerHTML = `
+                            <label for="settings-address">Endereço</label>
+                            <input type="text" id="settings-address" class="form-control" value="${userData.address || ''}">
+                        `;
+                        settingsForm.insertBefore(formGroup, settingsForm.querySelector('.form-group:last-child'));
+                    } else {
+                        document.getElementById('settings-address').value = userData.address || '';
+                    }
+                }
+                
+                // Adicionar outros campos que podem existir
+                const additionalFields = ['birthDate', 'gender', 'emergencyContact'];
+                additionalFields.forEach(field => {
+                    if (userData[field] && !document.getElementById(`settings-${field}`)) {
+                        const formGroup = document.createElement('div');
+                        formGroup.className = 'form-group';
+                        formGroup.innerHTML = `
+                            <label for="settings-${field}">${field === 'birthDate' ? 'Data de Nascimento' : 
+                                                           field === 'gender' ? 'Gênero' : 
+                                                           field === 'emergencyContact' ? 'Contato de Emergência' : field}</label>
+                            <input type="text" id="settings-${field}" class="form-control" value="${userData[field] || ''}">
+                        `;
+                        settingsForm.insertBefore(formGroup, settingsForm.querySelector('.form-group:last-child'));
+                    } else if (document.getElementById(`settings-${field}`)) {
+                        document.getElementById(`settings-${field}`).value = userData[field] || '';
+                    }
+                });
             }
         }
 
@@ -1919,7 +1968,7 @@
             }, 0);
             
             const bixxFeeValue = totalEarningsValue * 0.3; // 30% para a BIXX CAR
-            const operationalFeeValue = periodRentals.length * 15; // R$15 por aluguel
+            const operationalFeeValue = periodRentals.length * 15; // R$15 por aluguel (CORREÇÃO: por aluguel, não por dia)
             const netEarningsValue = totalEarningsValue - bixxFeeValue - operationalFeeValue;
             
             // Atualizar UI
@@ -1957,7 +2006,7 @@
                 
                 const earnings = vehicleEarnings[vehicleId];
                 const bixxFeeValue = earnings.totalAmount * 0.3;
-                const operationalFeeValue = earnings.rentalCount * 15;
+                const operationalFeeValue = earnings.rentalCount * 15; // CORREÇÃO: R$15 por aluguel, não por dia
                 const netEarningsValue = earnings.totalAmount - bixxFeeValue - operationalFeeValue;
                 
                 const row = document.createElement('tr');
@@ -1992,7 +2041,7 @@
             
             const gross = dailyPrice * rentalDays;
             const bixxFee = gross * 0.3;
-            const opFee = rentalDays * 15;
+            const opFee = 15; // CORREÇÃO: R$15 por aluguel, não por dia
             const net = gross - bixxFee - opFee;
             
             calcGross.textContent = `R$ ${gross.toFixed(2)}`;
@@ -2151,18 +2200,37 @@
             const password = document.getElementById('settings-password').value;
             const confirmPassword = document.getElementById('settings-confirm-password').value;
             
+            // Coletar campos adicionais que podem ter sido adicionados
+            const additionalFields = {};
+            if (document.getElementById('settings-cpf')) {
+                additionalFields.cpf = document.getElementById('settings-cpf').value;
+            }
+            if (document.getElementById('settings-address')) {
+                additionalFields.address = document.getElementById('settings-address').value;
+            }
+            if (document.getElementById('settings-birthDate')) {
+                additionalFields.birthDate = document.getElementById('settings-birthDate').value;
+            }
+            if (document.getElementById('settings-gender')) {
+                additionalFields.gender = document.getElementById('settings-gender').value;
+            }
+            if (document.getElementById('settings-emergencyContact')) {
+                additionalFields.emergencyContact = document.getElementById('settings-emergencyContact').value;
+            }
+            
             // Validar senha
             if (password && password !== confirmPassword) {
                 alert('As senhas não coincidem');
                 return;
             }
             
-            // Atualizar dados no Firestore - coleção 'cadastro'
+            // Atualizar dados no Firestore - coleção 'cadastro' com TODOS os campos
             const updateData = {
                 name: name,
                 email: email,
                 phone: phone,
-                updatedAt: new Date()
+                updatedAt: new Date(),
+                ...additionalFields
             };
             
             db.collection('cadastro').doc(currentUser.uid).update(updateData)
