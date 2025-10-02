@@ -750,6 +750,9 @@
             <div id="vehicles-section" class="dashboard-section" style="display: none;">
                 <div class="section-header">
                     <h3 class="section-title">Meus Veículos</h3>
+                    <div class="section-actions">
+                        <button id="add-vehicle">Adicionar Veículo</button>
+                    </div>
                 </div>
                 
                 <div class="vehicle-cards" id="vehicles-container">
@@ -936,7 +939,7 @@
         </div>
     </div>
 
-    <!-- Modal para Editar Veículo -->
+    <!-- Modal para Editar/Adicionar Veículo -->
     <div id="vehicle-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1054,7 +1057,7 @@
     </div>
 
     <script>
-        // Configuração do Firebase (mantida igual)
+        // Configuração do Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyCViJaATK6A-5fTJSGBV9j9LSjTFYUDK64",
             authDomain: "bixx-car.firebaseapp.com",
@@ -1068,10 +1071,12 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // Elementos DOM (atualizados para nova estrutura)
+        // Elementos DOM
         const loginScreen = document.getElementById('login-screen');
         const dashboard = document.getElementById('dashboard');
         const loginForm = document.getElementById('login-form');
+        const loginEmail = document.getElementById('login-email');
+        const loginPassword = document.getElementById('login-password');
         const loginError = document.getElementById('login-error');
         const logoutBtn = document.getElementById('logout-btn');
         const navLinks = document.querySelectorAll('.nav-menu a');
@@ -1079,31 +1084,461 @@
         const sections = document.querySelectorAll('.dashboard-section');
         const userName = document.getElementById('user-name');
         const userAvatar = document.getElementById('user-avatar');
+        const totalVehicles = document.getElementById('total-vehicles');
+        const activeRentals = document.getElementById('active-rentals');
+        const monthlyEarnings = document.getElementById('monthly-earnings');
+        const averageRating = document.getElementById('average-rating');
+        const recentRentalsTable = document.getElementById('recent-rentals-table');
+        const vehiclesContainer = document.getElementById('vehicles-container');
+        const rentalsTable = document.getElementById('rentals-table');
+        const earningsPeriod = document.getElementById('earnings-period');
+        const totalEarnings = document.getElementById('total-earnings');
+        const bixxFee = document.getElementById('bixx-fee');
+        const operationalFee = document.getElementById('operational-fee');
+        const netEarnings = document.getElementById('net-earnings');
+        const earningsTable = document.getElementById('earnings-table');
+        const settingsForm = document.getElementById('settings-form');
+        const settingsName = document.getElementById('settings-name');
+        const settingsPhone = document.getElementById('settings-phone');
+        const settingsEmail = document.getElementById('settings-email');
+        const settingsPassword = document.getElementById('settings-password');
+        const settingsConfirmPassword = document.getElementById('settings-confirm-password');
+        const vehicleModal = document.getElementById('vehicle-modal');
+        const vehicleModalTitle = document.getElementById('vehicle-modal-title');
+        const vehicleId = document.getElementById('vehicle-id');
+        const vehicleBrand = document.getElementById('vehicle-brand');
+        const vehicleModel = document.getElementById('vehicle-model');
+        const vehicleYear = document.getElementById('vehicle-year');
+        const vehicleColor = document.getElementById('vehicle-color');
+        const vehiclePlate = document.getElementById('vehicle-plate');
+        const vehicleFuel = document.getElementById('vehicle-fuel');
+        const vehicleRenavam = document.getElementById('vehicle-renavam');
+        const vehicleChassis = document.getElementById('vehicle-chassis');
+        const vehicleDailyPrice = document.getElementById('vehicle-daily-price');
+        const vehicleAddress = document.getElementById('vehicle-address');
+        const vehicleDescription = document.getElementById('vehicle-description');
+        const vehicleFeatures = [
+            document.getElementById('vehicle-feature-fulltank'),
+            document.getElementById('vehicle-feature-ac'),
+            document.getElementById('vehicle-feature-automatic'),
+            document.getElementById('vehicle-feature-airbag'),
+            document.getElementById('vehicle-feature-gps')
+        ];
+        const saveVehicle = document.getElementById('save-vehicle');
+        const cancelVehicle = document.getElementById('cancel-vehicle');
+        const closeModal = document.querySelector('.close-modal');
+        const addVehicleBtn = document.getElementById('add-vehicle');
+        const calcDailyPrice = document.getElementById('calc-daily-price');
+        const calcRentalDays = document.getElementById('calc-rental-days');
+        const calcGross = document.getElementById('calc-gross');
+        const calcBixxFee = document.getElementById('calc-bixx-fee');
+        const calcOpFee = document.getElementById('calc-op-fee');
+        const calcNet = document.getElementById('calc-net');
+        const rentalsCountBadge = document.getElementById('rentals-count');
+        const viewAllRentals = document.getElementById('view-all-rentals');
+        const exportRentals = document.getElementById('export-rentals');
 
-        // Outros elementos mantidos iguais...
-
-        // Event Listeners atualizados para top nav
-        document.addEventListener('DOMContentLoaded', function() {
-            // ... (código de auth e load mantido)
-
-            // Navegação na top nav
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const section = this.getAttribute('data-section');
-                    showSection(section);
-                    
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-
-            // ... (restante do código mantido, ajustando onde necessário para nova UI)
+        // Monitorar estado de autenticação
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                loginScreen.style.display = 'none';
+                dashboard.style.display = 'block';
+                loadUserData(user);
+                showSection('overview');
+            } else {
+                loginScreen.style.display = 'flex';
+                dashboard.style.display = 'none';
+            }
         });
 
-        // Funções mantidas, com possíveis ajustes para nova UI
+        // Login
+        loginForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const email = loginEmail.value;
+            const password = loginPassword.value;
+            auth.signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    loginError.style.display = 'none';
+                })
+                .catch(err => {
+                    loginError.textContent = err.message;
+                    loginError.style.display = 'block';
+                });
+        });
 
-        // ... (o resto do script é o mesmo, pois a lógica não mudou, apenas a estrutura HTML/CSS)
+        // Logout
+        logoutBtn.addEventListener('click', () => auth.signOut());
+
+        // Navegação
+        navLinks.forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const section = link.getAttribute('data-section');
+                showSection(section);
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+
+        // Mostrar seção
+        function showSection(sectionId) {
+            sections.forEach(s => s.style.display = 'none');
+            document.getElementById(`${sectionId}-section`).style.display = 'block';
+            pageTitle.textContent = sectionId.charAt(0).toUpperCase() + sectionId.slice(1).replace('-', ' ');
+            if (sectionId === 'overview') loadOverview();
+            if (sectionId === 'vehicles') loadVehicles();
+            if (sectionId === 'rentals') loadRentals();
+            if (sectionId === 'earnings') loadEarnings(earningsPeriod.value);
+            if (sectionId === 'settings') loadSettings();
+        }
+
+        // Carregar dados do usuário
+        function loadUserData(user) {
+            db.collection('users').doc(user.uid).get().then(doc => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    userName.textContent = data.name || 'Proprietário';
+                    settingsName.value = data.name || '';
+                    settingsPhone.value = data.phone || '';
+                    settingsEmail.value = user.email;
+                    if (data.photoURL) {
+                        userAvatar.src = data.photoURL;
+                    } else {
+                        userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(data.name || 'Proprietário')}&background=007bff&color=fff`;
+                    }
+                }
+            });
+        }
+
+        // Carregar visão geral
+        function loadOverview() {
+            loadStats();
+            loadRecentRentals();
+        }
+
+        // Carregar estatísticas
+        function loadStats() {
+            const userId = auth.currentUser.uid;
+            db.collection('vehicles').where('ownerId', '==', userId).get().then(snapshot => {
+                totalVehicles.textContent = snapshot.size;
+            });
+
+            db.collection('rentals').where('ownerId', '==', userId).where('status', '==', 'active').get().then(snapshot => {
+                activeRentals.textContent = snapshot.size;
+                rentalsCountBadge.textContent = snapshot.size;
+            });
+
+            const now = new Date();
+            const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+            const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+            db.collection('rentals').where('ownerId', '==', userId).where('startDate', '>=', firstDay).where('startDate', '<=', lastDay).get().then(snapshot => {
+                let sum = 0;
+                snapshot.forEach(doc => {
+                    sum += doc.data().value || 0;
+                });
+                monthlyEarnings.textContent = `R$ ${sum.toFixed(2)}`;
+            });
+
+            // Avaliação média (assumindo campo rating em rentals)
+            db.collection('rentals').where('ownerId', '==', userId).get().then(snapshot => {
+                let totalRating = 0;
+                let count = 0;
+                snapshot.forEach(doc => {
+                    const rating = doc.data().rating;
+                    if (rating) {
+                        totalRating += rating;
+                        count++;
+                    }
+                });
+                averageRating.textContent = count > 0 ? (totalRating / count).toFixed(1) : '0.0';
+            });
+        }
+
+        // Carregar aluguéis recentes
+        function loadRecentRentals() {
+            recentRentalsTable.innerHTML = '';
+            const userId = auth.currentUser.uid;
+            db.collection('rentals').where('ownerId', '==', userId).orderBy('startDate', 'desc').limit(5).get().then(snapshot => {
+                snapshot.forEach(doc => {
+                    const rental = doc.data();
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${rental.vehicleName || ''}</td>
+                        <td>${rental.clientName || ''}</td>
+                        <td>${rental.period || ''}</td>
+                        <td><span class="status-badge status-${rental.status || 'available'}">${rental.status || 'Disponível'}</span></td>
+                        <td>R$ ${rental.value?.toFixed(2) || '0.00'}</td>
+                    `;
+                    recentRentalsTable.appendChild(row);
+                });
+            });
+        }
+
+        // Carregar veículos
+        function loadVehicles() {
+            vehiclesContainer.innerHTML = '';
+            const userId = auth.currentUser.uid;
+            db.collection('vehicles').where('ownerId', '==', userId).get().then(snapshot => {
+                snapshot.forEach(doc => {
+                    const vehicle = doc.data();
+                    vehicle.id = doc.id;
+                    renderVehicleCard(vehicle);
+                });
+            });
+        }
+
+        // Renderizar card de veículo
+        function renderVehicleCard(vehicle) {
+            const card = document.createElement('div');
+            card.classList.add('vehicle-card');
+            card.innerHTML = `
+                <div class="vehicle-image">
+                    <img src="${vehicle.image || 'https://placehold.co/320x200'}" alt="${vehicle.model}">
+                </div>
+                <div class="vehicle-info">
+                    <div class="vehicle-header">
+                        <div class="vehicle-title">
+                            <h3>${vehicle.brand} ${vehicle.model}</h3>
+                            <p>${vehicle.year} - ${vehicle.color}</p>
+                        </div>
+                        <span class="vehicle-status status-${vehicle.status || 'available'}">${vehicle.status || 'Disponível'}</span>
+                    </div>
+                    <div class="vehicle-details">
+                        <div class="vehicle-detail"><i class="fas fa-gas-pump"></i> ${vehicle.fuel}</div>
+                        <div class="vehicle-detail"><i class="fas fa-map-marker-alt"></i> ${vehicle.address}</div>
+                    </div>
+                    <div class="vehicle-price">R$ ${vehicle.dailyPrice?.toFixed(2)} / dia</div>
+                    <div class="vehicle-actions">
+                        <button class="btn-primary edit-vehicle" data-id="${vehicle.id}">Editar</button>
+                        <button class="btn-outline delete-vehicle" data-id="${vehicle.id}">Excluir</button>
+                    </div>
+                </div>
+            `;
+            vehiclesContainer.appendChild(card);
+
+            // Evento de editar
+            card.querySelector('.edit-vehicle').addEventListener('click', () => openVehicleModal(vehicle));
+
+            // Evento de excluir (implementar se necessário)
+            card.querySelector('.delete-vehicle').addEventListener('click', () => {
+                if (confirm('Excluir veículo?')) {
+                    db.collection('vehicles').doc(vehicle.id).delete().then(() => loadVehicles());
+                }
+            });
+        }
+
+        // Carregar aluguéis
+        function loadRentals() {
+            rentalsTable.innerHTML = '';
+            const userId = auth.currentUser.uid;
+            db.collection('rentals').where('ownerId', '==', userId).orderBy('startDate', 'desc').get().then(snapshot => {
+                snapshot.forEach(doc => {
+                    const rental = doc.data();
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${rental.vehicleName || ''}</td>
+                        <td>${rental.clientName || ''}</td>
+                        <td>${new Date(rental.startDate?.seconds * 1000).toLocaleDateString() || ''}</td>
+                        <td>${new Date(rental.endDate?.seconds * 1000).toLocaleDateString() || ''}</td>
+                        <td><span class="status-badge status-${rental.status || 'available'}">${rental.status || 'Disponível'}</span></td>
+                        <td>R$ ${rental.value?.toFixed(2) || '0.00'}</td>
+                    `;
+                    rentalsTable.appendChild(row);
+                });
+            });
+        }
+
+        // Carregar ganhos
+        function loadEarnings(period) {
+            const userId = auth.currentUser.uid;
+            const now = new Date();
+            let startDate, endDate;
+
+            switch (period) {
+                case 'month':
+                    startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+                    endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+                    break;
+                case 'last-month':
+                    startDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+                    endDate = new Date(now.getFullYear(), now.getMonth(), 0);
+                    break;
+                case 'quarter':
+                    startDate = new Date(now.getFullYear(), now.getMonth() - 2, 1);
+                    endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+                    break;
+                case 'year':
+                    startDate = new Date(now.getFullYear(), 0, 1);
+                    endDate = new Date(now.getFullYear(), 11, 31);
+                    break;
+            }
+
+            db.collection('rentals').where('ownerId', '==', userId).where('startDate', '>=', startDate).where('startDate', '<=', endDate).get().then(snapshot => {
+                let gross = 0;
+                let count = snapshot.size;
+                snapshot.forEach(doc => {
+                    gross += doc.data().value || 0;
+                });
+                const bixx = gross * 0.3;
+                const op = count * 15;
+                const net = gross - bixx - op;
+
+                totalEarnings.textContent = `R$ ${gross.toFixed(2)}`;
+                bixxFee.textContent = `R$ ${bixx.toFixed(2)}`;
+                operationalFee.textContent = `R$ ${op.toFixed(2)}`;
+                netEarnings.textContent = `R$ ${net.toFixed(2)}`;
+
+                // Detalhamento por veículo (agrupar)
+                earningsTable.innerHTML = '';
+                const vehicleEarnings = {};
+                snapshot.forEach(doc => {
+                    const rental = doc.data();
+                    const vid = rental.vehicleId;
+                    if (!vehicleEarnings[vid]) vehicleEarnings[vid] = { days: 0, gross: 0, name: rental.vehicleName };
+                    vehicleEarnings[vid].gross += rental.value || 0;
+                    // Calcular dias (assumindo end - start)
+                    const days = Math.ceil((rental.endDate.seconds - rental.startDate.seconds) / (3600 * 24));
+                    vehicleEarnings[vid].days += days;
+                });
+
+                Object.keys(vehicleEarnings).forEach(vid => {
+                    const ve = vehicleEarnings[vid];
+                    const bixx = ve.gross * 0.3;
+                    const op = 15; // por aluguel, mas aqui por veículo? Ajustar se múltiplos aluguéis por veículo
+                    const net = ve.gross - bixx - op;
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${ve.name}</td>
+                        <td>${ve.days}</td>
+                        <td>R$ ${ve.gross.toFixed(2)}</td>
+                        <td>R$ ${bixx.toFixed(2)}</td>
+                        <td>R$ ${op.toFixed(2)}</td>
+                        <td>R$ ${net.toFixed(2)}</td>
+                    `;
+                    earningsTable.appendChild(row);
+                });
+            });
+        }
+
+        // Atualizar calculadora
+        function updateCalculator() {
+            const daily = parseFloat(calcDailyPrice.value) || 0;
+            const days = parseInt(calcRentalDays.value) || 0;
+            const gross = daily * days;
+            const bixx = gross * 0.3;
+            const op = 15; // assumindo 1 aluguel
+            const net = gross - bixx - op;
+            calcGross.textContent = `R$ ${gross.toFixed(2)}`;
+            calcBixxFee.textContent = `R$ ${bixx.toFixed(2)}`;
+            calcOpFee.textContent = `R$ ${op.toFixed(2)}`;
+            calcNet.textContent = `R$ ${net.toFixed(2)}`;
+        }
+
+        calcDailyPrice.addEventListener('input', updateCalculator);
+        calcRentalDays.addEventListener('input', updateCalculator);
+
+        // Carregar configurações (já feito em loadUserData)
+
+        // Salvar configurações
+        settingsForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            const updates = {};
+            if (settingsName.value) updates.name = settingsName.value;
+            if (settingsPhone.value) updates.phone = settingsPhone.value;
+
+            db.collection('users').doc(user.uid).update(updates).then(() => {
+                if (settingsEmail.value !== user.email) {
+                    user.updateEmail(settingsEmail.value);
+                }
+                if (settingsPassword.value && settingsPassword.value === settingsConfirmPassword.value) {
+                    user.updatePassword(settingsPassword.value);
+                }
+                alert('Configurações salvas!');
+                loadUserData(user);
+            });
+        });
+
+        // Abrir modal de veículo
+        function openVehicleModal(vehicle = null) {
+            if (vehicle) {
+                vehicleModalTitle.textContent = 'Editar Veículo';
+                vehicleId.value = vehicle.id;
+                vehicleBrand.value = vehicle.brand || '';
+                vehicleModel.value = vehicle.model || '';
+                vehicleYear.value = vehicle.year || '';
+                vehicleColor.value = vehicle.color || '';
+                vehiclePlate.value = vehicle.plate || '';
+                vehicleFuel.value = vehicle.fuel || '';
+                vehicleRenavam.value = vehicle.renavam || '';
+                vehicleChassis.value = vehicle.chassis || '';
+                vehicleDailyPrice.value = vehicle.dailyPrice || '';
+                vehicleAddress.value = vehicle.address || '';
+                vehicleDescription.value = vehicle.description || '';
+                vehicleFeatures.forEach(cb => {
+                    cb.checked = vehicle.features?.includes(cb.value) || false;
+                });
+            } else {
+                vehicleModalTitle.textContent = 'Adicionar Veículo';
+                vehicleId.value = '';
+                vehicleForm.reset();
+            }
+            vehicleModal.style.display = 'flex';
+        }
+
+        // Salvar veículo
+        saveVehicle.addEventListener('click', () => {
+            const data = {
+                ownerId: auth.currentUser.uid,
+                brand: vehicleBrand.value,
+                model: vehicleModel.value,
+                year: parseInt(vehicleYear.value),
+                color: vehicleColor.value,
+                plate: vehiclePlate.value,
+                fuel: vehicleFuel.value,
+                renavam: vehicleRenavam.value,
+                chassis: vehicleChassis.value,
+                dailyPrice: parseFloat(vehicleDailyPrice.value),
+                address: vehicleAddress.value,
+                description: vehicleDescription.value,
+                features: vehicleFeatures.filter(cb => cb.checked).map(cb => cb.value),
+                status: 'available' // default
+            };
+            if (vehicleId.value) {
+                db.collection('vehicles').doc(vehicleId.value).update(data).then(() => {
+                    vehicleModal.style.display = 'none';
+                    loadVehicles();
+                });
+            } else {
+                db.collection('vehicles').add(data).then(() => {
+                    vehicleModal.style.display = 'none';
+                    loadVehicles();
+                });
+            }
+        });
+
+        // Fechar modal
+        cancelVehicle.addEventListener('click', () => vehicleModal.style.display = 'none');
+        closeModal.addEventListener('click', () => vehicleModal.style.display = 'none');
+
+        // Adicionar veículo
+        addVehicleBtn.addEventListener('click', () => openVehicleModal());
+
+        // Ver todos aluguéis
+        viewAllRentals.addEventListener('click', () => {
+            navLinks[2].click(); // Aluguéis
+        });
+
+        // Exportar aluguéis (implementar se necessário, ex: CSV)
+        exportRentals.addEventListener('click', () => {
+            alert('Função de exportação não implementada.');
+        });
+
+        // Mudar período de ganhos
+        earningsPeriod.addEventListener('change', () => loadEarnings(earningsPeriod.value));
+
+        // Inicializar calculadora
+        updateCalculator();
     </script>
 </body>
 </html>
