@@ -840,9 +840,6 @@
                 <a href="#" data-section="earnings">
                     <i class="fas fa-dollar-sign"></i> Ganhos
                 </a>
-                <a href="#" data-section="settings">
-                    <i class="fas fa-cog"></i> Configurações
-                </a>
             </div>
         </div>
         
@@ -909,28 +906,6 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Aluguéis Recentes</h3>
-                            <button id="view-all-rentals" class="btn-outline">Ver Todos</button>
-                        </div>
-                        
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Veículo</th>
-                                    <th>Cliente</th>
-                                    <th>Período</th>
-                                    <th>Status</th>
-                                    <th>Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody id="recent-rentals-table">
-                                <!-- Dados serão preenchidos via JavaScript -->
-                            </tbody>
-                        </table>
-                    </div>
                 </section>
                 
                 <!-- Meus Veículos -->
@@ -938,7 +913,6 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Meus Veículos</h3>
-                            <button id="add-vehicle-btn" class="btn-primary">Adicionar Veículo</button>
                         </div>
                         
                         <div id="vehicles-container" class="vehicles-grid">
@@ -1069,212 +1043,6 @@
                         </div>
                     </div>
                 </section>
-                
-                <!-- Configurações -->
-                <section id="settings-section" class="dashboard-section">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Configurações da Conta</h3>
-                        </div>
-                        
-                        <form id="settings-form">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="settings-name">Nome Completo</label>
-                                    <input type="text" id="settings-name" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="settings-email">E-mail</label>
-                                    <input type="email" id="settings-email" class="form-control" required>
-                                </div>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="settings-phone">Telefone</label>
-                                    <input type="text" id="settings-phone" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="settings-password">Nova Senha</label>
-                                    <input type="password" id="settings-password" class="form-control">
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="settings-confirm-password">Confirmar Nova Senha</label>
-                                <input type="password" id="settings-confirm-password" class="form-control">
-                            </div>
-                            
-                            <div class="form-group">
-                                <button type="submit" class="btn-primary">Salvar Alterações</button>
-                            </div>
-                        </form>
-                    </div>
-                </section>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Modal para Editar Veículo -->
-    <div id="vehicle-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="vehicle-modal-title">Editar Veículo</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="vehicle-form">
-                    <input type="hidden" id="vehicle-id">
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="vehicle-brand">Marca</label>
-                            <select id="vehicle-brand" class="form-control" required>
-                                <option value="">Selecione a marca</option>
-                                <option value="Chevrolet">Chevrolet</option>
-                                <option value="Fiat">Fiat</option>
-                                <option value="Ford">Ford</option>
-                                <option value="Honda">Honda</option>
-                                <option value="Hyundai">Hyundai</option>
-                                <option value="Renault">Renault</option>
-                                <option value="Toyota">Toyota</option>
-                                <option value="Volkswagen">Volkswagen</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="vehicle-model">Modelo</label>
-                            <input type="text" id="vehicle-model" class="form-control" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="vehicle-year">Ano</label>
-                            <input type="number" id="vehicle-year" class="form-control" min="1990" max="2023" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="vehicle-color">Cor</label>
-                            <input type="text" id="vehicle-color" class="form-control" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="vehicle-plate">Placa</label>
-                            <input type="text" id="vehicle-plate" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="vehicle-fuel">Combustível</label>
-                            <select id="vehicle-fuel" class="form-control" required>
-                                <option value="">Selecione o tipo</option>
-                                <option value="Gasolina">Gasolina</option>
-                                <option value="Etanol">Etanol</option>
-                                <option value="Flex">Flex</option>
-                                <option value="Diesel">Diesel</option>
-                                <option value="Elétrico">Elétrico</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="vehicle-renavam">RENAVAM</label>
-                            <input type="text" id="vehicle-renavam" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="vehicle-chassis">Chassi</label>
-                            <input type="text" id="vehicle-chassis" class="form-control" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="vehicle-daily-price">Preço Diária (R$)</label>
-                            <input type="number" id="vehicle-daily-price" class="form-control" min="50" step="0.01" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="vehicle-address">Endereço de Estacionamento</label>
-                            <input type="text" id="vehicle-address" class="form-control" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="vehicle-description">Descrição</label>
-                        <textarea id="vehicle-description" class="form-control" rows="3"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Características</label>
-                        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                            <label style="display: flex; align-items: center;">
-                                <input type="checkbox" id="vehicle-feature-fulltank" value="Tanque Cheio"> Tanque Cheio
-                            </label>
-                            <label style="display: flex; align-items: center;">
-                                <input type="checkbox" id="vehicle-feature-ac" value="Ar Condicionado"> Ar Condicionado
-                            </label>
-                            <label style="display: flex; align-items: center;">
-                                <input type="checkbox" id="vehicle-feature-automatic" value="Automático"> Automático
-                            </label>
-                            <label style="display: flex; align-items: center;">
-                                <input type="checkbox" id="vehicle-feature-airbag" value="Airbag"> Airbag
-                            </label>
-                            <label style="display: flex; align-items: center;">
-                                <input type="checkbox" id="vehicle-feature-gps" value="GPS"> GPS
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <!-- Seção de Preview do Veículo -->
-                    <div class="preview-section">
-                        <h3>Preview - Como seu carro aparece no site</h3>
-                        <div class="preview-card" id="vehicle-preview">
-                            <div class="preview-header">
-                                <h3 id="preview-brand-model">Marca Modelo</h3>
-                                <p id="preview-year-color">Ano • Cor</p>
-                            </div>
-                            <div class="preview-image">
-                                <i class="fas fa-car" style="font-size: 50px; color: var(--primary);"></i>
-                            </div>
-                            <div class="preview-info">
-                                <div class="preview-title">
-                                    <div>
-                                        <h4 id="preview-title">Marca Modelo</h4>
-                                        <p id="preview-subtitle">Ano • Cor</p>
-                                    </div>
-                                    <div class="preview-price" id="preview-price">R$ 0,00/dia</div>
-                                </div>
-                                
-                                <div class="preview-details">
-                                    <div class="preview-detail">
-                                        <i class="fas fa-gas-pump"></i> <span id="preview-fuel">Combustível</span>
-                                    </div>
-                                    <div class="preview-detail">
-                                        <i class="fas fa-tachometer-alt"></i> <span id="preview-transmission">Transmissão</span>
-                                    </div>
-                                    <div class="preview-detail">
-                                        <i class="fas fa-snowflake"></i> <span id="preview-ac">Ar Condicionado</span>
-                                    </div>
-                                    <div class="preview-detail">
-                                        <i class="fas fa-user-shield"></i> <span id="preview-safety">Segurança</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="preview-features" id="preview-features">
-                                    <!-- Características serão adicionadas dinamicamente -->
-                                </div>
-                                
-                                <div class="preview-actions">
-                                    <button class="btn-outline">Detalhes</button>
-                                    <button class="btn-primary">Alugar Agora</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-outline" id="cancel-vehicle">Cancelar</button>
-                <button class="btn-primary" id="save-vehicle">Salvar Alterações</button>
             </div>
         </div>
     </div>
@@ -1317,18 +1085,9 @@
         const activeRentals = document.getElementById('active-rentals');
         const monthlyEarnings = document.getElementById('monthly-earnings');
         const averageRating = document.getElementById('average-rating');
-        const recentRentalsTable = document.getElementById('recent-rentals-table');
-        const viewAllRentalsBtn = document.getElementById('view-all-rentals');
 
         // Elementos da seção Veículos
         const vehiclesContainer = document.getElementById('vehicles-container');
-        const addVehicleBtn = document.getElementById('add-vehicle-btn');
-        const vehicleModal = document.getElementById('vehicle-modal');
-        const vehicleModalTitle = document.getElementById('vehicle-modal-title');
-        const vehicleForm = document.getElementById('vehicle-form');
-        const saveVehicleBtn = document.getElementById('save-vehicle');
-        const cancelVehicleBtn = document.getElementById('cancel-vehicle');
-        const closeModalBtn = document.querySelector('.close-modal');
 
         // Elementos da seção Aluguéis
         const rentalsTable = document.getElementById('rentals-table');
@@ -1349,22 +1108,6 @@
         const calcBixxFee = document.getElementById('calc-bixx-fee');
         const calcOpFee = document.getElementById('calc-op-fee');
         const calcNet = document.getElementById('calc-net');
-
-        // Elementos da seção Configurações
-        const settingsForm = document.getElementById('settings-form');
-
-        // Elementos do Preview
-        const vehiclePreview = document.getElementById('vehicle-preview');
-        const previewBrandModel = document.getElementById('preview-brand-model');
-        const previewYearColor = document.getElementById('preview-year-color');
-        const previewTitle = document.getElementById('preview-title');
-        const previewSubtitle = document.getElementById('preview-subtitle');
-        const previewPrice = document.getElementById('preview-price');
-        const previewFuel = document.getElementById('preview-fuel');
-        const previewTransmission = document.getElementById('preview-transmission');
-        const previewAc = document.getElementById('preview-ac');
-        const previewSafety = document.getElementById('preview-safety');
-        const previewFeatures = document.getElementById('preview-features');
 
         // Variáveis globais
         let currentUser = null;
@@ -1418,49 +1161,12 @@
                 sidebar.classList.remove('active');
             });
 
-            // Modal de veículo
-            addVehicleBtn.addEventListener('click', function() {
-                openVehicleModal();
-            });
-            
-            saveVehicleBtn.addEventListener('click', handleSaveVehicle);
-            cancelVehicleBtn.addEventListener('click', closeVehicleModal);
-            closeModalBtn.addEventListener('click', closeVehicleModal);
-
-            // Fechar modal ao clicar fora
-            window.addEventListener('click', function(e) {
-                if (e.target === vehicleModal) {
-                    closeVehicleModal();
-                }
-            });
-
-            // Navegação entre seções
-            viewAllRentalsBtn.addEventListener('click', function() {
-                showSection('rentals');
-                sidebarLinks.forEach(l => l.classList.remove('active'));
-                document.querySelector('[data-section="rentals"]').classList.add('active');
-            });
-
             // Filtro de período de ganhos
             earningsPeriod.addEventListener('change', updateEarnings);
 
             // Calculadora de preços
             calcDailyPrice.addEventListener('input', updateCalculator);
             calcRentalDays.addEventListener('input', updateCalculator);
-            
-            // Configurações
-            settingsForm.addEventListener('submit', handleUpdateSettings);
-            
-            // Event listeners para atualizar o preview em tempo real
-            document.getElementById('vehicle-brand').addEventListener('input', updatePreview);
-            document.getElementById('vehicle-model').addEventListener('input', updatePreview);
-            document.getElementById('vehicle-year').addEventListener('input', updatePreview);
-            document.getElementById('vehicle-color').addEventListener('input', updatePreview);
-            document.getElementById('vehicle-fuel').addEventListener('change', updatePreview);
-            document.getElementById('vehicle-daily-price').addEventListener('input', updatePreview);
-            document.getElementById('vehicle-feature-automatic').addEventListener('change', updatePreview);
-            document.getElementById('vehicle-feature-ac').addEventListener('change', updatePreview);
-            document.getElementById('vehicle-feature-airbag').addEventListener('change', updatePreview);
             
             // Inicializar calculadora
             updateCalculator();
@@ -1640,13 +1346,6 @@
             // Atualizar avatar
             const avatarName = userData.name || currentUser.email.split('@')[0] || 'Proprietário';
             sidebarUserAvatar.textContent = avatarName.charAt(0).toUpperCase();
-            
-            // Preencher formulário de configurações
-            if (settingsForm) {
-                document.getElementById('settings-name').value = userData.name || '';
-                document.getElementById('settings-email').value = userData.email || currentUser.email;
-                document.getElementById('settings-phone').value = userData.phone || '';
-            }
         }
 
         function updateOverviewStats() {
@@ -1681,53 +1380,6 @@
                 (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1) : 0;
             averageRating.textContent = avgRating;
             
-            // Atualizar tabela de aluguéis recentes
-            updateRecentRentalsTable();
-        }
-
-        function updateRecentRentalsTable() {
-            recentRentalsTable.innerHTML = '';
-            
-            // Ordenar aluguéis por data (mais recentes primeiro)
-            const sortedRentals = [...rentals].sort((a, b) => {
-                const dateA = a.startDate?.toDate ? a.startDate.toDate() : new Date(a.startDate);
-                const dateB = b.startDate?.toDate ? b.startDate.toDate() : new Date(b.startDate);
-                return dateB - dateA;
-            });
-            
-            // Mostrar apenas os 5 mais recentes
-            const recentRentals = sortedRentals.slice(0, 5);
-            
-            if (recentRentals.length === 0) {
-                recentRentalsTable.innerHTML = `
-                    <tr>
-                        <td colspan="5" style="text-align: center; padding: 20px; color: var(--gray);">
-                            Nenhum aluguel recente encontrado
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            recentRentals.forEach(rental => {
-                const vehicle = vehicles.find(v => v.id === rental.vehicleId);
-                const vehicleName = vehicle ? `${vehicle.brand} ${vehicle.model}` : 'Veículo não encontrado';
-                
-                const startDate = rental.startDate?.toDate ? rental.startDate.toDate() : new Date(rental.startDate);
-                const endDate = rental.endDate?.toDate ? rental.endDate.toDate() : new Date(rental.endDate);
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${vehicleName}</td>
-                    <td>${rental.customerName || 'Cliente'}</td>
-                    <td>${formatDate(startDate)} - ${formatDate(endDate)}</td>
-                    <td><span class="status-badge status-${rental.status}">${getStatusText(rental.status)}</span></td>
-                    <td>R$ ${rental.totalAmount ? rental.totalAmount.toFixed(2) : '0.00'}</td>
-                `;
-                
-                recentRentalsTable.appendChild(row);
-            });
-            
             // Atualizar contador de aluguéis
             rentalsCount.textContent = rentals.length;
         }
@@ -1740,15 +1392,9 @@
                     <div style="text-align: center; padding: 40px; color: var(--gray);">
                         <i class="fas fa-car" style="font-size: 50px; margin-bottom: 15px;"></i>
                         <h3>Nenhum veículo cadastrado</h3>
-                        <p>Adicione seu primeiro veículo para começar a alugar</p>
-                        <button class="btn-primary" style="margin-top: 15px;" id="add-first-vehicle">Adicionar Veículo</button>
+                        <p>Você ainda não possui veículos cadastrados</p>
                     </div>
                 `;
-                
-                document.getElementById('add-first-vehicle').addEventListener('click', function() {
-                    openVehicleModal();
-                });
-                
                 return;
             }
             
@@ -1804,33 +1450,10 @@
                         <div class="vehicle-price">
                             R$ ${vehicle.dailyPrice ? vehicle.dailyPrice.toFixed(2) : '0.00'}/dia
                         </div>
-                        
-                        <div class="vehicle-actions">
-                            <button class="btn-outline edit-vehicle" data-id="${vehicle.id}">Editar</button>
-                            <button class="btn-primary view-rentals" data-id="${vehicle.id}">Ver Aluguéis</button>
-                        </div>
                     </div>
                 `;
                 
                 vehiclesContainer.appendChild(vehicleCard);
-            });
-            
-            // Adicionar event listeners aos botões
-            document.querySelectorAll('.edit-vehicle').forEach(button => {
-                button.addEventListener('click', function() {
-                    const vehicleId = this.getAttribute('data-id');
-                    openVehicleModal(vehicleId);
-                });
-            });
-            
-            document.querySelectorAll('.view-rentals').forEach(button => {
-                button.addEventListener('click', function() {
-                    const vehicleId = this.getAttribute('data-id');
-                    showSection('rentals');
-                    sidebarLinks.forEach(l => l.classList.remove('active'));
-                    document.querySelector('[data-section="rentals"]').classList.add('active');
-                    // Aqui poderia filtrar os aluguéis por veículo
-                });
             });
         }
 
@@ -2012,8 +1635,7 @@
                 'overview': 'Visão Geral',
                 'vehicles': 'Meus Veículos',
                 'rentals': 'Aluguéis',
-                'earnings': 'Ganhos',
-                'settings': 'Configurações'
+                'earnings': 'Ganhos'
             };
             
             pageTitle.textContent = titles[section] || 'Painel do Proprietário';
@@ -2022,250 +1644,6 @@
             if (section === 'earnings') {
                 updateEarnings();
             }
-        }
-
-        // Funções do modal de veículo
-        function openVehicleModal(vehicleId = null) {
-            if (vehicleId) {
-                // Modo edição
-                const vehicle = vehicles.find(v => v.id === vehicleId);
-                if (vehicle) {
-                    vehicleModalTitle.textContent = 'Editar Veículo';
-                    document.getElementById('vehicle-id').value = vehicle.id;
-                    document.getElementById('vehicle-brand').value = vehicle.brand;
-                    document.getElementById('vehicle-model').value = vehicle.model;
-                    document.getElementById('vehicle-year').value = vehicle.year;
-                    document.getElementById('vehicle-color').value = vehicle.color;
-                    document.getElementById('vehicle-plate').value = vehicle.plate;
-                    document.getElementById('vehicle-fuel').value = vehicle.fuel;
-                    document.getElementById('vehicle-renavam').value = vehicle.renavam;
-                    document.getElementById('vehicle-chassis').value = vehicle.chassis;
-                    document.getElementById('vehicle-daily-price').value = vehicle.dailyPrice;
-                    document.getElementById('vehicle-address').value = vehicle.address;
-                    document.getElementById('vehicle-description').value = vehicle.description || '';
-                    
-                    // Características
-                    const features = vehicle.features || [];
-                    document.getElementById('vehicle-feature-fulltank').checked = features.includes('Tanque Cheio');
-                    document.getElementById('vehicle-feature-ac').checked = features.includes('Ar Condicionado');
-                    document.getElementById('vehicle-feature-automatic').checked = features.includes('Automático');
-                    document.getElementById('vehicle-feature-airbag').checked = features.includes('Airbag');
-                    document.getElementById('vehicle-feature-gps').checked = features.includes('GPS');
-                    
-                    // Atualizar preview
-                    updatePreview();
-                }
-            } else {
-                // Modo adição
-                vehicleModalTitle.textContent = 'Adicionar Veículo';
-                vehicleForm.reset();
-                document.getElementById('vehicle-id').value = '';
-                
-                // Atualizar preview com valores padrão
-                updatePreview();
-            }
-            
-            vehicleModal.style.display = 'flex';
-        }
-
-        function closeVehicleModal() {
-            vehicleModal.style.display = 'none';
-        }
-
-        function updatePreview() {
-            // Obter valores do formulário
-            const brand = document.getElementById('vehicle-brand').value || 'Marca';
-            const model = document.getElementById('vehicle-model').value || 'Modelo';
-            const year = document.getElementById('vehicle-year').value || 'Ano';
-            const color = document.getElementById('vehicle-color').value || 'Cor';
-            const fuel = document.getElementById('vehicle-fuel').value || 'Combustível';
-            const dailyPrice = document.getElementById('vehicle-daily-price').value || '0';
-            const isAutomatic = document.getElementById('vehicle-feature-automatic').checked;
-            const hasAC = document.getElementById('vehicle-feature-ac').checked;
-            const hasAirbag = document.getElementById('vehicle-feature-airbag').checked;
-            
-            // Atualizar elementos do preview
-            previewBrandModel.textContent = `${brand} ${model}`;
-            previewYearColor.textContent = `${year} • ${color}`;
-            previewTitle.textContent = `${brand} ${model}`;
-            previewSubtitle.textContent = `${year} • ${color}`;
-            previewPrice.textContent = `R$ ${parseFloat(dailyPrice).toFixed(2)}/dia`;
-            previewFuel.textContent = fuel;
-            previewTransmission.textContent = isAutomatic ? 'Automático' : 'Manual';
-            previewAc.textContent = hasAC ? 'Ar Condicionado' : 'Sem Ar';
-            previewSafety.textContent = hasAirbag ? 'Airbag' : 'Segurança Básica';
-            
-            // Atualizar características
-            previewFeatures.innerHTML = '';
-            const features = [];
-            
-            if (document.getElementById('vehicle-feature-fulltank').checked) {
-                features.push('Tanque Cheio');
-            }
-            if (hasAC) {
-                features.push('Ar Condicionado');
-            }
-            if (isAutomatic) {
-                features.push('Automático');
-            }
-            if (hasAirbag) {
-                features.push('Airbag');
-            }
-            if (document.getElementById('vehicle-feature-gps').checked) {
-                features.push('GPS');
-            }
-            
-            features.forEach(feature => {
-                const featureElement = document.createElement('span');
-                featureElement.className = 'preview-feature';
-                featureElement.textContent = feature;
-                previewFeatures.appendChild(featureElement);
-            });
-        }
-
-        function handleSaveVehicle() {
-            // Coletar dados do formulário
-            const vehicleId = document.getElementById('vehicle-id').value;
-            const vehicleData = {
-                brand: document.getElementById('vehicle-brand').value,
-                model: document.getElementById('vehicle-model').value,
-                year: parseInt(document.getElementById('vehicle-year').value),
-                color: document.getElementById('vehicle-color').value,
-                plate: document.getElementById('vehicle-plate').value.toUpperCase(),
-                fuel: document.getElementById('vehicle-fuel').value,
-                renavam: document.getElementById('vehicle-renavam').value,
-                chassis: document.getElementById('vehicle-chassis').value,
-                dailyPrice: parseFloat(document.getElementById('vehicle-daily-price').value),
-                address: document.getElementById('vehicle-address').value,
-                description: document.getElementById('vehicle-description').value,
-                features: [],
-                ownerId: currentUser.uid,
-                updatedAt: new Date()
-            };
-            
-            // Adicionar características selecionadas
-            if (document.getElementById('vehicle-feature-fulltank').checked) {
-                vehicleData.features.push('Tanque Cheio');
-            }
-            if (document.getElementById('vehicle-feature-ac').checked) {
-                vehicleData.features.push('Ar Condicionado');
-            }
-            if (document.getElementById('vehicle-feature-automatic').checked) {
-                vehicleData.features.push('Automático');
-            }
-            if (document.getElementById('vehicle-feature-airbag').checked) {
-                vehicleData.features.push('Airbag');
-            }
-            if (document.getElementById('vehicle-feature-gps').checked) {
-                vehicleData.features.push('GPS');
-            }
-            
-            // Validar dados
-            if (!vehicleData.brand || !vehicleData.model || !vehicleData.plate) {
-                alert('Por favor, preencha todos os campos obrigatórios');
-                return;
-            }
-            
-            if (vehicleId) {
-                // Atualizar veículo existente
-                db.collection('vehicles').doc(vehicleId).update(vehicleData)
-                    .then(() => {
-                        closeVehicleModal();
-                        loadVehicles();
-                        alert('Veículo atualizado com sucesso!');
-                    })
-                    .catch(error => {
-                        console.error('Erro ao atualizar veículo:', error);
-                        alert('Erro ao atualizar veículo. Tente novamente.');
-                    });
-            } else {
-                // Adicionar novo veículo
-                vehicleData.createdAt = new Date();
-                vehicleData.status = 'under_review'; // Status inicial: Em análise
-                
-                db.collection('vehicles').add(vehicleData)
-                    .then(() => {
-                        closeVehicleModal();
-                        loadVehicles();
-                        alert('Veículo cadastrado com sucesso! O veículo está em análise e será publicado após aprovação.');
-                    })
-                    .catch(error => {
-                        console.error('Erro ao adicionar veículo:', error);
-                        alert('Erro ao adicionar veículo. Tente novamente.');
-                    });
-            }
-        }
-
-        // Funções de configurações
-        function handleUpdateSettings(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('settings-name').value;
-            const email = document.getElementById('settings-email').value;
-            const phone = document.getElementById('settings-phone').value;
-            const password = document.getElementById('settings-password').value;
-            const confirmPassword = document.getElementById('settings-confirm-password').value;
-            
-            // Validar senha
-            if (password && password !== confirmPassword) {
-                alert('As senhas não coincidem');
-                return;
-            }
-            
-            // Atualizar dados no Firestore - coleção 'cadastro'
-            const updateData = {
-                name: name,
-                email: email,
-                phone: phone,
-                updatedAt: new Date()
-            };
-            
-            // Adicionar todos os campos do documento do Firestore
-            if (userData) {
-                // Manter campos existentes que não estão no formulário
-                Object.keys(userData).forEach(key => {
-                    if (!updateData.hasOwnProperty(key) && key !== 'id') {
-                        updateData[key] = userData[key];
-                    }
-                });
-            }
-            
-            db.collection('cadastro').doc(currentUser.uid).update(updateData)
-                .then(() => {
-                    // Atualizar dados locais
-                    userData = { ...userData, ...updateData };
-                    updateUserUI();
-                    
-                    // Atualizar email no Authentication se necessário
-                    if (email !== currentUser.email) {
-                        currentUser.updateEmail(email)
-                            .then(() => {
-                                alert('Configurações atualizadas com sucesso!');
-                            })
-                            .catch(error => {
-                                console.error('Erro ao atualizar email:', error);
-                                alert('Dados atualizados, mas houve um erro ao atualizar o email. Faça login novamente.');
-                            });
-                    }
-                    
-                    // Atualizar senha se fornecida
-                    if (password) {
-                        currentUser.updatePassword(password)
-                            .then(() => {
-                                alert('Configurações e senha atualizadas com sucesso!');
-                            })
-                            .catch(error => {
-                                console.error('Erro ao atualizar senha:', error);
-                                alert('Dados atualizados, mas houve um erro ao atualizar a senha.');
-                            });
-                    } else {
-                        alert('Configurações atualizadas com sucesso!');
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro ao atualizar configurações:', error);
-                    alert('Erro ao atualizar configurações. Tente novamente.');
-                });
         }
 
         // Funções auxiliares
