@@ -37,6 +37,73 @@
             min-height: 100vh;
         }
 
+        /* Login */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            width: 100%;
+        }
+
+        .login-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-logo h1 {
+            font-size: 28px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .login-logo span {
+            color: var(--secondary);
+        }
+
+        .login-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--dark);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background-color: #0d5bb9;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
+        }
+
         /* Sidebar */
         .sidebar {
             width: 250px;
@@ -157,6 +224,9 @@
             flex: 1;
             margin-left: 250px;
             transition: all 0.3s;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .top-bar {
@@ -197,6 +267,7 @@
 
         .content {
             padding: 30px;
+            flex: 1;
         }
 
         /* Cards de Estatísticas */
@@ -347,6 +418,13 @@
             justify-content: center;
             color: var(--gray);
             font-size: 14px;
+            overflow: hidden;
+        }
+
+        .vehicle-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .vehicle-info {
@@ -531,70 +609,44 @@
             flex: 1;
         }
 
-        /* Login */
-        .login-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background-color: #f5f5f5;
-        }
-
-        .login-card {
-            background-color: white;
+        /* Calculadora */
+        .calculator {
+            background-color: #f8f9fa;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            padding: 30px;
-        }
-
-        .login-logo {
-            text-align: center;
+            padding: 20px;
             margin-bottom: 30px;
         }
 
-        .login-logo h1 {
-            font-size: 28px;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .login-logo span {
-            color: var(--secondary);
-        }
-
-        .login-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-align: center;
+        .calculator h3 {
+            margin-bottom: 15px;
             color: var(--dark);
         }
 
-        .login-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 10px;
+        .calculator-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
         }
 
-        .login-btn:hover {
-            background-color: #0d5bb9;
-        }
-
-        .error-message {
-            color: var(--error);
-            font-size: 14px;
-            margin-top: 10px;
+        .calculator-result {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
             text-align: center;
-            display: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .calculator-result h4 {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+
+        .calculator-result p {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
         }
 
         /* Responsividade */
@@ -634,6 +686,10 @@
             .form-row {
                 flex-direction: column;
                 gap: 0;
+            }
+            
+            .calculator-results {
+                grid-template-columns: 1fr 1fr;
             }
         }
     </style>
@@ -773,9 +829,6 @@
                 <div id="vehicles-section" class="dashboard-section" style="display: none;">
                     <div class="section-header">
                         <h3 class="section-title">Meus Veículos</h3>
-                        <div class="section-actions">
-                            <button id="add-vehicle-btn">Adicionar Veículo</button>
-                        </div>
                     </div>
                     
                     <div class="vehicle-cards" id="vehicles-container">
@@ -822,6 +875,39 @@
                                 <option value="quarter">Este Trimestre</option>
                                 <option value="year">Este Ano</option>
                             </select>
+                        </div>
+                    </div>
+                    
+                    <div class="calculator">
+                        <h3>Calculadora de Preços</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="calc-daily-price">Preço da Diária (R$)</label>
+                                <input type="number" id="calc-daily-price" class="form-control" min="50" step="0.01" value="100">
+                            </div>
+                            <div class="form-group">
+                                <label for="calc-rental-days">Dias de Aluguel por Mês</label>
+                                <input type="number" id="calc-rental-days" class="form-control" min="1" max="31" value="15">
+                            </div>
+                        </div>
+                        
+                        <div class="calculator-results">
+                            <div class="calculator-result">
+                                <h4>Faturamento Bruto</h4>
+                                <p id="calc-gross">R$ 0</p>
+                            </div>
+                            <div class="calculator-result">
+                                <h4>Taxa BIXX (30%)</h4>
+                                <p id="calc-bixx-fee">R$ 0</p>
+                            </div>
+                            <div class="calculator-result">
+                                <h4>Taxa Operacional</h4>
+                                <p id="calc-op-fee">R$ 0</p>
+                            </div>
+                            <div class="calculator-result">
+                                <h4>Ganho Líquido</h4>
+                                <p id="calc-net">R$ 0</p>
+                            </div>
                         </div>
                     </div>
                     
@@ -930,11 +1016,11 @@
         </div>
     </div>
 
-    <!-- Modal para Adicionar/Editar Veículo -->
+    <!-- Modal para Editar Veículo -->
     <div id="vehicle-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="vehicle-modal-title">Adicionar Veículo</h3>
+                <h3 class="modal-title" id="vehicle-modal-title">Editar Veículo</h3>
                 <button class="close-modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -1042,7 +1128,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn-outline" id="cancel-vehicle">Cancelar</button>
-                <button class="btn-primary" id="save-vehicle">Salvar Veículo</button>
+                <button class="btn-primary" id="save-vehicle">Salvar Alterações</button>
             </div>
         </div>
     </div>
@@ -1090,7 +1176,6 @@
 
         // Elementos da seção Veículos
         const vehiclesContainer = document.getElementById('vehicles-container');
-        const addVehicleBtn = document.getElementById('add-vehicle-btn');
         const vehicleModal = document.getElementById('vehicle-modal');
         const vehicleModalTitle = document.getElementById('vehicle-modal-title');
         const vehicleForm = document.getElementById('vehicle-form');
@@ -1109,6 +1194,14 @@
         const netEarnings = document.getElementById('net-earnings');
         const earningsTable = document.getElementById('earnings-table');
         const earningsPeriod = document.getElementById('earnings-period');
+
+        // Elementos da calculadora
+        const calcDailyPrice = document.getElementById('calc-daily-price');
+        const calcRentalDays = document.getElementById('calc-rental-days');
+        const calcGross = document.getElementById('calc-gross');
+        const calcBixxFee = document.getElementById('calc-bixx-fee');
+        const calcOpFee = document.getElementById('calc-op-fee');
+        const calcNet = document.getElementById('calc-net');
 
         // Elementos da seção Configurações
         const settingsForm = document.getElementById('settings-form');
@@ -1166,10 +1259,6 @@
             });
 
             // Modal de veículo
-            addVehicleBtn.addEventListener('click', function() {
-                openVehicleModal();
-            });
-
             saveVehicleBtn.addEventListener('click', handleSaveVehicle);
             cancelVehicleBtn.addEventListener('click', closeVehicleModal);
             closeModalBtn.addEventListener('click', closeVehicleModal);
@@ -1190,6 +1279,13 @@
 
             // Filtro de período de ganhos
             earningsPeriod.addEventListener('change', updateEarnings);
+
+            // Calculadora de preços
+            calcDailyPrice.addEventListener('input', updateCalculator);
+            calcRentalDays.addEventListener('input', updateCalculator);
+            
+            // Inicializar calculadora
+            updateCalculator();
         });
 
         // Funções de autenticação
@@ -1362,6 +1458,12 @@
             
             monthlyEarnings.textContent = `R$ ${monthlyEarningsValue.toFixed(2)}`;
             
+            // Calcular avaliação média
+            const ratings = vehicles.map(vehicle => vehicle.rating || 0);
+            const avgRating = ratings.length > 0 ? 
+                (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1) : 0;
+            averageRating.textContent = avgRating;
+            
             // Atualizar tabela de aluguéis recentes
             updateRecentRentalsTable();
         }
@@ -1405,7 +1507,7 @@
                     <div style="text-align: center; padding: 40px; color: var(--gray);">
                         <i class="fas fa-car" style="font-size: 50px; margin-bottom: 15px;"></i>
                         <h3>Nenhum veículo cadastrado</h3>
-                        <p>Adicione seu primeiro veículo para começar a alugar</p>
+                        <p>Entre em contato com a BIXX CAR para cadastrar seus veículos</p>
                     </div>
                 `;
                 return;
@@ -1428,7 +1530,10 @@
                 
                 vehicleCard.innerHTML = `
                     <div class="vehicle-image">
-                        <i class="fas fa-car" style="font-size: 50px;"></i>
+                        ${vehicle.imageUrl ? 
+                            `<img src="${vehicle.imageUrl}" alt="${vehicle.brand} ${vehicle.model}">` : 
+                            `<i class="fas fa-car" style="font-size: 50px;"></i>`
+                        }
                     </div>
                     <div class="vehicle-info">
                         <div class="vehicle-header">
@@ -1629,6 +1734,22 @@
             }
         }
 
+        // Funções da calculadora
+        function updateCalculator() {
+            const dailyPrice = parseFloat(calcDailyPrice.value) || 0;
+            const rentalDays = parseInt(calcRentalDays.value) || 0;
+            
+            const gross = dailyPrice * rentalDays;
+            const bixxFee = gross * 0.3;
+            const opFee = rentalDays * 15;
+            const net = gross - bixxFee - opFee;
+            
+            calcGross.textContent = `R$ ${gross.toFixed(2)}`;
+            calcBixxFee.textContent = `R$ ${bixxFee.toFixed(2)}`;
+            calcOpFee.textContent = `R$ ${opFee.toFixed(2)}`;
+            calcNet.textContent = `R$ ${net.toFixed(2)}`;
+        }
+
         // Funções de navegação
         function showSection(section) {
             // Esconder todas as seções
@@ -1684,11 +1805,6 @@
                     document.getElementById('vehicle-feature-airbag').checked = features.includes('Airbag');
                     document.getElementById('vehicle-feature-gps').checked = features.includes('GPS');
                 }
-            } else {
-                // Modo adição
-                vehicleModalTitle.textContent = 'Adicionar Veículo';
-                vehicleForm.reset();
-                document.getElementById('vehicle-id').value = '';
             }
             
             vehicleModal.style.display = 'flex';
@@ -1715,7 +1831,6 @@
                 description: document.getElementById('vehicle-description').value,
                 features: [],
                 ownerId: currentUser.uid,
-                status: 'available',
                 updatedAt: new Date()
             };
             
@@ -1742,32 +1857,16 @@
                 return;
             }
             
-            // Salvar no Firestore
-            if (vehicleId) {
-                // Atualizar veículo existente
-                db.collection('vehicles').doc(vehicleId).update(vehicleData)
-                    .then(() => {
-                        closeVehicleModal();
-                        loadVehicles();
-                    })
-                    .catch(error => {
-                        console.error('Erro ao atualizar veículo:', error);
-                        alert('Erro ao atualizar veículo. Tente novamente.');
-                    });
-            } else {
-                // Adicionar novo veículo
-                vehicleData.createdAt = new Date();
-                
-                db.collection('vehicles').add(vehicleData)
-                    .then(() => {
-                        closeVehicleModal();
-                        loadVehicles();
-                    })
-                    .catch(error => {
-                        console.error('Erro ao adicionar veículo:', error);
-                        alert('Erro ao adicionar veículo. Tente novamente.');
-                    });
-            }
+            // Atualizar veículo existente
+            db.collection('vehicles').doc(vehicleId).update(vehicleData)
+                .then(() => {
+                    closeVehicleModal();
+                    loadVehicles();
+                })
+                .catch(error => {
+                    console.error('Erro ao atualizar veículo:', error);
+                    alert('Erro ao atualizar veículo. Tente novamente.');
+                });
         }
 
         // Funções auxiliares
