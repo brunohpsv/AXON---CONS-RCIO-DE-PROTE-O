@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Carros - BIXX CAR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #0d5bb9;
+            --primary-light: #e8f0fe;
+            --secondary: #fbbc04;
+            --secondary-dark: #e6a800;
+            --dark: #202124;
+            --dark-light: #3c4043;
+            --light: #f8f9fa;
+            --gray: #5f6368;
+            --gray-light: #dadce0;
+            --success: #34a853;
+            --success-light: #e6f4ea;
+            --error: #ea4335;
+            --error-light: #fce8e6;
+            --warning: #fbbc04;
+            --warning-light: #fef7e0;
+            --info: #1a73e8;
+            --info-light: #e8f0fe;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .header h1 {
+            color: var(--primary);
+            font-size: 28px;
+        }
+
+        .back-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card-header {
+            margin-bottom: 25px;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .card-subtitle {
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
+
+        .form-control[readonly] {
+            background-color: var(--light);
+            color: var(--gray);
+        }
+
+        .form-text {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-item input {
+            width: 18px;
+            height: 18px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(26, 115, 232, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: var(--gray-light);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background-color: #c9ccd0;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #2e8b47;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-success {
+            background-color: var(--success-light);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .alert-error {
+            background-color: var(--error-light);
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+
+        .preview-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .preview-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .preview-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            max-width: 400px;
+            margin: 0 auto;
+            transition: var(--transition);
+        }
+
+        .preview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .preview-header {
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .preview-header h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .preview-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .preview-image {
+            height: 200px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .preview-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.1));
+        }
+
+        .preview-info {
+            padding: 20px;
+        }
+
+        .preview-title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .preview-title-section h4 {
+            font-size: 18px;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .preview-title-section p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .preview-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .preview-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .preview-detail {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .preview-detail i {
+            margin-right: 8px;
+            color: var(--primary);
+            width: 16px;
+            text-align: center;
+        }
+
+        .preview-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .preview-feature {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>BIXX CAR - Cadastro de Veículos</h1>
+            <button id="back-btn" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Voltar ao Painel
+            </button>
+        </div>
+        
+        <div id="success-alert" class="alert alert-success">
+            <i class="fas fa-check-circle"></i> Veículo cadastrado com sucesso!
+        </div>
+        
+        <div id="error-alert" class="alert alert-error">
+            <i class="fas fa-exclamation-circle"></i> <span id="error-message">Erro ao cadastrar veículo</span>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Informações do Veículo</h2>
+                <p class="card-subtitle">Preencha os dados do veículo para cadastro no sistema</p>
+            </div>
+            
+            <form id="vehicle-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="brand">Marca *</label>
+                        <input type="text" id="brand" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="model">Modelo *</label>
+                        <input type="text" id="model" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="year">Ano *</label>
+                        <input type="number" id="year" class="form-control" min="1990" max="2025" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="color">Cor *</label>
+                        <input type="text" id="color" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="plate">Placa *</label>
+                        <input type="text" id="plate" class="form-control" placeholder="ABC1D23" required>
+                        <div class="form-text">A placa será usada como identificador único do veículo</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="renavam">RENAVAM</label>
+                        <input type="text" id="renavam" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="chassis">Chassi</label>
+                        <input type="text" id="chassis" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fuel">Combustível *</label>
+                        <select id="fuel" class="form-control" required>
+                            <option value="">Selecione...</option>
+                            <option value="Gasolina">Gasolina</option>
+                            <option value="Álcool">Álcool</option>
+                            <option value="Diesel">Diesel</option>
+                            <option value="Flex">Flex</option>
+                            <option value="Elétrico">Elétrico</option>
+                            <option value="Híbrido">Híbrido</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="daily-price">Preço da Diária (R$) *</label>
+                        <input type="number" id="daily-price" class="form-control" min="50" step="0.01" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Localização *</label>
+                        <input type="text" id="address" class="form-control" placeholder="Endereço completo" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Descrição</label>
+                    <textarea id="description" class="form-control" rows="4" placeholder="Descreva o veículo, condições, observações..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Características do Veículo</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="feature-ac" value="Ar Condicionado">
+                            <label for="feature-ac">Ar Condicionado</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="feature-auto" value="Automático">
+                            <label for="feature-auto">Automático</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="feature-airbag" value="Airbag">
+                            <label for="feature-airbag">Airbag</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="feature-gps" value="GPS">
+                            <label for="feature-gps">GPS</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="feature-tank" value="Tanque Cheio">
+                            <label for="feature-tank">Tanque Cheio</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="feature-bluetooth" value="Bluetooth">
+                            <label for="feature-bluetooth">Bluetooth</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="feature-camera" value="Câmera de Ré">
+                            <label for="feature-camera">Câmera de Ré</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="feature-sensor" value="Sensor de Estacionamento">
+                            <label for="feature-sensor">Sensor de Estacionamento</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="image-url">URL da Imagem</label>
+                    <input type="url" id="image-url" class="form-control" placeholder="https://exemplo.com/imagem.jpg">
+                    <div class="form-text">URL de uma imagem do veículo (opcional)</div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="preview-btn" class="btn btn-secondary">
+                        <i class="fas fa-eye"></i> Visualizar
+                    </button>
+                    <button type="button" id="clear-btn" class="btn btn-secondary">
+                        <i class="fas fa-broom"></i> Limpar
+                    </button>
+                    <button type="submit" id="submit-btn" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Cadastrar Veículo
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="preview-section">
+            <h3 class="preview-title">Prévia do Veículo</h3>
+            <div id="vehicle-preview" class="preview-card">
+                <div class="preview-header">
+                    <h3 id="preview-brand-model">Marca Modelo</h3>
+                    <p id="preview-year-color">Ano • Cor</p>
+                </div>
+                <div class="preview-image">
+                    <i class="fas fa-car" style="font-size: 50px; color: var(--primary);"></i>
+                </div>
+                <div class="preview-info">
+                    <div class="preview-title-section">
+                        <div>
+                            <h4 id="preview-title">Marca Modelo</h4>
+                            <p id="preview-subtitle">Ano • Cor</p>
+                        </div>
+                        <div class="preview-price" id="preview-price">R$ 0,00/dia</div>
+                    </div>
+                    
+                    <div class="preview-details">
+                        <div class="preview-detail">
+                            <i class="fas fa-gas-pump"></i> <span id="preview-fuel">Combustível</span>
+                        </div>
+                        <div class="preview-detail">
+                            <i class="fas fa-map-marker-alt"></i> <span id="preview-address">Localização</span>
+                        </div>
+                        <div class="preview-detail">
+                            <i class="fas fa-tachometer-alt"></i> <span id="preview-transmission">Transmissão</span>
+                        </div>
+                        <div class="preview-detail">
+                            <i class="fas fa-snowflake"></i> <span id="preview-ac">Ar Condicionado</span>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-features" id="preview-features">
+                        <!-- Características serão adicionadas aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCViJaATK6A-5fTJSGBV9j9LSjTFYUDK64",
+            authDomain: "bixx-car.firebaseapp.com",
+            projectId: "bixx-car",
+            storageBucket: "bixx-car.firebasestorage.app",
+            messagingSenderId: "785931877829",
+            appId: "1:785931877829:web:b1fc9a5f14dbfccf5edfac"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Elementos DOM
+        const backBtn = document.getElementById('back-btn');
+        const vehicleForm = document.getElementById('vehicle-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const previewBtn = document.getElementById('preview-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const successAlert = document.getElementById('success-alert');
+        const errorAlert = document.getElementById('error-alert');
+        const errorMessage = document.getElementById('error-message');
+
+        // Elementos do formulário
+        const brandInput = document.getElementById('brand');
+        const modelInput = document.getElementById('model');
+        const yearInput = document.getElementById('year');
+        const colorInput = document.getElementById('color');
+        const plateInput = document.getElementById('plate');
+        const renavamInput = document.getElementById('renavam');
+        const chassisInput = document.getElementById('chassis');
+        const fuelInput = document.getElementById('fuel');
+        const dailyPriceInput = document.getElementById('daily-price');
+        const addressInput = document.getElementById('address');
+        const descriptionInput = document.getElementById('description');
+        const imageUrlInput = document.getElementById('image-url');
+        const featureCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+
+        // Elementos da prévia
+        const previewBrandModel = document.getElementById('preview-brand-model');
+        const previewYearColor = document.getElementById('preview-year-color');
+        const previewTitle = document.getElementById('preview-title');
+        const previewSubtitle = document.getElementById('preview-subtitle');
+        const previewPrice = document.getElementById('preview-price');
+        const previewFuel = document.getElementById('preview-fuel');
+        const previewAddress = document.getElementById('preview-address');
+        const previewTransmission = document.getElementById('preview-transmission');
+        const previewAc = document.getElementById('preview-ac');
+        const previewFeatures = document.getElementById('preview-features');
+        const previewImage = document.querySelector('.preview-image');
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Definir ano atual como padrão
+            yearInput.value = new Date().getFullYear();
+            
+            // Atualizar prévia quando os campos mudam
+            const formInputs = document.querySelectorAll('#vehicle-form input, #vehicle-form select, #vehicle-form textarea');
+            formInputs.forEach(input => {
+                input.addEventListener('input', updatePreview);
+            });
+            
+            // Botão de visualização
+            previewBtn.addEventListener('click', updatePreview);
+            
+            // Botão de limpar
+            clearBtn.addEventListener('click', clearForm);
+            
+            // Submissão do formulário
+            vehicleForm.addEventListener('submit', handleSubmit);
+            
+            // Botão voltar
+            backBtn.addEventListener('click', function() {
+                window.location.href = 'index.html'; // Substitua pelo caminho correto do seu painel
+            });
+            
+            // Inicializar prévia
+            updatePreview();
+        });
+
+        // Função para atualizar a prévia
+        function updatePreview() {
+            // Obter valores dos campos
+            const brand = brandInput.value || 'Marca';
+            const model = modelInput.value || 'Modelo';
+            const year = yearInput.value || 'Ano';
+            const color = colorInput.value || 'Cor';
+            const fuel = fuelInput.value || 'Combustível';
+            const address = addressInput.value || 'Localização não informada';
+            const dailyPrice = dailyPriceInput.value ? parseFloat(dailyPriceInput.value).toFixed(2) : '0.00';
+            const imageUrl = imageUrlInput.value;
+            
+            // Verificar características selecionadas
+            const features = [];
+            featureCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    features.push(checkbox.value);
+                }
+            });
+            
+            // Atualizar elementos da prévia
+            previewBrandModel.textContent = `${brand} ${model}`;
+            previewYearColor.textContent = `${year} • ${color}`;
+            previewTitle.textContent = `${brand} ${model}`;
+            previewSubtitle.textContent = `${year} • ${color}`;
+            previewPrice.textContent = `R$ ${dailyPrice}/dia`;
+            previewFuel.textContent = fuel;
+            previewAddress.textContent = address.length > 25 ? address.substring(0, 25) + '...' : address;
+            
+            // Verificar transmissão
+            const isAutomatic = features.includes('Automático');
+            previewTransmission.textContent = isAutomatic ? 'Automático' : 'Manual';
+            
+            // Verificar ar condicionado
+            const hasAC = features.includes('Ar Condicionado');
+            previewAc.textContent = hasAC ? 'Ar Condicionado' : 'Sem Ar';
+            
+            // Atualizar características
+            previewFeatures.innerHTML = '';
+            features.forEach(feature => {
+                const featureElement = document.createElement('span');
+                featureElement.className = 'preview-feature';
+                featureElement.textContent = feature;
+                previewFeatures.appendChild(featureElement);
+            });
+            
+            // Atualizar imagem
+            if (imageUrl) {
+                previewImage.innerHTML = `<img src="${imageUrl}" alt="${brand} ${model}" style="width: 100%; height: 100%; object-fit: cover;">`;
+            } else {
+                previewImage.innerHTML = `<i class="fas fa-car" style="font-size: 50px; color: var(--primary);"></i>`;
+            }
+        }
+
+        // Função para limpar o formulário
+        function clearForm() {
+            vehicleForm.reset();
+            yearInput.value = new Date().getFullYear();
+            updatePreview();
+            hideAlerts();
+        }
+
+        // Função para lidar com a submissão do formulário
+        function handleSubmit(e) {
+            e.preventDefault();
+            
+            // Validar formulário
+            if (!validateForm()) {
+                return;
+            }
+            
+            // Desabilitar botão de envio
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Cadastrando...';
+            
+            // Coletar dados do formulário
+            const vehicleData = {
+                brand: brandInput.value.trim(),
+                model: modelInput.value.trim(),
+                year: parseInt(yearInput.value),
+                color: colorInput.value.trim(),
+                plate: plateInput.value.trim().toUpperCase(),
+                renavam: renavamInput.value.trim(),
+                chassis: chassisInput.value.trim(),
+                fuel: fuelInput.value,
+                dailyPrice: parseFloat(dailyPriceInput.value),
+                address: addressInput.value.trim(),
+                description: descriptionInput.value.trim(),
+                imageUrl: imageUrlInput.value.trim(),
+                features: getSelectedFeatures(),
+                status: 'under_review', // Status inicial
+                rating: 0, // Avaliação inicial
+                createdAt: new Date(),
+                updatedAt: new Date()
+            };
+            
+            // Salvar no Firestore
+            db.collection('carros').doc(vehicleData.plate).set(vehicleData)
+                .then(() => {
+                    showSuccessAlert();
+                    clearForm();
+                })
+                .catch(error => {
+                    console.error('Erro ao cadastrar veículo:', error);
+                    showErrorAlert('Erro ao cadastrar veículo: ' + error.message);
+                })
+                .finally(() => {
+                    // Reabilitar botão de envio
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-save"></i> Cadastrar Veículo';
+                });
+        }
+
+        // Função para obter características selecionadas
+        function getSelectedFeatures() {
+            const features = [];
+            featureCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    features.push(checkbox.value);
+                }
+            });
+            return features;
+        }
+
+        // Função para validar o formulário
+        function validateForm() {
+            hideAlerts();
+            
+            // Validar placa (formato brasileiro)
+            const plateRegex = /^[A-Z]{3}[0-9][A-Z0-9][0-9]{2}$/;
+            const plate = plateInput.value.trim().toUpperCase();
+            
+            if (!plateRegex.test(plate)) {
+                showErrorAlert('Formato de placa inválido. Use o formato: ABC1D23');
+                plateInput.focus();
+                return false;
+            }
+            
+            // Validar ano
+            const year = parseInt(yearInput.value);
+            const currentYear = new Date().getFullYear();
+            
+            if (year < 1990 || year > currentYear + 1) {
+                showErrorAlert(`Ano deve estar entre 1990 e ${currentYear + 1}`);
+                yearInput.focus();
+                return false;
+            }
+            
+            // Validar preço
+            const dailyPrice = parseFloat(dailyPriceInput.value);
+            
+            if (dailyPrice < 50) {
+                showErrorAlert('O preço da diária deve ser de pelo menos R$ 50,00');
+                dailyPriceInput.focus();
+                return false;
+            }
+            
+            return true;
+        }
+
+        // Funções para mostrar/ocultar alertas
+        function showSuccessAlert() {
+            successAlert.style.display = 'block';
+            errorAlert.style.display = 'none';
+            
+            // Ocultar após 5 segundos
+            setTimeout(() => {
+                successAlert.style.display = 'none';
+            }, 5000);
+        }
+
+        function showErrorAlert(message) {
+            errorMessage.textContent = message;
+            errorAlert.style.display = 'block';
+            successAlert.style.display = 'none';
+        }
+
+        function hideAlerts() {
+            successAlert.style.display = 'none';
+            errorAlert.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
