@@ -12,6 +12,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     
     <style>
+        /* Estilos anteriores mantidos */
         * {
             margin: 0;
             padding: 0;
@@ -411,6 +412,16 @@
             color: var(--error);
         }
 
+        .status-under-review {
+            background-color: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .status-approved {
+            background-color: var(--success-light);
+            color: var(--success);
+        }
+
         /* Vehicle Cards */
         .vehicles-grid {
             display: grid;
@@ -424,6 +435,7 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            position: relative;
         }
 
         .vehicle-card:hover {
@@ -437,6 +449,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+        }
+
+        .vehicle-status-overlay {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            background-color: rgba(255, 255, 255, 0.9);
         }
 
         .vehicle-info {
@@ -475,6 +499,16 @@
         .status-rented {
             background-color: var(--warning-light);
             color: var(--warning);
+        }
+
+        .status-under-review {
+            background-color: var(--warning-light);
+            color: var(--warning);
+        }
+
+        .status-approved {
+            background-color: var(--success-light);
+            color: var(--success);
         }
 
         .vehicle-details {
@@ -1549,7 +1583,7 @@
                             address: vehicleData.address || '',
                             description: vehicleData.description || '',
                             features: vehicleData.features || [],
-                            status: vehicleData.status || 'available',
+                            status: vehicleData.status || 'under_review',
                             imageUrl: vehicleData.imageUrl || '',
                             rating: vehicleData.rating || 0,
                             ownerId: vehicleData.ownerId || currentUser.uid,
@@ -1664,6 +1698,17 @@
             // Mostrar apenas os 5 mais recentes
             const recentRentals = sortedRentals.slice(0, 5);
             
+            if (recentRentals.length === 0) {
+                recentRentalsTable.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 20px; color: var(--gray);">
+                            Nenhum aluguel recente encontrado
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
             recentRentals.forEach(rental => {
                 const vehicle = vehicles.find(v => v.id === rental.vehicleId);
                 const vehicleName = vehicle ? `${vehicle.brand} ${vehicle.model}` : 'Veículo não encontrado';
@@ -1727,9 +1772,10 @@
                 vehicleCard.innerHTML = `
                     <div class="vehicle-image">
                         ${vehicle.imageUrl ? 
-                            `<img src="${vehicle.imageUrl}" alt="${vehicle.brand} ${vehicle.model}">` : 
+                            `<img src="${vehicle.imageUrl}" alt="${vehicle.brand} ${vehicle.model}" style="width: 100%; height: 100%; object-fit: cover;">` : 
                             `<i class="fas fa-car" style="font-size: 50px; color: var(--primary);"></i>`
                         }
+                        <div class="vehicle-status-overlay ${statusClass}">${statusText}</div>
                     </div>
                     <div class="vehicle-info">
                         <div class="vehicle-header">
@@ -2126,6 +2172,7 @@
                     .then(() => {
                         closeVehicleModal();
                         loadVehicles();
+                        alert('Veículo atualizado com sucesso!');
                     })
                     .catch(error => {
                         console.error('Erro ao atualizar veículo:', error);
@@ -2134,12 +2181,13 @@
             } else {
                 // Adicionar novo veículo
                 vehicleData.createdAt = new Date();
-                vehicleData.status = 'available';
+                vehicleData.status = 'under_review'; // Status inicial: Em análise
                 
                 db.collection('vehicles').add(vehicleData)
                     .then(() => {
                         closeVehicleModal();
                         loadVehicles();
+                        alert('Veículo cadastrado com sucesso! O veículo está em análise e será publicado após aprovação.');
                     })
                     .catch(error => {
                         console.error('Erro ao adicionar veículo:', error);
@@ -2171,6 +2219,16 @@
                 phone: phone,
                 updatedAt: new Date()
             };
+            
+            // Adicionar todos os campos do documento do Firestore
+            if (userData) {
+                // Manter campos existentes que não estão no formulário
+                Object.keys(userData).forEach(key => {
+                    if (!updateData.hasOwnProperty(key) && key !== 'id') {
+                        updateData[key] = userData[key];
+                    }
+                });
+            }
             
             db.collection('cadastro').doc(currentUser.uid).update(updateData)
                 .then(() => {
@@ -2222,7 +2280,9 @@
                 'active': 'Ativo',
                 'reserved': 'Reservado',
                 'completed': 'Concluído',
-                'cancelled': 'Cancelado'
+                'cancelled': 'Cancelado',
+                'under_review': 'Em Análise',
+                'approved': 'Aprovado'
             };
             
             return statusMap[status] || status;
@@ -2239,7 +2299,7 @@
                 return activeRental.status;
             }
             
-            return vehicle.status || 'available';
+            return vehicle.status || 'under_review';
         }
 
         function getVehicleStatusText(status) {
@@ -2247,7 +2307,9 @@
                 'available': 'Disponível',
                 'rented': 'Alugado',
                 'reserved': 'Reservado',
-                'maintenance': 'Manutenção'
+                'maintenance': 'Manutenção',
+                'under_review': 'Em Análise',
+                'approved': 'Aprovado'
             };
             
             return statusMap[status] || status;
