@@ -16,29 +16,39 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         :root {
-            --primary: #007bff;
-            --secondary: #ffc107;
-            --dark: #343a40;
+            --primary: #1a73e8;
+            --primary-dark: #0d5bb9;
+            --primary-light: #e8f0fe;
+            --secondary: #fbbc04;
+            --secondary-dark: #e6a800;
+            --dark: #202124;
+            --dark-light: #3c4043;
             --light: #f8f9fa;
-            --gray: #6c757d;
-            --success: #28a745;
-            --error: #dc3545;
-            --warning: #ffc107;
-            --info: #17a2b8;
-            --background: #ffffff;
-            --text: #212529;
+            --gray: #5f6368;
+            --gray-light: #dadce0;
+            --success: #34a853;
+            --success-light: #e6f4ea;
+            --error: #ea4335;
+            --error-light: #fce8e6;
+            --warning: #fbbc04;
+            --warning-light: #fef7e0;
+            --info: #1a73e8;
+            --info-light: #e8f0fe;
+            --sidebar-width: 280px;
+            --header-height: 70px;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
         }
 
         body {
-            background-color: var(--background);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            color: var(--text);
+            background-color: #f5f7fa;
+            color: var(--dark);
+            overflow-x: hidden;
         }
 
         /* Login */
@@ -46,18 +56,31 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex: 1;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             width: 100%;
+            padding: 20px;
         }
 
         .login-card {
             background-color: white;
-            border-radius: 15px;
+            border-radius: var(--border-radius);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             width: 100%;
             max-width: 450px;
             padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
         }
 
         .login-logo {
@@ -69,6 +92,7 @@
             font-size: 32px;
             color: var(--primary);
             font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .login-logo span {
@@ -76,29 +100,67 @@
         }
 
         .login-title {
-            font-size: 26px;
+            font-size: 24px;
             margin-bottom: 25px;
             text-align: center;
             color: var(--dark);
+            font-weight: 600;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: var(--transition);
+            background-color: #f8f9fa;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
         }
 
         .login-btn {
             width: 100%;
             padding: 14px;
-            background-color: var(--primary);
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
             color: white;
             border: none;
             border-radius: 8px;
             font-weight: 600;
             font-size: 16px;
             cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            margin-top: 15px;
+            transition: var(--transition);
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(26, 115, 232, 0.3);
         }
 
         .login-btn:hover {
-            background-color: #0069d9;
             transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(26, 115, 232, 0.4);
         }
 
         .error-message {
@@ -107,259 +169,404 @@
             margin-top: 10px;
             text-align: center;
             display: none;
+            padding: 10px;
+            background-color: var(--error-light);
+            border-radius: 6px;
         }
 
-        /* Top Navigation */
-        .top-nav {
-            background-color: var(--dark);
+        /* Layout Principal */
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
             color: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
             position: fixed;
-            width: 100%;
-            top: 0;
+            height: 100vh;
+            overflow-y: auto;
             z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .nav-logo {
+        .sidebar-header {
+            padding: 25px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
             display: flex;
             align-items: center;
         }
 
-        .nav-logo h1 {
+        .logo h1 {
             font-size: 24px;
-            margin-left: 10px;
+            color: white;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
-        .nav-logo span {
+        .logo span {
             color: var(--secondary);
         }
 
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-menu li {
-            margin: 0 15px;
-        }
-
-        .nav-menu a {
+        .close-sidebar {
+            display: none;
+            background: none;
+            border: none;
             color: white;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .close-sidebar:hover {
+            opacity: 1;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            position: relative;
+        }
+
+        .sidebar-menu a {
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-
-        .nav-menu a:hover, .nav-menu a.active {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .nav-user {
+            padding: 15px 25px;
             display: flex;
             align-items: center;
+            transition: var(--transition);
+            font-weight: 500;
+            border-left: 3px solid transparent;
         }
 
-        .nav-user img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left-color: var(--secondary);
+        }
+
+        .sidebar-menu i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .sidebar-menu .badge {
+            background-color: var(--primary);
+            color: white;
+            border-radius: 12px;
+            padding: 4px 10px;
+            font-size: 12px;
+            margin-left: auto;
+            font-weight: 600;
+        }
+
+        .user-info {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: auto;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .user-info p {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .user-info .user-name {
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 16px;
         }
 
         .logout-btn {
-            background-color: var(--error);
+            background-color: rgba(255, 255, 255, 0.1);
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 10px 15px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background 0.3s;
-            margin-left: 20px;
+            margin-top: 10px;
+            width: 100%;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logout-btn i {
+            margin-right: 8px;
         }
 
         .logout-btn:hover {
-            background-color: #c82333;
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* Main Content */
+        /* Conteúdo Principal */
         .main-content {
             flex: 1;
-            padding: 80px 30px 30px; /* Space for top nav */
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
+            margin-left: var(--sidebar-width);
+            transition: var(--transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-bar {
+            background-color: white;
+            padding: 0 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .toggle-sidebar {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--dark);
+            padding: 8px;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .toggle-sidebar:hover {
+            background-color: var(--light);
         }
 
         .page-title {
-            font-size: 28px;
+            font-size: 24px;
             color: var(--dark);
-            font-weight: 700;
-            margin-bottom: 30px;
+            font-weight: 600;
         }
 
-        /* Stats Cards */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-profile img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-light);
+        }
+
+        .user-profile span {
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .content {
+            padding: 30px;
+            flex: 1;
+        }
+
+        /* Cards de Estatísticas */
         .stats-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
         }
 
         .stat-card {
             background-color: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
             display: flex;
             align-items: center;
-            transition: transform 0.3s;
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
 
         .stat-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 15px;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 20px;
-            font-size: 28px;
+            margin-right: 18px;
+            font-size: 24px;
         }
 
         .stat-info h3 {
             font-size: 28px;
             margin-bottom: 5px;
+            color: var(--dark);
+            font-weight: 700;
         }
 
         .stat-info p {
             color: var(--gray);
-            font-size: 15px;
+            font-size: 14px;
+            font-weight: 500;
         }
 
-        .bg-primary { background-color: rgba(0, 123, 255, 0.1); color: var(--primary); }
-        .bg-success { background-color: rgba(40, 167, 69, 0.1); color: var(--success); }
-        .bg-warning { background-color: rgba(255, 193, 7, 0.1); color: var(--warning); }
-        .bg-info { background-color: rgba(23, 162, 184, 0.1); color: var(--info); }
+        .bg-primary { background-color: var(--primary-light); color: var(--primary); }
+        .bg-success { background-color: var(--success-light); color: var(--success); }
+        .bg-warning { background-color: var(--warning-light); color: var(--warning); }
+        .bg-info { background-color: var(--info-light); color: var(--info); }
 
-        /* Dashboard Sections */
+        /* Seções do Painel */
         .dashboard-section {
             background-color: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 40px;
+            border-radius: var(--border-radius);
+            padding: 28px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
         }
 
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
+            margin-bottom: 24px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--gray-light);
         }
 
         .section-title {
-            font-size: 22px;
+            font-size: 20px;
+            color: var(--dark);
             font-weight: 600;
         }
 
-        .section-actions button {
+        .section-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .section-actions button, .section-actions select {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 18px;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.3s;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .section-actions select {
+            background-color: white;
+            color: var(--dark);
+            border: 1px solid var(--gray-light);
         }
 
         .section-actions button:hover {
-            background-color: #0069d9;
+            background-color: var(--primary-dark);
         }
 
-        /* Tables */
+        /* Tabelas */
         .table-responsive {
             overflow-x: auto;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--gray-light);
         }
 
         .data-table {
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 10px;
+            border-collapse: collapse;
         }
 
         .data-table th, .data-table td {
-            padding: 15px 20px;
+            padding: 16px 20px;
             text-align: left;
+            border-bottom: 1px solid var(--gray-light);
         }
 
         .data-table th {
-            background-color: var(--light);
+            background-color: #f8f9fa;
             font-weight: 600;
             color: var(--dark);
-            border-bottom: 2px solid #ddd;
+            font-size: 14px;
         }
 
-        .data-table tr {
-            background-color: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            border-radius: 10px;
+        .data-table tr:last-child td {
+            border-bottom: none;
         }
 
         .data-table tr:hover {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: #f8f9fa;
         }
 
         .status-badge {
             padding: 6px 12px;
             border-radius: 20px;
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
         }
 
-        .status-available { background-color: rgba(40, 167, 69, 0.1); color: var(--success); }
-        .status-rented { background-color: rgba(0, 123, 255, 0.1); color: var(--primary); }
-        .status-reserved { background-color: rgba(255, 193, 7, 0.1); color: var(--warning); }
-        .status-maintenance { background-color: rgba(220, 53, 69, 0.1); color: var(--error); }
+        .status-available { background-color: var(--success-light); color: var(--success); }
+        .status-rented { background-color: var(--info-light); color: var(--info); }
+        .status-reserved { background-color: var(--warning-light); color: var(--warning); }
+        .status-maintenance { background-color: var(--error-light); color: var(--error); }
 
-        /* Vehicle Cards */
+        /* Cards de Veículos */
         .vehicle-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
         }
 
         .vehicle-card {
             background-color: white;
-            border-radius: 15px;
+            border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--gray-light);
         }
 
         .vehicle-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
 
         .vehicle-image {
             height: 200px;
-            background-color: var(--light);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--gray);
+            font-size: 14px;
             overflow: hidden;
+            position: relative;
         }
 
         .vehicle-image img {
@@ -368,82 +575,99 @@
             object-fit: cover;
         }
 
+        .vehicle-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.1));
+        }
+
         .vehicle-info {
-            padding: 25px;
+            padding: 24px;
         }
 
         .vehicle-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .vehicle-title h3 {
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 18px;
+            color: var(--dark);
             margin-bottom: 5px;
+            font-weight: 600;
         }
 
         .vehicle-title p {
             color: var(--gray);
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .vehicle-status {
             padding: 6px 12px;
             border-radius: 20px;
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 12px;
+            font-weight: 600;
         }
 
         .vehicle-details {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 18px;
         }
 
         .vehicle-detail {
             display: flex;
             align-items: center;
-            font-size: 15px;
+            font-size: 14px;
             color: var(--gray);
         }
 
         .vehicle-detail i {
             margin-right: 8px;
             color: var(--primary);
+            width: 16px;
+            text-align: center;
         }
 
         .vehicle-price {
             font-size: 22px;
             font-weight: 700;
-            margin-bottom: 20px;
+            color: var(--dark);
+            margin-bottom: 18px;
         }
 
         .vehicle-actions {
             display: flex;
-            gap: 15px;
+            gap: 12px;
         }
 
         .vehicle-actions button {
             flex: 1;
-            padding: 10px 15px;
+            padding: 10px 12px;
+            border: none;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 500;
-            transition: background 0.3s;
+            transition: var(--transition);
+            font-size: 14px;
         }
 
         .btn-primary {
-            background-color: var(--primary);
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
             color: white;
-            border: none;
+            box-shadow: 0 4px 10px rgba(26, 115, 232, 0.3);
         }
 
         .btn-primary:hover {
-            background-color: #0069d9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(26, 115, 232, 0.4);
         }
 
         .btn-outline {
@@ -453,7 +677,7 @@
         }
 
         .btn-outline:hover {
-            background-color: rgba(0, 123, 255, 0.1);
+            background-color: var(--primary-light);
         }
 
         /* Modal */
@@ -468,21 +692,22 @@
             z-index: 2000;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
 
         .modal-content {
             background-color: white;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 650px;
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 700px;
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         .modal-header {
-            padding: 25px;
-            border-bottom: 1px solid #eee;
+            padding: 24px 28px;
+            border-bottom: 1px solid var(--gray-light);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -490,59 +715,39 @@
 
         .modal-title {
             font-size: 22px;
+            color: var(--dark);
             font-weight: 600;
         }
 
         .close-modal {
             background: none;
             border: none;
-            font-size: 28px;
+            font-size: 24px;
             cursor: pointer;
             color: var(--gray);
-            transition: color 0.3s;
+            transition: var(--transition);
+            padding: 4px;
+            border-radius: 4px;
         }
 
         .close-modal:hover {
             color: var(--dark);
+            background-color: var(--light);
         }
 
         .modal-body {
-            padding: 25px;
+            padding: 28px;
         }
 
         .modal-footer {
-            padding: 25px;
-            border-top: 1px solid #eee;
+            padding: 20px 28px;
+            border-top: 1px solid var(--gray-light);
             display: flex;
             justify-content: flex-end;
-            gap: 15px;
+            gap: 12px;
         }
 
-        /* Forms */
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border 0.3s;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
-
+        /* Formulários */
         .form-row {
             display: flex;
             gap: 20px;
@@ -552,81 +757,146 @@
             flex: 1;
         }
 
-        /* Calculator */
+        /* Calculadora */
         .calculator {
-            background-color: var(--light);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 40px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 24px;
+            margin-bottom: 30px;
+            border: 1px solid var(--gray-light);
         }
 
         .calculator h3 {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+            color: var(--dark);
+            font-weight: 600;
         }
 
         .calculator-results {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 18px;
+            margin-top: 24px;
         }
 
         .calculator-result {
             background-color: white;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 18px;
+            border-radius: var(--border-radius);
             text-align: center;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--gray-light);
         }
 
         .calculator-result h4 {
-            font-size: 15px;
+            font-size: 14px;
             color: var(--gray);
             margin-bottom: 8px;
+            font-weight: 500;
         }
 
         .calculator-result p {
             font-size: 20px;
-            font-weight: 600;
+            font-weight: 700;
+            color: var(--dark);
         }
 
-        /* Responsivity */
-        @media (max-width: 768px) {
-            .top-nav {
-                flex-direction: column;
-                padding: 15px;
-            }
-
-            .nav-menu {
-                margin-top: 15px;
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .nav-menu li {
-                margin: 5px 0;
-            }
-
-            .nav-menu a {
-                display: block;
-                text-align: center;
-            }
-
+        /* Responsividade */
+        @media (max-width: 1200px) {
             .stats-cards {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             }
+            
+            .vehicle-cards {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
 
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 0;
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                width: var(--sidebar-width);
+                transform: translateX(0);
+            }
+            
+            .close-sidebar {
+                display: block;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .toggle-sidebar {
+                display: block;
+            }
+            
+            .stats-cards {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .vehicle-cards {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .stats-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+            
             .vehicle-cards {
                 grid-template-columns: 1fr;
             }
-
+            
             .form-row {
                 flex-direction: column;
                 gap: 0;
             }
+            
+            .calculator-results {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .section-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
 
+        @media (max-width: 576px) {
+            .stats-cards {
+                grid-template-columns: 1fr;
+            }
+            
             .calculator-results {
                 grid-template-columns: 1fr;
+            }
+            
+            .login-card {
+                padding: 30px 20px;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .vehicle-actions {
+                flex-direction: column;
             }
         }
     </style>
@@ -639,16 +909,17 @@
                 <h1>BIXX <span>CAR</span></h1>
             </div>
             <h2 class="login-title">Painel do Proprietário</h2>
+            <p class="login-subtitle">Acesse sua conta para gerenciar seus veículos</p>
             <form id="login-form">
                 <div class="form-group">
                     <label for="login-email">E-mail</label>
-                    <input type="email" id="login-email" class="form-control" placeholder="seu@email.com" value="brunohpsv@gmail.com" required>
+                    <input type="email" id="login-email" class="form-control" placeholder="seu@email.com" required>
                 </div>
                 <div class="form-group">
                     <label for="login-password">Senha</label>
                     <input type="password" id="login-password" class="form-control" placeholder="Sua senha" required>
                 </div>
-                <button type="submit" class="login-btn">Entrar</button>
+                <button type="submit" class="login-btn">Entrar no Painel</button>
                 <div class="error-message" id="login-error"></div>
             </form>
         </div>
@@ -656,290 +927,307 @@
 
     <!-- Painel de Controle (inicialmente oculto) -->
     <div id="dashboard" style="display: none;">
-        <!-- Top Navigation -->
-        <nav class="top-nav">
-            <div class="nav-logo">
-                <i class="fas fa-car" style="font-size: 24px;"></i>
-                <h1>BIXX <span>CAR</span></h1>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <h1>BIXX <span>CAR</span></h1>
+                </div>
+                <button class="close-sidebar">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-            <ul class="nav-menu">
-                <li><a href="#" class="active" data-section="overview">Visão Geral</a></li>
-                <li><a href="#" data-section="vehicles">Meus Veículos</a></li>
-                <li><a href="#" data-section="rentals">Aluguéis <span class="badge" id="rentals-count">0</span></a></li>
-                <li><a href="#" data-section="earnings">Ganhos</a></li>
-                <li><a href="#" data-section="settings">Configurações</a></li>
+            
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active" data-section="overview"><i class="fas fa-tachometer-alt"></i> Visão Geral</a></li>
+                <li><a href="#" data-section="vehicles"><i class="fas fa-car"></i> Meus Veículos</a></li>
+                <li><a href="#" data-section="rentals"><i class="fas fa-calendar-alt"></i> Aluguéis <span class="badge" id="rentals-count">0</span></a></li>
+                <li><a href="#" data-section="earnings"><i class="fas fa-chart-line"></i> Ganhos</a></li>
+                <li><a href="#" data-section="settings"><i class="fas fa-cog"></i> Configurações</a></li>
             </ul>
-            <div class="nav-user">
-                <img src="https://ui-avatars.com/api/?name=Proprietário&background=007bff&color=fff" alt="Usuário" id="user-avatar">
-                <span id="user-name">Proprietário</span>
-                <button class="logout-btn" id="logout-btn">Sair</button>
+            
+            <div class="user-info">
+                <p class="user-name" id="sidebar-user-name">Usuário</p>
+                <p id="sidebar-user-email">email@exemplo.com</p>
+                <button class="logout-btn" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Sair</button>
             </div>
-        </nav>
+        </div>
         
         <!-- Conteúdo Principal -->
         <div class="main-content">
-            <h2 class="page-title" id="page-title">Visão Geral</h2>
-            
-            <!-- Seção: Visão Geral -->
-            <div id="overview-section" class="dashboard-section">
-                <div class="stats-cards">
-                    <div class="stat-card">
-                        <div class="stat-icon bg-primary">
-                            <i class="fas fa-car"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="total-vehicles">0</h3>
-                            <p>Veículos Cadastrados</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon bg-success">
-                            <i class="fas fa-calendar-check"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="active-rentals">0</h3>
-                            <p>Aluguéis Ativos</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon bg-warning">
-                            <i class="fas fa-dollar-sign"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="monthly-earnings">R$ 0</h3>
-                            <p>Ganhos do Mês</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon bg-info">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="average-rating">0.0</h3>
-                            <p>Avaliação Média</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="section-header">
-                    <h3 class="section-title">Aluguéis Recentes</h3>
-                    <div class="section-actions">
-                        <button id="view-all-rentals">Ver Todos</button>
-                    </div>
-                </div>
-                
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Veículo</th>
-                                <th>Cliente</th>
-                                <th>Período</th>
-                                <th>Status</th>
-                                <th>Valor</th>
-                            </tr>
-                        </thead>
-                        <tbody id="recent-rentals-table">
-                            <!-- Dados serão preenchidos via JavaScript -->
-                        </tbody>
-                    </table>
+            <div class="top-bar">
+                <button class="toggle-sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h2 class="page-title" id="page-title">Visão Geral</h2>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Proprietário&background=1a73e8&color=fff" alt="Usuário" id="user-avatar">
+                    <span id="user-name">Proprietário</span>
                 </div>
             </div>
             
-            <!-- Seção: Meus Veículos -->
-            <div id="vehicles-section" class="dashboard-section" style="display: none;">
-                <div class="section-header">
-                    <h3 class="section-title">Meus Veículos</h3>
-                    <div class="section-actions">
-                        <button id="add-vehicle">Adicionar Veículo</button>
-                    </div>
-                </div>
-                
-                <div class="vehicle-cards" id="vehicles-container">
-                    <!-- Cards de veículos serão preenchidos via JavaScript -->
-                </div>
-            </div>
-            
-            <!-- Seção: Aluguéis -->
-            <div id="rentals-section" class="dashboard-section" style="display: none;">
-                <div class="section-header">
-                    <h3 class="section-title">Histórico de Aluguéis</h3>
-                    <div class="section-actions">
-                        <button id="export-rentals">Exportar</button>
-                    </div>
-                </div>
-                
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Veículo</th>
-                                <th>Cliente</th>
-                                <th>Data de Início</th>
-                                <th>Data de Término</th>
-                                <th>Status</th>
-                                <th>Valor Total</th>
-                            </tr>
-                        </thead>
-                        <tbody id="rentals-table">
-                            <!-- Dados serão preenchidos via JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <!-- Seção: Ganhos -->
-            <div id="earnings-section" class="dashboard-section" style="display: none;">
-                <div class="section-header">
-                    <h3 class="section-title">Relatório de Ganhos</h3>
-                    <div class="section-actions">
-                        <select id="earnings-period">
-                            <option value="month">Este Mês</option>
-                            <option value="last-month">Mês Passado</option>
-                            <option value="quarter">Este Trimestre</option>
-                            <option value="year">Este Ano</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="calculator">
-                    <h3>Calculadora de Preços</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="calc-daily-price">Preço da Diária (R$)</label>
-                            <input type="number" id="calc-daily-price" class="form-control" min="50" step="0.01" value="100">
+            <div class="content">
+                <!-- Seção: Visão Geral -->
+                <div id="overview-section" class="dashboard-section">
+                    <div class="stats-cards">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-primary">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="total-vehicles">0</h3>
+                                <p>Veículos Cadastrados</p>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="calc-rental-days">Dias de Aluguel por Mês</label>
-                            <input type="number" id="calc-rental-days" class="form-control" min="1" max="31" value="15">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-success">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="active-rentals">0</h3>
+                                <p>Aluguéis Ativos</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-warning">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="monthly-earnings">R$ 0</h3>
+                                <p>Ganhos do Mês</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-info">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="average-rating">0.0</h3>
+                                <p>Avaliação Média</p>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="calculator-results">
-                        <div class="calculator-result">
-                            <h4>Faturamento Bruto</h4>
-                            <p id="calc-gross">R$ 0</p>
-                        </div>
-                        <div class="calculator-result">
-                            <h4>Taxa BIXX (30%)</h4>
-                            <p id="calc-bixx-fee">R$ 0</p>
-                        </div>
-                        <div class="calculator-result">
-                            <h4>Taxa Operacional</h4>
-                            <p id="calc-op-fee">R$ 0</p>
-                        </div>
-                        <div class="calculator-result">
-                            <h4>Ganho Líquido</h4>
-                            <p id="calc-net">R$ 0</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="stats-cards">
-                    <div class="stat-card">
-                        <div class="stat-icon bg-primary">
-                            <i class="fas fa-dollar-sign"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="total-earnings">R$ 0</h3>
-                            <p>Faturamento Bruto</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon bg-warning">
-                            <i class="fas fa-percentage"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="bixx-fee">R$ 0</h3>
-                            <p>Taxa BIXX (30%)</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon bg-info">
-                            <i class="fas fa-receipt"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="operational-fee">R$ 0</h3>
-                            <p>Taxa Operacional (R$15/aluguel)</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon bg-success">
-                            <i class="fas fa-wallet"></i>
-                        </div>
-                        <div class="stat-info">
-                            <h3 id="net-earnings">R$ 0</h3>
-                            <p>Ganho Líquido</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="section-header" style="margin-top: 40px;">
-                    <h3 class="section-title">Detalhamento por Veículo</h3>
-                </div>
-                
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Veículo</th>
-                                <th>Dias Alugados</th>
-                                <th>Faturamento</th>
-                                <th>Taxa BIXX</th>
-                                <th>Taxa Operacional</th>
-                                <th>Ganho Líquido</th>
-                            </tr>
-                        </thead>
-                        <tbody id="earnings-table">
-                            <!-- Dados serão preenchidos via JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <!-- Seção: Configurações -->
-            <div id="settings-section" class="dashboard-section" style="display: none;">
-                <div class="section-header">
-                    <h3 class="section-title">Configurações da Conta</h3>
-                </div>
-                
-                <form id="settings-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="settings-name">Nome Completo</label>
-                            <input type="text" id="settings-name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="settings-phone">Telefone</label>
-                            <input type="text" id="settings-phone" class="form-control" required>
+                    <div class="section-header">
+                        <h3 class="section-title">Aluguéis Recentes</h3>
+                        <div class="section-actions">
+                            <button id="view-all-rentals">Ver Todos</button>
                         </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="settings-email">E-mail</label>
-                        <input type="email" id="settings-email" class="form-control" required>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Veículo</th>
+                                    <th>Cliente</th>
+                                    <th>Período</th>
+                                    <th>Status</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-rentals-table">
+                                <!-- Dados serão preenchidos via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Seção: Meus Veículos -->
+                <div id="vehicles-section" class="dashboard-section" style="display: none;">
+                    <div class="section-header">
+                        <h3 class="section-title">Meus Veículos</h3>
+                        <div class="section-actions">
+                            <button id="add-vehicle-btn">Adicionar Veículo</button>
+                        </div>
                     </div>
                     
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="settings-password">Nova Senha</label>
-                            <input type="password" id="settings-password" class="form-control" placeholder="Deixe em branco para manter a atual">
-                        </div>
-                        <div class="form-group">
-                            <label for="settings-confirm-password">Confirmar Nova Senha</label>
-                            <input type="password" id="settings-confirm-password" class="form-control">
+                    <div class="vehicle-cards" id="vehicles-container">
+                        <!-- Cards de veículos serão preenchidos via JavaScript -->
+                    </div>
+                </div>
+                
+                <!-- Seção: Aluguéis -->
+                <div id="rentals-section" class="dashboard-section" style="display: none;">
+                    <div class="section-header">
+                        <h3 class="section-title">Histórico de Aluguéis</h3>
+                        <div class="section-actions">
+                            <button id="export-rentals">Exportar</button>
                         </div>
                     </div>
                     
-                    <div class="form-group">
-                        <button type="submit" class="btn-primary">Salvar Alterações</button>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Veículo</th>
+                                    <th>Cliente</th>
+                                    <th>Data de Início</th>
+                                    <th>Data de Término</th>
+                                    <th>Status</th>
+                                    <th>Valor Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rentals-table">
+                                <!-- Dados serão preenchidos via JavaScript -->
+                            </tbody>
+                        </table>
                     </div>
-                </form>
+                </div>
+                
+                <!-- Seção: Ganhos -->
+                <div id="earnings-section" class="dashboard-section" style="display: none;">
+                    <div class="section-header">
+                        <h3 class="section-title">Relatório de Ganhos</h3>
+                        <div class="section-actions">
+                            <select id="earnings-period">
+                                <option value="month">Este Mês</option>
+                                <option value="last-month">Mês Passado</option>
+                                <option value="quarter">Este Trimestre</option>
+                                <option value="year">Este Ano</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="calculator">
+                        <h3>Calculadora de Preços</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="calc-daily-price">Preço da Diária (R$)</label>
+                                <input type="number" id="calc-daily-price" class="form-control" min="50" step="0.01" value="100">
+                            </div>
+                            <div class="form-group">
+                                <label for="calc-rental-days">Dias de Aluguel por Mês</label>
+                                <input type="number" id="calc-rental-days" class="form-control" min="1" max="31" value="15">
+                            </div>
+                        </div>
+                        
+                        <div class="calculator-results">
+                            <div class="calculator-result">
+                                <h4>Faturamento Bruto</h4>
+                                <p id="calc-gross">R$ 0</p>
+                            </div>
+                            <div class="calculator-result">
+                                <h4>Taxa BIXX (30%)</h4>
+                                <p id="calc-bixx-fee">R$ 0</p>
+                            </div>
+                            <div class="calculator-result">
+                                <h4>Taxa Operacional</h4>
+                                <p id="calc-op-fee">R$ 0</p>
+                            </div>
+                            <div class="calculator-result">
+                                <h4>Ganho Líquido</h4>
+                                <p id="calc-net">R$ 0</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-cards">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-primary">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="total-earnings">R$ 0</h3>
+                                <p>Faturamento Bruto</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-warning">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="bixx-fee">R$ 0</h3>
+                                <p>Taxa BIXX (30%)</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-info">
+                                <i class="fas fa-receipt"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="operational-fee">R$ 0</h3>
+                                <p>Taxa Operacional (R$15/aluguel)</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-success">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="net-earnings">R$ 0</h3>
+                                <p>Ganho Líquido</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-header" style="margin-top: 30px;">
+                        <h3 class="section-title">Detalhamento por Veículo</h3>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Veículo</th>
+                                    <th>Dias Alugados</th>
+                                    <th>Faturamento</th>
+                                    <th>Taxa BIXX</th>
+                                    <th>Taxa Operacional</th>
+                                    <th>Ganho Líquido</th>
+                                </tr>
+                            </thead>
+                            <tbody id="earnings-table">
+                                <!-- Dados serão preenchidos via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Seção: Configurações -->
+                <div id="settings-section" class="dashboard-section" style="display: none;">
+                    <div class="section-header">
+                        <h3 class="section-title">Configurações da Conta</h3>
+                    </div>
+                    
+                    <form id="settings-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="settings-name">Nome Completo</label>
+                                <input type="text" id="settings-name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-phone">Telefone</label>
+                                <input type="text" id="settings-phone" class="form-control" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="settings-email">E-mail</label>
+                            <input type="email" id="settings-email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="settings-password">Nova Senha</label>
+                                <input type="password" id="settings-password" class="form-control" placeholder="Deixe em branco para manter a atual">
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-confirm-password">Confirmar Nova Senha</label>
+                                <input type="password" id="settings-confirm-password" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn-primary">Salvar Alterações</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal para Editar/Adicionar Veículo -->
+    <!-- Modal para Editar Veículo -->
     <div id="vehicle-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1024,26 +1312,26 @@
                     
                     <div class="form-group">
                         <label for="vehicle-description">Descrição</label>
-                        <textarea id="vehicle-description" class="form-control" rows="4"></textarea>
+                        <textarea id="vehicle-description" class="form-control" rows="3"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label>Características</label>
-                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
                             <label style="display: flex; align-items: center;">
-                                <input type="checkbox" id="vehicle-feature-fulltank" value="Tanque Cheio" style="margin-right: 8px;"> Tanque Cheio
+                                <input type="checkbox" id="vehicle-feature-fulltank" value="Tanque Cheio"> Tanque Cheio
                             </label>
                             <label style="display: flex; align-items: center;">
-                                <input type="checkbox" id="vehicle-feature-ac" value="Ar Condicionado" style="margin-right: 8px;"> Ar Condicionado
+                                <input type="checkbox" id="vehicle-feature-ac" value="Ar Condicionado"> Ar Condicionado
                             </label>
                             <label style="display: flex; align-items: center;">
-                                <input type="checkbox" id="vehicle-feature-automatic" value="Automático" style="margin-right: 8px;"> Automático
+                                <input type="checkbox" id="vehicle-feature-automatic" value="Automático"> Automático
                             </label>
                             <label style="display: flex; align-items: center;">
-                                <input type="checkbox" id="vehicle-feature-airbag" value="Airbag" style="margin-right: 8px;"> Airbag
+                                <input type="checkbox" id="vehicle-feature-airbag" value="Airbag"> Airbag
                             </label>
                             <label style="display: flex; align-items: center;">
-                                <input type="checkbox" id="vehicle-feature-gps" value="GPS" style="margin-right: 8px;"> GPS
+                                <input type="checkbox" id="vehicle-feature-gps" value="GPS"> GPS
                             </label>
                         </div>
                     </div>
@@ -1067,6 +1355,7 @@
             appId: "1:785931877829:web:b1fc9a5f14dbfccf5edfac"
         };
 
+        // Inicializar Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
@@ -1075,286 +1364,501 @@
         const loginScreen = document.getElementById('login-screen');
         const dashboard = document.getElementById('dashboard');
         const loginForm = document.getElementById('login-form');
-        const loginEmail = document.getElementById('login-email');
-        const loginPassword = document.getElementById('login-password');
         const loginError = document.getElementById('login-error');
         const logoutBtn = document.getElementById('logout-btn');
-        const navLinks = document.querySelectorAll('.nav-menu a');
+        const toggleSidebar = document.querySelector('.toggle-sidebar');
+        const closeSidebar = document.querySelector('.close-sidebar');
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
         const pageTitle = document.getElementById('page-title');
         const sections = document.querySelectorAll('.dashboard-section');
         const userName = document.getElementById('user-name');
+        const sidebarUserName = document.getElementById('sidebar-user-name');
+        const sidebarUserEmail = document.getElementById('sidebar-user-email');
         const userAvatar = document.getElementById('user-avatar');
+
+        // Elementos da seção Visão Geral
         const totalVehicles = document.getElementById('total-vehicles');
         const activeRentals = document.getElementById('active-rentals');
         const monthlyEarnings = document.getElementById('monthly-earnings');
         const averageRating = document.getElementById('average-rating');
         const recentRentalsTable = document.getElementById('recent-rentals-table');
+        const viewAllRentalsBtn = document.getElementById('view-all-rentals');
+
+        // Elementos da seção Veículos
         const vehiclesContainer = document.getElementById('vehicles-container');
+        const addVehicleBtn = document.getElementById('add-vehicle-btn');
+        const vehicleModal = document.getElementById('vehicle-modal');
+        const vehicleModalTitle = document.getElementById('vehicle-modal-title');
+        const vehicleForm = document.getElementById('vehicle-form');
+        const saveVehicleBtn = document.getElementById('save-vehicle');
+        const cancelVehicleBtn = document.getElementById('cancel-vehicle');
+        const closeModalBtn = document.querySelector('.close-modal');
+
+        // Elementos da seção Aluguéis
         const rentalsTable = document.getElementById('rentals-table');
-        const earningsPeriod = document.getElementById('earnings-period');
+        const rentalsCount = document.getElementById('rentals-count');
+
+        // Elementos da seção Ganhos
         const totalEarnings = document.getElementById('total-earnings');
         const bixxFee = document.getElementById('bixx-fee');
         const operationalFee = document.getElementById('operational-fee');
         const netEarnings = document.getElementById('net-earnings');
         const earningsTable = document.getElementById('earnings-table');
-        const settingsForm = document.getElementById('settings-form');
-        const settingsName = document.getElementById('settings-name');
-        const settingsPhone = document.getElementById('settings-phone');
-        const settingsEmail = document.getElementById('settings-email');
-        const settingsPassword = document.getElementById('settings-password');
-        const settingsConfirmPassword = document.getElementById('settings-confirm-password');
-        const vehicleModal = document.getElementById('vehicle-modal');
-        const vehicleModalTitle = document.getElementById('vehicle-modal-title');
-        const vehicleId = document.getElementById('vehicle-id');
-        const vehicleBrand = document.getElementById('vehicle-brand');
-        const vehicleModel = document.getElementById('vehicle-model');
-        const vehicleYear = document.getElementById('vehicle-year');
-        const vehicleColor = document.getElementById('vehicle-color');
-        const vehiclePlate = document.getElementById('vehicle-plate');
-        const vehicleFuel = document.getElementById('vehicle-fuel');
-        const vehicleRenavam = document.getElementById('vehicle-renavam');
-        const vehicleChassis = document.getElementById('vehicle-chassis');
-        const vehicleDailyPrice = document.getElementById('vehicle-daily-price');
-        const vehicleAddress = document.getElementById('vehicle-address');
-        const vehicleDescription = document.getElementById('vehicle-description');
-        const vehicleFeatures = [
-            document.getElementById('vehicle-feature-fulltank'),
-            document.getElementById('vehicle-feature-ac'),
-            document.getElementById('vehicle-feature-automatic'),
-            document.getElementById('vehicle-feature-airbag'),
-            document.getElementById('vehicle-feature-gps')
-        ];
-        const saveVehicle = document.getElementById('save-vehicle');
-        const cancelVehicle = document.getElementById('cancel-vehicle');
-        const closeModal = document.querySelector('.close-modal');
-        const addVehicleBtn = document.getElementById('add-vehicle');
+        const earningsPeriod = document.getElementById('earnings-period');
+
+        // Elementos da calculadora
         const calcDailyPrice = document.getElementById('calc-daily-price');
         const calcRentalDays = document.getElementById('calc-rental-days');
         const calcGross = document.getElementById('calc-gross');
         const calcBixxFee = document.getElementById('calc-bixx-fee');
         const calcOpFee = document.getElementById('calc-op-fee');
         const calcNet = document.getElementById('calc-net');
-        const rentalsCountBadge = document.getElementById('rentals-count');
-        const viewAllRentals = document.getElementById('view-all-rentals');
-        const exportRentals = document.getElementById('export-rentals');
 
-        // Monitorar estado de autenticação
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                loginScreen.style.display = 'none';
-                dashboard.style.display = 'block';
-                loadUserData(user);
-                showSection('overview');
-            } else {
-                loginScreen.style.display = 'flex';
-                dashboard.style.display = 'none';
-            }
+        // Elementos da seção Configurações
+        const settingsForm = document.getElementById('settings-form');
+
+        // Variáveis globais
+        let currentUser = null;
+        let userData = null;
+        let vehicles = [];
+        let rentals = [];
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar se o usuário já está logado
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    currentUser = user;
+                    loadUserData();
+                    showDashboard();
+                } else {
+                    showLogin();
+                }
+            });
+
+            // Login
+            loginForm.addEventListener('submit', handleLogin);
+
+            // Logout
+            logoutBtn.addEventListener('click', handleLogout);
+
+            // Navegação na sidebar
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    showSection(section);
+                    
+                    // Atualizar link ativo
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Fechar sidebar em dispositivos móveis
+                    if (window.innerWidth < 992) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            });
+
+            // Toggle sidebar em dispositivos móveis
+            toggleSidebar.addEventListener('click', function() {
+                sidebar.classList.add('active');
+            });
+
+            closeSidebar.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+            });
+
+            // Modal de veículo
+            addVehicleBtn.addEventListener('click', function() {
+                openVehicleModal();
+            });
+            
+            saveVehicleBtn.addEventListener('click', handleSaveVehicle);
+            cancelVehicleBtn.addEventListener('click', closeVehicleModal);
+            closeModalBtn.addEventListener('click', closeVehicleModal);
+
+            // Fechar modal ao clicar fora
+            window.addEventListener('click', function(e) {
+                if (e.target === vehicleModal) {
+                    closeVehicleModal();
+                }
+            });
+
+            // Navegação entre seções
+            viewAllRentalsBtn.addEventListener('click', function() {
+                showSection('rentals');
+                sidebarLinks.forEach(l => l.classList.remove('active'));
+                document.querySelector('[data-section="rentals"]').classList.add('active');
+            });
+
+            // Filtro de período de ganhos
+            earningsPeriod.addEventListener('change', updateEarnings);
+
+            // Calculadora de preços
+            calcDailyPrice.addEventListener('input', updateCalculator);
+            calcRentalDays.addEventListener('input', updateCalculator);
+            
+            // Inicializar calculadora
+            updateCalculator();
         });
 
-        // Login
-        loginForm.addEventListener('submit', e => {
+        // Funções de autenticação
+        function handleLogin(e) {
             e.preventDefault();
-            const email = loginEmail.value;
-            const password = loginPassword.value;
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
             auth.signInWithEmailAndPassword(email, password)
-                .then(() => {
-                    loginError.style.display = 'none';
+                .then((userCredential) => {
+                    // Login bem-sucedido
+                    currentUser = userCredential.user;
+                    loadUserData();
+                    showDashboard();
                 })
-                .catch(err => {
-                    loginError.textContent = err.message;
+                .catch((error) => {
+                    // Tratar erros de login
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    
+                    loginError.textContent = 'E-mail ou senha incorretos';
                     loginError.style.display = 'block';
                 });
-        });
-
-        // Logout
-        logoutBtn.addEventListener('click', () => auth.signOut());
-
-        // Navegação
-        navLinks.forEach(link => {
-            link.addEventListener('click', e => {
-                e.preventDefault();
-                const section = link.getAttribute('data-section');
-                showSection(section);
-                navLinks.forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-            });
-        });
-
-        // Mostrar seção
-        function showSection(sectionId) {
-            sections.forEach(s => s.style.display = 'none');
-            document.getElementById(`${sectionId}-section`).style.display = 'block';
-            pageTitle.textContent = sectionId.charAt(0).toUpperCase() + sectionId.slice(1).replace('-', ' ');
-            if (sectionId === 'overview') loadOverview();
-            if (sectionId === 'vehicles') loadVehicles();
-            if (sectionId === 'rentals') loadRentals();
-            if (sectionId === 'earnings') loadEarnings(earningsPeriod.value);
-            if (sectionId === 'settings') loadSettings();
         }
 
-        // Carregar dados do usuário
-        function loadUserData(user) {
-            db.collection('users').doc(user.uid).get().then(doc => {
-                if (doc.exists) {
-                    const data = doc.data();
-                    userName.textContent = data.name || 'Proprietário';
-                    settingsName.value = data.name || '';
-                    settingsPhone.value = data.phone || '';
-                    settingsEmail.value = user.email;
-                    if (data.photoURL) {
-                        userAvatar.src = data.photoURL;
+        function handleLogout() {
+            auth.signOut()
+                .then(() => {
+                    currentUser = null;
+                    userData = null;
+                    showLogin();
+                })
+                .catch((error) => {
+                    console.error('Erro ao fazer logout:', error);
+                });
+        }
+
+        function showLogin() {
+            loginScreen.style.display = 'flex';
+            dashboard.style.display = 'none';
+        }
+
+        function showDashboard() {
+            loginScreen.style.display = 'none';
+            dashboard.style.display = 'block';
+            loadDashboardData();
+        }
+
+        // Funções de carregamento de dados
+        function loadUserData() {
+            // Buscar dados do usuário no Firestore
+            db.collection('users').doc(currentUser.uid).get()
+                .then(doc => {
+                    if (doc.exists) {
+                        userData = doc.data();
+                        updateUserUI();
                     } else {
-                        userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(data.name || 'Proprietário')}&background=007bff&color=fff`;
+                        // Se não existir, criar um documento para o usuário
+                        userData = {
+                            name: currentUser.displayName || 'Proprietário',
+                            email: currentUser.email,
+                            phone: '',
+                            registrationDate: new Date()
+                        };
+                        
+                        db.collection('users').doc(currentUser.uid).set(userData)
+                            .then(() => {
+                                updateUserUI();
+                            });
                     }
-                }
-            });
-        }
-
-        // Carregar visão geral
-        function loadOverview() {
-            loadStats();
-            loadRecentRentals();
-        }
-
-        // Carregar estatísticas
-        function loadStats() {
-            const userId = auth.currentUser.uid;
-            db.collection('vehicles').where('ownerId', '==', userId).get().then(snapshot => {
-                totalVehicles.textContent = snapshot.size;
-            });
-
-            db.collection('rentals').where('ownerId', '==', userId).where('status', '==', 'active').get().then(snapshot => {
-                activeRentals.textContent = snapshot.size;
-                rentalsCountBadge.textContent = snapshot.size;
-            });
-
-            const now = new Date();
-            const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-            const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-            db.collection('rentals').where('ownerId', '==', userId).where('startDate', '>=', firstDay).where('startDate', '<=', lastDay).get().then(snapshot => {
-                let sum = 0;
-                snapshot.forEach(doc => {
-                    sum += doc.data().value || 0;
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar dados do usuário:', error);
                 });
-                monthlyEarnings.textContent = `R$ ${sum.toFixed(2)}`;
-            });
-
-            // Avaliação média (assumindo campo rating em rentals)
-            db.collection('rentals').where('ownerId', '==', userId).get().then(snapshot => {
-                let totalRating = 0;
-                let count = 0;
-                snapshot.forEach(doc => {
-                    const rating = doc.data().rating;
-                    if (rating) {
-                        totalRating += rating;
-                        count++;
-                    }
-                });
-                averageRating.textContent = count > 0 ? (totalRating / count).toFixed(1) : '0.0';
-            });
         }
 
-        // Carregar aluguéis recentes
-        function loadRecentRentals() {
-            recentRentalsTable.innerHTML = '';
-            const userId = auth.currentUser.uid;
-            db.collection('rentals').where('ownerId', '==', userId).orderBy('startDate', 'desc').limit(5).get().then(snapshot => {
-                snapshot.forEach(doc => {
-                    const rental = doc.data();
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${rental.vehicleName || ''}</td>
-                        <td>${rental.clientName || ''}</td>
-                        <td>${rental.period || ''}</td>
-                        <td><span class="status-badge status-${rental.status || 'available'}">${rental.status || 'Disponível'}</span></td>
-                        <td>R$ ${rental.value?.toFixed(2) || '0.00'}</td>
-                    `;
-                    recentRentalsTable.appendChild(row);
-                });
-            });
+        function loadDashboardData() {
+            loadVehicles();
+            loadRentals();
         }
 
-        // Carregar veículos
         function loadVehicles() {
-            vehiclesContainer.innerHTML = '';
-            const userId = auth.currentUser.uid;
-            db.collection('vehicles').where('ownerId', '==', userId).get().then(snapshot => {
-                snapshot.forEach(doc => {
-                    const vehicle = doc.data();
-                    vehicle.id = doc.id;
-                    renderVehicleCard(vehicle);
+            if (!currentUser) return;
+            
+            db.collection('vehicles')
+                .where('ownerId', '==', currentUser.uid)
+                .get()
+                .then(querySnapshot => {
+                    vehicles = [];
+                    querySnapshot.forEach(doc => {
+                        vehicles.push({
+                            id: doc.id,
+                            ...doc.data()
+                        });
+                    });
+                    
+                    updateVehiclesUI();
+                    updateOverviewStats();
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar veículos:', error);
                 });
-            });
         }
 
-        // Renderizar card de veículo
-        function renderVehicleCard(vehicle) {
-            const card = document.createElement('div');
-            card.classList.add('vehicle-card');
-            card.innerHTML = `
-                <div class="vehicle-image">
-                    <img src="${vehicle.image || 'https://placehold.co/320x200'}" alt="${vehicle.model}">
-                </div>
-                <div class="vehicle-info">
-                    <div class="vehicle-header">
-                        <div class="vehicle-title">
-                            <h3>${vehicle.brand} ${vehicle.model}</h3>
-                            <p>${vehicle.year} - ${vehicle.color}</p>
-                        </div>
-                        <span class="vehicle-status status-${vehicle.status || 'available'}">${vehicle.status || 'Disponível'}</span>
-                    </div>
-                    <div class="vehicle-details">
-                        <div class="vehicle-detail"><i class="fas fa-gas-pump"></i> ${vehicle.fuel}</div>
-                        <div class="vehicle-detail"><i class="fas fa-map-marker-alt"></i> ${vehicle.address}</div>
-                    </div>
-                    <div class="vehicle-price">R$ ${vehicle.dailyPrice?.toFixed(2)} / dia</div>
-                    <div class="vehicle-actions">
-                        <button class="btn-primary edit-vehicle" data-id="${vehicle.id}">Editar</button>
-                        <button class="btn-outline delete-vehicle" data-id="${vehicle.id}">Excluir</button>
-                    </div>
-                </div>
-            `;
-            vehiclesContainer.appendChild(card);
-
-            // Evento de editar
-            card.querySelector('.edit-vehicle').addEventListener('click', () => openVehicleModal(vehicle));
-
-            // Evento de excluir (implementar se necessário)
-            card.querySelector('.delete-vehicle').addEventListener('click', () => {
-                if (confirm('Excluir veículo?')) {
-                    db.collection('vehicles').doc(vehicle.id).delete().then(() => loadVehicles());
-                }
-            });
-        }
-
-        // Carregar aluguéis
         function loadRentals() {
-            rentalsTable.innerHTML = '';
-            const userId = auth.currentUser.uid;
-            db.collection('rentals').where('ownerId', '==', userId).orderBy('startDate', 'desc').get().then(snapshot => {
-                snapshot.forEach(doc => {
-                    const rental = doc.data();
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${rental.vehicleName || ''}</td>
-                        <td>${rental.clientName || ''}</td>
-                        <td>${new Date(rental.startDate?.seconds * 1000).toLocaleDateString() || ''}</td>
-                        <td>${new Date(rental.endDate?.seconds * 1000).toLocaleDateString() || ''}</td>
-                        <td><span class="status-badge status-${rental.status || 'available'}">${rental.status || 'Disponível'}</span></td>
-                        <td>R$ ${rental.value?.toFixed(2) || '0.00'}</td>
-                    `;
-                    rentalsTable.appendChild(row);
+            if (!currentUser) return;
+            
+            db.collection('rentals')
+                .where('ownerId', '==', currentUser.uid)
+                .get()
+                .then(querySnapshot => {
+                    rentals = [];
+                    querySnapshot.forEach(doc => {
+                        rentals.push({
+                            id: doc.id,
+                            ...doc.data()
+                        });
+                    });
+                    
+                    updateRentalsUI();
+                    updateOverviewStats();
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar aluguéis:', error);
+                });
+        }
+
+        // Funções de atualização da UI
+        function updateUserUI() {
+            userName.textContent = userData.name;
+            sidebarUserName.textContent = userData.name;
+            sidebarUserEmail.textContent = userData.email;
+            
+            // Atualizar avatar
+            const avatarName = userData.name || 'Proprietário';
+            userAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(avatarName)}&background=1a73e8&color=fff`;
+            
+            // Preencher formulário de configurações
+            if (settingsForm) {
+                document.getElementById('settings-name').value = userData.name || '';
+                document.getElementById('settings-email').value = userData.email || '';
+                document.getElementById('settings-phone').value = userData.phone || '';
+            }
+        }
+
+        function updateOverviewStats() {
+            // Estatísticas de veículos
+            totalVehicles.textContent = vehicles.length;
+            
+            // Estatísticas de aluguéis ativos
+            const activeRentalsCount = rentals.filter(rental => 
+                rental.status === 'active' || rental.status === 'reserved'
+            ).length;
+            activeRentals.textContent = activeRentalsCount;
+            
+            // Estatísticas de ganhos do mês
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            
+            const monthlyRentals = rentals.filter(rental => {
+                const rentalDate = rental.startDate.toDate();
+                return rentalDate.getMonth() === currentMonth && 
+                       rentalDate.getFullYear() === currentYear;
+            });
+            
+            const monthlyEarningsValue = monthlyRentals.reduce((total, rental) => {
+                return total + (rental.totalAmount || 0);
+            }, 0);
+            
+            monthlyEarnings.textContent = `R$ ${monthlyEarningsValue.toFixed(2)}`;
+            
+            // Calcular avaliação média
+            const ratings = vehicles.map(vehicle => vehicle.rating || 0);
+            const avgRating = ratings.length > 0 ? 
+                (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1) : 0;
+            averageRating.textContent = avgRating;
+            
+            // Atualizar tabela de aluguéis recentes
+            updateRecentRentalsTable();
+        }
+
+        function updateRecentRentalsTable() {
+            recentRentalsTable.innerHTML = '';
+            
+            // Ordenar aluguéis por data (mais recentes primeiro)
+            const sortedRentals = [...rentals].sort((a, b) => {
+                return b.startDate.toDate() - a.startDate.toDate();
+            });
+            
+            // Mostrar apenas os 5 mais recentes
+            const recentRentals = sortedRentals.slice(0, 5);
+            
+            recentRentals.forEach(rental => {
+                const vehicle = vehicles.find(v => v.id === rental.vehicleId);
+                const vehicleName = vehicle ? `${vehicle.brand} ${vehicle.model}` : 'Veículo não encontrado';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${vehicleName}</td>
+                    <td>${rental.customerName || 'Cliente'}</td>
+                    <td>${formatDate(rental.startDate.toDate())} - ${formatDate(rental.endDate.toDate())}</td>
+                    <td><span class="status-badge status-${rental.status}">${getStatusText(rental.status)}</span></td>
+                    <td>R$ ${rental.totalAmount ? rental.totalAmount.toFixed(2) : '0.00'}</td>
+                `;
+                
+                recentRentalsTable.appendChild(row);
+            });
+            
+            // Atualizar contador de aluguéis
+            rentalsCount.textContent = rentals.length;
+        }
+
+        function updateVehiclesUI() {
+            vehiclesContainer.innerHTML = '';
+            
+            if (vehicles.length === 0) {
+                vehiclesContainer.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: var(--gray);">
+                        <i class="fas fa-car" style="font-size: 50px; margin-bottom: 15px;"></i>
+                        <h3>Nenhum veículo cadastrado</h3>
+                        <p>Adicione seu primeiro veículo para começar a alugar</p>
+                        <button class="btn-primary" style="margin-top: 15px;" id="add-first-vehicle">Adicionar Veículo</button>
+                    </div>
+                `;
+                
+                document.getElementById('add-first-vehicle').addEventListener('click', function() {
+                    openVehicleModal();
+                });
+                
+                return;
+            }
+            
+            vehicles.forEach(vehicle => {
+                const vehicleCard = document.createElement('div');
+                vehicleCard.className = 'vehicle-card';
+                
+                // Calcular status do veículo
+                const vehicleStatus = getVehicleStatus(vehicle);
+                const statusClass = `status-${vehicleStatus}`;
+                const statusText = getVehicleStatusText(vehicleStatus);
+                
+                // Calcular características
+                const features = vehicle.features || [];
+                const hasFullTank = features.includes('Tanque Cheio');
+                const hasAC = features.includes('Ar Condicionado');
+                const isAutomatic = features.includes('Automático');
+                
+                vehicleCard.innerHTML = `
+                    <div class="vehicle-image">
+                        ${vehicle.imageUrl ? 
+                            `<img src="${vehicle.imageUrl}" alt="${vehicle.brand} ${vehicle.model}">` : 
+                            `<i class="fas fa-car" style="font-size: 50px; color: var(--primary);"></i>`
+                        }
+                    </div>
+                    <div class="vehicle-info">
+                        <div class="vehicle-header">
+                            <div class="vehicle-title">
+                                <h3>${vehicle.brand} ${vehicle.model}</h3>
+                                <p>${vehicle.year} • ${vehicle.color}</p>
+                            </div>
+                            <span class="vehicle-status ${statusClass}">${statusText}</span>
+                        </div>
+                        
+                        <div class="vehicle-details">
+                            <div class="vehicle-detail">
+                                <i class="fas fa-gas-pump"></i> ${vehicle.fuel}
+                            </div>
+                            <div class="vehicle-detail">
+                                <i class="fas fa-map-marker-alt"></i> ${vehicle.address || 'Endereço não informado'}
+                            </div>
+                            <div class="vehicle-detail">
+                                <i class="fas fa-tachometer-alt"></i> ${isAutomatic ? 'Automático' : 'Manual'}
+                            </div>
+                            <div class="vehicle-detail">
+                                <i class="fas fa-snowflake"></i> ${hasAC ? 'Ar Condicionado' : 'Sem Ar'}
+                            </div>
+                        </div>
+                        
+                        <div class="vehicle-price">
+                            R$ ${vehicle.dailyPrice ? vehicle.dailyPrice.toFixed(2) : '0.00'}/dia
+                        </div>
+                        
+                        <div class="vehicle-actions">
+                            <button class="btn-outline edit-vehicle" data-id="${vehicle.id}">Editar</button>
+                            <button class="btn-primary view-rentals" data-id="${vehicle.id}">Ver Aluguéis</button>
+                        </div>
+                    </div>
+                `;
+                
+                vehiclesContainer.appendChild(vehicleCard);
+            });
+            
+            // Adicionar event listeners aos botões
+            document.querySelectorAll('.edit-vehicle').forEach(button => {
+                button.addEventListener('click', function() {
+                    const vehicleId = this.getAttribute('data-id');
+                    openVehicleModal(vehicleId);
+                });
+            });
+            
+            document.querySelectorAll('.view-rentals').forEach(button => {
+                button.addEventListener('click', function() {
+                    const vehicleId = this.getAttribute('data-id');
+                    showSection('rentals');
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+                    document.querySelector('[data-section="rentals"]').classList.add('active');
+                    // Aqui poderia filtrar os aluguéis por veículo
                 });
             });
         }
 
-        // Carregar ganhos
-        function loadEarnings(period) {
-            const userId = auth.currentUser.uid;
+        function updateRentalsUI() {
+            rentalsTable.innerHTML = '';
+            
+            if (rentals.length === 0) {
+                rentalsTable.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 40px; color: var(--gray);">
+                            <i class="fas fa-calendar-times" style="font-size: 30px; margin-bottom: 10px;"></i>
+                            <p>Nenhum aluguel encontrado</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            // Ordenar aluguéis por data (mais recentes primeiro)
+            const sortedRentals = [...rentals].sort((a, b) => {
+                return b.startDate.toDate() - a.startDate.toDate();
+            });
+            
+            sortedRentals.forEach(rental => {
+                const vehicle = vehicles.find(v => v.id === rental.vehicleId);
+                const vehicleName = vehicle ? `${vehicle.brand} ${vehicle.model}` : 'Veículo não encontrado';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${vehicleName}</td>
+                    <td>${rental.customerName || 'Cliente'}</td>
+                    <td>${formatDate(rental.startDate.toDate())}</td>
+                    <td>${formatDate(rental.endDate.toDate())}</td>
+                    <td><span class="status-badge status-${rental.status}">${getStatusText(rental.status)}</span></td>
+                    <td>R$ ${rental.totalAmount ? rental.totalAmount.toFixed(2) : '0.00'}</td>
+                `;
+                
+                rentalsTable.appendChild(row);
+            });
+        }
+
+        function updateEarnings() {
+            const period = earningsPeriod.value;
             const now = new Date();
             let startDate, endDate;
-
-            switch (period) {
+            
+            // Definir período com base na seleção
+            switch(period) {
                 case 'month':
                     startDate = new Date(now.getFullYear(), now.getMonth(), 1);
                     endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
@@ -1364,181 +1868,292 @@
                     endDate = new Date(now.getFullYear(), now.getMonth(), 0);
                     break;
                 case 'quarter':
-                    startDate = new Date(now.getFullYear(), now.getMonth() - 2, 1);
-                    endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+                    const quarter = Math.floor(now.getMonth() / 3);
+                    startDate = new Date(now.getFullYear(), quarter * 3, 1);
+                    endDate = new Date(now.getFullYear(), (quarter + 1) * 3, 0);
                     break;
                 case 'year':
                     startDate = new Date(now.getFullYear(), 0, 1);
                     endDate = new Date(now.getFullYear(), 11, 31);
                     break;
             }
-
-            db.collection('rentals').where('ownerId', '==', userId).where('startDate', '>=', startDate).where('startDate', '<=', endDate).get().then(snapshot => {
-                let gross = 0;
-                let count = snapshot.size;
-                snapshot.forEach(doc => {
-                    gross += doc.data().value || 0;
-                });
-                const bixx = gross * 0.3;
-                const op = count * 15;
-                const net = gross - bixx - op;
-
-                totalEarnings.textContent = `R$ ${gross.toFixed(2)}`;
-                bixxFee.textContent = `R$ ${bixx.toFixed(2)}`;
-                operationalFee.textContent = `R$ ${op.toFixed(2)}`;
-                netEarnings.textContent = `R$ ${net.toFixed(2)}`;
-
-                // Detalhamento por veículo (agrupar)
-                earningsTable.innerHTML = '';
-                const vehicleEarnings = {};
-                snapshot.forEach(doc => {
-                    const rental = doc.data();
-                    const vid = rental.vehicleId;
-                    if (!vehicleEarnings[vid]) vehicleEarnings[vid] = { days: 0, gross: 0, name: rental.vehicleName };
-                    vehicleEarnings[vid].gross += rental.value || 0;
-                    // Calcular dias (assumindo end - start)
-                    const days = Math.ceil((rental.endDate.seconds - rental.startDate.seconds) / (3600 * 24));
-                    vehicleEarnings[vid].days += days;
-                });
-
-                Object.keys(vehicleEarnings).forEach(vid => {
-                    const ve = vehicleEarnings[vid];
-                    const bixx = ve.gross * 0.3;
-                    const op = 15; // por aluguel, mas aqui por veículo? Ajustar se múltiplos aluguéis por veículo
-                    const net = ve.gross - bixx - op;
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${ve.name}</td>
-                        <td>${ve.days}</td>
-                        <td>R$ ${ve.gross.toFixed(2)}</td>
-                        <td>R$ ${bixx.toFixed(2)}</td>
-                        <td>R$ ${op.toFixed(2)}</td>
-                        <td>R$ ${net.toFixed(2)}</td>
-                    `;
-                    earningsTable.appendChild(row);
-                });
+            
+            // Filtrar aluguéis pelo período
+            const periodRentals = rentals.filter(rental => {
+                const rentalDate = rental.startDate.toDate();
+                return rentalDate >= startDate && rentalDate <= endDate;
             });
+            
+            // Calcular totais
+            const totalEarningsValue = periodRentals.reduce((total, rental) => {
+                return total + (rental.totalAmount || 0);
+            }, 0);
+            
+            const bixxFeeValue = totalEarningsValue * 0.3; // 30% para a BIXX CAR
+            const operationalFeeValue = periodRentals.length * 15; // R$15 por aluguel
+            const netEarningsValue = totalEarningsValue - bixxFeeValue - operationalFeeValue;
+            
+            // Atualizar UI
+            totalEarnings.textContent = `R$ ${totalEarningsValue.toFixed(2)}`;
+            bixxFee.textContent = `R$ ${bixxFeeValue.toFixed(2)}`;
+            operationalFee.textContent = `R$ ${operationalFeeValue.toFixed(2)}`;
+            netEarnings.textContent = `R$ ${netEarningsValue.toFixed(2)}`;
+            
+            // Atualizar tabela de detalhamento por veículo
+            updateEarningsTable(periodRentals);
         }
 
-        // Atualizar calculadora
+        function updateEarningsTable(periodRentals) {
+            earningsTable.innerHTML = '';
+            
+            // Agrupar aluguéis por veículo
+            const vehicleEarnings = {};
+            
+            periodRentals.forEach(rental => {
+                if (!vehicleEarnings[rental.vehicleId]) {
+                    vehicleEarnings[rental.vehicleId] = {
+                        rentalCount: 0,
+                        totalAmount: 0
+                    };
+                }
+                
+                vehicleEarnings[rental.vehicleId].rentalCount++;
+                vehicleEarnings[rental.vehicleId].totalAmount += rental.totalAmount || 0;
+            });
+            
+            // Preencher tabela
+            Object.keys(vehicleEarnings).forEach(vehicleId => {
+                const vehicle = vehicles.find(v => v.id === vehicleId);
+                if (!vehicle) return;
+                
+                const earnings = vehicleEarnings[vehicleId];
+                const bixxFeeValue = earnings.totalAmount * 0.3;
+                const operationalFeeValue = earnings.rentalCount * 15;
+                const netEarningsValue = earnings.totalAmount - bixxFeeValue - operationalFeeValue;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${vehicle.brand} ${vehicle.model}</td>
+                    <td>${earnings.rentalCount}</td>
+                    <td>R$ ${earnings.totalAmount.toFixed(2)}</td>
+                    <td>R$ ${bixxFeeValue.toFixed(2)}</td>
+                    <td>R$ ${operationalFeeValue.toFixed(2)}</td>
+                    <td>R$ ${netEarningsValue.toFixed(2)}</td>
+                `;
+                
+                earningsTable.appendChild(row);
+            });
+            
+            // Se não houver dados
+            if (Object.keys(vehicleEarnings).length === 0) {
+                earningsTable.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 40px; color: var(--gray);">
+                            Nenhum aluguel encontrado para o período selecionado
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // Funções da calculadora
         function updateCalculator() {
-            const daily = parseFloat(calcDailyPrice.value) || 0;
-            const days = parseInt(calcRentalDays.value) || 0;
-            const gross = daily * days;
-            const bixx = gross * 0.3;
-            const op = 15; // assumindo 1 aluguel
-            const net = gross - bixx - op;
+            const dailyPrice = parseFloat(calcDailyPrice.value) || 0;
+            const rentalDays = parseInt(calcRentalDays.value) || 0;
+            
+            const gross = dailyPrice * rentalDays;
+            const bixxFee = gross * 0.3;
+            const opFee = rentalDays * 15;
+            const net = gross - bixxFee - opFee;
+            
             calcGross.textContent = `R$ ${gross.toFixed(2)}`;
-            calcBixxFee.textContent = `R$ ${bixx.toFixed(2)}`;
-            calcOpFee.textContent = `R$ ${op.toFixed(2)}`;
+            calcBixxFee.textContent = `R$ ${bixxFee.toFixed(2)}`;
+            calcOpFee.textContent = `R$ ${opFee.toFixed(2)}`;
             calcNet.textContent = `R$ ${net.toFixed(2)}`;
         }
 
-        calcDailyPrice.addEventListener('input', updateCalculator);
-        calcRentalDays.addEventListener('input', updateCalculator);
-
-        // Carregar configurações (já feito em loadUserData)
-
-        // Salvar configurações
-        settingsForm.addEventListener('submit', e => {
-            e.preventDefault();
-            const user = auth.currentUser;
-            const updates = {};
-            if (settingsName.value) updates.name = settingsName.value;
-            if (settingsPhone.value) updates.phone = settingsPhone.value;
-
-            db.collection('users').doc(user.uid).update(updates).then(() => {
-                if (settingsEmail.value !== user.email) {
-                    user.updateEmail(settingsEmail.value);
-                }
-                if (settingsPassword.value && settingsPassword.value === settingsConfirmPassword.value) {
-                    user.updatePassword(settingsPassword.value);
-                }
-                alert('Configurações salvas!');
-                loadUserData(user);
+        // Funções de navegação
+        function showSection(section) {
+            // Esconder todas as seções
+            sections.forEach(sec => {
+                sec.style.display = 'none';
             });
-        });
-
-        // Abrir modal de veículo
-        function openVehicleModal(vehicle = null) {
-            if (vehicle) {
-                vehicleModalTitle.textContent = 'Editar Veículo';
-                vehicleId.value = vehicle.id;
-                vehicleBrand.value = vehicle.brand || '';
-                vehicleModel.value = vehicle.model || '';
-                vehicleYear.value = vehicle.year || '';
-                vehicleColor.value = vehicle.color || '';
-                vehiclePlate.value = vehicle.plate || '';
-                vehicleFuel.value = vehicle.fuel || '';
-                vehicleRenavam.value = vehicle.renavam || '';
-                vehicleChassis.value = vehicle.chassis || '';
-                vehicleDailyPrice.value = vehicle.dailyPrice || '';
-                vehicleAddress.value = vehicle.address || '';
-                vehicleDescription.value = vehicle.description || '';
-                vehicleFeatures.forEach(cb => {
-                    cb.checked = vehicle.features?.includes(cb.value) || false;
-                });
-            } else {
-                vehicleModalTitle.textContent = 'Adicionar Veículo';
-                vehicleId.value = '';
-                vehicleForm.reset();
+            
+            // Mostrar a seção selecionada
+            document.getElementById(`${section}-section`).style.display = 'block';
+            
+            // Atualizar título da página
+            const titles = {
+                'overview': 'Visão Geral',
+                'vehicles': 'Meus Veículos',
+                'rentals': 'Aluguéis',
+                'earnings': 'Ganhos',
+                'settings': 'Configurações'
+            };
+            
+            pageTitle.textContent = titles[section] || 'Painel do Proprietário';
+            
+            // Carregar dados específicos da seção, se necessário
+            if (section === 'earnings') {
+                updateEarnings();
             }
+        }
+
+        // Funções do modal de veículo
+        function openVehicleModal(vehicleId = null) {
+            if (vehicleId) {
+                // Modo edição
+                const vehicle = vehicles.find(v => v.id === vehicleId);
+                if (vehicle) {
+                    vehicleModalTitle.textContent = 'Editar Veículo';
+                    document.getElementById('vehicle-id').value = vehicle.id;
+                    document.getElementById('vehicle-brand').value = vehicle.brand;
+                    document.getElementById('vehicle-model').value = vehicle.model;
+                    document.getElementById('vehicle-year').value = vehicle.year;
+                    document.getElementById('vehicle-color').value = vehicle.color;
+                    document.getElementById('vehicle-plate').value = vehicle.plate;
+                    document.getElementById('vehicle-fuel').value = vehicle.fuel;
+                    document.getElementById('vehicle-renavam').value = vehicle.renavam;
+                    document.getElementById('vehicle-chassis').value = vehicle.chassis;
+                    document.getElementById('vehicle-daily-price').value = vehicle.dailyPrice;
+                    document.getElementById('vehicle-address').value = vehicle.address;
+                    document.getElementById('vehicle-description').value = vehicle.description || '';
+                    
+                    // Características
+                    const features = vehicle.features || [];
+                    document.getElementById('vehicle-feature-fulltank').checked = features.includes('Tanque Cheio');
+                    document.getElementById('vehicle-feature-ac').checked = features.includes('Ar Condicionado');
+                    document.getElementById('vehicle-feature-automatic').checked = features.includes('Automático');
+                    document.getElementById('vehicle-feature-airbag').checked = features.includes('Airbag');
+                    document.getElementById('vehicle-feature-gps').checked = features.includes('GPS');
+                }
+            } else {
+                // Modo adição
+                vehicleModalTitle.textContent = 'Adicionar Veículo';
+                vehicleForm.reset();
+                document.getElementById('vehicle-id').value = '';
+            }
+            
             vehicleModal.style.display = 'flex';
         }
 
-        // Salvar veículo
-        saveVehicle.addEventListener('click', () => {
-            const data = {
-                ownerId: auth.currentUser.uid,
-                brand: vehicleBrand.value,
-                model: vehicleModel.value,
-                year: parseInt(vehicleYear.value),
-                color: vehicleColor.value,
-                plate: vehiclePlate.value,
-                fuel: vehicleFuel.value,
-                renavam: vehicleRenavam.value,
-                chassis: vehicleChassis.value,
-                dailyPrice: parseFloat(vehicleDailyPrice.value),
-                address: vehicleAddress.value,
-                description: vehicleDescription.value,
-                features: vehicleFeatures.filter(cb => cb.checked).map(cb => cb.value),
-                status: 'available' // default
+        function closeVehicleModal() {
+            vehicleModal.style.display = 'none';
+        }
+
+        function handleSaveVehicle() {
+            // Coletar dados do formulário
+            const vehicleId = document.getElementById('vehicle-id').value;
+            const vehicleData = {
+                brand: document.getElementById('vehicle-brand').value,
+                model: document.getElementById('vehicle-model').value,
+                year: parseInt(document.getElementById('vehicle-year').value),
+                color: document.getElementById('vehicle-color').value,
+                plate: document.getElementById('vehicle-plate').value.toUpperCase(),
+                fuel: document.getElementById('vehicle-fuel').value,
+                renavam: document.getElementById('vehicle-renavam').value,
+                chassis: document.getElementById('vehicle-chassis').value,
+                dailyPrice: parseFloat(document.getElementById('vehicle-daily-price').value),
+                address: document.getElementById('vehicle-address').value,
+                description: document.getElementById('vehicle-description').value,
+                features: [],
+                ownerId: currentUser.uid,
+                updatedAt: new Date()
             };
-            if (vehicleId.value) {
-                db.collection('vehicles').doc(vehicleId.value).update(data).then(() => {
-                    vehicleModal.style.display = 'none';
-                    loadVehicles();
-                });
-            } else {
-                db.collection('vehicles').add(data).then(() => {
-                    vehicleModal.style.display = 'none';
-                    loadVehicles();
-                });
+            
+            // Adicionar características selecionadas
+            if (document.getElementById('vehicle-feature-fulltank').checked) {
+                vehicleData.features.push('Tanque Cheio');
             }
-        });
+            if (document.getElementById('vehicle-feature-ac').checked) {
+                vehicleData.features.push('Ar Condicionado');
+            }
+            if (document.getElementById('vehicle-feature-automatic').checked) {
+                vehicleData.features.push('Automático');
+            }
+            if (document.getElementById('vehicle-feature-airbag').checked) {
+                vehicleData.features.push('Airbag');
+            }
+            if (document.getElementById('vehicle-feature-gps').checked) {
+                vehicleData.features.push('GPS');
+            }
+            
+            // Validar dados
+            if (!vehicleData.brand || !vehicleData.model || !vehicleData.plate) {
+                alert('Por favor, preencha todos os campos obrigatórios');
+                return;
+            }
+            
+            if (vehicleId) {
+                // Atualizar veículo existente
+                db.collection('vehicles').doc(vehicleId).update(vehicleData)
+                    .then(() => {
+                        closeVehicleModal();
+                        loadVehicles();
+                    })
+                    .catch(error => {
+                        console.error('Erro ao atualizar veículo:', error);
+                        alert('Erro ao atualizar veículo. Tente novamente.');
+                    });
+            } else {
+                // Adicionar novo veículo
+                vehicleData.createdAt = new Date();
+                vehicleData.status = 'available';
+                
+                db.collection('vehicles').add(vehicleData)
+                    .then(() => {
+                        closeVehicleModal();
+                        loadVehicles();
+                    })
+                    .catch(error => {
+                        console.error('Erro ao adicionar veículo:', error);
+                        alert('Erro ao adicionar veículo. Tente novamente.');
+                    });
+            }
+        }
 
-        // Fechar modal
-        cancelVehicle.addEventListener('click', () => vehicleModal.style.display = 'none');
-        closeModal.addEventListener('click', () => vehicleModal.style.display = 'none');
+        // Funções auxiliares
+        function formatDate(date) {
+            return date.toLocaleDateString('pt-BR');
+        }
 
-        // Adicionar veículo
-        addVehicleBtn.addEventListener('click', () => openVehicleModal());
+        function getStatusText(status) {
+            const statusMap = {
+                'pending': 'Pendente',
+                'confirmed': 'Confirmado',
+                'active': 'Ativo',
+                'reserved': 'Reservado',
+                'completed': 'Concluído',
+                'cancelled': 'Cancelado'
+            };
+            
+            return statusMap[status] || status;
+        }
 
-        // Ver todos aluguéis
-        viewAllRentals.addEventListener('click', () => {
-            navLinks[2].click(); // Aluguéis
-        });
+        function getVehicleStatus(vehicle) {
+            // Verificar se há aluguéis ativos para este veículo
+            const activeRental = rentals.find(rental => 
+                rental.vehicleId === vehicle.id && 
+                (rental.status === 'active' || rental.status === 'reserved')
+            );
+            
+            if (activeRental) {
+                return activeRental.status;
+            }
+            
+            return vehicle.status || 'available';
+        }
 
-        // Exportar aluguéis (implementar se necessário, ex: CSV)
-        exportRentals.addEventListener('click', () => {
-            alert('Função de exportação não implementada.');
-        });
-
-        // Mudar período de ganhos
-        earningsPeriod.addEventListener('change', () => loadEarnings(earningsPeriod.value));
-
-        // Inicializar calculadora
-        updateCalculator();
+        function getVehicleStatusText(status) {
+            const statusMap = {
+                'available': 'Disponível',
+                'rented': 'Alugado',
+                'reserved': 'Reservado',
+                'maintenance': 'Manutenção'
+            };
+            
+            return statusMap[status] || status;
+        }
     </script>
 </body>
 </html>
