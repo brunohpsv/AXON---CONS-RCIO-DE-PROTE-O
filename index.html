@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIXX PASS</title>
+    <title>BIXX PASS - Banner Corrigido</title>
     <style>
         * {
             margin: 0;
@@ -36,6 +36,14 @@
         .logo-icon {
             width: 32px;
             height: 32px;
+            background-color: #e60000;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
         }
 
         .logo-text {
@@ -65,8 +73,8 @@
         .banner-scroll {
             display: flex;
             white-space: nowrap;
-            animation: scrollBanner 60s linear infinite;
-            padding-left: 100%;
+            position: absolute;
+            animation: scrollBanner 120s linear infinite;
         }
 
         .banner-item {
@@ -78,14 +86,13 @@
         /* Animação corrigida para rolagem contínua */
         @keyframes scrollBanner {
             0% {
-                transform: translateX(0);
+                transform: translateX(100%);
             }
             100% {
                 transform: translateX(-100%);
             }
         }
 
-        /* Restante do CSS permanece igual */
         .search-container {
             background-color: white;
             margin: 20px;
@@ -705,7 +712,7 @@
 <body>
     <header class="header">
         <div class="logo-container">
-            <img src="favicon.png" alt="BIXX PASS" class="logo-icon" id="logoIcon">
+            <div class="logo-icon">BP</div>
             <span class="logo-text">BIXX PASS</span>
         </div>
         <div class="compre-passagem" id="comprePassagem">
@@ -914,33 +921,65 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const logoIcon = document.getElementById('logoIcon');
+            // BANNER DINÂMICO CORRIGIDO
+            const bannerScroll = document.getElementById('bannerScroll');
             
-            // Verifica se a imagem carregou corretamente
-            logoIcon.onerror = function() {
-                console.log('Logo não encontrada, criando fallback...');
-                // Fallback visual caso a imagem não carregue
-                const logoContainer = document.querySelector('.logo-container');
-                logoIcon.style.display = 'none';
-                
-                // Cria um elemento de fallback
-                const fallbackIcon = document.createElement('div');
-                fallbackIcon.style.width = '32px';
-                fallbackIcon.style.height = '32px';
-                fallbackIcon.style.backgroundColor = '#e60000';
-                fallbackIcon.style.borderRadius = '0';
-                fallbackIcon.style.display = 'flex';
-                fallbackIcon.style.alignItems = 'center';
-                fallbackIcon.style.justifyContent = 'center';
-                fallbackIcon.style.color = 'white';
-                fallbackIcon.style.fontSize = '12px';
-                fallbackIcon.style.fontWeight = 'bold';
-                fallbackIcon.textContent = 'BP';
-                
-                logoContainer.insertBefore(fallbackIcon, logoContainer.firstChild);
-            };
-
-            // Adiciona funcionalidade aos filtros
+            // Mensagens para o banner
+            const bannerMessages = [
+                // Saudação baseada no horário será adicionada dinamicamente
+                // Versículos bíblicos motivacionais
+                "✈️ Filipenses 4:13 - Tudo posso naquele que me fortalece! ✈️",
+                "🌍 Isaías 40:31 - Mas os que esperam no Senhor renovam as suas forças... 🌍",
+                "🛫 Salmo 121:8 - O Senhor guardará a tua saída e a tua entrada... 🛫",
+                "🌟 Jeremias 29:11 - Porque eu bem sei os pensamentos que tenho a vosso respeito... 🌟",
+                "🌴 Josué 1:9 - Não to mandei eu? Esforça-te e tem bom ânimo... 🌴",
+                "🏝️ Salmo 37:5 - Entrega o teu caminho ao Senhor, confia nele... 🛫",
+                "✈️ Provérbios 16:3 - Entrega ao Senhor as tuas obras, e teus pensamentos serão estabelecidos. ✈️",
+                "🌍 Salmo 23:1 - O Senhor é o meu pastor, nada me faltará. 🌍",
+                "🛫 Romanos 8:28 - Todas as coisas cooperam para o bem daqueles que amam a Deus. 🛫",
+                // Mensagens de viagem motivacionais
+                "✈️ Viajar é viver! ✈️",
+                "🌍 Descubra novos horizontes com a BIXX PASS! 🌍",
+                "🛫 Sua próxima aventura começa aqui! 🛫",
+                "🌟 Explore o mundo com confiança! 🌟",
+                "🌴 Férias dos sonhos a preços incríveis! 🌴",
+                "🏝️ Momentos inesquecíveis te esperam! 🛫",
+                "✈️ Viaje com segurança e tranquilidade! ✈️",
+                "🌍 Conectamos você aos melhores destinos! 🌍",
+                "🛫 Sua jornada, nossa prioridade! 🛫"
+            ];
+            
+            // Função para obter saudação baseada no horário
+            function getGreeting() {
+                const hour = new Date().getHours();
+                if (hour >= 5 && hour < 12) {
+                    return "Bom dia! ☀️";
+                } else if (hour >= 12 && hour < 18) {
+                    return "Boa tarde! 🌤️";
+                } else {
+                    return "Boa noite! 🌙";
+                }
+            }
+            
+            // Adiciona a saudação às mensagens
+            const greeting = getGreeting();
+            const messagesWithGreeting = [
+                `${greeting} Voe com a BIXX PASS! ✈️`,
+                ...bannerMessages
+            ];
+            
+            // Cria elementos para o banner
+            messagesWithGreeting.forEach((message) => {
+                const bannerItem = document.createElement('div');
+                bannerItem.className = 'banner-item';
+                bannerItem.textContent = message;
+                bannerScroll.appendChild(bannerItem);
+            });
+            
+            // CORREÇÃO: Ajustar a animação para que o banner continue rolando até o último item
+            // A velocidade está definida no CSS como 120s para um ciclo completo
+            
+            // Restante do código JavaScript permanece igual
             const filterOptions = document.querySelectorAll('.filter-option');
             filterOptions.forEach(option => {
                 option.addEventListener('click', function() {
@@ -1136,68 +1175,6 @@
                     }
                 });
             }
-
-            // BANNER DINÂMICO CORRIGIDO
-            const bannerScroll = document.getElementById('bannerScroll');
-            
-            // Mensagens para o banner
-            const bannerMessages = [
-                // Saudação baseada no horário será adicionada dinamicamente
-                // Versículos bíblicos motivacionais
-                "✈️ Filipenses 4:13 - Tudo posso naquele que me fortalece! ✈️",
-                "🌍 Isaías 40:31 - Mas os que esperam no Senhor renovam as suas forças... 🌍",
-                "🛫 Salmo 121:8 - O Senhor guardará a tua saída e a tua entrada... 🛫",
-                "🌟 Jeremias 29:11 - Porque eu bem sei os pensamentos que tenho a vosso respeito... 🌟",
-                "🌴 Josué 1:9 - Não to mandei eu? Esforça-te e tem bom ânimo... 🌴",
-                "🏝️ Salmo 37:5 - Entrega o teu caminho ao Senhor, confia nele... 🛫",
-                "✈️ Provérbios 16:3 - Entrega ao Senhor as tuas obras, e teus pensamentos serão estabelecidos. ✈️",
-                "🌍 Salmo 23:1 - O Senhor é o meu pastor, nada me faltará. 🌍",
-                "🛫 Romanos 8:28 - Todas as coisas cooperam para o bem daqueles que amam a Deus. 🛫",
-                // Mensagens de viagem motivacionais
-                "✈️ Viajar é viver! ✈️",
-                "🌍 Descubra novos horizontes com a BIXX PASS! 🌍",
-                "🛫 Sua próxima aventura começa aqui! 🛫",
-                "🌟 Explore o mundo com confiança! 🌟",
-                "🌴 Férias dos sonhos a preços incríveis! 🌴",
-                "🏝️ Momentos inesquecíveis te esperam! 🛫",
-                "✈️ Viaje com segurança e tranquilidade! ✈️",
-                "🌍 Conectamos você aos melhores destinos! 🌍",
-                "🛫 Sua jornada, nossa prioridade! 🛫"
-            ];
-            
-            // Função para obter saudação baseada no horário
-            function getGreeting() {
-                const hour = new Date().getHours();
-                if (hour >= 5 && hour < 12) {
-                    return "Bom dia! ☀️";
-                } else if (hour >= 12 && hour < 18) {
-                    return "Boa tarde! 🌤️";
-                } else {
-                    return "Boa noite! 🌙";
-                }
-            }
-            
-            // Adiciona a saudação às mensagens
-            const greeting = getGreeting();
-            const messagesWithGreeting = [
-                `${greeting} Voe com a BIXX PASS! ✈️`,
-                ...bannerMessages
-            ];
-            
-            // Cria elementos para o banner
-            // Duplicamos as mensagens para criar um efeito de loop contínuo
-            const allMessages = [...messagesWithGreeting, ...messagesWithGreeting];
-            
-            allMessages.forEach((message) => {
-                const bannerItem = document.createElement('div');
-                bannerItem.className = 'banner-item';
-                bannerItem.textContent = message;
-                bannerScroll.appendChild(bannerItem);
-            });
-            
-            // CORREÇÃO: Ajustar a animação para que o banner continue rolando até o último item
-            // A velocidade já está definida no CSS como 60s
-            // Não é necessário aplicar via JavaScript pois já está fixo no CSS
         });
     </script>
 </body>
