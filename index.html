@@ -70,22 +70,36 @@
 
         .search-options {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .option {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
             font-size: 14px;
             cursor: pointer;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+            transition: all 0.2s ease;
             position: relative;
+            min-width: 150px;
+        }
+
+        .option:hover {
+            background-color: #f0f0f0;
+            border-color: #ccc;
         }
 
         .option.active {
             color: #722f37;
             font-weight: bold;
+            border-color: #722f37;
+            background-color: rgba(114, 47, 55, 0.05);
         }
 
         .option select {
@@ -95,10 +109,11 @@
             cursor: pointer;
             color: inherit;
             font-weight: inherit;
-            padding-right: 15px;
+            padding-right: 20px;
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
+            width: 100%;
         }
 
         .option select:focus {
@@ -109,9 +124,10 @@
             content: "▼";
             font-size: 10px;
             position: absolute;
-            right: 0;
+            right: 15px;
             top: 50%;
             transform: translateY(-50%);
+            color: #666;
         }
 
         .search-form {
@@ -148,6 +164,8 @@
             font-weight: bold;
             cursor: pointer;
             margin-top: 24px;
+            grid-column: 1 / -1;
+            max-width: 200px;
         }
 
         .search-button:hover {
@@ -287,6 +305,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .results-title {
@@ -297,6 +317,7 @@
         .results-filters {
             display: flex;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
         .filter-option {
@@ -305,11 +326,17 @@
             gap: 8px;
             font-size: 14px;
             cursor: pointer;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
         }
 
         .filter-option.active {
             color: #722f37;
             font-weight: bold;
+            border-color: #722f37;
+            background-color: rgba(114, 47, 55, 0.05);
         }
 
         .filter-option .checkbox {
@@ -331,6 +358,15 @@
             content: "✓";
             color: white;
             font-size: 12px;
+        }
+
+        .filter-select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            font-size: 14px;
+            cursor: pointer;
         }
 
         .results-list {
@@ -414,8 +450,13 @@
             }
             
             .search-options {
-                flex-wrap: wrap;
+                flex-direction: column;
                 gap: 10px;
+            }
+            
+            .option {
+                min-width: auto;
+                width: 100%;
             }
             
             .results-header {
@@ -433,6 +474,10 @@
             .price-info {
                 text-align: left;
                 margin-right: 0;
+            }
+            
+            .search-button {
+                max-width: 100%;
             }
         }
 
@@ -462,13 +507,22 @@
             .results-section {
                 margin: 10px;
             }
+            
+            .results-filters {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .filter-option, .filter-select {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="logo-container">
-            <img src="favicon." alt="BIXX PASS" class="logo-icon" id="logoIcon">
+            <img src="favicon.png" alt="BIXX PASS" class="logo-icon" id="logoIcon">
             <span class="logo-text">BIXX PASS</span>
         </div>
         <div class="compre-passagem" id="comprePassagem">
@@ -489,7 +543,7 @@
                 </select>
             </div>
             <div class="option" id="passengerOption">
-                <span id="passengerText">1 Passageiro</span>
+                <span id="passengerText">Passageiro(s)</span>
             </div>
             <div class="option" id="promoCodeOption">
                 <span>Código promocional</span>
@@ -513,11 +567,11 @@
                     <option>Selecione o destino</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="partidaGroup">
                 <label for="partida">Partida</label>
                 <input type="text" id="partida" value="10/10/2025">
             </div>
-            <div class="form-group">
+            <div class="form-group" id="voltaGroup">
                 <label for="volta">Volta</label>
                 <input type="text" id="volta" value="17/10/2025">
             </div>
@@ -575,24 +629,18 @@
             <div class="results-filters">
                 <div class="filter-option active">
                     <div class="checkbox"></div>
-                    <span>Digital origem</span>
+                    <span>Digitar origem</span>
                 </div>
                 <div class="filter-option active">
                     <div class="checkbox"></div>
-                    <span>Digital destino</span>
+                    <span>Digitar destino</span>
                 </div>
-                <div class="filter-option">
-                    <div class="checkbox"></div>
-                    <span>Digite o orçamento...</span>
-                </div>
-                <div class="filter-option">
-                    <div class="checkbox"></div>
-                    <span>Reais</span>
-                </div>
-                <div class="filter-option">
-                    <div class="checkbox"></div>
-                    <span>Mais filtros</span>
-                </div>
+                <select class="filter-select" id="priceSort">
+                    <option value="">Ordenar por preço</option>
+                    <option value="cheap">Barato > Caro</option>
+                    <option value="expensive">Caro > Barato</option>
+                    <option value="promo">Promoção</option>
+                </select>
             </div>
         </div>
 
@@ -697,13 +745,13 @@
 
             // Funcionalidade para o select de tipo de viagem
             const tripTypeSelect = document.getElementById('tripType');
-            const voltaField = document.querySelector('#volta').closest('.form-group');
+            const voltaGroup = document.getElementById('voltaGroup');
             
             tripTypeSelect.addEventListener('change', function() {
                 if (this.value === 'oneway') {
-                    voltaField.style.display = 'none';
+                    voltaGroup.style.display = 'none';
                 } else {
-                    voltaField.style.display = 'flex';
+                    voltaGroup.style.display = 'flex';
                 }
             });
 
@@ -786,6 +834,13 @@
             
             promoCodeOption.addEventListener('click', function() {
                 promoInputContainer.style.display = promoInputContainer.style.display === 'block' ? 'none' : 'block';
+            });
+
+            // Funcionalidade para ordenação por preço
+            const priceSort = document.getElementById('priceSort');
+            priceSort.addEventListener('change', function() {
+                // Aqui você implementaria a lógica de ordenação dos resultados
+                console.log('Ordenação selecionada:', this.value);
             });
         });
     </script>
