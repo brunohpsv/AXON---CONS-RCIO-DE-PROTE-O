@@ -50,7 +50,7 @@
             font-size: 16px;
         }
 
-        /* Banner promocional - ATUALIZADO */
+        /* Banner promocional - CORRIGIDO */
         .promo-banner {
             background-color: #0a2e5c; /* Azul marinho */
             color: white;
@@ -59,19 +59,20 @@
             font-weight: bold;
             overflow: hidden;
             position: relative;
-            height: 40px; /* Reduzido para diminuir a faixa */
+            height: 40px;
         }
 
         .banner-scroll {
             display: flex;
             white-space: nowrap;
-            animation: scrollBanner 30s linear infinite;
-            padding-left: 100%; /* Começa fora da tela à direita */
+            animation: scrollBanner 120s linear infinite; /* Aumentei a duração para mostrar todas as mensagens */
+            padding-left: 100%;
         }
 
         .banner-item {
             display: inline-block;
-            padding: 0 30px; /* Espaço entre as mensagens */
+            padding: 0 30px;
+            flex-shrink: 0; /* Impede que os itens encolham */
         }
 
         @keyframes scrollBanner {
@@ -145,9 +146,7 @@
             outline: none;
         }
 
-        /* REMOVIDO: setas dos botões "Passageiro(s)" e "Código Promocional" */
-
-        /* MELHORIAS NO SELECT DE IDA E VOLTA - ATUALIZADO */
+        /* MELHORIAS NO SELECT DE IDA E VOLTA */
         .trip-type-selector {
             display: flex;
             border-radius: 0;
@@ -171,7 +170,7 @@
             display: flex;
             align-items: center;
             font-size: 14px;
-            white-space: nowrap; /* Garante que as palavras fiquem lado a lado */
+            white-space: nowrap;
         }
 
         .trip-type-selector .trip-type-option:first-child {
@@ -686,7 +685,7 @@
         </div>
     </header>
 
-    <!-- Banner promocional ATUALIZADO -->
+    <!-- Banner promocional CORRIGIDO -->
     <div class="promo-banner" id="promoBanner">
         <div class="banner-scroll" id="bannerScroll">
             <!-- Conteúdo será inserido dinamicamente pelo JavaScript -->
@@ -791,7 +790,7 @@
     <!-- Seção de resultados -->
     <div class="results-section">
         <div class="results-header">
-            <div class="results-title">Descontos especiais</div>
+            <div class="results-title">Resultados da busca</div>
             <div class="results-filters">
                 <div class="filter-input-container">
                     <div class="checkbox"></div>
@@ -1108,7 +1107,7 @@
                 });
             }
 
-            // BANNER DINÂMICO - ATUALIZADO
+            // BANNER DINÂMICO - CORRIGIDO
             const bannerScroll = document.getElementById('bannerScroll');
             
             // Mensagens para o banner
@@ -1155,13 +1154,23 @@
                 ...bannerMessages
             ];
             
-            // Cria elementos para o banner
-            messagesWithGreeting.forEach((message) => {
+            // Cria elementos para o banner - CORREÇÃO AQUI
+            // Duplicamos as mensagens para criar um efeito de loop contínuo
+            const allMessages = [...messagesWithGreeting, ...messagesWithGreeting];
+            
+            allMessages.forEach((message) => {
                 const bannerItem = document.createElement('div');
                 bannerItem.className = 'banner-item';
                 bannerItem.textContent = message;
                 bannerScroll.appendChild(bannerItem);
             });
+            
+            // Ajusta a velocidade da animação baseada no número de mensagens
+            const totalMessages = allMessages.length;
+            const animationDuration = totalMessages * 5; // 5 segundos por mensagem
+            
+            // Aplica a duração da animação dinamicamente
+            bannerScroll.style.animationDuration = `${animationDuration}s`;
         });
     </script>
 </body>
