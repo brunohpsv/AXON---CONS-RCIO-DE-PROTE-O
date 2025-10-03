@@ -41,18 +41,18 @@
         .logo-text {
             font-weight: bold;
             font-size: 24px;
-            color: #0a2e5c; /* Azul marinho */
+            color: #1a1a1a; /* Preto como cor principal */
         }
 
         .compre-passagem {
-            color: black;
+            color: #1a1a1a; /* Preto como cor principal */
             font-weight: normal;
             font-size: 16px;
         }
 
         /* Banner promocional - CORRIGIDO */
         .promo-banner {
-            background-color: #0a2e5c; /* Azul marinho */
+            background-color: #1a1a1a; /* Preto como cor principal */
             color: white;
             padding: 10px 0;
             font-size: 18px;
@@ -65,7 +65,7 @@
         .banner-scroll {
             display: flex;
             white-space: nowrap;
-            animation: scrollBanner 40s linear infinite; /* Aumentei a duração para mostrar todas as mensagens */
+            animation: scrollBanner 120s linear infinite; /* Aumentei a duração para mostrar todas as mensagens */
             padding-left: 100%;
         }
 
@@ -122,10 +122,10 @@
         }
 
         .option.active {
-            color: #0a2e5c; /* Azul marinho */
+            color: #e60000; /* Vermelho como cor de destaque */
             font-weight: bold;
-            border-color: #0a2e5c; /* Azul marinho */
-            background-color: rgba(10, 46, 92, 0.05);
+            border-color: #e60000; /* Vermelho como cor de destaque */
+            background-color: rgba(230, 0, 0, 0.05);
         }
 
         .option select {
@@ -182,7 +182,7 @@
         }
 
         .trip-type-selector .trip-type-option.active {
-            background-color: #0a2e5c; /* Azul marinho */
+            background-color: #1a1a1a; /* Preto como cor principal */
             color: white;
             font-weight: bold;
         }
@@ -209,10 +209,16 @@
             border: 1px solid #ddd;
             border-radius: 0;
             font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #0066cc; /* Azul como cor de foco */
+            outline: none;
         }
 
         .search-button {
-            background-color: #722f37; /* Vermelho vinho - mantido como secundário */
+            background-color: #e60000; /* Vermelho como cor de destaque */
             color: white;
             border: none;
             border-radius: 0;
@@ -227,7 +233,7 @@
         }
 
         .search-button:hover {
-            background-color: #5a252c;
+            background-color: #cc0000;
         }
 
         /* Modal para seleção de passageiros */
@@ -265,6 +271,7 @@
         .modal-title {
             font-size: 18px;
             font-weight: bold;
+            color: #1a1a1a; /* Preto como cor principal */
         }
 
         .close-modal {
@@ -289,6 +296,7 @@
         .passenger-title {
             font-weight: bold;
             margin-bottom: 5px;
+            color: #1a1a1a; /* Preto como cor principal */
         }
 
         .passenger-age {
@@ -336,7 +344,7 @@
         }
 
         .confirm-btn {
-            background-color: #0a2e5c; /* Azul marinho */
+            background-color: #e60000; /* Vermelho como cor de destaque */
             color: white;
             border: none;
             border-radius: 0;
@@ -347,7 +355,7 @@
         }
 
         .confirm-btn:hover {
-            background-color: #082347;
+            background-color: #cc0000;
         }
 
         /* Campo de código promocional */
@@ -361,6 +369,12 @@
             border: 1px solid #ddd;
             border-radius: 0;
             width: 250px;
+            transition: border-color 0.3s;
+        }
+
+        .promo-input:focus {
+            border-color: #0066cc; /* Azul como cor de foco */
+            outline: none;
         }
 
         /* Seção de resultados */
@@ -380,6 +394,7 @@
         .results-title {
             font-size: 20px;
             font-weight: bold;
+            color: #1a1a1a; /* Preto como cor principal */
         }
 
         .results-filters {
@@ -407,10 +422,10 @@
         }
 
         .filter-option.active {
-            color: #0a2e5c; /* Azul marinho */
+            color: #e60000; /* Vermelho como cor de destaque */
             font-weight: bold;
-            border-color: #0a2e5c; /* Azul marinho */
-            background-color: rgba(10, 46, 92, 0.05);
+            border-color: #e60000; /* Vermelho como cor de destaque */
+            background-color: rgba(230, 0, 0, 0.05);
         }
 
         .filter-option .checkbox {
@@ -425,8 +440,8 @@
         }
 
         .filter-option.active .checkbox {
-            background-color: #0a2e5c; /* Azul marinho */
-            border-color: #0a2e5c; /* Azul marinho */
+            background-color: #e60000; /* Vermelho como cor de destaque */
+            border-color: #e60000; /* Vermelho como cor de destaque */
         }
 
         .filter-option.active .checkbox::after {
@@ -447,6 +462,11 @@
 
         .filter-select:hover {
             background-color: #f0f0f0;
+        }
+
+        .filter-select:focus {
+            border-color: #0066cc; /* Azul como cor de foco */
+            outline: none;
         }
 
         .filter-input-container {
@@ -493,6 +513,7 @@
             flex-direction: column;
             border: 1px solid #e0e0e0;
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
         }
 
         .result-item:hover {
@@ -509,7 +530,7 @@
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 10px;
-            color: #333;
+            color: #1a1a1a; /* Preto como cor principal */
         }
 
         .route-details {
@@ -545,7 +566,7 @@
         .price-value {
             font-size: 24px;
             font-weight: bold;
-            color: #0a2e5c; /* Azul marinho */
+            color: #e60000; /* Vermelho como cor de destaque */
         }
 
         .price-note {
@@ -555,7 +576,7 @@
         }
 
         .reserve-button {
-            background-color: #0a2e5c; /* Azul marinho */
+            background-color: #0066cc; /* Azul como cor de ação */
             color: white;
             border: none;
             border-radius: 0;
@@ -568,7 +589,20 @@
         }
 
         .reserve-button:hover {
-            background-color: #082347;
+            background-color: #0055aa;
+        }
+
+        /* Indicador de promoção */
+        .promo-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #e60000; /* Vermelho como cor de destaque */
+            color: white;
+            padding: 4px 8px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 0;
         }
 
         /* Responsividade */
@@ -814,6 +848,7 @@
         <div class="results-list" id="resultsList">
             <!-- Resultado 1 -->
             <div class="result-item" data-origem="Brasília" data-destino="São Paulo" data-price="134.23" data-promo="true">
+                <div class="promo-badge">PROMO</div>
                 <div class="route-info">
                     <div class="route-title">Brasília (BSB) Para São Paulo (CGH)</div>
                     <div class="route-details">
@@ -865,6 +900,7 @@
 
             <!-- Resultado 4 -->
             <div class="result-item" data-origem="Recife" data-destino="Salvador" data-price="309.21" data-promo="true">
+                <div class="promo-badge">PROMO</div>
                 <div class="route-info">
                     <div class="route-title">Recife (REC) Para Salvador (SSA)</div>
                     <div class="route-details">
@@ -897,7 +933,7 @@
                 const fallbackIcon = document.createElement('div');
                 fallbackIcon.style.width = '32px';
                 fallbackIcon.style.height = '32px';
-                fallbackIcon.style.backgroundColor = '#0a2e5c'; /* Azul marinho */
+                fallbackIcon.style.backgroundColor = '#e60000'; /* Vermelho como cor de destaque */
                 fallbackIcon.style.borderRadius = '0';
                 fallbackIcon.style.display = 'flex';
                 fallbackIcon.style.alignItems = 'center';
