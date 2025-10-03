@@ -41,7 +41,7 @@
         .logo-text {
             font-weight: bold;
             font-size: 24px;
-            color: #722f37; /* Vermelho vinho */
+            color: #0a2e5c; /* Azul marinho */
         }
 
         .compre-passagem {
@@ -50,32 +50,37 @@
             font-size: 16px;
         }
 
-        /* Banner promocional */
+        /* Banner promocional - ATUALIZADO */
         .promo-banner {
-            background-color: #722f37;
+            background-color: #0a2e5c; /* Azul marinho */
             color: white;
-            text-align: center;
-            padding: 12px;
+            padding: 10px 0;
             font-size: 18px;
             font-weight: bold;
             overflow: hidden;
             position: relative;
-            height: 50px;
+            height: 40px; /* Reduzido para diminuir a faixa */
         }
 
-        .banner-content {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+        .banner-scroll {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            white-space: nowrap;
+            animation: scrollBanner 30s linear infinite;
+            padding-left: 100%; /* Começa fora da tela à direita */
         }
 
-        .banner-content.active {
-            opacity: 1;
+        .banner-item {
+            display: inline-block;
+            padding: 0 30px; /* Espaço entre as mensagens */
+        }
+
+        @keyframes scrollBanner {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
         }
 
         /* Formulário de busca */
@@ -103,7 +108,6 @@
             cursor: pointer;
             padding: 10px 15px;
             border: 1px solid #ddd;
-            /* Alteração: bordas retas */
             border-radius: 0;
             background-color: #f9f9f9;
             transition: all 0.2s ease;
@@ -117,10 +121,10 @@
         }
 
         .option.active {
-            color: #722f37;
+            color: #0a2e5c; /* Azul marinho */
             font-weight: bold;
-            border-color: #722f37;
-            background-color: rgba(114, 47, 55, 0.05);
+            border-color: #0a2e5c; /* Azul marinho */
+            background-color: rgba(10, 46, 92, 0.05);
         }
 
         .option select {
@@ -141,26 +145,16 @@
             outline: none;
         }
 
-        .option::after {
-            content: "▼";
-            font-size: 10px;
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #666;
-        }
+        /* REMOVIDO: setas dos botões "Passageiro(s)" e "Código Promocional" */
 
-        /* MELHORIAS NO SELECT DE IDA E VOLTA */
+        /* MELHORIAS NO SELECT DE IDA E VOLTA - ATUALIZADO */
         .trip-type-selector {
             display: flex;
-            /* Alteração: bordas retas */
             border-radius: 0;
             overflow: hidden;
             background-color: #f9f9f9;
             border: 1px solid #ddd;
-            /* Alteração: largura aumentada para corresponder à altura dos outros botões */
-            min-width: 220px; /* Aumentado de 180px para 220px */
+            min-width: 220px;
             height: 42px;
         }
 
@@ -171,13 +165,13 @@
             cursor: pointer;
             transition: all 0.2s;
             border: none;
-            /* Alteração: bordas retas */
             border-radius: 0;
             min-width: auto;
             justify-content: center;
             display: flex;
             align-items: center;
             font-size: 14px;
+            white-space: nowrap; /* Garante que as palavras fiquem lado a lado */
         }
 
         .trip-type-selector .trip-type-option:first-child {
@@ -189,7 +183,7 @@
         }
 
         .trip-type-selector .trip-type-option.active {
-            background-color: #722f37;
+            background-color: #0a2e5c; /* Azul marinho */
             color: white;
             font-weight: bold;
         }
@@ -214,16 +208,14 @@
         .form-group input, .form-group select {
             padding: 12px;
             border: 1px solid #ddd;
-            /* Alteração: bordas retas */
             border-radius: 0;
             font-size: 16px;
         }
 
         .search-button {
-            background-color: #722f37;
+            background-color: #722f37; /* Vermelho vinho - mantido como secundário */
             color: white;
             border: none;
-            /* Alteração: bordas retas */
             border-radius: 0;
             padding: 12px;
             font-size: 16px;
@@ -256,7 +248,6 @@
         .modal-content {
             background-color: white;
             padding: 20px;
-            /* Alteração: bordas retas */
             border-radius: 0;
             width: 90%;
             max-width: 400px;
@@ -315,7 +306,6 @@
         .counter-btn {
             width: 30px;
             height: 30px;
-            /* Alteração: bordas retas */
             border-radius: 0;
             border: 1px solid #ddd;
             background: white;
@@ -347,10 +337,9 @@
         }
 
         .confirm-btn {
-            background-color: #722f37;
+            background-color: #0a2e5c; /* Azul marinho */
             color: white;
             border: none;
-            /* Alteração: bordas retas */
             border-radius: 0;
             padding: 10px 20px;
             font-weight: bold;
@@ -359,7 +348,7 @@
         }
 
         .confirm-btn:hover {
-            background-color: #5a252c;
+            background-color: #082347;
         }
 
         /* Campo de código promocional */
@@ -371,9 +360,8 @@
         .promo-input {
             padding: 10px;
             border: 1px solid #ddd;
-            /* Alteração: bordas retas */
             border-radius: 0;
-            width: 250px; /* Aumentado de 200px para 250px */
+            width: 250px;
         }
 
         /* Seção de resultados */
@@ -410,7 +398,6 @@
             cursor: pointer;
             padding: 8px 12px;
             border: 1px solid #ddd;
-            /* Alteração: bordas retas */
             border-radius: 0;
             background-color: #f9f9f9;
             transition: all 0.2s;
@@ -421,17 +408,16 @@
         }
 
         .filter-option.active {
-            color: #722f37;
+            color: #0a2e5c; /* Azul marinho */
             font-weight: bold;
-            border-color: #722f37;
-            background-color: rgba(114, 47, 55, 0.05);
+            border-color: #0a2e5c; /* Azul marinho */
+            background-color: rgba(10, 46, 92, 0.05);
         }
 
         .filter-option .checkbox {
             width: 16px;
             height: 16px;
             border: 1px solid #ddd;
-            /* Alteração: bordas retas */
             border-radius: 0;
             display: flex;
             align-items: center;
@@ -440,8 +426,8 @@
         }
 
         .filter-option.active .checkbox {
-            background-color: #722f37;
-            border-color: #722f37;
+            background-color: #0a2e5c; /* Azul marinho */
+            border-color: #0a2e5c; /* Azul marinho */
         }
 
         .filter-option.active .checkbox::after {
@@ -453,7 +439,6 @@
         .filter-select {
             padding: 8px 12px;
             border: 1px solid #ddd;
-            /* Alteração: bordas retas */
             border-radius: 0;
             background-color: #f9f9f9;
             font-size: 14px;
@@ -472,7 +457,6 @@
             font-size: 14px;
             padding: 8px 12px;
             border: 1px solid #ddd;
-            /* Alteração: bordas retas */
             border-radius: 0;
             background-color: #f9f9f9;
             transition: all 0.2s;
@@ -503,7 +487,6 @@
 
         .result-item {
             background-color: white;
-            /* Alteração: bordas retas */
             border-radius: 0;
             padding: 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -563,7 +546,7 @@
         .price-value {
             font-size: 24px;
             font-weight: bold;
-            color: #722f37;
+            color: #0a2e5c; /* Azul marinho */
         }
 
         .price-note {
@@ -573,10 +556,9 @@
         }
 
         .reserve-button {
-            background-color: #722f37;
+            background-color: #0a2e5c; /* Azul marinho */
             color: white;
             border: none;
-            /* Alteração: bordas retas */
             border-radius: 0;
             padding: 12px;
             font-size: 16px;
@@ -587,7 +569,7 @@
         }
 
         .reserve-button:hover {
-            background-color: #5a252c;
+            background-color: #082347;
         }
 
         /* Responsividade */
@@ -704,8 +686,11 @@
         </div>
     </header>
 
+    <!-- Banner promocional ATUALIZADO -->
     <div class="promo-banner" id="promoBanner">
-        <!-- Conteúdo será inserido dinamicamente pelo JavaScript -->
+        <div class="banner-scroll" id="bannerScroll">
+            <!-- Conteúdo será inserido dinamicamente pelo JavaScript -->
+        </div>
     </div>
 
     <div class="search-container">
@@ -913,7 +898,7 @@
                 const fallbackIcon = document.createElement('div');
                 fallbackIcon.style.width = '32px';
                 fallbackIcon.style.height = '32px';
-                fallbackIcon.style.backgroundColor = '#722f37';
+                fallbackIcon.style.backgroundColor = '#0a2e5c'; /* Azul marinho */
                 fallbackIcon.style.borderRadius = '0';
                 fallbackIcon.style.display = 'flex';
                 fallbackIcon.style.alignItems = 'center';
@@ -1123,8 +1108,8 @@
                 });
             }
 
-            // BANNER DINÂMICO
-            const promoBanner = document.getElementById('promoBanner');
+            // BANNER DINÂMICO - ATUALIZADO
+            const bannerScroll = document.getElementById('bannerScroll');
             
             // Mensagens para o banner
             const bannerMessages = [
@@ -1171,36 +1156,12 @@
             ];
             
             // Cria elementos para o banner
-            messagesWithGreeting.forEach((message, index) => {
-                const bannerContent = document.createElement('div');
-                bannerContent.className = 'banner-content';
-                bannerContent.textContent = message;
-                bannerContent.id = `banner-${index}`;
-                promoBanner.appendChild(bannerContent);
+            messagesWithGreeting.forEach((message) => {
+                const bannerItem = document.createElement('div');
+                bannerItem.className = 'banner-item';
+                bannerItem.textContent = message;
+                bannerScroll.appendChild(bannerItem);
             });
-            
-            // Função para alternar as mensagens
-            let currentBannerIndex = 0;
-            const totalBanners = messagesWithGreeting.length;
-            
-            function showNextBanner() {
-                // Remove a classe active de todos os banners
-                document.querySelectorAll('.banner-content').forEach(banner => {
-                    banner.classList.remove('active');
-                });
-                
-                // Adiciona a classe active ao banner atual
-                document.getElementById(`banner-${currentBannerIndex}`).classList.add('active');
-                
-                // Incrementa o índice para o próximo banner
-                currentBannerIndex = (currentBannerIndex + 1) % totalBanners;
-            }
-            
-            // Mostra o primeiro banner imediatamente
-            showNextBanner();
-            
-            // Configura o intervalo para alternar os banners a cada 5 segundos
-            setInterval(showNextBanner, 5000);
         });
     </script>
 </body>
