@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIXX PASS - Banner Corrigido</title>
+    <!-- Adicionando o favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
     <style>
         * {
             margin: 0;
@@ -74,7 +76,7 @@
             display: flex;
             white-space: nowrap;
             position: absolute;
-            animation: scrollBanner 120s linear infinite;
+            animation: scrollBanner 30s linear infinite; /* Velocidade alterada para 30s */
         }
 
         .banner-item {
@@ -977,7 +979,7 @@
             });
             
             // CORREÇÃO: Ajustar a animação para que o banner continue rolando até o último item
-            // A velocidade está definida no CSS como 120s para um ciclo completo
+            // A velocidade está definida no CSS como 30s para um ciclo completo
             
             // Restante do código JavaScript permanece igual
             const filterOptions = document.querySelectorAll('.filter-option');
