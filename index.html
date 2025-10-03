@@ -50,7 +50,7 @@
             font-size: 16px;
         }
 
-        /* Banner promocional - CORRIGIDO */
+        /* Banner promocional */
         .promo-banner {
             background-color: #1a1a1a; /* Preto como cor principal */
             color: white;
@@ -65,7 +65,7 @@
         .banner-scroll {
             display: flex;
             white-space: nowrap;
-            animation: scrollBanner 10s linear infinite; /* Aumentei a duração para mostrar todas as mensagens */
+            animation: scrollBanner 60s linear infinite; /* VELOCIDADE FIXA DE 60s */
             padding-left: 100%;
         }
 
@@ -719,7 +719,7 @@
         </div>
     </header>
 
-    <!-- Banner promocional CORRIGIDO -->
+    <!-- Banner promocional -->
     <div class="promo-banner" id="promoBanner">
         <div class="banner-scroll" id="bannerScroll">
             <!-- Conteúdo será inserido dinamicamente pelo JavaScript -->
@@ -1143,7 +1143,7 @@
                 });
             }
 
-            // BANNER DINÂMICO - CORRIGIDO
+            // BANNER DINÂMICO - VELOCIDADE FIXA DE 60s
             const bannerScroll = document.getElementById('bannerScroll');
             
             // Mensagens para o banner
@@ -1155,7 +1155,7 @@
                 "🛫 Salmo 121:8 - O Senhor guardará a tua saída e a tua entrada... 🛫",
                 "🌟 Jeremias 29:11 - Porque eu bem sei os pensamentos que tenho a vosso respeito... 🌟",
                 "🌴 Josué 1:9 - Não to mandei eu? Esforça-te e tem bom ânimo... 🌴",
-                "🏝️ Salmo 37:5 - Entrega o teu caminho ao Senhor, confia nele... 🏝️",
+                "🏝️ Salmo 37:5 - Entrega o teu caminho ao Senhor, confia nele... 🛫",
                 "✈️ Provérbios 16:3 - Entrega ao Senhor as tuas obras, e teus pensamentos serão estabelecidos. ✈️",
                 "🌍 Salmo 23:1 - O Senhor é o meu pastor, nada me faltará. 🌍",
                 "🛫 Romanos 8:28 - Todas as coisas cooperam para o bem daqueles que amam a Deus. 🛫",
@@ -1165,7 +1165,7 @@
                 "🛫 Sua próxima aventura começa aqui! 🛫",
                 "🌟 Explore o mundo com confiança! 🌟",
                 "🌴 Férias dos sonhos a preços incríveis! 🌴",
-                "🏝️ Momentos inesquecíveis te esperam! 🏝️",
+                "🏝️ Momentos inesquecíveis te esperam! 🛫",
                 "✈️ Viaje com segurança e tranquilidade! ✈️",
                 "🌍 Conectamos você aos melhores destinos! 🌍",
                 "🛫 Sua jornada, nossa prioridade! 🛫"
@@ -1190,7 +1190,7 @@
                 ...bannerMessages
             ];
             
-            // Cria elementos para o banner - CORREÇÃO AQUI
+            // Cria elementos para o banner
             // Duplicamos as mensagens para criar um efeito de loop contínuo
             const allMessages = [...messagesWithGreeting, ...messagesWithGreeting];
             
@@ -1201,12 +1201,9 @@
                 bannerScroll.appendChild(bannerItem);
             });
             
-            // Ajusta a velocidade da animação baseada no número de mensagens
-            const totalMessages = allMessages.length;
-            const animationDuration = totalMessages * 5; // 5 segundos por mensagem
-            
-            // Aplica a duração da animação dinamicamente
-            bannerScroll.style.animationDuration = `${animationDuration}s`;
+            // VELOCIDADE FIXA DE 60 SEGUNDOS PARA TODO O CICLO
+            // A velocidade já está definida no CSS como 60s
+            // Não é necessário aplicar via JavaScript pois já está fixo no CSS
         });
     </script>
 </body>
