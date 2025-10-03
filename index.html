@@ -73,6 +73,7 @@
             gap: 15px;
             margin-bottom: 20px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .option {
@@ -285,7 +286,7 @@
         /* Campo de código promocional */
         .promo-input-container {
             display: none;
-            margin-top: 10px;
+            margin-left: 10px;
         }
 
         .promo-input {
@@ -318,6 +319,7 @@
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .filter-option {
@@ -367,6 +369,29 @@
             background-color: #f9f9f9;
             font-size: 14px;
             cursor: pointer;
+        }
+
+        .filter-input-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+
+        .filter-input {
+            border: none;
+            background: transparent;
+            padding: 4px;
+            font-size: 14px;
+            width: 120px;
+        }
+
+        .filter-input:focus {
+            outline: none;
         }
 
         .results-list {
@@ -459,6 +484,16 @@
                 width: 100%;
             }
             
+            .promo-input-container {
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%;
+            }
+            
+            .promo-input {
+                width: 100%;
+            }
+            
             .results-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -478,6 +513,19 @@
             
             .search-button {
                 max-width: 100%;
+            }
+            
+            .results-filters {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .filter-input-container {
+                width: 100%;
+            }
+            
+            .filter-input {
+                width: 100%;
             }
         }
 
@@ -548,10 +596,9 @@
             <div class="option" id="promoCodeOption">
                 <span>Código promocional</span>
             </div>
-        </div>
-
-        <div class="promo-input-container" id="promoInputContainer">
-            <input type="text" class="promo-input" id="promoCodeInput" placeholder="Digitar código">
+            <div class="promo-input-container" id="promoInputContainer">
+                <input type="text" class="promo-input" id="promoCodeInput" placeholder="Digitar código">
+            </div>
         </div>
 
         <form class="search-form">
@@ -627,13 +674,15 @@
         <div class="results-header">
             <div class="results-title">Resultados da busca</div>
             <div class="results-filters">
-                <div class="filter-option active">
+                <div class="filter-input-container">
                     <div class="checkbox"></div>
                     <span>Digitar origem</span>
+                    <input type="text" class="filter-input" id="filterOrigem" placeholder="Origem">
                 </div>
-                <div class="filter-option active">
+                <div class="filter-input-container">
                     <div class="checkbox"></div>
                     <span>Digitar destino</span>
+                    <input type="text" class="filter-input" id="filterDestino" placeholder="Destino">
                 </div>
                 <select class="filter-select" id="priceSort">
                     <option value="">Ordenar por preço</option>
@@ -646,7 +695,7 @@
 
         <div class="results-list">
             <!-- Resultado 1 -->
-            <div class="result-item">
+            <div class="result-item" data-origem="Brasília" data-destino="São Paulo">
                 <div class="route-info">
                     <div class="route-title">Brasília (BSB) Para São Paulo (CGH)</div>
                     <div class="route-date">Ida: 01/11/2025</div>
@@ -661,7 +710,7 @@
             </div>
 
             <!-- Resultado 2 -->
-            <div class="result-item">
+            <div class="result-item" data-origem="Rio de Janeiro" data-destino="São Paulo">
                 <div class="route-info">
                     <div class="route-title">Rio de Janeiro (SDU) Para São Paulo (CGH)</div>
                     <div class="route-date">Ida: 12/11/2025</div>
@@ -676,7 +725,7 @@
             </div>
 
             <!-- Resultado 3 -->
-            <div class="result-item">
+            <div class="result-item" data-origem="São Paulo" data-destino="Rio de Janeiro">
                 <div class="route-info">
                     <div class="route-title">São Paulo (CGH) Para Rio de Janeiro (SDU)</div>
                     <div class="route-date">Ida: 31/10/2025</div>
@@ -691,7 +740,7 @@
             </div>
 
             <!-- Resultado 4 -->
-            <div class="result-item">
+            <div class="result-item" data-origem="Recife" data-destino="Salvador">
                 <div class="route-info">
                     <div class="route-title">Recife (REC) Para Salvador (SSA)</div>
                     <div class="route-date">Ida: 01/11/2025</div>
@@ -745,7 +794,13 @@
 
             // Funcionalidade para o select de tipo de viagem
             const tripTypeSelect = document.getElementById('tripType');
+            const tripTypeOption = document.getElementById('tripTypeOption');
             const voltaGroup = document.getElementById('voltaGroup');
+            
+            // Torna toda a área do botão clicável
+            tripTypeOption.addEventListener('click', function() {
+                tripTypeSelect.focus();
+            });
             
             tripTypeSelect.addEventListener('change', function() {
                 if (this.value === 'oneway') {
@@ -842,6 +897,33 @@
                 // Aqui você implementaria a lógica de ordenação dos resultados
                 console.log('Ordenação selecionada:', this.value);
             });
+
+            // Funcionalidade para filtros de origem e destino
+            const filterOrigem = document.getElementById('filterOrigem');
+            const filterDestino = document.getElementById('filterDestino');
+            const resultItems = document.querySelectorAll('.result-item');
+            
+            filterOrigem.addEventListener('input', filterResults);
+            filterDestino.addEventListener('input', filterResults);
+            
+            function filterResults() {
+                const origemValue = filterOrigem.value.toLowerCase();
+                const destinoValue = filterDestino.value.toLowerCase();
+                
+                resultItems.forEach(item => {
+                    const origem = item.getAttribute('data-origem').toLowerCase();
+                    const destino = item.getAttribute('data-destino').toLowerCase();
+                    
+                    const origemMatch = origem.includes(origemValue);
+                    const destinoMatch = destino.includes(destinoValue);
+                    
+                    if (origemMatch && destinoMatch) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
         });
     </script>
 </body>
