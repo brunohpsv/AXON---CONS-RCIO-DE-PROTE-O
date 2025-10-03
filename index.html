@@ -1,724 +1,113 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIXX PASS - Passagens Aéreas com os Melhores Preços</title>
-    <meta name="description" content="Encontre as melhores ofertas em passagens aéreas com a BIXX PASS. Economize em suas viagens com segurança e facilidade.">
+    <title>BIXX PASS</title>
     <style>
-        /* Reset e configurações gerais */
-        :root {
-            --vermelho-principal: #D32F2F;
-            --vermelho-hover: #B71C1C;
-            --cinza-escuro: #424242;
-            --cinza-medio: #757575;
-            --cinza-claro: #F5F5F5;
-            --branco: #FFFFFF;
-            --sombra: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            color: var(--cinza-escuro);
-            background-color: var(--branco);
-            line-height: 1.6;
+            font-family: Arial, sans-serif;
         }
-        
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-        
-        ul {
-            list-style: none;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--vermelho-principal);
-            color: var(--branco);
-            padding: 12px 24px;
-            border-radius: 4px;
-            font-weight: 600;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            background-color: var(--vermelho-hover);
-            transform: translateY(-2px);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--vermelho-principal);
-            color: var(--vermelho-principal);
-        }
-        
-        .btn-outline:hover {
-            background-color: var(--vermelho-principal);
-            color: var(--branco);
-        }
-        
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            color: var(--cinza-escuro);
-            position: relative;
-        }
-        
-        .section-title:after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background-color: var(--vermelho-principal);
-            margin: 10px auto 0;
-        }
-        
-        /* Header */
-        header {
-            background-color: var(--branco);
-            box-shadow: var(--sombra);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-container {
+
+        .header {
+            background-color: white;
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #f0f0f0;
         }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--vermelho-principal);
-        }
-        
-        .logo span {
-            color: var(--cinza-escuro);
-        }
-        
-        nav ul {
-            display: flex;
-        }
-        
-        nav ul li {
-            margin-left: 25px;
-        }
-        
-        nav ul li a {
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        
-        nav ul li a:hover {
-            color: var(--vermelho-principal);
-        }
-        
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        /* Banner Principal */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            color: var(--branco);
-            padding: 80px 0;
-            text-align: center;
-        }
-        
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
-        }
-        
-        /* Busca de Passagens */
-        .search-box {
-            background-color: var(--branco);
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: var(--sombra);
-            max-width: 900px;
-            margin: -50px auto 0;
-            position: relative;
-            z-index: 10;
-        }
-        
-        .search-form {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-        
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .form-group label {
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--cinza-escuro);
-        }
-        
-        .form-control {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-        
-        .search-btn {
-            grid-column: 1 / -1;
-            margin-top: 10px;
-        }
-        
-        /* Seção de Ofertas */
-        .ofertas {
-            padding: 80px 0;
-            background-color: var(--cinza-claro);
-        }
-        
-        .ofertas-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
-        
-        .oferta-card {
-            background-color: var(--branco);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--sombra);
-            transition: transform 0.3s ease;
-        }
-        
-        .oferta-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .oferta-img {
-            height: 180px;
-            background-color: var(--cinza-medio);
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .oferta-content {
-            padding: 20px;
-        }
-        
-        .oferta-preco {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--vermelho-principal);
-            margin-bottom: 10px;
-        }
-        
-        .oferta-rota {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .oferta-datas {
-            color: var(--cinza-medio);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-        
-        /* Seção de Benefícios */
-        .beneficios {
-            padding: 80px 0;
-        }
-        
-        .beneficios-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .beneficio-card {
-            text-align: center;
-            padding: 30px 20px;
-        }
-        
-        .beneficio-icon {
-            font-size: 2.5rem;
-            color: var(--vermelho-principal);
-            margin-bottom: 20px;
-        }
-        
-        .beneficio-card h3 {
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-        
-        /* Newsletter */
-        .newsletter {
-            background-color: var(--cinza-escuro);
-            color: var(--branco);
-            padding: 60px 0;
-            text-align: center;
-        }
-        
-        .newsletter h2 {
-            margin-bottom: 20px;
-        }
-        
-        .newsletter p {
-            max-width: 600px;
-            margin: 0 auto 30px;
-        }
-        
-        .newsletter-form {
-            display: flex;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        
-        .newsletter-input {
-            flex: 1;
-            padding: 12px 15px;
-            border: none;
-            border-radius: 4px 0 0 4px;
-            font-size: 1rem;
-        }
-        
-        .newsletter-btn {
-            border-radius: 0 4px 4px 0;
-            border: none;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--cinza-escuro);
-            color: var(--branco);
-            padding: 60px 0 20px;
-        }
-        
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-col h3 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-col h3:after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--vermelho-principal);
-        }
-        
-        .footer-col ul li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-col ul li a:hover {
-            color: var(--vermelho-principal);
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-        
-        .social-links a:hover {
-            background-color: var(--vermelho-principal);
-            transform: translateY(-3px);
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        /* Chat de Atendimento */
-        .chat-widget {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background-color: var(--vermelho-principal);
-            border-radius: 50%;
+
+        .logo-container {
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: var(--branco);
-            font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            z-index: 100;
-            transition: all 0.3s ease;
+            gap: 10px;
         }
-        
-        .chat-widget:hover {
-            background-color: var(--vermelho-hover);
-            transform: scale(1.1);
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
         }
-        
+
+        .logo-text {
+            font-weight: bold;
+            font-size: 24px;
+            color: #722f37; /* Vermelho vinho */
+        }
+
+        .compre-passagem {
+            color: black;
+            font-weight: normal;
+            font-size: 16px;
+        }
+
         /* Responsividade */
-        @media (max-width: 992px) {
-            .section-title {
-                font-size: 1.8rem;
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 20px;
             }
             
-            .hero h1 {
-                font-size: 2rem;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .mobile-menu {
-                display: block;
+            .logo-text {
+                font-size: 20px;
             }
             
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background-color: var(--branco);
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: var(--sombra);
+            .compre-passagem {
+                font-size: 14px;
             }
             
-            nav ul.show {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 10px 0;
-            }
-            
-            .search-form {
-                grid-template-columns: 1fr;
-            }
-            
-            .newsletter-form {
-                flex-direction: column;
-            }
-            
-            .newsletter-input {
-                border-radius: 4px;
-                margin-bottom: 10px;
-            }
-            
-            .newsletter-btn {
-                border-radius: 4px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero {
-                padding: 60px 0;
-            }
-            
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .search-box {
-                margin-top: -30px;
-                padding: 20px;
-            }
-            
-            .ofertas, .beneficios {
-                padding: 60px 0;
+            .logo-icon {
+                width: 28px;
+                height: 28px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <a href="index.html" class="logo">BIXX <span>PASS</span></a>
-            <div class="mobile-menu">☰</div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="ofertas.html">Ofertas</a></li>
-                    <li><a href="pacotes.html">Pacotes</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="sobre.html">Sobre Nós</a></li>
-                </ul>
-            </nav>
+    <header class="header">
+        <div class="logo-container">
+            <img src="favicon.png" alt="BIXX PASS" class="logo-icon" id="logoIcon">
+            <span class="logo-text">BIXX PASS</span>
+        </div>
+        <div class="compre-passagem" id="comprePassagem">
+            Compre sua passagem
         </div>
     </header>
 
-    <!-- Banner Principal -->
-    <section class="hero">
-        <div class="container">
-            <h1>As Melhores Ofertas em Passagens Aéreas</h1>
-            <p>Encontre passagens com até 60% de desconto para destinos nacionais e internacionais. Economize com segurança e facilidade.</p>
-            <a href="#busca" class="btn">Buscar Passagens</a>
-        </div>
-    </section>
-
-    <!-- Busca de Passagens -->
-    <section id="busca" class="search-box">
-        <form class="search-form">
-            <div class="form-group">
-                <label for="origem">Origem</label>
-                <input type="text" id="origem" class="form-control" placeholder="Cidade de origem">
-            </div>
-            <div class="form-group">
-                <label for="destino">Destino</label>
-                <input type="text" id="destino" class="form-control" placeholder="Cidade de destino">
-            </div>
-            <div class="form-group">
-                <label for="ida">Data de Ida</label>
-                <input type="date" id="ida" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="volta">Data de Volta</label>
-                <input type="date" id="volta" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="passageiros">Passageiros</label>
-                <select id="passageiros" class="form-control">
-                    <option value="1">1 passageiro</option>
-                    <option value="2">2 passageiros</option>
-                    <option value="3">3 passageiros</option>
-                    <option value="4">4 passageiros</option>
-                    <option value="5">5+ passageiros</option>
-                </select>
-            </div>
-            <button type="submit" class="btn search-btn">Buscar Passagens</button>
-        </form>
-    </section>
-
-    <!-- Seção de Ofertas -->
-    <section class="ofertas">
-        <div class="container">
-            <h2 class="section-title">Melhores Ofertas</h2>
-            <div class="ofertas-grid">
-                <!-- Oferta 1 -->
-                <div class="oferta-card">
-                    <div class="oferta-img" style="background-image: url('https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
-                    <div class="oferta-content">
-                        <div class="oferta-preco">R$ 299</div>
-                        <div class="oferta-rota">São Paulo → Rio de Janeiro</div>
-                        <div class="oferta-datas">Ida e volta • Out 15-20</div>
-                        <a href="#" class="btn btn-outline">Ver Oferta</a>
-                    </div>
-                </div>
-                
-                <!-- Oferta 2 -->
-                <div class="oferta-card">
-                    <div class="oferta-img" style="background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
-                    <div class="oferta-content">
-                        <div class="oferta-preco">R$ 899</div>
-                        <div class="oferta-rota">Brasília → Orlando</div>
-                        <div class="oferta-datas">Ida e volta • Nov 10-25</div>
-                        <a href="#" class="btn btn-outline">Ver Oferta</a>
-                    </div>
-                </div>
-                
-                <!-- Oferta 3 -->
-                <div class="oferta-card">
-                    <div class="oferta-img" style="background-image: url('https://images.unsplash.com/photo-1534430480872-3498386e7856?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
-                    <div class="oferta-content">
-                        <div class="oferta-preco">R$ 549</div>
-                        <div class="oferta-rota">Salvador → Buenos Aires</div>
-                        <div class="oferta-datas">Ida e volta • Dez 05-15</div>
-                        <a href="#" class="btn btn-outline">Ver Oferta</a>
-                    </div>
-                </div>
-                
-                <!-- Oferta 4 -->
-                <div class="oferta-card">
-                    <div class="oferta-img" style="background-image: url('https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
-                    <div class="oferta-content">
-                        <div class="oferta-preco">R$ 399</div>
-                        <div class="oferta-rota">Belo Horizonte → Fortaleza</div>
-                        <div class="oferta-datas">Ida e volta • Set 20-27</div>
-                        <a href="#" class="btn btn-outline">Ver Oferta</a>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="ofertas.html" class="btn">Ver Todas as Ofertas</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção de Benefícios -->
-    <section class="beneficios">
-        <div class="container">
-            <h2 class="section-title">Por que escolher a BIXX PASS?</h2>
-            <div class="beneficios-grid">
-                <div class="beneficio-card">
-                    <div class="beneficio-icon">💰</div>
-                    <h3>Preços Imbatíveis</h3>
-                    <p>Garantimos os melhores preços do mercado com descontos exclusivos em passagens aéreas.</p>
-                </div>
-                
-                <div class="beneficio-card">
-                    <div class="beneficio-icon">🔒</div>
-                    <h3>Compra Segura</h3>
-                    <p>Seus dados estão protegidos com criptografia avançada. Compra 100% segura e garantida.</p>
-                </div>
-                
-                <div class="beneficio-card">
-                    <div class="beneficio-icon">⏱️</div>
-                    <h3>Busca Rápida</h3>
-                    <p>Encontre as melhores opções em segundos com nossa tecnologia de busca inteligente.</p>
-                </div>
-                
-                <div class="beneficio-card">
-                    <div class="beneficio-icon">📞</div>
-                    <h3>Suporte 24/7</h3>
-                    <p>Nossa equipe está disponível 24 horas por dia para ajudar com qualquer necessidade.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter -->
-    <section class="newsletter">
-        <div class="container">
-            <h2>Receba Ofertas Exclusivas</h2>
-            <p>Cadastre-se em nossa newsletter e seja o primeiro a receber as melhores promoções de passagens aéreas.</p>
-            <form class="newsletter-form">
-                <input type="email" class="newsletter-input" placeholder="Seu melhor e-mail" required>
-                <button type="submit" class="btn newsletter-btn">Cadastrar</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h3>BIXX PASS</h3>
-                    <p>Encontre as melhores ofertas em passagens aéreas com segurança e facilidade. Sua próxima viagem começa aqui!</p>
-                    <div class="social-links">
-                        <a href="#"><span>FB</span></a>
-                        <a href="#"><span>IG</span></a>
-                        <a href="#"><span>TW</span></a>
-                        <a href="#"><span>YT</span></a>
-                    </div>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Links Rápidos</h3>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="ofertas.html">Ofertas</a></li>
-                        <li><a href="pacotes.html">Pacotes</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="sobre.html">Sobre Nós</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Suporte</h3>
-                    <ul>
-                        <li><a href="contato.html">Central de Ajuda</a></li>
-                        <li><a href="faq.html">Perguntas Frequentes</a></li>
-                        <li><a href="cancelamentos.html">Cancelamentos</a></li>
-                        <li><a href="reembolsos.html">Política de Reembolso</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Contato</h3>
-                    <ul>
-                        <li>📞 (11) 3456-7890</li>
-                        <li>✉️ contato@bixxpass.com.br</li>
-                        <li>📍 Av. Paulista, 1000 - São Paulo/SP</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2023 BIXX PASS. Todos os direitos reservados. | <a href="privacidade.html">Política de Privacidade</a> | <a href="termos.html">Termos de Uso</a></p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Chat de Atendimento -->
-    <div class="chat-widget">
-        💬
-    </div>
-
     <script>
-        // Menu Mobile
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('show');
-        });
-        
-        // Data mínima para os campos de data (hoje)
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('ida').min = today;
-        document.getElementById('volta').min = today;
-        
-        // Simulação de chat
-        document.querySelector('.chat-widget').addEventListener('click', function() {
-            alert('Olá! Como podemos ajudar você hoje?');
+        // JavaScript para garantir que a logo carregue corretamente
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoIcon = document.getElementById('logoIcon');
+            
+            // Verifica se a imagem carregou corretamente
+            logoIcon.onerror = function() {
+                console.log('Logo não encontrada, criando fallback...');
+                // Fallback visual caso a imagem não carregue
+                const logoContainer = document.querySelector('.logo-container');
+                logoIcon.style.display = 'none';
+                
+                // Cria um elemento de fallback
+                const fallbackIcon = document.createElement('div');
+                fallbackIcon.style.width = '32px';
+                fallbackIcon.style.height = '32px';
+                fallbackIcon.style.backgroundColor = '#722f37';
+                fallbackIcon.style.borderRadius = '4px';
+                fallbackIcon.style.display = 'flex';
+                fallbackIcon.style.alignItems = 'center';
+                fallbackIcon.style.justifyContent = 'center';
+                fallbackIcon.style.color = 'white';
+                fallbackIcon.style.fontSize = '12px';
+                fallbackIcon.style.fontWeight = 'bold';
+                fallbackIcon.textContent = 'BP';
+                
+                logoContainer.insertBefore(fallbackIcon, logoContainer.firstChild);
+            };
         });
     </script>
 </body>
