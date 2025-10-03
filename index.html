@@ -72,11 +72,11 @@
             height: 40px;
         }
 
-        .banner-scroll {
+        .banner-container {
             display: flex;
             white-space: nowrap;
             position: absolute;
-            animation: scrollBanner 50s linear infinite; /* Velocidade alterada para 50s */
+            animation: scrollBanner 95s linear infinite;
         }
 
         .banner-item {
@@ -85,13 +85,13 @@
             flex-shrink: 0;
         }
 
-        /* Animação corrigida para rolagem contínua */
+        /* Animação corrigida para rolagem contínua sem espaços */
         @keyframes scrollBanner {
             0% {
-                transform: translateX(100%);
+                transform: translateX(0);
             }
             100% {
-                transform: translateX(-100%);
+                transform: translateX(-50%);
             }
         }
 
@@ -865,7 +865,7 @@
 
     <!-- Banner promocional corrigido -->
     <div class="promo-banner" id="promoBanner">
-        <div class="banner-scroll" id="bannerScroll">
+        <div class="banner-container" id="bannerContainer">
             <!-- Conteúdo será inserido dinamicamente pelo JavaScript -->
         </div>
     </div>
@@ -1151,7 +1151,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // BANNER DINÂMICO CORRIGIDO
-            const bannerScroll = document.getElementById('bannerScroll');
+            const bannerContainer = document.getElementById('bannerContainer');
             
             // Mensagens para o banner
             const bannerMessages = [
@@ -1197,16 +1197,24 @@
                 ...bannerMessages
             ];
             
-            // Cria elementos para o banner
+            // Cria elementos para o banner - duplicando o conteúdo para criar efeito contínuo
             messagesWithGreeting.forEach((message) => {
                 const bannerItem = document.createElement('div');
                 bannerItem.className = 'banner-item';
                 bannerItem.textContent = message;
-                bannerScroll.appendChild(bannerItem);
+                bannerContainer.appendChild(bannerItem);
             });
             
-            // CORREÇÃO: Ajustar a animação para que o banner continue rolando até o último item
-            // A velocidade está definida no CSS como 50s para um ciclo completo
+            // Duplica o conteúdo para criar efeito de rolagem contínua
+            messagesWithGreeting.forEach((message) => {
+                const bannerItem = document.createElement('div');
+                bannerItem.className = 'banner-item';
+                bannerItem.textContent = message;
+                bannerContainer.appendChild(bannerItem);
+            });
+            
+            // CORREÇÃO: A velocidade está definida no CSS como 95s para um ciclo completo
+            // A animação agora começa imediatamente e rola continuamente sem espaços
             
             // Restante do código JavaScript permanece igual
             const filterOptions = document.querySelectorAll('.filter-option');
