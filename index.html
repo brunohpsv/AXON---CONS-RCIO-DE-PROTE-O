@@ -59,34 +59,6 @@
             font-weight: bold;
         }
 
-        .promo-banner small {
-            font-size: 12px;
-            font-weight: normal;
-        }
-
-        /* Navegação */
-        .nav-menu {
-            background-color: white;
-            padding: 15px 30px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .nav-menu ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        .nav-menu li {
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .nav-menu li.active {
-            color: #722f37;
-            font-weight: bold;
-        }
-
         /* Formulário de busca */
         .search-container {
             background-color: white;
@@ -108,11 +80,38 @@
             gap: 5px;
             font-size: 14px;
             cursor: pointer;
+            position: relative;
         }
 
         .option.active {
             color: #722f37;
             font-weight: bold;
+        }
+
+        .option select {
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            cursor: pointer;
+            color: inherit;
+            font-weight: inherit;
+            padding-right: 15px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        .option select:focus {
+            outline: none;
+        }
+
+        .option::after {
+            content: "▼";
+            font-size: 10px;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         .search-form {
@@ -153,6 +152,129 @@
 
         .search-button:hover {
             background-color: #5a252c;
+        }
+
+        /* Modal para seleção de passageiros */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .passenger-type {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .passenger-info {
+            flex: 1;
+        }
+
+        .passenger-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .passenger-age {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .passenger-counter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .counter-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .counter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .counter-value {
+            width: 30px;
+            text-align: center;
+        }
+
+        .modal-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .confirm-btn {
+            background-color: #722f37;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Campo de código promocional */
+        .promo-input-container {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .promo-input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
         }
 
         /* Seção de resultados */
@@ -291,11 +413,6 @@
                 grid-template-columns: 1fr;
             }
             
-            .nav-menu ul {
-                flex-wrap: wrap;
-                gap: 15px;
-            }
-            
             .search-options {
                 flex-wrap: wrap;
                 gap: 10px;
@@ -337,10 +454,6 @@
                 height: 28px;
             }
             
-            .nav-menu {
-                padding: 15px 20px;
-            }
-            
             .search-container {
                 margin: 10px;
                 padding: 15px;
@@ -364,33 +477,27 @@
     </header>
 
     <div class="promo-banner">
-        Voe com a BIXX PASS - passagens a partir de R$134,23<small>*</small>
+        Voe com a BIXX PASS
     </div>
-
-    <nav class="nav-menu">
-        <ul>
-            <li class="active">Passagens Aéreas</li>
-            <li>Hotéis</li>
-            <li>Carros</li>
-            <li>Ingressos</li>
-            <li>Viagem Correta</li>
-        </ul>
-    </nav>
 
     <div class="search-container">
         <div class="search-options">
-            <div class="option active">
-                <span>Reserve com Reais</span>
+            <div class="option" id="tripTypeOption">
+                <select id="tripType">
+                    <option value="roundtrip">Ida e volta</option>
+                    <option value="oneway">Somente ida</option>
+                </select>
             </div>
-            <div class="option">
-                <span>Ida e volta</span>
+            <div class="option" id="passengerOption">
+                <span id="passengerText">1 Passageiro</span>
             </div>
-            <div class="option">
-                <span>1 Passageiro</span>
-            </div>
-            <div class="option">
+            <div class="option" id="promoCodeOption">
                 <span>Código promocional</span>
             </div>
+        </div>
+
+        <div class="promo-input-container" id="promoInputContainer">
+            <input type="text" class="promo-input" id="promoCodeInput" placeholder="Digitar código">
         </div>
 
         <form class="search-form">
@@ -416,6 +523,49 @@
             </div>
             <button type="submit" class="search-button">Reserve agora</button>
         </form>
+    </div>
+
+    <!-- Modal para seleção de passageiros -->
+    <div class="modal" id="passengerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Passageiro</div>
+                <button class="close-modal" id="closePassengerModal">&times;</button>
+            </div>
+            <div class="passenger-type">
+                <div class="passenger-info">
+                    <div class="passenger-title">Adulto (12+)</div>
+                </div>
+                <div class="passenger-counter">
+                    <button class="counter-btn" id="decreaseAdult">-</button>
+                    <span class="counter-value" id="adultCount">1</span>
+                    <button class="counter-btn" id="increaseAdult">+</button>
+                </div>
+            </div>
+            <div class="passenger-type">
+                <div class="passenger-info">
+                    <div class="passenger-title">Crianças (2 a 11 anos)</div>
+                </div>
+                <div class="passenger-counter">
+                    <button class="counter-btn" id="decreaseChild">-</button>
+                    <span class="counter-value" id="childCount">0</span>
+                    <button class="counter-btn" id="increaseChild">+</button>
+                </div>
+            </div>
+            <div class="passenger-type">
+                <div class="passenger-info">
+                    <div class="passenger-title">Bebê (0 a 23 meses)</div>
+                </div>
+                <div class="passenger-counter">
+                    <button class="counter-btn" id="decreaseBaby">-</button>
+                    <span class="counter-value" id="babyCount">0</span>
+                    <button class="counter-btn" id="increaseBaby">+</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="confirm-btn" id="confirmPassengers">Concluído</button>
+            </div>
+        </div>
     </div>
 
     <!-- Seção de resultados -->
@@ -510,7 +660,6 @@
     </div>
 
     <script>
-        // JavaScript para garantir que a logo carregue corretamente
         document.addEventListener('DOMContentLoaded', function() {
             const logoIcon = document.getElementById('logoIcon');
             
@@ -544,6 +693,99 @@
                 option.addEventListener('click', function() {
                     this.classList.toggle('active');
                 });
+            });
+
+            // Funcionalidade para o select de tipo de viagem
+            const tripTypeSelect = document.getElementById('tripType');
+            const voltaField = document.querySelector('#volta').closest('.form-group');
+            
+            tripTypeSelect.addEventListener('change', function() {
+                if (this.value === 'oneway') {
+                    voltaField.style.display = 'none';
+                } else {
+                    voltaField.style.display = 'flex';
+                }
+            });
+
+            // Funcionalidade para o modal de passageiros
+            const passengerOption = document.getElementById('passengerOption');
+            const passengerModal = document.getElementById('passengerModal');
+            const closePassengerModal = document.getElementById('closePassengerModal');
+            const confirmPassengers = document.getElementById('confirmPassengers');
+            const passengerText = document.getElementById('passengerText');
+            
+            // Contadores de passageiros
+            const adultCount = document.getElementById('adultCount');
+            const childCount = document.getElementById('childCount');
+            const babyCount = document.getElementById('babyCount');
+            
+            // Botões de incremento/decremento
+            document.getElementById('increaseAdult').addEventListener('click', function() {
+                adultCount.textContent = parseInt(adultCount.textContent) + 1;
+                updatePassengerText();
+            });
+            
+            document.getElementById('decreaseAdult').addEventListener('click', function() {
+                if (parseInt(adultCount.textContent) > 1) {
+                    adultCount.textContent = parseInt(adultCount.textContent) - 1;
+                    updatePassengerText();
+                }
+            });
+            
+            document.getElementById('increaseChild').addEventListener('click', function() {
+                childCount.textContent = parseInt(childCount.textContent) + 1;
+                updatePassengerText();
+            });
+            
+            document.getElementById('decreaseChild').addEventListener('click', function() {
+                if (parseInt(childCount.textContent) > 0) {
+                    childCount.textContent = parseInt(childCount.textContent) - 1;
+                    updatePassengerText();
+                }
+            });
+            
+            document.getElementById('increaseBaby').addEventListener('click', function() {
+                babyCount.textContent = parseInt(babyCount.textContent) + 1;
+                updatePassengerText();
+            });
+            
+            document.getElementById('decreaseBaby').addEventListener('click', function() {
+                if (parseInt(babyCount.textContent) > 0) {
+                    babyCount.textContent = parseInt(babyCount.textContent) - 1;
+                    updatePassengerText();
+                }
+            });
+            
+            function updatePassengerText() {
+                const total = parseInt(adultCount.textContent) + parseInt(childCount.textContent) + parseInt(babyCount.textContent);
+                passengerText.textContent = total + ' Passageiro' + (total > 1 ? 's' : '');
+            }
+            
+            passengerOption.addEventListener('click', function() {
+                passengerModal.style.display = 'flex';
+            });
+            
+            closePassengerModal.addEventListener('click', function() {
+                passengerModal.style.display = 'none';
+            });
+            
+            confirmPassengers.addEventListener('click', function() {
+                passengerModal.style.display = 'none';
+            });
+            
+            // Fechar modal ao clicar fora dele
+            window.addEventListener('click', function(event) {
+                if (event.target === passengerModal) {
+                    passengerModal.style.display = 'none';
+                }
+            });
+
+            // Funcionalidade para o código promocional
+            const promoCodeOption = document.getElementById('promoCodeOption');
+            const promoInputContainer = document.getElementById('promoInputContainer');
+            
+            promoCodeOption.addEventListener('click', function() {
+                promoInputContainer.style.display = promoInputContainer.style.display === 'block' ? 'none' : 'block';
             });
         });
     </script>
