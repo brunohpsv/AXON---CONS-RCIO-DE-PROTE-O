@@ -85,7 +85,8 @@
             cursor: pointer;
             padding: 10px 15px;
             border: 1px solid #ddd;
-            border-radius: 6px;
+            /* Alteração: bordas retas */
+            border-radius: 0;
             background-color: #f9f9f9;
             transition: all 0.2s ease;
             position: relative;
@@ -133,29 +134,16 @@
         }
 
         /* MELHORIAS NO SELECT DE IDA E VOLTA */
-        .trip-type-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            background-color: #f9f9f9;
-            transition: all 0.2s ease;
-            position: relative;
-            min-width: 150px;
-            justify-content: space-between;
-        }
-
         .trip-type-selector {
             display: flex;
-            border-radius: 6px;
+            /* Alteração: bordas retas */
+            border-radius: 0;
             overflow: hidden;
             background-color: #f9f9f9;
             border: 1px solid #ddd;
-            min-width: 150px;
+            /* Alteração: largura aumentada para corresponder à altura dos outros botões */
+            min-width: 180px;
+            height: 42px;
         }
 
         .trip-type-selector .trip-type-option {
@@ -165,9 +153,13 @@
             cursor: pointer;
             transition: all 0.2s;
             border: none;
+            /* Alteração: bordas retas */
             border-radius: 0;
             min-width: auto;
             justify-content: center;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
         }
 
         .trip-type-selector .trip-type-option:first-child {
@@ -204,7 +196,8 @@
         .form-group input, .form-group select {
             padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            /* Alteração: bordas retas */
+            border-radius: 0;
             font-size: 16px;
         }
 
@@ -212,7 +205,8 @@
             background-color: #722f37;
             color: white;
             border: none;
-            border-radius: 4px;
+            /* Alteração: bordas retas */
+            border-radius: 0;
             padding: 12px;
             font-size: 16px;
             font-weight: bold;
@@ -244,7 +238,8 @@
         .modal-content {
             background-color: white;
             padding: 20px;
-            border-radius: 8px;
+            /* Alteração: bordas retas */
+            border-radius: 0;
             width: 90%;
             max-width: 400px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
@@ -302,7 +297,8 @@
         .counter-btn {
             width: 30px;
             height: 30px;
-            border-radius: 50%;
+            /* Alteração: bordas retas */
+            border-radius: 0;
             border: 1px solid #ddd;
             background: white;
             display: flex;
@@ -336,7 +332,8 @@
             background-color: #722f37;
             color: white;
             border: none;
-            border-radius: 4px;
+            /* Alteração: bordas retas */
+            border-radius: 0;
             padding: 10px 20px;
             font-weight: bold;
             cursor: pointer;
@@ -356,7 +353,8 @@
         .promo-input {
             padding: 10px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            /* Alteração: bordas retas */
+            border-radius: 0;
             width: 200px;
         }
 
@@ -394,7 +392,8 @@
             cursor: pointer;
             padding: 8px 12px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            /* Alteração: bordas retas */
+            border-radius: 0;
             background-color: #f9f9f9;
             transition: all 0.2s;
         }
@@ -414,7 +413,8 @@
             width: 16px;
             height: 16px;
             border: 1px solid #ddd;
-            border-radius: 3px;
+            /* Alteração: bordas retas */
+            border-radius: 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -435,7 +435,8 @@
         .filter-select {
             padding: 8px 12px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            /* Alteração: bordas retas */
+            border-radius: 0;
             background-color: #f9f9f9;
             font-size: 14px;
             cursor: pointer;
@@ -453,7 +454,8 @@
             font-size: 14px;
             padding: 8px 12px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            /* Alteração: bordas retas */
+            border-radius: 0;
             background-color: #f9f9f9;
             transition: all 0.2s;
         }
@@ -483,7 +485,8 @@
 
         .result-item {
             background-color: white;
-            border-radius: 8px;
+            /* Alteração: bordas retas */
+            border-radius: 0;
             padding: 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             display: flex;
@@ -555,7 +558,8 @@
             background-color: #722f37;
             color: white;
             border: none;
-            border-radius: 4px;
+            /* Alteração: bordas retas */
+            border-radius: 0;
             padding: 12px;
             font-size: 16px;
             font-weight: bold;
@@ -892,7 +896,7 @@
                 fallbackIcon.style.width = '32px';
                 fallbackIcon.style.height = '32px';
                 fallbackIcon.style.backgroundColor = '#722f37';
-                fallbackIcon.style.borderRadius = '4px';
+                fallbackIcon.style.borderRadius = '0';
                 fallbackIcon.style.display = 'flex';
                 fallbackIcon.style.alignItems = 'center';
                 fallbackIcon.style.justifyContent = 'center';
