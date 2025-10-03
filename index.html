@@ -132,6 +132,58 @@
             color: #666;
         }
 
+        /* MELHORIAS NO SELECT DE IDA E VOLTA */
+        .trip-type-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+            transition: all 0.2s ease;
+            position: relative;
+            min-width: 150px;
+            justify-content: space-between;
+        }
+
+        .trip-type-selector {
+            display: flex;
+            border-radius: 6px;
+            overflow: hidden;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            min-width: 150px;
+        }
+
+        .trip-type-selector .trip-type-option {
+            flex: 1;
+            padding: 10px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            border-radius: 0;
+            min-width: auto;
+            justify-content: center;
+        }
+
+        .trip-type-selector .trip-type-option:first-child {
+            border-right: 1px solid #ddd;
+        }
+
+        .trip-type-selector .trip-type-option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .trip-type-selector .trip-type-option.active {
+            background-color: #722f37;
+            color: white;
+            font-weight: bold;
+        }
+
         .search-form {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -516,38 +568,6 @@
             background-color: #5a252c;
         }
 
-        /* MELHORIAS NO SELECT DE IDA E VOLTA */
-        .trip-type-selector {
-            display: flex;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            overflow: hidden;
-            background-color: #f9f9f9;
-        }
-
-        .trip-type-option {
-            flex: 1;
-            padding: 10px 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            border-right: 1px solid #ddd;
-        }
-
-        .trip-type-option:last-child {
-            border-right: none;
-        }
-
-        .trip-type-option:hover {
-            background-color: #f0f0f0;
-        }
-
-        .trip-type-option.active {
-            background-color: #722f37;
-            color: white;
-            font-weight: bold;
-        }
-
         /* Responsividade */
         @media (max-width: 768px) {
             .search-form {
@@ -559,7 +579,7 @@
                 gap: 10px;
             }
             
-            .option {
+            .option, .trip-type-selector {
                 min-width: auto;
                 width: 100%;
             }
@@ -668,12 +688,9 @@
 
     <div class="search-container">
         <div class="search-options">
-            <div class="option" id="tripTypeOption">
-                <!-- Substituído o select por um seletor customizado -->
-                <div class="trip-type-selector">
-                    <div class="trip-type-option active" data-value="roundtrip">Ida e volta</div>
-                    <div class="trip-type-option" data-value="oneway">Somente ida</div>
-                </div>
+            <div class="trip-type-selector" id="tripTypeOption">
+                <div class="trip-type-option active" data-value="roundtrip">Ida e volta</div>
+                <div class="trip-type-option" data-value="oneway">Somente ida</div>
             </div>
             <div class="option" id="passengerOption">
                 <span id="passengerText">Passageiro(s)</span>
