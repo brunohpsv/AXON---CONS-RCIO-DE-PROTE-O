@@ -3,1154 +3,720 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIXX CAR - Aluguel de Carros P2P</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>BIXX PASS - Passagens Aéreas com os Melhores Preços</title>
+    <meta name="description" content="Encontre as melhores ofertas em passagens aéreas com a BIXX PASS. Economize em suas viagens com segurança e facilidade.">
     <style>
+        /* Reset e configurações gerais */
+        :root {
+            --vermelho-principal: #D32F2F;
+            --vermelho-hover: #B71C1C;
+            --cinza-escuro: #424242;
+            --cinza-medio: #757575;
+            --cinza-claro: #F5F5F5;
+            --branco: #FFFFFF;
+            --sombra: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        :root {
-            --primary: #1a73e8;
-            --secondary: #fbbc04;
-            --dark: #202124;
-            --light: #f8f9fa;
-            --gray: #5f6368;
-        }
-
+        
         body {
-            background-color: #f5f5f5;
+            color: var(--cinza-escuro);
+            background-color: var(--branco);
+            line-height: 1.6;
         }
-
-        /* Cabeçalho */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .top-bar {
-            background-color: var(--dark);
-            color: white;
-            padding: 8px 0;
-            font-size: 14px;
-        }
-
-        .top-bar-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-
-        .contact-info span {
-            margin-right: 20px;
-        }
-
-        .contact-info i {
-            margin-right: 5px;
-            color: var(--secondary);
-        }
-
-        .user-actions a {
-            color: white;
+        
+        a {
             text-decoration: none;
-            margin-left: 15px;
-            transition: color 0.3s;
+            color: inherit;
         }
-
-        .user-actions a:hover {
-            color: var(--secondary);
-        }
-
-        .main-header {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo h1 {
-            font-size: 28px;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .logo span {
-            color: var(--secondary);
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-        }
-
-        .rent-btn {
-            background-color: var(--primary);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: background 0.3s;
-            margin-left: 20px;
-        }
-
-        .rent-btn:hover {
-            background-color: #0d5bb9;
-        }
-
-        /* Menu de Navegação */
-        nav {
-            background-color: var(--primary);
-            padding: 0 20px;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .nav-menu {
-            display: flex;
+        
+        ul {
             list-style: none;
         }
-
-        .nav-menu li {
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--vermelho-principal);
+            color: var(--branco);
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--vermelho-hover);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--vermelho-principal);
+            color: var(--vermelho-principal);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--vermelho-principal);
+            color: var(--branco);
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--cinza-escuro);
             position: relative;
         }
-
-        .nav-menu a {
-            color: white;
-            text-decoration: none;
-            padding: 15px 20px;
+        
+        .section-title:after {
+            content: '';
             display: block;
-            font-weight: 500;
-            transition: background 0.3s;
+            width: 60px;
+            height: 3px;
+            background-color: var(--vermelho-principal);
+            margin: 10px auto 0;
         }
-
-        .nav-menu a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+        
+        /* Header */
+        header {
+            background-color: var(--branco);
+            box-shadow: var(--sombra);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            background-color: white;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            z-index: 1;
-        }
-
-        .dropdown-menu a {
-            color: var(--dark);
-            padding: 12px 16px;
-        }
-
-        .dropdown-menu a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .nav-menu li:hover .dropdown-menu {
-            display: block;
-        }
-
-        /* Seção de Reserva */
-        .booking-section {
-            background-color: white;
-            padding: 25px 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            margin: 0 auto;
-            max-width: 1200px;
-            border-radius: 0 0 10px 10px;
-        }
-
-        .booking-title {
-            text-align: center;
-            margin-bottom: 20px;
-            color: var(--dark);
-            font-size: 22px;
-        }
-
-        .booking-form {
+        
+        .header-container {
             display: flex;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--vermelho-principal);
+        }
+        
+        .logo span {
+            color: var(--cinza-escuro);
+        }
+        
+        nav ul {
+            display: flex;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--vermelho-principal);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Banner Principal */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--branco);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Busca de Passagens */
+        .search-box {
+            background-color: var(--branco);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: var(--sombra);
+            max-width: 900px;
+            margin: -50px auto 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            justify-content: center;
         }
-
+        
         .form-group {
-            flex: 1;
-            min-width: 200px;
+            display: flex;
+            flex-direction: column;
         }
-
+        
         .form-group label {
-            display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: var(--dark);
+            color: var(--cinza-escuro);
         }
-
+        
         .form-control {
-            width: 100%;
             padding: 12px 15px;
             border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: border 0.3s;
+            border-radius: 4px;
+            font-size: 1rem;
         }
-
-        .form-control:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
-
+        
         .search-btn {
-            background-color: var(--secondary);
-            color: var(--dark);
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s;
-            align-self: flex-end;
-            height: 44px;
+            grid-column: 1 / -1;
+            margin-top: 10px;
         }
-
-        .search-btn:hover {
-            background-color: #e6a800;
+        
+        /* Seção de Ofertas */
+        .ofertas {
+            padding: 80px 0;
+            background-color: var(--cinza-claro);
         }
-
-        .return-section {
-            display: none;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px dashed #ddd;
+        
+        .ofertas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
         }
-
-        .return-title {
-            text-align: center;
-            margin-bottom: 20px;
-            color: var(--dark);
-            font-size: 18px;
-        }
-
-        /* Banner de Imagens */
-        .banner-section {
-            width: 100%;
-            height: 500px;
+        
+        .oferta-card {
+            background-color: var(--branco);
+            border-radius: 8px;
             overflow: hidden;
-            position: relative;
-            margin: 30px 0;
+            box-shadow: var(--sombra);
+            transition: transform 0.3s ease;
         }
-
-        .banner-slider {
-            display: flex;
-            width: 400%;
-            height: 100%;
-            transition: transform 0.8s ease-in-out;
+        
+        .oferta-card:hover {
+            transform: translateY(-5px);
         }
-
-        .banner-slide {
-            width: 25%;
-            height: 100%;
+        
+        .oferta-img {
+            height: 180px;
+            background-color: var(--cinza-medio);
             background-size: cover;
             background-position: center;
         }
-
-        .banner-dots {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
+        
+        .oferta-content {
+            padding: 20px;
         }
-
-        .banner-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .banner-dot.active {
-            background-color: white;
-        }
-
-        /* Seção de Vantagens */
-        .benefits-section {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            color: var(--dark);
-            font-size: 32px;
-        }
-
-        .benefits-container {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .benefit-card {
-            flex: 1;
-            min-width: 300px;
-            background-color: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .benefit-icon {
-            font-size: 40px;
-            color: var(--primary);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .benefit-title {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--dark);
-            text-align: center;
-        }
-
-        .benefit-list {
-            list-style-type: none;
-        }
-
-        .benefit-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-        }
-
-        .benefit-list li:last-child {
-            border-bottom: none;
-        }
-
-        .benefit-list i {
-            color: var(--secondary);
-            margin-right: 10px;
-        }
-
-        /* Seção de Cálculo de Lucros */
-        .earnings-section {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 40px 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .earnings-container {
-            display: flex;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .calculator {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .calculator-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: var(--dark);
-        }
-
-        .calculator-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .calculator-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .calculator-group label {
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--dark);
-        }
-
-        .calculator-input {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .calculator-input:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
-
-        .calculator-btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 10px;
-        }
-
-        .calculator-btn:hover {
-            background-color: #0d5bb9;
-        }
-
-        .results {
-            flex: 1;
-            min-width: 300px;
-            background-color: var(--light);
-            padding: 25px;
-            border-radius: 10px;
-        }
-
-        .results-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: var(--dark);
-        }
-
-        .result-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .result-item:last-child {
-            border-bottom: none;
-            font-weight: bold;
-            font-size: 18px;
-            color: var(--primary);
-        }
-
-        .commission-note {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #fff8e1;
-            border-radius: 5px;
-            font-size: 14px;
-            color: var(--dark);
-        }
-
-        /* Seção de Requisitos */
-        .requirements-section {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 40px 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .requirements-title {
-            font-size: 28px;
-            margin-bottom: 30px;
-            color: var(--dark);
-            text-align: center;
-        }
-
-        .requirements-list {
-            list-style-type: none;
-            margin-bottom: 30px;
-        }
-
-        .requirements-list li {
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-        }
-
-        .requirements-list li:last-child {
-            border-bottom: none;
-        }
-
-        .requirements-list i {
-            color: var(--primary);
-            margin-right: 15px;
-            font-size: 20px;
-        }
-
-        .insurance-offer {
-            background-color: #e8f0fe;
-            padding: 25px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        .insurance-title {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
-
-        .insurance-btn {
-            background-color: var(--secondary);
-            color: var(--dark);
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 15px;
-        }
-
-        .insurance-btn:hover {
-            background-color: #e6a800;
-        }
-
-        /* Seção de Modelo de Negócio */
-        .business-model-section {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 40px 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .business-model-title {
-            font-size: 32px;
-            margin-bottom: 30px;
-            color: var(--dark);
-            text-align: center;
-        }
-
-        .business-model-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-
-        .business-model-text {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .business-model-text p {
-            margin-bottom: 20px;
-            line-height: 1.6;
-            color: var(--gray);
-        }
-
-        .business-model-image {
-            flex: 1;
-            min-width: 300px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .business-model-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 50px 0 20px;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-
-        .footer-column {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .footer-column h3 {
-            font-size: 20px;
-            margin-bottom: 20px;
-            color: var(--secondary);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
+        
+        .oferta-preco {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--vermelho-principal);
             margin-bottom: 10px;
         }
-
-        .footer-links a {
-            color: #ddd;
-            text-decoration: none;
-            transition: color 0.3s;
+        
+        .oferta-rota {
+            font-weight: 600;
+            margin-bottom: 5px;
         }
-
-        .footer-links a:hover {
-            color: var(--secondary);
-        }
-
-        .footer-contact {
-            list-style: none;
-        }
-
-        .footer-contact li {
+        
+        .oferta-datas {
+            color: var(--cinza-medio);
+            font-size: 0.9rem;
             margin-bottom: 15px;
+        }
+        
+        /* Seção de Benefícios */
+        .beneficios {
+            padding: 80px 0;
+        }
+        
+        .beneficios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .beneficio-card {
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        .beneficio-icon {
+            font-size: 2.5rem;
+            color: var(--vermelho-principal);
+            margin-bottom: 20px;
+        }
+        
+        .beneficio-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            background-color: var(--cinza-escuro);
+            color: var(--branco);
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .newsletter h2 {
+            margin-bottom: 20px;
+        }
+        
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .newsletter-form {
             display: flex;
-            align-items: flex-start;
+            max-width: 500px;
+            margin: 0 auto;
         }
-
-        .footer-contact i {
-            color: var(--secondary);
-            margin-right: 10px;
-            margin-top: 5px;
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
         }
-
-        .social-icons {
+        
+        .newsletter-btn {
+            border-radius: 0 4px 4px 0;
+            border: none;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--cinza-escuro);
+            color: var(--branco);
+            padding: 60px 0 20px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--vermelho-principal);
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--vermelho-principal);
+        }
+        
+        .social-links {
             display: flex;
             gap: 15px;
             margin-top: 20px;
         }
-
-        .social-icons a {
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--vermelho-principal);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Chat de Atendimento */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--vermelho-principal);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            transition: background 0.3s;
+            color: var(--branco);
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
         }
-
-        .social-icons a:hover {
-            background-color: var(--primary);
+        
+        .chat-widget:hover {
+            background-color: var(--vermelho-hover);
+            transform: scale(1.1);
         }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 40px auto 0;
-            padding: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            color: #aaa;
-            font-size: 14px;
-        }
-
+        
         /* Responsividade */
+        @media (max-width: 992px) {
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+        
         @media (max-width: 768px) {
-            .top-bar {
-                display: none;
-            }
-
-            .main-header {
-                flex-wrap: wrap;
-            }
-
-            .nav-menu {
-                flex-wrap: wrap;
-            }
-
-            .nav-menu li {
-                flex: 1 0 50%;
-            }
-
-            .dropdown-menu {
-                position: static;
-                display: none;
-                width: 100%;
-            }
-
-            .nav-menu li:hover .dropdown-menu {
-                display: none;
-            }
-
-            .nav-menu li:focus-within .dropdown-menu {
+            .mobile-menu {
                 display: block;
             }
-
-            .booking-form {
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--branco);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--sombra);
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
                 flex-direction: column;
             }
-
-            .search-btn {
-                width: 100%;
+            
+            .newsletter-input {
+                border-radius: 4px;
+                margin-bottom: 10px;
             }
-
-            .banner-section {
-                height: 300px;
+            
+            .newsletter-btn {
+                border-radius: 4px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .search-box {
+                margin-top: -30px;
+                padding: 20px;
+            }
+            
+            .ofertas, .beneficios {
+                padding: 60px 0;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Cabeçalho -->
+    <!-- Header -->
     <header>
-        <div class="top-bar">
-            <div class="top-bar-content">
-                <div class="contact-info">
-                    <span><i class="fas fa-phone"></i> (11) 4002-8922</span>
-                    <span><i class="fas fa-envelope"></i> contato@bixxcar.com</span>
-                </div>
-                <div class="user-actions">
-                    <a href="#"><i class="fas fa-user"></i> Minha Conta</a>
-                    <a href="#"><i class="fas fa-question-circle"></i> Ajuda</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="main-header">
-            <div class="logo">
-                <h1>BIXX <span>CAR</span></h1>
-            </div>
-            
-            <div class="header-actions">
-                <a href="cadastro.html" class="rent-btn">
-                    <i class="fas fa-car"></i> Anuncie seu Carro
-                </a>
-            </div>
-        </div>
-        
-        <nav>
-            <div class="nav-container">
-                <ul class="nav-menu">
-                    <li><a href="#">Início</a></li>
-                    <li>
-                        <a href="#">Alugar Carro <i class="fas fa-chevron-down"></i></a>
-                        <div class="dropdown-menu">
-                            <a href="#">Carros Econômicos</a>
-                            <a href="#">Carros Executivos</a>
-                            <a href="#">SUVs</a>
-                            <a href="#">Luxo</a>
-                        </div>
-                    </li>
-                    <li><a href="#">Como Funciona</a></li>
-                    <li><a href="#">Para Proprietários</a></li>
-                    <li><a href="#">Promoções</a></li>
-                    <li><a href="#">Avaliações</a></li>
-                    <li><a href="#">Contato</a></li>
+        <div class="container header-container">
+            <a href="index.html" class="logo">BIXX <span>PASS</span></a>
+            <div class="mobile-menu">☰</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="ofertas.html">Ofertas</a></li>
+                    <li><a href="pacotes.html">Pacotes</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="sobre.html">Sobre Nós</a></li>
                 </ul>
-            </div>
-        </nav>
-        
-        <!-- Seção de Reserva -->
-        <div class="booking-section">
-            <h3 class="booking-title">Faça sua reserva</h3>
-            <div class="booking-form">
-                <div class="form-group">
-                    <label for="pickup-location">Local de Retirada</label>
-                    <input type="text" id="pickup-location" class="form-control" placeholder="Cidade, aeroporto ou endereço">
-                </div>
-                <div class="form-group">
-                    <label for="pickup-date">Data de Retirada</label>
-                    <input type="date" id="pickup-date" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="pickup-time">Horário de Retirada</label>
-                    <input type="time" id="pickup-time" class="form-control">
-                </div>
-                <button class="search-btn" id="continue-btn">Continuar</button>
-            </div>
-            
-            <div class="return-section" id="return-section">
-                <h4 class="return-title">Data e Local de Devolução</h4>
-                <div class="booking-form">
-                    <div class="form-group">
-                        <label for="return-location">Local de Devolução</label>
-                        <input type="text" id="return-location" class="form-control" placeholder="Cidade, aeroporto ou endereço">
-                    </div>
-                    <div class="form-group">
-                        <label for="return-date">Data de Devolução</label>
-                        <input type="date" id="return-date" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="return-time">Horário de Devolução</label>
-                        <input type="time" id="return-time" class="form-control">
-                    </div>
-                    <button class="search-btn">Buscar Carros</button>
-                </div>
-            </div>
+            </nav>
         </div>
     </header>
 
-    <!-- Banner de Imagens -->
-    <div class="banner-section">
-        <div class="banner-slider" id="bannerSlider">
-            <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
-            <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
-            <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80');"></div>
-            <div class="banner-slide" style="background-image: url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80');"></div>
+    <!-- Banner Principal -->
+    <section class="hero">
+        <div class="container">
+            <h1>As Melhores Ofertas em Passagens Aéreas</h1>
+            <p>Encontre passagens com até 60% de desconto para destinos nacionais e internacionais. Economize com segurança e facilidade.</p>
+            <a href="#busca" class="btn">Buscar Passagens</a>
         </div>
-        <div class="banner-dots" id="bannerDots">
-            <div class="banner-dot active" data-slide="0"></div>
-            <div class="banner-dot" data-slide="1"></div>
-            <div class="banner-dot" data-slide="2"></div>
-            <div class="banner-dot" data-slide="3"></div>
-        </div>
-    </div>
+    </section>
 
-    <!-- Seção de Vantagens -->
-    <section class="benefits-section">
-        <h2 class="section-title">Vantagens BIXX CAR</h2>
-        <div class="benefits-container">
-            <div class="benefit-card">
-                <div class="benefit-icon">
-                    <i class="fas fa-car-side"></i>
-                </div>
-                <h3 class="benefit-title">Alugar Carro</h3>
-                <ul class="benefit-list">
-                    <li><i class="fas fa-check"></i> Preços até 30% mais baixos</li>
-                    <li><i class="fas fa-check"></i> Diversos modelos disponíveis</li>
-                    <li><i class="fas fa-check"></i> Locação por hora, dia ou semana</li>
-                    <li><i class="fas fa-check"></i> Retirada e entrega flexíveis</li>
-                    <li><i class="fas fa-check"></i> Seguro incluso em todas as locações</li>
-                    <li><i class="fas fa-check"></i> Suporte 24/7 durante a locação</li>
-                </ul>
+    <!-- Busca de Passagens -->
+    <section id="busca" class="search-box">
+        <form class="search-form">
+            <div class="form-group">
+                <label for="origem">Origem</label>
+                <input type="text" id="origem" class="form-control" placeholder="Cidade de origem">
             </div>
-            <div class="benefit-card">
-                <div class="benefit-icon">
-                    <i class="fas fa-money-bill-wave"></i>
+            <div class="form-group">
+                <label for="destino">Destino</label>
+                <input type="text" id="destino" class="form-control" placeholder="Cidade de destino">
+            </div>
+            <div class="form-group">
+                <label for="ida">Data de Ida</label>
+                <input type="date" id="ida" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="volta">Data de Volta</label>
+                <input type="date" id="volta" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="passageiros">Passageiros</label>
+                <select id="passageiros" class="form-control">
+                    <option value="1">1 passageiro</option>
+                    <option value="2">2 passageiros</option>
+                    <option value="3">3 passageiros</option>
+                    <option value="4">4 passageiros</option>
+                    <option value="5">5+ passageiros</option>
+                </select>
+            </div>
+            <button type="submit" class="btn search-btn">Buscar Passagens</button>
+        </form>
+    </section>
+
+    <!-- Seção de Ofertas -->
+    <section class="ofertas">
+        <div class="container">
+            <h2 class="section-title">Melhores Ofertas</h2>
+            <div class="ofertas-grid">
+                <!-- Oferta 1 -->
+                <div class="oferta-card">
+                    <div class="oferta-img" style="background-image: url('https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="oferta-content">
+                        <div class="oferta-preco">R$ 299</div>
+                        <div class="oferta-rota">São Paulo → Rio de Janeiro</div>
+                        <div class="oferta-datas">Ida e volta • Out 15-20</div>
+                        <a href="#" class="btn btn-outline">Ver Oferta</a>
+                    </div>
                 </div>
-                <h3 class="benefit-title">Anunciar seu Carro</h3>
-                <ul class="benefit-list">
-                    <li><i class="fas fa-check"></i> Ganhe dinheiro com seu carro parado</li>
-                    <li><i class="fas fa-check"></i> Você define o preço da diária</li>
-                    <li><i class="fas fa-check"></i> Controle total sobre a disponibilidade</li>
-                    <li><i class="fas fa-check"></i> Seguro para proteção do seu veículo</li>
-                    <li><i class="fas fa-check"></i> Pagamento rápido e seguro</li>
-                    <li><i class="fas fa-check"></i> Comunidade de usuários verificados</li>
-                </ul>
+                
+                <!-- Oferta 2 -->
+                <div class="oferta-card">
+                    <div class="oferta-img" style="background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="oferta-content">
+                        <div class="oferta-preco">R$ 899</div>
+                        <div class="oferta-rota">Brasília → Orlando</div>
+                        <div class="oferta-datas">Ida e volta • Nov 10-25</div>
+                        <a href="#" class="btn btn-outline">Ver Oferta</a>
+                    </div>
+                </div>
+                
+                <!-- Oferta 3 -->
+                <div class="oferta-card">
+                    <div class="oferta-img" style="background-image: url('https://images.unsplash.com/photo-1534430480872-3498386e7856?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="oferta-content">
+                        <div class="oferta-preco">R$ 549</div>
+                        <div class="oferta-rota">Salvador → Buenos Aires</div>
+                        <div class="oferta-datas">Ida e volta • Dez 05-15</div>
+                        <a href="#" class="btn btn-outline">Ver Oferta</a>
+                    </div>
+                </div>
+                
+                <!-- Oferta 4 -->
+                <div class="oferta-card">
+                    <div class="oferta-img" style="background-image: url('https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="oferta-content">
+                        <div class="oferta-preco">R$ 399</div>
+                        <div class="oferta-rota">Belo Horizonte → Fortaleza</div>
+                        <div class="oferta-datas">Ida e volta • Set 20-27</div>
+                        <a href="#" class="btn btn-outline">Ver Oferta</a>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="ofertas.html" class="btn">Ver Todas as Ofertas</a>
             </div>
         </div>
     </section>
 
-    <!-- Seção de Cálculo de Lucros -->
-    <section class="earnings-section">
-        <h2 class="section-title">Calcule seus Lucros</h2>
-        <div class="earnings-container">
-            <div class="calculator">
-                <h3 class="calculator-title">Simulador de Ganhos</h3>
-                <div class="calculator-form">
-                    <div class="calculator-group">
-                        <label for="daily-rate">Valor da diária (R$)</label>
-                        <input type="number" id="daily-rate" class="calculator-input" placeholder="Ex: 100" min="0" value="0">
-                    </div>
-                    <div class="calculator-group">
-                        <label for="rental-days">Dias alugados por mês</label>
-                        <input type="number" id="rental-days" class="calculator-input" placeholder="Ex: 15" min="0" max="31" value="0">
-                    </div>
-                    <div class="calculator-group">
-                        <label for="operational-costs">Custos operacionais mensais (R$)</label>
-                        <input type="number" id="operational-costs" class="calculator-input" value="15" readonly>
-                    </div>
-                    <button class="calculator-btn" id="calculate-btn">Calcular Lucro</button>
+    <!-- Seção de Benefícios -->
+    <section class="beneficios">
+        <div class="container">
+            <h2 class="section-title">Por que escolher a BIXX PASS?</h2>
+            <div class="beneficios-grid">
+                <div class="beneficio-card">
+                    <div class="beneficio-icon">💰</div>
+                    <h3>Preços Imbatíveis</h3>
+                    <p>Garantimos os melhores preços do mercado com descontos exclusivos em passagens aéreas.</p>
                 </div>
-            </div>
-            <div class="results">
-                <h3 class="results-title">Resultado</h3>
-                <div class="result-item">
-                    <span>Faturamento Bruto:</span>
-                    <span id="gross-revenue">R$ 0,00</span>
+                
+                <div class="beneficio-card">
+                    <div class="beneficio-icon">🔒</div>
+                    <h3>Compra Segura</h3>
+                    <p>Seus dados estão protegidos com criptografia avançada. Compra 100% segura e garantida.</p>
                 </div>
-                <div class="result-item">
-                    <span>Comissão BIXX CAR (30%):</span>
-                    <span id="commission">R$ 0,00</span>
+                
+                <div class="beneficio-card">
+                    <div class="beneficio-icon">⏱️</div>
+                    <h3>Busca Rápida</h3>
+                    <p>Encontre as melhores opções em segundos com nossa tecnologia de busca inteligente.</p>
                 </div>
-                <div class="result-item">
-                    <span>Custos Operacionais:</span>
-                    <span id="operational-costs-result">R$ 15,00</span>
-                </div>
-                <div class="result-item">
-                    <span>Lucro Líquido:</span>
-                    <span id="net-profit">R$ 0,00</span>
-                </div>
-                <div class="commission-note">
-                    <p><strong>Observação:</strong> A BIXX CAR fica com 30% do valor da locação como comissão pelo serviço. Os 70% restantes são repassados integralmente para você. O custo operacional fixo de R$ 15,00 é referente à manutenção mensal da plataforma.</p>
+                
+                <div class="beneficio-card">
+                    <div class="beneficio-icon">📞</div>
+                    <h3>Suporte 24/7</h3>
+                    <p>Nossa equipe está disponível 24 horas por dia para ajudar com qualquer necessidade.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Seção de Requisitos -->
-    <section class="requirements-section">
-        <h2 class="requirements-title">Requisitos para Anunciar seu Carro</h2>
-        <ul class="requirements-list">
-            <li>
-                <i class="fas fa-file-contract"></i>
-                <div>
-                    <strong>Documentação em Dia</strong>
-                    <p>É necessário ter todos os documentos do veículo em dia, incluindo IPVA, licenciamento e DPVAT.</p>
-                </div>
-            </li>
-            <li>
-                <i class="fas fa-receipt"></i>
-                <div>
-                    <strong>Situação Fiscal Regular</strong>
-                    <p>O veículo deve estar com a situação fiscal regularizada, sem débitos ou pendências.</p>
-                </div>
-            </li>
-            <li>
-                <i class="fas fa-shield-alt"></i>
-                <div>
-                    <strong>Seguro Obrigatório</strong>
-                    <p>Todo veículo anunciado na BIXX CAR deve possuir seguro contra terceiros no mínimo.</p>
-                </div>
-            </li>
-        </ul>
-        
-        <div class="insurance-offer">
-            <h3 class="insurance-title">Não tem seguro? Conte com a gente!</h3>
-            <p>A BIXX CAR tem parceria com as melhores seguradoras do mercado para oferecer condições especiais aos nossos parceiros. Com nosso seguro parceiro, você tem:</p>
-            <ul class="benefit-list">
-                <li><i class="fas fa-check"></i> Cobertura completa para seu veículo</li>
-                <li><i class="fas fa-check"></i> Assistência 24 horas</li>
-                <li><i class="fas fa-check"></i> Carro reserva em caso de sinistro</li>
-                <li><i class="fas fa-check"></i> Preços especiais para parceiros BIXX CAR</li>
-            </ul>
-            <button class="insurance-btn">Solicitar Cotação de Seguro</button>
-        </div>
-    </section>
-
-    <!-- Seção de Modelo de Negócio -->
-    <section class="business-model-section">
-        <h2 class="business-model-title">Modelo de Negócio BIXX CAR</h2>
-        <div class="business-model-content">
-            <div class="business-model-text">
-                <p>A BIXX CAR é uma plataforma inovadora de aluguel de carros peer-to-peer (P2P) que conecta proprietários de veículos com pessoas que precisam alugar um carro por um período determinado.</p>
-                
-                <p>Nosso modelo de negócio é baseado na economia compartilhada, permitindo que proprietários de veículos ganhem dinheiro extra com seus carros quando não estão usando, enquanto oferecemos aos locatários uma alternativa mais acessível e conveniente do que as locadoras tradicionais.</p>
-                
-                <p>Como funciona:</p>
-                <ul class="benefit-list">
-                    <li><i class="fas fa-check"></i> Proprietários cadastram seus veículos na plataforma definindo preços e disponibilidade</li>
-                    <li><i class="fas fa-check"></i> Locatários buscam carros por localização, datas e preferências</li>
-                    <li><i class="fas fa-check"></i> A BIXX CAR facilita todo o processo: reserva, pagamento seguro e suporte</li>
-                    <li><i class="fas fa-check"></i> Após cada locação bem-sucedida, os proprietários recebem 70% do valor da diária</li>
-                </ul>
-                
-                <p>Nosso diferencial está na tecnologia que oferece segurança para ambas as partes, com verificação de usuários, sistema de avaliações, seguro incluso e suporte 24/7 durante as locações.</p>
-            </div>
-            <div class="business-model-image">
-                <img src="https://images.unsplash.com/photo-1558618666-fcd25856cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80" alt="Mulher dirigindo carro">
-            </div>
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Receba Ofertas Exclusivas</h2>
+            <p>Cadastre-se em nossa newsletter e seja o primeiro a receber as melhores promoções de passagens aéreas.</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Seu melhor e-mail" required>
+                <button type="submit" class="btn newsletter-btn">Cadastrar</button>
+            </form>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>BIXX CAR</h3>
-                <p>A plataforma de aluguel de carros P2P que conecta proprietários e locatários de forma segura e conveniente.</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>BIXX PASS</h3>
+                    <p>Encontre as melhores ofertas em passagens aéreas com segurança e facilidade. Sua próxima viagem começa aqui!</p>
+                    <div class="social-links">
+                        <a href="#"><span>FB</span></a>
+                        <a href="#"><span>IG</span></a>
+                        <a href="#"><span>TW</span></a>
+                        <a href="#"><span>YT</span></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="ofertas.html">Ofertas</a></li>
+                        <li><a href="pacotes.html">Pacotes</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="sobre.html">Sobre Nós</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Suporte</h3>
+                    <ul>
+                        <li><a href="contato.html">Central de Ajuda</a></li>
+                        <li><a href="faq.html">Perguntas Frequentes</a></li>
+                        <li><a href="cancelamentos.html">Cancelamentos</a></li>
+                        <li><a href="reembolsos.html">Política de Reembolso</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contato</h3>
+                    <ul>
+                        <li>📞 (11) 3456-7890</li>
+                        <li>✉️ contato@bixxpass.com.br</li>
+                        <li>📍 Av. Paulista, 1000 - São Paulo/SP</li>
+                    </ul>
                 </div>
             </div>
             
-            <div class="footer-column">
-                <h3>Links Rápidos</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Início</a></li>
-                    <li><a href="#">Alugar Carro</a></li>
-                    <li><a href="#">Anunciar Carro</a></li>
-                    <li><a href="#">Como Funciona</a></li>
-                    <li><a href="#">Promoções</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2023 BIXX PASS. Todos os direitos reservados. | <a href="privacidade.html">Política de Privacidade</a> | <a href="termos.html">Termos de Uso</a></p>
             </div>
-            
-            <div class="footer-column">
-                <h3>Para Proprietários</h3>
-                <ul class="footer-links">
-                    <li><a href="cadastro.html">Cadastrar Veículo</a></li>
-                    <li><a href="#">Calculadora de Lucros</a></li>
-                    <li><a href="#">Seguro Parceiro</a></li>
-                    <li><a href="#">Dicas de Sucesso</a></li>
-                    <li><a href="#">Central do Proprietário</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Contato</h3>
-                <ul class="footer-contact">
-                    <li>
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Av. Paulista, 1000 - São Paulo, SP</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-phone"></i>
-                        <span>(11) 4002-8922</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-envelope"></i>
-                        <span>contato@bixxcar.com</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-clock"></i>
-                        <span>Segunda a Sexta: 8h às 18h</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2023 BIXX CAR - Aluguel de Carros P2P. Todos os direitos reservados.</p>
         </div>
     </footer>
 
+    <!-- Chat de Atendimento -->
+    <div class="chat-widget">
+        💬
+    </div>
+
     <script>
-        // Interatividade adicional
-        document.addEventListener('DOMContentLoaded', function() {
-            // Efeito de destaque no menu ativo
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            const navLinks = document.querySelectorAll('.nav-menu a');
-            
-            navLinks.forEach(link => {
-                if (link.getAttribute('href') === currentPage) {
-                    link.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-                }
-            });
-            
-            // Animação suave para links internos
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Mostrar seção de devolução ao clicar em Continuar
-            const continueBtn = document.getElementById('continue-btn');
-            const returnSection = document.getElementById('return-section');
-            
-            continueBtn.addEventListener('click', function() {
-                returnSection.style.display = 'block';
-                
-                // Rolar suavemente para a seção de devolução
-                returnSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-            });
-            
-            // Preencher automaticamente o local de devolução com o mesmo da retirada
-            const pickupLocation = document.getElementById('pickup-location');
-            const returnLocation = document.getElementById('return-location');
-            
-            pickupLocation.addEventListener('change', function() {
-                returnLocation.value = pickupLocation.value;
-            });
-            
-            // Definir data mínima para os campos de data
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('pickup-date').min = today;
-            document.getElementById('return-date').min = today;
-            
-            // Banner de imagens automático
-            const bannerSlider = document.getElementById('bannerSlider');
-            const bannerDots = document.querySelectorAll('.banner-dot');
-            let currentSlide = 0;
-            const totalSlides = 4;
-            
-            function nextSlide() {
-                currentSlide = (currentSlide + 1) % totalSlides;
-                updateBanner();
-            }
-            
-            function updateBanner() {
-                bannerSlider.style.transform = `translateX(-${currentSlide * 25}%)`;
-                
-                // Atualizar dots
-                bannerDots.forEach((dot, index) => {
-                    if (index === currentSlide) {
-                        dot.classList.add('active');
-                    } else {
-                        dot.classList.remove('active');
-                    }
-                });
-            }
-            
-            // Mudar slide a cada 3 segundos
-            setInterval(nextSlide, 3000);
-            
-            // Permitir clique nos dots
-            bannerDots.forEach(dot => {
-                dot.addEventListener('click', function() {
-                    currentSlide = parseInt(this.getAttribute('data-slide'));
-                    updateBanner();
-                });
-            });
-            
-            // Calculadora de lucros
-            const calculateBtn = document.getElementById('calculate-btn');
-            
-            calculateBtn.addEventListener('click', function() {
-                const dailyRate = parseFloat(document.getElementById('daily-rate').value) || 0;
-                const rentalDays = parseInt(document.getElementById('rental-days').value) || 0;
-                const operationalCosts = 15; // Valor fixo
-                
-                const grossRevenue = dailyRate * rentalDays;
-                const commission = grossRevenue * 0.3;
-                const netProfit = grossRevenue - commission - operationalCosts;
-                
-                document.getElementById('gross-revenue').textContent = `R$ ${grossRevenue.toFixed(2)}`;
-                document.getElementById('commission').textContent = `R$ ${commission.toFixed(2)}`;
-                document.getElementById('operational-costs-result').textContent = `R$ ${operationalCosts.toFixed(2)}`;
-                document.getElementById('net-profit').textContent = `R$ ${netProfit.toFixed(2)}`;
-            });
+        // Menu Mobile
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+        
+        // Data mínima para os campos de data (hoje)
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('ida').min = today;
+        document.getElementById('volta').min = today;
+        
+        // Simulação de chat
+        document.querySelector('.chat-widget').addEventListener('click', function() {
+            alert('Olá! Como podemos ajudar você hoje?');
         });
     </script>
 </body>
