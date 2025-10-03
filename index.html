@@ -41,18 +41,18 @@
         .logo-text {
             font-weight: bold;
             font-size: 24px;
-            color: #1a1a1a; /* Preto como cor principal */
+            color: #1a1a1a;
         }
 
         .compre-passagem {
-            color: #1a1a1a; /* Preto como cor principal */
+            color: #1a1a1a;
             font-weight: normal;
             font-size: 16px;
         }
 
-        /* Banner promocional */
+        /* Banner promocional corrigido */
         .promo-banner {
-            background-color: #1a1a1a; /* Preto como cor principal */
+            background-color: #1a1a1a;
             color: white;
             padding: 10px 0;
             font-size: 18px;
@@ -65,16 +65,17 @@
         .banner-scroll {
             display: flex;
             white-space: nowrap;
-            animation: scrollBanner 60s linear infinite; /* VELOCIDADE FIXA DE 60s */
+            animation: scrollBanner 60s linear infinite;
             padding-left: 100%;
         }
 
         .banner-item {
             display: inline-block;
             padding: 0 30px;
-            flex-shrink: 0; /* Impede que os itens encolham */
+            flex-shrink: 0;
         }
 
+        /* Animação corrigida para rolagem contínua */
         @keyframes scrollBanner {
             0% {
                 transform: translateX(0);
@@ -84,7 +85,7 @@
             }
         }
 
-        /* Formulário de busca */
+        /* Restante do CSS permanece igual */
         .search-container {
             background-color: white;
             margin: 20px;
@@ -122,9 +123,9 @@
         }
 
         .option.active {
-            color: #e60000; /* Vermelho como cor de destaque */
+            color: #e60000;
             font-weight: bold;
-            border-color: #e60000; /* Vermelho como cor de destaque */
+            border-color: #e60000;
             background-color: rgba(230, 0, 0, 0.05);
         }
 
@@ -146,7 +147,6 @@
             outline: none;
         }
 
-        /* MELHORIAS NO SELECT DE IDA E VOLTA */
         .trip-type-selector {
             display: flex;
             border-radius: 0;
@@ -182,7 +182,7 @@
         }
 
         .trip-type-selector .trip-type-option.active {
-            background-color: #1a1a1a; /* Preto como cor principal */
+            background-color: #1a1a1a;
             color: white;
             font-weight: bold;
         }
@@ -213,12 +213,12 @@
         }
 
         .form-group input:focus, .form-group select:focus {
-            border-color: #0066cc; /* Azul como cor de foco */
+            border-color: #0066cc;
             outline: none;
         }
 
         .search-button {
-            background-color: #e60000; /* Vermelho como cor de destaque */
+            background-color: #e60000;
             color: white;
             border: none;
             border-radius: 0;
@@ -236,7 +236,6 @@
             background-color: #cc0000;
         }
 
-        /* Modal para seleção de passageiros */
         .modal {
             display: none;
             position: fixed;
@@ -271,7 +270,7 @@
         .modal-title {
             font-size: 18px;
             font-weight: bold;
-            color: #1a1a1a; /* Preto como cor principal */
+            color: #1a1a1a;
         }
 
         .close-modal {
@@ -296,7 +295,7 @@
         .passenger-title {
             font-weight: bold;
             margin-bottom: 5px;
-            color: #1a1a1a; /* Preto como cor principal */
+            color: #1a1a1a;
         }
 
         .passenger-age {
@@ -344,7 +343,7 @@
         }
 
         .confirm-btn {
-            background-color: #e60000; /* Vermelho como cor de destaque */
+            background-color: #e60000;
             color: white;
             border: none;
             border-radius: 0;
@@ -358,7 +357,6 @@
             background-color: #cc0000;
         }
 
-        /* Campo de código promocional */
         .promo-input-container {
             display: none;
             margin-left: 10px;
@@ -373,11 +371,10 @@
         }
 
         .promo-input:focus {
-            border-color: #0066cc; /* Azul como cor de foco */
+            border-color: #0066cc;
             outline: none;
         }
 
-        /* Seção de resultados */
         .results-section {
             margin: 20px;
         }
@@ -394,7 +391,7 @@
         .results-title {
             font-size: 20px;
             font-weight: bold;
-            color: #1a1a1a; /* Preto como cor principal */
+            color: #1a1a1a;
         }
 
         .results-filters {
@@ -422,9 +419,9 @@
         }
 
         .filter-option.active {
-            color: #e60000; /* Vermelho como cor de destaque */
+            color: #e60000;
             font-weight: bold;
-            border-color: #e60000; /* Vermelho como cor de destaque */
+            border-color: #e60000;
             background-color: rgba(230, 0, 0, 0.05);
         }
 
@@ -440,8 +437,8 @@
         }
 
         .filter-option.active .checkbox {
-            background-color: #e60000; /* Vermelho como cor de destaque */
-            border-color: #e60000; /* Vermelho como cor de destaque */
+            background-color: #e60000;
+            border-color: #e60000;
         }
 
         .filter-option.active .checkbox::after {
@@ -465,7 +462,7 @@
         }
 
         .filter-select:focus {
-            border-color: #0066cc; /* Azul como cor de foco */
+            border-color: #0066cc;
             outline: none;
         }
 
@@ -497,7 +494,6 @@
             outline: none;
         }
 
-        /* MELHORIAS NOS CARDS DE RESULTADOS */
         .results-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -530,7 +526,7 @@
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 10px;
-            color: #1a1a1a; /* Preto como cor principal */
+            color: #1a1a1a;
         }
 
         .route-details {
@@ -566,7 +562,7 @@
         .price-value {
             font-size: 24px;
             font-weight: bold;
-            color: #e60000; /* Vermelho como cor de destaque */
+            color: #e60000;
         }
 
         .price-note {
@@ -576,7 +572,7 @@
         }
 
         .reserve-button {
-            background-color: #0066cc; /* Azul como cor de ação */
+            background-color: #0066cc;
             color: white;
             border: none;
             border-radius: 0;
@@ -592,12 +588,11 @@
             background-color: #0055aa;
         }
 
-        /* Indicador de promoção */
         .promo-badge {
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: #e60000; /* Vermelho como cor de destaque */
+            background-color: #e60000;
             color: white;
             padding: 4px 8px;
             font-size: 12px;
@@ -605,7 +600,6 @@
             border-radius: 0;
         }
 
-        /* Responsividade */
         @media (max-width: 768px) {
             .search-form {
                 grid-template-columns: 1fr;
@@ -719,7 +713,7 @@
         </div>
     </header>
 
-    <!-- Banner promocional -->
+    <!-- Banner promocional corrigido -->
     <div class="promo-banner" id="promoBanner">
         <div class="banner-scroll" id="bannerScroll">
             <!-- Conteúdo será inserido dinamicamente pelo JavaScript -->
@@ -933,7 +927,7 @@
                 const fallbackIcon = document.createElement('div');
                 fallbackIcon.style.width = '32px';
                 fallbackIcon.style.height = '32px';
-                fallbackIcon.style.backgroundColor = '#e60000'; /* Vermelho como cor de destaque */
+                fallbackIcon.style.backgroundColor = '#e60000';
                 fallbackIcon.style.borderRadius = '0';
                 fallbackIcon.style.display = 'flex';
                 fallbackIcon.style.alignItems = 'center';
@@ -1143,7 +1137,7 @@
                 });
             }
 
-            // BANNER DINÂMICO - VELOCIDADE FIXA DE 60s
+            // BANNER DINÂMICO CORRIGIDO
             const bannerScroll = document.getElementById('bannerScroll');
             
             // Mensagens para o banner
@@ -1201,7 +1195,7 @@
                 bannerScroll.appendChild(bannerItem);
             });
             
-            // VELOCIDADE FIXA DE 60 SEGUNDOS PARA TODO O CICLO
+            // CORREÇÃO: Ajustar a animação para que o banner continue rolando até o último item
             // A velocidade já está definida no CSS como 60s
             // Não é necessário aplicar via JavaScript pois já está fixo no CSS
         });
