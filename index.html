@@ -14,6 +14,7 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
+            color: #333;
         }
 
         .header {
@@ -167,6 +168,7 @@
             margin-top: 24px;
             grid-column: 1 / -1;
             max-width: 200px;
+            transition: background-color 0.3s;
         }
 
         .search-button:hover {
@@ -255,6 +257,11 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .counter-btn:hover {
+            background-color: #f0f0f0;
         }
 
         .counter-btn:disabled {
@@ -281,6 +288,11 @@
             padding: 10px 20px;
             font-weight: bold;
             cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .confirm-btn:hover {
+            background-color: #5a252c;
         }
 
         /* Campo de código promocional */
@@ -332,6 +344,11 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             background-color: #f9f9f9;
+            transition: all 0.2s;
+        }
+
+        .filter-option:hover {
+            background-color: #f0f0f0;
         }
 
         .filter-option.active {
@@ -349,6 +366,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.2s;
         }
 
         .filter-option.active .checkbox {
@@ -369,6 +387,11 @@
             background-color: #f9f9f9;
             font-size: 14px;
             cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-select:hover {
+            background-color: #f0f0f0;
         }
 
         .filter-input-container {
@@ -380,6 +403,11 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             background-color: #f9f9f9;
+            transition: all 0.2s;
+        }
+
+        .filter-input-container:hover {
+            background-color: #f0f0f0;
         }
 
         .filter-input {
@@ -394,46 +422,63 @@
             outline: none;
         }
 
+        /* MELHORIAS NOS CARDS DE RESULTADOS */
         .results-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
         }
 
         .result-item {
             background-color: white;
             border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .result-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .route-info {
             flex: 1;
+            margin-bottom: 15px;
         }
 
         .route-title {
             font-size: 18px;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .route-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
         }
 
         .route-date {
-            font-size: 14px;
             color: #666;
-            margin-bottom: 5px;
         }
 
         .route-seen {
             font-size: 12px;
-            color: #666;
+            color: #999;
         }
 
         .price-info {
-            text-align: right;
-            margin-right: 20px;
+            text-align: center;
+            margin: 15px 0;
+            padding: 10px 0;
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
         }
 
         .price-label {
@@ -451,6 +496,7 @@
         .price-note {
             font-size: 10px;
             color: #666;
+            margin-top: 5px;
         }
 
         .reserve-button {
@@ -458,14 +504,48 @@
             color: white;
             border: none;
             border-radius: 4px;
-            padding: 10px 20px;
-            font-size: 14px;
+            padding: 12px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
         }
 
         .reserve-button:hover {
             background-color: #5a252c;
+        }
+
+        /* MELHORIAS NO SELECT DE IDA E VOLTA */
+        .trip-type-selector {
+            display: flex;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+            background-color: #f9f9f9;
+        }
+
+        .trip-type-option {
+            flex: 1;
+            padding: 10px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-right: 1px solid #ddd;
+        }
+
+        .trip-type-option:last-child {
+            border-right: none;
+        }
+
+        .trip-type-option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .trip-type-option.active {
+            background-color: #722f37;
+            color: white;
+            font-weight: bold;
         }
 
         /* Responsividade */
@@ -527,6 +607,10 @@
             .filter-input {
                 width: 100%;
             }
+            
+            .results-list {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
@@ -585,10 +669,11 @@
     <div class="search-container">
         <div class="search-options">
             <div class="option" id="tripTypeOption">
-                <select id="tripType">
-                    <option value="roundtrip">Ida e volta</option>
-                    <option value="oneway">Somente ida</option>
-                </select>
+                <!-- Substituído o select por um seletor customizado -->
+                <div class="trip-type-selector">
+                    <div class="trip-type-option active" data-value="roundtrip">Ida e volta</div>
+                    <div class="trip-type-option" data-value="oneway">Somente ida</div>
+                </div>
             </div>
             <div class="option" id="passengerOption">
                 <span id="passengerText">Passageiro(s)</span>
@@ -606,12 +691,22 @@
                 <label for="origem">De</label>
                 <select id="origem">
                     <option>Selecione a origem</option>
+                    <option>Brasília (BSB)</option>
+                    <option>Rio de Janeiro (SDU)</option>
+                    <option>São Paulo (CGH)</option>
+                    <option>Recife (REC)</option>
+                    <option>Salvador (SSA)</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="destino">Para</label>
                 <select id="destino">
                     <option>Selecione o destino</option>
+                    <option>Brasília (BSB)</option>
+                    <option>Rio de Janeiro (SDU)</option>
+                    <option>São Paulo (CGH)</option>
+                    <option>Recife (REC)</option>
+                    <option>Salvador (SSA)</option>
                 </select>
             </div>
             <div class="form-group" id="partidaGroup">
@@ -693,13 +788,15 @@
             </div>
         </div>
 
-        <div class="results-list">
+        <div class="results-list" id="resultsList">
             <!-- Resultado 1 -->
-            <div class="result-item" data-origem="Brasília" data-destino="São Paulo">
+            <div class="result-item" data-origem="Brasília" data-destino="São Paulo" data-price="134.23" data-promo="true">
                 <div class="route-info">
                     <div class="route-title">Brasília (BSB) Para São Paulo (CGH)</div>
-                    <div class="route-date">Ida: 01/11/2025</div>
-                    <div class="route-seen">Visto: 10 horas atrás</div>
+                    <div class="route-details">
+                        <div class="route-date">Ida: 01/11/2025</div>
+                        <div class="route-seen">Visto: 10 horas atrás</div>
+                    </div>
                 </div>
                 <div class="price-info">
                     <div class="price-label">A partir de</div>
@@ -710,11 +807,13 @@
             </div>
 
             <!-- Resultado 2 -->
-            <div class="result-item" data-origem="Rio de Janeiro" data-destino="São Paulo">
+            <div class="result-item" data-origem="Rio de Janeiro" data-destino="São Paulo" data-price="229.47" data-promo="false">
                 <div class="route-info">
                     <div class="route-title">Rio de Janeiro (SDU) Para São Paulo (CGH)</div>
-                    <div class="route-date">Ida: 12/11/2025</div>
-                    <div class="route-seen">Visto: 1 dia atrás</div>
+                    <div class="route-details">
+                        <div class="route-date">Ida: 12/11/2025</div>
+                        <div class="route-seen">Visto: 1 dia atrás</div>
+                    </div>
                 </div>
                 <div class="price-info">
                     <div class="price-label">A partir de</div>
@@ -725,11 +824,13 @@
             </div>
 
             <!-- Resultado 3 -->
-            <div class="result-item" data-origem="São Paulo" data-destino="Rio de Janeiro">
+            <div class="result-item" data-origem="São Paulo" data-destino="Rio de Janeiro" data-price="271.52" data-promo="false">
                 <div class="route-info">
                     <div class="route-title">São Paulo (CGH) Para Rio de Janeiro (SDU)</div>
-                    <div class="route-date">Ida: 31/10/2025</div>
-                    <div class="route-seen">Visto: 8 horas atrás</div>
+                    <div class="route-details">
+                        <div class="route-date">Ida: 31/10/2025</div>
+                        <div class="route-seen">Visto: 8 horas atrás</div>
+                    </div>
                 </div>
                 <div class="price-info">
                     <div class="price-label">A partir de</div>
@@ -740,11 +841,13 @@
             </div>
 
             <!-- Resultado 4 -->
-            <div class="result-item" data-origem="Recife" data-destino="Salvador">
+            <div class="result-item" data-origem="Recife" data-destino="Salvador" data-price="309.21" data-promo="true">
                 <div class="route-info">
                     <div class="route-title">Recife (REC) Para Salvador (SSA)</div>
-                    <div class="route-date">Ida: 01/11/2025</div>
-                    <div class="route-seen">Visto: 11 horas atrás</div>
+                    <div class="route-details">
+                        <div class="route-date">Ida: 01/11/2025</div>
+                        <div class="route-seen">Visto: 11 horas atrás</div>
+                    </div>
                 </div>
                 <div class="price-info">
                     <div class="price-label">A partir de</div>
@@ -792,22 +895,25 @@
                 });
             });
 
-            // Funcionalidade para o select de tipo de viagem
-            const tripTypeSelect = document.getElementById('tripType');
-            const tripTypeOption = document.getElementById('tripTypeOption');
+            // Funcionalidade para o seletor customizado de tipo de viagem
+            const tripTypeOptions = document.querySelectorAll('.trip-type-option');
             const voltaGroup = document.getElementById('voltaGroup');
             
-            // Torna toda a área do botão clicável
-            tripTypeOption.addEventListener('click', function() {
-                tripTypeSelect.focus();
-            });
-            
-            tripTypeSelect.addEventListener('change', function() {
-                if (this.value === 'oneway') {
-                    voltaGroup.style.display = 'none';
-                } else {
-                    voltaGroup.style.display = 'flex';
-                }
+            tripTypeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove a classe active de todas as opções
+                    tripTypeOptions.forEach(opt => opt.classList.remove('active'));
+                    
+                    // Adiciona a classe active à opção clicada
+                    this.classList.add('active');
+                    
+                    // Mostra ou esconde o campo de volta
+                    if (this.getAttribute('data-value') === 'oneway') {
+                        voltaGroup.style.display = 'none';
+                    } else {
+                        voltaGroup.style.display = 'flex';
+                    }
+                });
             });
 
             // Funcionalidade para o modal de passageiros
@@ -893,15 +999,68 @@
 
             // Funcionalidade para ordenação por preço
             const priceSort = document.getElementById('priceSort');
+            const resultsList = document.getElementById('resultsList');
+            const resultItems = document.querySelectorAll('.result-item');
+            
             priceSort.addEventListener('change', function() {
-                // Aqui você implementaria a lógica de ordenação dos resultados
-                console.log('Ordenação selecionada:', this.value);
+                sortResults(this.value);
             });
+            
+            function sortResults(sortType) {
+                const itemsArray = Array.from(resultItems);
+                
+                switch(sortType) {
+                    case 'cheap':
+                        // Ordena do mais barato para o mais caro
+                        itemsArray.sort((a, b) => {
+                            const priceA = parseFloat(a.getAttribute('data-price'));
+                            const priceB = parseFloat(b.getAttribute('data-price'));
+                            return priceA - priceB;
+                        });
+                        break;
+                        
+                    case 'expensive':
+                        // Ordena do mais caro para o mais barato
+                        itemsArray.sort((a, b) => {
+                            const priceA = parseFloat(a.getAttribute('data-price'));
+                            const priceB = parseFloat(b.getAttribute('data-price'));
+                            return priceB - priceA;
+                        });
+                        break;
+                        
+                    case 'promo':
+                        // Mostra primeiro as promoções
+                        itemsArray.sort((a, b) => {
+                            const promoA = a.getAttribute('data-promo') === 'true';
+                            const promoB = b.getAttribute('data-promo') === 'true';
+                            
+                            if (promoA && !promoB) return -1;
+                            if (!promoA && promoB) return 1;
+                            return 0;
+                        });
+                        break;
+                        
+                    default:
+                        // Ordem original (como estão no HTML)
+                        itemsArray.sort((a, b) => {
+                            return Array.from(resultsList.children).indexOf(a) - Array.from(resultsList.children).indexOf(b);
+                        });
+                }
+                
+                // Remove todos os itens da lista
+                while (resultsList.firstChild) {
+                    resultsList.removeChild(resultsList.firstChild);
+                }
+                
+                // Adiciona os itens na nova ordem
+                itemsArray.forEach(item => {
+                    resultsList.appendChild(item);
+                });
+            }
 
             // Funcionalidade para filtros de origem e destino
             const filterOrigem = document.getElementById('filterOrigem');
             const filterDestino = document.getElementById('filterDestino');
-            const resultItems = document.querySelectorAll('.result-item');
             
             filterOrigem.addEventListener('input', filterResults);
             filterDestino.addEventListener('input', filterResults);
