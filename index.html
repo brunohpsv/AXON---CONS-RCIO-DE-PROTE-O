@@ -7,6 +7,7 @@
     <!-- Adicionando o favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
     <style>
+        /* Estilos anteriores mantidos */
         * {
             margin: 0;
             padding: 0;
@@ -226,6 +227,14 @@
             outline: none;
         }
 
+        .search-buttons {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 15px;
+            margin-top: 24px;
+            max-width: 415px;
+        }
+
         .search-button {
             background-color: #e60000;
             color: white;
@@ -235,16 +244,32 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 24px;
-            grid-column: 1 / -1;
-            max-width: 200px;
             transition: background-color 0.3s;
+            flex: 1;
         }
 
         .search-button:hover {
             background-color: #cc0000;
         }
 
+        .clear-button {
+            background-color: #666;
+            color: white;
+            border: none;
+            border-radius: 0;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex: 1;
+        }
+
+        .clear-button:hover {
+            background-color: #555;
+        }
+
+        /* Resto do CSS permanece igual */
         .modal {
             display: none;
             position: fixed;
@@ -724,6 +749,11 @@
                 width: 100%;
             }
             
+            .search-buttons {
+                flex-direction: column;
+                max-width: 100%;
+            }
+            
             .results-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -739,10 +769,6 @@
             .price-info {
                 text-align: left;
                 margin-right: 0;
-            }
-            
-            .search-button {
-                max-width: 100%;
             }
             
             .results-filters {
@@ -890,7 +916,10 @@
                 <label for="volta">Volta</label>
                 <input type="text" id="volta" value="17/10/2025">
             </div>
-            <button type="submit" class="search-button">Pesquisar</button>
+            <div class="search-buttons">
+                <button type="submit" class="search-button">Pesquisar</button>
+                <button type="button" class="clear-button" id="clearButton">Limpar</button>
+            </div>
         </form>
     </div>
 
@@ -1406,6 +1435,43 @@
                 // Restaurar o título original
                 document.querySelector('.results-title').textContent = 'Resultados da busca';
             }
+
+            // NOVA FUNCIONALIDADE: BOTÃO LIMPAR
+            const clearButton = document.getElementById('clearButton');
+            
+            clearButton.addEventListener('click', function() {
+                // Limpar os campos de origem e destino
+                document.getElementById('origem').value = '';
+                document.getElementById('destino').value = '';
+                
+                // Resetar as datas para os valores padrão
+                document.getElementById('partida').value = '10/10/2025';
+                document.getElementById('volta').value = '17/10/2025';
+                
+                // Resetar o tipo de viagem para "Ida e volta"
+                tripTypeOptions.forEach(opt => opt.classList.remove('active'));
+                document.querySelector('.trip-type-option[data-value="roundtrip"]').classList.add('active');
+                voltaGroup.style.display = 'flex';
+                
+                // Resetar contadores de passageiros
+                adultCount.textContent = '1';
+                childCount.textContent = '0';
+                babyCount.textContent = '0';
+                updatePassengerText();
+                
+                // Limpar código promocional
+                document.getElementById('promoCodeInput').value = '';
+                promoInputContainer.style.display = 'none';
+                
+                // Mostrar todos os resultados novamente
+                showAllResults();
+                
+                // Resetar ordenação
+                document.getElementById('priceSort').value = '';
+                
+                // Foco no primeiro campo
+                document.getElementById('origem').focus();
+            });
         });
     </script>
 </body>
