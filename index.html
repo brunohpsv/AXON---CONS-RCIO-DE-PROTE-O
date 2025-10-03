@@ -58,6 +58,24 @@
             padding: 12px;
             font-size: 18px;
             font-weight: bold;
+            overflow: hidden;
+            position: relative;
+            height: 50px;
+        }
+
+        .banner-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .banner-content.active {
+            opacity: 1;
         }
 
         /* Formulário de busca */
@@ -142,7 +160,7 @@
             background-color: #f9f9f9;
             border: 1px solid #ddd;
             /* Alteração: largura aumentada para corresponder à altura dos outros botões */
-            min-width: 180px;
+            min-width: 220px; /* Aumentado de 180px para 220px */
             height: 42px;
         }
 
@@ -355,7 +373,7 @@
             border: 1px solid #ddd;
             /* Alteração: bordas retas */
             border-radius: 0;
-            width: 200px;
+            width: 250px; /* Aumentado de 200px para 250px */
         }
 
         /* Seção de resultados */
@@ -686,8 +704,8 @@
         </div>
     </header>
 
-    <div class="promo-banner">
-        Voe com a BIXX PASS
+    <div class="promo-banner" id="promoBanner">
+        <!-- Conteúdo será inserido dinamicamente pelo JavaScript -->
     </div>
 
     <div class="search-container">
@@ -1104,6 +1122,85 @@
                     }
                 });
             }
+
+            // BANNER DINÂMICO
+            const promoBanner = document.getElementById('promoBanner');
+            
+            // Mensagens para o banner
+            const bannerMessages = [
+                // Saudação baseada no horário será adicionada dinamicamente
+                // Versículos bíblicos motivacionais
+                "✈️ Filipenses 4:13 - Tudo posso naquele que me fortalece! ✈️",
+                "🌍 Isaías 40:31 - Mas os que esperam no Senhor renovam as suas forças... 🌍",
+                "🛫 Salmo 121:8 - O Senhor guardará a tua saída e a tua entrada... 🛫",
+                "🌟 Jeremias 29:11 - Porque eu bem sei os pensamentos que tenho a vosso respeito... 🌟",
+                "🌴 Josué 1:9 - Não to mandei eu? Esforça-te e tem bom ânimo... 🌴",
+                "🏝️ Salmo 37:5 - Entrega o teu caminho ao Senhor, confia nele... 🏝️",
+                "✈️ Provérbios 16:3 - Entrega ao Senhor as tuas obras, e teus pensamentos serão estabelecidos. ✈️",
+                "🌍 Salmo 23:1 - O Senhor é o meu pastor, nada me faltará. 🌍",
+                "🛫 Romanos 8:28 - Todas as coisas cooperam para o bem daqueles que amam a Deus. 🛫",
+                // Mensagens de viagem motivacionais
+                "✈️ Viajar é viver! ✈️",
+                "🌍 Descubra novos horizontes com a BIXX PASS! 🌍",
+                "🛫 Sua próxima aventura começa aqui! 🛫",
+                "🌟 Explore o mundo com confiança! 🌟",
+                "🌴 Férias dos sonhos a preços incríveis! 🌴",
+                "🏝️ Momentos inesquecíveis te esperam! 🏝️",
+                "✈️ Viaje com segurança e tranquilidade! ✈️",
+                "🌍 Conectamos você aos melhores destinos! 🌍",
+                "🛫 Sua jornada, nossa prioridade! 🛫"
+            ];
+            
+            // Função para obter saudação baseada no horário
+            function getGreeting() {
+                const hour = new Date().getHours();
+                if (hour >= 5 && hour < 12) {
+                    return "Bom dia! ☀️";
+                } else if (hour >= 12 && hour < 18) {
+                    return "Boa tarde! 🌤️";
+                } else {
+                    return "Boa noite! 🌙";
+                }
+            }
+            
+            // Adiciona a saudação às mensagens
+            const greeting = getGreeting();
+            const messagesWithGreeting = [
+                `${greeting} Voe com a BIXX PASS! ✈️`,
+                ...bannerMessages
+            ];
+            
+            // Cria elementos para o banner
+            messagesWithGreeting.forEach((message, index) => {
+                const bannerContent = document.createElement('div');
+                bannerContent.className = 'banner-content';
+                bannerContent.textContent = message;
+                bannerContent.id = `banner-${index}`;
+                promoBanner.appendChild(bannerContent);
+            });
+            
+            // Função para alternar as mensagens
+            let currentBannerIndex = 0;
+            const totalBanners = messagesWithGreeting.length;
+            
+            function showNextBanner() {
+                // Remove a classe active de todos os banners
+                document.querySelectorAll('.banner-content').forEach(banner => {
+                    banner.classList.remove('active');
+                });
+                
+                // Adiciona a classe active ao banner atual
+                document.getElementById(`banner-${currentBannerIndex}`).classList.add('active');
+                
+                // Incrementa o índice para o próximo banner
+                currentBannerIndex = (currentBannerIndex + 1) % totalBanners;
+            }
+            
+            // Mostra o primeiro banner imediatamente
+            showNextBanner();
+            
+            // Configura o intervalo para alternar os banners a cada 5 segundos
+            setInterval(showNextBanner, 5000);
         });
     </script>
 </body>
