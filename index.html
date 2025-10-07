@@ -910,14 +910,14 @@
             </div>
             <div class="form-group" id="partidaGroup">
                 <label for="partida">Partida</label>
-                <input type="text" id="partida" value="10/10/2025">
+                <input type="date" id="partida" value="2025-10-10">
             </div>
             <div class="form-group" id="voltaGroup">
                 <label for="volta">Volta</label>
-                <input type="text" id="volta" value="17/10/2025">
+                <input type="date" id="volta" value="2025-10-17">
             </div>
             <div class="search-buttons">
-                <button type="submit" class="search-button">Pesquisar</button>
+                <button type="button" class="search-button" id="searchButton">Pesquisar</button>
                 <button type="button" class="clear-button" id="clearButton">Limpar</button>
             </div>
         </form>
@@ -1378,12 +1378,10 @@
                 });
             }
 
-            // NOVA FUNCIONALIDADE: FILTRAR RESULTADOS POR ORIGEM E DESTINO
-            const searchForm = document.getElementById('searchForm');
+            // CORREÇÃO PRINCIPAL: Alteração do botão de pesquisa para evitar envio do formulário
+            const searchButton = document.getElementById('searchButton');
             
-            searchForm.addEventListener('submit', function(e) {
-                e.preventDefault(); // Previne o envio padrão do formulário
-                
+            searchButton.addEventListener('click', function() {
                 const origem = document.getElementById('origem').value;
                 const destino = document.getElementById('destino').value;
                 
@@ -1445,8 +1443,8 @@
                 document.getElementById('destino').value = '';
                 
                 // Resetar as datas para os valores padrão
-                document.getElementById('partida').value = '10/10/2025';
-                document.getElementById('volta').value = '17/10/2025';
+                document.getElementById('partida').value = '2025-10-10';
+                document.getElementById('volta').value = '2025-10-17';
                 
                 // Resetar o tipo de viagem para "Ida e volta"
                 tripTypeOptions.forEach(opt => opt.classList.remove('active'));
@@ -1471,6 +1469,12 @@
                 
                 // Foco no primeiro campo
                 document.getElementById('origem').focus();
+            });
+            
+            // CORREÇÃO: Prevenir envio do formulário padrão
+            const searchForm = document.getElementById('searchForm');
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
             });
         });
     </script>
