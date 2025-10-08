@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIXX PASSAGENS</title>
@@ -19,16 +18,20 @@
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             color: #333;
+            -webkit-text-size-adjust: 100%; /* Previne zoom automático no iOS */
         }
 
         .header {
             background-color: white;
-            padding: 15px 30px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .logo-container {
@@ -38,18 +41,19 @@
         }
 
         .logo-icon {
-            width: 42px; /* Aumentado de 32px */
-            height: 42px; /* Aumentado de 32px */
-            background-color: white; /* ALTERADO: de #e60000 para white */
+            width: 42px;
+            height: 42px;
+            background-color: white;
             border-radius: 0px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #e60000; /* ALTERADO: de white para #e60000 */
+            color: #e60000;
             font-weight: bold;
-            font-size: 18px; /* Aumentado de 14px */
+            font-size: 18px;
             overflow: hidden;
-            border: 1px solid #f0f0f0; /* ADICIONADO: borda sutil */
+            border: 1px solid #f0f0f0;
+            flex-shrink: 0;
         }
 
         .logo-icon img {
@@ -60,7 +64,7 @@
 
         .logo-text {
             font-weight: bold;
-            font-size: 26px; /* Aumentado de 24px */
+            font-size: 26px;
             color: #1a1a1a;
         }
 
@@ -134,6 +138,7 @@
             transition: all 0.2s ease;
             position: relative;
             min-width: 150px;
+            -webkit-tap-highlight-color: transparent; /* Remove highlight no iOS */
         }
 
         .option:hover {
@@ -190,6 +195,7 @@
             align-items: center;
             font-size: 14px;
             white-space: nowrap;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .trip-type-selector .trip-type-option:first-child {
@@ -229,6 +235,8 @@
             border-radius: 0;
             font-size: 16px;
             transition: border-color 0.3s;
+            -webkit-appearance: none; /* Remove estilos padrão do iOS */
+            border-radius: 0; /* Remove borda arredondada no iOS */
         }
 
         .form-group input:focus, .form-group select:focus {
@@ -255,6 +263,7 @@
             cursor: pointer;
             transition: background-color 0.3s;
             flex: 1;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .search-button:hover {
@@ -272,6 +281,7 @@
             cursor: pointer;
             transition: background-color 0.3s;
             flex: 1;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .clear-button:hover {
@@ -290,15 +300,19 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         .modal-content {
             background-color: white;
             padding: 20px;
             border-radius: 0;
-            width: 90%;
+            width: 100%;
             max-width: 400px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .modal-header {
@@ -322,6 +336,7 @@
             font-size: 20px;
             cursor: pointer;
             color: #666;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .passenger-type {
@@ -363,6 +378,7 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .counter-btn:hover {
@@ -394,6 +410,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: background-color 0.3s;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .confirm-btn:hover {
@@ -411,6 +428,7 @@
             border-radius: 0;
             width: 250px;
             transition: border-color 0.3s;
+            -webkit-appearance: none;
         }
 
         .promo-input:focus {
@@ -455,6 +473,7 @@
             border-radius: 0;
             background-color: #f9f9f9;
             transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .filter-option:hover {
@@ -498,6 +517,7 @@
             font-size: 14px;
             cursor: pointer;
             transition: all 0.2s;
+            -webkit-appearance: none;
         }
 
         .filter-select:hover {
@@ -597,6 +617,7 @@
             cursor: pointer;
             transition: background-color 0.3s;
             margin-top: 10px;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .reserve-button:hover {
@@ -733,7 +754,49 @@
             font-size: 14px;
         }
 
+        /* Menu mobile */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #1a1a1a;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Melhorias específicas para dispositivos móveis */
         @media (max-width: 768px) {
+            .header {
+                padding: 12px 15px;
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+            
+            .logo-text {
+                font-size: 22px;
+            }
+            
+            .compre-passagem {
+                display: none; /* Esconde em mobile para economizar espaço */
+            }
+            
+            .logo-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .search-container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
             .search-form {
                 grid-template-columns: 1fr;
             }
@@ -763,6 +826,10 @@
                 max-width: 100%;
             }
             
+            .results-section {
+                margin: 10px;
+            }
+            
             .results-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -778,6 +845,7 @@
             .price-info {
                 text-align: left;
                 margin-right: 0;
+                width: 100%;
             }
             
             .results-filters {
@@ -785,11 +853,7 @@
                 width: 100%;
             }
             
-            .filter-input-container {
-                width: 100%;
-            }
-            
-            .filter-input {
+            .filter-option, .filter-select {
                 width: 100%;
             }
             
@@ -797,41 +861,77 @@
                 grid-template-columns: 1fr;
             }
             
+            .about-section {
+                margin: 10px;
+                padding: 20px 15px;
+            }
+            
+            .about-title {
+                font-size: 24px;
+            }
+            
             .about-content {
                 grid-template-columns: 1fr;
+            }
+            
+            .footer {
+                padding: 30px 15px;
             }
             
             .footer-content {
                 grid-template-columns: 1fr;
             }
+            
+            /* Melhorias para inputs em mobile */
+            input, select, textarea {
+                font-size: 16px !important; /* Previne zoom no iOS */
+            }
+            
+            /* Ajustes para o banner em mobile */
+            .promo-banner {
+                font-size: 14px;
+                height: 35px;
+            }
+            
+            .banner-item {
+                padding: 0 20px;
+            }
+            
+            /* Melhorias para botões em mobile */
+            .search-button, .clear-button, .reserve-button {
+                padding: 14px; /* Botões maiores para toque mais fácil */
+                min-height: 48px; /* Altura mínima para toque */
+            }
+            
+            /* Melhorias para modais em mobile */
+            .modal-content {
+                padding: 15px;
+                margin: 0 10px;
+            }
         }
 
         @media (max-width: 480px) {
             .header {
-                padding: 12px 20px;
+                padding: 10px 12px;
             }
             
             .logo-text {
-                font-size: 22px; /* Ajustado de 20px */
-            }
-            
-            .compre-passagem {
-                font-size: 14px;
+                font-size: 20px;
             }
             
             .logo-icon {
-                width: 36px; /* Ajustado de 28px */
-                height: 36px; /* Ajustado de 28px */
-                font-size: 16px; /* Ajustado para manter proporção */
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
             }
             
             .search-container {
-                margin: 10px;
-                padding: 15px;
+                margin: 8px;
+                padding: 12px;
             }
             
             .results-section {
-                margin: 10px;
+                margin: 8px;
             }
             
             .results-filters {
@@ -844,16 +944,78 @@
             }
             
             .about-section {
-                margin: 10px;
-                padding: 20px 15px;
+                margin: 8px;
+                padding: 15px 12px;
             }
             
             .about-title {
-                font-size: 24px;
+                font-size: 22px;
             }
             
             .footer {
-                padding: 30px 15px;
+                padding: 25px 12px;
+            }
+            
+            /* Ajustes adicionais para telas muito pequenas */
+            .route-title {
+                font-size: 16px;
+            }
+            
+            .price-value {
+                font-size: 20px;
+            }
+            
+            .search-options {
+                gap: 8px;
+            }
+            
+            .option {
+                padding: 8px 12px;
+            }
+        }
+
+        /* Melhorias para orientação paisagem em mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .header {
+                padding: 8px 15px;
+            }
+            
+            .promo-banner {
+                height: 30px;
+                font-size: 14px;
+            }
+            
+            .search-container {
+                margin: 10px;
+                padding: 10px;
+            }
+            
+            .modal-content {
+                max-height: 80vh;
+            }
+        }
+
+        /* Melhorias para tablets */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .search-form {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .search-buttons {
+                grid-column: 1 / -1;
+            }
+            
+            .results-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Previne zoom em inputs no iOS */
+        @media screen and (-webkit-min-device-pixel-ratio:0) {
+            select,
+            textarea,
+            input {
+                font-size: 16px;
             }
         }
     </style>
@@ -866,6 +1028,7 @@
             </div>
             <span class="logo-text">BIXX PASSAGENS</span>
         </div>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
         <div class="compre-passagem" id="comprePassagem">
             Compre sua passagem
         </div>
@@ -1302,20 +1465,24 @@
             
             passengerOption.addEventListener('click', function() {
                 passengerModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Previne scroll do body
             });
             
             closePassengerModal.addEventListener('click', function() {
                 passengerModal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Restaura scroll do body
             });
             
             confirmPassengers.addEventListener('click', function() {
                 passengerModal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Restaura scroll do body
             });
             
             // Fechar modal ao clicar fora dele
             window.addEventListener('click', function(event) {
                 if (event.target === passengerModal) {
                     passengerModal.style.display = 'none';
+                    document.body.style.overflow = 'auto'; // Restaura scroll do body
                 }
             });
 
@@ -1486,6 +1653,16 @@
             searchForm.addEventListener('submit', function(e) {
                 e.preventDefault();
             });
+            
+            // NOVA FUNCIONALIDADE: Menu mobile (para futura implementação)
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            mobileMenuToggle.addEventListener('click', function() {
+                // Aqui você pode implementar a lógica para um menu mobile
+                alert('Menu mobile - Em desenvolvimento');
+            });
+            
+            // Melhoria: Prevenir zoom em inputs no iOS
+            document.addEventListener('touchstart', function() {}, {passive: true});
         });
     </script>
 </body>
