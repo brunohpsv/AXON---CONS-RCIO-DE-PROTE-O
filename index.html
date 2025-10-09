@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIXX PASSAGENS</title>
@@ -38,18 +37,18 @@
         }
 
         .logo-icon {
-            width: 42px; /* Aumentado de 32px */
-            height: 42px; /* Aumentado de 32px */
-            background-color: white; /* ALTERADO: de #e60000 para white */
+            width: 42px;
+            height: 42px;
+            background-color: white;
             border-radius: 0px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #e60000; /* ALTERADO: de white para #e60000 */
+            color: #e60000;
             font-weight: bold;
-            font-size: 18px; /* Aumentado de 14px */
+            font-size: 18px;
             overflow: hidden;
-            border: 1px solid #f0f0f0; /* ADICIONADO: borda sutil */
+            border: 1px solid #f0f0f0;
         }
 
         .logo-icon img {
@@ -60,7 +59,7 @@
 
         .logo-text {
             font-weight: bold;
-            font-size: 26px; /* Aumentado de 24px */
+            font-size: 26px;
             color: #1a1a1a;
         }
 
@@ -117,6 +116,54 @@
             display: flex;
             gap: 15px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .travel-type-selector {
+            display: flex;
+            border-radius: 0;
+            overflow: hidden;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            min-width: 220px;
+            height: 42px;
+        }
+
+        .travel-type-selector .travel-type-option {
+            flex: 1;
+            padding: 10px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            border-radius: 0;
+            min-width: auto;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .travel-type-selector .travel-type-option:first-child {
+            border-right: 1px solid #ddd;
+        }
+
+        .travel-type-selector .travel-type-option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .travel-type-selector .travel-type-option.active {
+            background-color: #1a1a1a;
+            color: white;
+            font-weight: bold;
+        }
+
+        .options-container {
+            display: flex;
+            gap: 15px;
             flex-wrap: wrap;
             align-items: center;
         }
@@ -733,7 +780,28 @@
             font-size: 14px;
         }
 
+        /* Estilos para resultados rodoviários */
+        .bus-icon {
+            color: #0066cc;
+            margin-right: 5px;
+        }
+
+        .bus-company {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
         @media (max-width: 768px) {
+            .search-options {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .travel-type-selector {
+                width: 100%;
+            }
+            
             .search-form {
                 grid-template-columns: 1fr;
             }
@@ -812,7 +880,7 @@
             }
             
             .logo-text {
-                font-size: 22px; /* Ajustado de 20px */
+                font-size: 22px;
             }
             
             .compre-passagem {
@@ -820,9 +888,9 @@
             }
             
             .logo-icon {
-                width: 36px; /* Ajustado de 28px */
-                height: 36px; /* Ajustado de 28px */
-                font-size: 16px; /* Ajustado para manter proporção */
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
             }
             
             .search-container {
@@ -880,22 +948,29 @@
 
     <div class="search-container">
         <div class="search-options">
-            <div class="trip-type-selector" id="tripTypeOption">
-                <div class="trip-type-option active" data-value="roundtrip">Ida e volta</div>
-                <div class="trip-type-option" data-value="oneway">Somente ida</div>
+            <div class="travel-type-selector" id="travelTypeSelector">
+                <div class="travel-type-option active" data-value="air">Passagens aéreas</div>
+                <div class="travel-type-option" data-value="bus">Passagens rodoviárias</div>
             </div>
-            <div class="option" id="passengerOption">
-                <span id="passengerText">Passageiro(s)</span>
-            </div>
-            <div class="option" id="promoCodeOption">
-                <span>Código promocional</span>
-            </div>
-            <div class="promo-input-container" id="promoInputContainer">
-                <input type="text" class="promo-input" id="promoCodeInput" placeholder="Digitar código">
+            <div class="options-container">
+                <div class="trip-type-selector" id="tripTypeOption">
+                    <div class="trip-type-option active" data-value="roundtrip">Ida e volta</div>
+                    <div class="trip-type-option" data-value="oneway">Somente ida</div>
+                </div>
+                <div class="option" id="passengerOption">
+                    <span id="passengerText">Passageiro(s)</span>
+                </div>
+                <div class="option" id="promoCodeOption">
+                    <span>Código promocional</span>
+                </div>
+                <div class="promo-input-container" id="promoInputContainer">
+                    <input type="text" class="promo-input" id="promoCodeInput" placeholder="Digitar código">
+                </div>
             </div>
         </div>
 
-        <form class="search-form" id="searchForm">
+        <!-- Formulário para passagens aéreas -->
+        <form class="search-form" id="airSearchForm">
             <div class="form-group">
                 <label for="origem">De</label>
                 <select id="origem">
@@ -929,6 +1004,48 @@
             <div class="search-buttons">
                 <button type="button" class="search-button" id="searchButton">Pesquisar</button>
                 <button type="button" class="clear-button" id="clearButton">Limpar</button>
+            </div>
+        </form>
+
+        <!-- Formulário para passagens rodoviárias (inicialmente oculto) -->
+        <form class="search-form" id="busSearchForm" style="display: none;">
+            <div class="form-group">
+                <label for="origemBus">De</label>
+                <select id="origemBus">
+                    <option value="">Selecione a origem</option>
+                    <option value="Brasília">Brasília (Rodoviária)</option>
+                    <option value="Rio de Janeiro">Rio de Janeiro (Novo Rio)</option>
+                    <option value="São Paulo">São Paulo (Tietê)</option>
+                    <option value="Recife">Recife (Terminal Integrado)</option>
+                    <option value="Salvador">Salvador (Rodoviária)</option>
+                    <option value="Belo Horizonte">Belo Horizonte (Rodoviária)</option>
+                    <option value="Curitiba">Curitiba (Rodoferroviária)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="destinoBus">Para</label>
+                <select id="destinoBus">
+                    <option value="">Selecione o destino</option>
+                    <option value="Brasília">Brasília (Rodoviária)</option>
+                    <option value="Rio de Janeiro">Rio de Janeiro (Novo Rio)</option>
+                    <option value="São Paulo">São Paulo (Tietê)</option>
+                    <option value="Recife">Recife (Terminal Integrado)</option>
+                    <option value="Salvador">Salvador (Rodoviária)</option>
+                    <option value="Belo Horizonte">Belo Horizonte (Rodoviária)</option>
+                    <option value="Curitiba">Curitiba (Rodoferroviária)</option>
+                </select>
+            </div>
+            <div class="form-group" id="partidaGroupBus">
+                <label for="partidaBus">Partida</label>
+                <input type="date" id="partidaBus" value="2025-10-10">
+            </div>
+            <div class="form-group" id="voltaGroupBus">
+                <label for="voltaBus">Volta</label>
+                <input type="date" id="voltaBus" value="2025-10-17">
+            </div>
+            <div class="search-buttons">
+                <button type="button" class="search-button" id="searchButtonBus">Pesquisar</button>
+                <button type="button" class="clear-button" id="clearButtonBus">Limpar</button>
             </div>
         </form>
     </div>
@@ -976,10 +1093,10 @@
         </div>
     </div>
 
-    <!-- Seção de resultados -->
-    <div class="results-section">
+    <!-- Seção de resultados para passagens aéreas -->
+    <div class="results-section" id="airResultsSection">
         <div class="results-header">
-            <div class="results-title">Resultados da busca</div>
+            <div class="results-title">Resultados da busca - Passagens Aéreas</div>
             <div class="results-filters">
                 <select class="filter-select" id="priceSort">
                     <option value="">Ordenar por preço</option>
@@ -990,7 +1107,7 @@
             </div>
         </div>
 
-        <div class="results-list" id="resultsList">
+        <div class="results-list" id="airResultsList">
             <!-- Resultado 1 -->
             <div class="result-item" data-origem="Brasília" data-destino="São Paulo" data-price="134.23" data-promo="true">
                 <div class="promo-badge">PROMO</div>
@@ -1063,6 +1180,97 @@
         </div>
     </div>
 
+    <!-- Seção de resultados para passagens rodoviárias (inicialmente oculta) -->
+    <div class="results-section" id="busResultsSection" style="display: none;">
+        <div class="results-header">
+            <div class="results-title">Resultados da busca - Passagens Rodoviárias</div>
+            <div class="results-filters">
+                <select class="filter-select" id="priceSortBus">
+                    <option value="">Ordenar por preço</option>
+                    <option value="cheap">Barato > Caro</option>
+                    <option value="expensive">Caro > Barato</option>
+                    <option value="promo">Promoção</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="results-list" id="busResultsList">
+            <!-- Resultado 1 - Ônibus -->
+            <div class="result-item" data-origem="Brasília" data-destino="São Paulo" data-price="89.90" data-promo="true">
+                <div class="promo-badge">PROMO</div>
+                <div class="route-info">
+                    <div class="route-title"><span class="bus-icon">🚌</span> Brasília Para São Paulo</div>
+                    <div class="bus-company">Viação Cometa - Executivo</div>
+                    <div class="route-details">
+                        <div class="route-date">Partida: 01/11/2025 - 22:30h</div>
+                        <div class="route-seen">Visto: 5 horas atrás</div>
+                    </div>
+                </div>
+                <div class="price-info">
+                    <div class="price-label">A partir de</div>
+                    <div class="price-value">R$89,90*</div>
+                    <div class="price-note">Só tás</div>
+                </div>
+                <button class="reserve-button">Reserve agora</button>
+            </div>
+
+            <!-- Resultado 2 - Ônibus -->
+            <div class="result-item" data-origem="Rio de Janeiro" data-destino="São Paulo" data-price="75.50" data-promo="false">
+                <div class="route-info">
+                    <div class="route-title"><span class="bus-icon">🚌</span> Rio de Janeiro Para São Paulo</div>
+                    <div class="bus-company">Viação 1001 - Convencional</div>
+                    <div class="route-details">
+                        <div class="route-date">Partida: 12/11/2025 - 08:15h</div>
+                        <div class="route-seen">Visto: 2 dias atrás</div>
+                    </div>
+                </div>
+                <div class="price-info">
+                    <div class="price-label">A partir de</div>
+                    <div class="price-value">R$75,50*</div>
+                    <div class="price-note">Só tás</div>
+                </div>
+                <button class="reserve-button">Reserve agora</button>
+            </div>
+
+            <!-- Resultado 3 - Ônibus -->
+            <div class="result-item" data-origem="São Paulo" data-destino="Rio de Janeiro" data-price="82.30" data-promo="false">
+                <div class="route-info">
+                    <div class="route-title"><span class="bus-icon">🚌</span> São Paulo Para Rio de Janeiro</div>
+                    <div class="bus-company">Viação Util - Executivo</div>
+                    <div class="route-details">
+                        <div class="route-date">Partida: 31/10/2025 - 19:45h</div>
+                        <div class="route-seen">Visto: 12 horas atrás</div>
+                    </div>
+                </div>
+                <div class="price-info">
+                    <div class="price-label">A partir de</div>
+                    <div class="price-value">R$82,30*</div>
+                    <div class="price-note">Só tás</div>
+                </div>
+                <button class="reserve-button">Reserve agora</button>
+            </div>
+
+            <!-- Resultado 4 - Ônibus -->
+            <div class="result-item" data-origem="Recife" data-destino="Salvador" data-price="120.75" data-promo="true">
+                <div class="promo-badge">PROMO</div>
+                <div class="route-info">
+                    <div class="route-title"><span class="bus-icon">🚌</span> Recife Para Salvador</div>
+                    <div class="bus-company">Viação Progresso - Leito</div>
+                    <div class="route-details">
+                        <div class="route-date">Partida: 01/11/2025 - 21:00h</div>
+                        <div class="route-seen">Visto: 8 horas atrás</div>
+                    </div>
+                </div>
+                <div class="price-info">
+                    <div class="price-label">A partir de</div>
+                    <div class="price-value">R$120,75*</div>
+                    <div class="price-note">Só tás</div>
+                </div>
+                <button class="reserve-button">Reserve agora</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Nova seção "Sobre a BIXX PASSAGENS" -->
     <div class="about-section">
         <h2 class="about-title">Sobre a BIXX PASSAGENS</h2>
@@ -1092,7 +1300,7 @@
                     <h3 class="about-subtitle">Por que Escolher a BIXX PASSAGENS?</h3>
                     <p class="about-text">
                         Com anos de experiência no mercado, a BIXX PASSAGENS se consolidou como uma das principais 
-                        plataformas de reserva de passagens aéreas. Nossos diferenciais incluem:
+                        plataformas de reserva de passagens aéreas e rodoviárias. Nossos diferenciais incluem:
                     </p>
                     <ul class="about-list">
                         <li>Preços competitivos e sem taxas ocultas</li>
@@ -1128,10 +1336,10 @@
             <div class="footer-column">
                 <h3 class="footer-title">Serviços</h3>
                 <ul class="footer-links">
-                    <li><a href="#">Reserva de Passagens</a></li>
+                    <li><a href="#">Passagens Aéreas</a></li>
+                    <li><a href="#">Passagens Rodoviárias</a></li>
                     <li><a href="#">Check-in Online</a></li>
-                    <li><a href="#">Status do Voo</a></li>
-                    <li><a href="#">Bagagem</a></li>
+                    <li><a href="#">Status do Voo/Ônibus</a></li>
                     <li><a href="#">Assistência Especial</a></li>
                 </ul>
             </div>
@@ -1214,8 +1422,37 @@
                 bannerContainer.appendChild(bannerItem);
             });
             
-            // CORREÇÃO: A velocidade está definida no CSS como 95s para um ciclo completo
-            // A animação agora começa imediatamente e rola continuamente sem espaços
+            // NOVA FUNCIONALIDADE: Seletor de tipo de transporte
+            const travelTypeOptions = document.querySelectorAll('.travel-type-option');
+            const airSearchForm = document.getElementById('airSearchForm');
+            const busSearchForm = document.getElementById('busSearchForm');
+            const airResultsSection = document.getElementById('airResultsSection');
+            const busResultsSection = document.getElementById('busResultsSection');
+            
+            travelTypeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove a classe active de todas as opções
+                    travelTypeOptions.forEach(opt => opt.classList.remove('active'));
+                    
+                    // Adiciona a classe active à opção clicada
+                    this.classList.add('active');
+                    
+                    const travelType = this.getAttribute('data-value');
+                    
+                    // Mostra ou esconde os formulários e resultados baseados no tipo de transporte
+                    if (travelType === 'air') {
+                        airSearchForm.style.display = 'grid';
+                        busSearchForm.style.display = 'none';
+                        airResultsSection.style.display = 'block';
+                        busResultsSection.style.display = 'none';
+                    } else {
+                        airSearchForm.style.display = 'none';
+                        busSearchForm.style.display = 'grid';
+                        airResultsSection.style.display = 'none';
+                        busResultsSection.style.display = 'block';
+                    }
+                });
+            });
             
             // Restante do código JavaScript permanece igual
             const filterOptions = document.querySelectorAll('.filter-option');
@@ -1228,6 +1465,7 @@
             // Funcionalidade para o seletor customizado de tipo de viagem
             const tripTypeOptions = document.querySelectorAll('.trip-type-option');
             const voltaGroup = document.getElementById('voltaGroup');
+            const voltaGroupBus = document.getElementById('voltaGroupBus');
             
             tripTypeOptions.forEach(option => {
                 option.addEventListener('click', function() {
@@ -1240,8 +1478,10 @@
                     // Mostra ou esconde o campo de volta
                     if (this.getAttribute('data-value') === 'oneway') {
                         voltaGroup.style.display = 'none';
+                        voltaGroupBus.style.display = 'none';
                     } else {
                         voltaGroup.style.display = 'flex';
+                        voltaGroupBus.style.display = 'flex';
                     }
                 });
             });
@@ -1327,16 +1567,25 @@
                 promoInputContainer.style.display = promoInputContainer.style.display === 'block' ? 'none' : 'block';
             });
 
-            // Funcionalidade para ordenação por preço
+            // Funcionalidade para ordenação por preço (passagens aéreas)
             const priceSort = document.getElementById('priceSort');
-            const resultsList = document.getElementById('resultsList');
-            const resultItems = document.querySelectorAll('.result-item');
+            const airResultsList = document.getElementById('airResultsList');
+            const airResultItems = document.querySelectorAll('#airResultsList .result-item');
             
             priceSort.addEventListener('change', function() {
-                sortResults(this.value);
+                sortResults(this.value, airResultsList, airResultItems);
             });
             
-            function sortResults(sortType) {
+            // Funcionalidade para ordenação por preço (passagens rodoviárias)
+            const priceSortBus = document.getElementById('priceSortBus');
+            const busResultsList = document.getElementById('busResultsList');
+            const busResultItems = document.querySelectorAll('#busResultsList .result-item');
+            
+            priceSortBus.addEventListener('change', function() {
+                sortResults(this.value, busResultsList, busResultItems);
+            });
+            
+            function sortResults(sortType, resultsList, resultItems) {
                 const itemsArray = Array.from(resultItems);
                 
                 switch(sortType) {
@@ -1390,6 +1639,7 @@
 
             // CORREÇÃO PRINCIPAL: Alteração do botão de pesquisa para evitar envio do formulário
             const searchButton = document.getElementById('searchButton');
+            const searchButtonBus = document.getElementById('searchButtonBus');
             
             searchButton.addEventListener('click', function() {
                 const origem = document.getElementById('origem').value;
@@ -1397,16 +1647,30 @@
                 
                 // Se ambos os campos estiverem vazios, mostrar todos os resultados
                 if (!origem && !destino) {
-                    showAllResults();
+                    showAllResults(airResultsList, airResultItems);
                     return;
                 }
                 
                 // Filtrar os resultados
-                filterResults(origem, destino);
+                filterResults(origem, destino, airResultsList, airResultItems);
             });
             
-            function filterResults(origem, destino) {
-                const allResults = document.querySelectorAll('.result-item');
+            searchButtonBus.addEventListener('click', function() {
+                const origem = document.getElementById('origemBus').value;
+                const destino = document.getElementById('destinoBus').value;
+                
+                // Se ambos os campos estiverem vazios, mostrar todos os resultados
+                if (!origem && !destino) {
+                    showAllResults(busResultsList, busResultItems);
+                    return;
+                }
+                
+                // Filtrar os resultados
+                filterResults(origem, destino, busResultsList, busResultItems);
+            });
+            
+            function filterResults(origem, destino, resultsList, resultItems) {
+                const allResults = resultItems;
                 let hasResults = false;
                 
                 allResults.forEach(result => {
@@ -1434,8 +1698,8 @@
                 }
             }
             
-            function showAllResults() {
-                const allResults = document.querySelectorAll('.result-item');
+            function showAllResults(resultsList, resultItems) {
+                const allResults = resultItems;
                 allResults.forEach(result => {
                     result.style.display = 'flex';
                 });
@@ -1446,6 +1710,7 @@
 
             // NOVA FUNCIONALIDADE: BOTÃO LIMPAR
             const clearButton = document.getElementById('clearButton');
+            const clearButtonBus = document.getElementById('clearButtonBus');
             
             clearButton.addEventListener('click', function() {
                 // Limpar os campos de origem e destino
@@ -1472,13 +1737,47 @@
                 promoInputContainer.style.display = 'none';
                 
                 // Mostrar todos os resultados novamente
-                showAllResults();
+                showAllResults(airResultsList, airResultItems);
                 
                 // Resetar ordenação
                 document.getElementById('priceSort').value = '';
                 
                 // Foco no primeiro campo
                 document.getElementById('origem').focus();
+            });
+            
+            clearButtonBus.addEventListener('click', function() {
+                // Limpar os campos de origem e destino
+                document.getElementById('origemBus').value = '';
+                document.getElementById('destinoBus').value = '';
+                
+                // Resetar as datas para os valores padrão
+                document.getElementById('partidaBus').value = '2025-10-10';
+                document.getElementById('voltaBus').value = '2025-10-17';
+                
+                // Resetar o tipo de viagem para "Ida e volta"
+                tripTypeOptions.forEach(opt => opt.classList.remove('active'));
+                document.querySelector('.trip-type-option[data-value="roundtrip"]').classList.add('active');
+                voltaGroupBus.style.display = 'flex';
+                
+                // Resetar contadores de passageiros
+                adultCount.textContent = '1';
+                childCount.textContent = '0';
+                babyCount.textContent = '0';
+                updatePassengerText();
+                
+                // Limpar código promocional
+                document.getElementById('promoCodeInput').value = '';
+                promoInputContainer.style.display = 'none';
+                
+                // Mostrar todos os resultados novamente
+                showAllResults(busResultsList, busResultItems);
+                
+                // Resetar ordenação
+                document.getElementById('priceSortBus').value = '';
+                
+                // Foco no primeiro campo
+                document.getElementById('origemBus').focus();
             });
             
             // CORREÇÃO: Prevenir envio do formulário padrão
