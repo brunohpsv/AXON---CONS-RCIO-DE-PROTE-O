@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIXX PASSAGENS</title>
@@ -18,20 +19,16 @@
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             color: #333;
-            -webkit-text-size-adjust: 100%; /* Previne zoom automático no iOS */
         }
 
         .header {
             background-color: white;
-            padding: 15px 20px;
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             border-bottom: 1px solid #f0f0f0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
         .logo-container {
@@ -41,19 +38,18 @@
         }
 
         .logo-icon {
-            width: 42px;
-            height: 42px;
-            background-color: white;
+            width: 42px; /* Aumentado de 32px */
+            height: 42px; /* Aumentado de 32px */
+            background-color: white; /* ALTERADO: de #e60000 para white */
             border-radius: 0px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #e60000;
+            color: #e60000; /* ALTERADO: de white para #e60000 */
             font-weight: bold;
-            font-size: 18px;
+            font-size: 18px; /* Aumentado de 14px */
             overflow: hidden;
-            border: 1px solid #f0f0f0;
-            flex-shrink: 0;
+            border: 1px solid #f0f0f0; /* ADICIONADO: borda sutil */
         }
 
         .logo-icon img {
@@ -64,7 +60,7 @@
 
         .logo-text {
             font-weight: bold;
-            font-size: 26px;
+            font-size: 26px; /* Aumentado de 24px */
             color: #1a1a1a;
         }
 
@@ -138,7 +134,6 @@
             transition: all 0.2s ease;
             position: relative;
             min-width: 150px;
-            -webkit-tap-highlight-color: transparent; /* Remove highlight no iOS */
         }
 
         .option:hover {
@@ -195,7 +190,6 @@
             align-items: center;
             font-size: 14px;
             white-space: nowrap;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .trip-type-selector .trip-type-option:first-child {
@@ -235,8 +229,6 @@
             border-radius: 0;
             font-size: 16px;
             transition: border-color 0.3s;
-            -webkit-appearance: none; /* Remove estilos padrão do iOS */
-            border-radius: 0; /* Remove borda arredondada no iOS */
         }
 
         .form-group input:focus, .form-group select:focus {
@@ -263,7 +255,6 @@
             cursor: pointer;
             transition: background-color 0.3s;
             flex: 1;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .search-button:hover {
@@ -281,47 +272,10 @@
             cursor: pointer;
             transition: background-color 0.3s;
             flex: 1;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .clear-button:hover {
             background-color: #555;
-        }
-
-        /* NOVO BANNER DE PROMOÇÕES MENSAL */
-        .monthly-promo-banner {
-            background-color: #e60000;
-            color: white;
-            padding: 10px 0;
-            font-size: 18px;
-            font-weight: bold;
-            overflow: hidden;
-            position: relative;
-            height: 40px;
-            margin: 20px 20px 0 20px;
-            border-radius: 8px 8px 0 0;
-        }
-
-        .monthly-promo-container {
-            display: flex;
-            white-space: nowrap;
-            position: absolute;
-            animation: scrollMonthlyPromo 45s linear infinite;
-        }
-
-        .monthly-promo-item {
-            display: inline-block;
-            padding: 0 30px;
-            flex-shrink: 0;
-        }
-
-        @keyframes scrollMonthlyPromo {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
         }
 
         /* Resto do CSS permanece igual */
@@ -336,19 +290,15 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
         }
 
         .modal-content {
             background-color: white;
             padding: 20px;
             border-radius: 0;
-            width: 100%;
+            width: 90%;
             max-width: 400px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            max-height: 90vh;
-            overflow-y: auto;
         }
 
         .modal-header {
@@ -372,7 +322,6 @@
             font-size: 20px;
             cursor: pointer;
             color: #666;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .passenger-type {
@@ -414,7 +363,6 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.2s;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .counter-btn:hover {
@@ -446,7 +394,6 @@
             font-weight: bold;
             cursor: pointer;
             transition: background-color 0.3s;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .confirm-btn:hover {
@@ -464,7 +411,6 @@
             border-radius: 0;
             width: 250px;
             transition: border-color 0.3s;
-            -webkit-appearance: none;
         }
 
         .promo-input:focus {
@@ -473,11 +419,7 @@
         }
 
         .results-section {
-            margin: 0 20px 20px 20px;
-            background-color: white;
-            border-radius: 0 0 8px 8px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px;
         }
 
         .results-header {
@@ -513,7 +455,6 @@
             border-radius: 0;
             background-color: #f9f9f9;
             transition: all 0.2s;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .filter-option:hover {
@@ -557,7 +498,6 @@
             font-size: 14px;
             cursor: pointer;
             transition: all 0.2s;
-            -webkit-appearance: none;
         }
 
         .filter-select:hover {
@@ -657,7 +597,6 @@
             cursor: pointer;
             transition: background-color 0.3s;
             margin-top: 10px;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .reserve-button:hover {
@@ -737,82 +676,6 @@
             margin-right: 10px;
         }
 
-        /* NOVA SEÇÃO: RESULTADOS DA EMPRESA - ATUALIZADA */
-        .company-results {
-            background-color: white;
-            margin: 20px;
-            padding: 40px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            overflow: hidden;
-            position: relative;
-        }
-
-        .company-results-title {
-            font-size: 28px;
-            font-weight: bold;
-            color: #1a1a1a;
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 0 20px;
-        }
-
-        .results-carousel-container {
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-        }
-
-        .results-carousel {
-            display: flex;
-            animation: scrollResults 30s linear infinite;
-            gap: 15px;
-            padding: 0 10px;
-        }
-
-        .result-card {
-            background-color: #f9f9f9;
-            padding: 20px 15px;
-            text-align: center;
-            border-radius: 8px;
-            border-left: 5px solid #e60000;
-            transition: transform 0.3s, box-shadow 0.3s;
-            min-width: 180px;
-            flex-shrink: 0;
-        }
-
-        .result-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .result-icon {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: #e60000;
-        }
-
-        .result-number {
-            font-size: 24px;
-            font-weight: bold;
-            color: #1a1a1a;
-            margin-bottom: 5px;
-        }
-
-        .result-label {
-            font-size: 14px;
-            color: #666;
-        }
-
-        @keyframes scrollResults {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
         /* Rodapé */
         .footer {
             background-color: #1a1a1a;
@@ -870,59 +733,7 @@
             font-size: 14px;
         }
 
-        /* Menu mobile */
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #1a1a1a;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* Melhorias específicas para dispositivos móveis */
         @media (max-width: 768px) {
-            .header {
-                padding: 12px 15px;
-                position: sticky;
-                top: 0;
-                z-index: 100;
-            }
-            
-            .logo-text {
-                font-size: 22px;
-            }
-            
-            .compre-passagem {
-                display: none; /* Esconde em mobile para economizar espaço */
-            }
-            
-            .logo-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 16px;
-            }
-            
-            .mobile-menu-toggle {
-                display: block;
-            }
-            
-            .search-container {
-                margin: 10px;
-                padding: 15px;
-            }
-            
-            .monthly-promo-banner {
-                margin: 10px 10px 0 10px;
-                font-size: 14px;
-                height: 35px;
-            }
-            
-            .monthly-promo-item {
-                padding: 0 20px;
-            }
-            
             .search-form {
                 grid-template-columns: 1fr;
             }
@@ -952,11 +763,6 @@
                 max-width: 100%;
             }
             
-            .results-section {
-                margin: 0 10px 10px 10px;
-                padding: 15px;
-            }
-            
             .results-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -972,7 +778,60 @@
             .price-info {
                 text-align: left;
                 margin-right: 0;
+            }
+            
+            .results-filters {
+                flex-direction: column;
                 width: 100%;
+            }
+            
+            .filter-input-container {
+                width: 100%;
+            }
+            
+            .filter-input {
+                width: 100%;
+            }
+            
+            .results-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 20px;
+            }
+            
+            .logo-text {
+                font-size: 22px; /* Ajustado de 20px */
+            }
+            
+            .compre-passagem {
+                font-size: 14px;
+            }
+            
+            .logo-icon {
+                width: 36px; /* Ajustado de 28px */
+                height: 36px; /* Ajustado de 28px */
+                font-size: 16px; /* Ajustado para manter proporção */
+            }
+            
+            .search-container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            .results-section {
+                margin: 10px;
             }
             
             .results-filters {
@@ -982,10 +841,6 @@
             
             .filter-option, .filter-select {
                 width: 100%;
-            }
-            
-            .results-list {
-                grid-template-columns: 1fr;
             }
             
             .about-section {
@@ -997,201 +852,8 @@
                 font-size: 24px;
             }
             
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .company-results {
-                margin: 10px;
-                padding: 20px 0;
-            }
-            
-            .company-results-title {
-                font-size: 24px;
-            }
-            
-            .result-card {
-                min-width: 160px;
-                padding: 15px 10px;
-            }
-            
-            .result-number {
-                font-size: 20px;
-            }
-            
             .footer {
                 padding: 30px 15px;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            /* Melhorias para inputs em mobile */
-            input, select, textarea {
-                font-size: 16px !important; /* Previne zoom no iOS */
-            }
-            
-            /* Ajustes para o banner em mobile */
-            .promo-banner {
-                font-size: 14px;
-                height: 35px;
-            }
-            
-            .banner-item {
-                padding: 0 20px;
-            }
-            
-            /* Melhorias para botões em mobile */
-            .search-button, .clear-button, .reserve-button {
-                padding: 14px; /* Botões maiores para toque mais fácil */
-                min-height: 48px; /* Altura mínima para toque */
-            }
-            
-            /* Melhorias para modais em mobile */
-            .modal-content {
-                padding: 15px;
-                margin: 0 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header {
-                padding: 10px 12px;
-            }
-            
-            .logo-text {
-                font-size: 20px;
-            }
-            
-            .logo-icon {
-                width: 32px;
-                height: 32px;
-                font-size: 14px;
-            }
-            
-            .search-container {
-                margin: 8px;
-                padding: 12px;
-            }
-            
-            .monthly-promo-banner {
-                margin: 8px 8px 0 8px;
-            }
-            
-            .results-section {
-                margin: 0 8px 8px 8px;
-            }
-            
-            .results-filters {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .filter-option, .filter-select {
-                width: 100%;
-            }
-            
-            .about-section {
-                margin: 8px;
-                padding: 15px 12px;
-            }
-            
-            .about-title {
-                font-size: 22px;
-            }
-            
-            .company-results {
-                margin: 8px;
-                padding: 15px 0;
-            }
-            
-            .company-results-title {
-                font-size: 22px;
-            }
-            
-            .result-card {
-                min-width: 140px;
-                padding: 12px 8px;
-            }
-            
-            .result-number {
-                font-size: 18px;
-            }
-            
-            .result-label {
-                font-size: 12px;
-            }
-            
-            .footer {
-                padding: 25px 12px;
-            }
-            
-            /* Ajustes adicionais para telas muito pequenas */
-            .route-title {
-                font-size: 16px;
-            }
-            
-            .price-value {
-                font-size: 20px;
-            }
-            
-            .search-options {
-                gap: 8px;
-            }
-            
-            .option {
-                padding: 8px 12px;
-            }
-        }
-
-        /* Melhorias para orientação paisagem em mobile */
-        @media (max-height: 500px) and (orientation: landscape) {
-            .header {
-                padding: 8px 15px;
-            }
-            
-            .promo-banner {
-                height: 30px;
-                font-size: 14px;
-            }
-            
-            .monthly-promo-banner {
-                height: 30px;
-                font-size: 14px;
-            }
-            
-            .search-container {
-                margin: 10px;
-                padding: 10px;
-            }
-            
-            .modal-content {
-                max-height: 80vh;
-            }
-        }
-
-        /* Melhorias para tablets */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .search-form {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .search-buttons {
-                grid-column: 1 / -1;
-            }
-            
-            .results-list {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        /* Previne zoom em inputs no iOS */
-        @media screen and (-webkit-min-device-pixel-ratio:0) {
-            select,
-            textarea,
-            input {
-                font-size: 16px;
             }
         }
     </style>
@@ -1204,7 +866,6 @@
             </div>
             <span class="logo-text">BIXX PASSAGENS</span>
         </div>
-        <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
         <div class="compre-passagem" id="comprePassagem">
             Compre sua passagem
         </div>
@@ -1272,10 +933,46 @@
         </form>
     </div>
 
-    <!-- NOVO BANNER DE PROMOÇÕES MENSAL -->
-    <div class="monthly-promo-banner" id="monthlyPromoBanner">
-        <div class="monthly-promo-container" id="monthlyPromoContainer">
-            <!-- Conteúdo será inserido dinamicamente pelo JavaScript -->
+    <!-- Modal para seleção de passageiros -->
+    <div class="modal" id="passengerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Passageiro</div>
+                <button class="close-modal" id="closePassengerModal">&times;</button>
+            </div>
+            <div class="passenger-type">
+                <div class="passenger-info">
+                    <div class="passenger-title">Adulto (12+)</div>
+                </div>
+                <div class="passenger-counter">
+                    <button class="counter-btn" id="decreaseAdult">-</button>
+                    <span class="counter-value" id="adultCount">1</span>
+                    <button class="counter-btn" id="increaseAdult">+</button>
+                </div>
+            </div>
+            <div class="passenger-type">
+                <div class="passenger-info">
+                    <div class="passenger-title">Crianças (2 a 11 anos)</div>
+                </div>
+                <div class="passenger-counter">
+                    <button class="counter-btn" id="decreaseChild">-</button>
+                    <span class="counter-value" id="childCount">0</span>
+                    <button class="counter-btn" id="increaseChild">+</button>
+                </div>
+            </div>
+            <div class="passenger-type">
+                <div class="passenger-info">
+                    <div class="passenger-title">Bebê (0 a 23 meses)</div>
+                </div>
+                <div class="passenger-counter">
+                    <button class="counter-btn" id="decreaseBaby">-</button>
+                    <span class="counter-value" id="babyCount">0</span>
+                    <button class="counter-btn" id="increaseBaby">+</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="confirm-btn" id="confirmPassengers">Concluído</button>
+            </div>
         </div>
     </div>
 
@@ -1409,16 +1106,6 @@
         </div>
     </div>
 
-    <!-- NOVA SEÇÃO: RESULTADOS DA EMPRESA - ATUALIZADA -->
-    <div class="company-results">
-        <h2 class="company-results-title">Nossos Resultados</h2>
-        <div class="results-carousel-container">
-            <div class="results-carousel" id="resultsCarousel">
-                <!-- Conteúdo será inserido dinamicamente pelo JavaScript -->
-            </div>
-        </div>
-    </div>
-
     <!-- Rodapé -->
     <footer class="footer">
         <div class="footer-content">
@@ -1461,49 +1148,6 @@
             <p>&copy; 2025 BIXX PASSAGENS. Todos os direitos reservados.</p>
         </div>
     </footer>
-
-    <!-- Modal para seleção de passageiros -->
-    <div class="modal" id="passengerModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">Passageiro</div>
-                <button class="close-modal" id="closePassengerModal">&times;</button>
-            </div>
-            <div class="passenger-type">
-                <div class="passenger-info">
-                    <div class="passenger-title">Adulto (12+)</div>
-                </div>
-                <div class="passenger-counter">
-                    <button class="counter-btn" id="decreaseAdult">-</button>
-                    <span class="counter-value" id="adultCount">1</span>
-                    <button class="counter-btn" id="increaseAdult">+</button>
-                </div>
-            </div>
-            <div class="passenger-type">
-                <div class="passenger-info">
-                    <div class="passenger-title">Crianças (2 a 11 anos)</div>
-                </div>
-                <div class="passenger-counter">
-                    <button class="counter-btn" id="decreaseChild">-</button>
-                    <span class="counter-value" id="childCount">0</span>
-                    <button class="counter-btn" id="increaseChild">+</button>
-                </div>
-            </div>
-            <div class="passenger-type">
-                <div class="passenger-info">
-                    <div class="passenger-title">Bebê (0 a 23 meses)</div>
-                </div>
-                <div class="passenger-counter">
-                    <button class="counter-btn" id="decreaseBaby">-</button>
-                    <span class="counter-value" id="babyCount">0</span>
-                    <button class="counter-btn" id="increaseBaby">+</button>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="confirm-btn" id="confirmPassengers">Concluído</button>
-            </div>
-        </div>
-    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -1570,80 +1214,8 @@
                 bannerContainer.appendChild(bannerItem);
             });
             
-            // NOVO BANNER DE PROMOÇÕES MENSAL
-            const monthlyPromoContainer = document.getElementById('monthlyPromoContainer');
-            
-            // Promoções mensais
-            const monthlyPromotions = [
-                "🎉 PROMOÇÃO DE OUTUBRO: Brasília → São Paulo a partir de R$ 134,23! ✈️",
-                "🔥 OFERTA ESPECIAL: Rio de Janeiro → São Paulo com 20% de desconto! 🌟",
-                "💫 PROMOÇÃO RELÂMPAGO: Recife → Salvador por apenas R$ 309,21! 🏝️",
-                "🚀 VIAGEM DOS SONHOS: São Paulo → Rio de Janeiro com bagagem grátis! 🌴",
-                "🎊 PROMOÇÃO DO MÊS: Todas as rotas com até 30% OFF! ✈️",
-                "⭐ OFERTA EXCLUSIVA: Reserve agora e ganhe milhas extras! 🌍",
-                "💥 PROMOÇÃO IMPERDÍVEL: Ida e volta com desconto especial! 🛫",
-                "🎁 VIAGEM EM FAMÍLIA: Crianças até 11 anos pagam meia! 👨‍👩‍👧‍👦",
-                "🌟 PROMOÇÃO DE ÚLTIMA HORA: Passagens com até 40% de desconto! ✈️"
-            ];
-            
-            // Cria elementos para o banner de promoções mensais
-            monthlyPromotions.forEach((promo) => {
-                const promoItem = document.createElement('div');
-                promoItem.className = 'monthly-promo-item';
-                promoItem.textContent = promo;
-                monthlyPromoContainer.appendChild(promoItem);
-            });
-            
-            // Duplica o conteúdo para criar efeito de rolagem contínua
-            monthlyPromotions.forEach((promo) => {
-                const promoItem = document.createElement('div');
-                promoItem.className = 'monthly-promo-item';
-                promoItem.textContent = promo;
-                monthlyPromoContainer.appendChild(promoItem);
-            });
-            
-            // NOVA SEÇÃO: CARROSSEL DE RESULTADOS DA EMPRESA
-            const resultsCarousel = document.getElementById('resultsCarousel');
-            
-            // Dados para o carrossel de resultados
-            const companyResults = [
-                { icon: "✈️", number: "+500.000", label: "Passagens Vendidas" },
-                { icon: "💰", number: "R$ 85M", label: "Faturamento Anual" },
-                { icon: "👥", number: "+250", label: "Funcionários" },
-                { icon: "🏆", number: "98%", label: "Satisfação do Cliente" },
-                { icon: "🌍", number: "+50", label: "Destinos" },
-                { icon: "⭐", number: "4.9/5", label: "Avaliação Média" },
-                { icon: "🛡️", number: "100%", label: "Voos Seguros" },
-                { icon: "🚀", number: "+10", label: "Anos no Mercado" }
-            ];
-            
-            // Cria elementos para o carrossel de resultados
-            companyResults.forEach((result) => {
-                const resultCard = document.createElement('div');
-                resultCard.className = 'result-card';
-                
-                resultCard.innerHTML = `
-                    <div class="result-icon">${result.icon}</div>
-                    <div class="result-number">${result.number}</div>
-                    <div class="result-label">${result.label}</div>
-                `;
-                
-                resultsCarousel.appendChild(resultCard);
-            });
-            
-            // Duplica o conteúdo para criar efeito de rolagem contínua
-            companyResults.forEach((result) => {
-                const resultCard = document.createElement('div');
-                resultCard.className = 'result-card';
-                
-                resultCard.innerHTML = `
-                    <div class="result-icon">${result.icon}</div>
-                    <div class="result-number">${result.number}</div>
-                    <div class="result-label">${result.label}</div>
-                `;
-                
-                resultsCarousel.appendChild(resultCard);
-            });
+            // CORREÇÃO: A velocidade está definida no CSS como 95s para um ciclo completo
+            // A animação agora começa imediatamente e rola continuamente sem espaços
             
             // Restante do código JavaScript permanece igual
             const filterOptions = document.querySelectorAll('.filter-option');
@@ -1730,24 +1302,20 @@
             
             passengerOption.addEventListener('click', function() {
                 passengerModal.style.display = 'flex';
-                document.body.style.overflow = 'hidden'; // Previne scroll do body
             });
             
             closePassengerModal.addEventListener('click', function() {
                 passengerModal.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Restaura scroll do body
             });
             
             confirmPassengers.addEventListener('click', function() {
                 passengerModal.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Restaura scroll do body
             });
             
             // Fechar modal ao clicar fora dele
             window.addEventListener('click', function(event) {
                 if (event.target === passengerModal) {
                     passengerModal.style.display = 'none';
-                    document.body.style.overflow = 'auto'; // Restaura scroll do body
                 }
             });
 
@@ -1918,16 +1486,6 @@
             searchForm.addEventListener('submit', function(e) {
                 e.preventDefault();
             });
-            
-            // NOVA FUNCIONALIDADE: Menu mobile (para futura implementação)
-            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-            mobileMenuToggle.addEventListener('click', function() {
-                // Aqui você pode implementar a lógica para um menu mobile
-                alert('Menu mobile - Em desenvolvimento');
-            });
-            
-            // Melhoria: Prevenir zoom em inputs no iOS
-            document.addEventListener('touchstart', function() {}, {passive: true});
         });
     </script>
 </body>
