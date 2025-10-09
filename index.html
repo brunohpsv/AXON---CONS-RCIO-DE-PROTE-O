@@ -18,11 +18,11 @@
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             color: #333;
-            transition: margin-left 0.3s ease;
+            transition: margin-right 0.3s ease;
         }
 
         body.menu-open {
-            margin-left: 250px;
+            margin-right: 250px;
         }
 
         .header {
@@ -80,6 +80,7 @@
             border: none;
             cursor: pointer;
             padding: 0;
+            z-index: 101;
         }
 
         .menu-toggle span {
@@ -107,6 +108,22 @@
             animation: dotAnimation 1.5s infinite 0.4s;
         }
 
+        /* Animação para quando o menu está aberto */
+        .menu-toggle.open span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+            animation: none;
+        }
+
+        .menu-toggle.open span:nth-child(2) {
+            opacity: 0;
+            animation: none;
+        }
+
+        .menu-toggle.open span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+            animation: none;
+        }
+
         @keyframes dotAnimation {
             0%, 100% {
                 opacity: 1;
@@ -118,22 +135,22 @@
             }
         }
 
-        /* Menu lateral */
+        /* Menu lateral - MODIFICADO PARA LADO DIREITO */
         .side-menu {
             position: fixed;
             top: 0;
-            left: -250px;
+            right: -250px;
             width: 250px;
             height: 100%;
             background-color: white;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            transition: left 0.3s ease;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
             z-index: 99;
             overflow-y: auto;
         }
 
         .side-menu.open {
-            left: 0;
+            right: 0;
         }
 
         .menu-header {
@@ -155,15 +172,9 @@
             color: #1a1a1a;
         }
 
+        /* REMOVIDO O BOTÃO DE FECHAR (X) */
         .menu-close {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #666;
-            position: absolute;
-            right: 15px;
-            top: 15px;
+            display: none;
         }
 
         .menu-items {
@@ -933,7 +944,18 @@
             margin-top: 5px;
         }
 
+        /* MEDIA QUERIES - MODIFICADAS PARA O MENU RESPONSIVO */
         @media (max-width: 768px) {
+            /* Menu em tela cheia para dispositivos móveis */
+            .side-menu {
+                width: 100%;
+                right: -100%;
+            }
+            
+            body.menu-open {
+                margin-right: 0;
+            }
+            
             .search-options {
                 flex-direction: column;
                 align-items: flex-start;
@@ -1071,7 +1093,7 @@
                 <img src="favicon.png" alt="BIXX PASS Logo" class="menu-logo">
             </div>
             <span class="menu-title">BIXX PASSAGENS</span>
-            <button class="menu-close" id="menuClose">&times;</button>
+            <!-- REMOVIDO O BOTÃO DE FECHAR (X) -->
         </div>
         <div class="menu-items">
             <div class="menu-item active">
@@ -1546,29 +1568,41 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // NOVO CÓDIGO: Menu lateral
+            // CÓDIGO ATUALIZADO: Menu lateral
             const menuToggle = document.getElementById('menuToggle');
             const sideMenu = document.getElementById('sideMenu');
-            const menuClose = document.getElementById('menuClose');
             const menuOverlay = document.getElementById('menuOverlay');
             const body = document.body;
 
-            // Abrir menu
-            menuToggle.addEventListener('click', function() {
-                sideMenu.classList.add('open');
-                menuOverlay.classList.add('active');
-                body.classList.add('menu-open');
-            });
+            // Função para abrir/fechar menu
+            function toggleMenu() {
+                const isOpen = sideMenu.classList.contains('open');
+                
+                if (isOpen) {
+                    // Fechar menu
+                    sideMenu.classList.remove('open');
+                    menuOverlay.classList.remove('active');
+                    body.classList.remove('menu-open');
+                    menuToggle.classList.remove('open');
+                } else {
+                    // Abrir menu
+                    sideMenu.classList.add('open');
+                    menuOverlay.classList.add('active');
+                    body.classList.add('menu-open');
+                    menuToggle.classList.add('open');
+                }
+            }
 
-            // Fechar menu
-            function closeMenu() {
+            // Abrir/fechar menu com o botão
+            menuToggle.addEventListener('click', toggleMenu);
+
+            // Fechar menu com overlay
+            menuOverlay.addEventListener('click', function() {
                 sideMenu.classList.remove('open');
                 menuOverlay.classList.remove('active');
                 body.classList.remove('menu-open');
-            }
-
-            menuClose.addEventListener('click', closeMenu);
-            menuOverlay.addEventListener('click', closeMenu);
+                menuToggle.classList.remove('open');
+            });
 
             // BANNER DINÂMICO CORRIGIDO
             const bannerContainer = document.getElementById('bannerContainer');
