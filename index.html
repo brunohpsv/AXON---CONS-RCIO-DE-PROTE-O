@@ -70,8 +70,41 @@
             color: #1a1a1a;
         }
 
-        .menu-toggle {
+        /* Menu desktop - NOVO ESTILO */
+        .desktop-menu {
             display: flex;
+            align-items: center;
+        }
+
+        .desktop-menu-items {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .desktop-menu-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: color 0.2s;
+            font-size: 15px;
+            position: relative;
+        }
+
+        .desktop-menu-item:hover {
+            color: #e60000;
+        }
+
+        .desktop-menu-item.active {
+            color: #e60000;
+            font-weight: bold;
+        }
+
+        .desktop-menu-item.reservation {
+            font-weight: bold;
+        }
+
+        .menu-toggle {
+            display: none;
             flex-direction: column;
             justify-content: space-between;
             width: 30px;
@@ -94,35 +127,6 @@
 
         .menu-toggle:hover span {
             background-color: #e60000;
-        }
-
-        /* REMOVIDA A ANIMAÇÃO DOS PONTOS DO MENU */
-        .menu-toggle span:nth-child(1) {
-            animation: none;
-        }
-
-        .menu-toggle span:nth-child(2) {
-            animation: none;
-        }
-
-        .menu-toggle span:nth-child(3) {
-            animation: none;
-        }
-
-        /* Animação para quando o menu está aberto */
-        .menu-toggle.open span:nth-child(1) {
-            transform: translateY(9px) rotate(45deg);
-            animation: none;
-        }
-
-        .menu-toggle.open span:nth-child(2) {
-            opacity: 0;
-            animation: none;
-        }
-
-        .menu-toggle.open span:nth-child(3) {
-            transform: translateY(-9px) rotate(-45deg);
-            animation: none;
         }
 
         /* Menu lateral - MODIFICADO PARA LADO DIREITO */
@@ -951,6 +955,16 @@
                 margin-right: 0;
             }
             
+            /* Menu desktop escondido em mobile */
+            .desktop-menu {
+                display: none;
+            }
+            
+            /* Menu hamburger visível em mobile */
+            .menu-toggle {
+                display: flex;
+            }
+            
             .search-options {
                 flex-direction: column;
                 align-items: flex-start;
@@ -1081,7 +1095,7 @@
     </style>
 </head>
 <body>
-    <!-- Menu lateral -->
+    <!-- Menu lateral (para mobile) -->
     <div class="side-menu" id="sideMenu">
         <div class="menu-header">
             <div class="logo-icon">
@@ -1128,6 +1142,22 @@
             </div>
             <span class="logo-text">BIXX PASSAGENS</span>
         </div>
+        
+        <!-- Menu desktop - NOVO -->
+        <nav class="desktop-menu">
+            <ul class="desktop-menu-items">
+                <li class="desktop-menu-item active">Início</li>
+                <li class="desktop-menu-item">Passagens Aéreas</li>
+                <li class="desktop-menu-item">Passagens Rodoviárias</li>
+                <li class="desktop-menu-item">Hotéis e Pousadas</li>
+                <li class="desktop-menu-item">Seguro Viagem</li>
+                <li class="desktop-menu-item reservation">Consultar sua reserva</li>
+                <li class="desktop-menu-item">Sobre Nós</li>
+                <li class="desktop-menu-item">Contato</li>
+            </ul>
+        </nav>
+        
+        <!-- Botão menu hamburger (apenas mobile) -->
         <button class="menu-toggle" id="menuToggle">
             <span></span>
             <span></span>
@@ -1555,13 +1585,13 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // CÓDIGO ATUALIZADO: Menu lateral
+            // CÓDIGO ATUALIZADO: Menu lateral (apenas para mobile)
             const menuToggle = document.getElementById('menuToggle');
             const sideMenu = document.getElementById('sideMenu');
             const menuOverlay = document.getElementById('menuOverlay');
             const body = document.body;
 
-            // Função para abrir/fechar menu
+            // Função para abrir/fechar menu (apenas mobile)
             function toggleMenu() {
                 const isOpen = sideMenu.classList.contains('open');
                 
@@ -1580,10 +1610,10 @@
                 }
             }
 
-            // Abrir/fechar menu com o botão
+            // Abrir/fechar menu com o botão (apenas mobile)
             menuToggle.addEventListener('click', toggleMenu);
 
-            // Fechar menu com overlay
+            // Fechar menu com overlay (apenas mobile)
             menuOverlay.addEventListener('click', function() {
                 sideMenu.classList.remove('open');
                 menuOverlay.classList.remove('active');
