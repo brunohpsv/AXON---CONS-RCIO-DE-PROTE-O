@@ -70,7 +70,7 @@
             color: #1a1a1a;
         }
 
-        /* Menu desktop - NOVO ESTILO */
+        /* Menu desktop - ESTILO MELHORADO */
         .desktop-menu {
             display: flex;
             align-items: center;
@@ -79,19 +79,26 @@
         .desktop-menu-items {
             display: flex;
             list-style: none;
-            gap: 20px;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            max-width: 800px;
         }
 
         .desktop-menu-item {
-            padding: 10px 15px;
+            padding: 10px 12px;
             cursor: pointer;
-            transition: color 0.2s;
-            font-size: 15px;
+            transition: all 0.3s ease;
+            font-size: 14px;
             position: relative;
+            white-space: nowrap;
+            border-radius: 4px;
         }
 
         .desktop-menu-item:hover {
             color: #e60000;
+            background-color: rgba(230, 0, 0, 0.05);
+            transform: translateY(-2px);
         }
 
         .desktop-menu-item.active {
@@ -99,8 +106,26 @@
             font-weight: bold;
         }
 
+        .desktop-menu-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 2px;
+            background-color: #e60000;
+            transition: width 0.3s ease;
+        }
+
         .desktop-menu-item.reservation {
             font-weight: bold;
+            background-color: rgba(230, 0, 0, 0.1);
+            border: 1px solid rgba(230, 0, 0, 0.2);
+        }
+
+        .desktop-menu-item.reservation:hover {
+            background-color: rgba(230, 0, 0, 0.15);
         }
 
         .menu-toggle {
@@ -944,6 +969,28 @@
         }
 
         /* MEDIA QUERIES - MODIFICADAS PARA O MENU RESPONSIVO */
+        @media (max-width: 1024px) {
+            .desktop-menu-items {
+                gap: 8px;
+            }
+            
+            .desktop-menu-item {
+                padding: 8px 10px;
+                font-size: 13px;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .desktop-menu-items {
+                gap: 6px;
+            }
+            
+            .desktop-menu-item {
+                padding: 7px 8px;
+                font-size: 12px;
+            }
+        }
+
         @media (max-width: 768px) {
             /* Menu em tela cheia para dispositivos móveis */
             .side-menu {
@@ -1143,7 +1190,7 @@
             <span class="logo-text">BIXX PASSAGENS</span>
         </div>
         
-        <!-- Menu desktop - NOVO -->
+        <!-- Menu desktop - MELHORADO -->
         <nav class="desktop-menu">
             <ul class="desktop-menu-items">
                 <li class="desktop-menu-item active">Início</li>
