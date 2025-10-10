@@ -96,16 +96,17 @@
             background-color: #e60000;
         }
 
+        /* REMOVIDA A ANIMAÇÃO DOS PONTOS DO MENU */
         .menu-toggle span:nth-child(1) {
-            animation: dotAnimation 1.5s infinite;
+            animation: none;
         }
 
         .menu-toggle span:nth-child(2) {
-            animation: dotAnimation 1.5s infinite 0.2s;
+            animation: none;
         }
 
         .menu-toggle span:nth-child(3) {
-            animation: dotAnimation 1.5s infinite 0.4s;
+            animation: none;
         }
 
         /* Animação para quando o menu está aberto */
@@ -122,17 +123,6 @@
         .menu-toggle.open span:nth-child(3) {
             transform: translateY(-9px) rotate(-45deg);
             animation: none;
-        }
-
-        @keyframes dotAnimation {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.5;
-                transform: scale(0.8);
-            }
         }
 
         /* Menu lateral - MODIFICADO PARA LADO DIREITO */
@@ -201,9 +191,14 @@
             background-color: rgba(230, 0, 0, 0.05);
         }
 
+        /* REMOVIDO O ESTILO DO ÍCONE DO MENU */
         .menu-item-icon {
-            width: 20px;
-            text-align: center;
+            display: none;
+        }
+
+        /* ESTILO ESPECÍFICO PARA "CONSULTAR SUA RESERVA" EM NEGRITO */
+        .menu-item.reservation {
+            font-weight: bold;
         }
 
         .menu-overlay {
@@ -1097,35 +1092,27 @@
         </div>
         <div class="menu-items">
             <div class="menu-item active">
-                <div class="menu-item-icon">🏠</div>
                 <span>Início</span>
             </div>
             <div class="menu-item">
-                <div class="menu-item-icon">✈️</div>
                 <span>Passagens Aéreas</span>
             </div>
             <div class="menu-item">
-                <div class="menu-item-icon">🚌</div>
                 <span>Passagens Rodoviárias</span>
             </div>
             <div class="menu-item">
-                <div class="menu-item-icon">🏨</div>
                 <span>Hotéis e Pousadas</span>
             </div>
             <div class="menu-item">
-                <div class="menu-item-icon">🛡️</div>
                 <span>Seguro Viagem</span>
             </div>
-            <div class="menu-item">
-                <div class="menu-item-icon">📋</div>
+            <div class="menu-item reservation">
                 <span>Consultar sua reserva</span>
             </div>
             <div class="menu-item">
-                <div class="menu-item-icon">ℹ️</div>
                 <span>Sobre Nós</span>
             </div>
             <div class="menu-item">
-                <div class="menu-item-icon">📞</div>
                 <span>Contato</span>
             </div>
         </div>
