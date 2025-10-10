@@ -70,29 +70,34 @@
             color: #1a1a1a;
         }
 
-        /* Menu desktop - ESTILO MELHORADO */
+        /* Menu desktop - ESTILO MELHORADO E ORGANIZADO */
         .desktop-menu {
             display: flex;
             align-items: center;
+            flex: 1;
+            justify-content: flex-end;
         }
 
         .desktop-menu-items {
             display: flex;
             list-style: none;
-            gap: 10px;
-            flex-wrap: wrap;
+            gap: 5px;
+            flex-wrap: nowrap;
             justify-content: flex-end;
-            max-width: 800px;
+            align-items: center;
+            max-width: 100%;
         }
 
         .desktop-menu-item {
-            padding: 10px 12px;
+            padding: 12px 16px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 14px;
             position: relative;
             white-space: nowrap;
             border-radius: 4px;
+            text-align: center;
+            min-width: max-content;
         }
 
         .desktop-menu-item:hover {
@@ -122,6 +127,7 @@
             font-weight: bold;
             background-color: rgba(230, 0, 0, 0.1);
             border: 1px solid rgba(230, 0, 0, 0.2);
+            margin-left: 5px;
         }
 
         .desktop-menu-item.reservation:hover {
@@ -971,22 +977,22 @@
         /* MEDIA QUERIES - MODIFICADAS PARA O MENU RESPONSIVO */
         @media (max-width: 1024px) {
             .desktop-menu-items {
-                gap: 8px;
+                gap: 5px;
             }
             
             .desktop-menu-item {
-                padding: 8px 10px;
+                padding: 10px 12px;
                 font-size: 13px;
             }
         }
         
         @media (max-width: 900px) {
             .desktop-menu-items {
-                gap: 6px;
+                gap: 4px;
             }
             
             .desktop-menu-item {
-                padding: 7px 8px;
+                padding: 8px 10px;
                 font-size: 12px;
             }
         }
@@ -1184,7 +1190,7 @@
             <span class="logo-text">BIXX PASSAGENS</span>
         </div>
         
-        <!-- Menu desktop - MELHORADO -->
+        <!-- Menu desktop - MELHORADO E ORGANIZADO -->
         <nav class="desktop-menu">
             <ul class="desktop-menu-items">
                 <li class="desktop-menu-item active">Início</li>
