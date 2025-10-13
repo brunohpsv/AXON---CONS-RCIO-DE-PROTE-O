@@ -70,7 +70,7 @@
             color: #1a1a1a;
         }
 
-        /* Menu desktop - ESTILO MELHORADO E ORGANIZADO */
+        /* Menu desktop - ESTILO MELHORADO */
         .desktop-menu {
             display: flex;
             align-items: center;
@@ -84,8 +84,8 @@
             gap: 5px;
             flex-wrap: nowrap;
             justify-content: flex-end;
-            align-items: center;
             max-width: 100%;
+            align-items: center;
         }
 
         .desktop-menu-item {
@@ -979,18 +979,18 @@
             .desktop-menu-items {
                 gap: 5px;
             }
-            
+
             .desktop-menu-item {
                 padding: 10px 12px;
                 font-size: 13px;
             }
         }
-        
+
         @media (max-width: 900px) {
             .desktop-menu-items {
                 gap: 4px;
             }
-            
+
             .desktop-menu-item {
                 padding: 8px 10px;
                 font-size: 12px;
@@ -1003,97 +1003,97 @@
                 width: 100%;
                 right: -100%;
             }
-            
+
             body.menu-open {
                 margin-right: 0;
             }
-            
+
             /* Menu desktop escondido em mobile */
             .desktop-menu {
                 display: none;
             }
-            
+
             /* Menu hamburger visível em mobile */
             .menu-toggle {
                 display: flex;
             }
-            
+
             .search-options {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            
+
             .travel-type-selector {
                 width: 100%;
             }
-            
+
             .search-form {
                 grid-template-columns: 1fr;
             }
-            
+
             .search-options {
                 flex-direction: column;
                 gap: 10px;
             }
-            
+
             .option, .trip-type-selector {
                 min-width: auto;
                 width: 100%;
             }
-            
+
             .promo-input-container {
                 margin-left: 0;
                 margin-top: 10px;
                 width: 100%;
             }
-            
+
             .promo-input {
                 width: 100%;
             }
-            
+
             .search-buttons {
                 flex-direction: column;
                 max-width: 100%;
             }
-            
+
             .results-header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 15px;
             }
-            
+
             .result-item {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 15px;
             }
-            
+
             .price-info {
                 text-align: left;
                 margin-right: 0;
             }
-            
+
             .results-filters {
                 flex-direction: column;
                 width: 100%;
             }
-            
+
             .filter-input-container {
                 width: 100%;
             }
-            
+
             .filter-input {
                 width: 100%;
             }
-            
+
             .results-list {
                 grid-template-columns: 1fr;
             }
-            
+
             .about-content {
                 grid-template-columns: 1fr;
             }
-            
+
             .footer-content {
                 grid-template-columns: 1fr;
             }
@@ -1103,44 +1103,44 @@
             .header {
                 padding: 12px 20px;
             }
-            
+
             .logo-text {
                 font-size: 22px;
             }
-            
+
             .logo-icon {
                 width: 36px;
                 height: 36px;
                 font-size: 16px;
             }
-            
+
             .search-container {
                 margin: 10px;
                 padding: 15px;
             }
-            
+
             .results-section {
                 margin: 10px;
             }
-            
+
             .results-filters {
                 flex-direction: column;
                 width: 100%;
             }
-            
+
             .filter-option, .filter-select {
                 width: 100%;
             }
-            
+
             .about-section {
                 margin: 10px;
                 padding: 20px 15px;
             }
-            
+
             .about-title {
                 font-size: 24px;
             }
-            
+
             .footer {
                 padding: 30px 15px;
             }
@@ -1155,7 +1155,6 @@
                 <img src="favicon.png" alt="BIXX PASS Logo" class="menu-logo">
             </div>
             <span class="menu-title">BIXX PASSAGENS</span>
-            <!-- REMOVIDO O BOTÃO DE FECHAR (X) -->
         </div>
         <div class="menu-items">
             <div class="menu-item active">
@@ -1170,7 +1169,7 @@
             <div class="menu-item reservation">
                 <span>Consultar sua reserva</span>
             </div>
-            </div>
+        </div>
     </div>
 
     <!-- Overlay para fechar o menu -->
@@ -1183,8 +1182,8 @@
             </div>
             <span class="logo-text">BIXX PASSAGENS</span>
         </div>
-        
-        <!-- Menu desktop - MELHORADO E ORGANIZADO -->
+
+        <!-- Menu desktop - CORRIGIDO -->
         <nav class="desktop-menu">
             <ul class="desktop-menu-items">
                 <li class="desktop-menu-item active">Início</li>
@@ -1193,7 +1192,7 @@
                 <li class="desktop-menu-item reservation">Consultar sua reserva</li>
             </ul>
         </nav>
-        
+
         <!-- Botão menu hamburger (apenas mobile) -->
         <button class="menu-toggle" id="menuToggle">
             <span></span>
@@ -1211,6 +1210,10 @@
 
     <div class="search-container">
         <div class="search-options">
+            <div class="travel-type-selector" id="travelTypeSelector">
+                <div class="travel-type-option active" data-value="air">Passagens aéreas</div>
+                <div class="travel-type-option" data-value="bus">Passagens rodoviárias</div>
+            </div>
             <div class="options-container">
                 <div class="trip-type-selector" id="tripTypeOption">
                     <div class="trip-type-option active" data-value="roundtrip">Ida e volta</div>
@@ -1595,6 +1598,8 @@
             <div class="footer-column">
                 <h3 class="footer-title">Serviços</h3>
                 <ul class="footer-links">
+                    <li><a href="#">Passagens Aéreas</a></li>
+                    <li><a href="#">Passagens Rodoviárias</a></li>
                     <li><a href="#">Check-in Online</a></li>
                     <li><a href="#">Status do Voo/Ônibus</a></li>
                     <li><a href="#">Assistência Especial</a></li>
@@ -1625,7 +1630,7 @@
             // Função para abrir/fechar menu (apenas mobile)
             function toggleMenu() {
                 const isOpen = sideMenu.classList.contains('open');
-                
+
                 if (isOpen) {
                     // Fechar menu
                     sideMenu.classList.remove('open');
@@ -1654,7 +1659,7 @@
 
             // BANNER DINÂMICO CORRIGIDO
             const bannerContainer = document.getElementById('bannerContainer');
-            
+
             // Mensagens para o banner
             const bannerMessages = [
                 // Saudação baseada no horário será adicionada dinamicamente
@@ -1679,7 +1684,7 @@
                 "🌍 Conectamos você aos melhores destinos! 🌍",
                 "🛫 Sua jornada, nossa prioridade! 🛫"
             ];
-            
+
             // Função para obter saudação baseada no horário
             function getGreeting() {
                 const hour = new Date().getHours();
@@ -1691,14 +1696,14 @@
                     return "Boa noite! 🌙";
                 }
             }
-            
+
             // Adiciona a saudação às mensagens
             const greeting = getGreeting();
             const messagesWithGreeting = [
                 `${greeting} Voe com a BIXX PASSAGENS! ✈️`,
                 ...bannerMessages
             ];
-            
+
             // Cria elementos para o banner - duplicando o conteúdo para criar efeito contínuo
             messagesWithGreeting.forEach((message) => {
                 const bannerItem = document.createElement('div');
@@ -1706,7 +1711,7 @@
                 bannerItem.textContent = message;
                 bannerContainer.appendChild(bannerItem);
             });
-            
+
             // Duplica o conteúdo para criar efeito de rolagem contínua
             messagesWithGreeting.forEach((message) => {
                 const bannerItem = document.createElement('div');
@@ -1714,24 +1719,24 @@
                 bannerItem.textContent = message;
                 bannerContainer.appendChild(bannerItem);
             });
-            
+
             // NOVA FUNCIONALIDADE: Seletor de tipo de transporte
             const travelTypeOptions = document.querySelectorAll('.travel-type-option');
             const airSearchForm = document.getElementById('airSearchForm');
             const busSearchForm = document.getElementById('busSearchForm');
             const airResultsSection = document.getElementById('airResultsSection');
             const busResultsSection = document.getElementById('busResultsSection');
-            
+
             travelTypeOptions.forEach(option => {
                 option.addEventListener('click', function() {
                     // Remove a classe active de todas as opções
                     travelTypeOptions.forEach(opt => opt.classList.remove('active'));
-                    
+
                     // Adiciona a classe active à opção clicada
                     this.classList.add('active');
-                    
+
                     const travelType = this.getAttribute('data-value');
-                    
+
                     // Mostra ou esconde os formulários e resultados baseados no tipo de transporte
                     if (travelType === 'air') {
                         airSearchForm.style.display = 'grid';
@@ -1746,7 +1751,7 @@
                     }
                 });
             });
-            
+
             // Restante do código JavaScript permanece igual
             const filterOptions = document.querySelectorAll('.filter-option');
             filterOptions.forEach(option => {
@@ -1759,15 +1764,15 @@
             const tripTypeOptions = document.querySelectorAll('.trip-type-option');
             const voltaGroup = document.getElementById('voltaGroup');
             const voltaGroupBus = document.getElementById('voltaGroupBus');
-            
+
             tripTypeOptions.forEach(option => {
                 option.addEventListener('click', function() {
                     // Remove a classe active de todas as opções
                     tripTypeOptions.forEach(opt => opt.classList.remove('active'));
-                    
+
                     // Adiciona a classe active à opção clicada
                     this.classList.add('active');
-                    
+
                     // Mostra ou esconde o campo de volta
                     if (this.getAttribute('data-value') === 'oneway') {
                         voltaGroup.style.display = 'none';
@@ -1785,66 +1790,66 @@
             const closePassengerModal = document.getElementById('closePassengerModal');
             const confirmPassengers = document.getElementById('confirmPassengers');
             const passengerText = document.getElementById('passengerText');
-            
+
             // Contadores de passageiros
             const adultCount = document.getElementById('adultCount');
             const childCount = document.getElementById('childCount');
             const babyCount = document.getElementById('babyCount');
-            
+
             // Botões de incremento/decremento
             document.getElementById('increaseAdult').addEventListener('click', function() {
                 adultCount.textContent = parseInt(adultCount.textContent) + 1;
                 updatePassengerText();
             });
-            
+
             document.getElementById('decreaseAdult').addEventListener('click', function() {
                 if (parseInt(adultCount.textContent) > 1) {
                     adultCount.textContent = parseInt(adultCount.textContent) - 1;
                     updatePassengerText();
                 }
             });
-            
+
             document.getElementById('increaseChild').addEventListener('click', function() {
                 childCount.textContent = parseInt(childCount.textContent) + 1;
                 updatePassengerText();
             });
-            
+
             document.getElementById('decreaseChild').addEventListener('click', function() {
                 if (parseInt(childCount.textContent) > 0) {
                     childCount.textContent = parseInt(childCount.textContent) - 1;
                     updatePassengerText();
                 }
             });
-            
+
             document.getElementById('increaseBaby').addEventListener('click', function() {
                 babyCount.textContent = parseInt(babyCount.textContent) + 1;
                 updatePassengerText();
             });
-            
+
             document.getElementById('decreaseBaby').addEventListener('click', function() {
                 if (parseInt(babyCount.textContent) > 0) {
                     babyCount.textContent = parseInt(babyCount.textContent) - 1;
                     updatePassengerText();
                 }
             });
-            
+
             function updatePassengerText() {
                 const total = parseInt(adultCount.textContent) + parseInt(childCount.textContent) + parseInt(babyCount.textContent);
                 passengerText.textContent = total + ' Passageiro' + (total > 1 ? 's' : '');
             }
-            
+
             passengerOption.addEventListener('click', function() {
                 passengerModal.style.display = 'flex';
             });
-            
+
             closePassengerModal.addEventListener('click', function() {
                 passengerModal.style.display = 'none';
             });
-            
+
             confirmPassengers.addEventListener('click', function() {
                 passengerModal.style.display = 'none';
             });
-            
+
             // Fechar modal ao clicar fora dele
             window.addEventListener('click', function(event) {
                 if (event.target === passengerModal) {
@@ -1855,7 +1860,7 @@
             // Funcionalidade para o código promocional
             const promoCodeOption = document.getElementById('promoCodeOption');
             const promoInputContainer = document.getElementById('promoInputContainer');
-            
+
             promoCodeOption.addEventListener('click', function() {
                 promoInputContainer.style.display = promoInputContainer.style.display === 'block' ? 'none' : 'block';
             });
@@ -1864,23 +1869,23 @@
             const priceSort = document.getElementById('priceSort');
             const airResultsList = document.getElementById('airResultsList');
             const airResultItems = document.querySelectorAll('#airResultsList .result-item');
-            
+
             priceSort.addEventListener('change', function() {
                 sortResults(this.value, airResultsList, airResultItems);
             });
-            
+
             // Funcionalidade para ordenação por preço (passagens rodoviárias)
             const priceSortBus = document.getElementById('priceSortBus');
             const busResultsList = document.getElementById('busResultsList');
             const busResultItems = document.querySelectorAll('#busResultsList .result-item');
-            
+
             priceSortBus.addEventListener('change', function() {
                 sortResults(this.value, busResultsList, busResultItems);
             });
-            
+
             function sortResults(sortType, resultsList, resultItems) {
                 const itemsArray = Array.from(resultItems);
-                
+
                 switch(sortType) {
                     case 'cheap':
                         // Ordena do mais barato para o mais caro
@@ -1890,7 +1895,7 @@
                             return priceA - priceB;
                         });
                         break;
-                        
+
                     case 'expensive':
                         // Ordena do mais caro para o mais barato
                         itemsArray.sort((a, b) => {
@@ -1899,31 +1904,31 @@
                             return priceB - priceA;
                         });
                         break;
-                        
+
                     case 'promo':
                         // Mostra primeiro as promoções
                         itemsArray.sort((a, b) => {
                             const promoA = a.getAttribute('data-promo') === 'true';
                             const promoB = b.getAttribute('data-promo') === 'true';
-                            
+
                             if (promoA && !promoB) return -1;
                             if (!promoA && promoB) return 1;
                             return 0;
                         });
                         break;
-                        
+
                     default:
                         // Ordem original (como estão no HTML)
                         itemsArray.sort((a, b) => {
                             return Array.from(resultsList.children).indexOf(a) - Array.from(resultsList.children).indexOf(b);
                         });
                 }
-                
+
                 // Remove todos os itens da lista
                 while (resultsList.firstChild) {
                     resultsList.removeChild(resultsList.firstChild);
                 }
-                
+
                 // Adiciona os itens na nova ordem
                 itemsArray.forEach(item => {
                     resultsList.appendChild(item);
@@ -1933,47 +1938,47 @@
             // CORREÇÃO PRINCIPAL: Alteração do botão de pesquisa para evitar envio do formulário
             const searchButton = document.getElementById('searchButton');
             const searchButtonBus = document.getElementById('searchButtonBus');
-            
+
             searchButton.addEventListener('click', function() {
                 const origem = document.getElementById('origem').value;
                 const destino = document.getElementById('destino').value;
-                
+
                 // Se ambos os campos estiverem vazios, mostrar todos os resultados
                 if (!origem && !destino) {
                     showAllResults(airResultsList, airResultItems);
                     return;
                 }
-                
+
                 // Filtrar os resultados
                 filterResults(origem, destino, airResultsList, airResultItems);
             });
-            
+
             searchButtonBus.addEventListener('click', function() {
                 const origem = document.getElementById('origemBus').value;
                 const destino = document.getElementById('destinoBus').value;
-                
+
                 // Se ambos os campos estiverem vazios, mostrar todos os resultados
                 if (!origem && !destino) {
                     showAllResults(busResultsList, busResultItems);
                     return;
                 }
-                
+
                 // Filtrar os resultados
                 filterResults(origem, destino, busResultsList, busResultItems);
             });
-            
+
             function filterResults(origem, destino, resultsList, resultItems) {
                 const allResults = resultItems;
                 let hasResults = false;
-                
+
                 allResults.forEach(result => {
                     const resultOrigem = result.getAttribute('data-origem');
                     const resultDestino = result.getAttribute('data-destino');
-                    
+
                     // Verificar se o resultado corresponde aos critérios de filtro
                     const matchesOrigem = !origem || resultOrigem === origem;
                     const matchesDestino = !destino || resultDestino === destino;
-                    
+
                     if (matchesOrigem && matchesDestino) {
                         result.style.display = 'flex';
                         hasResults = true;
@@ -1981,7 +1986,7 @@
                         result.style.display = 'none';
                     }
                 });
-                
+
                 // Atualizar o título da seção de resultados
                 const resultsTitle = document.querySelector('.results-title');
                 if (hasResults) {
@@ -1990,13 +1995,13 @@
                     resultsTitle.textContent = 'Nenhum resultado encontrado';
                 }
             }
-            
+
             function showAllResults(resultsList, resultItems) {
                 const allResults = resultItems;
                 allResults.forEach(result => {
                     result.style.display = 'flex';
                 });
-                
+
                 // Restaurar o título original
                 document.querySelector('.results-title').textContent = 'Resultados da busca';
             }
@@ -2004,80 +2009,77 @@
             // NOVA FUNCIONALIDADE: BOTÃO LIMPAR
             const clearButton = document.getElementById('clearButton');
             const clearButtonBus = document.getElementById('clearButtonBus');
-            
+
             clearButton.addEventListener('click', function() {
                 // Limpar os campos de origem e destino
                 document.getElementById('origem').value = '';
                 document.getElementById('destino').value = '';
-                
+
                 // Resetar as datas para os valores padrão
                 document.getElementById('partida').value = '2025-10-10';
                 document.getElementById('volta').value = '2025-10-17';
-                
+
                 // Resetar o tipo de viagem para "Ida e volta"
                 tripTypeOptions.forEach(opt => opt.classList.remove('active'));
                 document.querySelector('.trip-type-option[data-value="roundtrip"]').classList.add('active');
                 voltaGroup.style.display = 'flex';
-                
+
                 // Resetar contadores de passageiros
                 adultCount.textContent = '1';
                 childCount.textContent = '0';
                 babyCount.textContent = '0';
                 updatePassengerText();
-                
+
                 // Limpar código promocional
                 document.getElementById('promoCodeInput').value = '';
                 promoInputContainer.style.display = 'none';
-                
+
                 // Mostrar todos os resultados novamente
                 showAllResults(airResultsList, airResultItems);
-                
+
                 // Resetar ordenação
                 document.getElementById('priceSort').value = '';
-                
+
                 // Foco no primeiro campo
                 document.getElementById('origem').focus();
             });
-            
+
             clearButtonBus.addEventListener('click', function() {
                 // Limpar os campos de origem e destino
                 document.getElementById('origemBus').value = '';
                 document.getElementById('destinoBus').value = '';
-                
+
                 // Resetar as datas para os valores padrão
                 document.getElementById('partidaBus').value = '2025-10-10';
                 document.getElementById('voltaBus').value = '2025-10-17';
-                
+
                 // Resetar o tipo de viagem para "Ida e volta"
                 tripTypeOptions.forEach(opt => opt.classList.remove('active'));
                 document.querySelector('.trip-type-option[data-value="roundtrip"]').classList.add('active');
                 voltaGroupBus.style.display = 'flex';
-                
+
                 // Resetar contadores de passageiros
                 adultCount.textContent = '1';
                 childCount.textContent = '0';
                 babyCount.textContent = '0';
                 updatePassengerText();
-                
+
                 // Limpar código promocional
                 document.getElementById('promoCodeInput').value = '';
                 promoInputContainer.style.display = 'none';
-                
+
                 // Mostrar todos os resultados novamente
                 showAllResults(busResultsList, busResultItems);
-                
+
                 // Resetar ordenação
                 document.getElementById('priceSortBus').value = '';
-                
+
                 // Foco no primeiro campo
                 document.getElementById('origemBus').focus();
             });
-            
-            // CORREÇÃO: Prevenir envio do formulário padrão
-            const searchForm = document.getElementById('searchForm');
-            searchForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-            });
+
+            // CORREÇÃO: Removida referência ao formulário inexistente
+            // O código anterior fazia referência a um formulário com ID 'searchForm' que não existe
         });
     </script>
 </body>
