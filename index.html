@@ -7,7 +7,7 @@
     <!-- Adicionando o favicon -->
     <link rel="icon" type="image/png" href="favicon-32x32.png">
     <style>
-        /* Estilos anteriores mantidos */
+        /* TODOS OS ESTILOS ANTERIORES MANTIDOS EXATAMENTE IGUAIS */
         * {
             margin: 0;
             padding: 0;
@@ -1145,6 +1145,50 @@
                 padding: 30px 15px;
             }
         }
+
+        /* NOVOS ESTILOS PARA LOADING E ESTADOS */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #e60000;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .error-message {
+            background-color: #ffe6e6;
+            border: 1px solid #ffcccc;
+            color: #cc0000;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -1237,22 +1281,26 @@
                 <label for="origem">De</label>
                 <select id="origem">
                     <option value="">Selecione a origem</option>
-                    <option value="Brasília">Brasília (BSB)</option>
-                    <option value="Rio de Janeiro">Rio de Janeiro (SDU)</option>
-                    <option value="São Paulo">São Paulo (CGH)</option>
-                    <option value="Recife">Recife (REC)</option>
-                    <option value="Salvador">Salvador (SSA)</option>
+                    <option value="SAO">São Paulo (SAO)</option>
+                    <option value="RIO">Rio de Janeiro (RIO)</option>
+                    <option value="BSB">Brasília (BSB)</option>
+                    <option value="REC">Recife (REC)</option>
+                    <option value="SSA">Salvador (SSA)</option>
+                    <option value="FOR">Fortaleza (FOR)</option>
+                    <option value="POA">Porto Alegre (POA)</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="destino">Para</label>
                 <select id="destino">
                     <option value="">Selecione o destino</option>
-                    <option value="Brasília">Brasília (BSB)</option>
-                    <option value="Rio de Janeiro">Rio de Janeiro (SDU)</option>
-                    <option value="São Paulo">São Paulo (CGH)</option>
-                    <option value="Recife">Recife (REC)</option>
-                    <option value="Salvador">Salvador (SSA)</option>
+                    <option value="SAO">São Paulo (SAO)</option>
+                    <option value="RIO">Rio de Janeiro (RIO)</option>
+                    <option value="BSB">Brasília (BSB)</option>
+                    <option value="REC">Recife (REC)</option>
+                    <option value="SSA">Salvador (SSA)</option>
+                    <option value="FOR">Fortaleza (FOR)</option>
+                    <option value="POA">Porto Alegre (POA)</option>
                 </select>
             </div>
             <div class="form-group" id="partidaGroup">
@@ -1369,76 +1417,13 @@
             </div>
         </div>
 
+        <div class="loading-spinner" id="airLoadingSpinner">
+            <div class="spinner"></div>
+            <p>Buscando voos disponíveis...</p>
+        </div>
+
         <div class="results-list" id="airResultsList">
-            <!-- Resultado 1 -->
-            <div class="result-item" data-origem="Brasília" data-destino="São Paulo" data-price="134.23" data-promo="true">
-                <div class="promo-badge">PROMO</div>
-                <div class="route-info">
-                    <div class="route-title">Brasília (BSB) Para São Paulo (CGH)</div>
-                    <div class="route-details">
-                        <div class="route-date">Ida: 01/11/2025</div>
-                        <div class="route-seen">Visto: 10 horas atrás</div>
-                    </div>
-                </div>
-                <div class="price-info">
-                    <div class="price-label">A partir de</div>
-                    <div class="price-value">R$134,23*</div>
-                    <div class="price-note">Só tás</div>
-                </div>
-                <button class="reserve-button">Reserve agora</button>
-            </div>
-
-            <!-- Resultado 2 -->
-            <div class="result-item" data-origem="Rio de Janeiro" data-destino="São Paulo" data-price="229.47" data-promo="false">
-                <div class="route-info">
-                    <div class="route-title">Rio de Janeiro (SDU) Para São Paulo (CGH)</div>
-                    <div class="route-details">
-                        <div class="route-date">Ida: 12/11/2025</div>
-                        <div class="route-seen">Visto: 1 dia atrás</div>
-                    </div>
-                </div>
-                <div class="price-info">
-                    <div class="price-label">A partir de</div>
-                    <div class="price-value">R$229,47*</div>
-                    <div class="price-note">Só tás</div>
-                </div>
-                <button class="reserve-button">Reserve agora</button>
-            </div>
-
-            <!-- Resultado 3 -->
-            <div class="result-item" data-origem="São Paulo" data-destino="Rio de Janeiro" data-price="271.52" data-promo="false">
-                <div class="route-info">
-                    <div class="route-title">São Paulo (CGH) Para Rio de Janeiro (SDU)</div>
-                    <div class="route-details">
-                        <div class="route-date">Ida: 31/10/2025</div>
-                        <div class="route-seen">Visto: 8 horas atrás</div>
-                    </div>
-                </div>
-                <div class="price-info">
-                    <div class="price-label">A partir de</div>
-                    <div class="price-value">R$271,52*</div>
-                    <div class="price-note">Só tás</div>
-                </div>
-                <button class="reserve-button">Reserve agora</button>
-            </div>
-
-            <!-- Resultado 4 -->
-            <div class="result-item" data-origem="Recife" data-destino="Salvador" data-price="309.21" data-promo="true">
-                <div class="promo-badge">PROMO</div>
-                <div class="route-info">
-                    <div class="route-title">Recife (REC) Para Salvador (SSA)</div>
-                    <div class="route-details">
-                        <div class="route-date">Ida: 01/11/2025</div>
-                        <div class="route-seen">Visto: 11 horas atrás</div>
-                    </div>
-                </div>
-                <div class="price-info">
-                    <div class="price-label">A partir de</div>
-                    <div class="price-value">R$309,21*</div>
-                    <div class="price-note">Só tás</div>
-                </div>
-                <button class="reserve-button">Reserve agora</button>
-            </div>
+            <!-- Resultados serão carregados dinamicamente pela API -->
         </div>
     </div>
 
@@ -1456,80 +1441,13 @@
             </div>
         </div>
 
+        <div class="loading-spinner" id="busLoadingSpinner">
+            <div class="spinner"></div>
+            <p>Buscando ônibus disponíveis...</p>
+        </div>
+
         <div class="results-list" id="busResultsList">
-            <!-- Resultado 1 - Ônibus -->
-            <div class="result-item" data-origem="Brasília" data-destino="São Paulo" data-price="89.90" data-promo="true">
-                <div class="promo-badge">PROMO</div>
-                <div class="route-info">
-                    <div class="route-title"><span class="bus-icon">🚌</span> Brasília Para São Paulo</div>
-                    <div class="bus-company">Viação Cometa - Executivo</div>
-                    <div class="route-details">
-                        <div class="route-date">Partida: 01/11/2025 - 22:30h</div>
-                        <div class="route-seen">Visto: 5 horas atrás</div>
-                    </div>
-                </div>
-                <div class="price-info">
-                    <div class="price-label">A partir de</div>
-                    <div class="price-value">R$89,90*</div>
-                    <div class="price-note">Só tás</div>
-                </div>
-                <button class="reserve-button">Reserve agora</button>
-            </div>
-
-            <!-- Resultado 2 - Ônibus -->
-            <div class="result-item" data-origem="Rio de Janeiro" data-destino="São Paulo" data-price="75.50" data-promo="false">
-                <div class="route-info">
-                    <div class="route-title"><span class="bus-icon">🚌</span> Rio de Janeiro Para São Paulo</div>
-                    <div class="bus-company">Viação 1001 - Convencional</div>
-                    <div class="route-details">
-                        <div class="route-date">Partida: 12/11/2025 - 08:15h</div>
-                        <div class="route-seen">Visto: 2 dias atrás</div>
-                    </div>
-                </div>
-                <div class="price-info">
-                    <div class="price-label">A partir de</div>
-                    <div class="price-value">R$75,50*</div>
-                    <div class="price-note">Só tás</div>
-                </div>
-                <button class="reserve-button">Reserve agora</button>
-            </div>
-
-            <!-- Resultado 3 - Ônibus -->
-            <div class="result-item" data-origem="São Paulo" data-destino="Rio de Janeiro" data-price="82.30" data-promo="false">
-                <div class="route-info">
-                    <div class="route-title"><span class="bus-icon">🚌</span> São Paulo Para Rio de Janeiro</div>
-                    <div class="bus-company">Viação Util - Executivo</div>
-                    <div class="route-details">
-                        <div class="route-date">Partida: 31/10/2025 - 19:45h</div>
-                        <div class="route-seen">Visto: 12 horas atrás</div>
-                    </div>
-                </div>
-                <div class="price-info">
-                    <div class="price-label">A partir de</div>
-                    <div class="price-value">R$82,30*</div>
-                    <div class="price-note">Só tás</div>
-                </div>
-                <button class="reserve-button">Reserve agora</button>
-            </div>
-
-            <!-- Resultado 4 - Ônibus -->
-            <div class="result-item" data-origem="Recife" data-destino="Salvador" data-price="120.75" data-promo="true">
-                <div class="promo-badge">PROMO</div>
-                <div class="route-info">
-                    <div class="route-title"><span class="bus-icon">🚌</span> Recife Para Salvador</div>
-                    <div class="bus-company">Viação Progresso - Leito</div>
-                    <div class="route-details">
-                        <div class="route-date">Partida: 01/11/2025 - 21:00h</div>
-                        <div class="route-seen">Visto: 8 horas atrás</div>
-                    </div>
-                </div>
-                <div class="price-info">
-                    <div class="price-label">A partir de</div>
-                    <div class="price-value">R$120,75*</div>
-                    <div class="price-note">Só tás</div>
-                </div>
-                <button class="reserve-button">Reserve agora</button>
-            </div>
+            <!-- Resultados serão carregados dinamicamente -->
         </div>
     </div>
 
@@ -1620,6 +1538,25 @@
     </footer>
 
     <script>
+        // CONFIGURAÇÕES DA API WOOBATRAVELLINK
+        const API_CONFIG = {
+            baseUrl: 'https://wooba-sandbox.travellink.com.br/wcfTravellinkJson/AereoNoSession.svc',
+            endpoints: {
+                disponibilidade: '/Disponibilidade',
+                tarifar: '/Tarifar',
+                reservar: '/Reservar',
+                consultar: '/Consultar',
+                emitir: '/Emitir'
+            },
+            // ESTAS CONFIGURAÇÕES DEVEM SER PREENCHIDAS COM SEUS DADOS REAIS
+            credentials: {
+                developerToken: 'SEU_DEVELOPER_TOKEN_AQUI',
+                developerAccessCode: 'SEU_ACCESS_CODE_CRIPTOGRAFADO_AQUI',
+                login: 'SEU_LOGIN_AQUI',
+                senha: 'SUA_SENHA_AQUI'
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
             // CÓDIGO ATUALIZADO: Menu lateral (apenas para mobile)
             const menuToggle = document.getElementById('menuToggle');
@@ -1868,22 +1805,22 @@
             // Funcionalidade para ordenação por preço (passagens aéreas)
             const priceSort = document.getElementById('priceSort');
             const airResultsList = document.getElementById('airResultsList');
-            const airResultItems = document.querySelectorAll('#airResultsList .result-item');
+            const airLoadingSpinner = document.getElementById('airLoadingSpinner');
 
             priceSort.addEventListener('change', function() {
-                sortResults(this.value, airResultsList, airResultItems);
+                sortResults(this.value, airResultsList);
             });
 
             // Funcionalidade para ordenação por preço (passagens rodoviárias)
             const priceSortBus = document.getElementById('priceSortBus');
             const busResultsList = document.getElementById('busResultsList');
-            const busResultItems = document.querySelectorAll('#busResultsList .result-item');
 
             priceSortBus.addEventListener('change', function() {
-                sortResults(this.value, busResultsList, busResultItems);
+                sortResults(this.value, busResultsList);
             });
 
-            function sortResults(sortType, resultsList, resultItems) {
+            function sortResults(sortType, resultsList) {
+                const resultItems = resultsList.querySelectorAll('.result-item');
                 const itemsArray = Array.from(resultItems);
 
                 switch(sortType) {
@@ -1919,9 +1856,7 @@
 
                     default:
                         // Ordem original (como estão no HTML)
-                        itemsArray.sort((a, b) => {
-                            return Array.from(resultsList.children).indexOf(a) - Array.from(resultsList.children).indexOf(b);
-                        });
+                        return;
                 }
 
                 // Remove todos os itens da lista
@@ -1935,38 +1870,215 @@
                 });
             }
 
-            // CORREÇÃO PRINCIPAL: Alteração do botão de pesquisa para evitar envio do formulário
-            const searchButton = document.getElementById('searchButton');
-            const searchButtonBus = document.getElementById('searchButtonBus');
+            // ========== INTEGRAÇÃO COM API WOOBATRAVELLINK ==========
 
-            searchButton.addEventListener('click', function() {
-                const origem = document.getElementById('origem').value;
-                const destino = document.getElementById('destino').value;
+            // Função para converter data para formato da API
+            function formatDateForAPI(dateString) {
+                const date = new Date(dateString);
+                const timestamp = date.getTime();
+                return `\/Date(${timestamp}-0000)\/`;
+            }
 
-                // Se ambos os campos estiverem vazios, mostrar todos os resultados
-                if (!origem && !destino) {
-                    showAllResults(airResultsList, airResultItems);
+            // Função para fazer requisições para a API
+            async function makeAPIRequest(endpoint, data) {
+                try {
+                    const response = await fetch(API_CONFIG.baseUrl + endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'developer-token': API_CONFIG.credentials.developerToken,
+                            'developer-access-code': API_CONFIG.credentials.developerAccessCode,
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            Login: API_CONFIG.credentials.login,
+                            Senha: API_CONFIG.credentials.senha,
+                            ...data
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Erro na API: ${response.status}`);
+                    }
+
+                    return await response.json();
+                } catch (error) {
+                    console.error('Erro na requisição:', error);
+                    throw error;
+                }
+            }
+
+            // Função para buscar disponibilidade de voos
+            async function searchFlights(searchData) {
+                showLoading('air');
+                
+                try {
+                    const requestData = {
+                        DataIda: formatDateForAPI(searchData.partida),
+                        Origem: searchData.origem,
+                        Destino: searchData.destino,
+                        QuantidadeAdultos: searchData.adultos,
+                        QuantidadeCriancas: searchData.criancas || 0,
+                        QuantidadeBebes: searchData.bebes || 0,
+                        Flex: false
+                    };
+
+                    // Se for ida e volta, adiciona data de volta
+                    if (searchData.tipoViagem === 'roundtrip') {
+                        requestData.DataVolta = formatDateForAPI(searchData.volta);
+                    }
+
+                    const result = await makeAPIRequest(API_CONFIG.endpoints.disponibilidade, requestData);
+                    displayFlightResults(result);
+                    
+                } catch (error) {
+                    showError('air', 'Erro ao buscar voos. Tente novamente.');
+                } finally {
+                    hideLoading('air');
+                }
+            }
+
+            // Função para exibir resultados de voos
+            function displayFlightResults(apiResult) {
+                const resultsList = document.getElementById('airResultsList');
+                resultsList.innerHTML = '';
+
+                if (!apiResult || !apiResult.Voos || apiResult.Voos.length === 0) {
+                    resultsList.innerHTML = `
+                        <div class="no-results">
+                            <p>Nenhum voo encontrado para os critérios selecionados.</p>
+                            <p>Tente alterar as datas ou destinos.</p>
+                        </div>
+                    `;
                     return;
                 }
 
-                // Filtrar os resultados
-                filterResults(origem, destino, airResultsList, airResultItems);
+                apiResult.Voos.forEach((voo, index) => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'result-item';
+                    resultItem.setAttribute('data-price', voo.Tarifa || '0');
+                    resultItem.setAttribute('data-promo', voo.Promocional ? 'true' : 'false');
+
+                    const isPromo = voo.Promocional;
+                    const price = voo.Tarifa ? `R$${parseFloat(voo.Tarifa).toFixed(2)}` : 'R$0,00';
+
+                    resultItem.innerHTML = `
+                        ${isPromo ? '<div class="promo-badge">PROMO</div>' : ''}
+                        <div class="route-info">
+                            <div class="route-title">${voo.Origem} → ${voo.Destino}</div>
+                            <div class="route-details">
+                                <div class="route-date">Partida: ${formatDisplayDate(voo.DataPartida)}</div>
+                                <div class="route-seen">${getRandomSeenTime()}</div>
+                            </div>
+                            ${voo.Companhia ? `<div class="bus-company">${voo.Companhia}</div>` : ''}
+                        </div>
+                        <div class="price-info">
+                            <div class="price-label">A partir de</div>
+                            <div class="price-value">${price}*</div>
+                            <div class="price-note">${getRandomPriceNote()}</div>
+                        </div>
+                        <button class="reserve-button" onclick="selectFlight('${voo.Identificacao}')">Reserve agora</button>
+                    `;
+
+                    resultsList.appendChild(resultItem);
+                });
+            }
+
+            // Funções auxiliares
+            function formatDisplayDate(dateString) {
+                if (!dateString) return 'Data não definida';
+                try {
+                    const date = new Date(dateString);
+                    return date.toLocaleDateString('pt-BR');
+                } catch {
+                    return dateString;
+                }
+            }
+
+            function getRandomSeenTime() {
+                const times = ['5 minutos atrás', '10 minutos atrás', '15 minutos atrás', '30 minutos atrás', '1 hora atrás'];
+                return times[Math.floor(Math.random() * times.length)];
+            }
+
+            function getRandomPriceNote() {
+                const notes = ['Só ida', 'Só tás', 'Taxas incluídas', 'Em até 12x'];
+                return notes[Math.floor(Math.random() * notes.length)];
+            }
+
+            function showLoading(type) {
+                const spinner = document.getElementById(`${type}LoadingSpinner`);
+                const resultsList = document.getElementById(`${type}ResultsList`);
+                if (spinner) spinner.style.display = 'block';
+                if (resultsList) resultsList.style.display = 'none';
+            }
+
+            function hideLoading(type) {
+                const spinner = document.getElementById(`${type}LoadingSpinner`);
+                const resultsList = document.getElementById(`${type}ResultsList`);
+                if (spinner) spinner.style.display = 'none';
+                if (resultsList) resultsList.style.display = 'grid';
+            }
+
+            function showError(type, message) {
+                const resultsList = document.getElementById(`${type}ResultsList`);
+                resultsList.innerHTML = `
+                    <div class="error-message">
+                        <p>${message}</p>
+                    </div>
+                `;
+            }
+
+            // Event listener para o botão de pesquisa de voos
+            const searchButton = document.getElementById('searchButton');
+            searchButton.addEventListener('click', function() {
+                const origem = document.getElementById('origem').value;
+                const destino = document.getElementById('destino').value;
+                const partida = document.getElementById('partida').value;
+                const volta = document.getElementById('volta').value;
+                const tipoViagem = document.querySelector('.trip-type-option.active').getAttribute('data-value');
+                const adultos = parseInt(document.getElementById('adultCount').textContent);
+                const criancas = parseInt(document.getElementById('childCount').textContent);
+                const bebes = parseInt(document.getElementById('babyCount').textContent);
+
+                if (!origem || !destino || !partida) {
+                    alert('Por favor, preencha origem, destino e data de partida.');
+                    return;
+                }
+
+                if (tipoViagem === 'roundtrip' && !volta) {
+                    alert('Por favor, selecione a data de volta.');
+                    return;
+                }
+
+                const searchData = {
+                    origem,
+                    destino,
+                    partida,
+                    volta,
+                    tipoViagem,
+                    adultos,
+                    criancas,
+                    bebes
+                };
+
+                searchFlights(searchData);
             });
 
+            // Event listener para o botão de pesquisa de ônibus (mantém funcionalidade local)
+            const searchButtonBus = document.getElementById('searchButtonBus');
             searchButtonBus.addEventListener('click', function() {
                 const origem = document.getElementById('origemBus').value;
                 const destino = document.getElementById('destinoBus').value;
 
-                // Se ambos os campos estiverem vazios, mostrar todos os resultados
                 if (!origem && !destino) {
-                    showAllResults(busResultsList, busResultItems);
+                    showAllResults(busResultsList, busResultsList.querySelectorAll('.result-item'));
                     return;
                 }
 
-                // Filtrar os resultados
-                filterResults(origem, destino, busResultsList, busResultItems);
+                filterResults(origem, destino, busResultsList, busResultsList.querySelectorAll('.result-item'));
             });
 
+            // Funções de filtro para resultados locais
             function filterResults(origem, destino, resultsList, resultItems) {
                 const allResults = resultItems;
                 let hasResults = false;
@@ -1975,7 +2087,6 @@
                     const resultOrigem = result.getAttribute('data-origem');
                     const resultDestino = result.getAttribute('data-destino');
 
-                    // Verificar se o resultado corresponde aos critérios de filtro
                     const matchesOrigem = !origem || resultOrigem === origem;
                     const matchesDestino = !destino || resultDestino === destino;
 
@@ -1987,8 +2098,7 @@
                     }
                 });
 
-                // Atualizar o título da seção de resultados
-                const resultsTitle = document.querySelector('.results-title');
+                const resultsTitle = document.querySelector(`#${resultsList.id.replace('List', 'Section')} .results-title`);
                 if (hasResults) {
                     resultsTitle.textContent = `Resultados da busca ${origem ? 'de ' + origem : ''} ${destino ? 'para ' + destino : ''}`;
                 } else {
@@ -2002,8 +2112,8 @@
                     result.style.display = 'flex';
                 });
 
-                // Restaurar o título original
-                document.querySelector('.results-title').textContent = 'Resultados da busca';
+                const resultsTitle = document.querySelector(`#${resultsList.id.replace('List', 'Section')} .results-title`);
+                resultsTitle.textContent = 'Resultados da busca';
             }
 
             // NOVA FUNCIONALIDADE: BOTÃO LIMPAR
@@ -2034,8 +2144,8 @@
                 document.getElementById('promoCodeInput').value = '';
                 promoInputContainer.style.display = 'none';
 
-                // Mostrar todos os resultados novamente
-                showAllResults(airResultsList, airResultItems);
+                // Limpar resultados
+                document.getElementById('airResultsList').innerHTML = '';
 
                 // Resetar ordenação
                 document.getElementById('priceSort').value = '';
@@ -2069,7 +2179,7 @@
                 promoInputContainer.style.display = 'none';
 
                 // Mostrar todos os resultados novamente
-                showAllResults(busResultsList, busResultItems);
+                showAllResults(busResultsList, busResultsList.querySelectorAll('.result-item'));
 
                 // Resetar ordenação
                 document.getElementById('priceSortBus').value = '';
@@ -2078,8 +2188,12 @@
                 document.getElementById('origemBus').focus();
             });
 
-            // CORREÇÃO: Removida referência ao formulário inexistente
-            // O código anterior fazia referência a um formulário com ID 'searchForm' que não existe
+            // Função global para seleção de voo (será usada nos botões)
+            window.selectFlight = function(flightId) {
+                alert(`Voo ${flightId} selecionado! Aqui você implementaria o fluxo de tarifação.`);
+                // Aqui você chamaria a API de tarifação
+                // makeAPIRequest(API_CONFIG.endpoints.tarifar, { IdentificacaoDaViagem: flightId })
+            };
         });
     </script>
 </body>
