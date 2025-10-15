@@ -1423,7 +1423,7 @@
         </div>
 
         <div class="results-list" id="airResultsList">
-            <!-- Resultados serão carregados dinamicamente pela API -->
+            <!-- Resultados serão carregados dinamicamente pelo JavaScript -->
         </div>
     </div>
 
@@ -1538,25 +1538,6 @@
     </footer>
 
     <script>
-        // CONFIGURAÇÕES DA API WOOBATRAVELLINK
-        const API_CONFIG = {
-            baseUrl: 'https://wooba-sandbox.travellink.com.br/wcfTravellinkJson/AereoNoSession.svc',
-            endpoints: {
-                disponibilidade: '/Disponibilidade',
-                tarifar: '/Tarifar',
-                reservar: '/Reservar',
-                consultar: '/Consultar',
-                emitir: '/Emitir'
-            },
-            // ESTAS CONFIGURAÇÕES DEVEM SER PREENCHIDAS COM SEUS DADOS REAIS
-            credentials: {
-                developerToken: 'SEU_DEVELOPER_TOKEN_AQUI',
-                developerAccessCode: 'SEU_ACCESS_CODE_CRIPTOGRAFADO_AQUI',
-                login: 'SEU_LOGIN_AQUI',
-                senha: 'SUA_SENHA_AQUI'
-            }
-        };
-
         document.addEventListener('DOMContentLoaded', function() {
             // CÓDIGO ATUALIZADO: Menu lateral (apenas para mobile)
             const menuToggle = document.getElementById('menuToggle');
@@ -1870,80 +1851,181 @@
                 });
             }
 
-            // ========== INTEGRAÇÃO COM API WOOBATRAVELLINK ==========
+            // ========== DADOS MANUAIS DE PASSAGENS AÉREAS E RODOVIÁRIAS ==========
 
-            // Função para converter data para formato da API
-            function formatDateForAPI(dateString) {
+            // Dados de passagens aéreas
+            const flightData = [
+                {
+                    id: "FL001",
+                    origem: "SAO",
+                    destino: "RIO",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "LATAM",
+                    preco: 289.90,
+                    promocao: true,
+                    visto: "5 minutos atrás"
+                },
+                {
+                    id: "FL002",
+                    origem: "RIO",
+                    destino: "BSB",
+                    dataPartida: "2025-10-11",
+                    dataVolta: "2025-10-18",
+                    companhia: "GOL",
+                    preco: 345.50,
+                    promocao: false,
+                    visto: "10 minutos atrás"
+                },
+                {
+                    id: "FL003",
+                    origem: "BSB",
+                    destino: "REC",
+                    dataPartida: "2025-10-12",
+                    dataVolta: "2025-10-19",
+                    companhia: "AZUL",
+                    preco: 420.00,
+                    promocao: true,
+                    visto: "15 minutos atrás"
+                },
+                {
+                    id: "FL004",
+                    origem: "REC",
+                    destino: "SSA",
+                    dataPartida: "2025-10-13",
+                    dataVolta: "2025-10-20",
+                    companhia: "LATAM",
+                    preco: 275.80,
+                    promocao: false,
+                    visto: "30 minutos atrás"
+                },
+                {
+                    id: "FL005",
+                    origem: "SSA",
+                    destino: "FOR",
+                    dataPartida: "2025-10-14",
+                    dataVolta: "2025-10-21",
+                    companhia: "GOL",
+                    preco: 310.25,
+                    promocao: true,
+                    visto: "1 hora atrás"
+                },
+                {
+                    id: "FL006",
+                    origem: "FOR",
+                    destino: "POA",
+                    dataPartida: "2025-10-15",
+                    dataVolta: "2025-10-22",
+                    companhia: "AZUL",
+                    preco: 480.90,
+                    promocao: false,
+                    visto: "5 minutos atrás"
+                }
+            ];
+
+            // Dados de passagens rodoviárias
+            const busData = [
+                {
+                    id: "BUS001",
+                    origem: "São Paulo",
+                    destino: "Rio de Janeiro",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "Cometa",
+                    preco: 89.90,
+                    promocao: true,
+                    visto: "5 minutos atrás"
+                },
+                {
+                    id: "BUS002",
+                    origem: "Rio de Janeiro",
+                    destino: "Brasília",
+                    dataPartida: "2025-10-11",
+                    dataVolta: "2025-10-18",
+                    companhia: "Itapemirim",
+                    preco: 145.50,
+                    promocao: false,
+                    visto: "10 minutos atrás"
+                },
+                {
+                    id: "BUS003",
+                    origem: "Brasília",
+                    destino: "Recife",
+                    dataPartida: "2025-10-12",
+                    dataVolta: "2025-10-19",
+                    companhia: "Kaissara",
+                    preco: 220.00,
+                    promocao: true,
+                    visto: "15 minutos atrás"
+                },
+                {
+                    id: "BUS004",
+                    origem: "Recife",
+                    destino: "Salvador",
+                    dataPartida: "2025-10-13",
+                    dataVolta: "2025-10-20",
+                    companhia: "Gontijo",
+                    preco: 175.80,
+                    promocao: false,
+                    visto: "30 minutos atrás"
+                },
+                {
+                    id: "BUS005",
+                    origem: "Salvador",
+                    destino: "Fortaleza",
+                    dataPartida: "2025-10-14",
+                    dataVolta: "2025-10-21",
+                    companhia: "São Geraldo",
+                    preco: 210.25,
+                    promocao: true,
+                    visto: "1 hora atrás"
+                },
+                {
+                    id: "BUS006",
+                    origem: "Fortaleza",
+                    destino: "Curitiba",
+                    dataPartida: "2025-10-15",
+                    dataVolta: "2025-10-22",
+                    companhia: "Pluma",
+                    preco: 280.90,
+                    promocao: false,
+                    visto: "5 minutos atrás"
+                }
+            ];
+
+            // Função para formatar data para exibição
+            function formatDisplayDate(dateString) {
                 const date = new Date(dateString);
-                const timestamp = date.getTime();
-                return `\/Date(${timestamp}-0000)\/`;
+                return date.toLocaleDateString('pt-BR');
             }
 
-            // Função para fazer requisições para a API
-            async function makeAPIRequest(endpoint, data) {
-                try {
-                    const response = await fetch(API_CONFIG.baseUrl + endpoint, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'developer-token': API_CONFIG.credentials.developerToken,
-                            'developer-access-code': API_CONFIG.credentials.developerAccessCode,
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            Login: API_CONFIG.credentials.login,
-                            Senha: API_CONFIG.credentials.senha,
-                            ...data
-                        })
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`Erro na API: ${response.status}`);
-                    }
-
-                    return await response.json();
-                } catch (error) {
-                    console.error('Erro na requisição:', error);
-                    throw error;
-                }
-            }
-
-            // Função para buscar disponibilidade de voos
-            async function searchFlights(searchData) {
-                showLoading('air');
-                
-                try {
-                    const requestData = {
-                        DataIda: formatDateForAPI(searchData.partida),
-                        Origem: searchData.origem,
-                        Destino: searchData.destino,
-                        QuantidadeAdultos: searchData.adultos,
-                        QuantidadeCriancas: searchData.criancas || 0,
-                        QuantidadeBebes: searchData.bebes || 0,
-                        Flex: false
-                    };
-
-                    // Se for ida e volta, adiciona data de volta
-                    if (searchData.tipoViagem === 'roundtrip') {
-                        requestData.DataVolta = formatDateForAPI(searchData.volta);
-                    }
-
-                    const result = await makeAPIRequest(API_CONFIG.endpoints.disponibilidade, requestData);
-                    displayFlightResults(result);
-                    
-                } catch (error) {
-                    showError('air', 'Erro ao buscar voos. Tente novamente.');
-                } finally {
-                    hideLoading('air');
-                }
+            // Função para obter nota de preço aleatória
+            function getRandomPriceNote() {
+                const notes = ['Só ida', 'Só tás', 'Taxas incluídas', 'Em até 12x'];
+                return notes[Math.floor(Math.random() * notes.length)];
             }
 
             // Função para exibir resultados de voos
-            function displayFlightResults(apiResult) {
+            function displayFlightResults(searchData = null) {
                 const resultsList = document.getElementById('airResultsList');
                 resultsList.innerHTML = '';
 
-                if (!apiResult || !apiResult.Voos || apiResult.Voos.length === 0) {
+                let filteredFlights = flightData;
+
+                // Filtrar por origem e destino se fornecido
+                if (searchData && searchData.origem) {
+                    filteredFlights = filteredFlights.filter(flight => 
+                        flight.origem === searchData.origem
+                    );
+                }
+
+                if (searchData && searchData.destino) {
+                    filteredFlights = filteredFlights.filter(flight => 
+                        flight.destino === searchData.destino
+                    );
+                }
+
+                if (filteredFlights.length === 0) {
                     resultsList.innerHTML = `
                         <div class="no-results">
                             <p>Nenhum voo encontrado para os critérios selecionados.</p>
@@ -1953,80 +2035,103 @@
                     return;
                 }
 
-                apiResult.Voos.forEach((voo, index) => {
+                filteredFlights.forEach((flight, index) => {
                     const resultItem = document.createElement('div');
                     resultItem.className = 'result-item';
-                    resultItem.setAttribute('data-price', voo.Tarifa || '0');
-                    resultItem.setAttribute('data-promo', voo.Promocional ? 'true' : 'false');
+                    resultItem.setAttribute('data-price', flight.preco);
+                    resultItem.setAttribute('data-promo', flight.promocao);
+                    resultItem.setAttribute('data-origem', flight.origem);
+                    resultItem.setAttribute('data-destino', flight.destino);
 
-                    const isPromo = voo.Promocional;
-                    const price = voo.Tarifa ? `R$${parseFloat(voo.Tarifa).toFixed(2)}` : 'R$0,00';
+                    const price = `R$${flight.preco.toFixed(2)}`;
 
                     resultItem.innerHTML = `
-                        ${isPromo ? '<div class="promo-badge">PROMO</div>' : ''}
+                        ${flight.promocao ? '<div class="promo-badge">PROMO</div>' : ''}
                         <div class="route-info">
-                            <div class="route-title">${voo.Origem} → ${voo.Destino}</div>
+                            <div class="route-title">${flight.origem} → ${flight.destino}</div>
                             <div class="route-details">
-                                <div class="route-date">Partida: ${formatDisplayDate(voo.DataPartida)}</div>
-                                <div class="route-seen">${getRandomSeenTime()}</div>
+                                <div class="route-date">Partida: ${formatDisplayDate(flight.dataPartida)}</div>
+                                <div class="route-seen">${flight.visto}</div>
                             </div>
-                            ${voo.Companhia ? `<div class="bus-company">${voo.Companhia}</div>` : ''}
+                            <div class="bus-company">${flight.companhia}</div>
                         </div>
                         <div class="price-info">
                             <div class="price-label">A partir de</div>
                             <div class="price-value">${price}*</div>
                             <div class="price-note">${getRandomPriceNote()}</div>
                         </div>
-                        <button class="reserve-button" onclick="selectFlight('${voo.Identificacao}')">Reserve agora</button>
+                        <button class="reserve-button" onclick="selectFlight('${flight.id}')">Reserve agora</button>
                     `;
 
                     resultsList.appendChild(resultItem);
                 });
             }
 
-            // Funções auxiliares
-            function formatDisplayDate(dateString) {
-                if (!dateString) return 'Data não definida';
-                try {
-                    const date = new Date(dateString);
-                    return date.toLocaleDateString('pt-BR');
-                } catch {
-                    return dateString;
+            // Função para exibir resultados de ônibus
+            function displayBusResults(searchData = null) {
+                const resultsList = document.getElementById('busResultsList');
+                resultsList.innerHTML = '';
+
+                let filteredBuses = busData;
+
+                // Filtrar por origem e destino se fornecido
+                if (searchData && searchData.origem) {
+                    filteredBuses = filteredBuses.filter(bus => 
+                        bus.origem === searchData.origem
+                    );
                 }
+
+                if (searchData && searchData.destino) {
+                    filteredBuses = filteredBuses.filter(bus => 
+                        bus.destino === searchData.destino
+                    );
+                }
+
+                if (filteredBuses.length === 0) {
+                    resultsList.innerHTML = `
+                        <div class="no-results">
+                            <p>Nenhum ônibus encontrado para os critérios selecionados.</p>
+                            <p>Tente alterar as datas ou destinos.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                filteredBuses.forEach((bus, index) => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'result-item';
+                    resultItem.setAttribute('data-price', bus.preco);
+                    resultItem.setAttribute('data-promo', bus.promocao);
+                    resultItem.setAttribute('data-origem', bus.origem);
+                    resultItem.setAttribute('data-destino', bus.destino);
+
+                    const price = `R$${bus.preco.toFixed(2)}`;
+
+                    resultItem.innerHTML = `
+                        ${bus.promocao ? '<div class="promo-badge">PROMO</div>' : ''}
+                        <div class="route-info">
+                            <div class="route-title">${bus.origem} → ${bus.destino}</div>
+                            <div class="route-details">
+                                <div class="route-date">Partida: ${formatDisplayDate(bus.dataPartida)}</div>
+                                <div class="route-seen">${bus.visto}</div>
+                            </div>
+                            <div class="bus-company">${bus.companhia}</div>
+                        </div>
+                        <div class="price-info">
+                            <div class="price-label">A partir de</div>
+                            <div class="price-value">${price}*</div>
+                            <div class="price-note">${getRandomPriceNote()}</div>
+                        </div>
+                        <button class="reserve-button" onclick="selectBus('${bus.id}')">Reserve agora</button>
+                    `;
+
+                    resultsList.appendChild(resultItem);
+                });
             }
 
-            function getRandomSeenTime() {
-                const times = ['5 minutos atrás', '10 minutos atrás', '15 minutos atrás', '30 minutos atrás', '1 hora atrás'];
-                return times[Math.floor(Math.random() * times.length)];
-            }
-
-            function getRandomPriceNote() {
-                const notes = ['Só ida', 'Só tás', 'Taxas incluídas', 'Em até 12x'];
-                return notes[Math.floor(Math.random() * notes.length)];
-            }
-
-            function showLoading(type) {
-                const spinner = document.getElementById(`${type}LoadingSpinner`);
-                const resultsList = document.getElementById(`${type}ResultsList`);
-                if (spinner) spinner.style.display = 'block';
-                if (resultsList) resultsList.style.display = 'none';
-            }
-
-            function hideLoading(type) {
-                const spinner = document.getElementById(`${type}LoadingSpinner`);
-                const resultsList = document.getElementById(`${type}ResultsList`);
-                if (spinner) spinner.style.display = 'none';
-                if (resultsList) resultsList.style.display = 'grid';
-            }
-
-            function showError(type, message) {
-                const resultsList = document.getElementById(`${type}ResultsList`);
-                resultsList.innerHTML = `
-                    <div class="error-message">
-                        <p>${message}</p>
-                    </div>
-                `;
-            }
+            // Carregar dados iniciais
+            displayFlightResults();
+            displayBusResults();
 
             // Event listener para o botão de pesquisa de voos
             const searchButton = document.getElementById('searchButton');
@@ -2061,59 +2166,67 @@
                     bebes
                 };
 
-                searchFlights(searchData);
+                // Simular carregamento
+                showLoading('air');
+                setTimeout(() => {
+                    displayFlightResults(searchData);
+                    hideLoading('air');
+                }, 1000);
             });
 
-            // Event listener para o botão de pesquisa de ônibus (mantém funcionalidade local)
+            // Event listener para o botão de pesquisa de ônibus
             const searchButtonBus = document.getElementById('searchButtonBus');
             searchButtonBus.addEventListener('click', function() {
                 const origem = document.getElementById('origemBus').value;
                 const destino = document.getElementById('destinoBus').value;
+                const partida = document.getElementById('partidaBus').value;
+                const volta = document.getElementById('voltaBus').value;
+                const tipoViagem = document.querySelector('.trip-type-option.active').getAttribute('data-value');
+                const adultos = parseInt(document.getElementById('adultCount').textContent);
+                const criancas = parseInt(document.getElementById('childCount').textContent);
+                const bebes = parseInt(document.getElementById('babyCount').textContent);
 
-                if (!origem && !destino) {
-                    showAllResults(busResultsList, busResultsList.querySelectorAll('.result-item'));
+                if (!origem || !destino || !partida) {
+                    alert('Por favor, preencha origem, destino e data de partida.');
                     return;
                 }
 
-                filterResults(origem, destino, busResultsList, busResultsList.querySelectorAll('.result-item'));
+                if (tipoViagem === 'roundtrip' && !volta) {
+                    alert('Por favor, selecione a data de volta.');
+                    return;
+                }
+
+                const searchData = {
+                    origem,
+                    destino,
+                    partida,
+                    volta,
+                    tipoViagem,
+                    adultos,
+                    criancas,
+                    bebes
+                };
+
+                // Simular carregamento
+                showLoading('bus');
+                setTimeout(() => {
+                    displayBusResults(searchData);
+                    hideLoading('bus');
+                }, 1000);
             });
 
-            // Funções de filtro para resultados locais
-            function filterResults(origem, destino, resultsList, resultItems) {
-                const allResults = resultItems;
-                let hasResults = false;
-
-                allResults.forEach(result => {
-                    const resultOrigem = result.getAttribute('data-origem');
-                    const resultDestino = result.getAttribute('data-destino');
-
-                    const matchesOrigem = !origem || resultOrigem === origem;
-                    const matchesDestino = !destino || resultDestino === destino;
-
-                    if (matchesOrigem && matchesDestino) {
-                        result.style.display = 'flex';
-                        hasResults = true;
-                    } else {
-                        result.style.display = 'none';
-                    }
-                });
-
-                const resultsTitle = document.querySelector(`#${resultsList.id.replace('List', 'Section')} .results-title`);
-                if (hasResults) {
-                    resultsTitle.textContent = `Resultados da busca ${origem ? 'de ' + origem : ''} ${destino ? 'para ' + destino : ''}`;
-                } else {
-                    resultsTitle.textContent = 'Nenhum resultado encontrado';
-                }
+            function showLoading(type) {
+                const spinner = document.getElementById(`${type}LoadingSpinner`);
+                const resultsList = document.getElementById(`${type}ResultsList`);
+                if (spinner) spinner.style.display = 'block';
+                if (resultsList) resultsList.style.display = 'none';
             }
 
-            function showAllResults(resultsList, resultItems) {
-                const allResults = resultItems;
-                allResults.forEach(result => {
-                    result.style.display = 'flex';
-                });
-
-                const resultsTitle = document.querySelector(`#${resultsList.id.replace('List', 'Section')} .results-title`);
-                resultsTitle.textContent = 'Resultados da busca';
+            function hideLoading(type) {
+                const spinner = document.getElementById(`${type}LoadingSpinner`);
+                const resultsList = document.getElementById(`${type}ResultsList`);
+                if (spinner) spinner.style.display = 'none';
+                if (resultsList) resultsList.style.display = 'grid';
             }
 
             // NOVA FUNCIONALIDADE: BOTÃO LIMPAR
@@ -2144,8 +2257,8 @@
                 document.getElementById('promoCodeInput').value = '';
                 promoInputContainer.style.display = 'none';
 
-                // Limpar resultados
-                document.getElementById('airResultsList').innerHTML = '';
+                // Mostrar todos os resultados novamente
+                displayFlightResults();
 
                 // Resetar ordenação
                 document.getElementById('priceSort').value = '';
@@ -2179,7 +2292,7 @@
                 promoInputContainer.style.display = 'none';
 
                 // Mostrar todos os resultados novamente
-                showAllResults(busResultsList, busResultsList.querySelectorAll('.result-item'));
+                displayBusResults();
 
                 // Resetar ordenação
                 document.getElementById('priceSortBus').value = '';
@@ -2188,11 +2301,15 @@
                 document.getElementById('origemBus').focus();
             });
 
-            // Função global para seleção de voo (será usada nos botões)
+            // Funções globais para seleção
             window.selectFlight = function(flightId) {
-                alert(`Voo ${flightId} selecionado! Aqui você implementaria o fluxo de tarifação.`);
-                // Aqui você chamaria a API de tarifação
-                // makeAPIRequest(API_CONFIG.endpoints.tarifar, { IdentificacaoDaViagem: flightId })
+                alert(`Voo ${flightId} selecionado! Redirecionando para página de reserva...`);
+                // Aqui você implementaria o redirecionamento para a página de reserva
+            };
+
+            window.selectBus = function(busId) {
+                alert(`Ônibus ${busId} selecionado! Redirecionando para página de reserva...`);
+                // Aqui você implementaria o redirecionamento para a página de reserva
             };
         });
     </script>
