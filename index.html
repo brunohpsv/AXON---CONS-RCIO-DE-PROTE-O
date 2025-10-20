@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIXX PASSAGENS</title>
     <!-- Adicionando o favicon -->
-    <link rel="icon" type="image/png" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" href="favicon-32x32.png" id="favicon">
     <style>
         /* TODOS OS ESTILOS ANTERIORES MANTIDOS EXATAMENTE IGUAIS */
         * {
@@ -1305,7 +1305,7 @@
     <div class="side-menu" id="sideMenu">
         <div class="menu-header">
             <div class="logo-icon">
-                <img src="favicon.png" alt="BIXX PASS Logo" class="menu-logo">
+                <img src="favicon.png" alt="BIXX PASS Logo" class="menu-logo" id="sideMenuLogo">
             </div>
             <span class="menu-title">BIXX PASSAGENS</span>
         </div>
@@ -1331,7 +1331,7 @@
     <header class="header">
         <div class="logo-container">
             <div class="logo-icon">
-                <img src="favicon.png" alt="BIXX PASS Logo">
+                <img src="favicon.png" alt="BIXX PASS Logo" id="headerLogo">
             </div>
             <span class="logo-text">BIXX PASSAGENS</span>
         </div>
@@ -1732,6 +1732,96 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // ========== SISTEMA DE ATUALIZAÇÃO DE LOGO E FAVICON ==========
+            
+            // Elementos de imagem que serão atualizados
+            const favicon = document.getElementById('favicon');
+            const headerLogo = document.getElementById('headerLogo');
+            const sideMenuLogo = document.getElementById('sideMenuLogo');
+            
+            // URLs das imagens
+            const logoUrls = {
+                favicon: 'favicon-32x32.png',
+                logo: 'favicon.png'
+            };
+            
+            // Cache para armazenar timestamps das imagens
+            const imageCache = {
+                favicon: null,
+                logo: null
+            };
+            
+            // Função para obter timestamp de uma imagem
+            function getImageTimestamp(url, callback) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('HEAD', url + '?t=' + Date.now(), true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            const lastModified = xhr.getResponseHeader('Last-Modified');
+                            callback(lastModified ? new Date(lastModified).getTime() : Date.now());
+                        } else {
+                            callback(null);
+                        }
+                    }
+                };
+                xhr.send();
+            }
+            
+            // Função para atualizar uma imagem
+            function updateImage(imgElement, url) {
+                if (imgElement) {
+                    // Adiciona um timestamp para forçar o recarregamento
+                    const newUrl = url + '?t=' + Date.now();
+                    imgElement.src = newUrl;
+                    
+                    // Força o recarregamento da imagem
+                    imgElement.onload = function() {
+                        console.log('Imagem atualizada:', url);
+                    };
+                    
+                    imgElement.onerror = function() {
+                        console.warn('Erro ao carregar imagem:', url);
+                        // Fallback para imagem padrão se necessário
+                        // imgElement.src = 'default-logo.png';
+                    };
+                }
+            }
+            
+            // Função para verificar e atualizar todas as imagens
+            function checkAndUpdateImages() {
+                // Verificar favicon
+                getImageTimestamp(logoUrls.favicon, function(timestamp) {
+                    if (timestamp && timestamp !== imageCache.favicon) {
+                        imageCache.favicon = timestamp;
+                        updateImage(favicon, logoUrls.favicon);
+                    }
+                });
+                
+                // Verificar logo
+                getImageTimestamp(logoUrls.logo, function(timestamp) {
+                    if (timestamp && timestamp !== imageCache.logo) {
+                        imageCache.logo = timestamp;
+                        updateImage(headerLogo, logoUrls.logo);
+                        updateImage(sideMenuLogo, logoUrls.logo);
+                    }
+                });
+            }
+            
+            // Inicializar o cache e verificar imagens
+            function initializeImageUpdater() {
+                // Verificar imagens imediatamente
+                checkAndUpdateImages();
+                
+                // Verificar a cada 30 segundos
+                setInterval(checkAndUpdateImages, 30000);
+                
+                console.log('Sistema de atualização de logo e favicon iniciado');
+            }
+            
+            // Iniciar o sistema de atualização
+            initializeImageUpdater();
+            
             // CÓDIGO ATUALIZADO: Menu lateral (apenas para mobile)
             const menuToggle = document.getElementById('menuToggle');
             const sideMenu = document.getElementById('sideMenu');
