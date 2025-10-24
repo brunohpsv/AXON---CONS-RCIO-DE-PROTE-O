@@ -2023,10 +2023,19 @@
                 }
             ];
 
-            // Função para formatar data para exibição
+            // ========== CORREÇÃO DA FUNÇÃO DE FORMATAÇÃO DE DATA ==========
+            
+            // Função corrigida para formatar data para exibição
             function formatDisplayDate(dateString) {
-                const date = new Date(dateString);
-                return date.toLocaleDateString('pt-BR');
+                // Cria a data sem ajustar para o fuso horário
+                const date = new Date(dateString + 'T00:00:00');
+                
+                // Formata a data no formato brasileiro
+                return date.toLocaleDateString('pt-BR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                });
             }
 
             // Função para exibir resultados de voos
@@ -2255,7 +2264,7 @@
                 
                 // ATUALIZADO: Removida a linha da companhia
                 
-                // Adicionar informações de datas
+                // Adicionar informações de datas - USANDO A FUNÇÃO CORRIGIDA
                 if (partida) {
                     message += `*Data de Partida:* ${formatDisplayDate(partida)}\n`;
                 }
