@@ -303,44 +303,9 @@
             justify-content: space-between;
         }
 
+        /* ATUALIZADO: Removido o seletor de tipo de transporte */
         .travel-type-selector {
-            display: flex;
-            border-radius: 0;
-            overflow: hidden;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            min-width: 220px;
-            height: 42px;
-        }
-
-        .travel-type-selector .travel-type-option {
-            flex: 1;
-            padding: 10px 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: none;
-            border-radius: 0;
-            min-width: auto;
-            justify-content: center;
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            white-space: nowrap;
-        }
-
-        .travel-type-selector .travel-type-option:first-child {
-            border-right: 1px solid #ddd;
-        }
-
-        .travel-type-selector .travel-type-option:hover {
-            background-color: #f0f0f0;
-        }
-
-        .travel-type-selector .travel-type-option.active {
-            background-color: #1a1a1a;
-            color: white;
-            font-weight: bold;
+            display: none;
         }
 
         .options-container {
@@ -1057,10 +1022,6 @@
                 align-items: flex-start;
             }
 
-            .travel-type-selector {
-                width: 100%;
-            }
-
             .search-form {
                 grid-template-columns: 1fr;
             }
@@ -1405,10 +1366,7 @@
 
     <div class="search-container">
         <div class="search-options">
-            <div class="travel-type-selector" id="travelTypeSelector">
-                <div class="travel-type-option active" data-value="air">Passagens aéreas</div>
-                <div class="travel-type-option" data-value="bus">Passagens rodoviárias</div>
-            </div>
+            <!-- ATUALIZADO: Removido o seletor de tipo de transporte -->
             <div class="options-container">
                 <div class="trip-type-selector" id="tripTypeOption">
                     <div class="trip-type-option active" data-value="roundtrip">Ida e volta</div>
@@ -1465,48 +1423,6 @@
             <div class="search-buttons">
                 <button type="button" class="search-button" id="searchButton">Pesquisar</button>
                 <button type="button" class="clear-button" id="clearButton">Limpar</button>
-            </div>
-        </form>
-
-        <!-- Formulário para passagens rodoviárias (inicialmente oculto) -->
-        <form class="search-form" id="busSearchForm" style="display: none;">
-            <div class="form-group">
-                <label for="origemBus">De</label>
-                <select id="origemBus">
-                    <option value="">Selecione a origem</option>
-                    <option value="Brasília">Brasília (Rodoviária)</option>
-                    <option value="Rio de Janeiro">Rio de Janeiro (Novo Rio)</option>
-                    <option value="São Paulo">São Paulo (Tietê)</option>
-                    <option value="Recife">Recife (Terminal Integrado)</option>
-                    <option value="Salvador">Salvador (Rodoviária)</option>
-                    <option value="Belo Horizonte">Belo Horizonte (Rodoviária)</option>
-                    <option value="Curitiba">Curitiba (Rodoferroviária)</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="destinoBus">Para</label>
-                <select id="destinoBus">
-                    <option value="">Selecione o destino</option>
-                    <option value="Brasília">Brasília (Rodoviária)</option>
-                    <option value="Rio de Janeiro">Rio de Janeiro (Novo Rio)</option>
-                    <option value="São Paulo">São Paulo (Tietê)</option>
-                    <option value="Recife">Recife (Terminal Integrado)</option>
-                    <option value="Salvador">Salvador (Rodoviária)</option>
-                    <option value="Belo Horizonte">Belo Horizonte (Rodoviária)</option>
-                    <option value="Curitiba">Curitiba (Rodoferroviária)</option>
-                </select>
-            </div>
-            <div class="form-group" id="partidaGroupBus">
-                <label for="partidaBus">Partida</label>
-                <input type="date" id="partidaBus" value="2025-10-10">
-            </div>
-            <div class="form-group" id="voltaGroupBus">
-                <label for="voltaBus">Volta</label>
-                <input type="date" id="voltaBus" value="2025-10-17">
-            </div>
-            <div class="search-buttons">
-                <button type="button" class="search-button" id="searchButtonBus">Pesquisar</button>
-                <button type="button" class="clear-button" id="clearButtonBus">Limpar</button>
             </div>
         </form>
     </div>
@@ -1585,30 +1501,6 @@
 
         <div class="results-list" id="airResultsList">
             <!-- Resultados serão carregados dinamicamente pelo JavaScript -->
-        </div>
-    </div>
-
-    <!-- Seção de resultados para passagens rodoviárias (inicialmente oculta) -->
-    <div class="results-section" id="busResultsSection" style="display: none;">
-        <div class="results-header">
-            <div class="results-title">Resultados da busca - Passagens Rodoviárias</div>
-            <div class="results-filters">
-                <select class="filter-select" id="priceSortBus">
-                    <option value="">Ordenar por preço</option>
-                    <option value="cheap">Barato > Caro</option>
-                    <option value="expensive">Caro > Barato</option>
-                    <option value="promo">Promoção</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="loading-spinner" id="busLoadingSpinner">
-            <div class="spinner"></div>
-            <p>Buscando ônibus disponíveis...</p>
-        </div>
-
-        <div class="results-list" id="busResultsList">
-            <!-- Resultados serão carregados dinamicamente -->
         </div>
     </div>
 
@@ -1889,38 +1781,6 @@
                 bannerContainer.appendChild(bannerItem);
             });
 
-            // NOVA FUNCIONALIDADE: Seletor de tipo de transporte
-            const travelTypeOptions = document.querySelectorAll('.travel-type-option');
-            const airSearchForm = document.getElementById('airSearchForm');
-            const busSearchForm = document.getElementById('busSearchForm');
-            const airResultsSection = document.getElementById('airResultsSection');
-            const busResultsSection = document.getElementById('busResultsSection');
-
-            travelTypeOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    // Remove a classe active de todas as opções
-                    travelTypeOptions.forEach(opt => opt.classList.remove('active'));
-
-                    // Adiciona a classe active à opção clicada
-                    this.classList.add('active');
-
-                    const travelType = this.getAttribute('data-value');
-
-                    // Mostra ou esconde os formulários e resultados baseados no tipo de transporte
-                    if (travelType === 'air') {
-                        airSearchForm.style.display = 'grid';
-                        busSearchForm.style.display = 'none';
-                        airResultsSection.style.display = 'block';
-                        busResultsSection.style.display = 'none';
-                    } else {
-                        airSearchForm.style.display = 'none';
-                        busSearchForm.style.display = 'grid';
-                        airResultsSection.style.display = 'none';
-                        busResultsSection.style.display = 'block';
-                    }
-                });
-            });
-
             // Restante do código JavaScript permanece igual
             const filterOptions = document.querySelectorAll('.filter-option');
             filterOptions.forEach(option => {
@@ -1932,7 +1792,6 @@
             // Funcionalidade para o seletor customizado de tipo de viagem
             const tripTypeOptions = document.querySelectorAll('.trip-type-option');
             const voltaGroup = document.getElementById('voltaGroup');
-            const voltaGroupBus = document.getElementById('voltaGroupBus');
 
             tripTypeOptions.forEach(option => {
                 option.addEventListener('click', function() {
@@ -1945,10 +1804,8 @@
                     // Mostra ou esconde o campo de volta
                     if (this.getAttribute('data-value') === 'oneway') {
                         voltaGroup.style.display = 'none';
-                        voltaGroupBus.style.display = 'none';
                     } else {
                         voltaGroup.style.display = 'flex';
-                        voltaGroupBus.style.display = 'flex';
                     }
                 });
             });
@@ -2043,14 +1900,6 @@
                 sortResults(this.value, airResultsList);
             });
 
-            // Funcionalidade para ordenação por preço (passagens rodoviárias)
-            const priceSortBus = document.getElementById('priceSortBus');
-            const busResultsList = document.getElementById('busResultsList');
-
-            priceSortBus.addEventListener('change', function() {
-                sortResults(this.value, busResultsList);
-            });
-
             function sortResults(sortType, resultsList) {
                 const resultItems = resultsList.querySelectorAll('.result-item');
                 const itemsArray = Array.from(resultItems);
@@ -2102,7 +1951,7 @@
                 });
             }
 
-            // ========== DADOS MANUAIS DE PASSAGENS AÉREAS E RODOVIÁRIAS ==========
+            // ========== DADOS MANUAIS DE PASSAGENS AÉREAS ==========
 
             // Dados de passagens aéreas
             const flightData = [
@@ -2169,76 +2018,6 @@
                     dataVolta: "2025-10-22",
                     companhia: "AZUL",
                     preco: 480.90,
-                    promocao: false,
-                    visto: "5 minutos atrás"
-                }
-            ];
-
-            // Dados de passagens rodoviárias
-            const busData = [
-                {
-                    id: "BUS001",
-                    origem: "São Paulo",
-                    destino: "Rio de Janeiro",
-                    dataPartida: "2025-10-10",
-                    dataVolta: "2025-10-17",
-                    companhia: "Cometa",
-                    preco: 89.90,
-                    promocao: true,
-                    visto: "5 minutos atrás"
-                },
-                {
-                    id: "BUS002",
-                    origem: "Rio de Janeiro",
-                    destino: "Brasília",
-                    dataPartida: "2025-10-11",
-                    dataVolta: "2025-10-18",
-                    companhia: "Itapemirim",
-                    preco: 145.50,
-                    promocao: false,
-                    visto: "10 minutos atrás"
-                },
-                {
-                    id: "BUS003",
-                    origem: "Brasília",
-                    destino: "Recife",
-                    dataPartida: "2025-10-12",
-                    dataVolta: "2025-10-19",
-                    companhia: "Kaissara",
-                    preco: 220.00,
-                    promocao: true,
-                    visto: "15 minutos atrás"
-                },
-                {
-                    id: "BUS004",
-                    origem: "Recife",
-                    destino: "Salvador",
-                    dataPartida: "2025-10-13",
-                    dataVolta: "2025-10-20",
-                    companhia: "Gontijo",
-                    preco: 175.80,
-                    promocao: false,
-                    visto: "30 minutos atrás"
-                },
-                {
-                    id: "BUS005",
-                    origem: "Salvador",
-                    destino: "Fortaleza",
-                    dataPartida: "2025-10-14",
-                    dataVolta: "2025-10-21",
-                    companhia: "São Geraldo",
-                    preco: 210.25,
-                    promocao: true,
-                    visto: "1 hora atrás"
-                },
-                {
-                    id: "BUS006",
-                    origem: "Fortaleza",
-                    destino: "Curitiba",
-                    dataPartida: "2025-10-15",
-                    dataVolta: "2025-10-22",
-                    companhia: "Pluma",
-                    preco: 280.90,
                     promocao: false,
                     visto: "5 minutos atrás"
                 }
@@ -2331,79 +2110,8 @@
                 });
             }
 
-            // Função para exibir resultados de ônibus
-            function displayBusResults(searchData = null) {
-                const resultsList = document.getElementById('busResultsList');
-                resultsList.innerHTML = '';
-
-                let filteredBuses = busData;
-
-                // Filtrar por origem e destino se fornecido
-                if (searchData && searchData.origem) {
-                    filteredBuses = filteredBuses.filter(bus => 
-                        bus.origem === searchData.origem
-                    );
-                }
-
-                if (searchData && searchData.destino) {
-                    filteredBuses = filteredBuses.filter(bus => 
-                        bus.destino === searchData.destino
-                    );
-                }
-
-                if (filteredBuses.length === 0) {
-                    resultsList.innerHTML = `
-                        <div class="no-results">
-                            <p>Nenhum ônibus encontrado para os critérios selecionados.</p>
-                            <p>Tente alterar as datas ou destinos.</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                filteredBuses.forEach((bus, index) => {
-                    const resultItem = document.createElement('div');
-                    resultItem.className = 'result-item';
-                    resultItem.setAttribute('data-price', bus.preco);
-                    resultItem.setAttribute('data-promo', bus.promocao);
-                    resultItem.setAttribute('data-origem', bus.origem);
-                    resultItem.setAttribute('data-destino', bus.destino);
-
-                    // Criar seção de personalização
-                    const customizationInfo = document.createElement('div');
-                    customizationInfo.className = 'customization-info';
-                    
-                    const customizationText = document.createElement('div');
-                    customizationText.className = 'customization-text';
-                    customizationText.textContent = 'Esta passagem pode ser personalizada conforme sua necessidade. Você pode escolher o período do dia para sair ou voltar (madrugada, manhã, tarde ou noite), viagem direta ou com conexões, e opções de bagagem. Essas opções influenciarão no preço final.';
-                    
-                    customizationInfo.appendChild(customizationText);
-
-                    resultItem.innerHTML = `
-                        ${bus.promocao ? '<div class="promo-badge">PROMO</div>' : ''}
-                        <div class="route-info">
-                            <div class="route-title">${bus.origem} → ${bus.destino}</div>
-                        </div>
-                    `;
-                    
-                    // Adicionar a seção de personalização ao card
-                    resultItem.appendChild(customizationInfo);
-                    
-                    // Adicionar botão de consulta
-                    const consultButton = document.createElement('button');
-                    consultButton.className = 'consult-button';
-                    consultButton.onclick = function() { consultWhatsApp(bus.id, 'bus'); };
-                    consultButton.textContent = 'CONSULTAR';
-                    
-                    resultItem.appendChild(consultButton);
-
-                    resultsList.appendChild(resultItem);
-                });
-            }
-
             // Carregar dados iniciais
             displayFlightResults();
-            displayBusResults();
 
             // Event listener para o botão de pesquisa de voos
             const searchButton = document.getElementById('searchButton');
@@ -2446,47 +2154,6 @@
                 }, 1000);
             });
 
-            // Event listener para o botão de pesquisa de ônibus
-            const searchButtonBus = document.getElementById('searchButtonBus');
-            searchButtonBus.addEventListener('click', function() {
-                const origem = document.getElementById('origemBus').value;
-                const destino = document.getElementById('destinoBus').value;
-                const partida = document.getElementById('partidaBus').value;
-                const volta = document.getElementById('voltaBus').value;
-                const tipoViagem = document.querySelector('.trip-type-option.active').getAttribute('data-value');
-                const adultos = parseInt(document.getElementById('adultCount').textContent);
-                const criancas = parseInt(document.getElementById('childCount').textContent);
-                const bebes = parseInt(document.getElementById('babyCount').textContent);
-
-                if (!origem || !destino || !partida) {
-                    alert('Por favor, preencha origem, destino e data de partida.');
-                    return;
-                }
-
-                if (tipoViagem === 'roundtrip' && !volta) {
-                    alert('Por favor, selecione a data de volta.');
-                    return;
-                }
-
-                const searchData = {
-                    origem,
-                    destino,
-                    partida,
-                    volta,
-                    tipoViagem,
-                    adultos,
-                    criancas,
-                    bebes
-                };
-
-                // Simular carregamento
-                showLoading('bus');
-                setTimeout(() => {
-                    displayBusResults(searchData);
-                    hideLoading('bus');
-                }, 1000);
-            });
-
             function showLoading(type) {
                 const spinner = document.getElementById(`${type}LoadingSpinner`);
                 const resultsList = document.getElementById(`${type}ResultsList`);
@@ -2503,7 +2170,6 @@
 
             // NOVA FUNCIONALIDADE: BOTÃO LIMPAR
             const clearButton = document.getElementById('clearButton');
-            const clearButtonBus = document.getElementById('clearButtonBus');
 
             clearButton.addEventListener('click', function() {
                 // Limpar os campos de origem e destino
@@ -2539,40 +2205,6 @@
                 document.getElementById('origem').focus();
             });
 
-            clearButtonBus.addEventListener('click', function() {
-                // Limpar os campos de origem e destino
-                document.getElementById('origemBus').value = '';
-                document.getElementById('destinoBus').value = '';
-
-                // Resetar as datas para os valores padrão
-                document.getElementById('partidaBus').value = '2025-10-10';
-                document.getElementById('voltaBus').value = '2025-10-17';
-
-                // Resetar o tipo de viagem para "Ida e volta"
-                tripTypeOptions.forEach(opt => opt.classList.remove('active'));
-                document.querySelector('.trip-type-option[data-value="roundtrip"]').classList.add('active');
-                voltaGroupBus.style.display = 'flex';
-
-                // Resetar contadores de passageiros
-                adultCount.textContent = '1';
-                childCount.textContent = '0';
-                babyCount.textContent = '0';
-                updatePassengerText();
-
-                // Limpar código promocional
-                document.getElementById('promoCodeInput').value = '';
-                promoInputContainer.style.display = 'none';
-
-                // Mostrar todos os resultados novamente
-                displayBusResults();
-
-                // Resetar ordenação
-                document.getElementById('priceSortBus').value = '';
-
-                // Foco no primeiro campo
-                document.getElementById('origemBus').focus();
-            });
-
             // ========== FUNÇÃO MELHORADA PARA REDIRECIONAR AO WHATSAPP ==========
             
             // Função global para consultar via WhatsApp
@@ -2583,15 +2215,12 @@
                 if (type === 'flight') {
                     data = flightData.find(f => f.id === id);
                     title = 'Voo';
-                } else {
-                    data = busData.find(b => b.id === id);
-                    title = 'Ônibus';
                 }
                 
                 if (!data) return;
                 
                 // Obter todas as informações do formulário
-                const travelType = document.querySelector('.travel-type-option.active').getAttribute('data-value');
+                const travelType = 'air'; // Agora apenas passagens aéreas
                 const tripType = document.querySelector('.trip-type-option.active').getAttribute('data-value');
                 const adults = parseInt(document.getElementById('adultCount').textContent);
                 const children = parseInt(document.getElementById('childCount').textContent);
@@ -2601,17 +2230,10 @@
                 // Obter informações específicas do tipo de transporte
                 let origem, destino, partida, volta;
                 
-                if (type === 'flight') {
-                    origem = document.getElementById('origem').value;
-                    destino = document.getElementById('destino').value;
-                    partida = document.getElementById('partida').value;
-                    volta = document.getElementById('volta').value;
-                } else {
-                    origem = document.getElementById('origemBus').value;
-                    destino = document.getElementById('destinoBus').value;
-                    partida = document.getElementById('partidaBus').value;
-                    volta = document.getElementById('voltaBus').value;
-                }
+                origem = document.getElementById('origem').value;
+                destino = document.getElementById('destino').value;
+                partida = document.getElementById('partida').value;
+                volta = document.getElementById('volta').value;
                 
                 // Mapear códigos de aeroporto para nomes de cidades
                 const cityNames = {
@@ -2626,11 +2248,12 @@
                 
                 // Formatar a mensagem para o WhatsApp
                 let message = `Olá! Gostaria de consultar sobre a seguinte passagem:\n\n`;
-                message += `*Tipo de Transporte:* ${travelType === 'air' ? 'Aéreo' : 'Rodoviário'}\n`;
+                message += `*Tipo de Transporte:* Aéreo\n`;
                 message += `*Tipo de Viagem:* ${tripType === 'roundtrip' ? 'Ida e Volta' : 'Somente Ida'}\n\n`;
                 
                 message += `*${title}:* ${cityNames[data.origem] || data.origem} → ${cityNames[data.destino] || data.destino}\n`;
-                message += `*Companhia:* ${data.companhia}\n`;
+                
+                // ATUALIZADO: Removida a linha da companhia
                 
                 // Adicionar informações de datas
                 if (partida) {
@@ -2658,8 +2281,7 @@
                 
                 message += `\n*Informações da Consulta:*\n`;
                 message += `• ID da consulta: ${data.id}\n`;
-                message += `• Preço exibido: R$ ${data.preco.toFixed(2)}\n`;
-                message += `• ${data.promocao ? 'Inclui promoção' : 'Preço regular'}\n`;
+                // ATUALIZADO: Removidas as linhas de preço e promoção
                 
                 message += `\nGostaria de confirmar disponibilidade, preços atualizados e opções de personalização.`;
                 
