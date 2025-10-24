@@ -1407,6 +1407,7 @@
         <div class="search-options">
             <div class="travel-type-selector" id="travelTypeSelector">
                 <div class="travel-type-option active" data-value="air">Passagens aéreas</div>
+                <div class="travel-type-option" data-value="bus">Passagens rodoviárias</div>
             </div>
             <div class="options-container">
                 <div class="trip-type-selector" id="tripTypeOption">
@@ -2572,7 +2573,7 @@
                 document.getElementById('origemBus').focus();
             });
 
-            // ========== FUNÇÃO PARA REDIRECIONAR AO WHATSAPP ==========
+            // ========== FUNÇÃO MELHORADA PARA REDIRECIONAR AO WHATSAPP ==========
             
             // Função global para consultar via WhatsApp
             window.consultWhatsApp = function(id, type) {
@@ -2589,22 +2590,78 @@
                 
                 if (!data) return;
                 
+                // Obter todas as informações do formulário
+                const travelType = document.querySelector('.travel-type-option.active').getAttribute('data-value');
+                const tripType = document.querySelector('.trip-type-option.active').getAttribute('data-value');
                 const adults = parseInt(document.getElementById('adultCount').textContent);
                 const children = parseInt(document.getElementById('childCount').textContent);
                 const babies = parseInt(document.getElementById('babyCount').textContent);
+                const promoCode = document.getElementById('promoCodeInput').value;
+                
+                // Obter informações específicas do tipo de transporte
+                let origem, destino, partida, volta;
+                
+                if (type === 'flight') {
+                    origem = document.getElementById('origem').value;
+                    destino = document.getElementById('destino').value;
+                    partida = document.getElementById('partida').value;
+                    volta = document.getElementById('volta').value;
+                } else {
+                    origem = document.getElementById('origemBus').value;
+                    destino = document.getElementById('destinoBus').value;
+                    partida = document.getElementById('partidaBus').value;
+                    volta = document.getElementById('voltaBus').value;
+                }
+                
+                // Mapear códigos de aeroporto para nomes de cidades
+                const cityNames = {
+                    "SAO": "São Paulo",
+                    "RIO": "Rio de Janeiro",
+                    "BSB": "Brasília",
+                    "REC": "Recife",
+                    "SSA": "Salvador",
+                    "FOR": "Fortaleza",
+                    "POA": "Porto Alegre"
+                };
                 
                 // Formatar a mensagem para o WhatsApp
                 let message = `Olá! Gostaria de consultar sobre a seguinte passagem:\n\n`;
-                message += `*${title}:* ${data.origem} → ${data.destino}\n`;
-                message += `*Data de Partida:* ${formatDisplayDate(data.dataPartida)}\n`;
+                message += `*Tipo de Transporte:* ${travelType === 'air' ? 'Aéreo' : 'Rodoviário'}\n`;
+                message += `*Tipo de Viagem:* ${tripType === 'roundtrip' ? 'Ida e Volta' : 'Somente Ida'}\n\n`;
                 
-                if (data.dataVolta) {
-                    message += `*Data de Volta:* ${formatDisplayDate(data.dataVolta)}\n`;
+                message += `*${title}:* ${cityNames[data.origem] || data.origem} → ${cityNames[data.destino] || data.destino}\n`;
+                message += `*Companhia:* ${data.companhia}\n`;
+                
+                // Adicionar informações de datas
+                if (partida) {
+                    message += `*Data de Partida:* ${formatDisplayDate(partida)}\n`;
                 }
                 
-                message += `*Passageiros:* ${adults} adulto(s), ${children} criança(s), ${babies} bebê(s)\n\n`;
+                if (volta && tripType === 'roundtrip') {
+                    message += `*Data de Volta:* ${formatDisplayDate(volta)}\n`;
+                }
                 
-                message += `Gostaria de confirmar disponibilidade e preços atualizados.`;
+                // Adicionar informações de passageiros
+                message += `\n*Passageiros:*\n`;
+                message += `• ${adults} adulto(s) (12+ anos)\n`;
+                if (children > 0) {
+                    message += `• ${children} criança(s) (2-11 anos)\n`;
+                }
+                if (babies > 0) {
+                    message += `• ${babies} bebê(s) (0-23 meses)\n`;
+                }
+                
+                // Adicionar código promocional se existir
+                if (promoCode) {
+                    message += `\n*Código Promocional:* ${promoCode}\n`;
+                }
+                
+                message += `\n*Informações da Consulta:*\n`;
+                message += `• ID da consulta: ${data.id}\n`;
+                message += `• Preço exibido: R$ ${data.preco.toFixed(2)}\n`;
+                message += `• ${data.promocao ? 'Inclui promoção' : 'Preço regular'}\n`;
+                
+                message += `\nGostaria de confirmar disponibilidade, preços atualizados e opções de personalização.`;
                 
                 // Codificar a mensagem para URL
                 const encodedMessage = encodeURIComponent(message);
