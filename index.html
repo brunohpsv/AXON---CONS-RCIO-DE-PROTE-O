@@ -815,8 +815,9 @@
             margin-top: 5px;
         }
 
-        .reserve-button {
-            background-color: #0066cc;
+        /* ATUALIZAÇÃO: Botão CONSULTAR sem ícone de celular */
+        .consult-button {
+            background-color: #25D366;
             color: white;
             border: none;
             border-radius: 0;
@@ -826,10 +827,18 @@
             cursor: pointer;
             transition: background-color 0.3s;
             margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .reserve-button:hover {
-            background-color: #0055aa;
+        .consult-button:hover {
+            background-color: #128C7E;
+        }
+
+        /* REMOVIDO: Estilo do ícone do WhatsApp */
+        .whatsapp-icon {
+            display: none;
         }
 
         .promo-badge {
@@ -1560,90 +1569,6 @@
         </div>
     </div>
 
-    <!-- Seção de reserva integrada (inicialmente oculta) -->
-    <div class="reservation-section" id="reservationSection" style="display: none;">
-        <h2 class="reservation-title">Finalizar Reserva</h2>
-        <div class="reservation-content">
-            <div class="reservation-form">
-                <div class="form-group">
-                    <label for="firstName">Nome</label>
-                    <input type="text" id="firstName" placeholder="Primeiro nome">
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Sobrenome</label>
-                    <input type="text" id="lastName" placeholder="Sobrenome">
-                </div>
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" placeholder="Seu e-mail">
-                </div>
-                <div class="form-group">
-                    <label for="phone">Telefone</label>
-                    <input type="tel" id="phone" placeholder="(11) 99999-9999">
-                </div>
-                <div class="form-group">
-                    <label for="cpf">CPF</label>
-                    <input type="text" id="cpf" placeholder="000.000.000-00">
-                </div>
-                <div class="form-group">
-                    <label for="birthDate">Data de Nascimento</label>
-                    <input type="date" id="birthDate">
-                </div>
-                <div class="form-group form-group-full">
-                    <label>Forma de Pagamento</label>
-                    <div class="payment-methods">
-                        <div class="payment-method active" data-method="credit">
-                            <span>Cartão de Crédito</span>
-                        </div>
-                        <div class="payment-method" data-method="debit">
-                            <span>Cartão de Débito</span>
-                        </div>
-                        <div class="payment-method" data-method="pix">
-                            <span>PIX</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group form-group-full" id="creditCardFields">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div>
-                            <label for="cardNumber">Número do Cartão</label>
-                            <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000">
-                        </div>
-                        <div>
-                            <label for="cardName">Nome no Cartão</label>
-                            <input type="text" id="cardName" placeholder="Como está no cartão">
-                        </div>
-                        <div>
-                            <label for="expiryDate">Validade</label>
-                            <input type="text" id="expiryDate" placeholder="MM/AA">
-                        </div>
-                        <div>
-                            <label for="cvv">CVV</label>
-                            <input type="text" id="cvv" placeholder="000">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group form-group-full" id="pixFields" style="display: none;">
-                    <p>Após confirmar a reserva, você receberá um código PIX para pagamento.</p>
-                    <p>O pagamento deve ser realizado em até 30 minutos para confirmar sua reserva.</p>
-                </div>
-            </div>
-            
-            <div class="reservation-summary">
-                <h3 class="summary-title">Resumo da Reserva</h3>
-                <div id="reservationSummaryContent">
-                    <!-- Conteúdo será preenchido dinamicamente -->
-                </div>
-                <div class="summary-total">
-                    <span>Total:</span>
-                    <span id="reservationTotal">R$ 0,00</span>
-                </div>
-            </div>
-            
-            <button class="confirm-reservation-btn" id="confirmReservationBtn">Confirmar Reserva</button>
-        </div>
-    </div>
-
     <!-- Nova seção "Sobre a BIXX PASSAGENS" -->
     <div class="about-section">
         <h2 class="about-title">Sobre a BIXX PASSAGENS</h2>
@@ -1719,7 +1644,7 @@
             <div class="footer-column">
                 <h3 class="footer-title">Contato</h3>
                 <ul class="footer-links">
-                    <li><a href="tel:+5511999999999">(11) 99999-9999</a></li>
+                    <li><a href="tel:+556281596601">(62) 8159-6601</a></li>
                     <li><a href="mailto:contato@bixxpass.com">contato@bixxpass.com</a></li>
                     <li>Av. Paulista, 1000 - São Paulo, SP</li>
                 </ul>
@@ -2284,7 +2209,7 @@
 
             // Função para obter nota de preço aleatória
             function getRandomPriceNote() {
-                const notes = ['Só ida', 'Só tás', 'Taxas incluídas', 'Em até 12x'];
+                const notes = ['Valor médio*', 'Sujeito a alteração', 'Taxas incluídas', 'Em até 12x'];
                 return notes[Math.floor(Math.random() * notes.length)];
             }
 
@@ -2339,11 +2264,13 @@
                             <div class="bus-company">${flight.companhia}</div>
                         </div>
                         <div class="price-info">
-                            <div class="price-label">A partir de</div>
+                            <div class="price-label">Valor médio a partir de</div>
                             <div class="price-value">${price}*</div>
                             <div class="price-note">${getRandomPriceNote()}</div>
                         </div>
-                        <button class="reserve-button" onclick="selectFlight('${flight.id}')">Reserve agora</button>
+                        <button class="consult-button" onclick="consultWhatsApp('${flight.id}', 'flight')">
+                            CONSULTAR
+                        </button>
                     `;
 
                     resultsList.appendChild(resultItem);
@@ -2401,11 +2328,13 @@
                             <div class="bus-company">${bus.companhia}</div>
                         </div>
                         <div class="price-info">
-                            <div class="price-label">A partir de</div>
+                            <div class="price-label">Valor médio a partir de</div>
                             <div class="price-value">${price}*</div>
                             <div class="price-note">${getRandomPriceNote()}</div>
                         </div>
-                        <button class="reserve-button" onclick="selectBus('${bus.id}')">Reserve agora</button>
+                        <button class="consult-button" onclick="consultWhatsApp('${bus.id}', 'bus')">
+                            CONSULTAR
+                        </button>
                     `;
 
                     resultsList.appendChild(resultItem);
@@ -2584,232 +2513,53 @@
                 document.getElementById('origemBus').focus();
             });
 
-            // ========== INTEGRAÇÃO DO SISTEMA DE RESERVA ==========
-
-            // Elementos da seção de reserva
-            const reservationSection = document.getElementById('reservationSection');
-            const reservationSummaryContent = document.getElementById('reservationSummaryContent');
-            const reservationTotal = document.getElementById('reservationTotal');
-            const confirmReservationBtn = document.getElementById('confirmReservationBtn');
-            const paymentMethods = document.querySelectorAll('.payment-method');
-            const creditCardFields = document.getElementById('creditCardFields');
-            const pixFields = document.getElementById('pixFields');
-
-            // Variáveis para armazenar dados da reserva atual
-            let currentReservation = null;
-
-            // Configurar métodos de pagamento
-            paymentMethods.forEach(method => {
-                method.addEventListener('click', function() {
-                    paymentMethods.forEach(m => m.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const methodType = this.getAttribute('data-method');
-                    if (methodType === 'credit' || methodType === 'debit') {
-                        creditCardFields.style.display = 'block';
-                        pixFields.style.display = 'none';
-                    } else if (methodType === 'pix') {
-                        creditCardFields.style.display = 'none';
-                        pixFields.style.display = 'block';
-                    }
-                });
-            });
-
-            // Funções globais para seleção
-            window.selectFlight = function(flightId) {
-                const flight = flightData.find(f => f.id === flightId);
-                if (flight) {
-                    currentReservation = {
-                        type: 'flight',
-                        id: flight.id,
-                        origem: flight.origem,
-                        destino: flight.destino,
-                        dataPartida: flight.dataPartida,
-                        dataVolta: flight.dataVolta,
-                        companhia: flight.companhia,
-                        preco: flight.preco,
-                        promocao: flight.promocao
-                    };
-                    
-                    showReservationSection();
-                    updateReservationSummary();
+            // ========== FUNÇÃO PARA REDIRECIONAR AO WHATSAPP ==========
+            
+            // Função global para consultar via WhatsApp
+            window.consultWhatsApp = function(id, type) {
+                let data;
+                let title;
+                
+                if (type === 'flight') {
+                    data = flightData.find(f => f.id === id);
+                    title = 'Voo';
+                } else {
+                    data = busData.find(b => b.id === id);
+                    title = 'Ônibus';
                 }
+                
+                if (!data) return;
+                
+                const adults = parseInt(document.getElementById('adultCount').textContent);
+                const children = parseInt(document.getElementById('childCount').textContent);
+                const babies = parseInt(document.getElementById('babyCount').textContent);
+                
+                // Formatar a mensagem para o WhatsApp
+                let message = `Olá! Gostaria de consultar sobre a seguinte passagem:\n\n`;
+                message += `*${title}:* ${data.origem} → ${data.destino}\n`;
+                message += `*Companhia:* ${data.companhia}\n`;
+                message += `*Data de Partida:* ${formatDisplayDate(data.dataPartida)}\n`;
+                
+                if (data.dataVolta) {
+                    message += `*Data de Volta:* ${formatDisplayDate(data.dataVolta)}\n`;
+                }
+                
+                message += `*Passageiros:* ${adults} adulto(s), ${children} criança(s), ${babies} bebê(s)\n`;
+                message += `*Valor médio apresentado:* R$ ${data.preco.toFixed(2)}\n\n`;
+                message += `Gostaria de confirmar disponibilidade e preços atualizados.`;
+                
+                // Codificar a mensagem para URL
+                const encodedMessage = encodeURIComponent(message);
+                
+                // Número do WhatsApp
+                const phoneNumber = '556281596601';
+                
+                // Criar URL do WhatsApp
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+                
+                // Abrir WhatsApp em uma nova aba
+                window.open(whatsappUrl, '_blank');
             };
-
-            window.selectBus = function(busId) {
-                const bus = busData.find(b => b.id === busId);
-                if (bus) {
-                    currentReservation = {
-                        type: 'bus',
-                        id: bus.id,
-                        origem: bus.origem,
-                        destino: bus.destino,
-                        dataPartida: bus.dataPartida,
-                        dataVolta: bus.dataVolta,
-                        companhia: bus.companhia,
-                        preco: bus.preco,
-                        promocao: bus.promocao
-                    };
-                    
-                    showReservationSection();
-                    updateReservationSummary();
-                }
-            };
-
-            function showReservationSection() {
-                // Esconder outras seções
-                airResultsSection.style.display = 'none';
-                busResultsSection.style.display = 'none';
-                aboutSection.style.display = 'none';
-                
-                // Mostrar seção de reserva
-                reservationSection.style.display = 'block';
-                
-                // Rolar para a seção de reserva
-                reservationSection.scrollIntoView({ behavior: 'smooth' });
-            }
-
-            function updateReservationSummary() {
-                if (!currentReservation) return;
-                
-                const adults = parseInt(adultCount.textContent);
-                const children = parseInt(childCount.textContent);
-                const babies = parseInt(babyCount.textContent);
-                const totalPassengers = adults + children + babies;
-                
-                const totalPrice = currentReservation.preco * adults + 
-                                  (currentReservation.preco * 0.7) * children;
-                
-                let summaryHTML = `
-                    <div class="summary-item">
-                        <span>${currentReservation.type === 'flight' ? 'Voo' : 'Ônibus'}:</span>
-                        <span>${currentReservation.origem} → ${currentReservation.destino}</span>
-                    </div>
-                    <div class="summary-item">
-                        <span>Companhia:</span>
-                        <span>${currentReservation.companhia}</span>
-                    </div>
-                    <div class="summary-item">
-                        <span>Data de Partida:</span>
-                        <span>${formatDisplayDate(currentReservation.dataPartida)}</span>
-                    </div>
-                `;
-                
-                if (currentReservation.dataVolta) {
-                    summaryHTML += `
-                        <div class="summary-item">
-                            <span>Data de Volta:</span>
-                            <span>${formatDisplayDate(currentReservation.dataVolta)}</span>
-                        </div>
-                    `;
-                }
-                
-                summaryHTML += `
-                    <div class="summary-item">
-                        <span>Passageiros:</span>
-                        <span>${totalPassengers} (${adults} adulto(s), ${children} criança(s), ${babies} bebê(s))</span>
-                    </div>
-                    <div class="summary-item">
-                        <span>Tarifa base:</span>
-                        <span>R$ ${currentReservation.preco.toFixed(2)}</span>
-                    </div>
-                `;
-                
-                if (children > 0) {
-                    summaryHTML += `
-                        <div class="summary-item">
-                            <span>Desconto crianças (30%):</span>
-                            <span>- R$ ${(currentReservation.preco * 0.3 * children).toFixed(2)}</span>
-                        </div>
-                    `;
-                }
-                
-                reservationSummaryContent.innerHTML = summaryHTML;
-                reservationTotal.textContent = `R$ ${totalPrice.toFixed(2)}`;
-            }
-
-            // Configurar botão de confirmação de reserva
-            confirmReservationBtn.addEventListener('click', function() {
-                if (!validateReservationForm()) {
-                    alert('Por favor, preencha todos os campos obrigatórios.');
-                    return;
-                }
-                
-                // Simular processamento da reserva
-                confirmReservationBtn.disabled = true;
-                confirmReservationBtn.textContent = 'Processando...';
-                
-                setTimeout(() => {
-                    alert('Reserva confirmada com sucesso! Você receberá um e-mail com os detalhes.');
-                    
-                    // Resetar formulário
-                    resetReservationForm();
-                    
-                    // Voltar para a página inicial
-                    reservationSection.style.display = 'none';
-                    airResultsSection.style.display = 'block';
-                    aboutSection.style.display = 'block';
-                    
-                    // Rolar para o topo
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }, 2000);
-            });
-
-            function validateReservationForm() {
-                const firstName = document.getElementById('firstName').value;
-                const lastName = document.getElementById('lastName').value;
-                const email = document.getElementById('email').value;
-                const phone = document.getElementById('phone').value;
-                const cpf = document.getElementById('cpf').value;
-                const birthDate = document.getElementById('birthDate').value;
-                
-                if (!firstName || !lastName || !email || !phone || !cpf || !birthDate) {
-                    return false;
-                }
-                
-                // Validar método de pagamento selecionado
-                const selectedPayment = document.querySelector('.payment-method.active');
-                if (!selectedPayment) return false;
-                
-                const paymentMethod = selectedPayment.getAttribute('data-method');
-                
-                if (paymentMethod === 'credit' || paymentMethod === 'debit') {
-                    const cardNumber = document.getElementById('cardNumber').value;
-                    const cardName = document.getElementById('cardName').value;
-                    const expiryDate = document.getElementById('expiryDate').value;
-                    const cvv = document.getElementById('cvv').value;
-                    
-                    if (!cardNumber || !cardName || !expiryDate || !cvv) {
-                        return false;
-                    }
-                }
-                
-                return true;
-            }
-
-            function resetReservationForm() {
-                document.getElementById('firstName').value = '';
-                document.getElementById('lastName').value = '';
-                document.getElementById('email').value = '';
-                document.getElementById('phone').value = '';
-                document.getElementById('cpf').value = '';
-                document.getElementById('birthDate').value = '';
-                document.getElementById('cardNumber').value = '';
-                document.getElementById('cardName').value = '';
-                document.getElementById('expiryDate').value = '';
-                document.getElementById('cvv').value = '';
-                
-                // Resetar método de pagamento para cartão de crédito
-                paymentMethods.forEach(m => m.classList.remove('active'));
-                document.querySelector('.payment-method[data-method="credit"]').classList.add('active');
-                creditCardFields.style.display = 'block';
-                pixFields.style.display = 'none';
-                
-                confirmReservationBtn.disabled = false;
-                confirmReservationBtn.textContent = 'Confirmar Reserva';
-                
-                currentReservation = null;
-            }
         });
     </script>
 </body>
