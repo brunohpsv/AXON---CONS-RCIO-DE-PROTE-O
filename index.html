@@ -666,6 +666,39 @@
             color: #1a1a1a;
         }
 
+        /* NOVO: Aviso vermelho acima dos resultados */
+        .results-warning {
+            background-color: #8B0000;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .warning-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .warning-text {
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .companies-list {
+            font-size: 14px;
+            margin-top: 8px;
+            font-weight: normal;
+            opacity: 0.9;
+        }
+
         .results-filters {
             display: flex;
             gap: 15px;
@@ -738,15 +771,16 @@
             outline: none;
         }
 
+        /* ATUALIZAÇÃO: Cards mais compactos com mesma altura */
         .results-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
         }
 
         .result-item {
             background-color: white;
-            border-radius: 0;
+            border-radius: 8px;
             padding: 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             display: flex;
@@ -754,6 +788,8 @@
             border: 1px solid #e0e0e0;
             transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
+            height: 100%;
+            justify-content: space-between;
         }
 
         .result-item:hover {
@@ -784,29 +820,53 @@
             color: #666;
         }
 
+        /* REMOVIDO: route-seen (tempo em minutos) */
         .route-seen {
-            font-size: 12px;
-            color: #999;
+            display: none;
         }
 
-        .price-info {
-            text-align: center;
+        /* NOVO: Estilos para as opções de horários, conexões e bagagem */
+        .flight-options {
             margin: 15px 0;
-            padding: 10px 0;
             border-top: 1px solid #f0f0f0;
             border-bottom: 1px solid #f0f0f0;
+            padding: 10px 0;
         }
 
-        .price-label {
-            font-size: 12px;
-            color: #666;
+        .option-group {
+            margin-bottom: 10px;
+        }
+
+        .option-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
             margin-bottom: 5px;
         }
 
-        .price-value {
-            font-size: 24px;
+        .option-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .option-item {
+            font-size: 12px;
+            padding: 4px 8px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            color: #666;
+        }
+
+        .option-item.available {
+            background-color: #e8f5e8;
+            color: #2e7d32;
             font-weight: bold;
-            color: #e60000;
+        }
+
+        /* REMOVIDO: price-info e price-warning */
+        .price-info, .price-warning {
+            display: none;
         }
 
         .price-note {
@@ -977,12 +1037,6 @@
             margin-right: 5px;
         }
 
-        .bus-company {
-            font-size: 14px;
-            color: #666;
-            margin-top: 5px;
-        }
-
         /* MEDIA QUERIES - MODIFICADAS PARA O MENU RESPONSIVO */
         @media (max-width: 1024px) {
             .desktop-menu-items {
@@ -1077,11 +1131,6 @@
                 gap: 15px;
             }
 
-            .price-info {
-                text-align: left;
-                margin-right: 0;
-            }
-
             .results-filters {
                 flex-direction: column;
                 width: 100%;
@@ -1105,6 +1154,19 @@
 
             .footer-content {
                 grid-template-columns: 1fr;
+            }
+
+            /* Ajustes para o aviso em mobile */
+            .results-warning {
+                padding: 12px;
+            }
+
+            .warning-text {
+                font-size: 14px;
+            }
+
+            .companies-list {
+                font-size: 12px;
             }
         }
 
@@ -1532,6 +1594,17 @@
                     <option value="expensive">Caro > Barato</option>
                     <option value="promo">Promoção</option>
                 </select>
+            </div>
+        </div>
+
+        <!-- NOVO: Aviso vermelho acima dos resultados -->
+        <div class="results-warning">
+            <div class="warning-icon">!</div>
+            <div class="warning-text">
+                Nossos preços são diretamente com as companhias, sendo os mais baratos do mercado! Consulte!
+            </div>
+            <div class="companies-list">
+                Trabalhamos com: GOL • AZUL • LATAM • TAP • INTERLINE
             </div>
         </div>
 
@@ -2072,7 +2145,11 @@
                     companhia: "LATAM",
                     preco: 289.90,
                     promocao: true,
-                    visto: "5 minutos atrás"
+                    visto: "5 minutos atrás",
+                    horariosIda: ["Madrugada", "Manhã"],
+                    horariosVolta: ["Tarde", "Noite"],
+                    conexoes: ["Voo Direto", "1 Conexão"],
+                    bagagem: ["Bagagem 10kg", "Bagagem 23kg"]
                 },
                 {
                     id: "FL002",
@@ -2083,7 +2160,11 @@
                     companhia: "GOL",
                     preco: 345.50,
                     promocao: false,
-                    visto: "10 minutos atrás"
+                    visto: "10 minutos atrás",
+                    horariosIda: ["Manhã", "Tarde"],
+                    horariosVolta: ["Noite"],
+                    conexoes: ["Voo Direto"],
+                    bagagem: ["Bagagem 10kg", "Bagagem 23kg", "Bagagem 32kg"]
                 },
                 {
                     id: "FL003",
@@ -2094,7 +2175,11 @@
                     companhia: "AZUL",
                     preco: 420.00,
                     promocao: true,
-                    visto: "15 minutos atrás"
+                    visto: "15 minutos atrás",
+                    horariosIda: ["Madrugada", "Manhã", "Tarde"],
+                    horariosVolta: ["Manhã", "Tarde"],
+                    conexoes: ["1 Conexão", "2 Conexões"],
+                    bagagem: ["Bagagem 10kg"]
                 },
                 {
                     id: "FL004",
@@ -2105,7 +2190,11 @@
                     companhia: "LATAM",
                     preco: 275.80,
                     promocao: false,
-                    visto: "30 minutos atrás"
+                    visto: "30 minutos atrás",
+                    horariosIda: ["Tarde", "Noite"],
+                    horariosVolta: ["Madrugada", "Manhã"],
+                    conexoes: ["Voo Direto"],
+                    bagagem: ["Bagagem 23kg", "Bagagem 32kg"]
                 },
                 {
                     id: "FL005",
@@ -2116,7 +2205,11 @@
                     companhia: "GOL",
                     preco: 310.25,
                     promocao: true,
-                    visto: "1 hora atrás"
+                    visto: "1 hora atrás",
+                    horariosIda: ["Manhã"],
+                    horariosVolta: ["Tarde"],
+                    conexoes: ["Voo Direto", "1 Conexão", "2 Conexões"],
+                    bagagem: ["Bagagem 10kg", "Bagagem 23kg"]
                 },
                 {
                     id: "FL006",
@@ -2127,7 +2220,11 @@
                     companhia: "AZUL",
                     preco: 480.90,
                     promocao: false,
-                    visto: "5 minutos atrás"
+                    visto: "5 minutos atrás",
+                    horariosIda: ["Madrugada", "Noite"],
+                    horariosVolta: ["Manhã", "Tarde"],
+                    conexoes: ["1 Conexão"],
+                    bagagem: ["Bagagem 23kg"]
                 }
             ];
 
@@ -2142,7 +2239,11 @@
                     companhia: "Cometa",
                     preco: 89.90,
                     promocao: true,
-                    visto: "5 minutos atrás"
+                    visto: "5 minutos atrás",
+                    horariosIda: ["Madrugada", "Manhã"],
+                    horariosVolta: ["Tarde", "Noite"],
+                    conexoes: ["Direto"],
+                    bagagem: ["Bagagem 10kg", "Bagagem 23kg"]
                 },
                 {
                     id: "BUS002",
@@ -2153,7 +2254,11 @@
                     companhia: "Itapemirim",
                     preco: 145.50,
                     promocao: false,
-                    visto: "10 minutos atrás"
+                    visto: "10 minutos atrás",
+                    horariosIda: ["Manhã", "Tarde"],
+                    horariosVolta: ["Noite"],
+                    conexoes: ["Direto"],
+                    bagagem: ["Bagagem 10kg", "Bagagem 23kg", "Bagagem 32kg"]
                 },
                 {
                     id: "BUS003",
@@ -2164,7 +2269,11 @@
                     companhia: "Kaissara",
                     preco: 220.00,
                     promocao: true,
-                    visto: "15 minutos atrás"
+                    visto: "15 minutos atrás",
+                    horariosIda: ["Madrugada", "Manhã", "Tarde"],
+                    horariosVolta: ["Manhã", "Tarde"],
+                    conexoes: ["1 Conexão"],
+                    bagagem: ["Bagagem 10kg"]
                 },
                 {
                     id: "BUS004",
@@ -2175,7 +2284,11 @@
                     companhia: "Gontijo",
                     preco: 175.80,
                     promocao: false,
-                    visto: "30 minutos atrás"
+                    visto: "30 minutos atrás",
+                    horariosIda: ["Tarde", "Noite"],
+                    horariosVolta: ["Madrugada", "Manhã"],
+                    conexoes: ["Direto"],
+                    bagagem: ["Bagagem 23kg", "Bagagem 32kg"]
                 },
                 {
                     id: "BUS005",
@@ -2186,7 +2299,11 @@
                     companhia: "São Geraldo",
                     preco: 210.25,
                     promocao: true,
-                    visto: "1 hora atrás"
+                    visto: "1 hora atrás",
+                    horariosIda: ["Manhã"],
+                    horariosVolta: ["Tarde"],
+                    conexoes: ["Direto", "1 Conexão"],
+                    bagagem: ["Bagagem 10kg", "Bagagem 23kg"]
                 },
                 {
                     id: "BUS006",
@@ -2197,7 +2314,11 @@
                     companhia: "Pluma",
                     preco: 280.90,
                     promocao: false,
-                    visto: "5 minutos atrás"
+                    visto: "5 minutos atrás",
+                    horariosIda: ["Madrugada", "Noite"],
+                    horariosVolta: ["Manhã", "Tarde"],
+                    conexoes: ["1 Conexão"],
+                    bagagem: ["Bagagem 23kg"]
                 }
             ];
 
@@ -2207,10 +2328,29 @@
                 return date.toLocaleDateString('pt-BR');
             }
 
-            // Função para obter nota de preço aleatória
-            function getRandomPriceNote() {
-                const notes = ['Valor médio*', 'Sujeito a alteração', 'Taxas incluídas', 'Em até 12x'];
-                return notes[Math.floor(Math.random() * notes.length)];
+            // Função para criar elementos de opções personalizadas
+            function createCustomOptionsElement(title, options) {
+                const optionGroup = document.createElement('div');
+                optionGroup.className = 'option-group';
+                
+                const optionTitle = document.createElement('div');
+                optionTitle.className = 'option-title';
+                optionTitle.textContent = title;
+                
+                const optionList = document.createElement('div');
+                optionList.className = 'option-list';
+                
+                options.forEach(option => {
+                    const optionItem = document.createElement('span');
+                    optionItem.className = 'option-item available';
+                    optionItem.textContent = option;
+                    optionList.appendChild(optionItem);
+                });
+                
+                optionGroup.appendChild(optionTitle);
+                optionGroup.appendChild(optionList);
+                
+                return optionGroup;
             }
 
             // Função para exibir resultados de voos
@@ -2251,27 +2391,80 @@
                     resultItem.setAttribute('data-origem', flight.origem);
                     resultItem.setAttribute('data-destino', flight.destino);
 
-                    const price = `R$${flight.preco.toFixed(2)}`;
+                    // Criar seção de opções personalizadas
+                    const flightOptions = document.createElement('div');
+                    flightOptions.className = 'flight-options';
+                    
+                    // Adicionar título "Opções Personalizadas"
+                    const customTitle = document.createElement('div');
+                    customTitle.className = 'option-title';
+                    customTitle.textContent = 'Opções Personalizadas';
+                    flightOptions.appendChild(customTitle);
+                    
+                    // Adicionar todas as opções em uma única lista
+                    const allOptions = [];
+                    
+                    // Adicionar opções de horários de ida
+                    if (flight.horariosIda && flight.horariosIda.length > 0) {
+                        allOptions.push(...flight.horariosIda);
+                    }
+                    
+                    // Adicionar opções de horários de volta (se houver)
+                    if (flight.horariosVolta && flight.horariosVolta.length > 0) {
+                        allOptions.push(...flight.horariosVolta);
+                    }
+                    
+                    // Adicionar opções de conexões
+                    if (flight.conexoes && flight.conexoes.length > 0) {
+                        allOptions.push(...flight.conexoes);
+                    }
+                    
+                    // Adicionar opções de bagagem
+                    if (flight.bagagem && flight.bagagem.length > 0) {
+                        allOptions.push(...flight.bagagem);
+                    }
+                    
+                    // Criar lista de opções personalizadas
+                    const optionList = document.createElement('div');
+                    optionList.className = 'option-list';
+                    
+                    allOptions.forEach(option => {
+                        const optionItem = document.createElement('span');
+                        optionItem.className = 'option-item available';
+                        optionItem.textContent = option;
+                        optionList.appendChild(optionItem);
+                    });
+                    
+                    flightOptions.appendChild(optionList);
+
+                    // Mapear códigos de aeroporto para nomes de cidades
+                    const cityNames = {
+                        "SAO": "São Paulo",
+                        "RIO": "Rio de Janeiro",
+                        "BSB": "Brasília",
+                        "REC": "Recife",
+                        "SSA": "Salvador",
+                        "FOR": "Fortaleza",
+                        "POA": "Porto Alegre"
+                    };
 
                     resultItem.innerHTML = `
                         ${flight.promocao ? '<div class="promo-badge">PROMO</div>' : ''}
                         <div class="route-info">
-                            <div class="route-title">${flight.origem} → ${flight.destino}</div>
-                            <div class="route-details">
-                                <div class="route-date">Partida: ${formatDisplayDate(flight.dataPartida)}</div>
-                                <div class="route-seen">${flight.visto}</div>
-                            </div>
-                            <div class="bus-company">${flight.companhia}</div>
+                            <div class="route-title">${cityNames[flight.origem] || flight.origem} → ${cityNames[flight.destino] || flight.destino}</div>
                         </div>
-                        <div class="price-info">
-                            <div class="price-label">Valor médio a partir de</div>
-                            <div class="price-value">${price}*</div>
-                            <div class="price-note">${getRandomPriceNote()}</div>
-                        </div>
-                        <button class="consult-button" onclick="consultWhatsApp('${flight.id}', 'flight')">
-                            CONSULTAR
-                        </button>
                     `;
+                    
+                    // Adicionar as opções personalizadas ao card
+                    resultItem.appendChild(flightOptions);
+                    
+                    // Adicionar botão de consulta
+                    const consultButton = document.createElement('button');
+                    consultButton.className = 'consult-button';
+                    consultButton.onclick = function() { consultWhatsApp(flight.id, 'flight'); };
+                    consultButton.textContent = 'CONSULTAR';
+                    
+                    resultItem.appendChild(consultButton);
 
                     resultsList.appendChild(resultItem);
                 });
@@ -2315,27 +2508,69 @@
                     resultItem.setAttribute('data-origem', bus.origem);
                     resultItem.setAttribute('data-destino', bus.destino);
 
-                    const price = `R$${bus.preco.toFixed(2)}`;
+                    // Criar seção de opções personalizadas
+                    const busOptions = document.createElement('div');
+                    busOptions.className = 'flight-options';
+                    
+                    // Adicionar título "Opções Personalizadas"
+                    const customTitle = document.createElement('div');
+                    customTitle.className = 'option-title';
+                    customTitle.textContent = 'Opções Personalizadas';
+                    busOptions.appendChild(customTitle);
+                    
+                    // Adicionar todas as opções em uma única lista
+                    const allOptions = [];
+                    
+                    // Adicionar opções de horários de ida
+                    if (bus.horariosIda && bus.horariosIda.length > 0) {
+                        allOptions.push(...bus.horariosIda);
+                    }
+                    
+                    // Adicionar opções de horários de volta (se houver)
+                    if (bus.horariosVolta && bus.horariosVolta.length > 0) {
+                        allOptions.push(...bus.horariosVolta);
+                    }
+                    
+                    // Adicionar opções de conexões
+                    if (bus.conexoes && bus.conexoes.length > 0) {
+                        allOptions.push(...bus.conexoes);
+                    }
+                    
+                    // Adicionar opções de bagagem
+                    if (bus.bagagem && bus.bagagem.length > 0) {
+                        allOptions.push(...bus.bagagem);
+                    }
+                    
+                    // Criar lista de opções personalizadas
+                    const optionList = document.createElement('div');
+                    optionList.className = 'option-list';
+                    
+                    allOptions.forEach(option => {
+                        const optionItem = document.createElement('span');
+                        optionItem.className = 'option-item available';
+                        optionItem.textContent = option;
+                        optionList.appendChild(optionItem);
+                    });
+                    
+                    busOptions.appendChild(optionList);
 
                     resultItem.innerHTML = `
                         ${bus.promocao ? '<div class="promo-badge">PROMO</div>' : ''}
                         <div class="route-info">
                             <div class="route-title">${bus.origem} → ${bus.destino}</div>
-                            <div class="route-details">
-                                <div class="route-date">Partida: ${formatDisplayDate(bus.dataPartida)}</div>
-                                <div class="route-seen">${bus.visto}</div>
-                            </div>
-                            <div class="bus-company">${bus.companhia}</div>
                         </div>
-                        <div class="price-info">
-                            <div class="price-label">Valor médio a partir de</div>
-                            <div class="price-value">${price}*</div>
-                            <div class="price-note">${getRandomPriceNote()}</div>
-                        </div>
-                        <button class="consult-button" onclick="consultWhatsApp('${bus.id}', 'bus')">
-                            CONSULTAR
-                        </button>
                     `;
+                    
+                    // Adicionar as opções personalizadas ao card
+                    resultItem.appendChild(busOptions);
+                    
+                    // Adicionar botão de consulta
+                    const consultButton = document.createElement('button');
+                    consultButton.className = 'consult-button';
+                    consultButton.onclick = function() { consultWhatsApp(bus.id, 'bus'); };
+                    consultButton.textContent = 'CONSULTAR';
+                    
+                    resultItem.appendChild(consultButton);
 
                     resultsList.appendChild(resultItem);
                 });
@@ -2537,16 +2772,32 @@
                 // Formatar a mensagem para o WhatsApp
                 let message = `Olá! Gostaria de consultar sobre a seguinte passagem:\n\n`;
                 message += `*${title}:* ${data.origem} → ${data.destino}\n`;
-                message += `*Companhia:* ${data.companhia}\n`;
                 message += `*Data de Partida:* ${formatDisplayDate(data.dataPartida)}\n`;
                 
                 if (data.dataVolta) {
                     message += `*Data de Volta:* ${formatDisplayDate(data.dataVolta)}\n`;
                 }
                 
-                message += `*Passageiros:* ${adults} adulto(s), ${children} criança(s), ${babies} bebê(s)\n`;
-                message += `*Valor médio apresentado:* R$ ${data.preco.toFixed(2)}\n\n`;
-                message += `Gostaria de confirmar disponibilidade e preços atualizados.`;
+                message += `*Passageiros:* ${adults} adulto(s), ${children} criança(s), ${babies} bebê(s)\n\n`;
+                
+                // Adicionar informações de opções se disponíveis
+                if (data.horariosIda && data.horariosIda.length > 0) {
+                    message += `*Horários Ida:* ${data.horariosIda.join(', ')}\n`;
+                }
+                
+                if (data.horariosVolta && data.horariosVolta.length > 0) {
+                    message += `*Horários Volta:* ${data.horariosVolta.join(', ')}\n`;
+                }
+                
+                if (data.conexoes && data.conexoes.length > 0) {
+                    message += `*Conexões:* ${data.conexoes.join(', ')}\n`;
+                }
+                
+                if (data.bagagem && data.bagagem.length > 0) {
+                    message += `*Bagagem:* ${data.bagagem.join(', ')}\n`;
+                }
+                
+                message += `\nGostaria de confirmar disponibilidade e preços atualizados.`;
                 
                 // Codificar a mensagem para URL
                 const encodedMessage = encodeURIComponent(message);
