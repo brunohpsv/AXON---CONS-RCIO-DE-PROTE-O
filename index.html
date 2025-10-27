@@ -785,6 +785,27 @@
             display: none;
         }
 
+        /* NOVO: Estilo para o último preço vendido */
+        .last-price {
+            background-color: #f8f8f8;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-size: 14px;
+            border-left: 3px solid #e60000;
+        }
+
+        .last-price-label {
+            font-weight: bold;
+            color: #666;
+            margin-right: 5px;
+        }
+
+        .last-price-value {
+            color: #e60000;
+            font-weight: bold;
+        }
+
         /* ATUALIZADO: Texto explicativo sobre personalização */
         .customization-info {
             margin: 15px 0;
@@ -847,6 +868,89 @@
             font-size: 12px;
             font-weight: bold;
             border-radius: 0;
+        }
+
+        /* Nova seção "Pacotes de Viagens Personalizados" */
+        .packages-section {
+            background-color: white;
+            margin: 20px;
+            padding: 40px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .packages-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .packages-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .packages-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .packages-subtitle {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e60000;
+            margin-bottom: 10px;
+        }
+
+        .packages-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .packages-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .packages-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+
+        .packages-list li:before {
+            content: "✓";
+            color: #e60000;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .packages-button {
+            background-color: #e60000;
+            color: white;
+            border: none;
+            border-radius: 0;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .packages-button:hover {
+            background-color: #cc0000;
         }
 
         /* Nova seção "Sobre a BIXX PASS" */
@@ -1080,7 +1184,7 @@
                 grid-template-columns: 1fr;
             }
 
-            .about-content {
+            .packages-content, .about-content {
                 grid-template-columns: 1fr;
             }
 
@@ -1135,12 +1239,12 @@
                 width: 100%;
             }
 
-            .about-section {
+            .packages-section, .about-section {
                 margin: 10px;
                 padding: 20px 15px;
             }
 
-            .about-title {
+            .packages-title, .about-title {
                 font-size: 24px;
             }
 
@@ -1317,7 +1421,7 @@
                 <span>Início</span>
             </div>
             <div class="menu-item">
-                <span>Hotéis e Pousadas</span>
+                <span>Pacotes Personalizados</span>
             </div>
             <div class="menu-item">
                 <span>Seguro Viagem</span>
@@ -1343,8 +1447,8 @@
         <nav class="desktop-menu">
             <ul class="desktop-menu-items">
                 <li class="desktop-menu-item active">Início</li>
-                <li class="desktop-menu-item">Hotéis e Pousadas</li>
                 <li class="desktop-menu-item">Pacotes personalizados com o nosso especialista!</li>
+                <li class="desktop-menu-item">Seguro Viagem</li>
                 <li class="desktop-menu-item reservation">Consultar sua reserva</li>
             </ul>
         </nav>
@@ -1504,6 +1608,45 @@
         </div>
     </div>
 
+    <!-- Nova seção "Pacotes de Viagens Personalizados" -->
+    <div class="packages-section">
+        <h2 class="packages-title">Pacotes de Viagens Personalizados para qualquer lugar do Brasil</h2>
+        <div class="packages-content">
+            <div class="packages-column">
+                <div class="packages-item">
+                    <h3 class="packages-subtitle">Por que Escolher Nossos Pacotes?</h3>
+                    <p class="packages-text">
+                        Na BIXX PASSAGENS, entendemos que cada viajante tem necessidades únicas. Por isso, 
+                        oferecemos pacotes personalizados que se adaptam ao seu estilo, orçamento e preferências.
+                    </p>
+                    <ul class="packages-list">
+                        <li>Destinos em todo o território nacional</li>
+                        <li>Combinações flexíveis de voos e hospedagem</li>
+                        <li>Opções para todos os tipos de viajantes</li>
+                        <li>Assessoria personalizada do planejamento à viagem</li>
+                        <li>Condições especiais para grupos e famílias</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="packages-column">
+                <div class="packages-item">
+                    <h3 class="packages-subtitle">Como Funciona?</h3>
+                    <p class="packages-text">
+                        Nossos especialistas em viagem estão prontos para criar o pacote perfeito para você:
+                    </p>
+                    <ul class="packages-list">
+                        <li>Conte-nos seu destino dos sonhos e datas</li>
+                        <li>Informe seu orçamento e preferências</li>
+                        <li>Receba uma proposta personalizada em até 24h</li>
+                        <li>Ajuste os detalhes conforme sua necessidade</li>
+                        <li>Feche o pacote com as melhores condições</li>
+                    </ul>
+                    <button class="packages-button" onclick="consultPackages()">SOLICITAR PACOTE PERSONALIZADO</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Nova seção "Sobre a BIXX PASSAGENS" -->
     <div class="about-section">
         <h2 class="about-title">Sobre a BIXX PASSAGENS</h2>
@@ -1557,31 +1700,11 @@
                 </p>
             </div>
             <div class="footer-column">
-                <h3 class="footer-title">Links Rápidos</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Sobre Nós</a></li>
-                    <li><a href="#">Destinos</a></li>
-                    <li><a href="#">Promoções</a></li>
-                    <li><a href="#">Contato</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3 class="footer-title">Serviços</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Passagens Aéreas</a></li>
-                    <li><a href="#">Passagens Rodoviárias</a></li>
-                    <li><a href="#">Check-in Online</a></li>
-                    <li><a href="#">Status do Voo/Ônibus</a></li>
-                    <li><a href="#">Assistência Especial</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
                 <h3 class="footer-title">Contato</h3>
                 <ul class="footer-links">
                     <li><a href="tel:+556281596601">(62) 8159-6601</a></li>
-                    <li><a href="mailto:contato@bixxpass.com">contato@bixxpass.com</a></li>
-                    <li>Av. Paulista, 1000 - São Paulo, SP</li>
+                    <li><a href="mailto:bixxpassagens@gmail.com">bixxpassagens@gmail.com</a></li>
+                    <li>R DOS JASMINS, J. BOTANICO. GOIÂNIA-GO. CEP 74.390-500 N.° S/N.</li>
                 </ul>
             </div>
         </div>
@@ -1963,6 +2086,7 @@
                     dataVolta: "2025-10-17",
                     companhia: "LATAM",
                     preco: 289.90,
+                    ultimoPreco: 315.50,
                     promocao: true,
                     visto: "5 minutos atrás"
                 },
@@ -1974,6 +2098,7 @@
                     dataVolta: "2025-10-18",
                     companhia: "GOL",
                     preco: 345.50,
+                    ultimoPreco: 380.00,
                     promocao: false,
                     visto: "10 minutos atrás"
                 },
@@ -1985,6 +2110,7 @@
                     dataVolta: "2025-10-19",
                     companhia: "AZUL",
                     preco: 420.00,
+                    ultimoPreco: 450.00,
                     promocao: true,
                     visto: "15 minutos atrás"
                 },
@@ -1996,6 +2122,7 @@
                     dataVolta: "2025-10-20",
                     companhia: "LATAM",
                     preco: 275.80,
+                    ultimoPreco: 310.25,
                     promocao: false,
                     visto: "30 minutos atrás"
                 },
@@ -2007,6 +2134,7 @@
                     dataVolta: "2025-10-21",
                     companhia: "GOL",
                     preco: 310.25,
+                    ultimoPreco: 340.90,
                     promocao: true,
                     visto: "1 hora atrás"
                 },
@@ -2018,6 +2146,7 @@
                     dataVolta: "2025-10-22",
                     companhia: "AZUL",
                     preco: 480.90,
+                    ultimoPreco: 520.00,
                     promocao: false,
                     visto: "5 minutos atrás"
                 }
@@ -2076,6 +2205,18 @@
                     resultItem.setAttribute('data-origem', flight.origem);
                     resultItem.setAttribute('data-destino', flight.destino);
 
+                    // Criar seção de último preço vendido
+                    const lastPriceInfo = document.createElement('div');
+                    lastPriceInfo.className = 'last-price';
+                    
+                    const lastPriceText = document.createElement('div');
+                    lastPriceText.innerHTML = `
+                        <span class="last-price-label">Último preço vendido:</span>
+                        <span class="last-price-value">R$ ${flight.ultimoPreco.toFixed(2)}</span>
+                    `;
+                    
+                    lastPriceInfo.appendChild(lastPriceText);
+
                     // Criar seção de personalização
                     const customizationInfo = document.createElement('div');
                     customizationInfo.className = 'customization-info';
@@ -2103,6 +2244,9 @@
                             <div class="route-title">${cityNames[flight.origem] || flight.origem} → ${cityNames[flight.destino] || flight.destino}</div>
                         </div>
                     `;
+                    
+                    // Adicionar a seção de último preço vendido ao card
+                    resultItem.appendChild(lastPriceInfo);
                     
                     // Adicionar a seção de personalização ao card
                     resultItem.appendChild(customizationInfo);
@@ -2293,6 +2437,25 @@
                 // ATUALIZADO: Removidas as linhas de preço e promoção
                 
                 message += `\nGostaria de confirmar disponibilidade, preços atualizados e opções de personalização.`;
+                
+                // Codificar a mensagem para URL
+                const encodedMessage = encodeURIComponent(message);
+                
+                // Número do WhatsApp
+                const phoneNumber = '556281596601';
+                
+                // Criar URL do WhatsApp
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+                
+                // Abrir WhatsApp em uma nova aba
+                window.open(whatsappUrl, '_blank');
+            };
+
+            // ========== FUNÇÃO PARA CONSULTAR PACOTES PERSONALIZADOS ==========
+            window.consultPackages = function() {
+                // Formatar a mensagem para o WhatsApp
+                let message = `Olá! Gostaria de solicitar um pacote de viagem personalizado para qualquer lugar do Brasil.\n\n`;
+                message += `Por favor, entre em contato para que possamos entender suas necessidades e criar o pacote perfeito para você!`;
                 
                 // Codificar a mensagem para URL
                 const encodedMessage = encodeURIComponent(message);
