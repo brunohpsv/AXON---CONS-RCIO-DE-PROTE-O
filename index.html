@@ -870,6 +870,28 @@
             border-radius: 0;
         }
 
+        /* NOVO: Aviso sobre variação de preços */
+        .price-variation-warning {
+            background-color: #ffeb3b;
+            color: #333;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid #ffc107;
+        }
+
+        .variation-text {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
         /* Nova seção "Pacotes de Viagens Personalizados" */
         .packages-section {
             background-color: white;
@@ -1203,6 +1225,14 @@
 
             .companies-list {
                 font-size: 12px;
+            }
+
+            .price-variation-warning {
+                padding: 8px 12px;
+            }
+
+            .variation-text {
+                font-size: 13px;
             }
         }
 
@@ -1591,6 +1621,13 @@
             </div>
             <div class="companies-list">
                 Trabalhamos com: GOL • AZUL • LATAM • TAP • INTERLINE
+            </div>
+        </div>
+
+        <!-- NOVO: Aviso sobre variação de preços -->
+        <div class="price-variation-warning">
+            <div class="variation-text">
+                ⚠️ ATENÇÃO: Os preços podem variar de acordo com a cotação do dia e disponibilidade de assentos.
             </div>
         </div>
 
@@ -2081,8 +2118,8 @@
                     dataPartida: "2025-10-10",
                     dataVolta: "2025-10-17",
                     companhia: "LATAM",
-                    preco: 490,00,
-                    ultimoPreco: 490,00,
+                    preco: 490.00,
+                    ultimoPreco: 490.00,
                     promocao: true,
                     visto: "5 minutos atrás"
                 },
@@ -2093,8 +2130,8 @@
                     dataPartida: "2025-10-11",
                     dataVolta: "2025-10-18",
                     companhia: "GOL",
-                    preco: 605,00,
-                    ultimoPreco: 605,00,
+                    preco: 605.00,
+                    ultimoPreco: 605.00,
                     promocao: false,
                     visto: "10 minutos atrás"
                 },
@@ -2105,8 +2142,8 @@
                     dataPartida: "2025-10-12",
                     dataVolta: "2025-10-19",
                     companhia: "AZUL",
-                    preco: 1.070,00,
-                    ultimoPreco: 1.070,00,
+                    preco: 1070.00,
+                    ultimoPreco: 1070.00,
                     promocao: true,
                     visto: "15 minutos atrás"
                 },
@@ -2117,8 +2154,8 @@
                     dataPartida: "2025-10-13",
                     dataVolta: "2025-10-20",
                     companhia: "LATAM",
-                    preco: 950,00,
-                    ultimoPreco: 950,00,
+                    preco: 950.00,
+                    ultimoPreco: 950.00,
                     promocao: false,
                     visto: "30 minutos atrás"
                 },
@@ -2129,8 +2166,8 @@
                     dataPartida: "2025-10-14",
                     dataVolta: "2025-10-21",
                     companhia: "GOL",
-                    preco: 1.340,00,
-                    ultimoPreco: 1.340,00,
+                    preco: 1340.00,
+                    ultimoPreco: 1340.00,
                     promocao: true,
                     visto: "1 hora atrás"
                 },
@@ -2141,12 +2178,29 @@
                     dataPartida: "2025-10-15",
                     dataVolta: "2025-10-22",
                     companhia: "AZUL",
-                    preco: 2.290,00,
-                    ultimoPreco: 2.290,00,
+                    preco: 2290.00,
+                    ultimoPreco: 2290.00,
                     promocao: false,
                     visto: "5 minutos atrás"
                 }
             ];
+
+            // ========== FUNÇÃO CORRIGIDA PARA FORMATAR PREÇOS ==========
+            
+            // Função para formatar preços no formato brasileiro (ex: 1.070,00)
+            function formatPrice(price) {
+                // Converte para string e separa parte inteira e decimal
+                const priceStr = price.toFixed(2);
+                const parts = priceStr.split('.');
+                let integerPart = parts[0];
+                const decimalPart = parts[1];
+                
+                // Adiciona pontos para separar milhares
+                integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                
+                // Retorna no formato brasileiro
+                return `${integerPart},${decimalPart}`;
+            }
 
             // ========== CORREÇÃO DA FUNÇÃO DE FORMATAÇÃO DE DATA ==========
             
@@ -2208,7 +2262,7 @@
                     const lastPriceText = document.createElement('div');
                     lastPriceText.innerHTML = `
                         <span class="last-price-label">Último preço praticado:</span>
-                        <span class="last-price-value">R$ ${flight.ultimoPreco.toFixed(2)}</span>
+                        <span class="last-price-value">R$ ${formatPrice(flight.ultimoPreco)}</span>
                     `;
                     
                     lastPriceInfo.appendChild(lastPriceText);
@@ -2234,10 +2288,17 @@
                         "POA": "Porto Alegre"
                     };
 
+                    // CORREÇÃO: Estrutura HTML correta para os cards
                     resultItem.innerHTML = `
                         ${flight.promocao ? '<div class="promo-badge">PROMO</div>' : ''}
                         <div class="route-info">
                             <div class="route-title">${cityNames[flight.origem] || flight.origem} → ${cityNames[flight.destino] || flight.destino}</div>
+                            <div class="route-details">
+                                <div class="route-date">Partida: ${formatDisplayDate(flight.dataPartida)}</div>
+                            </div>
+                            <div class="route-details">
+                                <div class="route-date">Volta: ${formatDisplayDate(flight.dataVolta)}</div>
+                            </div>
                         </div>
                     `;
                     
