@@ -134,6 +134,22 @@
             background-color: rgba(230, 0, 0, 0.15);
         }
 
+        /* CORREÇÃO: Estilo para o link de pacotes no menu desktop */
+        .desktop-menu-item.packages-link {
+            font-weight: bold;
+            background-color: rgba(0, 102, 204, 0.1);
+            border: 1px solid rgba(0, 102, 204, 0.2);
+            margin-left: 5px;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .desktop-menu-item.packages-link:hover {
+            background-color: rgba(0, 102, 204, 0.15);
+            color: #0066cc;
+        }
+
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -224,6 +240,13 @@
             color: #e60000;
             font-weight: bold;
             background-color: rgba(230, 0, 0, 0.05);
+        }
+
+        /* CORREÇÃO: Estilo para o link de pacotes no menu lateral */
+        .menu-item.packages-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
         }
 
         /* REMOVIDO O ESTILO DO ÍCONE DO MENU */
@@ -953,6 +976,7 @@
             margin-right: 10px;
         }
 
+        /* CORREÇÃO: Botão como link para pacotes.html */
         .packages-button {
             background-color: #e60000;
             color: white;
@@ -969,13 +993,15 @@
             max-width: 300px;
             margin-left: auto;
             margin-right: auto;
+            text-decoration: none;
+            text-align: center;
         }
 
         .packages-button:hover {
             background-color: #cc0000;
         }
 
-        /* Nova seção "Sobre a BIXX PASS" */
+        /* Nova seção "Sobre a BIXX PASSAGENS" */
         .about-section {
             background-color: white;
             margin: 20px;
@@ -1450,9 +1476,10 @@
             <div class="menu-item active">
                 <span>Início</span>
             </div>
-            <div class="menu-item">
+            <!-- CORREÇÃO: Link para pacotes.html no menu lateral -->
+            <a href="pacotes.html" class="menu-item packages-link">
                 <span>Pacotes Personalizados</span>
-            </div>
+            </a>
             <div class="menu-item reservation">
                 <span>Consultar sua reserva</span>
             </div>
@@ -1474,7 +1501,8 @@
         <nav class="desktop-menu">
             <ul class="desktop-menu-items">
                 <li class="desktop-menu-item active">Início</li>
-                <li class="pacotes.html">Pacotes personalizados com o nosso especialista!</li>
+                <!-- CORREÇÃO: Link para pacotes.html no menu desktop -->
+                <a href="pacotes.html" class="desktop-menu-item packages-link">Pacotes personalizados com o nosso especialista!</a>
                 <li class="desktop-menu-item reservation">Consultar sua reserva</li>
             </ul>
         </nav>
@@ -1674,7 +1702,8 @@
                         <li>Ajuste os detalhes conforme sua necessidade</li>
                         <li>Feche o pacote com as melhores condições</li>
                     </ul>
-                    <button class="packages-button" onclick="consultPackages()">SOLICITAR PACOTE PERSONALIZADO</button>
+                    <!-- CORREÇÃO: Botão como link para pacotes.html -->
+                    <a href="pacotes.html" class="packages-button">SOLICITAR PACOTE PERSONALIZADO</a>
                 </div>
             </div>
         </div>
@@ -2512,24 +2541,8 @@
                 window.open(whatsappUrl, '_blank');
             };
 
-            // ========== FUNÇÃO PARA CONSULTAR PACOTES PERSONALIZADOS ==========
-            window.consultPackages = function() {
-                // Formatar a mensagem para o WhatsApp
-                let message = `Olá! Gostaria de solicitar um pacote de viagem personalizado para qualquer lugar do Brasil.\n\n`;
-                message += `Por favor, entre em contato para que possamos entender suas necessidades e criar o pacote perfeito para você!`;
-                
-                // Codificar a mensagem para URL
-                const encodedMessage = encodeURIComponent(message);
-                
-                // Número do WhatsApp
-                const phoneNumber = '556281596601';
-                
-                // Criar URL do WhatsApp
-                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-                
-                // Abrir WhatsApp em uma nova aba
-                window.open(whatsappUrl, '_blank');
-            };
+            // ========== FUNÇÃO REMOVIDA: consultPackages NÃO É MAIS NECESSÁRIA ==========
+            // O botão agora é um link direto para pacotes.html
         });
     </script>
 </body>
