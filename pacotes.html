@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacotes Personalizados - BIXX PASSAGENS</title>
+    <!-- Adicionando o favicon -->
+    <link rel="icon" type="image/png" href="favicon-16x16.png" id="favicon">
+    <style>
+        /* TODOS OS ESTILOS DA PÁGINA PRINCIPAL MANTIDOS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            transition: margin-right 0.3s ease;
+        }
+
+        body.menu-open {
+            margin-right: 250px;
+        }
+
+        .header {
+            background-color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background-color: white;
+            border-radius: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e60000;
+            font-weight: bold;
+            font-size: 18px;
+            overflow: hidden;
+            border: 1px solid #f0f0f0;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-weight: bold;
+            font-size: 26px;
+            color: #1a1a1a;
+        }
+
+        /* Menu desktop - ESTILO MELHORADO */
+        .desktop-menu {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            justify-content: flex-end;
+        }
+
+        .desktop-menu-items {
+            display: flex;
+            list-style: none;
+            gap: 5px;
+            flex-wrap: nowrap;
+            justify-content: flex-end;
+            max-width: 100%;
+            align-items: center;
+        }
+
+        .desktop-menu-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            position: relative;
+            white-space: nowrap;
+            border-radius: 4px;
+            text-align: center;
+            min-width: max-content;
+        }
+
+        .desktop-menu-item:hover {
+            color: #e60000;
+            background-color: rgba(230, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .desktop-menu-item.active {
+            color: #e60000;
+            font-weight: bold;
+        }
+
+        .desktop-menu-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 2px;
+            background-color: #e60000;
+            transition: width 0.3s ease;
+        }
+
+        .desktop-menu-item.reservation {
+            font-weight: bold;
+            background-color: rgba(230, 0, 0, 0.1);
+            border: 1px solid rgba(230, 0, 0, 0.2);
+            margin-left: 5px;
+        }
+
+        .desktop-menu-item.reservation:hover {
+            background-color: rgba(230, 0, 0, 0.15);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 101;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #1a1a1a;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover span {
+            background-color: #e60000;
+        }
+
+        /* Menu lateral - MODIFICADO PARA LADO DIREITO */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 99;
+            overflow-y: auto;
+        }
+
+        .side-menu.open {
+            right: 0;
+        }
+
+        .menu-header {
+            padding: 20px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-logo {
+            width: 32px;
+            height: 32px;
+        }
+
+        .menu-title {
+            font-weight: bold;
+            font-size: 18px;
+            color: #1a1a1a;
+        }
+
+        /* REMOVIDO O BOTÃO DE FECHAR (X) */
+        .menu-close {
+            display: none;
+        }
+
+        .menu-items {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f5f5f5;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .menu-item.active {
+            color: #e60000;
+            font-weight: bold;
+            background-color: rgba(230, 0, 0, 0.05);
+        }
+
+        /* REMOVIDO O ESTILO DO ÍCONE DO MENU */
+        .menu-item-icon {
+            display: none;
+        }
+
+        /* ESTILO ESPECÍFICO PARA "CONSULTAR SUA RESERVA" EM NEGRITO */
+        .menu-item.reservation {
+            font-weight: bold;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 98;
+            display: none;
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
+        /* Banner promocional corrigido */
+        .promo-banner {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+            overflow: hidden;
+            position: relative;
+            height: 40px;
+        }
+
+        .banner-container {
+            display: flex;
+            white-space: nowrap;
+            position: absolute;
+            animation: scrollBanner 95s linear infinite;
+        }
+
+        .banner-item {
+            display: inline-block;
+            padding: 0 30px;
+            flex-shrink: 0;
+        }
+
+        /* Animação corrigida para rolagem contínua sem espaços */
+        @keyframes scrollBanner {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* NOVOS ESTILOS ESPECÍFICOS PARA A PÁGINA DE PACOTES PERSONALIZADOS */
+        
+        .packages-hero {
+            background: linear-gradient(135deg, #e60000 0%, #cc0000 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .packages-hero-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .packages-hero-subtitle {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .packages-hero-button {
+            background-color: white;
+            color: #e60000;
+            border: none;
+            border-radius: 0;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .packages-hero-button:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-3px);
+        }
+
+        .packages-section {
+            background-color: white;
+            margin: 20px;
+            padding: 40px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .packages-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .packages-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .packages-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .packages-subtitle {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e60000;
+            margin-bottom: 10px;
+        }
+
+        .packages-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .packages-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .packages-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+
+        .packages-list li:before {
+            content: "✓";
+            color: #e60000;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .packages-button {
+            background-color: #e60000;
+            color: white;
+            border: none;
+            border-radius: 0;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .packages-button:hover {
+            background-color: #cc0000;
+        }
+
+        /* Seção de destinos populares */
+        .destinations-section {
+            background-color: white;
+            margin: 20px;
+            padding: 40px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .destination-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .destination-image {
+            height: 150px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .destination-info {
+            padding: 15px;
+        }
+
+        .destination-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .destination-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .destination-button {
+            background-color: #e60000;
+            color: white;
+            border: none;
+            border-radius: 0;
+            padding: 8px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .destination-button:hover {
+            background-color: #cc0000;
+        }
+
+        /* Seção de como funciona */
+        .process-section {
+            background-color: white;
+            margin: 20px;
+            padding: 40px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: #e60000;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+
+        .step-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Seção de depoimentos */
+        .testimonials-section {
+            background-color: white;
+            margin: 20px;
+            padding: 40px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .testimonial-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #e60000;
+        }
+
+        /* Seção de formulário de solicitação */
+        .request-section {
+            background-color: white;
+            margin: 20px;
+            padding: 40px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .request-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group-full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 0;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #e60000;
+            outline: none;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            background-color: #e60000;
+            color: white;
+            border: none;
+            border-radius: 0;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .submit-button:hover {
+            background-color: #cc0000;
+        }
+
+        /* Rodapé */
+        .footer {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #e60000;
+        }
+
+        .footer-links {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* MEDIA QUERIES */
+        @media (max-width: 1024px) {
+            .desktop-menu-items {
+                gap: 5px;
+            }
+
+            .desktop-menu-item {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .desktop-menu-items {
+                gap: 4px;
+            }
+
+            .desktop-menu-item {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Menu em tela cheia para dispositivos móveis */
+            .side-menu {
+                width: 100%;
+                right: -100%;
+            }
+
+            body.menu-open {
+                margin-right: 0;
+            }
+
+            /* Menu desktop escondido em mobile */
+            .desktop-menu {
+                display: none;
+            }
+
+            /* Menu hamburger visível em mobile */
+            .menu-toggle {
+                display: flex;
+            }
+
+            .packages-hero-title {
+                font-size: 28px;
+            }
+
+            .packages-hero-subtitle {
+                font-size: 16px;
+            }
+
+            .packages-content {
+                grid-template-columns: 1fr;
+            }
+
+            .destinations-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .request-form {
+                grid-template-columns: 1fr;
+            }
+
+            .packages-section, .destinations-section, .process-section, 
+            .testimonials-section, .request-section {
+                margin: 10px;
+                padding: 20px 15px;
+            }
+
+            .packages-title {
+                font-size: 24px;
+            }
+
+            .footer {
+                padding: 30px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 20px;
+            }
+
+            .logo-text {
+                font-size: 22px;
+            }
+
+            .logo-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+
+            .packages-hero {
+                padding: 40px 15px;
+            }
+
+            .packages-hero-title {
+                font-size: 24px;
+            }
+
+            .packages-hero-subtitle {
+                font-size: 14px;
+            }
+
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu lateral (para mobile) -->
+    <div class="side-menu" id="sideMenu">
+        <div class="menu-header">
+            <div class="logo-icon">
+                <img src="favicon.png" alt="BIXX PASS Logo" class="menu-logo" id="sideMenuLogo">
+            </div>
+            <span class="menu-title">BIXX PASSAGENS</span>
+        </div>
+        <div class="menu-items">
+            <div class="menu-item">
+                <span>Início</span>
+            </div>
+            <div class="menu-item active">
+                <span>Pacotes Personalizados</span>
+            </div>
+            <div class="menu-item reservation">
+                <span>Consultar sua reserva</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay para fechar o menu -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <header class="header">
+        <div class="logo-container">
+            <div class="logo-icon">
+                <img src="favicon.png" alt="BIXX PASS Logo" id="headerLogo">
+            </div>
+            <span class="logo-text">BIXX PASSAGENS</span>
+        </div>
+
+        <!-- Menu desktop - CORRIGIDO -->
+        <nav class="desktop-menu">
+            <ul class="desktop-menu-items">
+                <li class="desktop-menu-item">Início</li>
+                <li class="desktop-menu-item active">Pacotes personalizados com o nosso especialista!</li>
+                <li class="desktop-menu-item reservation">Consultar sua reserva</li>
+            </ul>
+        </nav>
+
+        <!-- Botão menu hamburger (apenas mobile) -->
+        <button class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Banner promocional corrigido -->
+    <div class="promo-banner" id="promoBanner">
+        <div class="banner-container" id="bannerContainer">
+            <!-- Conteúdo será inserido dinamicamente pelo JavaScript -->
+        </div>
+    </div>
+
+    <!-- Seção Hero para Pacotes Personalizados -->
+    <section class="packages-hero">
+        <h1 class="packages-hero-title">Pacotes de Viagens Personalizados</h1>
+        <p class="packages-hero-subtitle">
+            Viaje do seu jeito! Nossos especialistas criam pacotes exclusivos que combinam com seu estilo, 
+            orçamento e preferências. Descubra o Brasil com conforto, segurança e preços incríveis.
+        </p>
+        <button class="packages-hero-button" onclick="openWhatsApp('general')">SOLICITAR MEU PACOTE PERSONALIZADO</button>
+    </section>
+
+    <!-- Seção de Por que Escolher Nossos Pacotes -->
+    <section class="packages-section">
+        <h2 class="packages-title">Por que Escolher Nossos Pacotes Personalizados?</h2>
+        <div class="packages-content">
+            <div class="packages-column">
+                <div class="packages-item">
+                    <h3 class="packages-subtitle">Experiência Única e Personalizada</h3>
+                    <p class="packages-text">
+                        Na BIXX PASSAGENS, entendemos que cada viajante é único. Por isso, oferecemos pacotes 
+                        totalmente personalizados que se adaptam ao seu estilo, orçamento e preferências.
+                    </p>
+                    <ul class="packages-list">
+                        <li>Destinos em todo o território nacional</li>
+                        <li>Combinações flexíveis de voos e hospedagem</li>
+                        <li>Opções para todos os tipos de viajantes</li>
+                        <li>Assessoria personalizada do planejamento à viagem</li>
+                        <li>Condições especiais para grupos e famílias</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="packages-column">
+                <div class="packages-item">
+                    <h3 class="packages-subtitle">Vantagens Exclusivas</h3>
+                    <p class="packages-text">
+                        Com nossos pacotes personalizados, você desfruta de benefícios que tornam sua viagem 
+                        ainda mais especial:
+                    </p>
+                    <ul class="packages-list">
+                        <li>Preços competitivos direto com as companhias</li>
+                        <li>Atendimento humanizado e especializado</li>
+                        <li>Flexibilidade de datas e horários</li>
+                        <li>Opções de hospedagem para todos os gostos</li>
+                        <li>Suporte durante toda a viagem</li>
+                        <li>Pagamento facilitado em até 12x</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <button class="packages-button" onclick="openWhatsApp('advantages')">FALAR COM UM ESPECIALISTA</button>
+    </section>
+
+    <!-- Seção de Destinos Populares -->
+    <section class="destinations-section">
+        <h2 class="packages-title">Destinos Mais Procurados</h2>
+        <div class="destinations-grid">
+            <div class="destination-card">
+                <div class="destination-image">
+                    Imagem do Destino
+                </div>
+                <div class="destination-info">
+                    <h3 class="destination-name">Nordeste Brasileiro</h3>
+                    <p class="destination-description">
+                        Praias paradisíacas, cultura rica e sol o ano todo. Pernambuco, Bahia, Ceará e mais.
+                    </p>
+                    <button class="destination-button" onclick="openWhatsApp('northeast')">SOLICITAR PACOTE</button>
+                </div>
+            </div>
+            <div class="destination-card">
+                <div class="destination-image">
+                    Imagem do Destino
+                </div>
+                <div class="destination-info">
+                    <h3 class="destination-name">Sudeste e Sul</h3>
+                    <p class="destination-description">
+                        Metrópoles vibrantes, serras e vinícolas. São Paulo, Rio, Florianópolis e Gramado.
+                    </p>
+                    <button class="destination-button" onclick="openWhatsApp('southeast')">SOLICITAR PACOTE</button>
+                </div>
+            </div>
+            <div class="destination-card">
+                <div class="destination-image">
+                    Imagem do Destino
+                </div>
+                <div class="destination-info">
+                    <h3 class="destination-name">Centro-Oeste e Norte</h3>
+                    <p class="destination-description">
+                        Pantanal, Amazônia e cerrado. Natureza exuberante e experiências únicas.
+                    </p>
+                    <button class="destination-button" onclick="openWhatsApp('centerwest')">SOLICITAR PACOTE</button>
+                </div>
+            </div>
+            <div class="destination-card">
+                <div class="destination-image">
+                    Imagem do Destino
+                </div>
+                <div class="destination-info">
+                    <h3 class="destination-name">Destino dos Seus Sonhos</h3>
+                    <p class="destination-description">
+                        Tem um destino específico em mente? Conte para nós e criaremos o pacote perfeito!
+                    </p>
+                    <button class="destination-button" onclick="openWhatsApp('dream')">SOLICITAR PACOTE</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Como Funciona -->
+    <section class="process-section">
+        <h2 class="packages-title">Como Funciona?</h2>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3 class="step-title">Solicitação</h3>
+                <p class="step-description">
+                    Preencha o formulário com suas preferências ou entre em contato conosco pelo WhatsApp.
+                </p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3 class="step-title">Análise Personalizada</h3>
+                <p class="step-description">
+                    Nossos especialistas analisam suas necessidades e criam opções personalizadas.
+                </p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3 class="step-title">Proposta Detalhada</h3>
+                <p class="step-description">
+                    Receba uma proposta completa com todas as opções e preços em até 24h.
+                </p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h3 class="step-title">Ajustes e Confirmação</h3>
+                <p class="step-description">
+                    Ajustamos os detalhes conforme sua necessidade e confirmamos sua viagem.
+                </p>
+            </div>
+        </div>
+        <button class="packages-button" onclick="openWhatsApp('process')">ENTENDER MELHOR O PROCESSO</button>
+    </section>
+
+    <!-- Seção de Depoimentos -->
+    <section class="testimonials-section">
+        <h2 class="packages-title">O Que Nossos Clientes Dizem</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    "A BIXX PASSAGENS montou o pacote perfeito para nossa lua de mel no Nordeste. 
+                    Tudo saiu exatamente como combinado, com preços incríveis!"
+                </p>
+                <p class="testimonial-author">- Maria e João, Recife</p>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    "Como viajo a trabalho frequentemente, preciso de flexibilidade. A equipe da 
+                    BIXX sempre encontra as melhores opções para meu roteiro e orçamento."
+                </p>
+                <p class="testimonial-author">- Carlos, São Paulo</p>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    "Levei minha família toda para conhecer as praias do Nordeste. O pacote personalizado 
+                    incluiu tudo que precisávamos, com ótimo custo-benefício."
+                </p>
+                <p class="testimonial-author">- Ana, Brasília</p>
+            </div>
+        </div>
+        <button class="packages-button" onclick="openWhatsApp('testimonials')">QUERO MINHA EXPERIÊNCIA POSITIVA</button>
+    </section>
+
+    <!-- Seção de Formulário de Solicitação -->
+    <section class="request-section" id="requestForm">
+        <h2 class="packages-title">Solicite Seu Pacote Personalizado</h2>
+        <form class="request-form" id="packageRequestForm">
+            <div class="form-group">
+                <label for="name">Nome Completo</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Telefone/WhatsApp</label>
+                <input type="tel" id="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="destination">Destino de Interesse</label>
+                <input type="text" id="destination" placeholder="Ex: Nordeste, Sudeste, etc.">
+            </div>
+            <div class="form-group">
+                <label for="travelers">Número de Viajantes</label>
+                <select id="travelers">
+                    <option value="1">1 pessoa</option>
+                    <option value="2">2 pessoas</option>
+                    <option value="3">3 pessoas</option>
+                    <option value="4">4 pessoas</option>
+                    <option value="5+">5 ou mais pessoas</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="budget">Orçamento Aproximado</label>
+                <select id="budget">
+                    <option value="">Selecione</option>
+                    <option value="ate-1000">Até R$ 1.000</option>
+                    <option value="1000-2000">R$ 1.000 - R$ 2.000</option>
+                    <option value="2000-3000">R$ 2.000 - R$ 3.000</option>
+                    <option value="3000-5000">R$ 3.000 - R$ 5.000</option>
+                    <option value="5000+">Acima de R$ 5.000</option>
+                </select>
+            </div>
+            <div class="form-group-full">
+                <label for="preferences">Preferências e Observações</label>
+                <textarea id="preferences" placeholder="Conte-nos sobre suas preferências: tipo de hospedagem, datas flexíveis, interesses turísticos, necessidades especiais, etc."></textarea>
+            </div>
+            <div class="form-group-full">
+                <button type="button" class="submit-button" onclick="submitPackageRequest()">SOLICITAR PROPOSTA PERSONALIZADA</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 class="footer-title">BIXX PASSAGENS</h3>
+                <p style="color: #ccc; line-height: 1.6;">
+                    Conectando você aos melhores destinos com segurança, conforto e preços acessíveis.
+                </p>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-title">Contato</h3>
+                <ul class="footer-links">
+                    <li><a href="tel:+556281596601">(62) 8159-6601</a></li>
+                    <li><a href="mailto:bixxpassagens@gmail.com">bixxpassagens@gmail.com</a></li>
+                    <li>R DOS JASMINS, J. BOTANICO. GOIÂNIA-GO. CEP 74.390-500 N.° S/N.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 BIXX PASSAGENS. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ========== SISTEMA DE ATUALIZAÇÃO DE LOGO E FAVICON ==========
+            
+            // Elementos de imagem que serão atualizados
+            const favicon = document.getElementById('favicon');
+            const headerLogo = document.getElementById('headerLogo');
+            const sideMenuLogo = document.getElementById('sideMenuLogo');
+            
+            // URLs das imagens
+            const logoUrls = {
+                favicon: 'favicon-32x32.png',
+                logo: 'favicon.png'
+            };
+            
+            // Cache para armazenar timestamps das imagens
+            const imageCache = {
+                favicon: null,
+                logo: null
+            };
+            
+            // Função para obter timestamp de uma imagem
+            function getImageTimestamp(url, callback) {
+                const xhr = new XMLHttpRequest();
+                xhr.open('HEAD', url + '?t=' + Date.now(), true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            const lastModified = xhr.getResponseHeader('Last-Modified');
+                            callback(lastModified ? new Date(lastModified).getTime() : Date.now());
+                        } else {
+                            callback(null);
+                        }
+                    }
+                };
+                xhr.send();
+            }
+            
+            // Função para atualizar uma imagem
+            function updateImage(imgElement, url) {
+                if (imgElement) {
+                    // Adiciona um timestamp para forçar o recarregamento
+                    const newUrl = url + '?t=' + Date.now();
+                    imgElement.src = newUrl;
+                    
+                    // Força o recarregamento da imagem
+                    imgElement.onload = function() {
+                        console.log('Imagem atualizada:', url);
+                    };
+                    
+                    imgElement.onerror = function() {
+                        console.warn('Erro ao carregar imagem:', url);
+                    };
+                }
+            }
+            
+            // Função para verificar e atualizar todas as imagens
+            function checkAndUpdateImages() {
+                // Verificar favicon
+                getImageTimestamp(logoUrls.favicon, function(timestamp) {
+                    if (timestamp && timestamp !== imageCache.favicon) {
+                        imageCache.favicon = timestamp;
+                        updateImage(favicon, logoUrls.favicon);
+                    }
+                });
+                
+                // Verificar logo
+                getImageTimestamp(logoUrls.logo, function(timestamp) {
+                    if (timestamp && timestamp !== imageCache.logo) {
+                        imageCache.logo = timestamp;
+                        updateImage(headerLogo, logoUrls.logo);
+                        updateImage(sideMenuLogo, logoUrls.logo);
+                    }
+                });
+            }
+            
+            // Inicializar o cache e verificar imagens
+            function initializeImageUpdater() {
+                // Verificar imagens imediatamente
+                checkAndUpdateImages();
+                
+                // Verificar a cada 30 segundos
+                setInterval(checkAndUpdateImages, 30000);
+                
+                console.log('Sistema de atualização de logo e favicon iniciado');
+            }
+            
+            // Iniciar o sistema de atualização
+            initializeImageUpdater();
+            
+            // CÓDIGO ATUALIZADO: Menu lateral (apenas para mobile)
+            const menuToggle = document.getElementById('menuToggle');
+            const sideMenu = document.getElementById('sideMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+            const body = document.body;
+
+            // Função para abrir/fechar menu (apenas mobile)
+            function toggleMenu() {
+                const isOpen = sideMenu.classList.contains('open');
+
+                if (isOpen) {
+                    // Fechar menu
+                    sideMenu.classList.remove('open');
+                    menuOverlay.classList.remove('active');
+                    body.classList.remove('menu-open');
+                    menuToggle.classList.remove('open');
+                } else {
+                    // Abrir menu
+                    sideMenu.classList.add('open');
+                    menuOverlay.classList.add('active');
+                    body.classList.add('menu-open');
+                    menuToggle.classList.add('open');
+                }
+            }
+
+            // Abrir/fechar menu com o botão (apenas mobile)
+            menuToggle.addEventListener('click', toggleMenu);
+
+            // Fechar menu com overlay (apenas mobile)
+            menuOverlay.addEventListener('click', function() {
+                sideMenu.classList.remove('open');
+                menuOverlay.classList.remove('active');
+                body.classList.remove('menu-open');
+                menuToggle.classList.remove('open');
+            });
+
+            // BANNER DINÂMICO CORRIGIDO
+            const bannerContainer = document.getElementById('bannerContainer');
+
+            // Mensagens para o banner - foco em pacotes personalizados
+            const bannerMessages = [
+                // Saudação baseada no horário será adicionada dinamicamente
+                // Versículos bíblicos motivacionais
+                "✈️ Filipenses 4:13 - Tudo posso naquele que me fortalece! ✈️",
+                "🌍 Isaías 40:31 - Mas os que esperam no Senhor renovam as suas forças... 🌍",
+                "🛫 Salmo 121:8 - O Senhor guardará a tua saída e a tua entrada... 🛫",
+                "🌟 Jeremias 29:11 - Porque eu bem sei os pensamentos que tenho a vosso respeito... 🌟",
+                "🌴 Josué 1:9 - Não to mandei eu? Esforça-te e tem bom ânimo... 🌴",
+                "🏝️ Salmo 37:5 - Entrega o teu caminho ao Senhor, confia nele... 🛫",
+                "✈️ Provérbios 16:3 - Entrega ao Senhor as tuas obras, e teus pensamentos serão estabelecidos. ✈️",
+                // Mensagens de pacotes personalizados
+                "🎯 PACOTES PERSONALIZADOS: Viaje do seu jeito! 🎯",
+                "🌟 Seu roteiro, suas regras! Crie a viagem dos sonhos conosco! 🌟",
+                "🌴 Destinos em todo o Brasil com preços especiais! 🌴",
+                "🏖️ Lua de mel, férias em família, viagens corporativas! 🏖️",
+                "✈️ Assessoria completa do planejamento à viagem! ✈️",
+                "💼 Viajantes corporativos: condições especiais para você! 💼",
+                "👨‍👩‍👧‍👦 Pacotes familiares com descontos exclusivos! 👨‍👩‍👧‍👦",
+                "💖 Momentos inesquecíveis com a BIXX PASSAGENS! 💖"
+            ];
+
+            // Função para obter saudação baseada no horário
+            function getGreeting() {
+                const hour = new Date().getHours();
+                if (hour >= 5 && hour < 12) {
+                    return "Bom dia! ☀️";
+                } else if (hour >= 12 && hour < 18) {
+                    return "Boa tarde! 🌤️";
+                } else {
+                    return "Boa noite! 🌙";
+                }
+            }
+
+            // Adiciona a saudação às mensagens
+            const greeting = getGreeting();
+            const messagesWithGreeting = [
+                `${greeting} Pacotes Personalizados com a BIXX PASSAGENS! ✈️`,
+                ...bannerMessages
+            ];
+
+            // Cria elementos para o banner - duplicando o conteúdo para criar efeito contínuo
+            messagesWithGreeting.forEach((message) => {
+                const bannerItem = document.createElement('div');
+                bannerItem.className = 'banner-item';
+                bannerItem.textContent = message;
+                bannerContainer.appendChild(bannerItem);
+            });
+
+            // Duplica o conteúdo para criar efeito de rolagem contínua
+            messagesWithGreeting.forEach((message) => {
+                const bannerItem = document.createElement('div');
+                bannerItem.className = 'banner-item';
+                bannerItem.textContent = message;
+                bannerContainer.appendChild(bannerItem);
+            });
+        });
+
+        // ========== FUNÇÕES ESPECÍFICAS PARA A PÁGINA DE PACOTES ==========
+
+        // Gerar número de protocolo único
+        function generateProtocol() {
+            const timestamp = Date.now().toString();
+            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            return `BIXX-${timestamp.slice(-6)}-${random}`;
+        }
+
+        // Função para abrir WhatsApp com mensagem personalizada
+        function openWhatsApp(type = 'general') {
+            const protocol = generateProtocol();
+            let message = '';
+            
+            // Mensagens personalizadas baseadas no tipo de solicitação
+            switch(type) {
+                case 'general':
+                    message = `Olá! Gostaria de solicitar um pacote personalizado de viagem.\n\n`;
+                    message += `Por favor, entre em contato para que possamos entender suas necessidades e criar o pacote perfeito para você!\n\n`;
+                    break;
+                    
+                case 'advantages':
+                    message = `Olá! Gostaria de conhecer melhor as vantagens dos pacotes personalizados da BIXX PASSAGENS.\n\n`;
+                    message += `Poderia me explicar melhor os benefícios e como funciona o processo de criação do pacote?\n\n`;
+                    break;
+                    
+                case 'northeast':
+                    message = `Olá! Tenho interesse em um pacote personalizado para o Nordeste brasileiro.\n\n`;
+                    message += `Gostaria de conhecer praias paradisíacas, cultura rica e sol o ano todo em Pernambuco, Bahia, Ceará ou outros estados.\n\n`;
+                    break;
+                    
+                case 'southeast':
+                    message = `Olá! Estou interessado(a) em um pacote personalizado para o Sudeste e Sul do Brasil.\n\n`;
+                    message += `Quero conhecer metrópoles vibrantes, serras e vinícolas em São Paulo, Rio, Florianópolis, Gramado ou outras cidades.\n\n`;
+                    break;
+                    
+                case 'centerwest':
+                    message = `Olá! Gostaria de solicitar um pacote personalizado para o Centro-Oeste ou Norte do Brasil.\n\n`;
+                    message += `Tenho interesse em conhecer o Pantanal, Amazônia, cerrado e outras belezas naturais da região.\n\n`;
+                    break;
+                    
+                case 'dream':
+                    message = `Olá! Tenho um destino dos sonhos em mente e gostaria de um pacote personalizado.\n\n`;
+                    message += `Vamos conversar para que possam criar o pacote perfeito para minha viagem ideal!\n\n`;
+                    break;
+                    
+                case 'process':
+                    message = `Olá! Gostaria de entender melhor como funciona o processo de criação de pacotes personalizados.\n\n`;
+                    message += `Poderia me explicar as etapas e como funciona a assessoria completa?\n\n`;
+                    break;
+                    
+                case 'testimonials':
+                    message = `Olá! Após ler os depoimentos, estou interessado(a) em ter minha própria experiência positiva com a BIXX PASSAGENS.\n\n`;
+                    message += `Gostaria de solicitar um pacote personalizado para minha próxima viagem!\n\n`;
+                    break;
+                    
+                default:
+                    message = `Olá! Gostaria de solicitar um pacote personalizado de viagem.\n\n`;
+                    message += `Por favor, entre em contato para que possamos entender suas necessidades e criar o pacote perfeito para você!\n\n`;
+            }
+            
+            // Adicionar protocolo à mensagem
+            message += `*Protocolo:* ${protocol}\n`;
+            message += `*Data:* ${new Date().toLocaleDateString('pt-BR')}\n\n`;
+            message += `Aguardo seu contato para darmos continuidade ao meu pedido!`;
+            
+            // Codificar a mensagem para URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Número do WhatsApp
+            const phoneNumber = '556281596601';
+            
+            // Criar URL do WhatsApp
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            // Abrir WhatsApp em uma nova aba
+            window.open(whatsappUrl, '_blank');
+            
+            // Mostrar mensagem de confirmação com protocolo
+            alert(`Solicitação enviada com sucesso!\n\nSeu protocolo é: ${protocol}\n\nEntraremos em contato em breve para criar seu pacote personalizado.`);
+        }
+
+        // Função para rolar até o formulário de solicitação
+        function scrollToRequestForm() {
+            document.getElementById('requestForm').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Função para enviar o formulário de solicitação de pacote via WhatsApp
+        function submitPackageRequest() {
+            // Obter valores do formulário
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const destination = document.getElementById('destination').value;
+            const travelers = document.getElementById('travelers').value;
+            const budget = document.getElementById('budget').value;
+            const preferences = document.getElementById('preferences').value;
+
+            // Validação básica
+            if (!name || !email || !phone) {
+                alert('Por favor, preencha pelo menos os campos obrigatórios: Nome, E-mail e Telefone.');
+                return;
+            }
+
+            // Gerar protocolo
+            const protocol = generateProtocol();
+
+            // Formatar a mensagem para o WhatsApp
+            let message = `Olá! Recebi uma solicitação de pacote personalizado:\n\n`;
+            message += `*Nome:* ${name}\n`;
+            message += `*E-mail:* ${email}\n`;
+            message += `*Telefone:* ${phone}\n`;
+            
+            if (destination) {
+                message += `*Destino de Interesse:* ${destination}\n`;
+            }
+            
+            if (travelers) {
+                message += `*Número de Viajantes:* ${travelers}\n`;
+            }
+            
+            if (budget) {
+                const budgetText = {
+                    'ate-1000': 'Até R$ 1.000',
+                    '1000-2000': 'R$ 1.000 - R$ 2.000',
+                    '2000-3000': 'R$ 2.000 - R$ 3.000',
+                    '3000-5000': 'R$ 3.000 - R$ 5.000',
+                    '5000+': 'Acima de R$ 5.000'
+                }[budget] || budget;
+                message += `*Orçamento Aproximado:* ${budgetText}\n`;
+            }
+            
+            if (preferences) {
+                message += `\n*Preferências e Observações:*\n${preferences}\n`;
+            }
+            
+            message += `\n*Protocolo:* ${protocol}\n`;
+            message += `*Data:* ${new Date().toLocaleDateString('pt-BR')}\n\n`;
+            message += `Por favor, entre em contato com este cliente para criar um pacote personalizado.`;
+            
+            // Codificar a mensagem para URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Número do WhatsApp
+            const phoneNumber = '556281596601';
+            
+            // Criar URL do WhatsApp
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            // Abrir WhatsApp em uma nova aba
+            window.open(whatsappUrl, '_blank');
+            
+            // Limpar formulário (opcional)
+            document.getElementById('packageRequestForm').reset();
+            
+            // Mostrar mensagem de confirmação com protocolo
+            alert(`Solicitação enviada com sucesso!\n\nSeu protocolo é: ${protocol}\n\nEntraremos em contato em breve para criar seu pacote personalizado.`);
+        }
+    </script>
+</body>
+</html>
