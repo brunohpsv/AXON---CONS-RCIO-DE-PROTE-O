@@ -134,6 +134,22 @@
             background-color: rgba(230, 0, 0, 0.15);
         }
 
+        /* CORREÇÃO: Estilo para o link de pacotes no menu desktop */
+        .desktop-menu-item.packages-link {
+            font-weight: bold;
+            background-color: rgba(0, 102, 204, 0.1);
+            border: 1px solid rgba(0, 102, 204, 0.2);
+            margin-left: 5px;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .desktop-menu-item.packages-link:hover {
+            background-color: rgba(0, 102, 204, 0.15);
+            color: #0066cc;
+        }
+
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -224,6 +240,13 @@
             color: #e60000;
             font-weight: bold;
             background-color: rgba(230, 0, 0, 0.05);
+        }
+
+        /* CORREÇÃO: Estilo para o link de pacotes no menu lateral */
+        .menu-item.packages-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
         }
 
         /* REMOVIDO O ESTILO DO ÍCONE DO MENU */
@@ -819,9 +842,9 @@
             <span class="menu-title">BIXX PASSAGENS</span>
         </div>
         <div class="menu-items">
-            <div class="menu-item">
+            <a href="https://bixx.com.br" class="menu-item">
                 <span>Início</span>
-            </div>
+            </a>
             <div class="menu-item active">
                 <span>Pacotes Personalizados</span>
             </div>
@@ -845,7 +868,7 @@
         <!-- Menu desktop - CORRIGIDO -->
         <nav class="desktop-menu">
             <ul class="desktop-menu-items">
-                <a href="index.html" class="desktop-menu-item packages-link">Início</a>
+                <a href="https://bixx.com.br" class="desktop-menu-item packages-link">Início</a>
                 <li class="desktop-menu-item active">Pacotes personalizados com o nosso especialista!</li>
                 <li class="desktop-menu-item reservation">Consultar sua reserva</li>
             </ul>
@@ -873,7 +896,7 @@
             Viaje do seu jeito! Nossos especialistas criam pacotes exclusivos que combinam com seu estilo, 
             orçamento e preferências. Descubra o Brasil com conforto, segurança e preços incríveis.
         </p>
-        <button class="" onclick="">PREENCHA O FORMULÁRIO ABAIXO</button>
+        <button class="packages-hero-button" onclick="scrollToRequestForm()">PREENCHA O FORMULÁRIO ABAIXO</button>
     </section>
 
     <!-- Seção de Por que Escolher Nossos Pacotes -->
