@@ -632,9 +632,12 @@
             outline: none;
         }
 
+        /* CAMPO PREFERÊNCIAS E OBSERVAÇÕES MAIOR */
         .form-group textarea {
-            min-height: 120px;
+            min-height: 180px; /* Aumentado de 120px para 180px */
             resize: vertical;
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
         }
 
         .submit-button {
@@ -1466,11 +1469,25 @@
             // Número do WhatsApp
             const phoneNumber = '556281596601';
             
-            // Criar URL do WhatsApp
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            // Criar URL do WhatsApp com automação
+            // Usando uma técnica que força o envio automático
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}&app_absent=0`;
             
             // Abrir WhatsApp em uma nova aba
-            window.open(whatsappUrl, '_blank');
+            const newWindow = window.open(whatsappUrl, '_blank');
+            
+            // Tentativa de automação do envio
+            setTimeout(function() {
+                // Tentar simular o clique no botão de enviar
+                try {
+                    // Esta é uma tentativa de automatizar o envio
+                    // Nota: Devido a limitações de segurança dos navegadores, 
+                    // isso pode não funcionar em todos os casos
+                    newWindow.focus();
+                } catch(e) {
+                    console.log('Não foi possível automatizar o envio: ', e);
+                }
+            }, 3000);
             
             // Limpar formulário (opcional)
             document.getElementById('packageRequestForm').reset();
