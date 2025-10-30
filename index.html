@@ -453,12 +453,14 @@
             outline: none;
         }
 
+        /* ATUALIZADO: Botões de pesquisa com novo botão */
         .search-buttons {
             grid-column: 1 / -1;
             display: flex;
             gap: 15px;
             margin-top: 24px;
-            max-width: 415px;
+            max-width: 100%;
+            flex-wrap: wrap;
         }
 
         .search-button {
@@ -472,6 +474,7 @@
             cursor: pointer;
             transition: background-color 0.3s;
             flex: 1;
+            min-width: 200px;
         }
 
         .search-button:hover {
@@ -489,10 +492,30 @@
             cursor: pointer;
             transition: background-color 0.3s;
             flex: 1;
+            min-width: 200px;
         }
 
         .clear-button:hover {
             background-color: #555;
+        }
+
+        /* NOVO: Botão para consultar rota que não está na lista */
+        .custom-route-button {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 0;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .custom-route-button:hover {
+            background-color: #0055aa;
         }
 
         /* Resto do CSS permanece igual */
@@ -1203,6 +1226,10 @@
                 max-width: 100%;
             }
 
+            .search-button, .clear-button, .custom-route-button {
+                min-width: 100%;
+            }
+
             .results-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -1548,26 +1575,48 @@
                 <label for="origem">De</label>
                 <select id="origem">
                     <option value="">Selecione a origem</option>
-                    <option value="SAO">São Paulo (SAO)</option>
-                    <option value="RIO">Rio de Janeiro (RIO)</option>
+                    <option value="GRU">São Paulo (GRU)</option>
+                    <option value="GIG">Rio de Janeiro (GIG)</option>
+                    <option value="CGH">São Paulo (CGH)</option>
+                    <option value="CNF">Belo Horizonte (CNF)</option>
                     <option value="BSB">Brasília (BSB)</option>
                     <option value="REC">Recife (REC)</option>
                     <option value="SSA">Salvador (SSA)</option>
                     <option value="FOR">Fortaleza (FOR)</option>
                     <option value="POA">Porto Alegre (POA)</option>
+                    <option value="CWB">Curitiba (CWB)</option>
+                    <option value="FLN">Florianópolis (FLN)</option>
+                    <option value="NAT">Natal (NAT)</option>
+                    <option value="BPS">Porto Seguro (BPS)</option>
+                    <option value="IGU">Foz do Iguaçu (IGU)</option>
+                    <option value="MCZ">Maceió (MCZ)</option>
+                    <option value="GYN">Goiânia (GYN)</option>
+                    <option value="VIX">Vitória (VIX)</option>
+                    <option value="BEL">Belém (BEL)</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="destino">Para</label>
                 <select id="destino">
                     <option value="">Selecione o destino</option>
-                    <option value="SAO">São Paulo (SAO)</option>
-                    <option value="RIO">Rio de Janeiro (RIO)</option>
+                    <option value="GRU">São Paulo (GRU)</option>
+                    <option value="GIG">Rio de Janeiro (GIG)</option>
+                    <option value="CGH">São Paulo (CGH)</option>
+                    <option value="CNF">Belo Horizonte (CNF)</option>
                     <option value="BSB">Brasília (BSB)</option>
                     <option value="REC">Recife (REC)</option>
                     <option value="SSA">Salvador (SSA)</option>
                     <option value="FOR">Fortaleza (FOR)</option>
                     <option value="POA">Porto Alegre (POA)</option>
+                    <option value="CWB">Curitiba (CWB)</option>
+                    <option value="FLN">Florianópolis (FLN)</option>
+                    <option value="NAT">Natal (NAT)</option>
+                    <option value="BPS">Porto Seguro (BPS)</option>
+                    <option value="IGU">Foz do Iguaçu (IGU)</option>
+                    <option value="MCZ">Maceió (MCZ)</option>
+                    <option value="GYN">Goiânia (GYN)</option>
+                    <option value="VIX">Vitória (VIX)</option>
+                    <option value="BEL">Belém (BEL)</option>
                 </select>
             </div>
             <div class="form-group" id="partidaGroup">
@@ -1578,8 +1627,10 @@
                 <label for="volta">Volta</label>
                 <input type="date" id="volta" value="2025-10-17">
             </div>
+            <!-- ATUALIZADO: Adicionado botão "Consultar rota que não está na lista" -->
             <div class="search-buttons">
                 <button type="button" class="search-button" id="searchButton">Pesquisar</button>
+                <button type="button" class="custom-route-button" id="customRouteButton">Consultar rota que não está na lista</button>
                 <button type="button" class="clear-button" id="clearButton">Limpar</button>
             </div>
         </form>
@@ -2138,7 +2189,7 @@
 
             // ========== DADOS MANUAIS DE PASSAGENS AÉREAS ==========
 
-            // Dados de passagens aéreas
+            // Dados de passagens aéreas - ATUALIZADO COM OS NOVOS DESTINOS
             const flightData = [
                 {
                     id: "FL001",
@@ -2211,6 +2262,343 @@
                     ultimoPreco: 2290.00,
                     promocao: false,
                     visto: "27/10/2025"
+                },
+                // NOVOS DESTINOS ADICIONADOS
+                {
+                    id: "FL007",
+                    origem: "GRU",
+                    destino: "BSB",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "LATAM",
+                    preco: 1900.00,
+                    ultimoPreco: 1900.00,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL008",
+                    origem: "GRU",
+                    destino: "SSA",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "GOL",
+                    preco: 1385.06,
+                    ultimoPreco: 1385.06,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL009",
+                    origem: "GIG",
+                    destino: "BSB",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "AZUL",
+                    preco: 1107.97,
+                    ultimoPreco: 1107.97,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL010",
+                    origem: "GRU",
+                    destino: "REC",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "LATAM",
+                    preco: 3873.76,
+                    ultimoPreco: 3873.76,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL011",
+                    origem: "GRU",
+                    destino: "POA",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "GOL",
+                    preco: 1901.99,
+                    ultimoPreco: 1901.99,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL012",
+                    origem: "GRU",
+                    destino: "FOR",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "AZUL",
+                    preco: 4570.58,
+                    ultimoPreco: 4570.58,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL013",
+                    origem: "BSB",
+                    destino: "SSA",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "LATAM",
+                    preco: 3310.39,
+                    ultimoPreco: 3310.39,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL014",
+                    origem: "GRU",
+                    destino: "CNF",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "GOL",
+                    preco: 2033.56,
+                    ultimoPreco: 2033.56,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL015",
+                    origem: "GIG",
+                    destino: "SSA",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "AZUL",
+                    preco: 1441.73,
+                    ultimoPreco: 1441.73,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL016",
+                    origem: "CGH",
+                    destino: "BSB",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "LATAM",
+                    preco: 2331.03,
+                    ultimoPreco: 2331.03,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL017",
+                    origem: "GRU",
+                    destino: "CWB",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "GOL",
+                    preco: 1975.12,
+                    ultimoPreco: 1975.12,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL018",
+                    origem: "BSB",
+                    destino: "REC",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "AZUL",
+                    preco: 3956.82,
+                    ultimoPreco: 3956.82,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL019",
+                    origem: "GRU",
+                    destino: "FLN",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "LATAM",
+                    preco: 1767.87,
+                    ultimoPreco: 1767.87,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL020",
+                    origem: "GIG",
+                    destino: "FOR",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "GOL",
+                    preco: 4221.55,
+                    ultimoPreco: 4221.55,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL021",
+                    origem: "BSB",
+                    destino: "FOR",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "AZUL",
+                    preco: 4407.44,
+                    ultimoPreco: 4407.44,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL022",
+                    origem: "GRU",
+                    destino: "NAT",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "LATAM",
+                    preco: 4383.52,
+                    ultimoPreco: 4383.52,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL023",
+                    origem: "CNF",
+                    destino: "SSA",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "GOL",
+                    preco: 2791.65,
+                    ultimoPreco: 2791.65,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL024",
+                    origem: "GIG",
+                    destino: "POA",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "AZUL",
+                    preco: 2349.25,
+                    ultimoPreco: 2349.25,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL025",
+                    origem: "GRU",
+                    destino: "BPS",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "LATAM",
+                    preco: 1146.20,
+                    ultimoPreco: 1146.20,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL026",
+                    origem: "BSB",
+                    destino: "POA",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "GOL",
+                    preco: 4187.70,
+                    ultimoPreco: 4187.70,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL027",
+                    origem: "GRU",
+                    destino: "IGU",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "AZUL",
+                    preco: 5915.35,
+                    ultimoPreco: 5915.35,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL028",
+                    origem: "GIG",
+                    destino: "REC",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "LATAM",
+                    preco: 2837.88,
+                    ultimoPreco: 2837.88,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL029",
+                    origem: "GRU",
+                    destino: "MCZ",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "GOL",
+                    preco: 4568.70,
+                    ultimoPreco: 4568.70,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL030",
+                    origem: "BSB",
+                    destino: "CWB",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "AZUL",
+                    preco: 2532.51,
+                    ultimoPreco: 2532.51,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL031",
+                    origem: "GRU",
+                    destino: "GYN",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "LATAM",
+                    preco: 1530.40,
+                    ultimoPreco: 1530.40,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL032",
+                    origem: "GIG",
+                    destino: "CNF",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "GOL",
+                    preco: 1378.67,
+                    ultimoPreco: 1378.67,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL033",
+                    origem: "GRU",
+                    destino: "VIX",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "AZUL",
+                    preco: 1442.27,
+                    ultimoPreco: 1442.27,
+                    promocao: false,
+                    visto: "30/10/2025"
+                },
+                {
+                    id: "FL034",
+                    origem: "BSB",
+                    destino: "BEL",
+                    dataPartida: "2025-10-10",
+                    dataVolta: "2025-10-17",
+                    companhia: "LATAM",
+                    preco: 4090.58,
+                    ultimoPreco: 4090.58,
+                    promocao: false,
+                    visto: "30/10/2025"
                 }
             ];
 
@@ -2313,7 +2701,7 @@
                     
                     customizationInfo.appendChild(customizationText);
 
-                    // Mapear códigos de aeroporto para nomes de cidades
+                    // Mapear códigos de aeroporto para nomes de cidades (APENAS NOMES DAS CIDADES)
                     const cityNames = {
                         "SAO": "São Paulo",
                         "RIO": "Rio de Janeiro",
@@ -2321,7 +2709,20 @@
                         "REC": "Recife",
                         "SSA": "Salvador",
                         "FOR": "Fortaleza",
-                        "POA": "Porto Alegre"
+                        "POA": "Porto Alegre",
+                        "GRU": "São Paulo",
+                        "GIG": "Rio de Janeiro",
+                        "CGH": "São Paulo",
+                        "CNF": "Belo Horizonte",
+                        "CWB": "Curitiba",
+                        "FLN": "Florianópolis",
+                        "NAT": "Natal",
+                        "BPS": "Porto Seguro",
+                        "IGU": "Foz do Iguaçu",
+                        "MCZ": "Maceió",
+                        "GYN": "Goiânia",
+                        "VIX": "Vitória",
+                        "BEL": "Belém"
                     };
 
                     // CORREÇÃO: Estrutura HTML correta para os cards - REMOVIDAS AS DATAS DE PARTIDA E VOLTA
@@ -2395,6 +2796,82 @@
                     displayFlightResults(searchData);
                     hideLoading('air');
                 }, 1000);
+            });
+
+            // NOVO: Event listener para o botão "Consultar rota que não está na lista"
+            const customRouteButton = document.getElementById('customRouteButton');
+            customRouteButton.addEventListener('click', function() {
+                // Obter todas as informações do formulário
+                const travelType = 'air'; // Agora apenas passagens aéreas
+                const tripType = document.querySelector('.trip-type-option.active').getAttribute('data-value');
+                const adults = parseInt(document.getElementById('adultCount').textContent);
+                const children = parseInt(document.getElementById('childCount').textContent);
+                const babies = parseInt(document.getElementById('babyCount').textContent);
+                const promoCode = document.getElementById('promoCodeInput').value;
+                
+                // Obter informações específicas do tipo de transporte
+                let origem, destino, partida, volta;
+                
+                origem = document.getElementById('origem').value;
+                destino = document.getElementById('destino').value;
+                partida = document.getElementById('partida').value;
+                volta = document.getElementById('volta').value;
+                
+                // Formatar a mensagem para o WhatsApp
+                let message = `Olá! Gostaria de consultar sobre uma rota que não está na lista:\n\n`;
+                message += `*Tipo de Transporte:* Aéreo\n`;
+                message += `*Tipo de Viagem:* ${tripType === 'roundtrip' ? 'Ida e Volta' : 'Somente Ida'}\n\n`;
+                
+                // Adicionar informações de origem e destino
+                if (origem) {
+                    message += `*Origem:* ${origem}\n`;
+                } else {
+                    message += `*Origem:* Não especificada\n`;
+                }
+                
+                if (destino) {
+                    message += `*Destino:* ${destino}\n`;
+                } else {
+                    message += `*Destino:* Não especificado\n`;
+                }
+                
+                // Adicionar informações de datas - USANDO A FUNÇÃO CORRIGIDA
+                if (partida) {
+                    message += `*Data de Partida:* ${formatDisplayDate(partida)}\n`;
+                }
+                
+                if (volta && tripType === 'roundtrip') {
+                    message += `*Data de Volta:* ${formatDisplayDate(volta)}\n`;
+                }
+                
+                // Adicionar informações de passageiros
+                message += `\n*Passageiros:*\n`;
+                message += `• ${adults} adulto(s) (12+ anos)\n`;
+                if (children > 0) {
+                    message += `• ${children} criança(s) (2-11 anos)\n`;
+                }
+                if (babies > 0) {
+                    message += `• ${babies} bebê(s) (0-23 meses)\n`;
+                }
+                
+                // Adicionar código promocional se existir
+                if (promoCode) {
+                    message += `\n*Código Promocional:* ${promoCode}\n`;
+                }
+                
+                message += `\n*Observação:* Esta rota não está na lista de resultados. Por favor, verifique disponibilidade e preços para este destino.`;
+                
+                // Codificar a mensagem para URL
+                const encodedMessage = encodeURIComponent(message);
+                
+                // Número do WhatsApp
+                const phoneNumber = '556281596601';
+                
+                // Criar URL do WhatsApp
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+                
+                // Abrir WhatsApp em uma nova aba
+                window.open(whatsappUrl, '_blank');
             });
 
             function showLoading(type) {
@@ -2478,7 +2955,7 @@
                 partida = document.getElementById('partida').value;
                 volta = document.getElementById('volta').value;
                 
-                // Mapear códigos de aeroporto para nomes de cidades
+                // Mapear códigos de aeroporto para nomes de cidades (APENAS NOMES DAS CIDADES)
                 const cityNames = {
                     "SAO": "São Paulo",
                     "RIO": "Rio de Janeiro",
@@ -2486,7 +2963,20 @@
                     "REC": "Recife",
                     "SSA": "Salvador",
                     "FOR": "Fortaleza",
-                    "POA": "Porto Alegre"
+                    "POA": "Porto Alegre",
+                    "GRU": "São Paulo",
+                    "GIG": "Rio de Janeiro",
+                    "CGH": "São Paulo",
+                    "CNF": "Belo Horizonte",
+                    "CWB": "Curitiba",
+                    "FLN": "Florianópolis",
+                    "NAT": "Natal",
+                    "BPS": "Porto Seguro",
+                    "IGU": "Foz do Iguaçu",
+                    "MCZ": "Maceió",
+                    "GYN": "Goiânia",
+                    "VIX": "Vitória",
+                    "BEL": "Belém"
                 };
                 
                 // Formatar a mensagem para o WhatsApp
